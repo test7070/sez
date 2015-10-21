@@ -957,8 +957,13 @@
         			}
         			
         			//當有核取時加班費金額可以直接修改
-        			if(!$('#checkSel_'+j)[0].checked)
-        				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.66*dec($('#txtAddh2_2_'+j).val())));//加班費
+        			if(!$('#checkSel_'+j)[0].checked){
+        				if (q_getPara('sys.project').toUpperCase()=='VU'){
+        					q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.3333*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.6666*dec($('#txtAddh2_2_'+j).val())));//加班費
+        				}else{
+        					q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.66*dec($('#txtAddh2_2_'+j).val())));//加班費
+        				}
+        			}
         			q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())+dec($('#txtMeals_'+j).val())));//應領總額=給付總額+加班費+免稅其他
         			//福利金
         			if(!($('#chkIswelfare_'+j)[0].checked))
@@ -1024,8 +1029,13 @@
         			}
         			
         			//當有核取時加班費金額可以直接修改
-        			if(!$('#checkSel_'+j)[0].checked)
-        				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.66*dec($('#txtAddh2_2_'+j).val())));//加班費
+        			if(!$('#checkSel_'+j)[0].checked){
+        				if (q_getPara('sys.project').toUpperCase()=='VU'){
+        					q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.3333*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.6666*dec($('#txtAddh2_2_'+j).val())));//加班費
+        				}else{
+        					q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.66*dec($('#txtAddh2_2_'+j).val())));//加班費
+        				}
+        			}
         			q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())+dec($('#txtMeals_'+j).val())));//應領總額=給付總額+加班費+免稅其他
         			//福利金
         			if(!($('#chkIswelfare_'+j)[0].checked))
@@ -1085,9 +1095,19 @@
         			
         			//當有核取時加班費金額可以直接修改
         			if(!$('#checkSel_'+j)[0].checked){
-        				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.66*dec($('#txtAddh2_2_'+j).val())));//加班費
+        				if (q_getPara('sys.project').toUpperCase()=='VU'){
+        					q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.3333*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.6666*dec($('#txtAddh2_2_'+j).val())));//加班費
+        				}else{
+        					q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.66*dec($('#txtAddh2_2_'+j).val())));//加班費
+        				}
         			}
-        			q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())+dec($('#txtMeals_'+j).val())+Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh46_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.66*dec($('#txtAddh46_2_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val()))));//應領總額
+        			
+        			if (q_getPara('sys.project').toUpperCase()=='VU'){
+        				q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())+dec($('#txtMeals_'+j).val())+Math.round(dec($('#txtOstand_'+j).val())*1.3333*dec($('#txtAddh46_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.6666*dec($('#txtAddh46_2_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val()))));//應領總額
+        			}else{
+        				q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())+dec($('#txtMeals_'+j).val())+Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh46_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.66*dec($('#txtAddh46_2_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val()))));//應領總額
+        			}
+        			
         			if(!($('#chkIswelfare_'+j)[0].checked))
 		        		q_tr('txtWelfare_'+j,0);
         		}
