@@ -29,7 +29,11 @@
 						type : '0',
 						name : 'xworker',
 						value : r_name
-					}]
+					}, {
+                        type : '0', //[4]
+                        name : 'acomp',
+                        value : q_getPara('sys.project')
+                    }]
                 });
                 q_popAssign();
                 
