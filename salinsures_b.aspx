@@ -24,7 +24,7 @@
         var bbmNum = [];
         var bbsNum = [['txtHe_person', 15, 0, 1],['txtHe_comp', 15, 0, 1],['txtLa_person', 15, 0, 1],['txtLa_comp', 15, 0, 1],['txtRe_person', 15, 0, 1],['txtRe_comp', 15, 0, 1],['txtDisaster', 15, 0, 1],['txtTotal1', 15, 0, 1],['txtTotal2', 15, 0, 1],['txtPay', 15, 0, 1],['txtUnpay', 15, 0, 1],['txtSalary', 15, 0, 1],['txtSa_retire', 15, 0, 1],['txtSa_labor', 15, 0, 1],['txtSa_health', 15, 0, 1],['txtMount', 15, 0, 1]];
         var bbmMask = [];
-	    var bbsMask = [['txtMon', '999/99']];
+	    var bbsMask = [];
 	    aPop = new Array(['txtCustno_', '', 'sssall', 'noa,namea', 'txtCustno_', 'sssall_b.aspx'],
 	    	['txtCno_', 'btnCno_', 'acomp', 'noa,acomp', 'txtCno_,txtComp_', 'acomp_b.aspx']);
 	    
@@ -41,9 +41,14 @@
                 return;
             }
             mainBrow(6, t_content, t_sqlname, t_postname);
-            q_mask(bbmMask);
-            bbsMask = [['txtMon', '999/99']];
          }
+         
+         function mainPost() {
+			q_getFormat();
+			bbsMask = [['txtMon', r_picm]];
+			q_mask(bbmMask);
+		}
+         
         function btnOk() {
 			t_key = q_getHref();
 			_btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);

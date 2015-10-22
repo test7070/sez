@@ -195,19 +195,19 @@
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 hiddenField();
-                $('#txtMon').val(q_date().substring(0,6));
+                $('#txtMon').val(q_date().substring(0,r_lenm));
                 $('#txtDatea').focus();
             }
 
             function btnModi() {
                  if (emp($('#txtNoa').val()))
                     return;
-                 if($('#txtDatea').val()<='102/05/31'){
+                 if($('#txtDatea').val()<='102/05/31' && q_getPara('sys.comp').indexOf('大昌')>-1){
                 	alert('已關帳!!');
                 	return;
                 }
                  
-                _btnModi(1);
+                _btnModi();
                 hiddenField();
                 $('#txtBcustno').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
                 $('#txtBcust').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');

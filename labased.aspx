@@ -22,7 +22,7 @@
             var bbmNum = [];
             var bbsNum = [];
             var bbmMask = [];
-            var bbsMask = [['txtHealth_bdate', '999/99/99'], ['txtHealth_edate', '999/99/99'], ['txtLabor_bdate', '999/99/99'], ['txtLabor_edate', '999/99/99'], ['txtRetire_bdate', '999/99/99'], ['txtRetire_edate', '999/99/99']];
+            var bbsMask = [];
 
             aPop = new Array(['txtCno_', 'btnCno_', 'acomp', 'noa,acomp', 'txtCno_,txtAcomp_', 'acomp_b.aspx']);
 
@@ -39,15 +39,20 @@
 
                 main();
             });
+            
             function main() {
                 if(dataErr) {
                     dataErr = false;
                     return;
                 }
                 mainBrow(6, t_content, t_sqlname, t_postname);
-                q_mask(bbmMask);
-                bbsMask = [['txtHealth_bdate', '999/99/99'], ['txtHealth_edate', '999/99/99'], ['txtLabor_bdate', '999/99/99'], ['txtLabor_edate', '999/99/99'], ['txtRetire_bdate', '999/99/99'], ['txtRetire_edate', '999/99/99']];
             }
+            
+            function mainPost() {
+				q_getFormat();
+				bbsMask = [['txtHealth_bdate', r_picd], ['txtHealth_edate', r_picd], ['txtLabor_bdate', r_picd], ['txtLabor_edate', r_picd], ['txtRetire_bdate', r_picd], ['txtRetire_edate', r_picd]];
+                q_mask(bbmMask);
+			}
 
             function q_gtPost(t_name) {
                 switch (t_name) {
