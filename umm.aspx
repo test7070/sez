@@ -295,6 +295,8 @@
                 		for (var i = 0; i < as.length; i++) {
                 			if(q_getPara('sys.project').toUpperCase()=='XY'){
                 				as[i].tablea='vcc_xy';
+                			}else if(q_getPara('sys.project').toUpperCase()=='RB'){
+								as[i].tablea='vcc_rb';
 							}else if(q_getPara('sys.project').toUpperCase()=='IT'){
 								as[i].tablea='vcc_it';
 							}else if(q_getPara('sys.project').toUpperCase()=='UU'){
@@ -427,6 +429,8 @@
                         for (var i = 0; i < as.length; i++) {
                         	if(q_getPara('sys.project').toUpperCase()=='XY'){
 								as[i].tablea='vcc_xy';
+							}else if(q_getPara('sys.project').toUpperCase()=='RB'){
+								as[i].tablea='vcc_rb';
 							}else if(q_getPara('sys.project').toUpperCase()=='IT'){
 								as[i].tablea='vcc_it';
 							}else if(q_getPara('sys.project').toUpperCase()=='UU'){
@@ -714,6 +718,8 @@
                 	if (emp($('#txtTablea_'+i).val())&&!emp($('#txtVccno_'+i).val())){
                 		if(q_getPara('sys.project').toUpperCase()=='XY'){
                 			$('#txtTablea_'+i).val('vcc_xy');
+                		}else if(q_getPara('sys.project').toUpperCase()=='RB'){
+                			$('#txtTablea_'+i).val('vcc_rb');
                 		}else if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
 							$('#txtTablea_'+i).val('vcc_it');
                     	}else if(q_getPara('sys.comp').indexOf('永勝')>-1){
