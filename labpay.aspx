@@ -17,7 +17,7 @@
 
             q_tables = 's';
             var q_name = "labpay";
-            var q_readonly = ['txtNoa', 'txtApprover','txtAccno','txtBvccno','txtEvccno','txtDatea'];
+            var q_readonly = ['txtNoa', 'txtApprover','txtAccno','txtBvccno','txtEvccno'];
             var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [['txtMount', 10, 0, 1], ['txtMoney', 14, 0, 1], ['txtPlusmoney', 14, 0, 1], ['txtMinusmoney', 14, 0, 1]];
