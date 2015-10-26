@@ -26,8 +26,8 @@
             brwNowPage = 0;
             brwKey = 'noa';
             brwCount2 = 20;
-            aPop = new Array(['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
-            , ['txtAddr', '', 'view_road', 'memo', '0txtAddr', 'road_b.aspx']
+            aPop = new Array(//['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
+              ['txtAddr', '', 'view_road', 'memo', '0txtAddr', 'road_b.aspx']
             , ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
 
             $(document).ready(function() {

@@ -51,12 +51,17 @@
             q_getFormat();
             bbmMask = [['txtNoa', r_picd]];
             q_mask(bbmMask);
-            bbsMask = [['txtClockin', '99:99:99'],['txtClockout', '99:99:99']];
+            
+            if(q_getPara('sys.project').toUpperCase()=='VU' || q_getPara('sys.project').toUpperCase()=='DJ'){
+            	bbsMask = [['txtClockin', '99:99'],['txtClockout', '99:99']];
+            }else{
+            	bbsMask = [['txtClockin', '99:99:99'],['txtClockout', '99:99:99']];
+            }
             q_mask(bbsMask);
             
-            if(q_getPara('sys.project').toUpperCase()=='RB'){
+            /*if(q_getPara('sys.project').toUpperCase()=='RB'){
             	q_readonlys = ['txtW133','txtW166','txtW100','txtHr_special']
-            }
+            }*/
             
              $('#chkHoliday').click(function () {
              	if(q_getPara('sys.project').toUpperCase()=='VU'){
