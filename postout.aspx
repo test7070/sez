@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
-    <title></title>
+    <title> </title>
     <script src="../script/jquery.min.js" type="text/javascript"></script>
     <script src='../script/qj2.js' type="text/javascript"></script>
     <script src='qset.js' type="text/javascript"></script>
@@ -85,7 +85,8 @@
 	        });
 	        
 	        $('#txtStoreno').change(function () {
-				q_gt('postage_stk', "where=^^ a.storeno='"+$('#txtStoreno').val()+"' ^^" , 0, 0, 0, "postagestk", r_accy);//讀出庫存
+	        	if(!emp($('#txtStoreno').val()))
+					q_gt('postage_stk', "where=^^ a.storeno='"+$('#txtStoreno').val()+"' ^^" , 0, 0, 0, "postagestk", r_accy);//讀出庫存
 	        });
 	        
 			$('#txtP20').change(function () {
@@ -323,6 +324,9 @@
 			}
             _btnModi();
             
+            if(!emp($('#txtStoreno').val()))
+				q_gt('postage_stk', "where=^^ a.storeno='"+$('#txtStoreno').val()+"' ^^" , 0, 0, 0, "postagestk", r_accy);//讀出庫存
+            
             if(!ischecker)
 					$('#btnCheck').attr('disabled', 'disabled');
 					
@@ -427,6 +431,15 @@
         function btnCancel() {
             _btnCancel();
         }
+        
+        function q_popPost(s1) {
+			switch (s1) {
+				case 'txtStoreno':
+					if(!emp($('#txtStoreno').val()))
+						q_gt('postage_stk', "where=^^ a.storeno='"+$('#txtStoreno').val()+"' ^^" , 0, 0, 0, "postagestk", r_accy);//讀出庫存
+					break;
+			}
+		}
         
         
     </script>
