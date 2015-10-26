@@ -775,11 +775,11 @@
            			$('#txtHplus2_'+j).change(function () {sum();});
            			$('#txtPlus_'+j).change(function () {sum();});
            			$('#txtMinus_'+j).change(function () {sum();});
-           			$('#checkSel_' + j).click(function () {
+           			$('#chkIsmanual_' + j).click(function () {
 	                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 	                    q_bodyId($(this).attr('id'));
 	                    b_seq = t_IdSeq;
-						 if($('#checkSel_' +b_seq)[0].checked){	//判斷是否被選取
+						 if($('#chkIsmanual_' +b_seq)[0].checked){	//判斷是否被選取
 		                	$('#trSel_'+ b_seq).addClass('chksel');//變色
 		                }else{
 		                	$('#trSel_'+b_seq).removeClass('chksel');//取消變色
@@ -957,7 +957,7 @@
         			}
         			
         			//當有核取時加班費金額可以直接修改
-        			if(!$('#checkSel_'+j)[0].checked){
+        			if(!$('#chkIsmanual_'+j)[0].checked){
         				if (q_getPara('sys.project').toUpperCase()=='VU'){
         					q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.3333*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.6666*dec($('#txtAddh2_2_'+j).val())));//加班費
         				}else{
@@ -991,7 +991,7 @@
         			}
         			
         			//當有核取時扣薪時數和扣薪金額可以直接修改
-        			if(!$('#checkSel_'+j)[0].checked){
+        			if(!$('#chkIsmanual_'+j)[0].checked){
         				if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
         					q_tr('txtMi_sick_'+j,round(q_float('txtOstand_'+j)*q_float('txtHr_sick_'+j)/2,0));
 			                q_tr('txtMi_person_'+j,round(q_float('txtOstand_'+j)*q_float('txtHr_person_'+j),0));
@@ -1029,7 +1029,7 @@
         			}
         			
         			//當有核取時加班費金額可以直接修改
-        			if(!$('#checkSel_'+j)[0].checked){
+        			if(!$('#chkIsmanual_'+j)[0].checked){
         				if (q_getPara('sys.project').toUpperCase()=='VU'){
         					q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.3333*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.6666*dec($('#txtAddh2_2_'+j).val())));//加班費
         				}else{
@@ -1060,7 +1060,7 @@
         			}
         			
         			//當有核取時扣薪時數和扣薪金額可以直接修改
-        			if(!$('#checkSel_'+j)[0].checked){
+        			if(!$('#chkIsmanual_'+j)[0].checked){
         				if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
         					q_tr('txtMi_sick_'+j,round(q_float('txtOstand_'+j)*q_float('txtHr_sick_'+j)/2,0));
 		                	q_tr('txtMi_person_'+j,round(q_float('txtOstand_'+j)*q_float('txtHr_person_'+j),0));
@@ -1094,7 +1094,7 @@
         			q_tr('txtTotal2_'+j,Math.round(dec($('#txtTotal1_'+j).val())-dec($('#txtMi_total_'+j).val())+dec($('#txtBo_full_'+j).val())+dec($('#txtBo_born_'+j).val())+dec($('#txtBo_night_'+j).val())+dec($('#txtBo_duty_'+j).val())+dec($('#txtTax_other_'+j).val())));//給付總額
         			
         			//當有核取時加班費金額可以直接修改
-        			if(!$('#checkSel_'+j)[0].checked){
+        			if(!$('#chkIsmanual_'+j)[0].checked){
         				if (q_getPara('sys.project').toUpperCase()=='VU'){
         					q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.3333*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.6666*dec($('#txtAddh2_2_'+j).val())));//加班費
         				}else{
@@ -1825,7 +1825,7 @@
             </tr>
             <tr  id="trSel.*">
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;font-size: 16px;float: center;" /></td>
-                <td ><input id="checkSel.*" type="checkbox"/></td>
+                <td ><input id="chkIsmanual.*" type="checkbox"/></td>
                 <td ><input class="txt c1" id="txtSno.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
                 <td ><input class="txt c1" id="txtNamea.*" type="text" /></td>
                 <td>
