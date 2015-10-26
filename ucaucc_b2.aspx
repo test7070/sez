@@ -102,10 +102,21 @@
                 if (q_getPara('sys.project').toUpperCase() == 'RB') {
                     $('.rbhide').hide();
                 }
+                for (var i = 0; i < t_noa.length; i++) {
+					for (var j = 0; j < abbs.length; j++) {
+						if (t_noa[i] == abbs[j].noa) {
+							abbs[j].sel = "true"
+							break;
+						}
+					}
+				}
+				Unlock();
             }
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                if(t_noa.length>0)
+                	Lock();
             }
 
 		</script>
