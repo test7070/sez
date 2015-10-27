@@ -200,6 +200,8 @@
             if(q_getPara('sys.project').toUpperCase()=='VU'){
             	$('#lblW133').text('加班時數');
             	$('#lblW133_s').text('加班時數');
+            	$('#lblW100').text('值班時數');
+            	$('#lblW100_s').text('值班時數');
             }
         }
 		
@@ -325,7 +327,7 @@
         	if(q_getPara('sys.project').toUpperCase()=='VU'){
         		$('.w133').show();
 	            $('.w166').hide();
-				$('.w100').hide();
+				$('.w100').show();
             }else{
             	if($('#chkHoliday').prop('checked')){
 	            	$('.w133').hide();
