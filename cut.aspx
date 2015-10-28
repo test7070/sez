@@ -33,7 +33,7 @@
 			brwNowPage = 0;
 			brwKey = 'noa';
 			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'],
-			['txtUno', 'lblUno', 'view_uccc', 'uno,productno,product,spec,dime,width,lengthb,radius,weight,eweight,itype,custno', 'txtUno,txtProductno,txtProduct,txtSpec,txtDime,txtWidth,txtLengthb,txtRadius,txtOweight,txtEweight,cmbItype,txtCustno', 'uccc_seek_b.aspx?;;;1=0', '95%', '95%'], 
+			['txtUno', 'lblUno', 'view_uccc', 'uno,productno,product,spec,dime,width,lengthb,radius,weight,eweight,itype,custno,source', 'txtUno,txtProductno,txtProduct,txtSpec,txtDime,txtWidth,txtLengthb,txtRadius,txtOweight,txtEweight,cmbItype,txtCustno,txtSource', 'uccc_seek_b.aspx?;;;1=0', '95%', '95%'], 
 			['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'], 
 			['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtCust_', 'cust_b.aspx'], 
 			['txtMechno', 'lblMech', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'], 
@@ -485,7 +485,11 @@
 				if($('#combType2A').is(":visible")){
 					$('#txtType2').val($('#combType2A').val());
 				}
-				
+				//鋼廠   傑期需要寫入
+				if($('#txtSource').val().length>0)
+					for(var i=0;i<q_bbsCount;i++){
+						$('#txtSource_'+i).val($('#txtSource').val());
+					}
 				
 				//裕承隆 暫時先不檢查
 				/*var t_err = CheckInputError();
@@ -1326,6 +1330,8 @@
 						<td><input id="txtGtime" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblGmount" class="lbl"> </a></td>
 						<td><input id="txtGmount" type="text" class="txt num c1" /></td>
+						<td><span> </span><a id="lblSource" class="lbl"> </a></td>
+						<td><input id="txtSource" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMon" class="lbl"> </a></td>
@@ -1397,6 +1403,7 @@
 					<td style="width:30px;" align="center" ><a id='lblNo2'> </a></td>
 					<td style="width:50px;" align="center" ><a id='lblSpecial'> </a></td>
 					<td style="width:50px;" align="center" ><a id='lblCname'> </a></td>
+					<td style="width:60px;" align="center" ><a id='lblSource'>鋼廠 </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td style="width:1%;">
@@ -1455,6 +1462,7 @@
 					<td><input id="txtNo2.*" type="text" class="txt c2"/></td>
 					<td><input id="txtSpecial.*" type="text" class="txt c2"/></td>
 					<td><input id="txtCname.*" type="text" class="txt c2"/></td>
+					<td><input id="txtSource.*" type="text" class="txt c2"/></td>
 				</tr>
 			</table>
 		</div>
