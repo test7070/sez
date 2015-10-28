@@ -298,7 +298,7 @@
                         var xucc='';
                         if(ret[0]!=undefined){
                         	for (var i = 0; i < ret.length; i++) {
-                        		xucc+=ret[i].noa+'.';
+                        		xucc+=ret[i].noa+',';
                         	}
                         }
                         xucc=xucc.substr(0,xucc.length-1);
