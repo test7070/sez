@@ -273,6 +273,9 @@
                         type : '5',
                         name : 'xproduct',
                         value : q_getMsg('xproduct').split('&')
+                    }, {/*45-[56][57]上期交運日期*/
+                        type : '1',
+                        name : 'xtrandate'
                     }]
                 });
                 q_popAssign();
@@ -601,7 +604,14 @@
                                 alert(msg_trandate);
                                 return false;
                             }
-                            break;        
+                            break;   
+                        case 27:
+                            //營業額統計表(未稅)
+                            if (msg_trandate.length > 0) {
+                                alert(msg_trandate);
+                                return false;
+                            }
+                            break;       
                         default:
                             alert('Undefined,radio');
                             break;
@@ -616,6 +626,10 @@
                 $('#txtTrandate2').mask('999/99/99');
                 $('#txtTrandate1').datepicker();
                 $('#txtTrandate2').datepicker();
+                $('#txtXtrandate1').mask('999/99/99');
+                $('#txtXtrandate2').mask('999/99/99');
+                $('#txtXtrandate1').datepicker();
+                $('#txtXtrandate2').datepicker();
                 
                 $('#txtWmon1').mask('999/99');
                 $('#txtWmon2').mask('999/99');
