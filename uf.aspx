@@ -61,8 +61,11 @@
 				});
                 
                 $('#lblAccno').click(function() {
-                    var t_accy = $('#txtNoa').val().replace(/^[A-Z]*([0-9]{3})[0-9]*$/, '$1');
-                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0, 3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
+                    var t_year=$('#txtDatea').val().substr(0,r_len);
+                	if(r_len==4){
+                		t_year=q_sub(t_year,1911);
+                	}
+                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + t_year + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
                 });
                 //........................託收匯入
                 $('#btnGqb').click(function() {
