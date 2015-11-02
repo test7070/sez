@@ -76,12 +76,14 @@
         function btnIns() {
             _btnIns();
             $('#txtNoa').focus();
+            refreshBbm();
         }
 
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
+            refreshBbm();
         }
 
         function btnPrint() {
@@ -100,7 +102,7 @@
             if ( t_noa.length==0 )   /// ??????s??
                 q_gtnoa(q_name, t_noa);
             else
-                wrServer(  t_noa);
+                wrServer(t_noa);
         }
 
         function wrServer( key_value) {
@@ -108,7 +110,7 @@
 
             xmlSql = '';
             if (q_cur == 2)   /// popSave
-                xmlSql = q_preXml();
+               xmlSql = q_preXml();
 
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
             _btnOk(key_value, bbmKey[0], '','',2);
@@ -116,11 +118,21 @@
       
         function refresh(recno) {
             _refresh(recno);
+            refreshBbm();
 
         }
+        
+        function refreshBbm() {
+			if (q_cur == 1) {
+				$('#txtNoa').css('color', 'black').css('background', 'white').removeAttr('readonly');
+			} else {
+				$('#txtNoa').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
+			}
+		}	
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
+            refreshBbm();
         }
 
         function btnMinus(id) {
