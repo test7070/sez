@@ -568,9 +568,9 @@
 				var t_where = " kind!='2' &&";
 				if (t_tggno.length > 0) {
 					if (t_ordeno.length > 0)
-						t_where = "isnull(b.enda,0)=0 && isnull(cancel,'0')='0' && datea>='"+$('#txtDatea').val()+"' && isnull(view_ordcs.enda,0)=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "") + "&& " + (t_ordeno.length > 0 ? q_sqlPara("noa", t_ordeno) : "");
+						t_where = "isnull(b.enda,0)=0 && isnull(cancel,'0')='0' && isnull(view_ordcs.enda,0)=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "") + "&& " + (t_ordeno.length > 0 ? q_sqlPara("noa", t_ordeno) : "");
 					else
-						t_where = "isnull(b.enda,0)=0 && isnull(cancel,'0')='0' && datea>='"+$('#txtDatea').val()+"' && isnull(view_ordcs.enda,0)=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "");
+						t_where = "isnull(b.enda,0)=0 && isnull(cancel,'0')='0' && isnull(view_ordcs.enda,0)=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "");
 					t_where = t_where;
 				} else {
 					var t_err = q_chkEmpField([['txtTggno', q_getMsg('lblTgg')]]);
