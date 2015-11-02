@@ -209,7 +209,7 @@
 						$(".hid_addh46_2").hide();
 						$(".hid_tax_other2").hide();
 						$(".hid_meals").hide();
-		            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-500)+"px");
+		            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-600)+"px");
 		            	scroll("tbbs","box",1);
 						$("#btnHideaddmoney").val("加班費顯示");
 					}else{
@@ -217,12 +217,12 @@
 						$(".hid_addh2_1").show();
 						$(".hid_addh2_2").hide();
 						$(".hid_addmoney").show();
-						$(".hid_addh100").hide();
+						$(".hid_addh100").show();
 						$(".hid_addh46_1").hide();
 						$(".hid_addh46_2").hide();
 						$(".hid_tax_other2").show();
 						$(".hid_meals").show();
-		            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+500)+"px");
+		            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+600)+"px");
 		            	 scroll("tbbs","box",1);
 						$("#btnHideaddmoney").val("加班費隱藏");
 					}
@@ -668,9 +668,9 @@
 		                        for (var i = 0; i < as.length; i++) {
 				                    	if($('#txtSno_'+j).val()==as[i].sssno){
 				                    		if(as[i].iswelfare=='true')
-				                    			$('#chkIswelfare_'+j)[0].checked=true;
+				                    			$('#chkIswelfare_'+j).prop('checked',true);
 				                    		else
-				                    			$('#chkIswelfare_'+j)[0].checked=false;
+				                    			$('#chkIswelfare_'+j).prop('checked',false);
 				                    		break;
 				                    	}
 		                        }
@@ -779,7 +779,7 @@
 	                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 	                    q_bodyId($(this).attr('id'));
 	                    b_seq = t_IdSeq;
-						 if($('#chkIsmanual_' +b_seq)[0].checked){	//判斷是否被選取
+						 if($('#chkIsmanual_' +b_seq).prop('checked')){	//判斷是否被選取
 		                	$('#trSel_'+ b_seq).addClass('chksel');//變色
 		                }else{
 		                	$('#trSel_'+b_seq).removeClass('chksel');//取消變色
@@ -826,6 +826,7 @@
             	$('#lblBo_specials').text('績效獎金');
             	$('#lblBo_oths').text('其他津貼');
             	$('#lblAddh2_1s').text('加班時數');
+            	$('#lblAddh100s').text('值班時數');
             }
         }
 
@@ -902,8 +903,11 @@
         }
 
         function sum() {
-        	var t_lastday=q_cdn($('#txtMon').val()+'/01',45).substr(0,r_lenm);
-			t_lastday=q_cdn(t_lastday+'/01',-1).slice(-2);//上月最後一天
+        	if (q_getPara('sys.project').toUpperCase()=='VU'){
+        		sum_vu();
+        		return;
+        	}
+        	
         	//bbs計算
         	getdtmp();
         	for (var j = 0; j < q_bbsCount; j++) {
@@ -933,13 +937,6 @@
         			if($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1){
 	        			if(q_getPara('sys.comp').indexOf('祥興')>-1){
 	        				q_tr('txtOstand_'+j,Math.round((dec($('#txtDaymoney_'+j).val())/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
-	        			}else if (q_getPara('sys.project').toUpperCase()=='VU'){
-	        				var t_m2=$('#txtMemo2_'+j).val();
-	        				if (t_m2.indexOf('晚班')>-1){ //晚班
-	        					q_tr('txtOstand_'+j,Math.round((dec($('#txtDaymoney_'+j).val())/6)*100)/100);//加班費基數(取小數點兩位並四捨五入)
-	        				}else{//早班
-	        					q_tr('txtOstand_'+j,Math.round((dec($('#txtDaymoney_'+j).val())/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)	
-	        				}
 	        			}else{
 	        				//勞基法加班費基數=日薪+主管津貼+工作津貼+其他津貼+全勤
 	        				q_tr('txtOstand_'+j,Math.round(((dec($('#txtDaymoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtBo_full_'+j).val()))/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
@@ -948,8 +945,6 @@
         			if($('#cmbPerson').find("option:selected").text().indexOf('時薪')>-1){
 	        			if(q_getPara('sys.comp').indexOf('祥興')>-1){
 	        				q_tr('txtOstand_'+j,Math.round((dec($('#txtDaymoney_'+j).val()))*100)/100);//加班費基數(取小數點兩位並四捨五入)
-	        			}else if (q_getPara('sys.project').toUpperCase()=='VU'){
-	        				q_tr('txtOstand_'+j,Math.round((dec($('#txtDaymoney_'+j).val()))*100)/100);//加班費基數(取小數點兩位並四捨五入)
 	        			}else{
 	        				//勞基法加班費基數=日薪+主管津貼+工作津貼+其他津貼+全勤
 	        				q_tr('txtOstand_'+j,Math.round(((dec($('#txtDaymoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtBo_full_'+j).val())))*100)/100);//加班費基數(取小數點兩位並四捨五入)
@@ -957,16 +952,12 @@
         			}
         			
         			//當有核取時加班費金額可以直接修改
-        			if(!$('#chkIsmanual_'+j)[0].checked){
-        				if (q_getPara('sys.project').toUpperCase()=='VU'){
-        					q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.3333*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.6666*dec($('#txtAddh2_2_'+j).val())));//加班費
-        				}else{
-        					q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.66*dec($('#txtAddh2_2_'+j).val())));//加班費
-        				}
+        			if(!$('#chkIsmanual_'+j).prop('checked')){
+        				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.66*dec($('#txtAddh2_2_'+j).val())));//加班費
         			}
         			q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())+dec($('#txtMeals_'+j).val())));//應領總額=給付總額+加班費+免稅其他
         			//福利金
-        			if(!($('#chkIswelfare_'+j)[0].checked))
+        			if(!($('#chkIswelfare_'+j).prop('checked')))
 		        		q_tr('txtWelfare_'+j,0);
         		}else if(($('#cmbMonkind').find("option:selected").text().indexOf('上期')>-1) || ($('#cmbMonkind').find("option:selected").text().indexOf('下期')>-1)){
         			if(q_getPara('sys.comp').indexOf('祥興')>-1){
@@ -974,14 +965,6 @@
         					q_tr('txtOstand_'+j,Math.round((dec($('#txtMoney_'+j).val())/2/inday/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
         				else
         					q_tr('txtOstand_'+j,Math.round((dec($('#txtMoney_'+j).val())/2/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
-        			}else if (q_getPara('sys.project').toUpperCase()=='VU'){
-        				//智勝上期下期金額/2
-        				q_tr('txtTotal1_'+j,(dec($('#txtMoney_'+j).val())/2)+dec($('#txtPubmoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_traffic_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtPlus_'+j).val()));
-        				
-        				if(inday>0)
-        					q_tr('txtOstand_'+j,Math.round((dec($('#txtMoney_'+j).val())/inday/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
-        				else
-        					q_tr('txtOstand_'+j,Math.round((dec($('#txtMoney_'+j).val())/t_lastday/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
         			}else{
         				//勞基法加班費基數=本俸+主管津貼+工作津貼+其他津貼+全勤
         				if(inday>0)
@@ -991,7 +974,7 @@
         			}
         			
         			//當有核取時扣薪時數和扣薪金額可以直接修改
-        			if(!$('#chkIsmanual_'+j)[0].checked){
+        			if(!$('#chkIsmanual_'+j).prop('checked')){
         				if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
         					q_tr('txtMi_sick_'+j,round(q_float('txtOstand_'+j)*q_float('txtHr_sick_'+j)/2,0));
 			                q_tr('txtMi_person_'+j,round(q_float('txtOstand_'+j)*q_float('txtHr_person_'+j),0));
@@ -1005,13 +988,6 @@
 		                	//扣薪金額=(連續3次或遲到超過5次(第6次)-500)+(早退+沒打卡*時數)+病假+事假+事假+曠工金額
 	        				q_tr('txtMi_total_'+j,Math.round(((t_typea.indexOf('早')>-1|| t_typea.indexOf('中')>-1||t_typea.indexOf('晚')>-1||t_typea.indexOf('足')>-1)?((t_late3_it>0|| t_late>5 ?500:0)+((t_nopunch+t_early)*q_float('txtOstand_'+j))):0)
 	        				+dec($('#txtMi_sick_'+j).val())+dec($('#txtMi_person_'+j).val())+dec($('#txtMi_nosalary_'+j).val())+dec($('#txtMi_leave_'+j).val())));
-        				}else if (q_getPara('sys.project').toUpperCase()=='VU'){
-        					q_tr('txtMi_sick_'+j,round(q_float('txtOstand_'+j)*q_float('txtHr_sick_'+j)/2,0));
-			                q_tr('txtMi_person_'+j,round(q_float('txtOstand_'+j)*q_float('txtHr_person_'+j),0));
-			                q_tr('txtMi_nosalary_'+j,round(q_float('txtOstand_'+j)*q_float('txtHr_nosalary_'+j),0));
-			                q_tr('txtMi_leave_'+j,round(q_float('txtOstand_'+j)*Math.ceil(q_float('txtHr_leave_'+j)),0));
-			                q_tr('txtMi_saliday_'+j,Math.round(dec($('#txtHr_sick_'+j).val())+dec($('#txtHr_person_'+j).val())+dec($('#txtHr_nosalary_'+j).val())+dec($('#txtHr_leave_'+j).val())));//扣薪時數=病假+事假+事假+曠工金額
-	        				q_tr('txtMi_total_'+j,Math.round(dec($('#txtMi_sick_'+j).val())+dec($('#txtMi_person_'+j).val())+dec($('#txtMi_nosalary_'+j).val())+dec($('#txtMi_leave_'+j).val())));//扣薪金額=病假+事假+事假+曠工金額
         				}else{
 		        			q_tr('txtMi_sick_'+j,round((q_float('txtMoney_'+j)+q_float('txtBo_admin_'+j)+q_float('txtBo_traffic_'+j)+q_float('txtBo_special_'+j)+q_float('txtBo_oth_'+j))/30/8*q_float('txtHr_sick_'+j)/2,0));
 			                q_tr('txtMi_person_'+j,round((q_float('txtMoney_'+j)+q_float('txtBo_admin_'+j)+q_float('txtBo_traffic_'+j)+q_float('txtBo_special_'+j)+q_float('txtBo_oth_'+j))/30/8*q_float('txtHr_person_'+j),0));
@@ -1022,23 +998,15 @@
 		               }
         			}
         			
-        			if (q_getPara('sys.project').toUpperCase()=='VU'){
-        				q_tr('txtTotal2_'+j,Math.round(dec($('#txtTotal1_'+j).val())-dec($('#txtMi_total_'+j).val())+dec($('#txtBo_full_'+j).val())+dec($('#txtTax_other_'+j).val())));//給付總額
-        			}else{
-        				q_tr('txtTotal2_'+j,Math.round(dec($('#txtTotal1_'+j).val())/2-dec($('#txtMi_total_'+j).val())+dec($('#txtBo_full_'+j).val())+dec($('#txtTax_other_'+j).val())));//給付總額
-        			}
+        			q_tr('txtTotal2_'+j,Math.round(dec($('#txtTotal1_'+j).val())/2-dec($('#txtMi_total_'+j).val())+dec($('#txtBo_full_'+j).val())+dec($('#txtTax_other_'+j).val())));//給付總額        			
         			
         			//當有核取時加班費金額可以直接修改
-        			if(!$('#chkIsmanual_'+j)[0].checked){
-        				if (q_getPara('sys.project').toUpperCase()=='VU'){
-        					q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.3333*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.6666*dec($('#txtAddh2_2_'+j).val())));//加班費
-        				}else{
-        					q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.66*dec($('#txtAddh2_2_'+j).val())));//加班費
-        				}
+        			if(!$('#chkIsmanual_'+j).prop('checked')){
+        				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.66*dec($('#txtAddh2_2_'+j).val())));//加班費
         			}
         			q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())+dec($('#txtMeals_'+j).val())));//應領總額=給付總額+加班費+免稅其他
         			//福利金
-        			if(!($('#chkIswelfare_'+j)[0].checked))
+        			if(!($('#chkIswelfare_'+j).prop('checked')))
 		        		q_tr('txtWelfare_'+j,0);
         		}else {//本月
         			if(q_getPara('sys.comp').indexOf('祥興')>-1){
@@ -1046,11 +1014,6 @@
         					q_tr('txtOstand_'+j,Math.round((dec($('#txtMoney_'+j).val())/30/inday)*100)/100);//加班費基數(取小數點兩位並四捨五入)
         				else
         					q_tr('txtOstand_'+j,Math.round((dec($('#txtMoney_'+j).val())/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
-        			}else if (q_getPara('sys.project').toUpperCase()=='VU'){
-        				if(inday>0)
-        					q_tr('txtOstand_'+j,Math.round((dec($('#txtMoney_'+j).val())/inday/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
-        				else
-        					q_tr('txtOstand_'+j,Math.round((dec($('#txtMoney_'+j).val())/t_lastday/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
         			}else{
         				//勞基法加班費基數=本俸+主管津貼+工作津貼+其他津貼+全勤
         				if(inday>0)
@@ -1060,7 +1023,7 @@
         			}
         			
         			//當有核取時扣薪時數和扣薪金額可以直接修改
-        			if(!$('#chkIsmanual_'+j)[0].checked){
+        			if(!$('#chkIsmanual_'+j).prop('checked')){
         				if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
         					q_tr('txtMi_sick_'+j,round(q_float('txtOstand_'+j)*q_float('txtHr_sick_'+j)/2,0));
 		                	q_tr('txtMi_person_'+j,round(q_float('txtOstand_'+j)*q_float('txtHr_person_'+j),0));
@@ -1075,13 +1038,6 @@
 	        				//q_tr('txtMi_total_'+j,Math.round((t_late3_it>1|| t_late>5 ?-500:0)+dec($('#txtMi_sick_'+j).val())+dec($('#txtMi_person_'+j).val())+dec($('#txtMi_nosalary_'+j).val())+dec($('#txtMi_leave_'+j).val())));
 	        				q_tr('txtMi_total_'+j,Math.round( ((t_typea.indexOf('早')>-1|| t_typea.indexOf('中')>-1||t_typea.indexOf('晚')>-1||t_typea.indexOf('足')>-1)?((t_late3_it>0|| t_late>5 ?500:0)+((t_nopunch+t_early)*q_float('txtOstand_'+j))):0)
 	        				+dec($('#txtMi_sick_'+j).val())+dec($('#txtMi_person_'+j).val())+dec($('#txtMi_nosalary_'+j).val())+dec($('#txtMi_leave_'+j).val())));
-        				}else if (q_getPara('sys.project').toUpperCase()=='VU'){
-        					q_tr('txtMi_sick_'+j,round(q_float('txtOstand_'+j)*q_float('txtHr_sick_'+j)/2,0));
-			                q_tr('txtMi_person_'+j,round(q_float('txtOstand_'+j)*q_float('txtHr_person_'+j),0));
-			                q_tr('txtMi_nosalary_'+j,round(q_float('txtOstand_'+j)*q_float('txtHr_nosalary_'+j),0));
-			                q_tr('txtMi_leave_'+j,round(q_float('txtOstand_'+j)*Math.ceil(q_float('txtHr_leave_'+j)),0));
-			                q_tr('txtMi_saliday_'+j,Math.round(dec($('#txtHr_sick_'+j).val())+dec($('#txtHr_person_'+j).val())+dec($('#txtHr_nosalary_'+j).val())+dec($('#txtHr_leave_'+j).val())));//扣薪時數=病假+事假+事假+曠工金額
-	        				q_tr('txtMi_total_'+j,Math.round(dec($('#txtMi_sick_'+j).val())+dec($('#txtMi_person_'+j).val())+dec($('#txtMi_nosalary_'+j).val())+dec($('#txtMi_leave_'+j).val())));//扣薪金額=病假+事假+事假+曠工金額
         				}else{
         					q_tr('txtMi_sick_'+j,round((q_float('txtMoney_'+j)+q_float('txtBo_admin_'+j)+q_float('txtBo_traffic_'+j)+q_float('txtBo_special_'+j)+q_float('txtBo_oth_'+j))/30/8*q_float('txtHr_sick_'+j)/2,0));
 		                	q_tr('txtMi_person_'+j,round((q_float('txtMoney_'+j)+q_float('txtBo_admin_'+j)+q_float('txtBo_traffic_'+j)+q_float('txtBo_special_'+j)+q_float('txtBo_oth_'+j))/30/8*q_float('txtHr_person_'+j),0));
@@ -1094,21 +1050,186 @@
         			q_tr('txtTotal2_'+j,Math.round(dec($('#txtTotal1_'+j).val())-dec($('#txtMi_total_'+j).val())+dec($('#txtBo_full_'+j).val())+dec($('#txtBo_born_'+j).val())+dec($('#txtBo_night_'+j).val())+dec($('#txtBo_duty_'+j).val())+dec($('#txtTax_other_'+j).val())));//給付總額
         			
         			//當有核取時加班費金額可以直接修改
-        			if(!$('#chkIsmanual_'+j)[0].checked){
-        				if (q_getPara('sys.project').toUpperCase()=='VU'){
-        					q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.3333*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.6666*dec($('#txtAddh2_2_'+j).val())));//加班費
-        				}else{
-        					q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.66*dec($('#txtAddh2_2_'+j).val())));//加班費
-        				}
+        			if(!$('#chkIsmanual_'+j).prop('checked')){
+        				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.66*dec($('#txtAddh2_2_'+j).val())));//加班費
         			}
         			
-        			if (q_getPara('sys.project').toUpperCase()=='VU'){
-        				q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())+dec($('#txtMeals_'+j).val())+Math.round(dec($('#txtOstand_'+j).val())*1.3333*dec($('#txtAddh46_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.6666*dec($('#txtAddh46_2_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val()))));//應領總額
-        			}else{
-        				q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())+dec($('#txtMeals_'+j).val())+Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh46_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.66*dec($('#txtAddh46_2_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val()))));//應領總額
+        			q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())+dec($('#txtMeals_'+j).val())+Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh46_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.66*dec($('#txtAddh46_2_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val()))));//應領總額
+        			
+        			if(!($('#chkIswelfare_'+j).prop('checked')))
+		        		q_tr('txtWelfare_'+j,0);
+        		}
+        		//應扣總額=借支+勞保費+二代健保+零用金+勞退個人提繳+住宿電費+所得稅(其他所得稅)+所得稅5%(薪資大於規定額度)+所得稅6%(外勞)+暫留稅10%(外勞)+所得稅12%(外勞)+所得稅18%(外勞)+福利金+暫留款+健保費+其他扣款
+				q_tr('txtTotal4_'+j,Math.round(dec($('#txtBorrow_'+j).val())+dec($('#txtCh_labor_'+j).val())+dec($('#txtChgcash_'+j).val())+dec($('#txtCh_labor_self_'+j).val())+dec($('#txtLodging_power_fee_'+j).val())+dec($('#txtTax_'+j).val())+dec($('#txtTax5_'+j).val())+dec($('#txtTax6_'+j).val())+dec($('#txtStay_tax_'+j).val())+dec($('#txtTax12_'+j).val())+dec($('#txtTax18_'+j).val())+dec($('#txtWelfare_'+j).val())+dec($('#txtStay_money_'+j).val())+dec($('#txtCh_health_'+j).val())+dec($('#txtHplus2_'+j).val())+dec($('#txtMinus_'+j).val())));
+				//實發金額=應領總額-應扣總額
+        		q_tr('txtTotal5_'+j,Math.round(dec($('#txtTotal3_'+j).val())-dec($('#txtTotal4_'+j).val())));
+        		
+        	}
+        	imports=false;
+        	//bbm計算
+            var monkind=0,t_money=0,t_daymoney=0,t_pubmoney=0,t_bo_admin=0,t_bo_traffic=0,t_bo_special=0,t_bo_oth=0,t_bo_full=0,t_tax_other=0
+            ,t_mtotal=0,t_mitotal=0,t_addmoney=0,t_borrow=0,t_ch_labor=0,t_ch_health=0,t_ch_labor_comp=0,t_ch_labor_self=0
+            ,t_welfare=0,t_total3=0,t_total4=0,t_total5=0,t_minus=0,t_plus=0;
+            //結算方式，因為一個月結算，所以*1，以上下期計算薪資，因此*0.5
+            if($('#cmbMonkind').find("option:selected").text().indexOf('本月')>-1)
+            	monkind=1;
+            else
+            	monkind=0.5;
+            
+            for (var j = 0; j < q_bbsCount; j++) {
+				t_money+=dec($('#txtMoney_'+j).val())*monkind;//本俸
+				t_daymoney+=dec($('#txtDaymoney_'+j).val());//日薪
+				t_pubmoney+=dec($('#txtPubmoney_'+j).val());//公費
+				t_bo_admin+=dec($('#txtBo_admin_'+j).val())*monkind;//主管津貼
+				t_bo_traffic+=dec($('#txtBo_traffic_'+j).val()*monkind);//交通津貼
+				t_bo_full+=dec($('#txtBo_full_'+j).val());//全勤
+				t_bo_special+=dec($('#txtBo_special_'+j).val()*monkind);//特別津貼
+				t_bo_oth+=dec($('#txtBo_oth_'+j).val()*monkind);//其他津貼
+				t_tax_other+=dec($('#txtTax_other_'+j).val());//應稅其他
+				t_mtotal+=dec($('#txtMtotal_'+j).val());//給薪金額
+				t_mitotal+=dec($('#txtMi_total_'+j).val());//扣薪金額
+				t_addmoney+=dec($('#txtAddmoney_'+j).val());//加班費
+				t_borrow+=dec($('#txtBorrow_'+j).val());//借支
+				t_ch_labor+=dec($('#txtCh_labor_'+j).val());//勞保費
+				t_ch_health+=dec($('#txtCh_health_'+j).val());//健保費
+				t_ch_labor_comp+=dec($('#txtCh_labor_comp_'+j).val());//勞退提繳
+				t_ch_labor_self+=dec($('#txtCh_labor_self_'+j).val());//勞退個人
+				t_welfare+=dec($('#txtWelfare_'+j).val());//福利金
+				t_total3+=dec($('#txtTotal3_'+j).val());//應領總額
+				t_total4+=dec($('#txtTotal4_'+j).val());//應扣總額
+				t_total5+=dec($('#txtTotal5_'+j).val());//實發金額
+				t_minus+=dec($('#txtMinus_'+j).val());//其他扣款
+				t_plus+=dec($('#txtPlus_'+j).val());//其他加項
+            } 
+            
+            q_tr('txtMoney',t_money);//本俸
+            q_tr('txtDaymoney',t_daymoney);//日薪
+            q_tr('txtPubmoney',t_pubmoney);//公費
+            q_tr('txtBo_admin',t_bo_admin);//主管津貼
+            q_tr('txtBo_traffic',t_bo_traffic);//交通津貼
+            q_tr('txtBo_full',t_bo_full);//全勤
+            q_tr('txtBo_special',t_bo_special);//特別津貼
+            q_tr('txtBo_oth',t_bo_oth);//其他津貼
+            q_tr('txtTax_other',t_tax_other);//應稅其他         
+            q_tr('txtMtotal',Math.round(t_mtotal));//給薪金額
+            q_tr('txtMi_total',Math.round(t_mitotal));//扣薪金額
+            q_tr('txtAddmoney',t_addmoney);//加班費
+            q_tr('txtBorrow',t_borrow);//借支
+            q_tr('txtCh_labor',t_ch_labor);//勞保費
+            q_tr('txtCh_health',t_ch_health);//健保費
+            q_tr('txtCh_labor_comp',t_ch_labor_comp);//勞退提繳
+            q_tr('txtCh_labor_self',t_ch_labor_self);//勞退個人
+            q_tr('txtWelfare',Math.round(t_welfare));//福利金
+            q_tr('txtTotal3',Math.round(t_total3));//應領總額
+            q_tr('txtTotal4',Math.round(t_total4));//應扣總額
+            q_tr('txtTotal5',Math.round(t_total5));//實發金額
+            q_tr('txtMinus',Math.round(t_minus));//其他扣款
+            q_tr('txtPlus',Math.round(t_plus));//其他加項
+        }
+        
+        function sum_vu() {
+        	//bbs計算
+        	getdtmp();
+        	for (var j = 0; j < q_bbsCount; j++) {
+        		//小計=本俸+公費+主管津貼+交通津貼+特別津貼+其他津貼+其他加項
+        		//5/3本俸+公費+主管津貼+交通津貼+特別津貼+其他津貼直接換算
+        		var inday=0;
+        		if(($('#txtMemo_'+j).val().indexOf('新進員工')>-1 || $('#txtMemo_'+j).val().indexOf('離職員工')>-1)){
+        			inday=dec($('#txtMemo_'+j).val().substr($('#txtMemo_'+j).val().indexOf(':')+1,$('#txtMemo_'+j).val().indexOf(')')-$('#txtMemo_'+j).val().indexOf(':')-1));
+        		}
+        		if(($('#txtMemo_'+j).val().indexOf('新進員工')>-1 || $('#txtMemo_'+j).val().indexOf('離職員工')>-1 ) && imports){
+        			inday=dec($('#txtMemo_'+j).val().substr($('#txtMemo_'+j).val().indexOf(':')+1,$('#txtMemo_'+j).val().indexOf(')')-$('#txtMemo_'+j).val().indexOf(':')-1));
+        			q_tr('txtMoney_'+j,round((dec($('#txtMoney_'+j).val()))/30*inday,0));
+        			q_tr('txtPubmoney_'+j,round((dec($('#txtPubmoney_'+j).val()))/30*inday,0));
+        			q_tr('txtBo_admin_'+j,round((dec($('#txtBo_admin_'+j).val()))/30*inday,0));
+        			q_tr('txtBo_traffic_'+j,round((dec($('#txtBo_traffic_'+j).val()))/30*inday,0));
+        			q_tr('txtBo_special_'+j,round((dec($('#txtBo_special_'+j).val()))/30*inday,0));
+        			q_tr('txtBo_oth_'+j,round((dec($('#txtBo_oth_'+j).val()))/30*inday,0));
+        		}
+        		
+				q_tr('txtTotal1_'+j,dec($('#txtMoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_traffic_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtPlus_'+j).val()));
+        		        		
+        		if($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1){
+        			q_tr('txtTotal1_'+j,Math.round(dec($('#txtDaymoney_'+j).val())));
+        			q_tr('txtMtotal_'+j,Math.round(dec($('#txtDaymoney_'+j).val())*dec($('#txtDay_'+j).val())+dec($('#txtPlus_'+j).val())));//給薪金額
+        			q_tr('txtTotal2_'+j,Math.round((dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_traffic_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val()))+dec($('#txtMtotal_'+j).val())+dec($('#txtBo_full_'+j).val())+dec($('#txtTax_other_'+j).val())));//給付總額
+        			
+	        		var t_m2=$('#txtMemo2_'+j).val();
+	        		if(imports){
+		        		//固定150
+		        		if (t_m2.indexOf('晚班')>-1){ //晚班 
+		        			q_tr('txtOstand_'+j,150);//加班費基數(取小數點兩位並四捨五入)
+		        		}else{//早班
+		        			q_tr('txtOstand_'+j,150);//加班費基數(取小數點兩位並四捨五入)	
+		        		}
+		        	}
+        			
+        			//當有核取時加班費金額可以直接修改
+        			if(!$('#chkIsmanual_'+j).prop('checked')){
+        				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.3333*dec($('#txtAddh2_1_'+j).val()))
+        				+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val())));//加班費   				
+        			}
+        			q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())+dec($('#txtMeals_'+j).val())));//應領總額=給付總額+加班費+免稅其他
+        			//福利金
+        			if(!$('#chkIswelfare_'+j).prop('checked'))
+		        		q_tr('txtWelfare_'+j,0);
+        		}else if(($('#cmbMonkind').find("option:selected").text().indexOf('上期')>-1) || ($('#cmbMonkind').find("option:selected").text().indexOf('下期')>-1)){
+        			//智勝上期下期金額/2
+        			q_tr('txtTotal1_'+j,(dec($('#txtMoney_'+j).val())/2)+dec($('#txtPubmoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_traffic_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtPlus_'+j).val()));
+        			
+        			if(imports){
+	        			if(inday>0)
+	        				q_tr('txtOstand_'+j,Math.round((dec($('#txtMoney_'+j).val())/inday/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
+	        			else
+	        				q_tr('txtOstand_'+j,Math.round((dec($('#txtMoney_'+j).val())/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
         			}
         			
-        			if(!($('#chkIswelfare_'+j)[0].checked))
+        			//當有核取時扣薪時數和扣薪金額可以直接修改
+        			if(!$('#chkIsmanual_'+j).prop('checked')){
+        				q_tr('txtMi_sick_'+j,round(q_float('txtOstand_'+j)*q_float('txtHr_sick_'+j)/2,0));
+						q_tr('txtMi_person_'+j,round(q_float('txtOstand_'+j)*q_float('txtHr_person_'+j),0));
+						q_tr('txtMi_nosalary_'+j,round(q_float('txtOstand_'+j)*q_float('txtHr_nosalary_'+j),0));
+						q_tr('txtMi_leave_'+j,round(q_float('txtOstand_'+j)*Math.ceil(q_float('txtHr_leave_'+j)),0));
+						q_tr('txtMi_saliday_'+j,Math.round(dec($('#txtHr_sick_'+j).val())+dec($('#txtHr_person_'+j).val())+dec($('#txtHr_nosalary_'+j).val())+dec($('#txtHr_leave_'+j).val())));//扣薪時數=病假+事假+事假+曠工金額
+						q_tr('txtMi_total_'+j,Math.round(dec($('#txtMi_sick_'+j).val())+dec($('#txtMi_person_'+j).val())+dec($('#txtMi_nosalary_'+j).val())+dec($('#txtMi_leave_'+j).val())));//扣薪金額=病假+事假+事假+曠工金額
+        			}
+        			
+        			q_tr('txtTotal2_'+j,Math.round(dec($('#txtTotal1_'+j).val())-dec($('#txtMi_total_'+j).val())+dec($('#txtBo_full_'+j).val())+dec($('#txtTax_other_'+j).val())));//給付總額
+        			
+        			//當有核取時加班費金額可以直接修改
+        			if(!$('#chkIsmanual_'+j).prop('checked')){
+        				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.3333*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val())));//加班費
+        			}
+        			q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())+dec($('#txtMeals_'+j).val())));//應領總額=給付總額+加班費+免稅其他
+        			//福利金
+        			if(!($('#chkIswelfare_'+j).prop('checked')))
+		        		q_tr('txtWelfare_'+j,0);
+        		}else {//本月
+        			if(imports){
+	        			if(inday>0)
+	        				q_tr('txtOstand_'+j,Math.round((dec($('#txtMoney_'+j).val())/inday/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
+	        			else
+	        				q_tr('txtOstand_'+j,Math.round((dec($('#txtMoney_'+j).val())/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
+        			}
+        			//當有核取時扣薪時數和扣薪金額可以直接修改
+        			if(!$('#chkIsmanual_'+j).prop('checked')){
+        				q_tr('txtMi_sick_'+j,round(q_float('txtOstand_'+j)*q_float('txtHr_sick_'+j)/2,0));
+			            q_tr('txtMi_person_'+j,round(q_float('txtOstand_'+j)*q_float('txtHr_person_'+j),0));
+			            q_tr('txtMi_nosalary_'+j,round(q_float('txtOstand_'+j)*q_float('txtHr_nosalary_'+j),0));
+			            q_tr('txtMi_leave_'+j,round(q_float('txtOstand_'+j)*Math.ceil(q_float('txtHr_leave_'+j)),0));
+			            q_tr('txtMi_saliday_'+j,Math.round(dec($('#txtHr_sick_'+j).val())+dec($('#txtHr_person_'+j).val())+dec($('#txtHr_nosalary_'+j).val())+dec($('#txtHr_leave_'+j).val())));//扣薪時數=病假+事假+事假+曠工金額
+	        			q_tr('txtMi_total_'+j,Math.round(dec($('#txtMi_sick_'+j).val())+dec($('#txtMi_person_'+j).val())+dec($('#txtMi_nosalary_'+j).val())+dec($('#txtMi_leave_'+j).val())));//扣薪金額=病假+事假+事假+曠工金額
+        			}
+        			q_tr('txtTotal2_'+j,Math.round(dec($('#txtTotal1_'+j).val())-dec($('#txtMi_total_'+j).val())+dec($('#txtBo_full_'+j).val())+dec($('#txtBo_born_'+j).val())+dec($('#txtBo_night_'+j).val())+dec($('#txtBo_duty_'+j).val())+dec($('#txtTax_other_'+j).val())));//給付總額
+        			
+        			//當有核取時加班費金額可以直接修改
+        			if(!$('#chkIsmanual_'+j).prop('checked')){
+        				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.3333*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val())));//加班費
+        			}
+        			
+        			q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())+dec($('#txtMeals_'+j).val())));//應領總額
+        			
+        			if(!($('#chkIswelfare_'+j).prop('checked')))
 		        		q_tr('txtWelfare_'+j,0);
         		}
         		//應扣總額=借支+勞保費+二代健保+零用金+勞退個人提繳+住宿電費+所得稅(其他所得稅)+所得稅5%(薪資大於規定額度)+所得稅6%(外勞)+暫留稅10%(外勞)+所得稅12%(外勞)+所得稅18%(外勞)+福利金+暫留款+健保費+其他扣款
@@ -1283,7 +1404,7 @@
         	getdtmp();
         	$('#tbbs').css("width","5400px");
         	if (q_getPara('sys.project').toUpperCase()=='VU'){
-        		$('#tbbs').css("width","5000px");
+        		$('#tbbs').css("width","5100px");
         	}
         	
              if ($('#cmbPerson').find("option:selected").text().indexOf('本國')>-1){
@@ -1458,7 +1579,6 @@
 			
 			if (q_getPara('sys.project').toUpperCase()=='VU'){
 				$(".hid_addh2_2").hide();
-				$(".hid_addh100").hide();
 				$(".hid_addh46_1").hide();
 				$(".hid_addh46_2").hide();
 			}

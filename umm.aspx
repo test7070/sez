@@ -85,7 +85,11 @@
                 });
 		        
                 $('#lblAccc').click(function() {
-                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substr(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('btnAccc'), true);
+                	var t_year=$('#txtDatea').val().substr(0,r_len);
+                	if(r_len==4){
+                		t_year=q_sub(t_year,1911);
+                	}
+                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + t_year + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('btnAccc'), true);
                 });
                 
                 $('#lblCust2').click(function(e) {
@@ -299,6 +303,8 @@
 								as[i].tablea='vcc_rb';
 							}else if(q_getPara('sys.project').toUpperCase()=='IT'){
 								as[i].tablea='vcc_it';
+							}else if(q_getPara('sys.project').toUpperCase()=='YC'){
+								as[i].tablea='vcc_yc';
 							}else if(q_getPara('sys.project').toUpperCase()=='UU'){
 								as[i].tablea='vcc_uu';
 								as[i].memo=as[i].memo+as[i].invono;
@@ -433,6 +439,8 @@
 								as[i].tablea='vcc_rb';
 							}else if(q_getPara('sys.project').toUpperCase()=='IT'){
 								as[i].tablea='vcc_it';
+							}else if(q_getPara('sys.project').toUpperCase()=='YC'){
+								as[i].tablea='vcc_yc';
 							}else if(q_getPara('sys.project').toUpperCase()=='UU'){
 								as[i].tablea='vcc_uu';
 								as[i].memo=as[i].memo+as[i].invono;
@@ -722,6 +730,8 @@
                 			$('#txtTablea_'+i).val('vcc_rb');
                 		}else if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
 							$('#txtTablea_'+i).val('vcc_it');
+						}else if(q_getPara('sys.project').toUpperCase()=='YC'){
+							$('#txtTablea_'+i).val('vcc_yc');
                     	}else if(q_getPara('sys.comp').indexOf('永勝')>-1){
 							$('#txtTablea_'+i).val('vcc_uu');
                     	}else if (q_getPara('sys.comp').indexOf('楊家') > -1|| q_getPara('sys.comp').indexOf('德芳') > -1){
