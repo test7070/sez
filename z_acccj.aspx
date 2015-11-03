@@ -33,7 +33,7 @@
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
-                q_gf('', 'z_accc');
+                q_gf('', 'z_acccj');
             });
 
             var ssspart;
@@ -63,7 +63,7 @@
             function initfinish() {
                 init_finish = true;
                 $('#q_report').q_report({
-                    fileName : 'z_accc',
+                    fileName : 'z_acccj',
                     options : [{/*  [1]*/
                         type : '0',
                         name : 'accy',
