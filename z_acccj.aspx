@@ -95,19 +95,23 @@
                         type : '8',
                         name : 'xoption03',
                         value : q_getMsg('toption03').split('&')
-                    }, {/* [11][12]*/
+                    }, {/*6 [11][12]*/
                         type : '2',
                         name : 'xproject',
                         dbf : 'proj',
                         index : 'noa,proj',
                         src : "proj_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno                     
-                    }, {/*  [13]*/
+                    }, {/* [13]*/
                         type : '0',
                         name : 'xlen',
                         value : r_len
-                    }, {/* [14]*/
+                    }, {/*7 [14]*/
                         type : '6',
                         name : 'yproject'
+                    }, {/*8 [15]*/
+                        type : '8',
+                        name : 'xoption04',
+                        value : ('projall@專案全選').split(',')
                     }]
                 });
 				
