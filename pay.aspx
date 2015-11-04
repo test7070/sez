@@ -502,11 +502,15 @@
 		    function btnOk() {
 		    	Lock(1,{opacity:0});
 				$('#txtMon').val($.trim($('#txtMon').val()));
-					if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
-						alert(q_getMsg('lblMon')+'錯誤。');   
-						Unlock(1);
-						return;
-				} 		
+				if(r_len==3 && $('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
+					alert(q_getMsg('lblMon')+'錯誤。');   
+					Unlock(1);
+					return;
+				}else if(r_len==4 && $('#txtMon').val().length > 0 && !(/^[0-9]{4}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
+					alert(q_getMsg('lblMon')+'錯誤。');   
+					Unlock(1);
+					return;
+				}
 		        var t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  // 檢查空白 
 		        if (t_err.length > 0) {
 		            alert(t_err);
