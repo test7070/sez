@@ -29,7 +29,10 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Datea';
-            aPop = new Array(['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'], ['txtBankno', 'lblBank', 'bank', 'noa,bank,account', 'txtBankno,txtBank,txtAccount', 'bank_b.aspx'], ['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
+            aPop = new Array(['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'], 
+            				 ['txtBankno', 'lblBank', 'bank', 'noa,bank,account', 'txtBankno,txtBank,txtAccount', 'bank_b.aspx'], 
+            				 ['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
+            				 ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -542,6 +545,11 @@
 					<tr>
 						<td><span> </span><a id="lblAccount" class="lbl" > </a></td>
 						<td colspan="3"><input id="txtAccount" type="text" class="txt c1" /></td>
+						<td><span> </span><a id="lblAcc1" class="lbl btn" > </a></td>
+						<td colspan="2">
+							<input id="txtAcc1" type="text" style="float:left; width:40%;"/>
+							<input id="txtAcc2"  type="text" style="float:left; width:60%;"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMoney" class="lbl"> </a></td>
