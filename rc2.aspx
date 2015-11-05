@@ -43,7 +43,8 @@
 				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc_b.aspx'],
 				['txtUno_', 'btnUno_', 'view_uccc', 'uno', 'txtUno_', 'uccc_seek_b.aspx?;;;1=0', '95%', '60%'],
 				['txtCarno', 'lblCar', 'cardeal', 'noa,comp', 'txtCarno,txtCar', 'cardeal_b.aspx'],
-				['txtTranstartno', 'lblTranstart', 'addr2', 'noa,post','txtTranstartno,txtTranstart', 'addr2_b.aspx']
+				['txtTranstartno', 'lblTranstart', 'addr2', 'noa,post','txtTranstartno,txtTranstart', 'addr2_b.aspx'],
+				['txtCustno_', 'btnCustno_', 'cust', 'noa,comp', 'txtCustno_,txtComp_', 'cust_b.aspx']
 			);
 
 			$(document).ready(function() {
@@ -722,8 +723,15 @@
 					}
 				}
 				_bbsAssign();
+				refreshBbs();
 				HiddenTreat();
 				refreshBbm();
+			}
+			
+			function refreshBbs(){
+				if(q_getPara('sys.project').toUpperCase()!='XY'){
+					$('.isCust').hide();
+				}	
 			}
 
 			function btnIns() {
@@ -1238,6 +1246,7 @@
 					<td align="center" style="width:80px;"><a id='lblStore_s'> </a></td>
 					<td align="center" style="width:80px;" class="isRack"><a id='lblRackno_s'> </a></td>
 					<td align="center" style="width:180px;"><a id='lblMemos'> </a></td>
+					<td align="center" style="width:250px;" class="isCust"><a id='lblCustnos'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblRecord_s'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
@@ -1272,6 +1281,11 @@
 						<input id="txtOrdeno.*" type="text" class="txt" style="width:65%;" />
 						<input id="txtNo2.*" type="text" class="txt" style="width:25%;" />
 						<input id="recno.*" style="display:none;"/>
+					</td>
+					<td class="isCust">
+						<input id="txtCustno.*" type="text" class="txt" style="width:35%;"/>
+						<input id="txtComp.*"type="text" class="txt" style="width:50%;"/>
+						<input id="btnCustno.*" type="button" value="." style="width:7%;" />
 					</td>
 					<td align="center">
 						<input class="btn" id="btnRecord.*" type="button" value='.' style=" font-weight: bold;" />
