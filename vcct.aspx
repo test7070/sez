@@ -51,7 +51,7 @@
                 
                 q_cmbParse("cmbTypea", q_getPara('vcct.typea'));
                 q_cmbParse("cmbKind", q_getPara('vcct.kind'));
-                q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
+                q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype')+',D@空白');
                 q_cmbParse("cmbSpecialfood", q_getPara('vcct.specialfood'));
                 q_cmbParse("cmbNotaxnote", q_getPara('vcct.notaxnote'));
                 q_cmbParse("cmbPasstype", q_getPara('vcct.passtype'));
