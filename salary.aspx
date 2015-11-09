@@ -336,7 +336,7 @@
 				t_day++;
 			}
                 
-			if (t_date<q_date()){
+			if (t_date<q_date() && x_day!=''){
 				checkenda=true;
 			}else{
 				checkenda=false;
@@ -864,7 +864,7 @@
              if (checkenda){
                 alert('超過'+q_getPara('sys.modiday')+'天'+'已關帳!!');
                 return;
-	    		}
+	    	}
             _btnModi();
             $('#txtMon').focus();
             $('#txtMon').attr('disabled', 'disabled');
@@ -1365,7 +1365,7 @@
         	 if (checkenda){
                 alert('超過'+q_getPara('sys.modiday')+'天'+'已關帳!!');
                 return;
-	    }
+	    	}
             _btnDele();
         }
 
