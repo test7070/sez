@@ -131,6 +131,7 @@
                     if (s1.length == 4)
                         $(this).val(s1 + '.');
                 });
+                $('#Status option:eq(2)').attr('selected',true);           
             }
 
             function q_boxClose(t_name) {
