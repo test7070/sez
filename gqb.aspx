@@ -82,6 +82,11 @@
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
                 });
                 
+                $('#txtTacc1').change(function() {
+                    $('#txtTdate').val(q_date());
+                });
+
+                
                 if(q_getPara('sys.project')=='vu'){
                 	$('#lblTacc1').removeClass('lbl').addClass('lbl btn');
                 	
@@ -90,6 +95,7 @@
 		            , ['txtCompno', 'lblComp', 'view_cust_tgg', 'noa,comp', '0txtCompno,txtComp', 'view_cust_tgg_b.aspx']
 		            , ['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx']
 		            , ['txtTacc1', 'lblTacc1', 'bank', 'noa,noa,bank', 'txtTacc1,txtTbankno,txtTbank', 'bank_b.aspx']);
+		            
                 }
             }
             function q_boxClose(s2) {
@@ -287,8 +293,9 @@
                 		comp : $('#txtComp').val(),
                 		memo : $('#txtMemo').val()
                 	};
-                }
+                }        
                 _btnIns();
+                refreshBbm();
                 var patt = new RegExp(/[A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/);
                 var n = 0;
                 if (t_curgqbno.length = 9 && patt.test(t_curgqbno)) {
@@ -324,6 +331,7 @@
                if (q_chkClose())
              		    return;
 				_btnModi();
+				refreshBbm();
             	$('#txtGqbno').focus();
             }
             function q_modif(){
@@ -406,12 +414,13 @@
 
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
-                    return false;
+                    return false;          
                 var s2 = xmlString.split(';');
                 abbm[q_recno]['noa'] = s2[0];
                 abbm[q_recno]['accno'] = s2[1];
                 $('#txtAccno').val(s2[0]);
                 Unlock();
+                      
             }
 
             function wrServer(key_value) {
@@ -427,8 +436,17 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                refreshBbm();
             }
-
+			
+			function refreshBbm() {
+				if(q_getPara('sys.project')=='vu'){
+					$('#txtTdate').css('color', 'black').css('background', 'white').removeAttr('readonly');
+					$('#txtTbankno').css('color', 'black').css('background', 'white').removeAttr('readonly');
+					$('#txtTacc1').css('color', 'black').css('background', 'white').removeAttr('readonly');
+				}
+			}
+			
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
                 if (t_para) {
