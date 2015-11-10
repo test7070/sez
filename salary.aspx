@@ -112,35 +112,69 @@
             
             //隱藏控制
             $('#btnHidesalary').click(function() {
-            	if($('#btnHidesalary').val().indexOf("隱藏")>-1){
-            		if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1 || $('#cmbPerson').find("option:selected").text().indexOf('時薪')>-1){
-            			$(".hid_daymoney").hide();
-            		}else{
-						$(".hid_money").hide();
+            	if (q_getPara('sys.project').toUpperCase()=='VU'){
+            		if($('#btnHidesalary').val().indexOf("隱藏")>-1){
+	            		if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1 || $('#cmbPerson').find("option:selected").text().indexOf('時薪')>-1){
+	            			$(".hid_daymoney").hide();
+	            		}else{
+							$(".hid_money").hide();
+						}
+						$('.hid_pubmoney').hide();
+						$(".hid_bo_admin").hide();
+						$(".hid_bo_traffic").hide();
+						$(".hid_bo_special").hide();
+						$(".hid_bo_oth").hide();
+						$(".hid_plus").hide();
+						$('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-700)+"px");
+		            	scroll("tbbs","box",1);
+						$("#btnHidesalary").val("薪資顯示");
+					}else{
+						if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1 || $('#cmbPerson').find("option:selected").text().indexOf('時薪')>-1){
+	            			$(".hid_daymoney").show();
+	            		}else{
+							$(".hid_money").show();
+						}
+						$('.hid_pubmoney').show();
+						$(".hid_bo_admin").show();
+						$(".hid_bo_traffic").show();
+						$(".hid_bo_special").show();
+						$(".hid_bo_oth").show();
+						$(".hid_plus").show();
+		            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+700)+"px");
+		            	 scroll("tbbs","box",1);
+						$("#btnHidesalary").val("薪資隱藏");
 					}
-					$(".hid_bo_admin").hide();
-					$(".hid_bo_traffic").hide();
-					$(".hid_bo_special").hide();
-					$(".hid_bo_oth").hide();
-					$(".hid_plus").hide();
-	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-600)+"px");
-	            	scroll("tbbs","box",1);
-					$("#btnHidesalary").val("薪資顯示");
-				}else{
-					if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1 || $('#cmbPerson').find("option:selected").text().indexOf('時薪')>-1){
-            			$(".hid_daymoney").show();
-            		}else{
-						$(".hid_money").show();
-					}
-					$(".hid_bo_admin").show();
-					$(".hid_bo_traffic").show();
-					$(".hid_bo_special").show();
-					$(".hid_bo_oth").show();
-					$(".hid_plus").show();
-	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+600)+"px");
-	            	 scroll("tbbs","box",1);
-					$("#btnHidesalary").val("薪資隱藏");
-				}
+            	}else{
+            		if($('#btnHidesalary').val().indexOf("隱藏")>-1){
+	            		if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1 || $('#cmbPerson').find("option:selected").text().indexOf('時薪')>-1){
+	            			$(".hid_daymoney").hide();
+	            		}else{
+							$(".hid_money").hide();
+						}
+						$(".hid_bo_admin").hide();
+						$(".hid_bo_traffic").hide();
+						$(".hid_bo_special").hide();
+						$(".hid_bo_oth").hide();
+						$(".hid_plus").hide();
+						$('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-600)+"px");
+		            	scroll("tbbs","box",1);
+						$("#btnHidesalary").val("薪資顯示");
+					}else{
+						if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1 || $('#cmbPerson').find("option:selected").text().indexOf('時薪')>-1){
+	            			$(".hid_daymoney").show();
+	            		}else{
+							$(".hid_money").show();
+						}
+						$(".hid_bo_admin").show();
+						$(".hid_bo_traffic").show();
+						$(".hid_bo_special").show();
+						$(".hid_bo_oth").show();
+						$(".hid_plus").show();
+		            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+600)+"px");
+		            	 scroll("tbbs","box",1);
+						$("#btnHidesalary").val("薪資隱藏");
+					}	
+            	}
             });
             
             $('#btnHidesalaryinsure').click(function() {
@@ -740,9 +774,23 @@
            			$('#txtTotal2_'+j).change(function () {sum();});
            			$('#txtBo_full_'+j).change(function () {sum();});
            			$('#txtTax_other_'+j).change(function () {sum();});
-           			$('#txtOstand_'+j).change(function () {sum();});
+           			$('#txtOstand_'+j).change(function () {
+           				t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+	                    q_bodyId($(this).attr('id'));
+	                    b_seq = t_IdSeq;
+           				if (q_getPara('sys.project').toUpperCase()=='VU')
+           					q_tr('txtAddmoney_'+b_seq,Math.round(dec($('#txtOstand_'+b_seq).val())*1.3333*dec($('#txtAddh2_1_'+b_seq).val()))+Math.round(dec($('#txtOstand_'+b_seq).val())*1*dec($('#txtAddh100_'+b_seq).val())));//加班費
+           				sum();
+           			});
            			$('#txtAddmoney_'+j).change(function () {sum();});
-           			$('#txtAddh2_1_'+j).change(function () {sum();});
+           			$('#txtAddh2_1_'+j).change(function () {
+           				t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+	                    q_bodyId($(this).attr('id'));
+	                    b_seq = t_IdSeq;
+           				if (q_getPara('sys.project').toUpperCase()=='VU')
+           					q_tr('txtAddmoney_'+b_seq,Math.round(dec($('#txtOstand_'+b_seq).val())*1.3333*dec($('#txtAddh2_1_'+b_seq).val()))+Math.round(dec($('#txtOstand_'+b_seq).val())*1*dec($('#txtAddh100_'+b_seq).val())));//加班費
+           				sum();
+           			});
            			$('#txtAddh2_2_'+j).change(function () {sum();});
            			$('#txtTotal3_'+j).change(function () {sum();});
            			$('#txtTax_other2_'+j).change(function () {sum();});
@@ -758,7 +806,14 @@
            			$('#txtTax6_'+j).change(function () {sum();});
            			$('#txtAddh46_1_'+j).change(function () {sum();});
            			$('#txtAddh46_2_'+j).change(function () {sum();});
-           			$('#txtAddh100_'+j).change(function () {sum();});
+           			$('#txtAddh100_'+j).change(function () {
+           				t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+	                    q_bodyId($(this).attr('id'));
+	                    b_seq = t_IdSeq;
+           				if (q_getPara('sys.project').toUpperCase()=='VU')
+           					q_tr('txtAddmoney_'+b_seq,Math.round(dec($('#txtOstand_'+b_seq).val())*1.3333*dec($('#txtAddh2_1_'+b_seq).val()))+Math.round(dec($('#txtOstand_'+b_seq).val())*1*dec($('#txtAddh100_'+b_seq).val())));//加班費
+           				sum();
+           			});
            			$('#txtTotal4_'+j).change(function () {sum();});
            			$('#txtBorrow_'+j).change(function () {sum();});
            			$('#txtCh_labor_'+j).change(function () {sum();});
@@ -827,6 +882,7 @@
             	$('#lblBo_oths').text('其他津貼');
             	$('#lblAddh2_1s').text('加班時數');
             	$('#lblAddh100s').text('值班時數');
+            	$('#lblPubmoneys').text('獎金基數');
             }
         }
 
@@ -1164,10 +1220,9 @@
 		        		}
 		        	}
         			
-        			//當有核取時加班費金額可以直接修改
-        			if(!$('#chkIsmanual_'+j).prop('checked')){
-        				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.3333*dec($('#txtAddh2_1_'+j).val()))
-        				+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val())));//加班費   				
+        			//當有核取時加班費金額可以直接修改 //11/10 只有第一次計算
+        			if(imports){
+        				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.3333*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val())));//加班費   				
         			}
         			q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())+dec($('#txtMeals_'+j).val())));//應領總額=給付總額+加班費+免稅其他
         			//福利金
@@ -1196,8 +1251,8 @@
         			
         			q_tr('txtTotal2_'+j,Math.round(dec($('#txtTotal1_'+j).val())-dec($('#txtMi_total_'+j).val())+dec($('#txtBo_full_'+j).val())+dec($('#txtTax_other_'+j).val())));//給付總額
         			
-        			//當有核取時加班費金額可以直接修改
-        			if(!$('#chkIsmanual_'+j).prop('checked')){
+        			//當有核取時加班費金額可以直接修改 //11/10 只有第一次計算
+        			if(imports){
         				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.3333*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val())));//加班費
         			}
         			q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())+dec($('#txtMeals_'+j).val())));//應領總額=給付總額+加班費+免稅其他
@@ -1222,8 +1277,8 @@
         			}
         			q_tr('txtTotal2_'+j,Math.round(dec($('#txtTotal1_'+j).val())-dec($('#txtMi_total_'+j).val())+dec($('#txtBo_full_'+j).val())+dec($('#txtBo_born_'+j).val())+dec($('#txtBo_night_'+j).val())+dec($('#txtBo_duty_'+j).val())+dec($('#txtTax_other_'+j).val())));//給付總額
         			
-        			//當有核取時加班費金額可以直接修改
-        			if(!$('#chkIsmanual_'+j).prop('checked')){
+        			//當有核取時加班費金額可以直接修改 //11/10 只有第一次計算
+        			if(imports){
         				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.3333*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val())));//加班費
         			}
         			
@@ -1404,7 +1459,7 @@
         	getdtmp();
         	$('#tbbs').css("width","5400px");
         	if (q_getPara('sys.project').toUpperCase()=='VU'){
-        		$('#tbbs').css("width","5100px");
+        		$('#tbbs').css("width","5200px");
         	}
         	
              if ($('#cmbPerson').find("option:selected").text().indexOf('本國')>-1){
@@ -1581,6 +1636,7 @@
 				$(".hid_addh2_2").hide();
 				$(".hid_addh46_1").hide();
 				$(".hid_addh46_2").hide();
+				$('.hid_pubmoney').show();
 			}
 			
 			$('#btnHidesalary').val("薪資隱藏");
