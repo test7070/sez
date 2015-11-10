@@ -19,7 +19,9 @@
         var q_readonly = ['txtNoa','txtWorker'];
         var q_readonlys = [];
         var bbmNum = [['txtMoney', 15, 0, 1],['txtDaymoney', 15, 0, 1],['txtPubmoney', 15, 0, 1],['txtBo_admin', 15, 0, 1],['txtBo_traffic', 15, 0, 1],['txtBo_special', 15, 0, 1],['txtBo_oth', 15, 0, 1],['txtTax_other', 15, 0, 1],['txtMi_total', 15, 0, 1],['txtMtotal', 15, 0, 1],['txtBo_full', 15, 0, 1],['txtAddmoney', 15, 0, 1],['txtBorrow', 15, 0, 1],['txtCh_labor', 15, 0, 1],['txtCh_health', 15, 0, 1],['txtCh_labor_comp', 15, 0, 1],['txtCh_labor_self', 15, 0, 1],['txtWelfare', 15, 0, 1],['txtTotal3', 15, 0, 1],['txtTotal4', 15, 0, 1],['txtTotal5', 15, 0, 1],['txtPlus', 15, 0, 1],['txtMinus', 15, 0, 1]];  
-        var bbsNum = [['txtMoney', 15, 0, 1],['txtDaymoney', 15, 0, 1],['txtPubmoney', 15, 0, 1],['txtBo_admin', 15, 0, 1],['txtBo_traffic', 15, 0, 1],['txtBo_special', 15, 0, 1],['txtBo_oth', 15, 0, 1],['txtTotal1', 15, 0, 1],['txtCh_labor1', 15, 0, 1],['txtCh_labor2', 15, 0, 1],['txtCh_health_insure', 15, 0, 1],['txtDay', 15, 1, 1],['txtMtotal', 15, 0, 1],['txtBo_born', 15, 0, 1],['txtBo_night', 15, 0, 1],['txtBo_full', 15, 0, 1],['txtBo_duty', 15, 0, 1],['txtTax_other', 15, 0, 1],['txtTotal2', 15, 0, 1],['txtOstand', 15, 2, 1],['txtAddh2_1', 15, 1, 1],['txtAddh2_2', 15, 1, 1],['txtAddmoney', 15, 0, 1],['txtAddh100', 15, 1, 1],['txtAddh46_1', 15, 1, 1],['txtAddh46_2', 15, 1, 1],['txtTax_other2', 15, 0, 1],['txtMeals', 15, 0, 1],['txtTotal3', 15, 0, 1],['txtBorrow', 15, 0, 1],['txtCh_labor', 15, 0, 1],['txtChgcash', 15, 0, 1],['txtTax6', 15, 0, 1],['txtStay_tax', 15, 0, 1],['txtTax12', 15, 0, 1],['txtTax18', 15, 0, 1],['txtCh_labor_comp', 15, 0, 1],['txtCh_labor_self', 15, 0, 1],['txtLodging_power_fee', 15, 0, 1],['txtTax', 15, 0, 1],['txtTax5', 15, 0, 1],['txtWelfare', 15, 0, 1],['txtStay_money', 15, 0, 1],['txtRaise_num', 15, 0, 1],['txtCh_health', 15, 0, 1],['txtHplus2', 15, 0, 1],['txtTotal4', 15, 0, 1],['txtTotal5', 15, 0, 1],['txtLate', 15, 0, 1],['txtHr_sick', 15, 1, 1],['txtMi_sick', 15, 0, 1],['txtHr_person', 15, 1, 1],['txtMi_person', 15, 0, 1],['txtHr_nosalary', 15, 1, 1],['txtMi_nosalary', 15, 0, 1],['txtHr_leave', 15, 1, 1],['txtMi_leave', 15, 0, 1],['txtPlus', 15, 0, 1],['txtMinus', 15, 0, 1]];
+        var bbsNum = [['txtMoney', 15, 0, 1],['txtDaymoney', 15, 0, 1],['txtPubmoney', 15, 0, 1],['txtBo_admin', 15, 0, 1],['txtBo_traffic', 15, 0, 1],['txtBo_special', 15, 0, 1],['txtBo_oth', 15, 0, 1],['txtTotal1', 15, 0, 1],['txtCh_labor1', 15, 0, 1],['txtCh_labor2', 15, 0, 1],['txtCh_health_insure', 15, 0, 1],['txtDay', 15, 1, 1],['txtMtotal', 15, 0, 1],['txtBo_born', 15, 0, 1],['txtBo_night', 15, 0, 1],['txtBo_full', 15, 0, 1],['txtBo_duty', 15, 0, 1],['txtTax_other', 15, 0, 1],['txtTotal2', 15, 0, 1],['txtOstand', 15, 2, 1],['txtAddh2_1', 15, 1, 1],['txtAddh2_2', 15, 1, 1],['txtAddmoney', 15, 0, 1]
+        ,['txtAddh100', 15, 1, 1],['txtAddh46_1', 15, 1, 1],['txtAddh46_2', 15, 1, 1],['txtTax_other2', 15, 0, 1],['txtMeals', 15, 0, 1],['txtTotal3', 15, 0, 1],['txtBorrow', 15, 0, 1],['txtCh_labor', 15, 0, 1],['txtChgcash', 15, 0, 1],['txtTax6', 15, 0, 1],['txtStay_tax', 15, 0, 1],['txtTax12', 15, 0, 1],['txtTax18', 15, 0, 1],['txtCh_labor_comp', 15, 0, 1],['txtCh_labor_self', 15, 0, 1],['txtLodging_power_fee', 15, 0, 1],['txtTax', 15, 0, 1],['txtTax5', 15, 0, 1],['txtWelfare', 15, 0, 1],['txtStay_money', 15, 0, 1],['txtRaise_num', 15, 0, 1],['txtCh_health', 15, 0, 1],['txtHplus2', 15, 0, 1]
+        ,['txtTotal4', 15, 0, 1],['txtTotal5', 15, 0, 1],['txtLate', 15, 0, 1],['txtHr_sick', 15, 1, 1],['txtMi_sick', 15, 0, 1],['txtHr_person', 15, 1, 1],['txtMi_person', 15, 0, 1],['txtHr_nosalary', 15, 1, 1],['txtMi_nosalary', 15, 0, 1],['txtHr_leave', 15, 1, 1],['txtMi_leave', 15, 0, 1],['txtPlus', 15, 0, 1],['txtMinus', 15, 0, 1],['txtMoney1', 15, 1, 1],['txtMoney2', 15, 1, 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
@@ -112,35 +114,71 @@
             
             //隱藏控制
             $('#btnHidesalary').click(function() {
-            	if($('#btnHidesalary').val().indexOf("隱藏")>-1){
-            		if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1 || $('#cmbPerson').find("option:selected").text().indexOf('時薪')>-1){
-            			$(".hid_daymoney").hide();
-            		}else{
-						$(".hid_money").hide();
+            	if (q_getPara('sys.project').toUpperCase()=='VU'){
+            		if($('#btnHidesalary').val().indexOf("隱藏")>-1){
+	            		if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1 || $('#cmbPerson').find("option:selected").text().indexOf('時薪')>-1){
+	            			$(".hid_daymoney").hide();
+	            		}else{
+							$(".hid_money").hide();
+						}
+						$('.hid_money1').hide();
+						$('.hid_money2').hide();
+						$(".hid_bo_admin").hide();
+						$(".hid_bo_traffic").hide();
+						$(".hid_bo_special").hide();
+						$(".hid_bo_oth").hide();
+						$(".hid_plus").hide();
+						$('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-800)+"px");
+		            	scroll("tbbs","box",1);
+						$("#btnHidesalary").val("薪資顯示");
+					}else{
+						if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1 || $('#cmbPerson').find("option:selected").text().indexOf('時薪')>-1){
+	            			$(".hid_daymoney").show();
+	            		}else{
+							$(".hid_money").show();
+						}
+						$('.hid_money1').show();
+						$('.hid_money2').show();
+						$(".hid_bo_admin").show();
+						$(".hid_bo_traffic").show();
+						$(".hid_bo_special").show();
+						$(".hid_bo_oth").show();
+						$(".hid_plus").show();
+		            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+800)+"px");
+		            	 scroll("tbbs","box",1);
+						$("#btnHidesalary").val("薪資隱藏");
 					}
-					$(".hid_bo_admin").hide();
-					$(".hid_bo_traffic").hide();
-					$(".hid_bo_special").hide();
-					$(".hid_bo_oth").hide();
-					$(".hid_plus").hide();
-	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-600)+"px");
-	            	scroll("tbbs","box",1);
-					$("#btnHidesalary").val("薪資顯示");
-				}else{
-					if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1 || $('#cmbPerson').find("option:selected").text().indexOf('時薪')>-1){
-            			$(".hid_daymoney").show();
-            		}else{
-						$(".hid_money").show();
-					}
-					$(".hid_bo_admin").show();
-					$(".hid_bo_traffic").show();
-					$(".hid_bo_special").show();
-					$(".hid_bo_oth").show();
-					$(".hid_plus").show();
-	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+600)+"px");
-	            	 scroll("tbbs","box",1);
-					$("#btnHidesalary").val("薪資隱藏");
-				}
+            	}else{
+            		if($('#btnHidesalary').val().indexOf("隱藏")>-1){
+	            		if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1 || $('#cmbPerson').find("option:selected").text().indexOf('時薪')>-1){
+	            			$(".hid_daymoney").hide();
+	            		}else{
+							$(".hid_money").hide();
+						}
+						$(".hid_bo_admin").hide();
+						$(".hid_bo_traffic").hide();
+						$(".hid_bo_special").hide();
+						$(".hid_bo_oth").hide();
+						$(".hid_plus").hide();
+						$('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-600)+"px");
+		            	scroll("tbbs","box",1);
+						$("#btnHidesalary").val("薪資顯示");
+					}else{
+						if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1 || $('#cmbPerson').find("option:selected").text().indexOf('時薪')>-1){
+	            			$(".hid_daymoney").show();
+	            		}else{
+							$(".hid_money").show();
+						}
+						$(".hid_bo_admin").show();
+						$(".hid_bo_traffic").show();
+						$(".hid_bo_special").show();
+						$(".hid_bo_oth").show();
+						$(".hid_plus").show();
+		            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+600)+"px");
+		            	 scroll("tbbs","box",1);
+						$("#btnHidesalary").val("薪資隱藏");
+					}	
+            	}
             });
             
             $('#btnHidesalaryinsure').click(function() {
@@ -336,7 +374,7 @@
 				t_day++;
 			}
                 
-			if (t_date<q_date()){
+			if (t_date<q_date() && x_day!=''){
 				checkenda=true;
 			}else{
 				checkenda=false;
@@ -740,9 +778,23 @@
            			$('#txtTotal2_'+j).change(function () {sum();});
            			$('#txtBo_full_'+j).change(function () {sum();});
            			$('#txtTax_other_'+j).change(function () {sum();});
-           			$('#txtOstand_'+j).change(function () {sum();});
+           			$('#txtOstand_'+j).change(function () {
+           				t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+	                    q_bodyId($(this).attr('id'));
+	                    b_seq = t_IdSeq;
+           				if (q_getPara('sys.project').toUpperCase()=='VU')
+           					q_tr('txtAddmoney_'+b_seq,Math.round(dec($('#txtOstand_'+b_seq).val())*1.3333*dec($('#txtAddh2_1_'+b_seq).val()))+Math.round(dec($('#txtOstand_'+b_seq).val())*1*dec($('#txtAddh100_'+b_seq).val())));//加班費
+           				sum();
+           			});
            			$('#txtAddmoney_'+j).change(function () {sum();});
-           			$('#txtAddh2_1_'+j).change(function () {sum();});
+           			$('#txtAddh2_1_'+j).change(function () {
+           				t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+	                    q_bodyId($(this).attr('id'));
+	                    b_seq = t_IdSeq;
+           				if (q_getPara('sys.project').toUpperCase()=='VU')
+           					q_tr('txtAddmoney_'+b_seq,Math.round(dec($('#txtOstand_'+b_seq).val())*1.3333*dec($('#txtAddh2_1_'+b_seq).val()))+Math.round(dec($('#txtOstand_'+b_seq).val())*1*dec($('#txtAddh100_'+b_seq).val())));//加班費
+           				sum();
+           			});
            			$('#txtAddh2_2_'+j).change(function () {sum();});
            			$('#txtTotal3_'+j).change(function () {sum();});
            			$('#txtTax_other2_'+j).change(function () {sum();});
@@ -758,7 +810,14 @@
            			$('#txtTax6_'+j).change(function () {sum();});
            			$('#txtAddh46_1_'+j).change(function () {sum();});
            			$('#txtAddh46_2_'+j).change(function () {sum();});
-           			$('#txtAddh100_'+j).change(function () {sum();});
+           			$('#txtAddh100_'+j).change(function () {
+           				t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+	                    q_bodyId($(this).attr('id'));
+	                    b_seq = t_IdSeq;
+           				if (q_getPara('sys.project').toUpperCase()=='VU')
+           					q_tr('txtAddmoney_'+b_seq,Math.round(dec($('#txtOstand_'+b_seq).val())*1.3333*dec($('#txtAddh2_1_'+b_seq).val()))+Math.round(dec($('#txtOstand_'+b_seq).val())*1*dec($('#txtAddh100_'+b_seq).val())));//加班費
+           				sum();
+           			});
            			$('#txtTotal4_'+j).change(function () {sum();});
            			$('#txtBorrow_'+j).change(function () {sum();});
            			$('#txtCh_labor_'+j).change(function () {sum();});
@@ -827,6 +886,8 @@
             	$('#lblBo_oths').text('其他津貼');
             	$('#lblAddh2_1s').text('加班時數');
             	$('#lblAddh100s').text('值班時數');
+            	$('#lblMoney1s').text('獎金基數');
+            	$('#lblMoney2s').text('獎金噸數');
             }
         }
 
@@ -864,7 +925,7 @@
              if (checkenda){
                 alert('超過'+q_getPara('sys.modiday')+'天'+'已關帳!!');
                 return;
-	    		}
+	    	}
             _btnModi();
             $('#txtMon').focus();
             $('#txtMon').attr('disabled', 'disabled');
@@ -1164,10 +1225,9 @@
 		        		}
 		        	}
         			
-        			//當有核取時加班費金額可以直接修改
-        			if(!$('#chkIsmanual_'+j).prop('checked')){
-        				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.3333*dec($('#txtAddh2_1_'+j).val()))
-        				+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val())));//加班費   				
+        			//當有核取時加班費金額可以直接修改 //11/10 只有第一次計算
+        			if(imports){
+        				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.3333*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val())));//加班費   				
         			}
         			q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())+dec($('#txtMeals_'+j).val())));//應領總額=給付總額+加班費+免稅其他
         			//福利金
@@ -1196,8 +1256,8 @@
         			
         			q_tr('txtTotal2_'+j,Math.round(dec($('#txtTotal1_'+j).val())-dec($('#txtMi_total_'+j).val())+dec($('#txtBo_full_'+j).val())+dec($('#txtTax_other_'+j).val())));//給付總額
         			
-        			//當有核取時加班費金額可以直接修改
-        			if(!$('#chkIsmanual_'+j).prop('checked')){
+        			//當有核取時加班費金額可以直接修改 //11/10 只有第一次計算
+        			if(imports){
         				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.3333*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val())));//加班費
         			}
         			q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())+dec($('#txtMeals_'+j).val())));//應領總額=給付總額+加班費+免稅其他
@@ -1222,8 +1282,8 @@
         			}
         			q_tr('txtTotal2_'+j,Math.round(dec($('#txtTotal1_'+j).val())-dec($('#txtMi_total_'+j).val())+dec($('#txtBo_full_'+j).val())+dec($('#txtBo_born_'+j).val())+dec($('#txtBo_night_'+j).val())+dec($('#txtBo_duty_'+j).val())+dec($('#txtTax_other_'+j).val())));//給付總額
         			
-        			//當有核取時加班費金額可以直接修改
-        			if(!$('#chkIsmanual_'+j).prop('checked')){
+        			//當有核取時加班費金額可以直接修改 //11/10 只有第一次計算
+        			if(imports){
         				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.3333*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val())));//加班費
         			}
         			
@@ -1365,7 +1425,7 @@
         	 if (checkenda){
                 alert('超過'+q_getPara('sys.modiday')+'天'+'已關帳!!');
                 return;
-	    }
+	    	}
             _btnDele();
         }
 
@@ -1404,7 +1464,7 @@
         	getdtmp();
         	$('#tbbs').css("width","5400px");
         	if (q_getPara('sys.project').toUpperCase()=='VU'){
-        		$('#tbbs').css("width","5100px");
+        		$('#tbbs').css("width","5300px");
         	}
         	
              if ($('#cmbPerson').find("option:selected").text().indexOf('本國')>-1){
@@ -1528,6 +1588,8 @@
         	$('#txtPubmoney').hide();
         	$('.hid_pubmoney').hide();
         	$('.hid_lodging_power_fee').hide();
+        	$('.hid_money1').hide();
+        	$('.hid_money2').hide();
             
             //--------------------隱藏控制---------------------------
             
@@ -1581,6 +1643,8 @@
 				$(".hid_addh2_2").hide();
 				$(".hid_addh46_1").hide();
 				$(".hid_addh46_2").hide();
+				$('.hid_money1').show();
+				$('.hid_money2').show();
 			}
 			
 			$('#btnHidesalary').val("薪資隱藏");
@@ -1886,6 +1950,8 @@
                 <td align="center" class="td2 hid_money" style="width: 100px;"><a id='lblMoneys'> </a></td>
                 <td align="center" class="td2 hid_daymoney" style="width: 100px;"><a id='lblDaymoneys'> </a><a id='lblHrmoneys'> </a></td>
                 <td align="center" class="td2 hid_pubmoney" style="width: 100px;"><a id='lblPubmoneys'> </a></td>
+                <td align="center" class="td2 hid_money1" style="width: 100px;"><a id='lblMoney1s'> </a></td>
+                <td align="center" class="td2 hid_money2" style="width: 100px;"><a id='lblMoney2s'> </a></td>
                 <td align="center" class="td2 hid_bo_admin" style="width: 100px;"><a id='lblBo_admins'> </a></td>
                 <td align="center" class="td2 hid_bo_traffic" style="width: 100px;"><a id='lblBo_traffics'> </a></td>
                 <td align="center" class="td2 hid_bo_special" style="width: 100px;"><a id='lblBo_specials'> </a></td>
@@ -1956,6 +2022,8 @@
                 <td class='hid_money'><input class="txt num c1" id="txtMoney.*" type="text" /></td>
                 <td class='hid_daymoney'><input class="txt num c1" id="txtDaymoney.*" type="text" /></td>
                 <td class='hid_pubmoney'><input class="txt num c1" id="txtPubmoney.*" type="text" /></td>
+                <td class='hid_money1'><input class="txt num c1" id="txtMoney1.*" type="text" /></td>
+                <td class='hid_money2'><input class="txt num c1" id="txtMoney2.*" type="text" /></td>
                 <td class='hid_bo_admin'><input class="txt num c1" id="txtBo_admin.*" type="text" /></td>
                 <td class='hid_bo_traffic'><input class="txt num c1" id="txtBo_traffic.*" type="text" /></td>
                 <td class='hid_bo_special'><input class="txt num c1" id="txtBo_special.*" type="text"/></td>
