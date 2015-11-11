@@ -121,7 +121,7 @@
                     		var t_checkno = t_name.split('_')[2];  
                     		var t_noa =  t_name.split('_')[3];               		
                     		var as = _q_appendData("view_gqb_chk", "", true);
-                    		if(as[0]!=undefined){
+                    		if(as[0]!=undefined && q_getPara('sys.project')!='vu'){
                     			var t_isExist = false,t_msg = '';
                     			for(var i in as){
                     				if(as[i]['tablea']!=undefined ){
