@@ -101,19 +101,19 @@
 						alert('申報月份與發票日期禁止空白');
 						return;
 					}
-					if(dec($('#textMon').val().substr(4,2))%2!=1){
+					/*if(dec($('#textMon').val().substr(4,2))%2!=1){
 						alert('申報月份只能單數月份');
 						return;
-					}
+					}*/
 					
-					var b_date=q_cdn($('#textMon').val()+'/01',-45).substr(0,6)+'/01';
-					var e_date=q_cdn($('#textMon').val()+'/01',-1);
-					if(!(($('#textBdate').val()>=b_date && $('#textBdate').val()<=e_date)
+					//var b_date=q_cdn($('#textMon').val()+'/01',-45).substr(0,6)+'/01';
+					//var e_date=q_cdn($('#textMon').val()+'/01',-1);
+					/*if(!(($('#textBdate').val()>=b_date && $('#textBdate').val()<=e_date)
 					&& ($('#textEdate').val()>=b_date && $('#textEdate').val()<=e_date))
 					){
 						alert('資料非'+b_date.substr(0,6)+'-'+e_date.substr(0,6));
 						return;
-					}
+					}*/
 					
 					var t_mon=!emp($('#textMon').val())?trim($('#textMon').val()):'#non';
 					var t_bdate=!emp($('#textBdate').val())?trim($('#textBdate').val()):'#non';
@@ -128,13 +128,15 @@
 					$('#div_vcca').hide();
 				});
 				
-				if(dec(q_date().substr(4,2))%2==1)
+				//if(dec(q_date().substr(4,2))%2==1)
 					$('#textMon').val(q_date().substr(0,6));
-				else
-					$('#textMon').val(q_cdn(q_date().substr(0,6)+'/01',45).substr(0,6));
+				//else
+				//	$('#textMon').val(q_cdn(q_date().substr(0,6)+'/01',45).substr(0,6));
 				
-				$('#textBdate').val(q_cdn($('#textMon').val()+'/01',-45).substr(0,6)+'/01');
-				$('#textEdate').val(q_cdn($('#textMon').val()+'/01',-1));
+				//$('#textBdate').val(q_cdn($('#textMon').val()+'/01',-45).substr(0,6)+'/01');
+				//$('#textEdate').val(q_cdn($('#textMon').val()+'/01',-1));
+				$('#textBdate').val($('#textMon').val()+'/01');
+				$('#textEdate').val(q_cdn((q_cdn($('#textMon').val()+'/01',+45)).substr(0,6)+'/01',-1));
             }
 
             function q_boxClose(s2) {
