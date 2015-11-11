@@ -92,7 +92,17 @@
 	                    type : '0',
 	                    name : 'r_addr',
 	                    value : q_getPara('sys.addr')
-					}]
+					}, {/*14 [27][28]*/
+                        type : '2',
+                        name : 'xacc',
+                        dbf : 'acc',
+                        index : 'acc1,acc2',
+                        src : "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno
+                    }, {/*[29]*/
+                        type : '0', 
+                        name : 'acomp',
+                        value : q_getPara('sys.comp')
+                    }]
                 });
                 q_popAssign();
                 q_getFormat();
