@@ -219,6 +219,7 @@
                     		if(as[0]!=undefined){
                     			alert('支票【'+t_checkno+'】已託收禁止修改，託收單號【'+as[0].noa+'】');
                     			Unlock(1);
+                    			$('#btnCancel').click();
                     		}
                     		else{
                     			var t_where = " where=^^ checkno='"+t_checkno+"'^^";
@@ -232,6 +233,7 @@
                     		if(as[0]!=undefined){
                     			alert('支票【'+t_checkno+'】已兌現禁止修改，兌現單號【'+as[0].noa+'】');
                     			Unlock(1);
+                    			$('#btnCancel').click();
                     		}
                     		else{
                     			checkGqbStatus_btnModi(t_sel-1);
