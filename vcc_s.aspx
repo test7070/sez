@@ -83,8 +83,8 @@
 				+ q_sqlPara2("mon", t_mon)
 				+ q_sqlPara2("datea", t_bdate, t_edate)
 				+ q_sqlPara2("accno", t_accno)
-				+ q_sqlPara2("custno", t_custno)
-				+ q_sqlPara2("invono", t_invono);
+				+ q_sqlPara2("custno", t_custno);
+				//+ q_sqlPara2("invono", t_invono);
 				
 				if(t_salesno.length>0)
 					t_where += " and (salesno='"+t_salesno+"' or salesno2='"+t_salesno+"') ";
@@ -98,7 +98,7 @@
                 	t_where += " and (noa in (select noa from view_vccs where ordeno='"+t_ordeno+"') or noa in (select noa from view_vcc where ordeno='"+t_ordeno+"'))";
                 
                	if(q_getPara('sys.project').toUpperCase()=='RB' && t_invono.length>0) 
-                	t_where += " or (part2='"+t_invono+"')";
+                	t_where += "and (charindex('"+t_invono+"',invono)>0 or charindex('"+t_invono+"',part2)>0)";
                 	
 				t_where = ' where=^^ ' + t_where + ' ^^ ';
 				return t_where;
