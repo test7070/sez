@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'view_vcc', t_bbsTag = 'tbbs', t_content = " field=noa,typea,stype,datea,mon,cno,acomp,custno,comp,paytype,trantype,tel,fax,post,addr,post2,addr2,cardealno,cardeal,carno,salesno,sales,money,tax,total,memo,invono,invo,unpay,payed", afilter = [], bbsKey = ['noa'], as;
+            var q_name = 'view_vcc', t_bbsTag = 'tbbs', t_content = " field=noa,typea,stype,datea,mon,cno,acomp,custno,comp,paytype,trantype,tel,fax,post,addr,post2,addr2,cardealno,cardeal,carno,salesno,sales,money,tax,total,memo,invono,invo,unpay,payed,weight", afilter = [], bbsKey = ['noa'], as;
             //, t_where = '';
             var t_sqlname = 'view_vcc';
             t_postname = q_name;
@@ -55,7 +55,7 @@
 		            $('#textTypea_'+j).css('background', t_background2);
 		            
 		            if (q_getPara('sys.project').toUpperCase()=='XY'){
-		            	if(!($('#txtPaytype_'+j).val().indexOf('收現')>-1 || $('#txtPaytype_'+j).val().indexOf('貨到現金')>-1)){
+		            	if(!($('#txtPaytype_'+j).val().indexOf('收現')==0 || $('#txtPaytype_'+j).val().indexOf('貨到現金')==0)){
 		            		$('#txtTotal_'+j).val(0);
 		            	}
 		            	xy_cust+=(xy_cust.length>0?",":"")+"'"+$('#txtCustno_'+j).val()+"'";
@@ -92,7 +92,8 @@
             			for (var i = 0; i < q_bbsCount; i++) {
             				for (var j = 0; j < as.length; j++) {
             					if($('#txtCustno_'+i).val()==as[j].noa){
-            						$('#textTrantime_'+i).val(as[j].trantime)
+            						$('#txtTrantime_'+i).val(as[j].trantime)
+            						$('#txtCheckmemo_'+i).val(as[j].checkmemo)
             						break;
             					}
             				}
@@ -167,8 +168,12 @@
 						<input id="txtInvo.*" type="hidden" />
 						<input id="txtUnpay.*" type="hidden" />
 						<input id="txtPayed.*" type="hidden" />
+						<input id="txtWeight.*" type="hidden" />
 					</td>
-					<td class="isXY isRB" style="width:12%;"><input class="txt" id="textTrantime.*" type="text" style="width:98%;"/></td>
+					<td class="isXY isRB" style="width:12%;">
+						<input class="txt" id="txtTrantime.*" type="text" style="width:98%;"/>
+						<input class="txt" id="txtCheckmemo.*" type="hidden" style="width:98%;"/>
+					</td>
 				</tr>
 			</table>
 			<!--#include file="../inc/pop_ctrl.inc"-->
