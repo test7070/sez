@@ -25,7 +25,7 @@
 		q_desc = 1;
 		q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
 		aPop = new Array();
-		
+
 
 		$(document).ready(function () {
 			bbmKey = ['noa'];
@@ -62,7 +62,9 @@
             	else{
             		var t_where = "EXISTS ( select c.noa from cust_2s c where c.noa = a.noa and c.mon <= '"+$('#txtMon').val()+"'and c.unpay>0) ";
             		if (q_getPara('sys.project').toUpperCase()=='XY'){
-            			t_where=t_where+" and EXISTS (select * from custm where noa=a.noa and charindex('郵寄',postmemo)>0 )"
+            			t_where=t_where+" and EXISTS (select * from custm where noa=a.noa and charindex('郵寄',postmemo)>0 )";
+            			if(!emp($('#txtSalesno').val()))
+            				t_where=t_where+" and salesno='"+$('#txtSalesno').val()+"'";
             		}
             		t_where="where=^^ "+t_where+" ^^";
             		var t_where1 = "where[1]=^^a.noa=noa and isnull(bill,0)=1 ^^";
@@ -73,18 +75,21 @@
 			$('#cmbKind').change(function() {
 				if($('#cmbKind').val()=='廠商'){
 					if(q_getPara('sys.project').toUpperCase()=='XY')
-						aPop = new Array(['txtUseno_', 'btnUseno_', 'tgg', 'noa,comp,addr_invo,zip_invo', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'tgg_b.aspx']);
+						aPop = new Array(['txtUseno_', 'btnUseno_', 'tgg', 'noa,comp,addr_invo,zip_invo', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'tgg_b.aspx']
+													,['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']);
 					else
 						aPop = new Array(['txtUseno_', 'btnUseno_', 'tgg', 'noa,comp,addr_home,zip_home', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'tgg_b.aspx']);
 				}else{
 					if(q_getPara('sys.project').toUpperCase()=='XY')
-						aPop = new Array(['txtUseno_', 'btnUseno_', 'cust', 'noa,comp,addr_invo,zip_invo', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'cust_b.aspx']);
+						aPop = new Array(['txtUseno_', 'btnUseno_', 'cust', 'noa,comp,addr_invo,zip_invo', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'cust_b.aspx']
+													,['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']);
 					else
 						aPop = new Array(['txtUseno_', 'btnUseno_', 'cust', 'noa,comp,addr_home,zip_home', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'cust_b.aspx']);
 				}
 			});
 			q_popAssign();
 			$('#cmbKind').change();
+			
 		}
 		
 		function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -176,6 +181,13 @@
 				});
 			}
 			_bbsAssign();
+			
+			if(q_getPara('sys.project').toUpperCase()=='XY'){
+				$('#lblBsno').text('大宗條條碼起始編號');
+				$('#lblSales').text('業務');
+				$('.isXY').show();
+			}else
+				$('.isXY').hide();
 		}
 
 		function btnIns() {
@@ -221,6 +233,12 @@
 		///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
 		function refresh(recno) {
 			_refresh(recno);
+			if(q_getPara('sys.project').toUpperCase()=='XY'){
+				$('#lblBsno').text('大宗條條碼起始編號');
+				$('#lblSales').text('業務');
+				$('.isXY').show();
+			}else
+				$('.isXY').hide();
 	   }
 
 		function readonly(t_para, empty) {
@@ -481,7 +499,13 @@
 						<td class="td3"><span> </span><a id="lblMon" class="lbl" > </a></td>
 						<td class="td4"><input id="txtMon" type="text" class="txt c1"/></td>
 						<td class="td7"><input id="btnInput" type="button" value="帳款匯入" /></td> 
-						
+				</tr>
+				<tr class="isXY">
+						<td class="td1"><span> </span><a id="lblBsno" class="lbl" > </a></td>
+						<td class="td2" colspan="3"><input id="txtBsno" type="text" class="txt c1"/></td>
+						<td class="td3"><span> </span><a id="lblSales" class="lbl btn" > </a></td>
+						<td class="td4"><input id="txtSalesno" type="text" class="txt c1"/></td>
+						<td class="td4"><input id="txtSales" type="text" class="txt c1"/></td> 
 				</tr>
 				<tr class="tr4">
 						<td class="td1"><span> </span><a id='lblAddr' class="lbl"> </a></td>
