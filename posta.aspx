@@ -158,6 +158,21 @@
                     alert(t_err);
                     return;
                 }
+                
+                if(q_cur==1 && !emp($('#txtBsno').val()) && q_getPara('sys.project').toUpperCase() == 'XY'){
+                	//產生掛號編號
+                	var counts=0;
+                	for (var j = 0; j < q_bbsCount; j++) {
+                		if(emp($('#txtSno_'+j).val()) && (!emp($('#txtUseno_'+j).val()) || !emp($('#txtComp_'+j).val()) || !emp($('#txtZipcode_'+j).val()) || !emp($('#txtAddr_'+j).val()))){
+                			var t_no=$('#txtBsno').val().substr(0,6);
+                			var t_nos=$('#txtBsno').val().substr(7,$('#txtBsno').val().length);
+                			t_no=dec(t_no)+counts;
+                			t_no=('000000'+t_no).slice(-6);
+                			$('#txtSno_'+j).val(t_no+t_nos);
+                			counts++;
+                		}
+                	}
+                }
 
                 $('#txtWorker').val(r_name);
 
