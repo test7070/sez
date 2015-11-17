@@ -253,10 +253,9 @@
             function refresh(recno) {
                 _refresh(recno);
                 if (q_getPara('sys.project').toUpperCase() == 'XY') {
-                    $('#lblBsno').text('大宗條條碼起始編號');
+                    $('#lblBsno').text('條碼起始號');
                     $('#lblSales').text('業務');
-                    $('#lblSno_s').text('掛號條碼編號');
-                    $('.dbbs').css('width','1600px');
+                    $('#lblSno_s').text('條碼編號');
                     $('.isXY').show();
                 } else
                     $('.isXY').hide();
