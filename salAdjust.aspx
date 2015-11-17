@@ -21,7 +21,7 @@
 			var q_readonly = [];
 			var q_readonlys = [];
 			var bbmNum = [];
-			var bbsNum = [['txtMoney',10,0,1],['txtBo_admin',10,0,1],['txtBo_traffic',10,0,1],['txtBo_special',10,0,1],['txtBo_oth',10,0,1],['txtBo_full',10,0,1],['txtSalary',10,0,1],['txtMeals',10,0,1],['txtBo_money1',10,0,1]];
+			var bbsNum = [['txtMoney',10,0,1],['txtBo_admin',10,0,1],['txtBo_traffic',10,0,1],['txtBo_special',10,0,1],['txtBo_oth',10,0,1],['txtBo_full',10,0,1],['txtSalary',10,0,1],['txtMeals',10,0,1]];
 			var bbmMask = [];
 			var bbsMask = [];
 			aPop = new Array(['txtJobno_', 'txtJobno_', 'salm', 'noa,job,level1', 'txtJobno_,txtJob_,txtLevel1_','salm_b.aspx']);
@@ -50,6 +50,10 @@
 
 			function mainPost() {
 				q_getFormat();
+				if (q_getPara('sys.project').toUpperCase()=='VU'){
+					bbsNum = [['txtMoney',10,0,1],['txtBo_admin',10,0,1],['txtBo_traffic',10,0,1],['txtBo_special',10,0,1],['txtBo_oth',10,0,1],['txtBo_full',10,0,1],['txtSalary',10,0,1],['txtMeals',10,0,1],['txtBo_money1',10,2,1]];
+				}
+				
 				bbsMask = [['txtDatea', r_picd]];
 				q_mask(bbsMask);
 				
