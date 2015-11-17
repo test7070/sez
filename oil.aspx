@@ -20,7 +20,7 @@
             }
 
             var q_name = "oil";
-            var q_readonly = ['txtNoa', 'txtWorker', 'txtMoney', 'txtCurmount', 'txtCurmoney', 'txtBmiles', 'txtMiles', 'txtRate'];
+            var q_readonly = ['txtNoa', 'txtWorker', 'txtMoney', 'txtCurmount', 'txtCurmoney', 'txtMiles', 'txtRate'];
             var bbmNum = new Array(['txtBmiles', 10, 0], ['txtEmiles', 10, 0], ['txtMiles', 10, 0], ['txtRate', 10, 2], ['txtMount', 10, 2], ['txtPrice', 10, 2], ['txtMoney', 10, 0], ['txtCurmount', 10, 2], ['txtCurmoney', 10, 2]);
             var bbmMask = [['txtDatea', '999/99/99'], ['txtOildate', '999/99/99'], ['txtTimea', '99:99']];
             q_sqlCount = 6;

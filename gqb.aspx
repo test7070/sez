@@ -20,7 +20,7 @@
             }
 
             var q_name = "gqb";
-            var q_readonly = ['txtWorker','txtWorker2','txtTdate','txtEnda','txtTbankno','txtTbank','txtTacc1','txtEndaccno','txtAcc1','txtBkaccno','txtUsage'];
+            var q_readonly = ['txtWorker','txtWorker2','txtEnda','txtEndaccno','txtAcc1','txtBkaccno','txtUsage','txtTdate','txtTbank','txtTbankno','txtTacc1'];
             var bbmNum = [['txtMoney', 10, 0]];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -82,14 +82,21 @@
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
                 });
                 
-                if(q_getPara('sys.project')=='vu'){
+                $('#txtTacc1').change(function() {
+                    $('#txtTdate').val(q_date());
+                });
+
+                
+                if(q_getPara('sys.project')=='vu'){                       	
                 	$('#lblTacc1').removeClass('lbl').addClass('lbl btn');
                 	
                 	aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
 		            , ['txtTcompno', 'lblTcomp', 'view_cust_tgg', 'noa,comp', '0txtTcompno,txtTcomp', 'view_cust_tgg_b.aspx']
 		            , ['txtCompno', 'lblComp', 'view_cust_tgg', 'noa,comp', '0txtCompno,txtComp', 'view_cust_tgg_b.aspx']
 		            , ['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx']
-		            , ['txtTacc1', 'lblTacc1', 'bank', 'noa,noa,bank', 'txtTacc1,txtTbankno,txtTbank', 'bank_b.aspx']);
+		            , ['txtTacc1', 'lblTacc1', 'bank', 'acc1,noa,bank', 'txtTacc1,txtTbankno,txtTbank', 'bank_b.aspx']		         
+		            );
+		            
                 }
             }
             function q_boxClose(s2) {
@@ -114,7 +121,7 @@
                     		var t_checkno = t_name.split('_')[2];  
                     		var t_noa =  t_name.split('_')[3];               		
                     		var as = _q_appendData("view_gqb_chk", "", true);
-                    		if(as[0]!=undefined){
+                    		if(as[0]!=undefined && q_getPara('sys.project')!='vu'){
                     			var t_isExist = false,t_msg = '';
                     			for(var i in as){
                     				if(as[i]['tablea']!=undefined ){
@@ -212,6 +219,7 @@
                     		if(as[0]!=undefined){
                     			alert('支票【'+t_checkno+'】已託收禁止修改，託收單號【'+as[0].noa+'】');
                     			Unlock(1);
+                    			$('#btnCancel').click();
                     		}
                     		else{
                     			var t_where = " where=^^ checkno='"+t_checkno+"'^^";
@@ -225,6 +233,7 @@
                     		if(as[0]!=undefined){
                     			alert('支票【'+t_checkno+'】已兌現禁止修改，兌現單號【'+as[0].noa+'】');
                     			Unlock(1);
+                    			$('#btnCancel').click();
                     		}
                     		else{
                     			checkGqbStatus_btnModi(t_sel-1);
@@ -287,8 +296,9 @@
                 		comp : $('#txtComp').val(),
                 		memo : $('#txtMemo').val()
                 	};
-                }
+                }        
                 _btnIns();
+                refreshBbm();
                 var patt = new RegExp(/[A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/);
                 var n = 0;
                 if (t_curgqbno.length = 9 && patt.test(t_curgqbno)) {
@@ -319,11 +329,12 @@
             }
 			
             function btnModi() {
-                if (emp($('#txtNoa').val()))
+               if (emp($('#txtNoa').val()))
                     return;
                if (q_chkClose())
              		    return;
 				_btnModi();
+				refreshBbm();
             	$('#txtGqbno').focus();
             }
             function q_modif(){
@@ -406,12 +417,13 @@
 
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
-                    return false;
+                    return false;          
                 var s2 = xmlString.split(';');
                 abbm[q_recno]['noa'] = s2[0];
                 abbm[q_recno]['accno'] = s2[1];
                 $('#txtAccno').val(s2[0]);
                 Unlock();
+                      
             }
 
             function wrServer(key_value) {
@@ -428,9 +440,18 @@
             function refresh(recno) {
                 _refresh(recno);
             }
-
+			
+			function refreshBbm() {
+				if(q_getPara('sys.project')=='vu' && (q_cur == 1 || q_cur == 2)){				
+					$('#txtTdate').css('color', 'black').css('background', 'white').removeAttr('readonly');
+					$('#txtTbankno').css('color', 'black').css('background', 'white').removeAttr('readonly');
+					$('#txtTacc1').css('color', 'black').css('background', 'white').removeAttr('readonly');
+				}
+			}
+			
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                refreshBbm();
                 if (t_para) {
 					$('#checkCopy').removeAttr('disabled');
 				} else {
