@@ -168,7 +168,7 @@
                 			var t_nos=$('#txtBsno').val().substr(7,$('#txtBsno').val().length);
                 			t_no=dec(t_no)+counts;
                 			t_no=('000000'+t_no).slice(-6);
-                			$('#txtSno_'+j).val(t_no+t_nos);
+                			$('#txtSno_'+j).val(t_no);//+t_nos  1117 不需要出現後面的數字
                 			counts++;
                 		}
                 	}
@@ -199,10 +199,9 @@
                 _bbsAssign();
 
                 if (q_getPara('sys.project').toUpperCase() == 'XY') {
-                    $('#lblBsno').text('大宗條條碼起始編號');
+                    $('#lblBsno').text('條碼起始號');
                     $('#lblSales').text('業務');
-                    $('#lblSno_s').text('掛號條碼編號');
-                    $('.dbbs').css('width','1600px');
+                    $('#lblSno_s').text('條碼編號');
                     $('.isXY').show();
                 } else
                     $('.isXY').hide();
@@ -545,20 +544,21 @@
 			<table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width: 1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
-					<td align="center" style="width: 15%;"><a id='lblUseno_s'> </a></td>
+					<td align="center" style="width: 10%;" class="isXY"><a id='lblSno_s'> </a></td>
+					<td align="center" style="width: 13%;"><a id='lblUseno_s'> </a></td>
 					<td align="center" style="width: 15%;"><a id='lblComp_s'> </a></td>
-					<td align="center" style="width: 8%;"><a id='lblZipcode_s'> </a></td>
+					<td align="center" style="width: 65px;"><a id='lblZipcode_s'> </a></td>
 					<td align="center" style="width: 30%;"><a id='lblAddr_s'> </a></td>
 					<td align="center"><a id='lblMemo_s'> </a></td>
 					<td align="center" style="width: 8%;"><a id='lblPart_s'> </a></td>
 					<td align="center" style="width: 8%;"><a id='lblConn_s'> </a></td>
-					<td align="center" style="width: 10%;" class="isXY"><a id='lblSno_s'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td>
 						<input class="btn" id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 						<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
+					<td class="isXY"><input id="txtSno.*" type="text" class="txt c1 isXY" /></td>
 					<td>
 						<input id="txtUseno.*" type="text" class="txt" style="width:80%;"/>
 						<input type="button" id="btnUseno.*" value="." style="width:1%;">
@@ -569,7 +569,6 @@
 					<td><input id="txtMemo.*" type="text" class="txt c1" /></td>
 					<td><input id="txtPart.*" type="text" class="txt c1" /></td>
 					<td><input id="txtConn.*" type="text" class="txt c1" /></td>
-					<td class="isXY"><input id="txtSno.*" type="text" class="txt c1 isXY" /></td>
 				</tr>
 			</table>
 		</div>
