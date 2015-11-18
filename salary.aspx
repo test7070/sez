@@ -904,7 +904,23 @@
             	$('#lblAddh100s').text('值班時數');
             	$('#lblMoney1s').text('獎金基數');
             	$('#lblMoney2s').text('獎金噸數');
+            	$('.isvu').show();
+            }else{
+            	$('.isvu').hide();
             }
+            
+            $('.dbbs #btnMoney2Copy').click(function() {
+				if(q_cur==1 || q_cur==2){
+                	if(!emp($('#txtMoney2_0').val())){
+	                	for (var i = 1; i < q_bbsCount; i++) {
+	                		if(emp($('#txtMoney2_'+i).val())){
+	                			$('#txtMoney2_'+i).val($('#txtMoney2_0').val());
+	                		}
+	                	}
+                	}
+                }
+			});
+            
         }
 
         function btnIns() {
@@ -1713,8 +1729,13 @@
 				bak.style.top = this.scrollTop+"px";//設定滾動條移動時浮動表頭與div的距離
 			}
 			$('#scrollplus').click(function () {//讓scrollplus按下時執行btnPlus
-	            	$('#btnPlus').click();
-	       		});
+	            $('#btnPlus').click();
+	       	});
+	       	
+	       	//VU用來複製
+	       	$('#box div').not('.dbbs').find('#btnMoney2Copy').click(function() {
+	       		$('.dbbs #btnMoney2Copy').click();
+			});
 		}
     </script>
     <style type="text/css">
@@ -1977,7 +1998,7 @@
                 <td align="center" class="td2 hid_daymoney" style="width: 100px;"><a id='lblDaymoneys'> </a><a id='lblHrmoneys'> </a></td>
                 <td align="center" class="td2 hid_pubmoney" style="width: 100px;"><a id='lblPubmoneys'> </a></td>
                 <td align="center" class="td2 hid_money1" style="width: 100px;"><a id='lblMoney1s'> </a></td>
-                <td align="center" class="td2 hid_money2" style="width: 100px;"><a id='lblMoney2s'> </a></td>
+                <td align="center" class="td2 hid_money2" style="width: 100px;"><a id='lblMoney2s'> </a><input class="btn isvu"  id="btnMoney2Copy" type="button" value='≡' style="font-weight: bold;" /></td>
                 <td align="center" class="td2 hid_bo_admin" style="width: 100px;"><a id='lblBo_admins'> </a></td>
                 <td align="center" class="td2 hid_bo_traffic" style="width: 100px;"><a id='lblBo_traffics'> </a></td>
                 <td align="center" class="td2 hid_bo_special" style="width: 100px;"><a id='lblBo_specials'> </a></td>
@@ -2036,7 +2057,7 @@
                 <td align="center" class="td2" style="width: 150px;"><a id='lblMemo'> </a></td>
             </tr>
             <tr  id="trSel.*">
-                <td ><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;font-size: 16px;float: center;" /></td>
+                <td align="center"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;font-size: 16px;float: center;" /></td>
                 <td ><input id="chkIsmanual.*" type="checkbox"/></td>
                 <td ><input class="txt c1" id="txtSno.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
                 <td ><input class="txt c1" id="txtNamea.*" type="text" /></td>
