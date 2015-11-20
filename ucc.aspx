@@ -370,9 +370,9 @@
 							
 							//1112判斷版別 便品 B  空白 K 公版G 印刷Y 
 							var ucckey='B'; //預設便品
-							if($('#txtStyle').val()=='空白')
+							if($('#txtStyle').val().indexOf('空')>-1)
 								ucckey='K';
-							if($('#txtStyle').val()=='公版')
+							if($('#txtStyle').val().indexOf('公')>-1)
 								ucckey='G';
 							
 							$('#txtNoa').val(ucckey+tmp.substr(0,2)+t_spec.substr(0,4));
@@ -561,7 +561,7 @@
 				
 				if (q_getPara('sys.project').toUpperCase()=='XY'){
 					$('.isXY').show();
-					if($('#txtStyle').val().indexOf('印')>-1)
+					if($('#txtStyle').val().indexOf('印')>-1 || $('#txtStyle').val().indexOf('客')>-1)
 						$('#xy_isprint').prop('checked',true);
 					else
 						$('#xy_isprint').prop('checked',false);
@@ -871,7 +871,7 @@
 						<input type="text" id="txtNoa" class="txt c3"/>
 						<div class="isXY" style="float:left;display: none;">
 							<input id="xy_isprint" type="checkbox" />
-							<span> </span><a> 印刷品</a>
+							<span> </span><a> 印刷、客製</a>
 						</div>
 						<div style="float:left;">
 							<input id="Copy" type="checkbox" />
