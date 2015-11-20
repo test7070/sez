@@ -50,6 +50,10 @@
 
 			function mainPost() {
 				q_getFormat();
+				if (q_getPara('sys.project').toUpperCase()=='VU'){
+					bbsNum = [['txtMoney',10,0,1],['txtBo_admin',10,0,1],['txtBo_traffic',10,0,1],['txtBo_special',10,0,1],['txtBo_oth',10,0,1],['txtBo_full',10,0,1],['txtSalary',10,0,1],['txtMeals',10,0,1],['txtBo_money1',10,2,1]];
+				}
+				
 				bbsMask = [['txtDatea', r_picd]];
 				q_mask(bbsMask);
 				
@@ -166,6 +170,7 @@
 					}
 				}
 				_bbsAssign();
+				$('.vu').hide();
 				if (q_getPara('sys.project').toUpperCase()=='DJ'){
 					$('#lblMoney').text('底薪');
 		            $('#lblBo_admin').text('責任加給');
@@ -179,6 +184,8 @@
 	            	$('#lblBo_special').text('績效獎金');
 	            	$('#lblBo_oth').text('其他津貼');
 	            	$('#lblBo_full').text('全勤獎金');
+	            	$('#lblBo_money1').text('獎金基數');
+	            	$('.vu').show();
 	            }
 			}
 			
@@ -316,6 +323,7 @@
 					<td align="center" class="td1"><a id='lblLevel2'> </a></td>
 					<!--<td align="center" class="td1"><a id='lblLevel3'></a></td>-->
 					<td align="center" class="td3"><a id='lblMoney'> </a></td>
+					<td align="center" class="td3 vu"><a id='lblBo_money1'> </a></td>
 					<td align="center" class="td3"><a id='lblBo_admin'> </a></td>
 					<td align="center" class="td3"><a id='lblBo_traffic'> </a></td>
 					<td align="center" class="td3"><a id='lblBo_special'> </a></td>
@@ -348,6 +356,7 @@
 					<td ><input class="txt c1" id="txtLevel2.*" type="text" /></td>
 					<!--<td ><input class="txt c1" id="txtLevel3.*" type="text" /></td>-->
 					<td ><input class="txt num c1" id="txtMoney.*" type="text" /></td>
+					<td class="vu"><input class="txt num c1" id="txtBo_money1.*" type="text"/></td>
 					<td ><input class="txt num c1" id="txtBo_admin.*" type="text"/></td>
 					<td ><input class="txt num c1" id="txtBo_traffic.*" type="text" /></td>
 					<td ><input class="txt num c1" id="txtBo_special.*" type="text" /></td>
