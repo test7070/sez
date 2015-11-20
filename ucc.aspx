@@ -151,6 +151,10 @@
 							q_gt('ucc', t_where, 0, 0, 0, "MAXUccno", r_accy);
 						}
 					}
+				}).focusin(function() {
+					if(q_cur==1 && q_getPara('sys.project').toUpperCase()=='XY' && $('#xy_isprint').prop('checked')){//印刷品
+						q_msg($(this),'輸入客戶編號');
+					}
 				});
 				
 				$('#txtProduct').change(function(){
@@ -169,10 +173,26 @@
 						return;
 					}
 				});
+				$('#txtStyle').change(function(){
+					if (q_cur==1 && q_getPara('sys.project').toUpperCase()=='XY' && !$('#xy_isprint').prop('checked')){
+						//讀羅馬拼音
+						var t_where = "where=^^ ['"+$('#txtProduct').val() +"')  ^^";
+						q_gt('cust_xy', t_where, 0, 0, 0, "XY_getpy", r_accy);	
+						return;
+					}
+				});
 				
 				$('#btnClose_div_stkcost').click(function() {
 					$('#div_stkcost').toggle();
 					$('#btnStkcost').removeAttr('disabled');
+				});
+				
+				$('#xy_isprint').click(function() {
+					if($('#xy_isprint').prop('checked')){
+						$('#txtStyle').val('印');
+					}else{
+						$('#txtStyle').val('便');
+					}
 				});
 				
 				/*$('#btnTmpuccno_xy').click(function(){
@@ -270,7 +290,7 @@
 						if (as[0] != undefined) {
 							//取得最新流水號
 							var t_noa = trim($('#txtNoa').val());
-							var t_where = "where=^^ left(noa,"+(t_noa.length+1)+")='" + t_noa + "-' ^^";
+							var t_where = "where=^^ left(noa,6)='Y" + t_noa + "'  ^^";
 							q_gt('ucaucc', t_where, 0, 0, 0, "btnOk_xy_checkNoa", r_accy);
 						}else{
 							alert('該客戶編號不存在，請輸入正確的客戶編號!!');
@@ -283,9 +303,9 @@
 							var t_seq=as[(as.length-1)].noa.substr(-3);
 							t_seq=('000'+(dec(t_seq)+1)).substr(-3);
 							
-							$('#txtNoa').val(trim($('#txtNoa').val())+'-'+t_seq);
+							$('#txtNoa').val('Y'+trim($('#txtNoa').val())+t_seq);
 						}else{
-							$('#txtNoa').val(trim($('#txtNoa').val())+'-001');
+							$('#txtNoa').val('Y'+trim($('#txtNoa').val())+'001');
 						}
 						wrServer($('#txtNoa').val());
 						Unlock();
@@ -347,7 +367,15 @@
 							}
 							t_spec=t_spec+'0000';
 							//$('#txtNoa').val('B'+tmp.substr(0,2)+t_spec);
-							$('#txtNoa').val(tmp.substr(0,2)+t_spec.substr(0,4));
+							
+							//1112判斷版別 便品 B  空白 K 公版G 印刷Y 
+							var ucckey='B'; //預設便品
+							if($('#txtStyle').val()=='空白')
+								ucckey='K';
+							if($('#txtStyle').val()=='公版')
+								ucckey='G';
+							
+							$('#txtNoa').val(ucckey+tmp.substr(0,2)+t_spec.substr(0,4));
 						}
 						break;
 					/*case 'XY_newucc_checkNoa':
@@ -533,6 +561,10 @@
 				
 				if (q_getPara('sys.project').toUpperCase()=='XY'){
 					$('.isXY').show();
+					if($('#txtStyle').val().indexOf('印')>-1)
+						$('#xy_isprint').prop('checked',true);
+					else
+						$('#xy_isprint').prop('checked',false);
 				}
 				refreshBbm();
 				$('#txtNoa').focus();
@@ -566,7 +598,7 @@
 						//檢查客戶是否存在
 						var t_where = "where=^^ left(noa,"+(t_noa.length)+")='" + t_noa + "' ^^";
 						q_gt('cust', t_where, 0, 0, 0, "btnOk_xy_checkCust", r_accy);
-					}else{//便品
+					}else{//公版空白便品
 						//取得最新流水號
 						var t_noa = trim($('#txtNoa').val());
 						var t_where = "where=^^ left(noa,"+(t_noa.length)+")='" + t_noa + "' and len(noa)="+(t_noa.length+3)+" ^^";
