@@ -25,13 +25,29 @@
 			function main() {
 				mainSeek();
 				q_gf('', q_name);
+				q_gt('custtype', '', 0, 0, 0, "custtype");
 			}
-
+			
 			function q_gfPost() {
 				q_getFormat();
 				q_langShow();
 
 				$('#txtNoa').focus();
+			}
+			var custtype = '';
+			function q_gtPost (t_name) {
+			 switch (t_name) {
+				case 'custtype':
+					var as = _q_appendData("custtype", "", true);
+					if (as[0] != undefined) {
+						var custtype = "@";
+						for (i = 0; i < as.length; i++) {
+							custtype = custtype + (custtype.length > 0 ? ',' : '') + $.trim(as[i].noa) + '@' + $.trim(as[i].namea);
+						}
+						q_cmbParse("cmbTypea", custtype);
+					}
+					break;
+				}
 			}
 
 			function q_seekStr() {
@@ -45,6 +61,7 @@
 				t_memo = $('#txtMemo').val();
 				t_tel = $('#txtTel').val();
 				t_fax = $('#txtFax').val();
+				t_typea = $('#cmbTypea').val();
 				
 				var t_where = " 1=1 " + q_sqlPara2("serial", t_serial)+ q_sqlPara2("salesno", t_salesno)+ q_sqlPara2("grpno", t_grpno);
 				if (t_noa.length > 0)
@@ -61,6 +78,8 @@
 					t_where += " and (charindex('" + t_tel + "',tel)>0 or charindex('" + t_tel + "',mobile)>0 )";
 				if (t_fax.length > 0)
 					t_where += " and charindex('" + t_fax + "',fax)>0";
+				if (t_typea.length > 0)
+					t_where += " and charindex('" + t_typea + "',typea)>0";	
                     
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
@@ -82,6 +101,10 @@
 					<td class='seek'  style="width:20%;"><a id='lblNoa'> </a></td>
 					<td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
+				 <tr class='seek_tr'>
+                    <td class='seek'  style="width:20%;"><a id='lblTypea'> </a>類別</td>
+                    <td><select id="cmbTypea" style="width:215px; font-size:medium;" > </select></td>
+                </tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblComp'> </a></td>
 					<td><input class="txt" id="txtComp" type="text" style="width:215px; font-size:medium;" /></td>
