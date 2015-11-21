@@ -45,8 +45,7 @@
                             value : q_getMsg('ttitle').split('&')
                         }]
                 });
-                var t_noa=typeof(q_getId()[5])=='undefined'?'':q_getId()[5];
-                t_noa  =  t_noa.replace('noa=','');
+				var t_noa=q_getHref()[1]=='undefined'?'':q_getHref()[1];
                 $('#txtGqbno1').val(t_noa);
                 $('#txtGqbno2').val(t_noa);
                 $('#txtGqbno1').width(120);

@@ -51,7 +51,7 @@
                 
                 q_cmbParse("cmbTypea", q_getPara('vcct.typea'));
                 q_cmbParse("cmbKind", q_getPara('vcct.kind'));
-                q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype')+',D@空白');
+                q_cmbParse("cmbTaxtype", q_getPara('vcca.taxtype')+',D@空白');
                 q_cmbParse("cmbSpecialfood", q_getPara('vcct.specialfood'));
                 q_cmbParse("cmbNotaxnote", q_getPara('vcct.notaxnote'));
                 q_cmbParse("cmbPasstype", q_getPara('vcct.passtype'));
@@ -444,13 +444,13 @@
                 	$('.self').hide();
                 	$('#chkIsself').prop('checked',false);
                 	
-                	if('22,25,26,27'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!=''){ //彙加張數
+                	if('22,25,26,27'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!='' && (q_cur==1 || q_cur==2)){ //彙加張數
                 		$('#txtMount').removeAttr('disabled').css('background','white');
                 	}else{
                 		$('#txtMount').val('').attr('disabled', 'disabled').css('background','RGB(237,237,237)');
                 	}
                 	
-                	if('28,29'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!=''){
+                	if('28,29'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!='' && (q_cur==1 || q_cur==2)){
                 		$('#txtDutymemo').removeAttr('disabled').css('background','white');
                 	}else{
                 		$('#txtDutymemo').val('').attr('disabled', 'disabled').css('background','RGB(237,237,237)');
