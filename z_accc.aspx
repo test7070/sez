@@ -147,6 +147,8 @@
                     else if ((/^(\d{4})$/).test($(this).val())) {
                         $(this).val($(this).val() + '.');
                     }
+                }).focus(function(e){
+                	$('#ui-datepicker-div').hide();//隱藏日期選擇,避免擋到APOP
                 });
                 $('#txtXacc2a').change(function(e) {
                     var patt = /^(\d{4})([^\.,.]*)$/g;
