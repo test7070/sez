@@ -40,7 +40,7 @@
 				case 'custtype':
 					var as = _q_appendData("custtype", "", true);
 					if (as[0] != undefined) {
-						var custtype = "@";
+						var custtype = "@全部";
 						for (i = 0; i < as.length; i++) {
 							custtype = custtype + (custtype.length > 0 ? ',' : '') + $.trim(as[i].noa) + '@' + $.trim(as[i].namea);
 						}
