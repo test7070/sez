@@ -1,5 +1,4 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title> </title>
@@ -10,6 +9,7 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
+			//update date:  2015/11/24
 			var q_name = "cust_s";
 			aPop = new Array(
 				['txtNoa', 'lblNoa', 'cust', 'noa,comp,nick,invoicetitle', 'txtNoa', ''],
@@ -63,7 +63,11 @@
 				t_fax = $('#txtFax').val();
 				t_typea = $('#cmbTypea').val();
 				
-				var t_where = " 1=1 " + q_sqlPara2("serial", t_serial)+ q_sqlPara2("salesno", t_salesno)+ q_sqlPara2("grpno", t_grpno);
+				var t_where = " 1=1 " 
+					+ q_sqlPara2("serial", t_serial)
+					+ q_sqlPara2("salesno", t_salesno)
+					+ q_sqlPara2("grpno", t_grpno);
+					
 				if (t_noa.length > 0)
 					t_where += " and charindex('" + t_noa + "',noa)>0";
 				if (t_comp.length > 0)
