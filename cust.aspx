@@ -14,7 +14,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-		
+			//update date:  2015/11/24
 			var q_name = "cust";
 			var q_readonly = "";
 			var bbmNum = [['txtCredit', 10, 0, 1],['txtProfit', 10, 2, 1]];
