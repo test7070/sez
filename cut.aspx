@@ -21,10 +21,11 @@
 			q_tables = 's';
 			var q_name = "cut";
 			var q_readonly = ['txtNoa', 'txtProductno', 'txtProduct', 'txtSpec', 'txtDime', 'txtWidth', 'txtLengthb', 'txtRadius', 'txtOweight', 'txtEweight', 'txtTotalout', 'txtTheyout', 'txtWorker', 'txtWorker2'];
-			var q_readonlys = [];
+			var q_readonlys = ['txtSprice'];
 			var bbmNum = [['txtPrice', 10, 2, 1],['txtTranmoney',10,0,1],['txtGweight',10,3,1]];
 			var bbsNum = [['textSize1', 10, 3, 1], ['textSize2', 10, 2, 1], ['textSize3', 10, 3, 1], ['textSize4', 10, 2, 1]
-				,['txtTheory',10,3,1],['txtHweight',10,3,1],['txtWeight',10,3,1],['txtDivide',10,0,1]];
+				,['txtTheory',10,3,1],['txtHweight',10,3,1],['txtWeight',10,3,1],['txtDivide',10,0,1]
+				,['txtSprice',10,3,1],['txtWprice',10,3,1]];
 			var bbmMask = [];
 			var bbsMask = [];
 			q_sqlCount = 6;
@@ -676,6 +677,15 @@
 				}
 				_bbsAssign();
 				size_change();
+				
+				if(q_getPara('sys.project').toUpperCase()=='PE'){
+					$('.pe_hide').hide();
+					$('#lblSpec').text('板面');
+					$('#lblSpecs').text('板面');
+					$('.dview').css('width','350px');
+					$('.dbbm').css('width','900px');
+					$('.dbbs').css('width','1700px');
+				}
 			}
 
 			function btnIns() {
@@ -1237,16 +1247,16 @@
 						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
 						<td align="center" style="width:200px; color:black;"><a id='vewUno'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewProduct'> </a></td>
-						<td align="center" style="width:50px; color:black;"><a id='vewDime'> </a></td>
-						<td align="center" style="width:50px; color:black;"><a id='vewEweight'> </a></td>
+						<td align="center" style="width:50px; color:black;" class="pe_hide"><a id='vewDime'> </a></td>
+						<td align="center" style="width:50px; color:black;" class="pe_hide"><a id='vewEweight'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
 						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='uno'>~uno</td>
 						<td align="center" id='product'>~product</td>
-						<td align="right" id='dime'>~dime</td>
-						<td align="right" id='eweight'>~eweight</td>
+						<td align="right" id='dime' class="pe_hide">~dime</td>
+						<td align="right" id='eweight' class="pe_hide">~eweight</td>
 					</tr>
 				</table>
 			</div>
@@ -1266,8 +1276,8 @@
 					<tr>
 						<td><span> </span><a id="lblDatea" class="lbl" > </a></td>
 						<td><input id="txtDatea" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblKind" class="lbl"> </a></td>
-						<td><select id="cmbKind" class="txt c1"> </select></td>
+						<td class="pe_hide"><span> </span><a id="lblKind" class="lbl"> </a></td>
+						<td class="pe_hide"><select id="cmbKind" class="txt c1"> </select></td>
 						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td colspan="3">
 							<input id="txtNoa" type="text" class="txt" style="width:120px;"/>
@@ -1318,8 +1328,8 @@
 						<td><input id="txtOweight" type="text" class="txt num c1" /></td>
 						<td><span> </span><a id="lblEweight" class="lbl"> </a></td>
 						<td><input id="txtEweight" type="text" class="txt num c1" /></td>
-						<td> </td>
-						<td><input id="btnOrdesImport" type="button"/></td>
+						<td class="pe_hide"> </td>
+						<td class="pe_hide"><input id="btnOrdesImport" type="button"/></td>
 						<td><span> </span><a id="lblCuano" class="lbl"> </a></td>
 						<td><input id="txtCuano" type="text" class="txt c1"/></td>
 					</tr>
@@ -1330,8 +1340,8 @@
 						<td><input id="txtGtime" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblGmount" class="lbl"> </a></td>
 						<td><input id="txtGmount" type="text" class="txt num c1" /></td>
-						<td><span> </span><a id="lblSource" class="lbl"> </a></td>
-						<td><input id="txtSource" type="text" class="txt c1" /></td>
+						<td class="pe_hide"><span> </span><a id="lblSource" class="lbl"> </a></td>
+						<td class="pe_hide"><input id="txtSource" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMon" class="lbl"> </a></td>
@@ -1341,8 +1351,8 @@
 						<td colspan="2"><input id="txtTgg" type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblLoss" class="lbl"> </a></td>
-						<td><input id="txtLoss" type="text" class="txt c1 num"/></td>
+						<td class="pe_hide"><span> </span><a id="lblLoss" class="lbl"> </a></td>
+						<td class="pe_hide"><input id="txtLoss" type="text" class="txt c1 num"/></td>
 						<td><span> </span><a id="lblTheyout" class="lbl" > </a></td>
 						<td><input id="txtTheyout" type="text" class="txt num c1" /></td>
 						<td><span> </span><a id="lblTotalout" class="lbl" > </a></td>
@@ -1352,7 +1362,7 @@
 						<td><span> </span><a id="lblMemo" class="lbl" > </a></td>
 						<td colspan='7'><input id="txtMemo" type="text" class="txt c1" /></td>
 					</tr>
-					<tr>
+					<tr class="pe_hide">
 						<td><span> </span><a id="lblCarno"  class="lbl"> </a></td>
 						<td><input id="txtCarno" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblCardeal" class="lbl btn"> </a></td>
@@ -1381,29 +1391,30 @@
 						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:20px;"> </td>
-					<td style="width:150px;" align="center"><a id='lblCustno'> </a><br><a id='lblCustno'> </a></td>
+					<td style="width:150px;" align="center"><a id='lblCustno'> </a></td>
 					<td align="center" style="width:120px;"><a>品號<BR>品名</a></td>
-					<td align="center" style="width:30px;"><a id='lblStyle_st'>型</a></td>
-					<td align="center" style="width:80px;"><a>等級</a></td>
+					<td align="center" style="width:30px;"><a id='lblStyle'> </a></td>
+					<td align="center" style="width:80px;" class="pe_hide"><a id='lblClass'> </a></td>
 					<td align="center" style="width:340px;" id='Size'><a id='lblSize_help'> </a><br><a id='lblSpecs'> </a></td>
-					<td align="center" style="width:240px;"><a id='lblSizea_st'> </a></td>
+					<td align="center" style="width:240px;" class="pe_hide"><a id='lblSizea_st'> </a></td>
 					<td style="width:50px;" align="center"><a id='lblMounts'> </a></td>
-					<td style="width:20px;" align="center"><a id='lblDivide'> </a></td>
+					<td style="width:20px;" align="center"  class="pe_hide"><a id='lblDivide'> </a></td>
 					<td style="width:80px;" align="center"><a id='lblTheory'> </a></td>
-					<td style="width:80px;" align="center"><a id='lblHweight'> </a></td>
+					<td style="width:80px;" align="center"  class="pe_hide"><a id='lblHweight'> </a></td>
 					<td style="width:80px;" align="center"><a id='lblWeight'> </a></td>
+					<td style="width:80px;" align="center"><a id='lblSprice'> </a></td>
+					<td style="width:80px;" align="center"><a id='lblWprice'> </a></td>
 					<td style="width:50px;" align="center"><a id='lblWaste'> </a></td>
 					<td style="width:180px;" align="center"><a id='lblBno'> </a></td>
-					<td style="width:50px;" align="center">入庫<br>倉庫</td>
+					<td style="width:80px;" align="center"><a id='lblStoreno'> </a></td>
 					<td style="width:150px;" align="center"><a id='lblMemos'> </a></td>
 					<td style="width:50px;" align="center" ><a id='lbltime'> </a></td>
-					<td style="width:50px;" align="center">加工<br>單價</td>
 					<td style="width:80px;" align="center"><a id='lblMweight'> </a></td>
-					<td style="width:120px;" align="center"><a id='lblOrdenos'> </a></td>
-					<td style="width:30px;" align="center" ><a id='lblNo2'> </a></td>
-					<td style="width:50px;" align="center" ><a id='lblSpecial'> </a></td>
-					<td style="width:50px;" align="center" ><a id='lblCname'> </a></td>
-					<td style="width:60px;" align="center" ><a id='lblSource'>鋼廠 </a></td>
+					<td style="width:120px;" align="center" class="pe_hide"><a id='lblOrdenos'> </a></td>
+					<td style="width:30px;" align="center" class="pe_hide"><a id='lblNo2'> </a></td>
+					<td style="width:50px;" align="center" class="pe_hide"><a id='lblSpecial'> </a></td>
+					<td style="width:50px;" align="center"><a id='lblCname'> </a></td>
+					<td style="width:60px;" align="center" class="pe_hide"><a id='lblSources'>鋼廠 </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td style="width:1%;">
@@ -1424,7 +1435,7 @@
 					<td><input type="text" id="txtStyle.*" style="width:95%;text-align:center;" />
 						<input id="btnStyle.*" type="button" style="display:none;" value="."/>
 					</td>
-					<td><input id="txtClass.*" type="text" style='width: 95%;'/></td>
+					<td class="pe_hide"><input id="txtClass.*" type="text" style='width: 95%;'/></td>
 					<td>
 						<input class="txt num" id="textSize1.*" type="text" style="float: left;width:55px;" disabled="disabled"/>
 						<div id="x1.*" style="float: left;display:block;width:20px;padding-top: 4px;" >x</div>
@@ -1440,12 +1451,14 @@
 						<input id="txtLengthb.*" type="text" style="display:none;"/>
 						<input id="txtSpec.*" type="text" style="float:left;"/>
 					</td>
-					<td><input class="txt " id="txtSize.*" type="text" style="width:95%;"/></td>
+					<td class="pe_hide"><input class="txt " id="txtSize.*" type="text" style="width:95%;"/></td>
 					<td><input id="txtMount.*" type="text" class="txt c2 num"/></td>
-					<td><input id="txtDivide.*" type="text" class="txt c2 num"/></td>
+					<td class="pe_hide"><input id="txtDivide.*" type="text" class="txt c2 num"/></td>
 					<td><input id="txtTheory.*" type="text" class="txt c2 num"/></td>
-					<td><input id="txtHweight.*" type="text" class="txt c2 num"/></td>
+					<td class="pe_hide"><input id="txtHweight.*" type="text" class="txt c2 num"/></td>
 					<td><input id="txtWeight.*" type="text"  class="txt c2 num"/></td>
+					<td><input id="txtSprice.*" type="text"  class="txt c2 num"/></td>
+					<td><input id="txtWprice.*" type="text" class="txt c2 num"/></td>
 					<td><input id="txtWaste.*" type="text" class="txt c2"/></td>
 					<td><input id="txtBno.*" type="text" class="txt c2"/></td>
 					<td>
@@ -1456,13 +1469,12 @@
 					<td><input id="txtMemo.*" type="text" class="txt c2"/></td>
 					<td><input id="txtTime.*" type="text" class="txt c2"/></td>
 					
-					<td><input id="txtWprice.*" type="text" class="txt c2 num"/></td>
 					<td><input id="txtMweight.*" type="text" class="txt c2 num"/></td>
-					<td><input id="txtOrdeno.*" type="text" class="txt c2"/></td>
-					<td><input id="txtNo2.*" type="text" class="txt c2"/></td>
-					<td><input id="txtSpecial.*" type="text" class="txt c2"/></td>
+					<td  class="pe_hide"><input id="txtOrdeno.*" type="text" class="txt c2"/></td>
+					<td  class="pe_hide"><input id="txtNo2.*" type="text" class="txt c2"/></td>
+					<td  class="pe_hide"><input id="txtSpecial.*" type="text" class="txt c2"/></td>
 					<td><input id="txtCname.*" type="text" class="txt c2"/></td>
-					<td><input id="txtSource.*" type="text" class="txt c2"/></td>
+					<td class="pe_hide"><input id="txtSource.*" type="text" class="txt c2"/></td>
 				</tr>
 			</table>
 		</div>

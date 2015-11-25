@@ -65,7 +65,7 @@
 				$('#checkAllCheckbox').click(function(){
 					$('input[type=checkbox][id^=chkSel]').each(function(){
 						var t_id = $(this).attr('id').split('_')[1];
-						if(!emp($('#txtOrdeno_' + t_id).val()))
+						if(!emp($('#txtOrdeno_' + t_id).val()) || q_getPara('sys.project').toUpperCase()=='PE')
 							$(this).attr('checked',$('#checkAllCheckbox').is(':checked'));
 					});
 				});
@@ -184,6 +184,10 @@
 						$('#txtRadius_' + j).val(0);
 					}
 				}
+				if(q_getPara('sys.project').toUpperCase()=='PE'){
+					$('.pe_hide').hide();
+				}
+				
 			}
 	</script>
 	<style type="text/css">
@@ -214,71 +218,69 @@
 						<td align="center" style="width:1%;">
 							<input type="checkbox" id="checkAllCheckbox"/>
 						</td>
-						<td align="center"><a id='lblUno'></a></td>
-						<td align="center" style="width:18%;"><a id='lblOrdeno'></a></td>
-						<td align="center" style="width:10%;"><a id='lblCustno'></a></td>
-						<td align="center" style="width:8%;"><a id='lblProductno'></a></td>
-						<td align="center" id="sizeTd" ><a id='lblSizea'></a></td>
-						<td align="center" style="width:6%;"><a id='lblMount'></a></td>
-						<td align="center" style="width:8%;"><a id='lblWeight'></a></td>
-						<td align="center" style="width:6%;"><a id='lblPrice'></a></td>
+						<td align="center"><a id='lblUno'> </a></td>
+						<td align="center" style="width:150px;" class="pe_hide"><a id='lblOrdeno'> </a></td>
+						<td align="center" style="width:100px;"><a id='lblCustno'> </a></td>
+						<td align="center" style="width:80px;"><a id='lblProductno'> </a></td>
+						<td align="center" id="sizeTd" ><a id='lblSizea'> </a></td>
+						<td align="center" style="width:60px;"><a id='lblMount'> </a></td>
+						<td align="center" style="width:80px;"><a id='lblWeight'> </a></td>
+						<td align="center" style="width:60px;"><a id='lblPrice'> </a></td>
 					</tr>
 			</table>
 		</div>
 		<div  id="dbbs" style="overflow: scroll;height:550px;">
 				<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
 					<tr style='color:White; background:#003366;display:none;' >
-						<td align="center">
-							<input type="checkbox" id="checkAllCheckbox"/>
-						</td>
-						<td align="center"><a id='lblUno'></a></td>
-						<td align="center"><a id='lblOrdeno'></a></td>
-						<td align="center"><a id='lblCustno'></a></td>
-						<td align="center"><a id='lblProductno'></a></td>
-						<td align="center"><a id='lblSizea'></a></td>
-						<td align="center"><a id='lblMount'></a></td>
-						<td align="center"><a id='lblWeight'></a></td>
-						<td align="center"><a id='lblPrice'></a></td>
+						<td align="center"><input type="checkbox" id="checkAllCheckbox"/> </td>
+						<td align="center"><a id='lblUno'> </a></td>
+						<td align="center"  class="pe_hide"><a id='lblOrdeno'> </a></td>
+						<td align="center"><a id='lblCustno'> </a></td>
+						<td align="center"><a id='lblProductno'> </a></td>
+						<td align="center"><a id='lblSizea'> </a></td>
+						<td align="center"><a id='lblMount'> </a></td>
+						<td align="center"><a id='lblWeight'> </a></td>
+						<td align="center"><a id='lblPrice'> </a></td>
 					</tr>
 					<tr  style='background:#cad3ff;'>
 						<td style="width:1%;" align="center"><input id="chkSel.*" type="checkbox"/></td>
 						<td><input class="txt c1" id="txtUno.*" type="text"/></td>
-						<td style="width:18%;">
+						<td style="width:150px;"  class="pe_hide">
 							<input class="txt" id="txtOrdeno.*" type="text" style="width:65%;"/>
 							<input class="txt" id="txtNo2.*" type="text" style="width:25%;"/>
 						</td>
-						<td style="width:10%;">
+						<td style="width:100px;">
 							<input class="txt c1" id="txtCustno.*" type="text"/>
 							<input class="txt c1" id="txtComp.*" type="text"/>
 						</td>
-						<td style="width:8%;">
+						<td style="width:80px;">
 							<input class="txt c1" id="txtProductno.*" type="text"/>
 							<input class="txt c1" id="txtProduct.*" type="text"/>
 						</td>
-					<td id="sizeTd">
-						<input class="txt num" id="textSize1.*" type="text" style="float: left;width:55px;" disabled="disabled"/>
-						<div id="x1.*" style="float: left;display:block;width:20px;padding-top: 4px;" >
-							x
-						</div>
-						<input class="txt num" id="textSize2.*" type="text" style="float: left;width:55px;"  disabled="disabled"/>
-						<div id="x2.*" style="float: left;display:block;width:20px;padding-top: 4px;">
-							x
-						</div>
-						<input class="txt num" id="textSize3.*" type="text" style="float: left;width:55px;" disabled="disabled"/>
-						<div id="x3.*" style="float: left;display:block;width:20px;padding-top: 4px;">
-							x
-						</div>
-						<input class="txt num" id="textSize4.*" type="text"  style="float: left;width:55px;" disabled="disabled"/>
-						<!--上為虛擬下為實際-->
-						<input id="txtRadius.*" type="text" style="display:none;"/>
-						<input id="txtWidth.*" type="text" style="display:none;"/>
-						<input id="txtDime.*" type="text" style="display:none;"/>
-						<input id="txtLengthb.*" type="text" style="display:none;"/>
-						<input id="txtSpec.*" type="text" style="float:left;"/>
-					</td>
-						<td style="width:6%;"><input class="txt" id="txtMount.*" type="text" style="width:94%; text-align:right;"/></td>
-						<td style="width:8%;"><input class="txt" id="txtWeight.*" type="text" style="width:96%; text-align:right;"/></td>
-						<td style="width:6%;"><input class="txt" id="txtPrice.*" type="text" style="width:96%; text-align:right;"/></td>
+						<td id="sizeTd">
+							<input class="txt num" id="textSize1.*" type="text" style="float: left;width:55px;" disabled="disabled"/>
+							<div id="x1.*" style="float: left;display:block;width:20px;padding-top: 4px;" >
+								x
+							</div>
+							<input class="txt num" id="textSize2.*" type="text" style="float: left;width:55px;"  disabled="disabled"/>
+							<div id="x2.*" style="float: left;display:block;width:20px;padding-top: 4px;">
+								x
+							</div>
+							<input class="txt num" id="textSize3.*" type="text" style="float: left;width:55px;" disabled="disabled"/>
+							<div id="x3.*" style="float: left;display:block;width:20px;padding-top: 4px;">
+								x
+							</div>
+							<input class="txt num" id="textSize4.*" type="text"  style="float: left;width:55px;" disabled="disabled"/>
+							<!--上為虛擬下為實際-->
+							<input id="txtRadius.*" type="text" style="display:none;"/>
+							<input id="txtWidth.*" type="text" style="display:none;"/>
+							<input id="txtDime.*" type="text" style="display:none;"/>
+							<input id="txtLengthb.*" type="text" style="display:none;"/>
+							<input id="txtSpec.*" type="text" style="float:left;"/>
+						</td>
+						<td style="width:60px;"><input class="txt" id="txtMount.*" type="text" style="width:94%; text-align:right;"/></td>
+						<td style="width:80px;"><input class="txt" id="txtWeight.*" type="text" style="width:96%; text-align:right;"/></td>
+						<td style="width:60px;"><input class="txt" id="txtPrice.*" type="text" style="width:96%; text-align:right;"/></td>
 					</tr>
 				</table>
 		 </div>
