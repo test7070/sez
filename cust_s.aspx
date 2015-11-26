@@ -61,7 +61,7 @@
 				t_memo = $('#txtMemo').val();
 				t_tel = $('#txtTel').val();
 				t_fax = $('#txtFax').val();
-				t_typea = $('#cmbTypea').val();
+				t_typea = document.getElementById('cmbTypea').value;
 				
 				var t_where = " 1=1 " + q_sqlPara2("serial", t_serial)+ q_sqlPara2("salesno", t_salesno)+ q_sqlPara2("grpno", t_grpno);
 				if (t_noa.length > 0)
