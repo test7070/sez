@@ -719,6 +719,8 @@
 				$('#txtNoa').val('AUTO');
 				$('#txtDatea').val(q_date());
 				$('#txtDatea').focus();
+				if(q_getPara('sys.project').toUpperCase()=='PE')
+					$('#cmbKind').val('A1');
 			}
 
 			function btnModi() {
