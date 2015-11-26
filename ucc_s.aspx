@@ -35,11 +35,17 @@
 		    }
 		
 		    function q_seekStr() {   
-		        t_noa = $('#txtNoa').val();  
-				t_product = $('#txtProduct').val();
+		        var t_noa = $('#txtNoa').val();  
+				var t_product = $('#txtProduct').val();
+				var t_spec = $('#txtSpec').val();
 		
-		        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +q_sqlPara2("product", t_product);
-		
+		        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) ;
+		    	if(t_product.length>0)
+		    		t_where=t_where+" and charindex('"+t_product+"',product)>0 ";
+		    	if(t_spec.length>0)
+		    		t_where=t_where+" and charindex('"+t_spec+"',spec)>0 ";
+		    	    
+			
 		        t_where = ' where=^^' + t_where + '^^ ';
 		        return t_where;
 		    }
@@ -71,12 +77,16 @@
 <div style='width:400px; text-align:center;padding:15px;' >
        <table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
             <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
+                <td class='seek'  style="width:20%;"><a id='lblNoa'> </a></td>
                 <td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
              <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblItem'></a></td>
+                <td class='seek'  style="width:20%;"><a id='lblProduct'> </a></td>
                 <td><input class="txt" id="txtProduct" type="text" style="width:215px; font-size:medium;" /></td>
+             </tr>
+             <tr class='seek_tr'>
+                <td class='seek'  style="width:20%;"><a id='lblSpec'> </a></td>
+                <td><input class="txt" id="txtSpec" type="text" style="width:215px; font-size:medium;" /></td>
              </tr>
              <tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblTypea'> </a></td>
