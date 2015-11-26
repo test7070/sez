@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			var q_name = 'vcce_import', t_bbsTag = 'tbbs', t_content = " field=uno,ordeno,no2,productno,product,radius,width,dime,lengthb,spec,mount,weight,price,custno,comp,style,size", afilter = [], bbsKey = ['ordeno'],  as; //, t_where = '';
+			var q_name = 'vcce_import', t_bbsTag = 'tbbs', t_content = " field=uno,ordeno,no2,productno,product,radius,width,dime,lengthb,spec,mount,weight,price,custno,comp,style,size,sprice", afilter = [], bbsKey = ['ordeno'],  as; //, t_where = '';
 			var t_sqlname = 'vcce_import'; t_postname = q_name;
 			brwCount2 = 0;
 			brwCount = -1;
@@ -280,7 +280,10 @@
 						</td>
 						<td style="width:60px;"><input class="txt" id="txtMount.*" type="text" style="width:94%; text-align:right;"/></td>
 						<td style="width:80px;"><input class="txt" id="txtWeight.*" type="text" style="width:96%; text-align:right;"/></td>
-						<td style="width:60px;"><input class="txt" id="txtPrice.*" type="text" style="width:96%; text-align:right;"/></td>
+						<td style="width:60px;">
+							<input class="txt" id="txtPrice.*" type="text" style="width:96%; text-align:right;"/>
+							<input class="txt" id="txtSprice.*" type="text" style="width:96%; text-align:right;display: none;"/>
+						</td>
 					</tr>
 				</table>
 		 </div>
