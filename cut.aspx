@@ -705,8 +705,8 @@
 				
 				if(q_getPara('sys.project').toUpperCase()=='PE'){
 					$('.pe_hide').hide();
-					$('#lblSpec').text('板面');
-					$('#lblSpecs').text('板面');
+					$('#lblSpec').text('規格');
+					$('#lblSpecs').text('規格');
 					$('.dview').css('width','350px');
 					$('.dbbm').css('width','900px');
 					$('.dbbs').css('width','1700px');
