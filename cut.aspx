@@ -233,17 +233,6 @@
                         	getUno();
                         }
                     	break;
-                    case 'btnOk_getSprice':
-                    	var as = _q_appendData("view_uccb", "", true);
-                    	if (as[0] != undefined) {
-                    		getunosprice=true;
-                    		uno_sprice=dec(as[0].sprice);
-                    		btnOk();
-                    	}else{
-                        	alert($('#txtUno').val()+'批號不存在!!');
-                            Unlock(1);
-                        }
-                    	break;
 					case 'view_ordes':
 						ordes = _q_appendData("view_ordes", "", true);
 						if (ordes[0] == undefined)
@@ -487,23 +476,10 @@
 				return t_err;
 			}
 			
-			var getunosprice=false,uno_sprice=0;
 			function btnOk() {
 				Lock(1, {
 					opacity : 0
 				});
-				
-				if(!emp($('#txtUno').val())){
-					if(!getunosprice){
-						var t_where = "uno='"+$('#txtUno').val()+"' ";
-						q_gt('view_uccb', "where=^^"+t_where+"^^", 0, 0, 0, 'btnOk_getSprice');
-					}else{
-						for(var i=0;i<q_bbsCount;i++){
-							$('#txtSprice_'+i).val(uno_sprice);
-						}
-						getunosprice=false;
-					}
-				}
 				
 				if($('#combType2').is(":visible")){
 					$('#txtType2').val($('#combType2').val());
