@@ -15,6 +15,14 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
+		
+			aPop = new Array(
+				['txtBstoreno','','store','noa,store','txtBstoreno,txtBstore','store_b.aspx'],
+				['txtEstoreno','','store','noa,store','txtEstoreno,txtEstore','store_b.aspx'],
+				['txtBproductno','','ucaucc','noa,product','txtBproductno,txtBproduct','ucaucc_b.aspx'],
+				['txtEproductno','','ucaucc','noa,product','txtEproductno,txtEproduct','ucaucc_b.aspx']
+			);
+			
 			$(document).ready(function() {
 				_q_boxClose();
 				q_getId();
@@ -140,13 +148,13 @@
                   	if(confirm('匯入過程需要等待幾分鐘確定要執行?')){
         				if(type=='製成品'){
         					Lock(1);
-        					q_func( 'qtxt.query.stkucc','stkucc.txt,stkucc,' + $('#txtExportDate').val()+ ';');
+        					q_func( 'qtxt.query.stkucc','stkucc.txt,stkucc,' + $('#txtExportDate').val()+ ';'+ $('#txtBstoreno').val()+ ';'+ $('#txtEstoreno').val()+ ';'+ $('#txtBproductno').val()+ ';'+ $('#txtEproductno').val()+ ';');
         				}else if(type=='原料'){
         					Lock(1);   
-        					q_func( 'qtxt.query.stkuca' ,'stkucc.txt,stkuca,' + $('#txtExportDate').val()+ ';');     				
+        					q_func( 'qtxt.query.stkuca' ,'stkucc.txt,stkuca,' + $('#txtExportDate').val()+ ';'+ $('#txtBstoreno').val()+ ';'+ $('#txtEstoreno').val()+ ';'+ $('#txtBproductno').val()+ ';'+ $('#txtEproductno').val()+ ';');     				
         				}else if(type=='全部'){
         					Lock(1);      			
- 	     					q_func( 'qtxt.query.stkallucc' ,'stkucc.txt,stkucc,' + $('#txtExportDate').val()+ ';');
+ 	     					q_func( 'qtxt.query.stkallucc' ,'stkucc.txt,stkucc,' + $('#txtExportDate').val()+ ';'+ $('#txtBstoreno').val()+ ';'+ $('#txtEstoreno').val()+ ';'+ $('#txtBproductno').val()+ ';'+ $('#txtEproductno').val()+ ';');
         				
         				} 
         			}
@@ -232,20 +240,41 @@
 				<!--#include file="../inc/print_ctrl.inc"-->
 			</div>
 		</div>
-		<div id="divExport" style="display:none;position:absolute;top:200px;left:450px;width:200px;height:120px;background:RGB(237,237,237);">
+		<div id="divExport" style="display:none;position:absolute;top:200px;left:400px;width:400px;height:150px;background:RGB(237,237,237);">
             <table style="border:3px solid gray; width:100%; height: 100%;">              
                 <tr>
-                	
-                    <td colspan="4" align="center" style="background-color: pink;">
+                    <td colspan="4" align="left" style="background-color: pink;">
                     	<label style="width:30%;" >日期</label>
-                    	<input type="text" id="txtExportDate" style="width:70%;" />
+                    	<input type="text" id="txtExportDate" style="width:83%;" />
                     </td>
                 </tr>
                 <tr>
-                    <td align="center" colspan="4" style="padding: 2px;text-align: center;border-width: 0px;background-color: pink;">
-                         <select type="text" id="cmbType" style="float:left;width:100%;"/select>
+                    <td align="center" colspan="4" style="padding: 2px;text-align: center;border-width: 0px;background-color: pink;">                   
+                         <select type="text" id="cmbType" style="float:center;width:50%;"/select>
                     </td>
                 </tr>
+                <tr>
+					<td colspan="4" align="left" style="background-color: pink;">
+                    	<label style="width:25%;" >倉庫</label>
+                    	<input type="text" id="txtBstoreno" style="width:20%;"/>
+                    	<input type="text" id="txtBstore" style="width:20%;" disabled="disabled"/>
+                    	<label style="width:10%;" >~</label>
+                    	<input type="text" id="txtEstoreno" style="width:20%;" />
+                    	<input type="text" id="txtEstore" style="width:20%;" disabled="disabled"/>
+                    </td>
+					
+				</tr>
+				<tr>
+					<td colspan="4" align="left" style="background-color: pink;">
+                    	<label style="width:25%;" >產品</label>
+                    	<input type="text" id="txtBproductno" style="width:20%;"/>
+                    	<input type="text" id="txtBproduct" style="width:20%;" disabled="disabled"/>
+                    	<label style="width:10%;" >~</label>
+                    	<input type="text" id="txtEproductno" style="width:20%;" />
+                    	<input type="text" id="txtEproduct" style="width:20%;" disabled="disabled"/>
+                    </td>
+					
+				</tr>
                 <tr>
                     <td colspan="2" align="center" style="background-color: pink;">
                     <input type="button" id="btnExport" style="width:70%;" value="匯入" />
