@@ -272,7 +272,7 @@
                 } else {
                     $('#txtNoa').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
                 }
-                if(q_getPara('sys.project').toUpperCase()=='RB' && $('#cmbTypea').val()=='1' ){
+                if(q_getPara('sys.project').toUpperCase()=='RB' && $('#cmbTypea').val()=='2' ){
 					$('.rb').show();
 					$('#lblSono').text('銷貨單號');
 				}else{
@@ -429,7 +429,7 @@
                 if($('#cmbTypea').val()=='1'){
                 	$('.typea1').show();
                 	if(q_getPara('sys.project').toUpperCase()=='RB'){
-                		$('.rb').show();
+                		$('.rb').hide();
                 		$('.rbnobook').show();
                 	}
                 	$('.typea2').hide();
@@ -463,7 +463,7 @@
 	                	$('.typea2').hide();
 	                	$('.typea1').show();
 	                	$('.rbnobook').hide();
-	                	$('.rb').hide();
+	                	$('.rb').show();
 	                }else{
                 		$('.typea2').show();
                 	}
