@@ -212,7 +212,7 @@
                         Unlock(1);
                         break;
                     case 'qtxt.query.stkallucc':
-                    	 q_func( 'qtxt.query.stkalluca' ,'stkucc.txt,stkuca,'); 
+                    	 q_func( 'qtxt.query.stkalluca' ,'stkucc.txt,stkuca,'+ $('#txtExportDate').val()+ ';'+ $('#txtBstoreno').val()+ ';'+ $('#txtEstoreno').val()+ ';'+ $('#txtBproductno').val()+ ';'+ $('#txtEproductno').val()+ ';'); 
                         break;
                     case 'qtxt.query.stkalluca':
 						alert('全部匯入完成。');
