@@ -324,6 +324,9 @@
                 		
                 		var t_comp = q_getPara('sys.comp').substring(0,2);
                 		for(var i=0;i<q_bbsCount;i++){
+                			//將沖帳金額歸零 不然 未付金額欄位會有問題
+                			$('#txtPaysale_'+i).val('');
+                			
                 			if($('#txtTablea_'+i).val()=='vcc' && t_comp == "裕承"){
                 				$('#txtTablea_'+i).val('vccst');
                 			}
