@@ -39,6 +39,12 @@
 						dbf : 'ucaucc',
 						index : 'noa,product',
 						src : 'ucaucc_b.aspx'
+					},{
+						type : '6',
+						name : 'xordeno',
+					},{
+						type : '6',
+						name : 'xno2',
 					}]
                 });
                 q_popAssign();
@@ -57,6 +63,13 @@
                 	$('#txtProduct1b').val(q_getHref()[7]);
                 	$('#txtProduct2b').val(q_getHref()[7]);
                 }
+                if(q_getHref()[9]!=undefined){
+                	$('#txtXordeno').val(q_getHref()[9]);
+                }
+                if(q_getHref()[11]!=undefined){
+                	$('#txtXno2').val(q_getHref()[11]);
+                }
+                
 				if(!emp($.trim($('#txtCust1a').val())) || !emp($.trim($('#txtCust2a').val())) || !emp($.trim($('#txtProduct1a').val())) || !emp($.trim($('#txtProduct2a').val()))){
 					$('#btnOk').click();
 				}
