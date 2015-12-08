@@ -48,13 +48,13 @@
 			tre.prototype = {
 				isLoad: false,
 				carchgno : new  Array()
-			}
+			};
             
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
             });
             function main() {
                 if(dataErr) {
@@ -94,12 +94,22 @@
 				});
                 $('#btnTrans').click(function(e) {
                 	if(q_cur != 1 && q_cur != 2){
+                		//整批匯入
                 		if(r_accy.substring(0,3)!=$('#txtDate2').val().substring(0,3)){
 		            		alert(q_getMsg('lblDate2')+'年度異常!');
 		            		return;
 		            	}
 						Lock(1,{opacity:0});
 	                	q_func('tre.import',r_accy+','+$('#cmbCarteamno').val()+','+$('#txtBdate').val()+','+$('#txtEdate').val()+','+$('#txtDate2').val()+','+r_name);
+                	}else{
+                		//單筆匯入
+                		var t_noa = $.trim($('#txtNoa').val());
+						var t_carteamno = $.trim($('#cmbCarteamno').val());
+						var t_bdate = $.trim($('#txtNoa').val());
+						var t_edate = $.trim($('#txtNoa').val());
+						var t_carno = $.trim($('#txtNoa').val());
+						var t_driverno = $.trim($('#txtNoa').val());
+                		q_func( 'barfe.gen2', $('#txtNoa').val()+',workjt,'+t_noq+','+$('#combPrint').val()); 
                 	}
                 });
                 $("#btnCarchg").click(function(e) {
