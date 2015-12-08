@@ -48,13 +48,13 @@
 			tre.prototype = {
 				isLoad: false,
 				carchgno : new  Array()
-			}
+			};
             
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
             });
             function main() {
                 if(dataErr) {
@@ -94,12 +94,34 @@
 				});
                 $('#btnTrans').click(function(e) {
                 	if(q_cur != 1 && q_cur != 2){
+                		//整批匯入
                 		if(r_accy.substring(0,3)!=$('#txtDate2').val().substring(0,3)){
 		            		alert(q_getMsg('lblDate2')+'年度異常!');
 		            		return;
 		            	}
 						Lock(1,{opacity:0});
 	                	q_func('tre.import',r_accy+','+$('#cmbCarteamno').val()+','+$('#txtBdate').val()+','+$('#txtEdate').val()+','+$('#txtDate2').val()+','+r_name);
+                	}else{
+                		//單筆匯入
+                		var t_noa = $.trim($('#txtNoa').val());
+						var t_carteamno = $.trim($('#cmbCarteamno').val());
+						var t_bdate = $.trim($('#txtBdate').val());
+						var t_edate = $.trim($('#txtEdate').val());
+						var t_carno = $.trim($('#txtCarno').val());
+						var t_driverno = $.trim($('#txtDriverno').val());
+						
+						if(t_carteamno.length==0){
+							alert('請選擇車隊!');
+							return;
+						}else if(t_carno.length==0){
+							alert('請輸入車牌!');
+							return;
+						}if(t_driverno.length==0){
+							alert('請輸入司機!');
+							return;
+						}
+                		q_func('qtxt.query.tre_dc', 'tre.txt,tre_dc,' + encodeURI(t_noa) + ';' + encodeURI(t_carteamno)
+                			+ ';' + encodeURI(t_bdate)+ ';' + encodeURI(t_edate)+ ';' + encodeURI(t_carno)+ ';' + encodeURI(t_driverno)); 	
                 	}
                 });
                 $("#btnCarchg").click(function(e) {
@@ -117,6 +139,16 @@
             
             function q_funcPost(t_func, result) {
                 switch(t_func) {
+            		case 'qtxt.query.tre_dc':
+            			var as = _q_appendData("tmp0", "", true, true);
+                        if (as[0] != undefined) {
+                            q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtComp,txtStraddr,txtProduct,txtMount,txtPrice,txtDiscount,txtMoney,txtTranno,txtTrannoq,txtCasetype,txtCaseno,txtCaseno2,txtOrdeno'
+                        	, as.length, as, 'trandate,nick,straddr,product,mount2,price3,discount,total2,noa,noq,casetype,caseno,caseno2,ordeno', '','');
+                        	sum();
+                        } else {
+                            alert('無資料!');
+                        }
+            			break;
                     case 'tre.import':
 						if(result.length==0){
 							alert('No data!');
@@ -235,8 +267,18 @@
             }
 
             function bbsAssign() {
-                for(var ix = 0; ix < q_bbsCount; ix++) {
-                	$('#lblNo_'+ix).text(ix+1);	
+                for(var i = 0; i < q_bbsCount; i++) {
+                	$('#lblNo_'+i).text(i+1);	
+                	if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+                    	$('#txtTranno_' + i).bind('contextmenu', function(e) {
+                            /*滑鼠右鍵*/
+                            e.preventDefault();
+                            var n = $(this).attr('id').replace('txtTranno_', '');
+                            var noa = $.trim($('#txtTranno_'+n).val());
+			            	if(noa.length>0)
+			            		q_box("trans.aspx?;;;noa='" + noa + "';"+r_accy, 'trans', "95%", "95%", q_getMsg("popTarans"));
+                        });
+                   	}
                 }
                 _bbsAssign();
             }
@@ -308,12 +350,12 @@
                 if(q_cur == 1 || q_cur == 2) {
                 	$('#lblDate2').hide();
                 	$('#txtDate2').hide();
-                	$('#btnTrans').hide();
+                	//$('#btnTrans').hide();
                 	$('#btnCarchg').removeAttr('disabled');
                 }else{
                 	$('#lblDate2').show();
                 	$('#txtDate2').show();
-                	$('#btnTrans').show();
+                	//$('#btnTrans').show();
                 	$('#btnCarchg').attr('disabled', 'disabled');
                 }
                 $('#txtDate2').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
@@ -698,7 +740,7 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:100px;">登錄日期</td>
+					<td align="center" style="width:100px;">交運日期</td>
 					<td align="center" style="width:80px;"><a id='lblCustno_s'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblStraddr_s'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblProduct_s'> </a></td>
