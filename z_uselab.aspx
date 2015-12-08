@@ -46,7 +46,11 @@
 						dbf : 'tgg',
 						index : 'noa,comp',
 						src : 'tgg_b.aspx'
-					}]
+					}, {/*[9]*/
+                        type : '5',
+                        name : 'typea',
+                        value : 'comp@公司,fact@工廠,invo@發票,home@通信'.split(',')
+                    }]
 				});
 				q_popAssign();
 				q_getFormat();
