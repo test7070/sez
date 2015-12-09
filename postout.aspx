@@ -209,7 +209,15 @@
 	        }).blur(function () {
 				q_msg();
 	        });
+	        
+	        $('#lblCustno2').click(function(e) {
+				q_box("cust_b2.aspx", 'cust2', "500px", "95%", q_getMsg("popCust"));
+			});
+			$('#lblTggno2').click(function(e) {
+				q_box("tgg_b2.aspx", 'tgg2', "500px", "95%", q_getMsg("popTgg"));
+			});
         }
+        
         function txtCopy(dest, source) {
             var adest = dest.split(',');
             var asource = source.split(',');
@@ -231,11 +239,42 @@
         
         function q_boxClose( s2) {
             var ret; 
-            switch (b_pop) {                   
+            switch (b_pop) {
+            	case 'cust2':
+            		ret = getb_ret();
+					if (q_cur > 0 && q_cur < 4) {
+						if (ret[0] != undefined) {
+							for (var i = 0; i < ret.length; i++) {
+								if ($('#txtCustno2').val().length > 0) {
+									var temp = $('#txtCustno2').val();
+									$('#txtCustno2').val(temp + ',' + ret[i].noa);
+								} else {
+									$('#txtCustno2').val(ret[i].noa);
+								}
+							}
+						}
+					}
+            		break;
+            	case 'tgg2':
+            		ret = getb_ret();
+					if (q_cur > 0 && q_cur < 4) {
+						if (ret[0] != undefined) {
+							for (var i = 0; i < ret.length; i++) {
+								if ($('#txtTggno2').val().length > 0) {
+									var temp = $('#txtTggno2').val();
+									$('#txtTggno2').val(temp + ',' + ret[i].noa);
+								} else {
+									$('#txtTggno2').val(ret[i].noa);
+								}
+							}
+						}
+					}
+            		break;
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
             }   /// end Switch
+            b_pop='';
         }
 		
 		var ischecker=false;
@@ -352,7 +391,6 @@
                 q_gtnoa(q_name, replaceAll('P' + $('#txtDatea').val(), '/', ''));
             else
                 wrServer(s1);
-
         }
 
         function wrServer( key_value) {
@@ -373,11 +411,10 @@
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
             if (t_para) {
-		            $('#btnCheck').attr('disabled', 'disabled');
-		        }
-		        else {
-		        	$('#btnCheck').removeAttr('disabled');
-		        }
+				$('#btnCheck').attr('disabled', 'disabled');
+			}else{
+				$('#btnCheck').removeAttr('disabled');
+			}
         }
 
         function btnMinus(id) {
@@ -582,7 +619,7 @@
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
           <tr class="tr1">
           	   <td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
-               <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
+               <td class="td2" colspan="2"><input id="txtNoa" type="text" class="txt c1"/></td>
                <td class="td3"><span> </span><a id="lblDatea" class="lbl"> </a></td>
                <td class="td4"><input id="txtDatea" type="text" class="txt c1"/></td>
                <td class="td5"><span> </span><a id="lblChecker" class="lbl"> </a></td>
@@ -598,16 +635,24 @@
             <tr class="tr3">
                <td class="td1"><span> </span><a id="lblSend" class="lbl btn" > </a></td>
                <td class="td2" colspan="2"><input id="txtSenderno"  type="text"  class="txt c2"/><input id="txtSender" type="text"  class="txt c3"/></td>
-               <td class="td4"><span> </span><a id="lblReceiver_cust" class="lbl btn" style="font-size: 14px;"> </a></td>
-               <td class="td5"colspan="2"><input id="txtReceiverno_cust" type="text"  class="txt c2"/><input id="txtReceiver_cust"  type="text"  class="txt c3"/></td>
-               <td class="td7"><span> </span><a id="lblReceiver_tgg" class="lbl btn" style="font-size: 14px;"> </a></td>
-               <td class="td8"colspan="2"><input id="txtReceiverno_tgg" type="text"  class="txt c2"/><input id="txtReceiver_tgg"  type="text"  class="txt c3"/></td>            
-            </tr> 
+           </tr>
+           <tr class="tr3">
+               <td class="td1"><span> </span><a id="lblReceiver_cust" class="lbl btn" style="font-size: 14px;"> </a></td>
+               <td class="td2"colspan="2"><input id="txtReceiverno_cust" type="text"  class="txt c2"/><input id="txtReceiver_cust"  type="text"  class="txt c3"/></td>
+               <td class="td4"><span> </span><a id="lblCustno2" class="lbl btn"> </a></td>
+               <td class="td5"colspan="5"><input id="txtCustno2" type="text"  class="txt c1"/></td>
+            </tr>  
+            <tr class="tr3">
+               <td class="td1"><span> </span><a id="lblReceiver_tgg" class="lbl btn" style="font-size: 14px;"> </a></td>
+               <td class="td2"colspan="2"><input id="txtReceiverno_tgg" type="text"  class="txt c2"/><input id="txtReceiver_tgg"  type="text"  class="txt c3"/></td>
+               <td class="td4"><span> </span><a id="lblTggno2" class="lbl btn"> </a></td>
+               <td class="td5"colspan="5"><input id="txtTggno2" type="text"  class="txt c1"/></td>            
+            </tr>
            <tr class="tr4">
            		<td class="td1"><span> </span><a id='lblPostal_code' class="lbl"> </a></td>
-               <td class="td2"><input id="txtPostal_code" type="text" class="txt c1"/></td>      
-               <td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
-               <td class="td2" colspan="6"><input id="txtMemo" type="text" class="txt c1"/></td>               
+               	<td class="td2"><input id="txtPostal_code" type="text" class="txt c1"/></td>      
+               	<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
+               	<td class="td2" colspan="6"><input id="txtMemo" type="text" class="txt c1"/></td>               
             </tr> 
             <tr class="tr5">
                <td class="td1" ><span> </span><a id="lblPtype" class="lbl"> </a></td>
