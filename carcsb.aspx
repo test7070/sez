@@ -20,7 +20,7 @@
             }
 
             var q_name = "carcsb";
-            var q_readonly = ['txtNoa','txtTranno','txtQtime'];
+            var q_readonly = ['txtNoa','txtTranno','txtQtime','txtMemo','txtWorker','txtWorker2'];
             var bbmNum = [['txtDiscount', 10, 3],['txtWeight', 10, 3], ['txtInprice', 10, 3], ['txtInmount', 10, 3], ['txtInmoney', 10, 0], ['txtOutprice', 10, 3], ['txtOutmount', 10, 3], ['txtOutmoney', 10, 0]];
             // master 允許 key 小數  [物件,整數位數,小數位數, comma Display]
             var bbmMask = [];
@@ -608,8 +608,16 @@
 					<tr>
 						<td><span> </span><a id="lblTranno" class="lbl btn"> </a></td>
 						<td><input id="txtTranno"  type="text"  class="txt c1"/></td>
-						<td><span> </span><a id="lblQtime" class="lbl btn"> </a></td>
+						<td><span> </span><a id="lblQtime" class="lbl btn">匯入日期</a></td>
                         <td colspan="3"><input id="txtQtime"  type="text"  class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblMemo" class="lbl btn"> </a></td>
+                        <td colspan="2"><input id="txtMemo"  type="text"  class="txt c1"/></td>
+                        <td><span> </span><a id="lblWorker" class="lbl btn"> </a></td>
+						<td><input id="txtWorker"  type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblWorker2" class="lbl btn"> </a></td>
+						<td><input id="txtWorker2"  type="text"  class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
