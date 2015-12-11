@@ -216,6 +216,15 @@
 			$('#lblTggno2').click(function(e) {
 				q_box("tgg_b2.aspx", 'tgg2', "500px", "95%", q_getMsg("popTgg"));
 			});
+			
+			$('#txtCustno2').click(function () {
+                if(q_cur==0 || q_cur==4)
+           			q_msg( $(this), $(this).val());
+			});
+			$('#txtTggno2').click(function () {
+                if(q_cur==0 || q_cur==4)
+           			q_msg( $(this), $(this).val());
+			});
         }
         
         function txtCopy(dest, source) {
