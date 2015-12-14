@@ -276,6 +276,13 @@
                     }, {/*45-[56][57]上期交運日期*/
                         type : '1',
                         name : 'xtrandate'
+                    }, {/*46-[58][59]票據到期日期*/
+                        type : '1',
+                        name : 'xindate'
+                    }, {/*47-[60]明細*/
+                        type : '5',
+                        name : 'xsort',
+                        value : ('custno@依客戶,indate@依到期日').split(',')
                     }]
                 });
                 q_popAssign();
@@ -611,7 +618,9 @@
                                 alert(msg_trandate);
                                 return false;
                             }
-                            break;       
+                            break;  
+                        case 28:
+                            break;      
                         default:
                             alert('Undefined,radio');
                             break;
@@ -630,6 +639,11 @@
                 $('#txtXtrandate2').mask('999/99/99');
                 $('#txtXtrandate1').datepicker();
                 $('#txtXtrandate2').datepicker();
+                
+                $('#txtXindate1').mask('999/99/99');
+                $('#txtXindate1').datepicker();
+                $('#txtXindate2').mask('999/99/99');
+                $('#txtXindate2').datepicker();
                 
                 $('#txtWmon1').mask('999/99');
                 $('#txtWmon2').mask('999/99');
