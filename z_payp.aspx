@@ -29,7 +29,15 @@
                     	type : '0',//[3]
                         name : 'xlen',
                         value : r_len
-                    }]
+                    },{
+						type : '0',
+	                    name : 'r_tel',
+	                    value : q_getPara('sys.tel')
+					},{
+	                    type : '0',
+	                    name : 'r_addr',
+	                    value : q_getPara('sys.addr')
+					}]
 				});
                 q_popAssign();
                 
