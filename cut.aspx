@@ -34,7 +34,7 @@
 			brwNowPage = 0;
 			brwKey = 'noa';
 			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'],
-			['txtUno', 'lblUno', 'view_uccc', 'uno,productno,product,spec,dime,width,lengthb,radius,weight,eweight,itype,custno,source,uno2', 'txtUno,txtProductno,txtProduct,txtSpec,txtDime,txtWidth,txtLengthb,txtRadius,txtOweight,txtEweight,cmbItype,txtCustno,txtSource,txtUno2', 'uccc_seek_b.aspx?;;;1=0', '95%', '95%'], 
+			['txtUno', 'lblUno', 'view_uccc', 'uno,productno,product,spec,dime,width,lengthb,radius,weight,eweight,itype,custno,source', 'txtUno,txtProductno,txtProduct,txtSpec,txtDime,txtWidth,txtLengthb,txtRadius,txtOweight,txtEweight,cmbItype,txtCustno,txtSource', 'uccc_seek_b.aspx?;;;1=0', '95%', '95%'], 
 			['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'], 
 			['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtCust_', 'cust_b.aspx'], 
 			['txtMechno', 'lblMech', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'], 
@@ -492,10 +492,7 @@
 					for(var i=0;i<q_bbsCount;i++){
 						$('#txtSource_'+i).val($('#txtSource').val());
 					}
-				if($('#txtUno2').val().length>0)
-					for(var i=0;i<q_bbsCount;i++){
-						$('#txtUno2_'+i).val($('#txtUno2').val());
-					}
+			
 				//裕承隆 暫時先不檢查
 				/*var t_err = CheckInputError();
 				if(t_err.length>0){
@@ -1311,8 +1308,7 @@
 					<tr>
 						<td><span> </span><a id="lblUno" class="lbl btn"> </a></td>
 						<td colspan="3"><input id="txtUno" type="text" class="txt c1"/>
-							<!-- Uno2 原批號  要寫入BBS -->
-							<input id="txtUno2" type="text" style="display:none;"/>
+					
 						</td>
 						<td><span> </span><a id="lblProduct" class="lbl"> </a></td>
 						<td>
@@ -1424,7 +1420,6 @@
 					<td style="width:50px;" align="center" class="pe_hide"><a id='lblSpecial'> </a></td>
 					<td style="width:50px;" align="center"><a id='lblCname'> </a></td>
 					<td style="width:60px;" align="center" class="pe_hide"><a id='lblSources'>鋼廠 </a></td>
-					<td style="width:180px;" align="center"><a id='lblUno2'>原批號</a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td style="width:1%;">
@@ -1485,7 +1480,6 @@
 					<td  class="pe_hide"><input id="txtSpecial.*" type="text" class="txt c2"/></td>
 					<td><input id="txtCname.*" type="text" class="txt c2"/></td>
 					<td class="pe_hide"><input id="txtSource.*" type="text" class="txt c2"/></td>
-					<td><input id="txtUno2.*" type="text" class="txt c2"/></td>
 				</tr>
 			</table>
 		</div>
