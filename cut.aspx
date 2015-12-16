@@ -487,12 +487,12 @@
 				if($('#combType2A').is(":visible")){
 					$('#txtType2').val($('#combType2A').val());
 				}
-				//鋼廠   傑期需要寫入
+				//鋼廠、原批號   傑期需要寫入
 				if($('#txtSource').val().length>0)
 					for(var i=0;i<q_bbsCount;i++){
 						$('#txtSource_'+i).val($('#txtSource').val());
 					}
-				
+			
 				//裕承隆 暫時先不檢查
 				/*var t_err = CheckInputError();
 				if(t_err.length>0){
@@ -1307,7 +1307,9 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblUno" class="lbl btn"> </a></td>
-						<td colspan="3"><input id="txtUno" type="text" class="txt c1"/></td>
+						<td colspan="3"><input id="txtUno" type="text" class="txt c1"/>
+					
+						</td>
 						<td><span> </span><a id="lblProduct" class="lbl"> </a></td>
 						<td>
 							<input id="txtProductno" type="text" style="float:left;width:40%;"/>
