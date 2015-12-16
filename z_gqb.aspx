@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -102,6 +102,16 @@
                         type : '0', 
                         name : 'acomp',
                         value : q_getPara('sys.comp')
+                    }, {/*5*/
+                        type : '2',
+                        name : 'xtbank',
+                        dbf : 'bank',
+                        index : 'noa,bank',
+                        src : 'bank_b.aspx'
+                    }, {/*[32]*/
+                        type : '5',
+                        name : 'xchk',
+                        value : [q_getPara('report.all')].concat(new Array('Y', 'N'))
                     }]
                 });
                 q_popAssign();
@@ -141,7 +151,8 @@
                     if (s1.length == 4)
                         $(this).val(s1 + '.');
                 });
-                $('#Status option:eq(2)').attr('selected',true);           
+                $('#Status option:eq(2)').attr('selected',true);
+                $('#Stype select').val('1')     
             }
 
             function q_boxClose(t_name) {
