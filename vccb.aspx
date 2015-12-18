@@ -175,6 +175,7 @@
 
             function bbsAssign() {
             	for (var j = 0; j < q_bbsCount; j++) {
+            		$('#cmbTaxtype_'+j).val(1);
                 	$('#lblNo_'+j).text(j+1);	
                 	if (!$('#btnMinus_' + j).hasClass('isAssign')) {
                 		$('#txtMount_' + j).change(function(e){
@@ -185,6 +186,7 @@
 							var t_price = q_float('txtPrice_'+b_seq);
 							var t_money = round(t_mount * t_price,0);
 							$('#txtTotal_'+b_seq).val(t_money);
+							$('#txtTax_'+b_seq).val(t_money*0.05);
                 			sum();
                 		});
                 		$('#txtPrice_' + j).change(function(e){
@@ -195,9 +197,10 @@
 							var t_price = q_float('txtPrice_'+b_seq);
 							var t_money = round(t_mount * t_price,0);
 							$('#txtTotal_'+b_seq).val(t_money);
+							$('#txtTax_'+b_seq).val(t_money*0.05);
                 			sum();
                 		});
-                		$('#txtTotal_' + j).change(function(e){
+                		$('#txtTotal_' + j).change(function(e){               			
                 			sum();
                 		});
                 		$('#txtTax_' + j).change(function(e){
