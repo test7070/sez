@@ -626,6 +626,10 @@
 				if (dec($('#txtGetdate').val()) > 31)
 					t_err = t_err + q_getMsg("lblGetdate") + q_getMsg("msgErr") + '\r';
 					
+				if($('#txtNick').val() == ''){
+					$('#txtNick').val($('#txtComp').val().substr(0,2))
+				}	
+					
 				if(q_cur==1)
 					$('#txtKdate').val(q_date());
 					
