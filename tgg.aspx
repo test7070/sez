@@ -332,6 +332,10 @@
 					alert(q_getMsg("lblGetdate")+'最大天數為31日');
 					return;
 				}
+				
+				if($('#txtNick').val() == ''){
+					$('#txtNick').val($('#txtComp').val().substr(0,2))
+				}	
 					
 				$('#txtKdate').val(q_date());
 				$('#txtWorker').val(r_name);
