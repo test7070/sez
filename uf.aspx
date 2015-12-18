@@ -75,9 +75,7 @@
                     var t_where = "";
                     //11/12到期日<= 兌現日
                     if (emp($('#txtBankno').val())) {
-                        t_where = "where=^^isnull(a.indate,'')<='"+$('#txtDatea').val()+"' and ( (len(isnull(a.usage,''))=0 and len(isnull(a.tbankno,''))=0 and isnull(a.enda,'')!='Y' and isnull(b.sel,0) = 0 and a.typea='" + $('#cmbTypea').val() + "') or (c.noa is not null and c.noa='" + $('#txtNoa').val() + "') ) ^^";
-                        if(q_getPara('sys.project').toUpperCase()=='VU')
-							t_where = "where=^^isnull(a.indate,'')<='"+$('#txtDatea').val()+"' and ( (len(isnull(a.usage,''))=0 and isnull(a.enda,'')!='Y' and isnull(b.sel,0) = 0 and a.typea='" + $('#cmbTypea').val() + "') or (c.noa is not null and c.noa='" + $('#txtNoa').val() + "') ) ^^";
+						t_where = "where=^^isnull(a.indate,'')<='"+$('#txtDatea').val()+"' and ( (len(isnull(a.usage,''))=0 and isnull(a.enda,'')!='Y' and isnull(b.sel,0) = 0 and a.typea='" + $('#cmbTypea').val() + "') or (c.noa is not null and c.noa='" + $('#txtNoa').val() + "') ) ^^";
                     } else {
                         if ($('#cmbTypea').val() == '1'){
                             t_where = "where=^^isnull(a.indate,'')<='"+$('#txtDatea').val()+"' and ( (len(isnull(a.usage,''))=0 and a.tbankno='" + $('#txtBankno').val() + "' and isnull(a.enda,'')!='Y' and isnull(b.sel,0) = 0 and a.typea='" + $('#cmbTypea').val() + "') or (c.noa is not null and c.noa='" + $('#txtNoa').val() + "') ) ^^";
