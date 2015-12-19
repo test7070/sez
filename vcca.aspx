@@ -248,7 +248,11 @@
 							$('#txtNoa').val(t_noa);
 						}
 						$('#txtDatea').val(q_date());
-						$('#txtDatea').focus();
+						if(q_getPara('sys.project')=='pe'){					
+							$('#txtCustno').focus();
+						}else{
+							$('#txtDatea').focus();
+						}		
 						break;
 					case 'vccar':
 						var as = _q_appendData("vccar", "", true);
@@ -380,6 +384,13 @@
             }
 
 			function btnIns() {
+				if(q_getPara('sys.project')=='pe'){
+					$('#txtMon').val('');
+					$('#txtCustno').val('');
+					$('#txtComp').val('');
+					$('#txtZip').val('');
+					$('#txtAddress').val('');
+				}
 				curData.copy();
 				_btnIns();
 				curData.paste();
