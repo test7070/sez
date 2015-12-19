@@ -72,7 +72,7 @@
 						value : xgroupanoStr.split(',')
 					}, {
 						type : '6',
-						name : 'style' //[14]
+						name : 'xstyle' //[14]
 					}, {
 						type : '8',
 						name : 'allucc',//[15]
