@@ -50,6 +50,10 @@
                         type : '5',
                         name : 'typea',
                         value : 'comp@公司,fact@工廠,invo@發票,home@通信'.split(',')
+                    }, {/*[10]*/
+                        type : '0',
+                        name : 'proj',
+                        value : q_getPara('sys.project')
                     }]
 				});
 				q_popAssign();

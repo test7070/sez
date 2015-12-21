@@ -15,7 +15,7 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
 
-            q_desc = 1
+            q_desc = 1;
             q_tables = 's';
             var q_name = "bccin";
             var q_readonly = ['txtNoa', 'txtWorker','txtMoney','txtTax','txtTotal'];
@@ -267,7 +267,7 @@
 
             function btnPrint() {
                 //q_box('z_bccin.aspx', '', "95%", "650px", q_getMsg("popPrint"));
-                q_box("z_bccin.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy + "_" + r_cno, 'bccin', "95%", "650px", q_getMsg("popPrint"));
+                q_box("z_bccin.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy + "_" + r_cno, 'bccin', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
