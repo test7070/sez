@@ -522,7 +522,7 @@
  				var t_where = '';
  				for(var i=0;i<q_bbsCount;i++){
  					if($.trim($('#txtBno_'+i).val()).length>0)
- 						t_where += (t_where.length>0?' or ':'')+"(uno='" + $.trim($('#txtBno_'+i).val()) + "' and not(accy='" + r_accy + "' and tablea='cuts' and noa='" + $.trim($('#txtNoa').val())+"'))";
+ 						t_where += (t_where.length>0?' or ':'')+"(uno='" + replaceAll($.trim($('#txtBno_'+i).val()),"'","~#$") + "' and not(accy='" + r_accy + "' and tablea='cuts' and noa='" + $.trim($('#txtNoa').val())+"'))";
  				}
  				if(t_where.length>0)
                		q_gt('view_uccb', "where=^^"+t_where+"^^", 0, 0, 0, 'btnOk_checkuno');
@@ -621,7 +621,7 @@
 						$('#txtWeight_'+j).change(function(e){sum();});
 						$('#txtBno_' + j).change(function() {
 							var n = $(this).attr('id').replace('txtBno_', '');
-							var t_uno = $.trim($(this).val());
+							var t_uno = replaceAll($.trim($(this).val()),"'","~#$");
 							var t_noa = $.trim($('#txtNoa').val());
 							if ($('#txtWaste_' + n).val().length == 0) {
 								q_gt('view_uccb', "where=^^uno='" + t_uno + "' and not(accy='" + r_accy + "' and tablea='cuts' and noa='" + t_noa + "')^^", 0, 0, 0, 'checkUno_' + n);
@@ -937,7 +937,10 @@
 			function getBBSWhere(objname) {
 				var tempArray = new Array();
 				for (var j = 0; j < q_bbsCount; j++) {
-					tempArray.push($('#txt' + objname + '_' + j).val());
+					if(objname=='Uno')
+						tempArray.push(replaceAll($('#txt' + objname + '_' + j).val(),"'","~#$"));
+					else
+						tempArray.push($('#txt' + objname + '_' + j).val());
 				}
 				var TmpStr = distinct(tempArray).sort();
 				TmpStr = TmpStr.toString().replace(/,/g, "','").replace(/^/, "'").replace(/$/, "'");
@@ -956,11 +959,11 @@
 				var t_where = "where=^^ noa = '" + $('#txtProductno').val() + "' ^^";
 				q_gt('ucc', t_where, 0, 0, 0, "", r_accy);
 				//取得餘料編號
-				t_where = "where=^^ noa like '%" + $('#txtUno').val() + "%' ^^";
+				t_where = "where=^^ noa like '%" + replaceAll($('#txtUno').val(),"'","~#$") + "%' ^^";
 				q_gt('uccb', t_where, 0, 0, 0, "", r_accy);
 				if (q_cur == 1) {
 					//取得是否重複分條
-					t_where = "where=^^ uno = '" + $('#txtUno').val() + "' ^^";
+					t_where = "where=^^ uno = '" + replaceAll($('#txtUno').val(),"'","~#$") + "' ^^";
 					q_gt('cut', t_where, 0, 0, 0, "", r_accy);
 				} else {
 					cuts = [];
