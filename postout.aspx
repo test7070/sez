@@ -225,6 +225,10 @@
                 if(q_cur==0 || q_cur==4)
            			q_msg( $(this), $(this).val());
 			});
+			$('#txtMemo').click(function () {
+                if(q_cur==0 || q_cur==4)
+           			q_msg( $(this), $(this).val());
+			});
         }
         
         function txtCopy(dest, source) {
