@@ -190,6 +190,8 @@
 							$('#cmbItype').val(b_ret[0].itype);
 							$('#txtCustno').val(b_ret[0].custno);
 							$('#txtSource').val(b_ret[0].source);
+							//新增自動帶入品名與厚度
+							bbscopybbm();
 						}
 						break;
 					case q_name + '_s':
@@ -217,7 +219,21 @@
             	}
             }
 
-
+			function bbscopybbm(){
+				var t_type2 = $('#combType2').find(":selected").text();
+            	if(q_cur==1 && !emp($('#txtUno').val()) && !emp($('#txtProductno').val()) && t_type2.indexOf('條')>0){
+            		for(var i=0;i<q_bbsCount;i++){
+            			if(emp($('#txtProductno_'+i).val())){
+	            			$('#txtProductno_'+i).val($('#txtProductno').val());
+	            			$('#txtProduct_'+i).val($('#txtProduct').val());
+	            			$('#textSize1_'+i).val($('#txtDime').val());
+	            			$('#txtSpec_'+i).val($('#txtSpec').val());
+            			}
+            		}
+            		sum();
+            	}
+            }
+            
 			function q_popPost(s1) {
 				switch(s1){
 					case 'txtUno':
@@ -268,6 +284,9 @@
 							$('#cmbItype').val(as[0].itype);
 							$('#txtCustno').val(as[0].custno);
 							$('#txtSource').val(as[0].source);
+							
+							//新增自動帶入品名與厚度
+							bbscopybbm();
 						}else{
 							q_box("uccc_seek_b2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";1=0;" + r_accy, 'uccc_seek_b2', "900px", "95%", '');
 						}
@@ -731,6 +750,8 @@
 				}
 				_bbsAssign();
 				size_change();
+				//新增自動帶入品名與厚度
+				bbscopybbm();
 				
 				if(q_getPara('sys.project').toUpperCase()=='PE'){
 					$('.pe_hide').hide();
@@ -834,12 +855,12 @@
 						q_tr('txtLengthb_' + j, q_float('textSize3_' + j));
 					}
 					if(( $('#txtStyle_'+j).val()=='B' || q_float('txtLengthb_' + j)==0) && (t_type2.indexOf('條')>0 || t_type2.indexOf('貼膜')>0)){
-						if($('#txtStyle_'+j).val().length>0){
+						//if($('#txtStyle_'+j).val().length>0){
 							t_theory = (q_float('txtGweight')>0?q_float('txtGweight'):q_float('txtEweight'));
 							t_theory = (isNaN(t_theory)?0:t_theory);
 							t_theory = round(q_div(q_mul(q_mul(q_div(t_theory,q_float('txtWidth')),q_float('txtWidth_'+j)),q_float('txtMount_'+j)),(q_float('txtDivide_'+j)>0?q_float('txtDivide_'+j):1)),0);
 							$('#txtTheory_'+j).val(dec(t_theory));
-						}			   
+						//}			   
 					}else{
 						 getTheory(j);
 					}
