@@ -990,7 +990,7 @@
 			function getBBSWhere(objname) {
 				var tempArray = new Array();
 				for (var j = 0; j < q_bbsCount; j++) {
-					if(objname=='Uno')
+					if(objname=='Bno')
 						tempArray.push(replaceAll($('#txt' + objname + '_' + j).val(),"'","~#$"));
 					else
 						tempArray.push($('#txt' + objname + '_' + j).val());
