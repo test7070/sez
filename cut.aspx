@@ -34,14 +34,14 @@
 			brwNowPage = 0;
 			brwKey = 'noa';
 			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'],
-			['txtUno', 'lblUno', 'view_uccc', 'uno,productno,product,spec,dime,width,lengthb,radius,weight,eweight,itype,custno,source', 'txtUno,txtProductno,txtProduct,txtSpec,txtDime,txtWidth,txtLengthb,txtRadius,txtOweight,txtEweight,cmbItype,txtCustno,txtSource', 'uccc_seek_b.aspx?;;;1=0', '95%', '95%'], 
-			['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'], 
-			['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtCust_', 'cust_b.aspx'], 
-			['txtMechno', 'lblMech', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'], 
-			['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']
-			, ['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_', 'ucc_b.aspx']
-            , ['txtStyle_', 'btnStyle_', 'style', 'noa,product', 'txtStyle_', 'style_b.aspx']
-            , ['txtStoreno_', 'btnStore_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx']
+				//['txtUno', 'lblUno', 'view_uccc', 'uno,productno,product,spec,dime,width,lengthb,radius,weight,eweight,itype,custno,source', 'txtUno,txtProductno,txtProduct,txtSpec,txtDime,txtWidth,txtLengthb,txtRadius,txtOweight,txtEweight,cmbItype,txtCustno,txtSource', 'uccc_seek_b.aspx?;;;1=0', '95%', '95%'], 
+				['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'], 
+				['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtCust_', 'cust_b.aspx'], 
+				['txtMechno', 'lblMech', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'], 
+				['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']
+				, ['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_', 'ucc_b.aspx']
+	            , ['txtStyle_', 'btnStyle_', 'style', 'noa,product', 'txtStyle_', 'style_b.aspx']
+	            , ['txtStoreno_', 'btnStore_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx']
 			);
 			q_desc = 1;
 			brwCount2 = 11;
@@ -71,6 +71,13 @@
 				q_cmbParse("combType2A", q_getPara('cut.type2A'));
 				q_cmbParse("cmbKind", q_getPara('sys.stktype'));
 				//q_cmbParse("cmbKind", q_getPara('cut.kind'));
+				
+				$('#txtUno').change(function() {
+					var t_uno = replaceAll($.trim($('#txtUno').val()),"'","~#$");
+					if (t_uno != undefined && t_uno.length > 0) {
+						q_gt('view_uccc2', "where=^^ uno='" + t_uno + "'^^", 0, 0, 0, 'view_uccc2', r_accy);
+					}
+				});
 				//重新計算理論重
 				$('#cmbTypea').change(function() {
 					cut_save_db();
@@ -142,6 +149,10 @@
 						q_box("ordestt_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
 					}
 				});
+				
+				$('#lblUno').click(function() {
+					q_box("uccc_seek_b2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";1=0;" + r_accy, 'uccc_seek_b2', "900px", "95%", '');
+				});
 			}
 
 			function q_boxClose(s2) {///   q_boxClose 2/4
@@ -157,6 +168,28 @@
 							bbsClear();
 							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtCust,txtStyle,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtMemo,txtProductno,txtSpec,txtOrdeno,txtNo2,txtClass,txtSize', b_ret.length, b_ret, 'custno,cust,style,radius,width,dime,lengthb,mount,memo,productno,spec,noa,no2,class,size', '');
 							sum();
+						}
+						break;
+					case 'uccc_seek_b2':
+						if (q_cur > 0 && q_cur < 4) {
+							if (!b_ret || b_ret.length == 0) {
+								b_pop = '';
+								return;
+							}
+							
+							$('#txtUno').val(b_ret[0].uno);
+							$('#txtProductno').val(b_ret[0].productno);
+							$('#txtProduct').val(b_ret[0].product);
+							$('#txtSpec').val(b_ret[0].spec);
+							$('#txtDime').val(b_ret[0].dime);
+							$('#txtWidth').val(b_ret[0].width);
+							$('#txtLengthb').val(b_ret[0].lengthb);
+							$('#txtRadius').val(b_ret[0].radius);
+							$('#txtOweight').val(b_ret[0].weight);
+							$('#txtEweight').val(b_ret[0].eweight);
+							$('#cmbItype').val(b_ret[0].itype);
+							$('#txtCustno').val(b_ret[0].custno);
+							$('#txtSource').val(b_ret[0].source);
 						}
 						break;
 					case q_name + '_s':
@@ -219,6 +252,26 @@
 			var t_uccArray = new Array;
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'view_uccc2':
+						var as = _q_appendData("view_uccc2", "", true);
+						if (as[0] != undefined) {
+							$('#txtUno').val(as[0].uno);
+							$('#txtProductno').val(as[0].productno);
+							$('#txtProduct').val(as[0].product);
+							$('#txtSpec').val(as[0].spec);
+							$('#txtDime').val(as[0].dime);
+							$('#txtWidth').val(as[0].width);
+							$('#txtLengthb').val(as[0].lengthb);
+							$('#txtRadius').val(as[0].radius);
+							$('#txtOweight').val(as[0].weight);
+							$('#txtEweight').val(as[0].eweight);
+							$('#cmbItype').val(as[0].itype);
+							$('#txtCustno').val(as[0].custno);
+							$('#txtSource').val(as[0].source);
+						}else{
+							q_box("uccc_seek_b2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";1=0;" + r_accy, 'uccc_seek_b2', "900px", "95%", '');
+						}
+						break;
                     case 'btnOk_checkuno':
                     	var as = _q_appendData("view_uccb", "", true);
                         if (as[0] != undefined) {
