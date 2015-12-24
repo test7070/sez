@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -112,7 +112,7 @@
 				q_cmbParse("combPaytype", q_getPara('rc2.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				//q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
-				var t_where = "where=^^ 1=1 ^^";
+				var t_where = "where=^^ 1=0 ^^";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
 				
 				//限制帳款月份的輸入 只有在備註的第一個字為*才能手動輸入					
@@ -742,8 +742,10 @@
 				$('#txtDatea').val(q_date());
 				$('#txtDatea').focus();
 				$('#cmbTaxtype').val(1);
-				var t_where = "where=^^ 1=1 ^^";
-				q_gt('custaddr', t_where, 0, 0, 0, "");
+				if (!emp($('#txtTggno').val())) {
+					var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^";
+					q_gt('custaddr', t_where, 0, 0, 0, "");
+				}
 			}
 
 			function btnModi() {

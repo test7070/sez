@@ -45,8 +45,8 @@
 		        t_mechno = $.trim($('#txtMechno').val());
 		        t_mech = $.trim($('#txtMech').val());
 		        t_ordeno = $.trim($('#txtOrdeno').val());
-		        t_uno = $.trim($('#txtUno').val());
-		        t_bno = $.trim($('#txtBno').val());
+		        t_uno = replaceAll($.trim($('#txtUno').val()),"'","~#$");
+		        t_bno = replaceAll($.trim($('#txtBno').val()),"'","~#$");
 		        t_bdate = $('#txtBdate').val();
 		        t_edate = $('#txtEdate').val();
 
