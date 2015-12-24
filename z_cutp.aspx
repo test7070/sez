@@ -67,9 +67,19 @@
 						type : '8', //[13]
 						name : 'xprintmemo',
 						value : "1@".split(',')						
+					}, {
+						type : '0', //[14]
+						name : 'proj',
+						value : q_getPara('sys.project')			
 					}]
 				});
 				q_popAssign();
+				
+				if(q_getPara('sys.project')=='pe'){					
+					$('#q_report div div').eq(1).hide();
+					$('#q_report div div span').eq(1).text('裁剪單');
+				}
+				
 				var t_no = typeof (q_getId()[3]) == 'undefined' ? '' : q_getId()[3];
 				if (t_no.indexOf('noa=') >= 0) {
 					t_no = t_no.replace('noa=', '');
