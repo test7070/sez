@@ -284,6 +284,8 @@
 							$('#cmbItype').val(as[0].itype);
 							$('#txtCustno').val(as[0].custno);
 							$('#txtSource').val(as[0].source);
+							$('#txtGweight').val(as[0].eweight);
+							$('#txtGmount').val(1);
 							
 							//新增自動帶入品名與厚度
 							bbscopybbm();
