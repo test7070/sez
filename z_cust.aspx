@@ -87,6 +87,12 @@
                         type : '5',
                         name : 'xcusttype', 
                         value : custtypeItem.split(',')
+                    }, {/*9-[14][15]*/
+                        type : '2',
+                        name : 'xsales', 
+                        dbf : 'sss',
+                        index : 'noa,namea',
+                        src : 'sss_b.aspx'
                     }]
                 });
                 q_popAssign();
