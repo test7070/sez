@@ -15,7 +15,7 @@
         <script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
         <script type="text/javascript">    
             var q_name = "vcct";
-            var q_readonly = ['txtTotal','txtTax'];
+            var q_readonly = ['txtTotal'];
             var bbmNum = [['txtMoney',15,0,1],['txtTax',15,0,1],['txtTotal',15,0,1]];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -79,6 +79,10 @@
 				
 				$('#txtMoney').change(function(e) {
                 	calTax();
+				});
+				
+				$('#txtTax').change(function(e) {
+                	$('#txtTotal').val(dec($('#txtTax').val())+dec($('#txtMoney').val()));
 				});
                  
 				$('#btnVcca').click(function() {
@@ -375,8 +379,8 @@
 	                        break;
 	                    case '5':
 	                        // 自定
-	                        $('#txtTax').attr('readonly', false);
-	                        $('#txtTax').css('background-color', 'white').css('color', 'black');
+	                        //$('#txtTax').attr('readonly', false);
+	                        //$('#txtTax').css('background-color', 'white').css('color', 'black');
 	                        t_tax = round(q_float('txtTax'), 0);
 	                        t_total = q_add(t_money,t_tax);
 	                        break;
