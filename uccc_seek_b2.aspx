@@ -162,6 +162,10 @@
 								}
 							}
 						}
+						if(q_getPara('sys.project').toUpperCase()=='PE' && dec(abbs[i].eweight)>0 && dec(abbs[i].emount)<0){
+							abbs[i].emount=1;
+						}
+						
 						if (dec(abbs[i].emount) <= 0 || dec(abbs[i].eweight) <= 0) {
 							abbs.splice(i, 1);
 							i--;
