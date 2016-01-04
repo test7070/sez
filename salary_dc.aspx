@@ -373,7 +373,7 @@
 					q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtMon').val().substr(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAcc'), true);
 				});
 				$('#lblAccno2').click(function(){
-					q_pop('txtAccno2', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno2').val() + "';" + $('#txtMon').val().substr(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAcc2'), true);
+					q_pop('txtAccno2', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno2').val() + "';" + $('#txtDatea').val().substr(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAcc2'), true);
 				});
 			}
 
@@ -503,7 +503,7 @@
 								i--;
 							} else {
 								//新進員工薪資(不滿一個月)=本俸+主管津貼+交通津貼+工作津貼+其他津貼/30*工作天數(且福利金=0全勤=0) 5/3含六日
-								if (as[i].indate >= date_1) {//計算工作天數
+								if (as[i].indate > date_1) {//計算工作天數
 									var t_date = as[i].indate, inday = 0;
 									if (!emp(as[i].outdate))//當月離職
 										inday = dec(as[i].outdate.substr(7, 2)) - dec(t_date.substr(7, 2)) + 1;
@@ -945,6 +945,9 @@
 					var inday = 30;
 					if (($('#txtMemo_' + j).val().indexOf('新進員工') > -1 || $('#txtMemo_' + j).val().indexOf('離職員工') > -1 ) && imports) {
 						inday = dec($('#txtMemo_' + j).val().substr($('#txtMemo_' + j).val().indexOf(':') + 1, $('#txtMemo_' + j).val().indexOf(')') - $('#txtMemo_' + j).val().indexOf(':') - 1));
+						if (inday>30)
+							inday=30;
+							
 						q_tr('txtMoney_' + j, round((dec($('#txtMoney_' + j).val())) / 30 * inday, 0));
 						q_tr('txtPubmoney_' + j, round((dec($('#txtPubmoney_' + j).val())) / 30 * inday, 0));
 						q_tr('txtBo_admin_' + j, round((dec($('#txtBo_admin_' + j).val())) / 30 * inday, 0));
