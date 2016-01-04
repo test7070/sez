@@ -47,32 +47,44 @@
             });        
             
             var list = new Array(); 
-            list.push({item:"期初商品：",bacc1:"1131",eacc1:"1131",acc1:""});
-            
-            
-            var list2 = new Array();
-            list2.push({gindex:"00",groupno:"A",gtitle:"營業活動之現金流量：",gno:"1"});
-            list2.push({gindex:"01",groupno:"A",gtitle:"銷貨收入收現數",gno:"3",acc1:"",isall:false});
-            list2.push({gindex:"01",groupno:"A",gtitle:"進貨付現數",gno:"3",acc1:"",isall:false});
-            list2.push({gindex:"01",groupno:"A",gtitle:"營業費用付現數",gno:"3",acc1:"",isall:false});
-            list2.push({gindex:"01",groupno:"A",gtitle:"其他營業付現數",gno:"3",acc1:"",isall:false});
-            list2.push({gindex:"02",groupno:"A",gtitle:"營業活動之淨現金流入",gno:"4"});
-            
-            list2.push({gindex:"00",groupno:"B",gtitle:"投資活動之現金流量：",gno:"1"});
-            list2.push({gindex:"01",groupno:"B",gtitle:"出售廠房設備收現數",gno:"3",acc1:"",isall:false});
-            list2.push({gindex:"01",groupno:"B",gtitle:"購入廠房設備付現數",gno:"3",acc1:"",isall:false});
-            list2.push({gindex:"01",groupno:"B",gtitle:"處分長期投資收現數",gno:"3",acc1:"",isall:false});
-            list2.push({gindex:"01",groupno:"B",gtitle:"取得長期投資付現數",gno:"3",acc1:"",isall:false});
-            list2.push({gindex:"02",groupno:"B",gtitle:"投資活動之淨現金流入",gno:"4"});
-            
-            list2.push({gindex:"00",groupno:"C",gtitle:"融資活動之現金流量：",gno:"1"});
-            list2.push({gindex:"01",groupno:"C",gtitle:"發行股票收現數",gno:"3",acc1:"",isall:false});
-            list2.push({gindex:"01",groupno:"C",gtitle:"現金股利付現數",gno:"3",acc1:"",isall:false});
-            list2.push({gindex:"02",groupno:"C",gtitle:"融資活動之淨現金流入",gno:"4"});
-            
-            list2.push({gindex:"97",groupno:"",gtitle:"本期現金增加數",gno:"5"});
-            list2.push({gindex:"98",groupno:"",gtitle:"期初現金餘額",gno:"6"});
-            list2.push({gindex:"99",groupno:"",gtitle:"期末現金餘額",gno:"7"});
+            list.push({indexs:"02",item:"01.期初商品",bacc1:"1131",eacc1:"1131",acc1:""});
+            list.push({indexs:"02",item:"02.本期進貨",bacc1:"5200",eacc1:"5299",acc1:""});    
+            list.push({indexs:"02",item:"03.期末存貨",bacc1:"1131",eacc1:"1131",acc1:""});
+            list.push({indexs:"02",item:"04.加:其他",bacc1:"",eacc1:"",acc1:""});
+            list.push({indexs:"02",item:"05.減:其他",bacc1:"",eacc1:"",acc1:""});
+            list.push({indexs:"03",item:"進銷成本",bacc1:"",eacc1:"",acc1:""});                          
+            list.push({indexs:"01",item:"06.期初存料",bacc1:"1137",eacc1:"1137",acc1:""});
+            list.push({indexs:"01",item:"07.本期進料",bacc1:"",eacc1:"",acc1:"5311,5313,5314"});    
+            list.push({indexs:"01",item:"08.期末存料",bacc1:"1137",eacc1:"1137",acc1:""});
+            list.push({indexs:"01",item:"09.加:其他",bacc1:"",eacc1:"",acc1:""});
+            list.push({indexs:"01",item:"10.減:其他",bacc1:"",eacc1:"",acc1:""});
+            list.push({indexs:"02",item:"直接原料",bacc1:"",eacc1:"",acc1:""});
+            list.push({indexs:"01",item:"11.期初存料",bacc1:"1140",eacc1:"1140",acc1:""});
+            list.push({indexs:"01",item:"12.本期進料",bacc1:"",eacc1:"",acc1:"6315,6317,6318"});    
+            list.push({indexs:"01",item:"13.期末存料",bacc1:"1140",eacc1:"1140",acc1:""});
+            list.push({indexs:"00",item:"14.加:其他",bacc1:"",eacc1:"",acc1:""});
+            list.push({indexs:"01",item:"15.減:其他",bacc1:"",eacc1:"",acc1:""});
+            list.push({indexs:"02",item:"間接原料",bacc1:"",eacc1:"",acc1:""});
+            list.push({indexs:"02",item:"16.直接人工",bacc1:"5400",eacc1:"5499",acc1:""});
+            list.push({indexs:"02",item:"17.製造費用",bacc1:"5500",eacc1:"5599",acc1:""});
+            list.push({indexs:"02",item:"製造成本",bacc1:"",eacc1:"",acc1:""});
+            list.push({indexs:"01",item:"18.期初再製品",bacc1:"",eacc1:"",acc1:"1136,1139"});
+            list.push({indexs:"01",item:"19.期末再製品",bacc1:"",eacc1:"",acc1:"1136,1139"});    
+            list.push({indexs:"00",item:"20.加:其他",bacc1:"",eacc1:"",acc1:""});
+            list.push({indexs:"01",item:"21.減:其他",bacc1:"",eacc1:"",acc1:""});
+            list.push({indexs:"02",item:"製成品成本",bacc1:"",eacc1:"",acc1:""});
+            list.push({indexs:"01",item:"22.期初製成品",bacc1:"1133",eacc1:"1133",acc1:""});
+            list.push({indexs:"01",item:"23.期末製成品",bacc1:"1133",eacc1:"1133",acc1:""});    
+            list.push({indexs:"01",item:"24.加:其他",bacc1:"",eacc1:"",acc1:""});
+            list.push({indexs:"01",item:"25.減:其他",bacc1:"",eacc1:"",acc1:""});
+            list.push({indexs:"00",item:"26.外銷估列應收退稅或已收退稅款",bacc1:"",eacc1:"",acc1:""});
+            list.push({indexs:"00",item:"27.產銷成本減項",bacc1:"",eacc1:"",acc1:""});  
+            list.push({indexs:"03",item:"產銷成本",bacc1:"",eacc1:"",acc1:""});
+            list.push({indexs:"03",item:"28.勞務成本",bacc1:"5700",eacc1:"5799",acc1:""});
+            list.push({indexs:"03",item:"29.修理成本",bacc1:"5800",eacc1:"5899",acc1:""});
+            list.push({indexs:"03",item:"30.加工成本",bacc1:"5600",eacc1:"5699",acc1:""});
+            list.push({indexs:"03",item:"31.其他營業成本",bacc1:"5900",eacc1:"5999",acc1:""});
+            list.push({indexs:"03",item:"營業成本",bacc1:"",eacc1:"",acc1:""});
             
             var t_data1 = new Array(),t_data2 = new Array();
             function main() {
@@ -384,173 +396,44 @@
                 }
                 _bbsAssign();
             }
-            function bbtAssign() {
-                for (var i = 0; i < q_bbtCount; i++) {
-                    $('#lblNo__' + i).text(i + 1);
-                    if (!$('#btnMinut__' + i).hasClass('isAssign')) {
-                    	$('#txtAcc1__'+i).change(function(e){
-                    		var patt = /^(\d{4})([^\.,.]*)$/g;
-		                	if(patt.test($(this).val()))
-		                    	$(this).val($(this).val().replace(patt,"$1.$2"));
-		                    else if((/^(\d{4})$/).test($(this).val())){
-		                    	$(this).val($(this).val()+'.');
-		                    }
-		                    refreshBbt();
-                    	});
-                    	$('#txtGtitle__'+i).change(function(e){
-                    		sum();	
-                    	});
-                    	$('#txtMoney1__'+i).change(function(e){
-                    		sum();	
-                    	});
-                		$('#btnPlutX__'+i).click(function(){
-                			if(q_cur!=1 && q_cur!=2)
-                				return;
-                			var n = parseInt($(this).attr('id').replace('btnPlutX__',''));         			
-                			var t_qindex = $('#txtQindex__'+i).val();
-                			var m = -1;//計算最後一筆表身資料在哪
-                			for(var i = q_bbtCount;i>=0;i--){
-                				if($.trim($('#txtGtitle__'+i).val()).length==0 && q_float('txtMoney1__'+i)==0 && q_float('txtMoney2__'+i)==0){
-                					
-                				}else{
-                					m = i;
-                					break;
-                				}
-                			}
-                			var t_chk = new Array();
-                			for(var i=0;i<q_bbtCount;i++)
-                				t_chk.push($('#chkIsall__'+i).prop('checked'));
-                			if(m+1==q_bbtCount){
-                				$('#btnPlut').click();//會使CHECKBOX狀態改變
-                			}
-                			for(var i=0;i<t_chk.length;i++)
-                				$('#chkIsall__'+i).prop('checked',t_chk[i]);
-                				
-                			for(var i=m+1;i>n+1;i--){
-                				$('#txtGno__'+i).val($('#txtGno__'+(i-1)).val());
-                				$('#txtGindex__'+i).val($('#txtGindex__'+(i-1)).val());
-                				$('#chkIsall__'+i).prop('checked',$('#chkIsall__'+(i-1)).prop('checked'));
-                				$('#txtAcc1__'+i).val($('#txtAcc1__'+(i-1)).val());
-                				$('#txtGroupno__'+i).val($('#txtGroupno__'+(i-1)).val());
-                				$('#txtGtitle__'+i).val($('#txtGtitle__'+(i-1)).val());
-                				$('#txtMoney1__'+i).val($('#txtMoney1__'+(i-1)).val());
-                				$('#txtMoney2__'+i).val($('#txtMoney2__'+(i-1)).val());
-                			}
-                			$('#txtGno__'+(n+1)).val('3');
-                			$('#txtGindex__'+(n+1)).val('01');
-                			$('#chkIsall__'+(n+1)).prop('checked',false);
-                			$('#txtAcc1__'+(n+1)).val('');
-                			$('#txtGroupno__'+(n+1)).val($('#txtGroupno__'+n).val());
-            				$('#txtGtitle__'+(n+1)).val('');
-            				$('#txtMoney1__'+(n+1)).val('');
-            				$('#txtMoney2__'+(n+1)).val('');
-            				refreshBbt();
-                		});
-                		
-                    }
-                }
-                _bbtAssign();
-            }
+            
             function refreshBbs(){
-            	// //gindex: 00(只有文字顯示),01(資料明細),02(小計),97、98、99固定
-            	// for (var i = 0; i < q_bbsCount; i++) {
+            	//indexs: 00(x),01(小計),02(合計),03(總計)
+            	for (var i = 0; i < q_bbsCount; i++) {
             		// if(q_cur==1 || q_cur==2)
             			// $('#btnPlusX_'+i).removeAttr('disabled');
             		// else
             			// $('#btnPlusX_'+i).attr('disabled','disabled');
-            		// $('#btnPlusX_'+i).css("display","none");
-            		// $('#txtGtitle_'+i).css("display","").attr("readonly","readonly").css("color","green").css("background","rgb(237, 237, 238)");
-        			// $('#txtMoney1_'+i).css("display","none").attr("readonly","readonly").css("color","green").css("background","rgb(237, 237, 238)");
-            		// $('#txtMoney2_'+i).css("display","none").attr("readonly","readonly").css("color","green").css("background","rgb(237, 237, 238)");
-            		// switch($('#txtGindex_'+i).val()){
-            			// case '00':
-            				// $('#btnPlusX_'+i).css("display","");
-            				// break;
-            			// case '01':
-            				// $('#btnPlusX_'+i).css("display","");
-            				// $('#txtGtitle_'+i).removeAttr('readonly').css("color","black").css("background","white");
-            				// $('#txtMoney1_'+i).css("display","").removeAttr('readonly').css("color","black").css("background","white");
-            				// break;
-            			// case '02':
-            				// $('#txtGtitle_'+i).attr("readonly","readonly").css("color","green").css("color","green").css("background","rgb(237, 237, 238)");
-            				// $('#txtMoney2_'+i).css("display","");
-            				// break;
-            			// case '97':
-            				// $('#txtMoney2_'+i).css("display","");
-            				// break;
-            			// case '98':
-            				// $('#txtMoney1_'+i).css("display","").removeAttr('readonly').css("color","black").css("background","white");
-            				// break;
-            			// case '99':
-            				// $('#txtMoney2_'+i).css("display","");
-            				// break;
-            			// default:
-            				// $('#txtGtitle_'+i).css("display","none").val('');
-            				// break;
-            		// }
-            		// if(!(q_cur==1 || q_cur==2)){
-            			// $('#txtGtitle_'+i).attr("readonly","readonly").css("color","green").css("background","rgb(237, 237, 238)");
-        				// $('#txtMoney1_'+i).attr("readonly","readonly").css("color","black").css("background","rgb(237, 237, 238)");
-            			// $('#txtMoney2_'+i).attr("readonly","readonly").css("color","green").css("background","rgb(237, 237, 238)");
-            		// }
-            	// }
-            }
-            function refreshBbt(){            	
-            	// if(q_cur==1 || q_cur==2){
-            		// $('#btnLoad').removeAttr('disabled');
-            	// }else{
-            		// $('#btnLoad').attr('disabled','disabled');
-            	// }
-            	// //gindex: 00(只有文字顯示),01(資料明細),02(小計),97、98、99固定
-            	// for (var i = 0; i < q_bbtCount; i++) {
-            		// if(q_cur==1 || q_cur==2){
-            			// $('#btnPlutX__'+i).removeAttr('disabled');
-            		// }else{
-            			// $('#btnPlutX__'+i).attr('disabled','disabled');
-            		// }
-            		// $('#btnPlutX__'+i).css("display","none");
-            		// //$('#txtAcc1__'+i).css("display","none");
-            		// $('#chkIsall__'+i).css("display","none");
-            		// $('#txtGtitle__'+i).css("display","").attr("readonly","readonly").css("color","green").css("background","rgb(237, 237, 238)");
-        			// $('#txtMoney1__'+i).css("display","none").attr("readonly","readonly").css("color","green").css("background","rgb(237, 237, 238)");
-            		// $('#txtMoney2__'+i).css("display","none").attr("readonly","readonly").css("color","green").css("background","rgb(237, 237, 238)");
-            		// switch($('#txtGindex__'+i).val()){
-            			// case '00':
-            				// $('#btnPlutX__'+i).css("display","");
-            				// $('#chkIsall__'+i).prop('checked',false);
-            				// break;
-            			// case '01':
-            				// $('#btnPlutX__'+i).css("display","");
-            				// $('#txtAcc1__'+i).css("display","");
-            				// if($.trim($('#txtAcc1__'+i).val()).length==5)
-            					// $('#chkIsall__'+i).css("display","");
-            				// $('#txtGtitle__'+i).removeAttr('readonly').css("color","black").css("background","white");
-            				// $('#txtMoney1__'+i).css("display","").removeAttr('readonly').css("color","black").css("background","white");
-            				// break;
-            			// case '02':
-            				// $('#chkIsall__'+i).prop('checked',false);
-            				// $('#txtGtitle__'+i).attr("readonly","readonly").css("color","green").css("color","green").css("background","rgb(237, 237, 238)");
-            				// $('#txtMoney2__'+i).css("display","");
-            				// break;
-            			// case '97':
-            				// $('#chkIsall__'+i).prop('checked',false);
-            				// $('#txtMoney2__'+i).css("display","");
-            				// break;
-            			// case '98':
-            				// $('#chkIsall__'+i).prop('checked',false);
-            				// $('#txtMoney1__'+i).css("display","").removeAttr('readonly').css("color","black").css("background","white");
-            				// break;
-            			// case '99':
-            				// $('#chkIsall__'+i).prop('checked',false);
-            				// $('#txtMoney2__'+i).css("display","");
-            				// break;
-            			// default:
-            				// $('#chkIsall__'+i).prop('checked',false);
-            				// $('#txtGtitle__'+i).css("display","none").val('');
-            				// break;
-            		// }
-            	// }
-            }
+            			
+            		$('#btnPlusX_'+i).css("display","none");
+            		$('#txtItem_'+i).css("display","").attr("readonly","readonly").css("color","green").css("background","rgb(237, 237, 238)");
+            		
+            		switch($('#txtIndexs_'+i).val()){
+            			case '00':
+            				$('#txtMoney1_'+i).css("display","none").val(0);
+            				$('#txtMoney2_'+i).css("display","none").val(0);
+            				$('#txtMoney3_'+i).css("display","none").val(0);
+            				break;
+            			case '01':
+            				$('#txtMoney2_'+i).css("display","none").val(0);
+            				$('#txtMoney3_'+i).css("display","none").val(0);
+            				break;
+            			case '02':
+            				$('#txtMoney1_'+i).css("display","none").val(0);   
+            				$('#txtMoney3_'+i).css("display","none").val(0);       				
+            				break;
+            			case '03':
+            				$('#txtMoney1_'+i).css("display","none").val(0);
+            				$('#txtMoney2_'+i).css("display","none").val(0);           			
+            				break;    
+            			default:
+            				$('#txtMoney1_'+i).css("display","none").val(0);
+            				$('#txtMoney2_'+i).css("display","none").val(0);
+            				$('#txtMoney3_'+i).css("display","none").val(0);
+            				break;	       			
+            		}            		
+            	}
+            }           
             
             function sum(){
             	//---------------------------------bbs------------------------------
@@ -643,25 +526,13 @@
                 while(q_bbsCount<list.length)
                 	$('#btnPlus').click();
                 for(var i=0;i<list.length;i++){
-                	$('#txtGno_'+i).val(list[i].gno);
-                	$('#txtGindex_'+i).val(list[i].gindex);
-                	$('#txtGroupno_'+i).val(list[i].groupno);
-                	$('#txtGtitle_'+i).val(list[i].gtitle);
+                	$('#txtIndexs_'+i).val(list[i].indexs);
+                	$('#txtItem_'+i).val(list[i].item);
+                	$('#txtBacc1_'+i).val(list[i].bacc1);
+                	$('#txtEacc1_'+i).val(list[i].eacc1);
+                	$('#txtAcc1_'+i).val(list[i].acc1);
                 }
-                refreshBbs();
-                while(q_bbtCount<list2.length)
-                	$('#btnPlut').click();
-                for(var i=0;i<list2.length;i++){
-                	$('#txtGno__'+i).val(list2[i].gno);
-                	$('#txtGindex__'+i).val(list2[i].gindex);
-                	$('#txtGroupno__'+i).val(list2[i].groupno);
-                	$('#txtGtitle__'+i).val(list2[i].gtitle);
-                	if(list2[i].acc1 != undefined)
-                		$('#txtAcc1__'+i).val(list2[i].acc1);
-                	if(list2[i].isall != undefined && list2[i].isall)
-                		$('#chkIsall__'+i).prop('checked',true);
-                }
-                refreshBbt();
+                refreshBbs();              
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
@@ -672,8 +543,7 @@
                     return;
                 _btnModi();
                 $('#txtDatea').focus();
-                refreshBbs();
-                refreshBbt();
+                refreshBbs();               
                 sum();
             }
 
@@ -707,8 +577,7 @@
 
             function refresh(recno) {
                 _refresh(recno);
-                refreshBbs();
-                refreshBbt();
+                refreshBbs();             
             }
 
             function readonly(t_para, empty) {
@@ -809,7 +678,7 @@
             }
             .dbbm {
                 float: left;
-                width: 460px;
+                width: 550px;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -958,8 +827,8 @@
 						<td><input id="txtAccy" type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblMon" class="lbl"> </a></td>
-						<td><input id="txtMon" type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblDeadline" class="lbl"> </a></td>
+						<td><input id="txtDeadline" type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
@@ -974,7 +843,7 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="float:left; width:610px;">
+		<div class='dbbs' style="float:left; width:700px;">
 			<table id="tbbs" class='tbbs' >
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:30px;">
@@ -982,7 +851,7 @@
 					<input id="btnImport" value="匯入" type="button" onclick="btnImport_click()" style="font-size: medium; font-weight: bold; width:95%;"/>
 					</td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:250px;">
+					<td align="center" style="width:350px;">
 						<a id='lblItem_s'> </a>
 						<input id="btnDetial" type="button" value='明細' onclick="btnDetial_click()" style="font-weight: bold;"/>
 					</td>
@@ -995,14 +864,15 @@
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;display: none;" />
 					<input class="btn"  id="btnPlusX.*" type="button" value='+' style="font-weight: bold;"  />
 					<input id="txtNoq.*" type="text" style="display: none;" />
-					</td>
+					<input id="txtIndexs.*" type="text" style="display: none;" />
+					</td>				
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
-						<input type="text" id="txtItem.*" style="width:95%;" />
+						<input type="text" id="txtItem.*" style="width:98%;" />
 					</td>
-					<td><input type="text" id="txtMoney1.*" style="width:95%; text-align: right;" /></td>
-					<td><input type="text" id="txtMoney2.*" style="width:95%; text-align: right;" /></td>
-					<td><input type="text" id="txtMoney3.*" style="width:95%; text-align: right;" /></td>
+					<td><input type="text" id="txtMoney1.*" style="width:96%; text-align: right;" /></td>
+					<td><input type="text" id="txtMoney2.*" style="width:96%; text-align: right;" /></td>
+					<td><input type="text" id="txtMoney3.*" style="width:96%; text-align: right;" /></td>
 				</tr>
 			</table>
 		</div>
