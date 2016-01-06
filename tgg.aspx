@@ -94,11 +94,15 @@
 					q_cmbParse("cmbTypea", q_getPara('tgg_ra.typea'));
 				}else{
 					q_cmbParse("cmbTypea", q_getPara('tgg.typea'));
-				}*/
+				}*/				
 				if(q_getPara('sys.project').toUpperCase()=='XY'){
 					q_cmbParse("cmbConn", q_getPara('sys.taxtype'));
 				}
-				
+				if (q_getPara('sys.project').toUpperCase()=='FE'){					
+					$('#lblConn').css("display","");
+					$('#txtConn').css("display","");
+					$('#lblConn').text("接洽人");					
+				}
 				q_gt('tggtype', '', 0, 0, 0, "tggtype");
 				
 				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
@@ -631,6 +635,8 @@
 						<td><span> </span><a id='lblStatus' class="lbl"> </a></td>
 						<td><input id="txtStatus" type="text" class="txt c1"/></td>
 						-->
+						<td><span> </span><a id='lblConn' class="lbl" style="display: none;"> </a></td>
+						<td><input id="txtConn" type="text" class="txt c1" style="display: none;"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblTel' class="lbl"> </a></td>
