@@ -87,7 +87,7 @@
                 });
 
                 
-                if(q_getPara('sys.project')=='vu'){                       	
+                if(q_getPara('sys.project').toUpperCase()=='VU'){                       	
                 	$('#lblTacc1').removeClass('lbl').addClass('lbl btn');
                 	
                 	aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
@@ -121,7 +121,7 @@
                     		var t_checkno = t_name.split('_')[2];  
                     		var t_noa =  t_name.split('_')[3];               		
                     		var as = _q_appendData("view_gqb_chk", "", true);
-                    		if(as[0]!=undefined && q_getPara('sys.project')!='vu'){
+                    		if(as[0]!=undefined && q_getPara('sys.project').toUpperCase()!='VU'){
                     			var t_isExist = false,t_msg = '';
                     			for(var i in as){
                     				if(as[i]['tablea']!=undefined ){
@@ -442,10 +442,11 @@
             }
 			
 			function refreshBbm() {
-				if(q_getPara('sys.project')=='vu' && (q_cur == 1 || q_cur == 2)){				
+				if((q_getPara('sys.project').toUpperCase()=='FE' || q_getPara('sys.project').toUpperCase()=='VU' ) && (q_cur == 1 || q_cur == 2)){
 					$('#txtTdate').css('color', 'black').css('background', 'white').removeAttr('readonly');
 					$('#txtTbankno').css('color', 'black').css('background', 'white').removeAttr('readonly');
 					$('#txtTacc1').css('color', 'black').css('background', 'white').removeAttr('readonly');
+					$('#txtAcc1').css('color', 'black').css('background', 'white').removeAttr('readonly');
 				}
 			}
 			
