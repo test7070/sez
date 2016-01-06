@@ -95,6 +95,9 @@
 				
 				if (q_getPara('sys.project').toUpperCase()=='FE'){
 					q_readonly = ['txtCredit','txtWorker', 'txtKdate', 'txtSales', 'txtGrpname', 'txtUacc1', 'txtUacc2', 'txtUacc3','txtCust2'];
+					$('#lblConn').css("display","");
+					$('#txtConn').css("display","");
+					$('#lblConn').text("接洽人");					
 				}else{
 					q_readonly = ['txtWorker', 'txtKdate', 'txtSales', 'txtGrpname', 'txtUacc1', 'txtUacc2', 'txtUacc3','txtCust2'];
 				}
@@ -1026,7 +1029,7 @@
 							<input id="btnConn" type="button" />
 							<input id="btnCustm" type="button" />
 							<!--<input id="btnTmpcustno_xy" type="button" value="轉正式客戶" style="display: none;"/>-->
-						</td>
+						</td>						
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblType' class="lbl"> </a></td>
@@ -1053,6 +1056,8 @@
 						<td><input id="txtTeam" type="text" class="txt c1"/></td>
 						<!--<td><span> </span><a id='lblTeampaytype' class="lbl"> </a></td>
 						<td><input id="txtTeampaytype" type="text" class="txt c1"/></td>-->
+						<td><span> </span><a id='lblConn' class="lbl" style="display: none;"> </a></td>
+						<td><input id="txtConn" type="text" class="txt c1" style="display: none;"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblTel' class="lbl"> </a></td>

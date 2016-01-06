@@ -420,6 +420,8 @@
 					q_box('z_vccap_sh.aspx' + "?;;;noa=" + trim($('#txtNoa').val())+";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
 				}else if (q_getPara('sys.project') == 'pk') {
 					q_box('z_vccap_pk.aspx' + "?;;;noa=" + trim($('#txtNoa').val())+";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+				}else if (q_getPara('sys.project') == 'fe') {
+					q_box('z_vccap_fe.aspx' + "?;;;noa=" + trim($('#txtNoa').val())+";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
 				}
 				else {
 					q_box('z_vccap.aspx?;;;' + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));

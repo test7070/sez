@@ -25,8 +25,8 @@
             var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [['txtMoney1',10,0,1],['txtMoney2',10,0,1],['txtMoney3',10,0,1]];
-            var bbtNum = [['txtMoney',10,0,0]];
-            var bbmMask = [['txtMon','999/99'],['txtDatea','999/99/99']];
+            var bbtNum = [];
+            var bbmMask = [['txtDeadline','999/99/99'],['txtDatea','999/99/99']];
             var bbsMask = [];
             var bbtMask = [];
             q_sqlCount = 6;
@@ -46,47 +46,46 @@
                 q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
             });        
             
-            var list = new Array(); 
-            list.push({indexs:"02",item:"01.期初商品",bacc1:"1131",eacc1:"1131",acc1:""});
-            list.push({indexs:"02",item:"02.本期進貨",bacc1:"5200",eacc1:"5299",acc1:""});    
-            list.push({indexs:"02",item:"03.期末存貨",bacc1:"1131",eacc1:"1131",acc1:""});
-            list.push({indexs:"02",item:"04.加:其他",bacc1:"",eacc1:"",acc1:""});
-            list.push({indexs:"02",item:"05.減:其他",bacc1:"",eacc1:"",acc1:""});
-            list.push({indexs:"03",item:"進銷成本",bacc1:"",eacc1:"",acc1:""});                          
-            list.push({indexs:"01",item:"06.期初存料",bacc1:"1137",eacc1:"1137",acc1:""});
-            list.push({indexs:"01",item:"07.本期進料",bacc1:"",eacc1:"",acc1:"5311,5313,5314"});    
-            list.push({indexs:"01",item:"08.期末存料",bacc1:"1137",eacc1:"1137",acc1:""});
-            list.push({indexs:"01",item:"09.加:其他",bacc1:"",eacc1:"",acc1:""});
-            list.push({indexs:"01",item:"10.減:其他",bacc1:"",eacc1:"",acc1:""});
-            list.push({indexs:"02",item:"直接原料",bacc1:"",eacc1:"",acc1:""});
-            list.push({indexs:"01",item:"11.期初存料",bacc1:"1140",eacc1:"1140",acc1:""});
-            list.push({indexs:"01",item:"12.本期進料",bacc1:"",eacc1:"",acc1:"6315,6317,6318"});    
-            list.push({indexs:"01",item:"13.期末存料",bacc1:"1140",eacc1:"1140",acc1:""});
-            list.push({indexs:"00",item:"14.加:其他",bacc1:"",eacc1:"",acc1:""});
-            list.push({indexs:"01",item:"15.減:其他",bacc1:"",eacc1:"",acc1:""});
-            list.push({indexs:"02",item:"間接原料",bacc1:"",eacc1:"",acc1:""});
-            list.push({indexs:"02",item:"16.直接人工",bacc1:"5400",eacc1:"5499",acc1:""});
-            list.push({indexs:"02",item:"17.製造費用",bacc1:"5500",eacc1:"5599",acc1:""});
-            list.push({indexs:"02",item:"製造成本",bacc1:"",eacc1:"",acc1:""});
-            list.push({indexs:"01",item:"18.期初再製品",bacc1:"",eacc1:"",acc1:"1136,1139"});
-            list.push({indexs:"01",item:"19.期末再製品",bacc1:"",eacc1:"",acc1:"1136,1139"});    
-            list.push({indexs:"00",item:"20.加:其他",bacc1:"",eacc1:"",acc1:""});
-            list.push({indexs:"01",item:"21.減:其他",bacc1:"",eacc1:"",acc1:""});
-            list.push({indexs:"02",item:"製成品成本",bacc1:"",eacc1:"",acc1:""});
-            list.push({indexs:"01",item:"22.期初製成品",bacc1:"1133",eacc1:"1133",acc1:""});
-            list.push({indexs:"01",item:"23.期末製成品",bacc1:"1133",eacc1:"1133",acc1:""});    
-            list.push({indexs:"01",item:"24.加:其他",bacc1:"",eacc1:"",acc1:""});
-            list.push({indexs:"01",item:"25.減:其他",bacc1:"",eacc1:"",acc1:""});
-            list.push({indexs:"00",item:"26.外銷估列應收退稅或已收退稅款",bacc1:"",eacc1:"",acc1:""});
-            list.push({indexs:"00",item:"27.產銷成本減項",bacc1:"",eacc1:"",acc1:""});  
-            list.push({indexs:"03",item:"產銷成本",bacc1:"",eacc1:"",acc1:""});
-            list.push({indexs:"03",item:"28.勞務成本",bacc1:"5700",eacc1:"5799",acc1:""});
-            list.push({indexs:"03",item:"29.修理成本",bacc1:"5800",eacc1:"5899",acc1:""});
-            list.push({indexs:"03",item:"30.加工成本",bacc1:"5600",eacc1:"5699",acc1:""});
-            list.push({indexs:"03",item:"31.其他營業成本",bacc1:"5900",eacc1:"5999",acc1:""});
-            list.push({indexs:"03",item:"營業成本",bacc1:"",eacc1:"",acc1:""});
-            
-            var t_data1 = new Array(),t_data2 = new Array();
+            var list = new Array();
+            list.push({indexs:"12",item:"01.期初商品",acc1:"1131"});
+            list.push({indexs:"12",item:"02.本期進貨",acc1:"5200~5299"});    
+            list.push({indexs:"12",item:"03.期末存貨",acc1:"1131"});
+            list.push({indexs:"02",item:"04.加:其他",acc1:""});
+            list.push({indexs:"02",item:"05.減:其他",acc1:""});
+            list.push({indexs:"03",item:"進銷成本",acc1:""});                          
+            list.push({indexs:"11",item:"06.期初存料",acc1:"1137"});
+            list.push({indexs:"11",item:"07.本期進料",acc1:"5311,5313,5314"});    
+            list.push({indexs:"11",item:"08.期末存料",acc1:"1137"});
+            list.push({indexs:"01",item:"09.加:其他",acc1:""});
+            list.push({indexs:"01",item:"10.減:其他",acc1:""});
+            list.push({indexs:"02",item:"直接原料",acc1:""});
+            list.push({indexs:"11",item:"11.期初存料",acc1:"1140"});
+            list.push({indexs:"11",item:"12.本期進料",acc1:"6315,6317,6318"});    
+            list.push({indexs:"11",item:"13.期末存料",acc1:"1140"});
+            list.push({indexs:"01",item:"14.加:其他",acc1:""});
+            list.push({indexs:"01",item:"15.減:其他",acc1:""});
+            list.push({indexs:"02",item:"間接原料",acc1:""});
+            list.push({indexs:"12",item:"16.直接人工",acc1:"5400~5499"});
+            list.push({indexs:"12",item:"17.製造費用",acc1:"5500~5599"});
+            list.push({indexs:"02",item:"製造成本",acc1:""});
+            list.push({indexs:"11",item:"18.期初再製品",acc1:"1136,1139"});
+            list.push({indexs:"11",item:"19.期末再製品",acc1:"1136,1139"});    
+            list.push({indexs:"01",item:"20.加:其他",acc1:""});
+            list.push({indexs:"01",item:"21.減:其他",acc1:""});
+            list.push({indexs:"02",item:"製成品成本",acc1:""});
+            list.push({indexs:"11",item:"22.期初製成品",acc1:"1133"});
+            list.push({indexs:"11",item:"23.期末製成品",acc1:"1133"});    
+            list.push({indexs:"01",item:"24.加:其他",acc1:""});
+            list.push({indexs:"01",item:"25.減:其他",acc1:""});
+            list.push({indexs:"01",item:"26.外銷估列應收退稅或已收退稅款",acc1:""});
+            list.push({indexs:"01",item:"27.產銷成本減項",acc1:""});  
+            list.push({indexs:"03",item:"產銷成本",acc1:""});
+            list.push({indexs:"13",item:"28.勞務成本",acc1:"5700~5799"});
+            list.push({indexs:"13",item:"29.修理成本",acc1:"5800~5899"});
+            list.push({indexs:"13",item:"30.加工成本",acc1:"5600~5699"});
+            list.push({indexs:"13",item:"31.其他營業成本",acc1:"5900~5999"});
+            list.push({indexs:"03",item:"營業成本",acc1:""});
+                                  
             function main() {
                 if (dataErr) {
                     dataErr = false;
@@ -94,59 +93,24 @@
                 }
                 mainForm(0);
             }
+            
             function mainPost() {
                 q_getFormat();
                 q_mask(bbmMask);                             
             }
+            
             function btnImport_click(){
-            	if($.trim($('#txtMon').val()).length>0){
-            		t_accy = $.trim($('#txtMon').val()).substring(0,3);
+            	if($.trim($('#txtDeadline').val()).length>0){
+            		t_accy = $.trim($('#txtDeadline').val()).substring(0,3);
             		Lock(1,{opacity:0});
-            		q_gt('tables', "where=^^ TABLE_NAME='acccs"+t_accy+"_1'^^", 0, 0, 0, "checktable");
+            		getData();            		
             	}else{
-            		alert('請輸入月份‧');
+            		alert('請輸入截止日期‧');
             	}
             }
-            function btnLoad_click(){
-            	if($.trim($('#txtMon').val()).length>0){
-	            	Lock();
-	            	loadAccc(q_bbtCount-1);
-            	}else{
-            		alert('請輸入月份‧');
-            	}
-            }
-            function btnDetial_click(){
-            	if($('#dbbt').is(":hidden"))
-            		$('#dbbt').show();
-            	else
-            		$('#dbbt').hide();	
-            }
-			function loadAccc(n){
-				if(n<0){
-					sum();
-					Unlock();
-				}else{
-					if($('#txtGindex__'+n).val()=='01' && $.trim($('#txtAcc1__'+n).val()).length>0){
-						var t_accy = $('#txtMon').val().substring(0,3);
-						var t_where = "";
-						t_data1 = new Array(),t_data2 = new Array();
-						$('#txtMoney1__'+n).val(0);
-						//5碼的才需判斷是否要包含子科目
-						var t_acc1 = $.trim($('#txtAcc1__'+n).val());
-						if(t_acc1.length==5 && $('#chkIsall__'+n).prop('checked')){
-							t_where = " left(a.accc5,5)='"+t_acc1+"'";
-						}else{
-							t_where = " a.accc5='"+t_acc1+"'";
-						}
-						t_where += " and left(b.accc2,2)<='"+$('#txtMon').val().substring(4,6)+"' and LEFT(a.accc3,2)!='00'";
-						t_where = "where=^^"+t_where+"^^";
-						q_gt('acccs_sum', t_where, 0, 0, 0, "acccs_sum_"+n+"_"+t_acc1, t_accy+"_1");
-					}
-					else{
-						loadAccc(n-1);
-					}
-				}
-			}
+            
+            var t_data1 = new Array();
+            var t_data2 = new Array();
             function q_gtPost(t_name) {
                 switch (t_name) { 
                 	case 'btnOk':
@@ -163,58 +127,20 @@
 			                    wrServer(t_noa);
                 		}
                 		break;
-                	case 'checktable':
-                		t_accy = $.trim($('#txtMon').val()).substring(0,3);
-                		t_mon = $.trim($('#txtMon').val()).substring(4,6);
-                		var as = _q_appendData("INFORMATION_SCHEMA.TABLES", "", true);
-                		if(as[0]!=undefined){
-                			//不含期初
-                			t_where = "where=^^ (b.accc2 between '01/01' and '"+t_mon+"/31') and LEFT(a.accc3,2)!='00' ^^";
-                			q_gt('accashf_import', t_where, 0, 0, 0, "accashf_import1", t_accy+"_1");
-                		}else{
-                			//alert('無資料。');
-           					btnImport();
-                		}
-                		break;
-                	case  'accashf_import1':
-                		t_accy = $.trim($('#txtMon').val()).substring(0,3);
-                		t_mon = $.trim($('#txtMon').val()).substring(4,6);
+                	case  'acccs':
                 		var as = _q_appendData("acccs", "", true);
                 		if(as[0]!=undefined){
                 			t_data1 = as;
                 		}
-                		t_where = "where=^^ (b.accc2 between '01/01' and '"+t_mon+"/31') ^^";
-            			q_gt('accashf_import', t_where, 0, 0, 0, "accashf_import2", t_accy+"_1");
-                		break; 
-                	case  'accashf_import2':
-                		var as = _q_appendData("acccs", "", true);
-                		if(as[0]!=undefined){
-                			t_data2 = as;
-                		}
                 		btnImport();
-                		break; 	
+                		break;	
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
-                        break;
-                    default:
-                    	if(t_name.substring(0,10)=='acccs_sum_'){
-                    		var n = parseFloat(t_name.split('_')[2]);
-                    		var t_acc1 = t_name.split('_')[3];
-                    		var as = _q_appendData("acccs", "", true);
-                    		if(as[0]!=undefined){
-                    			var t_money = 0;
-                    			if(t_acc1.substring(0,1)=='1' || t_acc1.substring(0,1)=='5' || t_acc1.substring(0,1)=='6' || t_acc1.substring(0,1)=='8' || t_acc1.substring(0,2)=='73' || t_acc1.substring(0,1)=='9')
-                    				t_money = parseFloat(as[0].dmoney.length==0?"0":as[0].dmoney)-parseFloat(as[0].cmoney.length==0?"0":as[0].cmoney);
-                    			else
-                    				t_money = parseFloat(as[0].cmoney.length==0?"0":as[0].cmoney)-parseFloat(as[0].dmoney.length==0?"0":as[0].dmoney);
-                    			$('#txtMoney1__'+n).val(FormatNumber(round(t_money,0)));
-                    		}
-                    		loadAccc(n-1);
-                    	}
-                    	break;
+                        break;          
                 }
             }
+            
             function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {
@@ -223,97 +149,45 @@
 						break;
 				}
 			}
-			function btnImport(){
-				for(var i=0;i<q_bbsCount;i++){
-					t_txt = $.trim($('#txtGtitle_'+i).val());
-					if(t_txt.substring(0,4)=='本期損益'){
-						//本期損益   4-5-6+7-8-9
-						t_money=0;
-						for(var j=0;j<t_data2.length;j++){
-							if(t_data2[j].acc1.substring(0,1)=='4' || t_data2[j].acc1.substring(0,1)=='7'){
-								t_money += parseFloat(t_data2[j].money.length==0?'0':t_data2[j].money);
-							}else if(t_data2[j].acc1.substring(0,1)=='5' 
-								|| t_data2[j].acc1.substring(0,1)=='6'
-								|| t_data2[j].acc1.substring(0,1)=='8'
-								|| t_data2[j].acc1.substring(0,1)=='9'){
-									t_money -= parseFloat(t_data2[j].money.length==0?'0':t_data2[j].money);
-							}
-						}
-						$('#txtMoney1_'+i).val(FormatNumber(t_money));
-					}else if(t_txt.substring(0,4)=='應收票據'){
-						t_money = 0;
-						for(var j=0;j<t_data1.length;j++){
-							if(t_data1[j].acc1=='1121'){
-								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
-								break;
-							}
-						}
-						$('#txtMoney1_'+i).val(FormatNumber(t_money));
-					}else if(t_txt.substring(0,4)=='應收帳款'){
-						t_money = 0;
-						for(var j=0;j<t_data1.length;j++){
-							if(t_data1[j].acc1=='1123'){
-								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
-								break;
-							}
-						}
-						$('#txtMoney1_'+i).val(FormatNumber(t_money));
-					}else if(t_txt.substring(0,2)=='存貨'){
-						t_money = 0;
-						for(var j=0;j<t_data1.length;j++){
-							if(t_data1[j].acc1.substring(0,3)=='113'){
-								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
-							}
-						}
-						$('#txtMoney1_'+i).val(FormatNumber(t_money));
-					}else if(t_txt.substring(0,4)=='預付款項'){
-						t_money = 0;
-						for(var j=0;j<t_data1.length;j++){
-							if(t_data1[j].acc1.substring(0,3)=='114'){
-								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
-							}
-						}
-						$('#txtMoney1_'+i).val(FormatNumber(t_money));
-					}else if(t_txt.substring(0,4)=='應付票據'){
-						t_money = 0;
-						for(var j=0;j<t_data1.length;j++){
-							if(t_data1[j].acc1=='2121'){
-								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
-								break;
-							}
-						}
-						$('#txtMoney1_'+i).val(FormatNumber(t_money));
-					}else if(t_txt.substring(0,4)=='應付帳款'){
-						t_money = 0;
-						for(var j=0;j<t_data1.length;j++){
-							if(t_data1[j].acc1=='2123'){
-								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
-								break;
-							}
-						}
-						$('#txtMoney1_'+i).val(FormatNumber(t_money));
-					}else if(t_txt.substring(0,4)=='應付費用'){
-						t_money = 0;
-						for(var j=0;j<t_data1.length;j++){
-							if(t_data1[j].acc1=='2122'){
-								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
-								break;
-							}
-						}		
-						$('#txtMoney1_'+i).val(FormatNumber(t_money));
-					}else if(t_txt.substring(0,4)=='預收款項'){
-						t_money = 0;
-						for(var j=0;j<t_data1.length;j++){
-							if(t_data1[j].acc1.substring(0,3)=='213'){
-								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
-							}
-						}
-						$('#txtMoney1_'+i).val(FormatNumber(t_money));
-					}
-    			}
-    			sum();
-        		Unlock(1);
+			
+			function getData(){
+				var t_where = "where=^^ accc2<='"+$('#txtDeadline').val().substr(4,5)+"' ^^";
+				q_gt('acccs', t_where, 0, 0, 0, "", $('#txtDeadline').val().substr(0,3)+'_1');					
 			}
+
+			function btnImport(){
+				var accc5;
+				var t_money = 0;
+				
+				for(var i=0; i<q_bbsCount; i++){
+					if($('#txtAcc1_'+i).val().length==0){
+						if(list[i].indexs!=undefined)
+							$('#txtMoney'+list[i].indexs.substr(1,1)+'_'+i).val(t_money);
+						continue;
+					}						
+					accc5 = $('#txtAcc1_'+i).val()+',';
+					t_money = 0;				
+					while(accc5.length>0){
+						if(accc5.substr(0,accc5.indexOf(',')).length==4){
+							for(var j=0; j<t_data1.length; j++){
+								if(t_data1[j].accc5.substr(0,4)==$('#txtAcc1_'+i).val()){
+									t_money = t_money + parseFloat(t_data1[j].dmoney);
+								}
+							}//j-loop
+						}else{						
+							for(var j=0; j<t_data1.length; j++){
+								if(t_data1[j].accc5.substr(0,4)>=$('#txtAcc1_'+i).val().substr(0,4)&&t_data1[j].accc5.substr(0,4)<=$('#txtAcc1_'+i).val().substr(5,4)){
+									t_money = t_money + parseFloat(t_data1[j].dmoney);
+								}
+							}//j-loop
+						}
+						accc5 = accc5.substr(accc5.indexOf(',')+1,accc5.length);
+					}//while-loop
+					$('#txtMoney'+list[i].indexs.substr(1,1)+'_'+i).val(t_money);					
+				}//i-loop		
+				unlock();		      		
+			}//btnImport		
+			
             function btnOk() {
             	Lock(1,{opacity:0});
             	for (var i = 0; i < q_bbsCount; i++) {
@@ -352,175 +226,76 @@
                 for (var i = 0; i < q_bbsCount; i++) {
                     $('#lblNo_' + i).text(i + 1);
                     if (!$('#btnMinus_' + i).hasClass('isAssign')) {
-                    	$('#txtGtitle_'+i).change(function(e){
-                    		sum();	
-                    	});
-                    	$('#txtMoney1_'+i).change(function(e){
-                    		sum();	
-                    	});
-                		$('#btnPlusX_'+i).click(function(){
-                			if(q_cur!=1 && q_cur!=2)
-                				return;
-                			var n = parseInt($(this).attr('id').replace('btnPlusX_',''));         			
-                			var t_qindex = $('#txtQindex_'+i).val();
-                			var m = -1;//計算最後一筆表身資料在哪
-                			for(var i = q_bbsCount;i>=0;i--){
-                				if($.trim($('#txtGtitle_'+i).val()).length==0 && q_float('txtMoney1_'+i)==0 && q_float('txtMoney2_'+i)==0){
-                					
-                				}else{
-                					m = i;
-                					break;
-                				}
-                			}
-                			if(m+1==q_bbsCount){
-                				$('#btnPlus').click();
-                			}
-                			for(var i=m+1;i>n+1;i--){
-                				$('#txtGno_'+i).val($('#txtGno_'+(i-1)).val());
-                				$('#txtGindex_'+i).val($('#txtGindex_'+(i-1)).val());
-                				$('#txtGroupno_'+i).val($('#txtGroupno_'+(i-1)).val());
-                				$('#txtGtitle_'+i).val($('#txtGtitle_'+(i-1)).val());
-                				$('#txtMoney1_'+i).val($('#txtMoney1_'+(i-1)).val());
-                				$('#txtMoney2_'+i).val($('#txtMoney2_'+(i-1)).val());
-                			}
-                			$('#txtGno_'+(n+1)).val('3');
-                			$('#txtGindex_'+(n+1)).val('01');
-                			$('#txtGroupno_'+(n+1)).val($('#txtGroupno_'+n).val());
-            				$('#txtGtitle_'+(n+1)).val('');
-            				$('#txtMoney1_'+(n+1)).val('');
-            				$('#txtMoney2_'+(n+1)).val('');
-            				refreshBbs();
-                		});
+                    	
                 		
                     }
                 }
                 _bbsAssign();
             }
-            
+                   
             function refreshBbs(){
             	//indexs: 00(x),01(小計),02(合計),03(總計)
-            	for (var i = 0; i < q_bbsCount; i++) {
-            		// if(q_cur==1 || q_cur==2)
-            			// $('#btnPlusX_'+i).removeAttr('disabled');
-            		// else
-            			// $('#btnPlusX_'+i).attr('disabled','disabled');
-            			
-            		$('#btnPlusX_'+i).css("display","none");
+            	for (var i = 0; i < q_bbsCount; i++) {            
             		$('#txtItem_'+i).css("display","").attr("readonly","readonly").css("color","green").css("background","rgb(237, 237, 238)");
             		
-            		switch($('#txtIndexs_'+i).val()){
-            			case '00':
-            				$('#txtMoney1_'+i).css("display","none").val(0);
-            				$('#txtMoney2_'+i).css("display","none").val(0);
-            				$('#txtMoney3_'+i).css("display","none").val(0);
-            				break;
+            		switch($('#txtIndexs_'+i).val()){           			
             			case '01':
+            				$('#txtAcc1_'+i).css("display","none")       			
             				$('#txtMoney2_'+i).css("display","none").val(0);
             				$('#txtMoney3_'+i).css("display","none").val(0);
             				break;
             			case '02':
+            				$('#txtAcc1_'+i).css("display","none")
             				$('#txtMoney1_'+i).css("display","none").val(0);   
             				$('#txtMoney3_'+i).css("display","none").val(0);       				
             				break;
             			case '03':
+            				$('#txtAcc1_'+i).css("display","none")          				
             				$('#txtMoney1_'+i).css("display","none").val(0);
             				$('#txtMoney2_'+i).css("display","none").val(0);           			
-            				break;    
-            			default:
+            				break;
+            			case '11':
+            				$('#txtMoney2_'+i).css("display","none").val(0);
+            				$('#txtMoney3_'+i).css("display","none").val(0);
+            				break;
+            			case '12':
+            				$('#txtMoney1_'+i).css("display","none").val(0);   
+            				$('#txtMoney3_'+i).css("display","none").val(0);       				
+            				break;
+            			case '13':
+            				$('#txtMoney1_'+i).css("display","none").val(0);
+            				$('#txtMoney2_'+i).css("display","none").val(0);           			
+            				break;	
+            			default:            				
+            				$('#txtItem_'+i).css("display","none")
+            				$('#txtAcc1_'+i).css("display","none")            				     				
             				$('#txtMoney1_'+i).css("display","none").val(0);
             				$('#txtMoney2_'+i).css("display","none").val(0);
             				$('#txtMoney3_'+i).css("display","none").val(0);
             				break;	       			
             		}            		
             	}
-            }           
-            
-            function sum(){
-            	//---------------------------------bbs------------------------------
-            	var t_group = new Array();
-            	var t_data = new Array();
-            	var t_97 = 0;
-            	var t_98 = 0;
-            	for (var i = 0; i < q_bbsCount; i++) {
-            		if($('#txtGindex_'+i).val()=='01' && $.trim($('#txtGtitle_'+i).val()).length>0){
-            			n = t_group.indexOf($('#txtGroupno_'+i).val());
-            			t_97 += q_float('txtMoney1_'+i);
-            			if(n>=0){
-            				t_data[n] += q_float('txtMoney1_'+i);
-            			}else{
-            				t_group.push($('#txtGroupno_'+i).val());
-            				t_data.push(q_float('txtMoney1_'+i));
-            			}
-            		}
-            		if($('#txtGindex_'+i).val()=='98'){
-            			t_98 = q_float('txtMoney1_'+i);
-            		}
-            	}
-            	//小計
-            	for (var i = 0; i < q_bbsCount; i++) {
-            		if($('#txtGindex_'+i).val()=='02'){
-            			n = t_group.indexOf($('#txtGroupno_'+i).val());
-            			if(n>=0)
-            				$('#txtMoney2_'+i).val(FormatNumber(t_data[n]));
-            			else
-            				$('#txtMoney2__'+i).val(0);
-            		}else if($('#txtGindex_'+i).val()=='97'){
-            			$('#txtMoney2_'+i).val(FormatNumber(t_97));
-            		}else if($('#txtGindex_'+i).val()=='99'){
-            			$('#txtMoney2_'+i).val(FormatNumber(t_97+t_98));
-            		}else{
-            			$('#txtMoney2_'+i).val('');
-            		}
-            	}
-            	//---------------------------------bbt------------------------------
-            	t_group = new Array();
-            	t_data = new Array();
-            	t_97 = 0;
-            	t_98 = 0;
-            	for (var i = 0; i < q_bbtCount; i++) {
-            		if($('#txtGindex__'+i).val()=='01' && $.trim($('#txtGtitle__'+i).val()).length>0){
-            			n = t_group.indexOf($('#txtGroupno__'+i).val());
-            			t_97 += q_float('txtMoney1__'+i);
-            			if(n>=0){
-            				t_data[n] += q_float('txtMoney1__'+i);
-            			}else{
-            				t_group.push($('#txtGroupno__'+i).val());
-            				t_data.push(q_float('txtMoney1__'+i));
-            			}
-            		}
-            		if($('#txtGindex__'+i).val()=='98'){
-            			t_98 = q_float('txtMoney1__'+i);
-            		}
-            	}
+            } 
+                          
+            function sum(){       
             	
-            	//小計
-            	for (var i = 0; i < q_bbtCount; i++) {
-            		if($('#txtGindex__'+i).val()=='02'){
-            			n = t_group.indexOf($('#txtGroupno__'+i).val());
-            			if(n>=0)
-            				$('#txtMoney2__'+i).val(FormatNumber(t_data[n]));
-            			else
-            				$('#txtMoney2__'+i).val(0);
-            		}else if($('#txtGindex__'+i).val()=='97'){
-            			$('#txtMoney2__'+i).val(FormatNumber(t_97));
-            		}else if($('#txtGindex__'+i).val()=='99'){
-            			$('#txtMoney2__'+i).val(FormatNumber(t_97+t_98));
-            		}else{
-            			$('#txtMoney2__'+i).val('');
-            		}
-            	}
+            	
+            	
             }
+            
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
                 Unlock(1);
             }
+            
             function q_popPost(id) {
 				switch(id) {
 					default:
 						break;
 				}
 			}
+			
             function btnIns() {
                 _btnIns();
                 while(q_bbsCount<list.length)
@@ -535,9 +310,10 @@
                 refreshBbs();              
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
-                $('#txtDatea').focus();
+                $('#txtDeadline').val('104/12/31');
+                $('#txtDeadline').focus();
             }
-
+            
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
@@ -559,7 +335,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['gtitle']) {
+                if (!as['item']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -567,7 +343,7 @@
                 return true;
             }
             function bbtSave(as) {
-                if (!as['gtitle']) {
+                if (!as['item']) {
                     as[bbtKey[1]] = '';
                     return;
                 }
@@ -678,7 +454,7 @@
             }
             .dbbm {
                 float: left;
-                width: 550px;
+                width: 650px;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -843,33 +619,30 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="float:left; width:700px;">
+		<div class='dbbs' style="float:left; width:880px;">
 			<table id="tbbs" class='tbbs' >
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:30px;">
-					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;display: none;"  />
-					<input id="btnImport" value="匯入" type="button" onclick="btnImport_click()" style="font-size: medium; font-weight: bold; width:95%;"/>
+						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;display: none;"  />
+						<input id="btnImport" value="匯入" type="button" onclick="btnImport_click()" style="font-size: medium; font-weight: bold; width:95%;"/>
 					</td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:350px;">
-						<a id='lblItem_s'> </a>
-						<input id="btnDetial" type="button" value='明細' onclick="btnDetial_click()" style="font-weight: bold;"/>
-					</td>
+					<td align="center" style="width:400px;"><a id='lblItem_s'> </a></td>
+					<td align="center" style="width:350px;"><a id='lblAcc1_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblMoney1_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblMoney2_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblMoney3_s'> </a></td>
 				</tr>
-				<tr  style='background:#cad3ff;'>
+				<tr style='background:#cad3ff;'>
 					<td align="center">
-					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;display: none;" />
-					<input class="btn"  id="btnPlusX.*" type="button" value='+' style="font-weight: bold;"  />
-					<input id="txtNoq.*" type="text" style="display: none;" />
-					<input id="txtIndexs.*" type="text" style="display: none;" />
-					</td>				
-					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-					<td>
-						<input type="text" id="txtItem.*" style="width:98%;" />
-					</td>
+						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;display: none;" />
+						<input class="btn"  id="btnPlusX.*" type="button" value='+' style="font-weight: bold;display: none;"  />
+						<input id="txtNoq.*" type="text" style="display: none;" />
+						<input id="txtIndexs.*" type="text" style="display: none;" />
+					</td>		
+					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>	
+					<td><input type="text" id="txtItem.*" style="width:98%;" /></td>
+					<td><input type="text" id="txtAcc1.*" style="width:98%;" /></td>
 					<td><input type="text" id="txtMoney1.*" style="width:96%; text-align: right;" /></td>
 					<td><input type="text" id="txtMoney2.*" style="width:96%; text-align: right;" /></td>
 					<td><input type="text" id="txtMoney3.*" style="width:96%; text-align: right;" /></td>
@@ -899,10 +672,10 @@
 						<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 						<td><input id="txtItem..*"  type="text" style="width:95%;"/></td>
 						<td>
+							<input id="txtAcc1..*"  type="text" style="float:left;width:97%;"/>
 							<input id="txtBacc1..*"  type="text" style="float:left;width:45%;"/>
 							<a style="float:left;width:5%;">~</a>
-							<input id="txtEacc1..*"  type="text" style="float:left;width:45%;"/>
-							<input id="txtAcc1..*"  type="text" style="float:left;width:97%;"/>
+							<input id="txtEacc1..*"  type="text" style="float:left;width:45%;"/>						
 						</td>
 						<td><input id="txtMoney..*" type="text" style="width:95%; text-align: right;"/></td>
 					</tr>
