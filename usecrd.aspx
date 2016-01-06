@@ -54,7 +54,7 @@
 						for(var k=0;k<q_bbsCount;k++){
 							$('#btnMinus_'+k).click();
 						}
-						as = as.sort(function(a,b){return dec(a.noa)-dec(b.noa);})
+						//as = as.sort(function(a,b){return dec(a.noa)-dec(b.noa);})
 						//匯入Credit的資料
 						var ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtCreditno,txtNamea,txtBasev,txtMul', as.length, as, 'noa,namea,basev,mul', 'txtCreditno');
 						//更新金額/數量 額度 作業人員 單位值 權值
