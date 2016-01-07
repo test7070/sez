@@ -54,6 +54,7 @@
             	bbmMask = [['txtDatea', r_picd], ['txtIndate', r_picd], ['txtTdate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('gqb.typea'));
+                q_cmbParse("cmbRem1", ' ,'+q_getPara('gqb.rem1'));
 				
 				if(r_len==3){
 					$('#txtDatea').datepicker();
@@ -442,6 +443,10 @@
             }
 			
 			function refreshBbm() {
+				if(q_getPara('sys.project').toUpperCase()=='FE'){
+					$('.FE').show();
+				}
+				
 				if((q_getPara('sys.project').toUpperCase()=='FE' || q_getPara('sys.project').toUpperCase()=='VU' ) && (q_cur == 1 || q_cur == 2)){
 					$('#txtTdate').css('color', 'black').css('background', 'white').removeAttr('readonly');
 					$('#txtTbankno').css('color', 'black').css('background', 'white').removeAttr('readonly');
@@ -657,17 +662,20 @@
 						<td class='tdZ'> </td>
 					</tr>
 					<tr>
-						<td colspan="2"><a id="lblGqb"  style="color: #104E8B ;font-weight:bolder;font-size: 18px; text-align: left;"></a></td>
+						<td colspan="2"><a id="lblGqb"  style="color: #104E8B ;font-weight:bolder;font-size: 18px; text-align: left;"> </a></td>
 						<td><a id="lblCopy">複製</a><input id="checkCopy" type="checkbox"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblGqbno' class="lbl"></a></td>
+						<td><span> </span><a id='lblGqbno' class="lbl"> </a></td>
 						<td colspan="2">
 							<input id="txtGqbno"  type="text"  class="txt c1"/>
 							<input id="txtNoa"  type="text" style="display:none;"/>
 						</td>
 						<td><span> </span><a id='lblType' class="lbl"> </a></td>
-						<td><select id="cmbTypea" class="txt c1"> </select></td>
+						<td>
+							<select id="cmbTypea" class="txt c1" style="width:49%;"> </select>
+							<select id="cmbRem1" class="txt c1 FE" style="width:49%;display: none;"> </select>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAccount' class="lbl"> </a></td>
@@ -711,8 +719,20 @@
 							<input id="txtComp"  type="text" class="txt" style="width:70%;"/>
 						</td>
 					</tr>
+					<tr class="FE" style="display: none;">
+						<td><span> </span><a id='lblRem2' class="lbl"> </a></td>
+						<td><input id="txtRem2"  type="text" class="txt c1" style="width: 50%;" /></td>
+						<td>
+							<a id='lblRem3' class="lbl" style="float: left;"> </a><span style="float: left;"> </span>
+							<input id="txtRem3"  type="text" class="txt c1" style="width: 50%;" />
+						</td>
+						<td>
+							<a id='lblRem4' class="lbl" style="float: left;"> </a><span style="float: left;"> </span>
+							<input id="txtRem4"  type="text" class="txt c1" style="width: 50%;" />
+						</td>
+					</tr>
 					<tr> 
-						<td colspan="5"><a id="lblGqbs" style="color: #104E8B ;font-weight:bolder;font-size: 18px; text-align: left;"></a></td>
+						<td colspan="5"><a id="lblGqbs" style="color: #104E8B ;font-weight:bolder;font-size: 18px; text-align: left;"> </a></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblTdate' class="lbl"> </a></td>

@@ -32,11 +32,25 @@
             $(document).ready(function() {
                 q_getId();
                 q_gt('acpart', '', 0, 0, 0, "", r_accy+'_'+r_cno);
-                q_gt('ssspart', "where=^^noa='"+r_userno+"'^^", 0, 0, 0, "", r_accy+'_'+r_cno);
+                
             });
-             
+            function q_gtPost(t_name) {
+                switch (t_name) {
+                    case 'acpart':
+                        t_data.data['part'] = '';
+                        var as = _q_appendData("acpart", "", true);
+                        for ( i = 0; i < as.length; i++) {
+                            t_data.data['part'] += (t_data.data['part'].length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
+                        }
+                        q_gt('ssspart', "where=^^noa='"+r_userno+"'^^", 0, 0, 0, "", r_accy+'_'+r_cno);
+                        break;
+					case 'ssspart':
+						ssspart = _q_appendData("ssspart", "", true);
+						q_gf('', 'z_acccp');
+						break;
+                }
+            } 
             function q_gfPost() {
-            	init_finish=true;
                 $('#q_report').q_report({
                     fileName : 'z_acccp',
                     options : [{/*  [1]*/
@@ -75,8 +89,8 @@
 		        		}
 		        	}
 		        }
-				if(q_getPara('sys.comp').indexOf('旭暉')>=0){
-		        	$('#chkXpart').children('input').prop('checked',true)
+				if(q_getPara('sys.project').toUpperCase()!='DC'){
+		        	$('#chkXpart').children('input').prop('checked',true);
 		        }
                 var t_accc3=typeof(q_getId()[3])=='undefined'?'':q_getId()[3];
                 t_accc3  =  t_accc3.replace('accc3=','');
@@ -85,44 +99,8 @@
                 
                 $('#btnOk').hide();
                 $('#btnOk2').click(function(e) {
-                    /*switch($('#q_report').data('info').radioIndex) {
-                        case 0:
-                            $('#cmbPaperSize').val('LETTER');
-                            $('#chkLandScape').prop('checked',false);
-                            break;
-                        case 1:
-                            $('#cmbPaperSize').val('LETTER');
-                            $('#chkLandScape').prop('checked',false);
-                            break;
-                        default:
-                            $('#cmbPaperSize').val('A4');
-                            $('#chkLandScape').prop('checked',false);
-                            break;
-                    }*/
                     $('#btnOk').click();
                 });
-                
-            }
-            
-            var init_finish=false,init_acpart=false,init_ssspart=false;
-            function q_gtPost(t_name) {
-                switch (t_name) {
-                    case 'acpart':
-                        t_data.data['part'] = '';
-                        var as = _q_appendData("acpart", "", true);
-                        for ( i = 0; i < as.length; i++) {
-                            t_data.data['part'] += (t_data.data['part'].length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
-                        }
-                        
-                        init_acpart=true;
-                        break;
-					case 'ssspart':
-						ssspart = _q_appendData("ssspart", "", true);
-						init_ssspart=true;
-						break;
-                }
-                if(init_acpart&&init_ssspart&&!init_finish)
-                	q_gf('', 'z_acccp');
             }
 		</script>
 	</head>
