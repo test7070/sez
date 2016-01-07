@@ -89,7 +89,7 @@
 		        		}
 		        	}
 		        }
-				if(q_getPara('sys.comp').indexOf('旭暉')>=0){
+				if(q_getPara('sys.project').toUpperCase()!='DC'){
 		        	$('#chkXpart').children('input').prop('checked',true);
 		        }
                 var t_accc3=typeof(q_getId()[3])=='undefined'?'':q_getId()[3];
