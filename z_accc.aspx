@@ -21,7 +21,6 @@
             function z_accc() {
             }
 
-
             z_accc.prototype = {
                 data : {
                     part : null
@@ -41,7 +40,6 @@
                 q_gt('acpart', '', 0, 0, 0, "init1", r_accy + '_' + r_cno);
                 
             }
-
             var init_finish = false, init_acpart = false, init_ssspart = false;
             function q_gtPost(t_name) {
                 switch (t_name) {
@@ -66,8 +64,8 @@
                     fileName : 'z_accc',
                     options : [{/*  [1]*/
                         type : '0',
-                        name : 'accy',
-                        value : r_accy + "_" + r_cno
+                        name : 'project',
+                        value : q_getPara('sys.project')
                     }, {/*  [2]*/
                         type : '0',
                         name : 'xrank',

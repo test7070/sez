@@ -114,9 +114,9 @@
             function q_gtPost(t_name) {
                 switch (t_name) { 
                 	case 'btnOk':
-                		var as = _q_appendData("accashf", "", true);
+                		var as = _q_appendData("acost", "", true);
                 		if(as[0]!=undefined){
-                			alert('月份重覆。');
+                			alert('截止日期重覆。');
                 			Unlock(1);
                 		}else{
                 			var t_noa = trim($('#txtNoa').val());
@@ -161,32 +161,56 @@
 				
 				for(var i=0; i<q_bbsCount; i++){
 					if($('#txtAcc1_'+i).val().length==0){
-						if(list[i].indexs!=undefined)
+						if(i<list.length)
 							$('#txtMoney'+list[i].indexs.substr(1,1)+'_'+i).val(t_money);
 						continue;
 					}						
 					accc5 = $('#txtAcc1_'+i).val()+',';
 					t_money = 0;				
-					while(accc5.length>0){
+					while(accc5.length>0){						
 						if(accc5.substr(0,accc5.indexOf(',')).length==4){
-							for(var j=0; j<t_data1.length; j++){
-								if(t_data1[j].accc5.substr(0,4)==$('#txtAcc1_'+i).val()){
-									t_money = t_money + parseFloat(t_data1[j].dmoney);
-								}
-							}//j-loop
-						}else{						
-							for(var j=0; j<t_data1.length; j++){
-								if(t_data1[j].accc5.substr(0,4)>=$('#txtAcc1_'+i).val().substr(0,4)&&t_data1[j].accc5.substr(0,4)<=$('#txtAcc1_'+i).val().substr(5,4)){
-									t_money = t_money + parseFloat(t_data1[j].dmoney);
-								}
-							}//j-loop
-						}
+							if(list[i].item.indexOf('期初')>0){
+								t_money=calMoney('01/01','01/01',accc5.substr(0,4),accc5.substr(0,4));
+							}else if(list[i].item.indexOf('期末')>0){
+								t_money=calMoney($('#txtDeadline').val().substr(4,5),$('#txtDeadline').val().substr(4,5),accc5.substr(0,4),accc5.substr(0,4));
+							}else{
+								t_money=calMoney('01/01',$('#txtDeadline').val().substr(4,5),accc5.substr(0,4),accc5.substr(0,4));
+							}
+						}else{	
+							if(list[i].item.indexOf('期初')>0){
+								t_money=calMoney('01/01','01/01',accc5.substr(0,4),accc5.substr(5,4));
+							}else if(list[i].item.indexOf('期末')>0){
+								t_money=calMoney($('#txtDeadline').val().substr(4,5),$('#txtDeadline').val().substr(4,5),accc5.substr(0,4),accc5.substr(5,4));
+							}else{
+								t_money=calMoney('01/01',$('#txtDeadline').val().substr(4,5),accc5.substr(0,4),accc5.substr(5,4));
+							}												
+						}						
 						accc5 = accc5.substr(accc5.indexOf(',')+1,accc5.length);
 					}//while-loop
 					$('#txtMoney'+list[i].indexs.substr(1,1)+'_'+i).val(t_money);					
 				}//i-loop		
-				unlock();		      		
-			}//btnImport		
+				Unlock(1);
+			}//btnImport	
+			
+			function calMoney(bdate,edate,baccc5,eaccc5){				
+				var money = 0;
+				for(var j=0; j<t_data1.length; j++){
+					if((t_data1[j].accc2>=bdate && t_data1[j].accc2<=edate) && 
+					   (t_data1[j].accc5.substr(0,4)>=baccc5 && t_data1[j].accc5.substr(0,4)<=eaccc5)){
+					   	if(t_data1[j].accc5.substr(0,1)=='1' || t_data1[j].accc5.substr(0,1)=='5' || t_data1[j].accc5.substr(0,1)=='6' ||
+						   t_data1[j].accc5.substr(0,1)=='8' || t_data1[j].accc5.substr(0,1)=='9'){						   	
+							money = money + (parseFloat(t_data1[j].dmoney)-parseFloat(t_data1[j].cmoney));   	
+						}else{
+							money = money + (parseFloat(t_data1[j].cmoney)-parseFloat(t_data1[j].dmoney));	
+						}						
+					}
+				}//j-loop
+				return money;
+			}//calMoney
+			
+			function sum(){       
+
+            }	
 			
             function btnOk() {
             	Lock(1,{opacity:0});
@@ -207,13 +231,12 @@
 					Unlock(1);
             		return;
 				}
-	            var t_mon = $.trim($('#txtMon').val());
-	            if(t_mon.length==0 || !q_cd(t_mon+'/01')){
-	            	alert(q_getMsg('lblMon')+'異常。');
-	            	Unlock(1);
+	            if($('#txtDeadline').val().length == 0 || !q_cd($('#txtDeadline').val())){
+					alert(q_getMsg('lblDeadline')+'錯誤。');
+					Unlock(1);
             		return;
-	            }
-	            q_gt('accashf', "where=^^ mon='"+t_mon+"' and noa!='"+$.trim($('#txtNoa').val())+"' ^^", 0, 0, 0, "btnOk");
+				}	
+	            q_gt('acost', "where=^^ deadline='"+$.trim($('#txtDeadline').val())+"' and noa!='"+$.trim($('#txtNoa').val())+"' ^^", 0, 0, 0, "btnOk");
             }
 
             function _btnSeek() {
@@ -275,13 +298,7 @@
             				break;	       			
             		}            		
             	}
-            } 
-                          
-            function sum(){       
-            	
-            	
-            	
-            }
+            }                                       
             
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
@@ -573,13 +590,13 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewMon'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewNoa'> </a></td>
 					</tr>
 					<tr>
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=' '/>
 						</td>
-						<td id='mon' style="text-align: center;">~mon</td>
+						<td id='noa' style="text-align: center;">~noa</td>
 					</tr>
 				</table>
 			</div>
