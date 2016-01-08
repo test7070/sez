@@ -63,7 +63,12 @@
                 $('#txtNoa').change(function(e) {
                     $(this).val($.trim($(this).val()).toUpperCase());
                     if ($(this).val().length > 0) {
-                        t_where = "where=^^ noa='" + $(this).val() + "'^^";
+                        if($('#cmbKind').val()=='23' || $('#cmbKind').val()=='24' || $('#cmbKind').val()=='33' || $('#cmbKind').val()=='34'){
+	                		t_where = "where=^^ noa='" + $('#txtNoa').val() + "' and kind in('23','24','33','34') ^^";
+	                	}else{
+	                		t_where = "where=^^ noa='" + $('#txtNoa').val() + "' and kind not in ('23','24','33','34') ^^";
+	                	}
+                        
                         q_gt('vcct', t_where, 0, 0, 0, "checkVcctno_change", r_accy);
                     }
                 });
@@ -268,7 +273,11 @@
 				}
                 
                 if (q_cur == 1) {
-                    t_where = "where=^^ noa='" + $('#txtNoa').val() + "'^^";
+                	if($('#cmbKind').val()=='23' || $('#cmbKind').val()=='24' || $('#cmbKind').val()=='33' || $('#cmbKind').val()=='34'){
+                		t_where = "where=^^ noa='" + $('#txtNoa').val() + "' and kind in('23','24','33','34') ^^";
+                	}else{
+                		t_where = "where=^^ noa='" + $('#txtNoa').val() + "' and kind not in ('23','24','33','34') ^^";
+                	}
                     q_gt('vcct', t_where, 0, 0, 0, "checkVcctno_btnOk", r_accy);
                 } else {
                     wrServer($('#txtNoa').val());
