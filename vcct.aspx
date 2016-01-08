@@ -172,12 +172,25 @@
                         var as = _q_appendData("vcct", "", true);
                         if (as[0] != undefined) {
                             alert('已存在 ' + as[0].noa);
-                            Unlock();
-                            return;
+                            Unlock(1);
                         } else {
+                        	if($('#cmbTypea').val()=='2'){
+                        		var t_where = "where=^^ cno='" + $('#txtCno').val() + "' and ('" + $('#txtDatea').val() + "' between bdate and edate) " + " and exists(select noa from vccars where vccars.noa=vccar.noa and ('" + $('#txtNoa').val() + "' between binvono and einvono)) ^^";
+                        		q_gt('vccar', t_where, 0, 0, 0, "", r_accy);
+                        		return;
+                        	}
                             wrServer($('#txtNoa').val());
                         }
                         break;
+                    case 'vccar':
+                    	var as = _q_appendData("vccar", "", true);
+						if (as[0] == undefined) {
+							alert("請檢查發票號碼主檔設定，或發票已輸入。");
+							Unlock(1);
+						} else {
+							wrServer($('#txtNoa').val());
+						}
+                    	break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -228,21 +241,32 @@
             }
 
             function btnOk() {
+            	Lock(1, {
+					opacity : 0
+				});
+				
             	var t_err = '';
 				t_err = q_chkEmpField([['cmbKind', q_getMsg('lblKind')], ['txtNoa', q_getMsg('lblNoa')], ['txtMon', q_getMsg('lblMon')], ['txtDatea', q_getMsg('lblDatea')], ['txtCno', q_getMsg('lblAcomp')]]);
 				if (t_err.length > 0) {
 					alert(t_err);
+					Unlock(1);
 					return;
 				}
             	
-                Lock();
                 $('#txtNoa').val($.trim($('#txtNoa').val()));
-                /*if((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())){
-                 }else{
-                 alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
-                 Unlock();
-                 return;
-                 } */
+                
+                if ($('#txtNoa').val().length > 0 && !(/^[a-z,A-Z]{2}[0-9]{8}$/g).test($('#txtNoa').val())) {
+					alert(q_getMsg('lblNoa') + '錯誤。');
+					Unlock(1);
+					return;
+				}
+				
+				if (!(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())) {
+					alert(q_getMsg('lblMon') + '錯誤。');
+					Unlock(1);
+					return;
+				}
+                
                 if (q_cur == 1) {
                     t_where = "where=^^ noa='" + $('#txtNoa').val() + "'^^";
                     q_gt('vcct', t_where, 0, 0, 0, "checkVcctno_btnOk", r_accy);
