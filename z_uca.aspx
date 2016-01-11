@@ -101,7 +101,7 @@
 				$('#lblXuca').css("color","#0000ff");
 				
 				$('#lblXuca').click(function(e) {
-                	q_box("uca_b2.aspx?;;;;", 'uca', "60%", "620px", q_getMsg("popUcc"));
+                	q_box("ucaucc_b2.aspx?;;;;", 'uca', "60%", "620px", q_getMsg("popUcc"));
                 });
                 if(r_comp == "社團法人台灣彩虹愛家生命教育協會")
 					$('.c4').val('2');
