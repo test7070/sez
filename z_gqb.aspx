@@ -112,11 +112,22 @@
                         type : '5',
                         name : 'xchk',
                         value : [q_getPara('report.all')].concat(new Array('Y', 'N'))
+                    }, {/*[33]*/
+                        type : '0', 
+                        name : 'proj',
+                        value : q_getPara('sys.project')
+                    }, {/*[34][35]*/
+                        type : '2',
+                        name : 'xtacc',
+                        dbf : 'acc',
+                        index : 'acc1,acc2',
+                        src : "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno
                     }]
                 });
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
+                
                 
 				if(r_len==3){
 					$('#txtDate1').datepicker();
