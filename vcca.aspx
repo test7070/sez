@@ -350,9 +350,17 @@
 					$('#lblNo_' + j).text(j + 1);
 					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
 						$('#txtMount_' + j).change(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+                        	$('#txtMoney_'+b_seq).val(q_mul(q_float('txtMount_'+b_seq),q_float('txtPrice_'+b_seq)));
 							sum();
 						});
 						$('#txtPrice_' + j).change(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+                        	$('#txtMoney_'+b_seq).val(q_mul(q_float('txtMount_'+b_seq),q_float('txtPrice_'+b_seq)));
 							sum();
 						});
 						$('#txtMoney_' + j).change(function() {
@@ -460,15 +468,11 @@
 					return;
 					
 				$('#txtTax').attr('readonly', 'readonly');
-				var t_mounts, t_prices, t_moneys, t_mount = 0, t_money = 0, t_taxrate, t_tax, t_total;
+				var t_mounts, t_prices, t_moneys=0, t_mount = 0, t_money = 0, t_taxrate, t_tax, t_total;
 
 				for (var k = 0; k < q_bbsCount; k++) {
-					t_mounts = q_float('txtMount_' + k);
-					t_prices = q_float('txtPrice_' + k);
-					t_moneys = round(q_mul(t_mounts,t_prices),0);
-					$('#txtMoney_' + k).val(t_moneys);
-					t_money += t_moneys;
-					t_mount += t_mounts;
+					t_moneys = q_float('txtMoney_' + k);
+                    t_money = q_add(t_money,t_moneys);
 				}
 				
 				//銷貨客戶

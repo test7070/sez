@@ -1,7 +1,7 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -58,15 +58,11 @@
                 if (!(q_cur == 1 || q_cur == 2))
                     return;
                 $('#txtTax').attr('readonly', 'readonly');
-                var t_mounts, t_prices, t_moneys, t_mount = 0, t_money = 0, t_taxrate, t_tax, t_total;
+                var t_moneys=0, t_money = 0, t_taxrate, t_tax, t_total;
 
                 for (var k = 0; k < q_bbsCount; k++) {
-                    t_mounts = q_float('txtMount_' + k);
-                    t_prices = q_float('txtPrice_' + k);
-                    t_moneys = round(t_mounts * t_prices, 0);
-                    $('#txtMoney_' + k).val(t_moneys);
-                    t_money += t_moneys;
-                    t_mount += t_mounts;
+                    t_moneys = q_float('txtMoney_' + k);
+                    t_money = q_add(t_money,t_moneys);
                 }
                 
                 t_taxrate = parseFloat(q_getPara('sys.taxrate')) / 100;
@@ -280,9 +276,17 @@
                     $('#lblNo_' + j).text(j + 1);
                     if (!$('#btnMinus_' + j).hasClass('isAssign')) {
                         $('#txtMount_' + j).change(function() {
+                        	t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+                        	$('#txtMoney_'+b_seq).val(q_mul(q_float('txtMount_'+b_seq),q_float('txtPrice_'+b_seq)));
                             sum();
                         });
                         $('#txtPrice_' + j).change(function() {
+                        	t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+                        	$('#txtMoney_'+b_seq).val(q_mul(q_float('txtMount_'+b_seq),q_float('txtPrice_'+b_seq)));
                             sum();
                         });
                         $('#txtMoney_' + j).change(function() {
