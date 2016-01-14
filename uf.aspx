@@ -30,7 +30,7 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             aPop = new Array(['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'], 
-            				 ['txtBankno', 'lblBank', 'bank', 'noa,bank,account', 'txtBankno,txtBank,txtAccount', 'bank_b.aspx'], 
+            				 ['txtBankno', 'lblBank', 'bank', 'noa,bank,account,acc1,cno,acomp', 'txtBankno,txtBank,txtAccount,txtAcc1,txtCno,txtAcomp', 'bank_b.aspx'], 
             				 ['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
             				 ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
             $(document).ready(function() {
