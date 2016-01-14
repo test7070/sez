@@ -142,7 +142,7 @@
             }
             function checkId(str){
             	if((/^[a-z,A-Z][0-9]{9}$/g).test(str)){
-            		var key='ABCDEFGHJKLMNPQRSTUVWXYZIO';
+            		var key='ABCDEFGHJKLMNPQRSTUVXYWZIO';
             		var s = (key.indexOf(str.substring(0,1))+10)+str.substring(1,10);
             		var n = parseInt(s.substring(0,1))*1 
             			+ parseInt(s.substring(1,2))*9
