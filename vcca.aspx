@@ -19,7 +19,6 @@
 				alert("An error occurred:\r\n" + error.Message);
 			}
 
-			
 			q_tables = 't';
 			var q_name = "vcca";
 			var q_readonly = ['txtMoney', 'txtTotal', 'txtChkno', 'txtTax', 'txtAccno', 'txtWorker', 'txtTrdno', 'txtVccno'];
@@ -410,6 +409,17 @@
 				curData.copy();
 				_btnIns();
 				curData.paste();
+				
+				if (q_getPara('sys.project').toUpperCase()=='VU'){//1050118
+					$('#txtCustno').val('');
+					$('#txtComp').val('');
+					$('#txtSerial').val('');
+					$('#txtZip').val('');
+					$('#txtAddress').val('');
+					$('#txtBuyerno').val('');
+					$('#txtBuyer').val('');
+				}
+				
 				$('#cmbTaxtype').val(1);
 				Lock(1, {
 					opacity : 0
