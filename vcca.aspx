@@ -108,6 +108,9 @@
 				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbTaxtype", q_getPara('vcca.taxtype'));
+				
+				if(q_getPara('sys.project').toUpperCase()=='VU')
+					$('#chkAtax').show();
 
 				$('#cmbTaxtype').focus(function() {
 					var len = $("#cmbTaxtype").children().length > 0 ? $("#cmbTaxtype").children().length : 1;
@@ -126,6 +129,9 @@
 				$('#txtTax').change(function() {
 					sum();
 				});
+				$('#chkAtax').change(function() {
+					sum();
+				});
 				$('#txtMoney').change(function() {
 					sum();
 				});
@@ -139,7 +145,7 @@
 					t_vccno = $('#txtVccno').val();
 					
 					if(t_vccno.length>0){
-						if (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1)
+						if (q_getPara('sys.project').toUpperCase()=='IT')
 							q_pop('txtVccno', "vcc_it.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + ($('#txtDatea').val().substring(0, 3)<'101'?r_accy:$('#txtDatea').val().substring(0, 3)) + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
 						else if (q_getPara('sys.comp').indexOf('裕承隆') > -1)
 							q_pop('txtVccno', "vccst.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
@@ -325,7 +331,9 @@
 					
 				$('#txtMon').val($.trim($('#txtMon').val()));
 				
-				if (!(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())) {
+				if ((!(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val()) && r_lenm==6)
+				|| (!(/^[0-9]{4}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val()) && r_lenm==7)
+				) {
 					alert(q_getMsg('lblMon') + '錯誤。');
 					Unlock(1);
 					return;
@@ -420,9 +428,9 @@
 			}
 
 			function btnPrint() {
-				if (q_getPara('sys.comp').indexOf('大昌') > -1) {
+				if (q_getPara('sys.project').toUpperCase()=='DC') {
 					q_box('z_vccadc.aspx?;;;' + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
-				} else if (q_getPara('sys.comp').indexOf('英特瑞') > -1) {
+				} else if (q_getPara('sys.project').toUpperCase()=='IT') {
 					q_box('z_vccap_it.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
 				}else if (q_getPara('sys.project') == 'sh') {
 					q_box('z_vccap_sh.aspx' + "?;;;noa=" + trim($('#txtNoa').val())+";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
@@ -467,40 +475,23 @@
 				if (!emp($('#txtVccno').val()))	//103/03/07 出貨單轉來發票金額一律不改
 					return;
 					
-				$('#txtTax').attr('readonly', 'readonly');
+				$('#txtTax').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
 				var t_mounts, t_prices, t_moneys=0, t_mount = 0, t_money = 0, t_taxrate, t_tax, t_total;
 
 				for (var k = 0; k < q_bbsCount; k++) {
 					t_moneys = q_float('txtMoney_' + k);
                     t_money = q_add(t_money,t_moneys);
 				}
-				
-				//銷貨客戶
-				$('#txtCustno').attr('readonly', false);
-				$('#txtComp').attr('readonly', false);
-				//統一編號
-				$('#txtSerial').attr('readonly', false);
-				//產品金額
-				$('#txtMoney').attr('readonly', false);
-				//帳款月份
-				$('#txtMon').attr('readonly', false);
-				//營業稅
-				$('#txtTax').attr('readonly', false);
-				//總計
-				$('#txtTotal').attr('readonly', false);
-				//買受人
-				$('#txtBuyerno').attr('readonly', false);
-				$('#txtBuyer').attr('readonly', false);
-				for (var k = 0; k < q_bbsCount; k++) {
-					$('#txtMount_'+k).attr('readonly', false);
-					$('#txtMoney_'+k).attr('readonly', false);
-				}
 
 				t_taxrate = parseFloat(q_getPara('sys.taxrate')) / 100;
 				switch ($('#cmbTaxtype').val()) {
 					case '1':
 						// 應稅
-						t_tax = round(t_money * t_taxrate, 0);
+						if($('#chkAtax').prop('checked')){
+							t_tax=round(q_float('txtTax'), 0);
+							$('#txtTax').css('color', 'black').css('background', 'white').removeAttr('readonly');  
+						}else
+							t_tax = round(t_money * t_taxrate, 0);
 						t_total = t_money + t_tax;
 						break;
 					case '2':
@@ -521,10 +512,10 @@
 						break;
 					case '5':
 						// 自定
-						$('#txtTax').removeAttr('readonly');
+						$('#txtTax').css('color', 'black').css('background', 'white').removeAttr('readonly');  
 						t_tax = round(q_float('txtTax'), 0);
 						t_total = t_money + t_tax;
-						if (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1) {
+						if (q_getPara('sys.project').toUpperCase()=='IT') {
 							$('#txtMoney').removeAttr('readonly');
 							t_money = dec($('#txtMoney').val());
 							$('#txtTax').removeAttr('readonly');
@@ -919,7 +910,10 @@
 						<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
 						<td><input id="txtMoney"  type="text"  class="txt num c1"/></td>
 						<td><span> </span><a id='lblTax' class="lbl"> </a></td>
-						<td><input id="txtTax"  type="text"  class="txt num c1"/></td>
+						<td>
+							<input id="txtTax"  type="text"  class="txt num c1" style="width: 90%;"/>
+							<input id="chkAtax" type="checkbox" onchange='sum()' style="display: none;" />
+						</td>
 						<td><span> </span><a id='lblTotal' class="lbl"> </a></td>
 						<td><input id="txtTotal"  type="text"  class="txt num c1"/></td>
 					</tr>
@@ -936,10 +930,10 @@
 						<td><input id="txtVccno"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr style="display:none;">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
 						<td><span> </span><a id='lblTrdno' class="lbl btn"> </a></td>
 						<td><input id="txtTrdno"  type="text" class="txt c1"/></td>
 					</tr>
@@ -952,7 +946,7 @@
 					<td  align="center" style="width:30px;">
 						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:20px;"></td>
+					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:80px;"><a id='lblProductno'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblProduct'> </a></td>
 					<td align="center" style="width:20px;"><a id='lblUnit'> </a></td>
@@ -988,7 +982,7 @@
 						<td style="width:20px;">
 						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 						</td>
-						<td style="width:20px;"></td>
+						<td style="width:20px;"> </td>
 						<td style="width:120px; text-align: center;">出貨單號</td>
 						<td style="width:200px; text-align: center;">品名</td>
 						<td style="width:100px; text-align: center;">數量</td>
