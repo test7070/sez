@@ -2,7 +2,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta http-equiv="Content-Language" content="en-us" />
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src="../script/qj2.js" type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -42,7 +42,8 @@
             function q_gtPost() {
 
             }
-
+			
+			var xy_seq=0;
             function refresh() {
                 _refresh();
                 var xy_cust='';
@@ -73,6 +74,20 @@
                     $('input[type=checkbox][id^=chkSel]').each(function() {
                         $(this).attr('checked', $('#checkAllCheckbox').is(':checked'));
                     });
+                });
+                
+                $('[type="checkbox"]').not($('#checkAllCheckbox')).each(function(index) {
+					$(this).click(function() {
+						var n=$(this).attr('id').split('_')[1];
+						if (q_getPara('sys.project').toUpperCase()=='XY'){
+							if($(this).prop('checked')){ //順序不用重編，回傳時還會再重新排序
+								xy_seq++;
+								$('#txtCheckseq_'+n).val(('000000'+xy_seq).slice(-6));
+							}else{
+								$('#txtCheckseq_'+n).val('');
+							}
+						}
+					});
                 });
                 
                 if (q_getPara('sys.project').toUpperCase()=='RB'){
@@ -173,6 +188,7 @@
 					<td class="isXY isRB" style="width:12%;">
 						<input class="txt" id="txtTrantime.*" type="text" style="width:98%;"/>
 						<input class="txt" id="txtCheckmemo.*" type="hidden" style="width:98%;"/>
+						<input class="txt" id="txtCheckseq.*" type="hidden" style="width:98%;"/>
 					</td>
 				</tr>
 			</table>
