@@ -152,7 +152,7 @@
 					if (t_comp == '大昌' || t_comp == '日光' || t_comp =='東暉' || t_comp =='集鑫') {
 						var t_where = "where=^^ pays.rc2no=a.noa and pays.noa!='" + t_noa + "' ^^";
 						//廠商, where[1] tre, where[2] payb
-						var t_where1 = "a.tggno ='" + t_tggno + "'", t_where2 = "a.tggno ='" + t_tggno + "'";
+						var t_where1 = "a.tggno ='" + t_tggno + "' or a.driverno='" + t_tggno + "'", t_where2 = "a.tggno ='" + t_tggno + "'";
 						if( t_comp =='東暉')
 							t_where1 += " or a.driverno ='" + t_tggno + "'";
 						if (t_tggno2.length > 0) {
