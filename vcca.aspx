@@ -353,14 +353,14 @@
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-                        	$('#txtMoney_'+b_seq).val(q_mul(q_float('txtMount_'+b_seq),q_float('txtPrice_'+b_seq)));
+                        	$('#txtMoney_'+b_seq).val(round(q_mul(q_float('txtMount_'+b_seq),q_float('txtPrice_'+b_seq)),0));
 							sum();
 						});
 						$('#txtPrice_' + j).change(function() {
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-                        	$('#txtMoney_'+b_seq).val(q_mul(q_float('txtMount_'+b_seq),q_float('txtPrice_'+b_seq)));
+                        	$('#txtMoney_'+b_seq).val(round(q_mul(q_float('txtMount_'+b_seq),q_float('txtPrice_'+b_seq)),0));
 							sum();
 						});
 						$('#txtMoney_' + j).change(function() {

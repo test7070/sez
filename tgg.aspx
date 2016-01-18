@@ -18,7 +18,6 @@
 			function onPageError(error) {
 				alert("An error occurred:\r\n" + error.Message);
 			}
-
 			var q_name = "tgg";
 			var q_readonly = ['txtWorker', 'txtKdate', 'txtUacc1', 'txtUacc2', 'txtUacc3'];
 			var bbmNum = [['txtDueday', 10, 0]];
@@ -38,6 +37,8 @@
 				['txtAddr_invo', '', 'view_road', 'memo,zipcode', '0txtAddr_invo,txtZip_invo', 'road_b.aspx'], 
 				['txtAddr_home', '', 'view_road', 'memo,zipcode', '0txtAddr_home,txtZip_home', 'road_b.aspx'],
 				['txtUacc4', 'lblUacc4', 'acc', 'acc1,acc2', 'txtUacc4', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
+				,['txtUacc1', 'lblUacc1', 'acc', 'acc1,acc2', 'txtUacc1', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
+			
 			);
 			$(document).ready(function() {
 				bbmKey = ['noa'];
@@ -413,6 +414,11 @@
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
+				if(!t_para){
+					if (q_getPara('sys.project').toUpperCase()=='FE'){
+						$('#txtUacc1').css('color', 'black').css('background', 'white').removeAttr('readonly');
+					}
+				}
 			}
 
 			function btnMinus(id) {
