@@ -490,7 +490,24 @@
 					
 				$('#txtTax').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
 				var t_mounts, t_prices, t_moneys=0, t_mount = 0, t_money = 0, t_taxrate, t_tax, t_total;
-
+				
+				//銷貨客戶
+				$('#txtCustno').attr('readonly', false);
+				$('#txtComp').attr('readonly', false);
+				//統一編號
+				$('#txtSerial').attr('readonly', false);
+				//產品金額
+				$('#txtMoney').attr('readonly', false);
+				//帳款月份
+				$('#txtMon').attr('readonly', false);
+				//營業稅
+				$('#txtTax').attr('readonly', false);
+				//總計
+				$('#txtTotal').attr('readonly', false);
+				//買受人
+				$('#txtBuyerno').attr('readonly', false);
+				$('#txtBuyer').attr('readonly', false);
+				
 				for (var k = 0; k < q_bbsCount; k++) {
 					t_moneys = q_float('txtMoney_' + k);
                     t_money = q_add(t_money,t_moneys);
