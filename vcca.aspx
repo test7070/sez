@@ -468,6 +468,9 @@
 					return;
 				}
 				q_nowf();
+				as['cno'] = abbm2['cno'];
+                as['datea'] = abbm2['datea'];
+				
 				return true;
 			}
 			function bbtSave(as) {/// 表身 寫入資料庫前，寫入需要欄位

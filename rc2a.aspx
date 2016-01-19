@@ -346,6 +346,8 @@
                 }
 
                 q_nowf();
+                as['cno'] = abbm2['cno'];
+                as['datea'] = abbm2['datea'];
 
                 return true;
             }
