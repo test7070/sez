@@ -215,6 +215,13 @@
 							alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。' + String.fromCharCode(13) + 'EX: A01、A01-001');
 						}
 					}
+				}).blur(function() {
+					if (q_getPara('sys.project').toUpperCase()=='RB'){//20160120
+						if(!emp($(this).val()) && q_cur==1){
+							t_where = "where=^^ noa like '" + $(this).val() + "%'^^";
+							q_gt('cust', t_where, 0, 0, 0, "MAXCustno", r_accy);
+						}
+					}
 				});
 				
 				$('#txtUacc4').change(function() {
@@ -452,6 +459,12 @@
 							}
 						}
 						btnOk();
+						break;
+					case 'MAXCustno':
+						var as = _q_appendData("cust", "", true);
+						if(as[0] != undefined){
+							q_msg($('#txtNoa'), "最後編號："+as[(as.length-1)].noa);
+						}
 						break;
 					case q_name:
 						if (q_cur == 4)
