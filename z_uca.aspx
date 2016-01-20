@@ -96,17 +96,16 @@
 				q_getFormat();
 				q_langShow();
 				
-				
-				
 				$('#lblXuca').css("color","#0000ff");
 				
 				$('#lblXuca').click(function(e) {
                 	q_box("ucaucc_b2.aspx?;;;;", 'uca', "60%", "620px", q_getMsg("popUcc"));
                 });
-                if(r_comp == "社團法人台灣彩虹愛家生命教育協會")
-					$('.c4').val('2');
+                if(q_getPara('sys.project').toUpperCase()=='RB')
+					$('#Ucctype select').val('2');
 				if(r_rank <8)
-					$('#btnCostbcc').attr('disabled', 'disabled')
+					$('#btnCostbcc').attr('disabled', 'disabled');
+					
 				$('#txtDate1').mask('999/99/99');
 				$('#txtDate1').datepicker();
 				$('#txtDate2').mask('999/99/99');
