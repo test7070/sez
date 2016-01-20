@@ -56,15 +56,7 @@
                 q_cmbParse("cmbTypea", q_getPara('gqb.typea'));
                 q_cmbParse("cmbRem1", ' ,'+q_getPara('gqb.rem1'));
 				
-				if(r_len==3){
-					$('#txtDatea').datepicker();
-					$('#txtIndate').datepicker();
-				}
-                
-                $('#txtMoney').focus(function() {
-                	$('#ui-datepicker-title').hide();
-                	$('.ui-datepicker').hide();
-                });
+				
                 
                 $("#cmbTypea").focus(function() {
                     var len = $(this).children().length > 0 ? $(this).children().length : 1;
@@ -386,6 +378,11 @@
                     Unlock();
                     return;
                 }
+                if (!q_cd($('#txtDatea').val())) {
+                    alert(q_getMsg('lblDatea') + '錯誤。');
+                    Unlock();
+                    return;
+                }
 
 				if($.trim($('#txtGqbno').val()).length>0){
         			var t_noa = $('#txtNoa').val();
@@ -460,8 +457,14 @@
                 refreshBbm();
                 if (t_para) {
 					$('#checkCopy').removeAttr('disabled');
+					$('#txtDatea').datepicker('destroy');
+					$('#txtIndate').datepicker('destroy');
+					$('#txtTdate').datepicker('destroy');
 				} else {
 					$('#checkCopy').attr('disabled', 'disabled');
+					$('#txtDatea').datepicker();
+					$('#txtIndate').datepicker();
+					$('#txtTdate').datepicker();
 				}
             }
 
