@@ -134,34 +134,30 @@
 				$('#Allucc').css('width','390px').css('height','30px');
 				$('#Allucc .label').css('width','0px');
 				$('#txtXuca').css("width","515px");
-				 q_cmbParse('cmbType','製成品,原料,全部')
+				 q_cmbParse('cmbType','0@全部,1@原料,2@製成品')
                 $('#btnCostbcc').click(function(e) {
                     $('#divExport').toggle();
                     $('#textDate').val(q_date());
                 });
+                
                 $('#btnDivexport').click(function(e) {
                     $('#divExport').hide();
                 });
+                
                 $('#btnExport').click(function(e) {
-                  	var type=$('#cmbType').find("option:selected").text()
+                	var t_datea=emp($('#txtExportDate').val())?q_date():$('#txtExportDate').val();
+                  	var t_type=emp($('#cmbType').val())?'0':$('#cmbType').val();
+                  	var t_bstore=emp($('#txtBstoreno').val())?'#non':$('#txtBstoreno').val();
+                  	var t_estore=emp($('#txtEstoreno').val())?'#non':$('#txtEstoreno').val();
+                  	var t_bpno=emp($('#txtBproductno').val())?'#non':$('#txtBproductno').val();
+                  	var t_epno=emp($('#txtEproductno').val())?'#non':$('#txtEproductno').val();
                   	if(confirm('匯入過程需要等待幾分鐘確定要執行?')){
-        				if(type=='製成品'){
-        					Lock(1);
-        					q_func( 'qtxt.query.stkucc','stkucc.txt,stkucc,' + $('#txtExportDate').val()+ ';'+ $('#txtBstoreno').val()+ ';'+ $('#txtEstoreno').val()+ ';'+ $('#txtBproductno').val()+ ';'+ $('#txtEproductno').val()+ ';');
-        				}else if(type=='原料'){
-        					Lock(1);   
-        					q_func( 'qtxt.query.stkuca' ,'stkucc.txt,stkuca,' + $('#txtExportDate').val()+ ';'+ $('#txtBstoreno').val()+ ';'+ $('#txtEstoreno').val()+ ';'+ $('#txtBproductno').val()+ ';'+ $('#txtEproductno').val()+ ';');     				
-        				}else if(type=='全部'){
-        					Lock(1);      			
- 	     					q_func( 'qtxt.query.stkallucc' ,'stkucc.txt,stkucc,' + $('#txtExportDate').val()+ ';'+ $('#txtBstoreno').val()+ ';'+ $('#txtEstoreno').val()+ ';'+ $('#txtBproductno').val()+ ';'+ $('#txtEproductno').val()+ ';');
-        				
-        				} 
+        				Lock(1);
+        				q_func( 'qtxt.query.stkucce','stkucc.txt,stkucce,' + t_datea+ ';'+t_type+ ';'+ t_bstore+ ';'+ t_estore+ ';'+ t_bpno+ ';'+ t_epno);
         			}
                 });
 			}
 			
-			
-
 			function q_boxClose(s2) {
 				 var ret;
                 switch (b_pop) {
@@ -183,7 +179,6 @@
 				b_pop = '';
 			}
 			
-
 			function q_gtPost(s2) {
 				switch (s2) {
 					case 'uccga':
@@ -202,20 +197,9 @@
 			
 			function q_funcPost(t_func, result) {
                 switch(t_func) {
-                   	case 'qtxt.query.stkucc':
-						alert('製成品匯入完成。');
-                        Unlock(1);
-                        break;
-                    case 'qtxt.query.stkuca':
-						alert('原料匯入完成。');
-                        Unlock(1);
-                        break;
-                    case 'qtxt.query.stkallucc':
-                    	 q_func( 'qtxt.query.stkalluca' ,'stkucc.txt,stkuca,'+ $('#txtExportDate').val()+ ';'+ $('#txtBstoreno').val()+ ';'+ $('#txtEstoreno').val()+ ';'+ $('#txtBproductno').val()+ ';'+ $('#txtEproductno').val()+ ';'); 
-                        break;
-                    case 'qtxt.query.stkalluca':
-						alert('全部匯入完成。');
-                        Unlock(1);
+                    case 'qtxt.query.stkucce':
+                    	 alert('資料匯入完成。');
+                    	 Unlock(1); 
                         break;
                     default:
                         break;
