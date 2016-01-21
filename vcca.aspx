@@ -244,15 +244,19 @@
 							$('#txtAcomp').val(as[0].nick);
 						}
 						Unlock(1);
-						//發票號碼+1
-						var t_noa = trim($('#txtNoa').val());
-						var str = '00000000' + (parseInt(t_noa.substring(2, 10)) + 1);
-						str = str.substring(str.length - 8, str.length);
-						if (!isNaN(parseFloat(str)) && isFinite(str)) {
-							t_noa = t_noa.substring(0, 2) + str;
-							$('#txtNoa').val(t_noa);
-						}
 						$('#txtDatea').val(q_date());
+						if(q_getPara('sys.project')=='fe'){
+							//鉅昕發票找還沒開過的
+						}else{
+							//發票號碼+1
+							var t_noa = trim($('#txtNoa').val());
+							var str = '00000000' + (parseInt(t_noa.substring(2, 10)) + 1);
+							str = str.substring(str.length - 8, str.length);
+							if (!isNaN(parseFloat(str)) && isFinite(str)) {
+								t_noa = t_noa.substring(0, 2) + str;
+								$('#txtNoa').val(t_noa);
+							}
+						}
 						if(q_getPara('sys.project')=='pe'){					
 							$('#txtCustno').focus();
 						}else{
