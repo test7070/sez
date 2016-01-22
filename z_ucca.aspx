@@ -86,11 +86,11 @@
                     }, {/*5 [8]*/
                         type : '6',
                         name : 'enddate'
-                    }/*, {4 [7]
-                        type : '8',
-                        name : 'xcno',
-                        value : t_cno.split(',')
-                    }*/]
+                    }, {
+						type : '0', //[9] 
+						name : 'xproject',
+						value : q_getPara('sys.project').toUpperCase()
+					}]
                 });
                 
                 $('#txtEnddate').mask('999/99/99');
