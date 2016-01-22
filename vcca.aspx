@@ -124,6 +124,7 @@
 				
 				$('#txtNoa').change(function(e) {
 					$('#txtNoa').val($('#txtNoa').val().toUpperCase());
+					q_func('qtxt.query.checkdata', 'vcca.txt,checkdata,' +q_cur+';'+$('#txtNoa').val()+';'+$('#txtCno').val()+';'+$('#txtDatea').val());
 				});
 				$('#txtTax').change(function() {
 					sum();
@@ -191,52 +192,44 @@
 				}
 				b_pop = '';
 			}
+			function q_popPost(s1) {
+                switch (s1) {
+                    case 'txtCno':
+                        q_func('qtxt.query.checkdata', 'vcca.txt,checkdata,' +q_cur+';'+$('#txtNoa').val()+';'+$('#txtCno').val()+';'+$('#txtDatea').val());
+                        break;
+                    default:
+                        break;
+                }
+            }
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
-					case 'qtxt.query.getvccadate':
+					case 'qtxt.query.checkdata':
 						var as = _q_appendData("tmp0", "", true, true);
-						t_date = '';
                 		if(as[0]!=undefined){
-                			t_date = as[0].datea;
+                			if(as[0].val!='1'){
+                				alert(as[0].msg);
+                				Unlock(1);
+                				return;
+                			}
                 		}
-                		if(t_date.length>0 && $('#txtDatea').val()<t_date){
-                			alert('日期不可小於 '+t_date);
-                			Unlock(1);
-                			return;
-                		}else{
-                			var t_where = '';
-							if (q_cur == 1) {
-								t_where = "where=^^ cno='" + $('#txtCno').val() + "' and ('" + $('#txtDatea').val() + "' between bdate and edate) " + " and exists(select noa from vccars where vccars.noa=vccar.noa and ('" + $('#txtNoa').val() + "' between binvono and einvono))" + " and not exists(select noa from vcca where noa='" + $('#txtNoa').val() + "') ^^";
-							} else {
-								t_where = "where=^^ cno='" + $('#txtCno').val() + "' and ('" + $('#txtDatea').val() + "' between bdate and edate) " + " and exists(select noa from vccars where vccars.noa=vccar.noa and ('" + $('#txtNoa').val() + "' between binvono and einvono)) ^^";
-							}
-							q_gt('vccar', t_where, 0, 0, 0, "", r_accy);
+                		break;
+					case 'qtxt.query.checkdata_btnOk':
+						var as = _q_appendData("tmp0", "", true, true);
+                		if(as[0]!=undefined){
+                			if(as[0].val!='1'){
+                				alert(as[0].msg);
+                				Unlock(1);
+                				return;
+                			}
                 		}
+                		wrServer($('#txtNoa').val());
+						break;
+					default:
 						break;
 				}
 			}
 			function q_gtPost(t_name) {
 				switch (t_name) {
-					case 'getvccadate':
-						as = _q_appendData('dbo.getvccadate', "", true);
-						t_date = '';
-                		if(as[0]!=undefined){
-                			t_date = as[0].datea;
-                		}
-                		if(t_date.length>0 && $('#txtDatea').val()<t_date){
-                			alert('日期不可小於 '+t_date);
-                			Unlock(1);
-                			return;
-                		}else{
-                			var t_where = '';
-							if (q_cur == 1) {
-								t_where = "where=^^ cno='" + $('#txtCno').val() + "' and ('" + $('#txtDatea').val() + "' between bdate and edate) " + " and exists(select noa from vccars where vccars.noa=vccar.noa and ('" + $('#txtNoa').val() + "' between binvono and einvono))" + " and not exists(select noa from vcca where noa='" + $('#txtNoa').val() + "') ^^";
-							} else {
-								t_where = "where=^^ cno='" + $('#txtCno').val() + "' and ('" + $('#txtDatea').val() + "' between bdate and edate) " + " and exists(select noa from vccars where vccars.noa=vccar.noa and ('" + $('#txtNoa').val() + "' between binvono and einvono)) ^^";
-							}
-							q_gt('vccar', t_where, 0, 0, 0, "", r_accy);
-                		}
-						break;
 					case 'getAcomp':
 						var as = _q_appendData("acomp", "", true);
 						if (as[0] != undefined) {
@@ -247,6 +240,8 @@
 						$('#txtDatea').val(q_date());
 						if(q_getPara('sys.project')=='fe'){
 							//鉅昕發票找還沒開過的
+							t_wehre = "where=^^['"+$('#txtCno').val()+"','"+$('#txtDatea').val()+"')^^";
+							q_gt('getvccano', t_wehre, 0, 0, 0, 'getVccano', r_accy,true);
 						}else{
 							//發票號碼+1
 							var t_noa = trim($('#txtNoa').val());
@@ -263,27 +258,10 @@
 							$('#txtDatea').focus();
 						}		
 						break;
-					case 'vccar':
-						var as = _q_appendData("vccar", "", true);
-						if (as[0] == undefined) {
-							alert("請檢查發票號碼主檔設定，或發票已輸入。");
-							Unlock(1);
-						} else {
-							//紙本發票才需判斷，先註解
-							/*//3聯須輸入統編
-							 if (as[0].rev=='3' && $('#cmbTaxtype').val()!='6' && checkId($('#txtSerial').val())!=2){
-							 alert(q_getMsg('lblSerial')+'錯誤。');
-							 Unlock(1);
-							 return;
-							 }
-							 //2聯不須輸入統編
-							 if (as[0].rev=='2' && $('#txtSerial').val().length>0 && $('#cmbTaxtype').val()!='6' && checkId($('#txtSerial').val())!=2){
-							 alert(q_getMsg('lblSerial')+'錯誤。');
-							 Unlock(1);
-							 return;
-							 }*/
-							wrServer($('#txtNoa').val());
-							return;
+					case 'getVccano':
+						var as = _q_appendData("getvccano", "", true);
+						if (as[0] != undefined) {
+							$('#txtNoa').val(as[0].invono);
 						}
 						break;
 					case q_name:
@@ -346,8 +324,7 @@
 				
 				sum();
 				
-				q_func('qtxt.query.getvccadate', 'vcca.txt,getvccadate,' +$('#txtNoa').val());
-				//q_gt('getvccadate',"where=^^[N'"+$('#txtNoa').val()+"')^^", 0, 0, 0, "getvccadate"); 
+				q_func('qtxt.query.checkdata_btnOk', 'vcca.txt,checkdata,' +q_cur+';'+$('#txtNoa').val()+';'+$('#txtCno').val()+';'+$('#txtDatea').val());
 			}
 
 			function _btnSeek() {
