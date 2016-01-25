@@ -14,7 +14,7 @@
             //, t_where = '';
             var t_sqlname = 'vcca1';
             t_postname = q_name;
-            brwCount2 = 50;
+            brwCount2 = 0;
 			q_bbsFit = 1;
             var isBott = false;
             var txtfield = [], afield, t_data, t_htm;
