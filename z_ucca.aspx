@@ -93,9 +93,12 @@
 					}]
                 });
                 
-                $('#txtEnddate').mask('999/99/99');
-                $('#txtXdate1').mask('999/99/99');
-                $('#txtXdate2').mask('999/99/99');
+                q_popAssign();
+                q_langShow();
+                
+                $('#txtEnddate').mask(r_picd);
+                $('#txtXdate1').mask(r_picd);
+                $('#txtXdate2').mask(r_picd);
                 $('#txtEnddate').datepicker();
 				$('#txtXdate1').datepicker();
 				$('#txtXdate2').datepicker();
@@ -136,9 +139,6 @@
                 
                 $('#txtXcno').val(z_cno);
                 $('#txtXacomp').val(z_acomp);
-                
-                q_popAssign();
-                q_langShow();
                 
                 
                 /*$("input[type='checkbox'][value!='']").attr('checked', true);
