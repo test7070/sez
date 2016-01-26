@@ -292,14 +292,14 @@
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:30px;" ></td>
 					<td align="center" style="width:200px;"><a id='lblUno_st'> </a></td>
-					<td align="center" style="width:150px;"><a id='lblProductno_st'> </a></td>
-					<td align="center" style="width:150px;"><a id='lblProduct_st'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblProductno_st'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblProduct_st'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblSpec_st'> </a></td>
 					<td align="center" style="width:300px;"><a id='lblSize_st'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMount_st'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblEweight_st'> </a></td>
 					<td align="center" style="width:50px;"><a id='lblStoreno_st'> </a></td>
-					<td align="center" style="width:150px;"><a id='lblMemo_st'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblMemo_st'> </a></td>
 				</tr>
 			</table>
 		</div>
@@ -308,20 +308,20 @@
 				<tr style="height:1px;">
 					<td align="center" style="width:30px;" ></td>
 					<td align="center" style="width:200px;"> </td>
-					<td align="center" style="width:150px;"> </td>
-					<td align="center" style="width:150px;"> </td>
+					<td align="center" style="width:100px;"> </td>
+					<td align="center" style="width:100px;"> </td>
 					<td align="center" style="width:100px;"> </td>
 					<td align="center" style="width:300px;"> </td>
 					<td align="center" style="width:100px;"> </td>
 					<td align="center" style="width:100px;"> </td>
 					<td align="center" style="width:50px;"> </td>
-					<td align="center" style="width:150px;"> </td>
+					<td align="center" style="width:100px;"> </td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td style="width:30px;"><input name="sel" id="radSel.*" type="radio" /></td>
 					<td style="width:200px;"><input id="txtUno.*" type="text" class="txt c2" readonly="readonly"/></td>
-					<td style="width:15px;"><input id="txtProductno.*" type="text" class="txt c2" readonly="readonly"/></td>
-					<td style="width:150px;"><input id="txtProduct.*" type="text" class="txt c2" readonly="readonly"/></td>
+					<td style="width:100px;"><input id="txtProductno.*" type="text" class="txt c2" readonly="readonly"/></td>
+					<td style="width:100px;"><input id="txtProduct.*" type="text" class="txt c2" readonly="readonly"/></td>
 					<td style="width:100px;"><input id="txtSpec.*" type="text" class="txt c2" readonly="readonly"/></td>
 					<td style="width:300px;" id="size_changeTd">
 						<input id="txtRadius.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
