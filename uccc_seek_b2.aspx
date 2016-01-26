@@ -79,7 +79,7 @@
 				if (w.q_name == 'cub')
 					t_deli = '__';
 				var t_productno = w.$('#txtProductno' + t_deli + w.b_seq).val();
-				t_productno = ( t_productno ? t_productno : '');
+				var t_product = w.$('#txtProduct' + t_deli + w.b_seq).val();
 				var t_radius = dec(w.$('#txtRadius' + t_deli + w.b_seq).val());
 				var t_dime = dec(w.$('#txtDime' + t_deli + w.b_seq).val());
 				var t_width = dec(w.$('#txtWidth' + t_deli + w.b_seq).val());
@@ -97,6 +97,7 @@
 				}
 				$('#combTypea').val(t_kind);
 				$('#textProductno').val(t_productno);
+				$('#textProduct').val(t_product);
 				$('#textRadius').val(t_radius);
 				$('#textDime').val(t_dime);
 				$('#textWidth').val(t_width);
@@ -179,8 +180,8 @@
 				t_cmbKind = $('#combTypea').val().substr(0, 1);
 				if (t_cmbKind == 'A') {
 					$('#lblSize_st').text(q_getPara('sys.lblSizea')).show();
-					$('#lblSize_st').parent().css('width', '18%').show();
-					$('#size_changeTd').css('width', '18%').show();
+					//$('#lblSize_st').parent().css('width', '18%').show();
+					//$('#size_changeTd').css('width', '18%').show();
 					$('input[id*="txtLengthb_"]').css('width', '29%').show();
 					$('input[id*="txtWidth_"]').css('width', '29%').show();
 					$('input[id*="txtDime_"]').css('width', '29%').show();
@@ -191,16 +192,16 @@
 					}
 				} else if (t_cmbKind == 'B') {
 					$('#lblSize_st').text(q_getPara('sys.lblSizeb')).show();
-					$('#lblSize_st').parent().css('width', '18%').show();
-					$('#size_changeTd').css('width', '18%').show();
+					//$('#lblSize_st').parent().css('width', '300px').show();
+					//$('#size_changeTd').css('width', '18%').show();
 					$('input[id*="txtLengthb_"]').css('width', '21%').show();
 					$('input[id*="txtWidth_"]').css('width', '21%').show();
 					$('input[id*="txtDime_"]').css('width', '21%').show();
 					$('input[id*="txtRadius_"]').css('width', '21%').show();
 				} else if ((t_cmbKind != 'A') && (t_cmbKind != 'B')) {
 					$('#lblSize_st').text(q_getPara('sys.lblSizec'));
-					$('#lblSize_st').parent().css('width', '6%');
-					$('#size_changeTd').css('width', '6%');
+					//$('#lblSize_st').parent().css('width', '300px');
+					//$('#size_changeTd').css('width', '18%');
 					$('input[id*="txtLengthb_"]').css('width', '95%');
 					$('input[id*="txtRadius_"]').hide();
 					$('input[id*="txtWidth_"]').hide();
@@ -269,9 +270,6 @@
 			span {
 				margin-right: 5px;
 			}
-			td {
-				width: 4%;
-			}
 			.num {
 				text-align: right;
 			}
@@ -289,73 +287,55 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
-		<div  id="dFixedTitle" style="overflow-y: scroll;">
-			<table id="tFixedTitle" class='tFixedTitle'  border="2"  cellpadding='2' cellspacing='1' style='width:100%;'  >
-				<tr style='color:White; background:#003366;' >
-					<th align="center" style="width:2%;" ></th>
-					<td align="center" style="width:10%;"><a id='lblUno_st'> </a></td>
-					<td align="center" style="width:4%;"><a id='lblProductno_st'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblProduct_st'> </a></td>
-					<td align="center" style="width:4%;"><a id='lblSpec_st'> </a></td>
-					<td align="center" style="width:18%;"><a id='lblSize_st'> </a></td>
-					<td align="center" style="width:4%;"><a id='lblMount_st'> </a></td>
-					<td align="center" style="width:6%;"><a id='lblEweight_st'> </a></td>
-					<td align="center" style="width:4%;"><a id='lblStoreno_st'> </a></td>
-					<td align="center"><a id='lblMemo_st'> </a></td>
+		<div id="dFixedTitle" style="overflow-y: scroll;width:1300px;margin-left: auto;margin-right: auto;" >
+			<table>
+				<tr style='color:white; background:#003366;' >
+					<td align="center" style="width:30px;" ></td>
+					<td align="center" style="width:200px;"><a id='lblUno_st'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblProductno_st'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblProduct_st'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblSpec_st'> </a></td>
+					<td align="center" style="width:300px;"><a id='lblSize_st'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblMount_st'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblEweight_st'> </a></td>
+					<td align="center" style="width:50px;"><a id='lblStoreno_st'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblMemo_st'> </a></td>
 				</tr>
 			</table>
 		</div>
-		<div id="dbbs" style="overflow: scroll;height:450px;" >
-			<table id="tbbs" class='tbbs' border="2" cellpadding='2' cellspacing='1' style='width:100%;' >
-				<tr style="display:none;">
-					<th align="center" style="width:2%;" ></th>
-					<td align="center" style="width:10%;"><a id='lblUno_st'> </a></td>
-					<td align="center" style="width:4%;"><a id='lblProductno_st'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblProduct_st'> </a></td>
-					<td align="center" style="width:4%;"><a id='lblSpec_st'> </a></td>
-					<td align="center" style="width:18%;"><a id='lblSize_st'> </a></td>
-					<td align="center" style="width:4%;"><a id='lblMount_st'> </a></td>
-					<td align="center" style="width:6%;"><a id='lblEweight_st'> </a></td>
-					<td align="center" style="width:4%;"><a id='lblStoreno_st'> </a></td>
-					<td align="center"><a id='lblMemo_st'> </a></td>
+		<div id="dbbs" style="overflow: scroll;height:450px;width:1300px;margin-left: auto;margin-right: auto;" >
+			<table id="tbbs" class='tbbs'>
+				<tr style="height:1px;">
+					<td align="center" style="width:30px;" ></td>
+					<td align="center" style="width:200px;"> </td>
+					<td align="center" style="width:100px;"> </td>
+					<td align="center" style="width:100px;"> </td>
+					<td align="center" style="width:100px;"> </td>
+					<td align="center" style="width:300px;"> </td>
+					<td align="center" style="width:100px;"> </td>
+					<td align="center" style="width:100px;"> </td>
+					<td align="center" style="width:50px;"> </td>
+					<td align="center" style="width:100px;"> </td>
 				</tr>
 				<tr style='background:#cad3ff;'>
-					<td style="width:2%;">
-					<input name="sel" id="radSel.*" type="radio" />
+					<td style="width:30px;"><input name="sel" id="radSel.*" type="radio" /></td>
+					<td style="width:200px;"><input id="txtUno.*" type="text" class="txt c2" readonly="readonly"/></td>
+					<td style="width:100px;"><input id="txtProductno.*" type="text" class="txt c2" readonly="readonly"/></td>
+					<td style="width:100px;"><input id="txtProduct.*" type="text" class="txt c2" readonly="readonly"/></td>
+					<td style="width:100px;"><input id="txtSpec.*" type="text" class="txt c2" readonly="readonly"/></td>
+					<td style="width:300px;" id="size_changeTd">
+						<input id="txtRadius.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
+						<span id="StrX1" class="StrX">x</span>
+						<input id="txtWidth.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
+						<span id="StrX2" class="StrX">x</span>
+						<input id="txtDime.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
+						<span id="StrX3" class="StrX">x</span>
+						<input id="txtLengthb.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
 					</td>
-					<td align="center" style="width:10%;">
-					<input id="txtUno.*" type="text" class="txt c2" readonly="readonly"/>
-					</td>
-					<td align="center" style="width:4%;">
-					<input id="txtProductno.*" type="text" class="txt c2" readonly="readonly"/>
-					</td>
-					<td align="center" style="width:8%;">
-					<input id="txtProduct.*" type="text" class="txt c2" readonly="readonly"/>
-					</td>
-					<td align="center" style="width:4%;">
-					<input id="txtSpec.*" type="text" class="txt c2" readonly="readonly"/>
-					</td>
-					<td id="size_changeTd" align="center" style="width:18%;">
-					<input id="txtRadius.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
-					<span id="StrX1" class="StrX">x</span>
-					<input id="txtWidth.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
-					<span id="StrX2" class="StrX">x</span>
-					<input id="txtDime.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
-					<span id="StrX3" class="StrX">x</span>
-					<input id="txtLengthb.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
-					</td>
-					<td align="center" style="width:4%;">
-					<input id="txtEmount.*" type="text" class="txt c2 num" readonly="readonly"/>
-					</td>
-					<td style="width:6%;">
-					<input id="txtEweight.*" type="text" class="txt c2 num" readonly="readonly"/>
-					</td>
-					<td style="width:4%;">
-					<input id="txtLaststoreno.*" type="text" class="txt c2" readonly="readonly"/>
-					</td>
-					<td >
-					<input id="txtMemo.*" type="text" class="txt c2" readonly="readonly"/>
-					</td>
+					<td style="width:100px;"><input id="txtEmount.*" type="text" class="txt c2 num" readonly="readonly"/></td>
+					<td style="width:100px;"><input id="txtEweight.*" type="text" class="txt c2 num" readonly="readonly"/></td>
+					<td style="width:50px;"><input id="txtLaststoreno.*" type="text" class="txt c2" readonly="readonly"/></td>
+					<td style="width:150px;"><input id="txtMemo.*" type="text" class="txt c2" readonly="readonly"/></td>
 				</tr>
 			</table>
 		</div>
