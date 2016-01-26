@@ -48,7 +48,7 @@
 				q_mask(bbmMask);
 				if(q_getPara('sys.project').toUpperCase()=='RB'){
 					aPop = new Array(
-						['txtTggno', 'lblTgg', 'store', 'noa,part', 'txtTggno,txtTgg', 'part_b.aspx']
+						['txtTggno', 'lblTgg', 'part', 'noa,part', 'txtTggno,txtTgg', 'part_b.aspx']
 					);
 					$('#lblTgg').text('對應部門');
 				}
