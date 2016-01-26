@@ -149,7 +149,11 @@
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
                 q_mask(bbmMask);
-                q_cmbParse("cmbTaxtype",q_getPara('vcca.taxtype'));
+                
+                if(q_getPara('sys.project')=='sh')
+                	q_cmbParse("cmbTaxtype",q_getPara('sys.taxtype'));
+                else 
+                	q_cmbParse("cmbTaxtype",q_getPara('vcca.taxtype'));
                 
                 $('#cmbTaxtype').focus(function() {
                     var len = $("#cmbTaxtype").children().length > 0 ? $("#cmbTaxtype").children().length : 1;
@@ -279,14 +283,14 @@
                         	t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-                        	$('#txtMoney_'+b_seq).val(q_mul(q_float('txtMount_'+b_seq),q_float('txtPrice_'+b_seq)));
+                        	$('#txtMoney_'+b_seq).val(round(q_mul(q_float('txtMount_'+b_seq),q_float('txtPrice_'+b_seq)),0));
                             sum();
                         });
                         $('#txtPrice_' + j).change(function() {
                         	t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-                        	$('#txtMoney_'+b_seq).val(q_mul(q_float('txtMount_'+b_seq),q_float('txtPrice_'+b_seq)));
+                        	$('#txtMoney_'+b_seq).val(round(q_mul(q_float('txtMount_'+b_seq),q_float('txtPrice_'+b_seq)),0));
                             sum();
                         });
                         $('#txtMoney_' + j).change(function() {
