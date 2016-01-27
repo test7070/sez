@@ -51,11 +51,21 @@
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('uccag.typea'));
                 $('#lblAccno').click(function() {
-                	//if(!emp($('#txtAccno').val()))
-                	if(q_getPara('sys.project')=='vu'){
-                		q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";charindex('" + $('#txtNoa').val() + "',zno)>0;" + ($('#txtDatea').val().substr( 0,4)-1911) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAcc'), true);
-                	}else{
-                		q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";charindex('" + $('#txtNoa').val() + "',zno)>0;" + $('#txtDatea').val().substr( 0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAcc'), true);
+                	if(!emp($('#txtAccno').val())){
+                		var t_accy=r_accy;
+                		if(!emp($('#txtMon').val())){
+                			t_accy=$('#txtMon').val();
+                		}else if (!emp($('#txtBdate').val())){
+                			t_accy=$('#txtBdate').val();
+                		}else if (!emp($('#txtDatea').val())){
+                			t_accy=$('#txtDatea').val();
+                		}
+                		
+                		if(r_len==4){
+                			q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";charindex('" + $('#txtNoa').val() + "',zno)>0;" + (t_accy.substr(0,4)-1911) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAcc'), true);
+                		}else{
+                			q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";charindex('" + $('#txtNoa').val() + "',zno)>0;" + t_accy.substr( 0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAcc'), true);
+                		}
                 	}
                     
                 });
