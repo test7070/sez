@@ -36,7 +36,7 @@
 			
 			aPop = new Array(
 				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
-				['txtSssno_', 'btnSssno_', 'sss', 'noa,namea,sex,id,isclerk', 'txtSssno_,txtNamea_,cmbSex_,txtId_,chkIsclerk_', 'sss_b.aspx'],
+				['txtSssno_', 'btnSssno_', 'sss', 'noa,namea,sex,id,isclerk,cno', 'txtSssno_,txtNamea_,cmbSex_,txtId_,chkIsclerk_,txtCno_', 'sss_b.aspx'],
 				['textBserial', '', 'acomp', 'serial,noa,acomp', 'textBserial', 'acomp_b.aspx'],
 				['textEserial', '', 'acomp', 'serial,noa,acomp', 'textEserial', 'acomp_b.aspx']
 			);
@@ -78,8 +78,8 @@
 				});
 				
 				$('#btnMedia').click(function() {
-					$('#divMedia').css('top', $('#btnMedia'+b_seq).offset().top+25);
-					$('#divMedia').css('left', $('#btnMedia'+b_seq).offset().left-dec($('#divMedia').css('width')));
+					$('#divMedia').css('top', $('#btnMedia').offset().top+25);
+					$('#divMedia').css('left', $('#btnMedia').offset().left-dec($('#divMedia').css('width')));
 					$('#divMedia').show();
 					$('#textYear').val(dec(q_date().substr(0,3))-1);
 				});
@@ -122,7 +122,7 @@
 					}
 				});
 			}
-						
+				
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {
@@ -133,7 +133,7 @@
 				b_pop = '';
 			}
 			var ret;
-			var t_typeb=[],t_typec=[],t_salary=[],t_salaward=[];
+			var t_typeb=[],t_typec=[],t_salary=[],t_salaward=[],t_tcd=true;
 			function q_gtPost(t_name) {
 				switch (t_name) {
 					case 'payform':
@@ -211,10 +211,11 @@
 						q_gridAddRow(bbsHtm, 'tbbs','txtSssno,txtNamea,cmbTypea,cmbTypeb,cmbTypec,txtMoney',as.length, as
 						,'sssno,namea,salbtypea,salbtypeb,salbtypec,plus','txtSssno');
 						
-						if(t_salary.length+as.length+t_salaward==q_bbsCount)
+						if(t_salary.length+as.length+t_salaward.length==q_bbsCount)
 							q_gridAddRow(bbsHtm, 'tbbs', 'txtNoq', 1);
 							
 						var SssArray = [];
+						t_tcd=false;
 						for(var i=0;i<q_bbsCount;i++){
 							var t_sssno = $.trim($('#txtSssno_'+i).val());
 							if(t_sssno.length>0)
@@ -222,6 +223,7 @@
 							$('#cmbTypea_'+i).change(); 
 							$('#btnMinus_'+i).click();
 						}
+						t_tcd=true;
 						
 						q_gridAddRow(bbsHtm, 'tbbs','txtSssno,txtNamea,txtMount,txtAd_money,txtMoney,txtCh_meal,cmbTypea,cmbTypeb'
 						,t_salary.length, t_salary,'sno,namea,raise_num,addmoney,tmp_money,tmp_food_money,typea,typeb','txtSssno');
@@ -245,6 +247,7 @@
 								var ret_sss = $.trim($('#txtSssno_'+k).val());
 								if(sss_noa==ret_sss){
 									$('#txtId_'+k).val($.trim(as[j].id));
+									$('#txtCno_'+k).val($.trim(as[j].cno));
 									$('#cmbSex_'+k).val($.trim(as[j].sex));
 									if(as[j].isclerk)
 										$('#chkIsclerk'+k).prop('checked',true);
@@ -357,6 +360,16 @@
 					});
 				}
 				btnTypechange();
+				
+				if($('#btnDividend').val().indexOf('隱藏')>-1){
+					$('.dividend').hide();
+					$('.dbbs').css('width','1260px');
+					$('#btnDividend').val('股利顯示');
+				}else{
+					$('.dbbs').css('width','2300px');
+					$('.dividend').show();
+					$('#btnDividend').val('股利隱藏');
+				}
 			}
 
 			function btnIns() {
@@ -516,7 +529,7 @@
 			
 			
 			function Typechangedisabled() {
-				if((q_cur==1 || q_cur==2)){
+				if((q_cur==1 || q_cur==2) && t_tcd){
 					for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
 						if($('#cmbTypea_'+j).val()=='50' && $.trim($('#cmbTypeb_'+j).val())==''){
 							$('#txtRetire_'+j).removeAttr('disabled', 'disabled').css('background','white');
