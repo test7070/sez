@@ -277,7 +277,7 @@
 					}
 					if(PnoArray.length > 0){
 						var t_where = 'where=^^ 1=1 ';
-						t_where += "and ((select isnull(enda,0) from view_orde where noa=view_ordes.noa)!=1) ";//BBM未結案
+						t_where += "and ((select isnull(enda,0) from view_orde where noa=a.noa)!=1) ";//BBM未結案
 						t_where += "and (isnull(enda,0)!=1) ";//BBS未結案
 						t_where += "and (custno=N'"+t_custno+"')";
 						t_where += "and (productno in (" +PnoArray.toString()+ "))";
