@@ -116,7 +116,7 @@
 		        		}
 		        	}
 		        }
-
+				$('#Xpartno [type="checkbox"]').prop('checked',true);
 			}
 			
 			function q_boxClose(s2) {
