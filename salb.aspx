@@ -257,7 +257,7 @@
 									if(as[j].isclerk)
 										$('#chkIsclerk'+k).prop('checked',true);
 									$('#txtAddr_'+k).val(($.trim(as[j].addr_conn)=='同上'?$.trim(as[j].addr_home):$.trim(as[j].addr_conn)));
-									break;
+									//break;
 								}
 							}
 						}
