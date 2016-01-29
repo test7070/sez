@@ -67,6 +67,11 @@
 				q_gt('paymark', '', 0, 0, 0, "");
 				q_gt('payremark', '', 0, 0, 0, "");
 				
+				$('#txtMon').focusin(function(){
+					if(q_cur==1 || q_cur==2)
+					q_msg($(this), '年所得月份請輸入00',10);
+				});
+				
 				$('#btnIndata').click(function(){
 					var t_mon = $.trim($('#txtMon').val());
 					if(t_mon.length>0 && (q_cur==1 || q_cur==2)){
