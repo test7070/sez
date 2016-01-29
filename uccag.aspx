@@ -51,7 +51,7 @@
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('uccag.typea'));
                 $('#lblAccno').click(function() {
-                	if(!emp($('#txtAccno').val())){
+                	if(!emp($('#txtNoa').val())){
                 		var t_accy=r_accy;
                 		if(!emp($('#txtMon').val())){
                 			t_accy=$('#txtMon').val();
