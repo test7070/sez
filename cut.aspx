@@ -285,6 +285,7 @@
 							$('#txtCustno').val(as[0].custno);
 							$('#txtSource').val(as[0].source);
 							$('#txtGweight').val(as[0].eweight);
+							$('#txtMemo').val(as[0].memo);
 							$('#txtGmount').val(1);
 							
 							//新增自動帶入品名與厚度
@@ -566,7 +567,10 @@
 					for(var i=0;i<q_bbsCount;i++){
 						$('#txtSource_'+i).val($('#txtSource').val());
 					}
-			
+				for(var i=0;i<q_bbsCount;i++){
+					$('#txtUno2_'+i).val($('#txtUno').val());
+				}
+					
 				//裕承隆 暫時先不檢查
 				/*var t_err = CheckInputError();
 				if(t_err.length>0){
@@ -762,6 +766,9 @@
 					$('.dview').css('width','350px');
 					$('.dbbm').css('width','900px');
 					$('.dbbs').css('width','1700px');
+				}
+				if(q_getPara('sys.project').toUpperCase()=='PK'){
+					$('.pk_hide').hide();
 				}
 			}
 
@@ -1484,11 +1491,11 @@
 					<td style="width:50px;" align="center"><a id='lblMounts'> </a></td>
 					<td style="width:20px;" align="center"  class="pe_hide"><a id='lblDivide'> </a></td>
 					<td style="width:80px;" align="center"><a id='lblTheory'> </a></td>
-					<td style="width:80px;" align="center"  class="pe_hide"><a id='lblHweight'> </a></td>
+					<td style="width:80px;" align="center"  class="pe_hide pk_hide"><a id='lblHweight'> </a></td>
 					<td style="width:80px;" align="center"><a id='lblWeight'> </a></td>
 					<td style="width:80px;" align="center"><a id='lblSprice'> </a></td>
 					<td style="width:80px;" align="center"><a id='lblWprice'> </a></td>
-					<td style="width:50px;" align="center"><a id='lblWaste'> </a></td>
+					<td style="width:50px;" align="center" class="pk_hide"><a id='lblWaste'> </a></td>
 					<td style="width:180px;" align="center"><a id='lblBno'> </a></td>
 					<td style="width:80px;" align="center"><a id='lblStoreno'> </a></td>
 					<td style="width:150px;" align="center"><a id='lblMemos'> </a></td>
@@ -1496,9 +1503,10 @@
 					<td style="width:80px;" align="center"><a id='lblMweight'> </a></td>
 					<td style="width:120px;" align="center" class="pe_hide"><a id='lblOrdenos'> </a></td>
 					<td style="width:30px;" align="center" class="pe_hide"><a id='lblNo2'> </a></td>
-					<td style="width:50px;" align="center" class="pe_hide"><a id='lblSpecial'> </a></td>
+					<td style="width:50px;" align="center" class="pe_hide pk_hide"><a id='lblSpecial'> </a></td>
 					<td style="width:50px;" align="center"><a id='lblCname'> </a></td>
 					<td style="width:60px;" align="center" class="pe_hide"><a id='lblSources'>鋼廠 </a></td>
+					<td style="width:150px;" align="center"><a id='lblUno2'>原批號</a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td style="width:1%;">
@@ -1539,11 +1547,11 @@
 					<td><input id="txtMount.*" type="text" class="txt c2 num"/></td>
 					<td class="pe_hide"><input id="txtDivide.*" type="text" class="txt c2 num"/></td>
 					<td><input id="txtTheory.*" type="text" class="txt c2 num"/></td>
-					<td class="pe_hide"><input id="txtHweight.*" type="text" class="txt c2 num"/></td>
+					<td class="pe_hide pk_hide"><input id="txtHweight.*" type="text" class="txt c2 num"/></td>
 					<td><input id="txtWeight.*" type="text"  class="txt c2 num"/></td>
 					<td><input id="txtSprice.*" type="text"  class="txt c2 num"/></td>
 					<td><input id="txtWprice.*" type="text" class="txt c2 num"/></td>
-					<td><input id="txtWaste.*" type="text" class="txt c2"/></td>
+					<td class="pk_hide"><input id="txtWaste.*" type="text" class="txt c2"/></td>
 					<td><input id="txtBno.*" type="text" class="txt c2"/></td>
 					<td>
 						<input id="txtStoreno.*" type="text" class="txt c2"/>
@@ -1556,9 +1564,10 @@
 					<td><input id="txtMweight.*" type="text" class="txt c2 num"/></td>
 					<td  class="pe_hide"><input id="txtOrdeno.*" type="text" class="txt c2"/></td>
 					<td  class="pe_hide"><input id="txtNo2.*" type="text" class="txt c2"/></td>
-					<td  class="pe_hide"><input id="txtSpecial.*" type="text" class="txt c2"/></td>
+					<td  class="pe_hide pk_hide"><input id="txtSpecial.*" type="text" class="txt c2"/></td>
 					<td><input id="txtCname.*" type="text" class="txt c2"/></td>
 					<td class="pe_hide"><input id="txtSource.*" type="text" class="txt c2"/></td>
+					<td><input id="txtUno2.*" type="text" class="txt c2"/></td>
 				</tr>
 			</table>
 		</div>
