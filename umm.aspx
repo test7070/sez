@@ -752,6 +752,10 @@
 							}
                     	}
                 	}
+                	
+                	//105/02/04 避免 bbs表身顯示錯誤重算unpay 欄位
+					var t_unpay = dec($('#txtUnpayorg_' + i).val()) - dec($('#txtPaysale_' + i).val());
+					q_tr('txtUnpay_' + i, t_unpay);
                 }
                 
                 if (emp($('#txtCustno').val()) && q_float('txtOpay')>0) {
