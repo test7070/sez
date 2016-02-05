@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -16,6 +16,12 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
 			var uccgaItem = '';
+			aPop = new Array(
+				['txtBstoreno','','store','noa,store','txtBstoreno,txtBstore','store_b.aspx'],
+				['txtEstoreno','','store','noa,store','txtEstoreno,txtEstore','store_b.aspx'],
+				['txtBproductno','','ucaucc','noa,product','txtBproductno,txtBproduct','ucaucc_b.aspx'],
+				['txtEproductno','','ucaucc','noa,product','txtEproductno,txtEproduct','ucaucc_b.aspx']
+			);
 			$(document).ready(function() {
 				_q_boxClose();
 				q_getId();
@@ -135,32 +141,32 @@
 				$('#lblXucc').click(function(e) {
                 	q_box("ucc_b2.aspx?;;;;", 'ucc', "40%", "620px", q_getMsg("popUcc"));
                 });
-                q_cmbParse('cmbType','製成品,原料,全部')
+				q_cmbParse('cmbType','0@全部,1@原料,2@製成品')
                 $('#btnCostbcc').click(function(e) {
                     $('#divExport').toggle();
                     $('#textDate').val(q_date());
                 });
+                
                 $('#btnDivexport').click(function(e) {
                     $('#divExport').hide();
                 });
+                
+                $('#txtExportDate').val(q_date());
+				$('#txtExportDate').mask('999/99/99'); //2015/10/20轉點單加日期
+				$('#txtExportDate').datepicker();
+                
                 $('#btnExport').click(function(e) {
-                  	var type=$('#cmbType').find("option:selected").text()
+                	var t_datea=emp($('#txtExportDate').val())?q_date():$('#txtExportDate').val();
+                  	var t_type=emp($('#cmbType').val())?'0':$('#cmbType').val();
+                  	var t_bstore=emp($('#txtBstoreno').val())?'#non':$('#txtBstoreno').val();
+                  	var t_estore=emp($('#txtEstoreno').val())?'#non':$('#txtEstoreno').val();
+                  	var t_bpno=emp($('#txtBproductno').val())?'#non':$('#txtBproductno').val();
+                  	var t_epno=emp($('#txtEproductno').val())?'#non':$('#txtEproductno').val();
                   	if(confirm('匯入過程需要等待幾分鐘確定要執行?')){
-        				if(type=='製成品'){
-        					Lock(1);
-        					q_func( 'qtxt.query.stkucc','stkucc.txt,stkucc,');
-        				}else if(type=='原料'){
-        					Lock(1);   
-        					q_func( 'qtxt.query.stkuca' ,'stkucc.txt,stkuca,');     				
-        				}else if(type=='全部'){
-        					Lock(1);      			
- 	     					q_func( 'qtxt.query.stkallucc' ,'stkucc.txt,stkucc,');
-        				
-        				} 
+        				Lock(1);
+        				q_func( 'qtxt.query.stkucce','stkucc.txt,stkucce,' + t_datea+ ';'+t_type+ ';'+ t_bstore+ ';'+ t_estore+ ';'+ t_bpno+ ';'+ t_epno);
         			}
                 });
-                
-                
 			}
 
 			function q_boxClose(s2) {
@@ -201,21 +207,9 @@
 			
 			function q_funcPost(t_func, result) {
                 switch(t_func) {
-                   	case 'qtxt.query.stkucc':
-						alert('製成品匯入完成。');
-                        Unlock(1);
-                        break;
-                    case 'qtxt.query.stkuca':
-						alert('原料匯入完成。');
-                        Unlock(1);
-                        break;
-                    case 'qtxt.query.stkallucc':
-
-                    	 q_func( 'qtxt.query.stkalluca' ,'stkucc.txt,stkuca,'); 
-                        break;
-                    case 'qtxt.query.stkalluca':
-						alert('全部匯入完成。');
-                        Unlock(1);
+                   	case 'qtxt.query.stkucce':
+                    	 alert('資料匯入完成。');
+                    	 Unlock(1); 
                         break;
                     default:
                         break;
@@ -264,24 +258,47 @@
 				<!--#include file="../inc/print_ctrl.inc"-->
 			</div>
 		</div>
-		<div id="divExport" style="display:none;position:absolute;top:100px;left:600px;width:200px;height:120px;background:RGB(237,237,237);">
-            <table style="border:4px solid gray; width:100%; height: 100%;">
-                <tr style="height:1px;background-color: pink;">
-                    <td style="width:25%;"></td>
-                    <td style="width:25%;"></td>
-                    <td style="width:25%;"></td>
-                </tr>
+		<div id="divExport" style="display:none;position:absolute;top:200px;left:400px;width:400px;height:150px;background:RGB(237,237,237);">
+            <table style="border:3px solid gray; width:100%; height: 100%;">              
                 <tr>
-                     <td   align="center"  colspan="3" style="padding: 2px;text-align: center;border-width: 0px;background-color: pink;">
-                           <select type="text" id="cmbType" style="float:left;width:40%;"/select>
+                    <td colspan="4" align="left" style="background-color: pink;">
+                    	<label style="width:30%;" >日期</label>
+                    	<input type="text" id="txtExportDate" style="width:83%;" />
                     </td>
                 </tr>
+                <tr>
+                    <td align="center" colspan="4" style="padding: 2px;text-align: center;border-width: 0px;background-color: pink;">                   
+                         <select type="text" id="cmbType" style="float:center;width:50%;"/select>
+                    </td>
+                </tr>
+                <tr>
+					<td colspan="4" align="left" style="background-color: pink;">
+                    	<label style="width:25%;" >倉庫</label>
+                    	<input type="text" id="txtBstoreno" style="width:20%;"/>
+                    	<input type="text" id="txtBstore" style="width:20%;" disabled="disabled"/>
+                    	<label style="width:10%;" >~</label>
+                    	<input type="text" id="txtEstoreno" style="width:20%;" />
+                    	<input type="text" id="txtEstore" style="width:20%;" disabled="disabled"/>
+                    </td>
+					
+				</tr>
+				<tr>
+					<td colspan="4" align="left" style="background-color: pink;">
+                    	<label style="width:25%;" >產品</label>
+                    	<input type="text" id="txtBproductno" style="width:20%;"/>
+                    	<input type="text" id="txtBproduct" style="width:20%;" disabled="disabled"/>
+                    	<label style="width:10%;" >~</label>
+                    	<input type="text" id="txtEproductno" style="width:20%;" />
+                    	<input type="text" id="txtEproduct" style="width:20%;" disabled="disabled"/>
+                    </td>
+					
+				</tr>
                 <tr>
                     <td colspan="2" align="center" style="background-color: pink;">
-                    <input type="button" id="btnExport" value="匯入"/>
+                    <input type="button" id="btnExport" style="width:70%;" value="匯入" />
                     </td>
                     <td colspan="2" align="center" style=" background-color: pink;">
-                    <input type="button" id="btnDivexport" value="關閉"/>
+                    <input type="button" id="btnDivexport" style="width:70%;" value="關閉"/>
                     </td>
                 </tr>
             </table>

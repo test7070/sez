@@ -36,7 +36,7 @@
 			
 			aPop = new Array(
 				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
-				['txtSssno_', 'btnSssno_', 'sss', 'noa,namea,sex,id,isclerk,cno', 'txtSssno_,txtNamea_,cmbSex_,txtId_,chkIsclerk_,txtCno_', 'sss_b.aspx'],
+				['txtSssno_', 'btnSssno_', 'sss', 'noa,namea,sex,id,isclerk,cno', 'txtSssno_,txtNamea_,cmbSex_,txtId_,chkIsclerk_,txtCno_,txtNamea_', 'sss_b.aspx'],
 				['textBserial', '', 'acomp', 'serial,noa,acomp', 'textBserial', 'acomp_b.aspx'],
 				['textEserial', '', 'acomp', 'serial,noa,acomp', 'textEserial', 'acomp_b.aspx']
 			);
@@ -323,9 +323,10 @@
 					$('#btnMinus_' + j).click(function() {
 						btnMinus($(this).attr('id'));
 					});
-					$('#txtMoney_'+j).change(function(){
-						sum();
+					$('#txtNamea_'+j).focusin(function(){
+						q_msg($(this), $(this).val(),10,1800);
 					});
+					
 					$('#txtTax_'+j).change(function(){
 						sum();
 					});
@@ -502,8 +503,8 @@
 					for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
 						if($('#cmbTypea_'+j).val()!=''){
 							//處理內容
-							$('#cmbTypeb_'+b_seq).text('');
-							$('#cmbTypec_'+b_seq).text('');
+							$('#cmbTypeb_'+j).text('');
+							$('#cmbTypec_'+j).text('');
 							var c_typeb=' @ ';
 							
 							for (i=0;i<t_typeb.length;i++){
@@ -512,8 +513,8 @@
 							}
 							q_cmbParse("cmbTypeb_"+j, c_typeb);
 							if(abbsNow!=undefined){
-								if(abbsNow.length>0)
-								$('#cmbTypeb_'+j).val(abbsNow[j].typeb);	
+								if(abbsNow.length>0 && abbsNow[j]!=undefined)
+									$('#cmbTypeb_'+j).val(abbsNow[j].typeb);	
 							}
 							
 							//處理內容
@@ -524,7 +525,7 @@
 							}					
 							q_cmbParse("cmbTypec_"+j, c_typec);
 							if(abbsNow!=undefined){
-								if(abbsNow.length>0)
+								if(abbsNow.length>0 && abbsNow[j]!=undefined)
 									$('#cmbTypec_'+j).val(abbsNow[j].typec);
 							}
 						}
