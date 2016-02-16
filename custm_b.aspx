@@ -59,6 +59,7 @@
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
                 q_cmbParse("cmbWtype", q_getPara('custm.wtype'));
                 q_cmbParse("cmbQtype", q_getPara('custm.qtype'));
+                q_cmbParse("cmbIncoterms", q_getPara('sys.incoterms'));
             }
 
             function bbsAssign() {
@@ -143,7 +144,7 @@
 				</tr>
 				<tr>
 					<td><a id="lblTaxtype" style="float:right;"> </a></td>
-					<td><select id="cmbTaxtype"  style='width:98%;'> </select></td>
+					<td><select id="cmbTaxtype" style='width:98%;'> </select></td>
 					<td> </td>
 					<td> </td>
 					<td> </td>
@@ -159,7 +160,7 @@
 				</tr>
 				<tr>
 					<td><a id="lblWtype" style="float:right;"> </a></td>
-					<td><select id="cmbWtype"   style='width:98%;'> </select></td>
+					<td><select id="cmbWtype" style='width:98%;'> </select></td>
 					<td> </td>
 					<td> </td>
 					<td> </td>
@@ -174,18 +175,18 @@
 					<td> </td>
 				</tr>
 				<tr>
-					<td><a id="lblBcomp" style="float:right;"> </a></td>
-					<td><input id="txtBcomp" maxlength='40' type="text" style='width:98%;'/></td>
+					<td><a id="lblIncoterms" style="float:right;"> </a></td>
+					<td><select id="cmbIncoterms" style='width:98%;'> </select></td>
 					<td> </td>
 					<td> </td>
 					<td> </td>
 					<td> </td>
 				</tr>
 				<tr>
+					<td><a id="lblBcomp" style="float:right;"> </a></td>
+					<td><input id="txtBcomp" maxlength='40' type="text" style='width:98%;'/></td>
 					<td><a id="lblBoat" style="float:right;"> </a></td>
 					<td><input id="txtBoat" maxlength='20' type="text" style='width:98%;'/></td>
-					<td> </td>
-					<td> </td>
 					<td> </td>
 					<td> </td>
 				</tr>
