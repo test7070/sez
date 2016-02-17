@@ -37,7 +37,7 @@
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1)
+                q_gt(q_name, q_content, q_sqlCount, 1);
             });
 
             function main() {
@@ -56,12 +56,33 @@
                 q_mask(bbmMask);
 
                 $('#btnGqb').click(function() {
-                    t_where = "where=^^ (len(isnull(a.usage,''))=0 and len(isnull(tbankno,''))=0 and a.typea='1' and isnull(b.sel,0)=0) or (c.noa is not null and c.noa='"+$.trim($('#txtNoa').val())+"') ^^";
-                    Lock();
-                    q_gt('chk2_gqb', t_where, 0, 0, 0, "", r_accy);
+					var t_noa = $.trim($('#txtNoa').val());
+
+					Lock(1, {
+					    opacity : 0
+					});
+					q_func('qtxt.query.gqb', 'gqb.txt,chk2_import,' + encodeURI(t_noa)); 
                 });
 
             }
+            function q_funcPost(t_func, result) {
+                switch(t_func) {
+                    case 'qtxt.query.gqb':
+                        var as = _q_appendData("tmp0", "", true, true);
+                        if (as[0] != undefined) {
+                       		q_gridAddRow(bbsHtm, 'tbbs', 'chkSel,txtCheckno,txtBank,txtBankno,txtAccount,txtDatea,txtMoney,txtTcompno,txtTcomp,txtCompno,txtComp'
+	                        , as.length, as, 'sel,gqbno,bank,bankno,account,indate,money,tcompno,tcomp,compno,comp', '');
+                       
+                        } else {
+                            alert('無資料!');
+                        }
+                        Unlock(1);
+                        break;
+                    default:
+                    	break;
+                }
+            }
+            
 			function browGqb(obj){
 				var noa = $.trim($(obj).val());
             	if(noa.length>0)
@@ -79,13 +100,6 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                    case 'chk2_gqb':
-                        var as = _q_appendData("gqb", "", true);
-                        //if(as.length>q_bbsCount)
-                        q_gridAddRow(bbsHtm, 'tbbs', 'chkSel,txtCheckno,txtBank,txtBankno,txtAccount,txtDatea,txtMoney,txtTcompno,txtTcomp,txtCompno,txtComp'
-                        , as.length, as, 'sel,gqbno,bank,bankno,account,indate,money,tcompno,tcomp,compno,comp', '');
-                        Unlock();
-                        break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
