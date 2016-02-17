@@ -60,6 +60,10 @@
                 		}else if (!emp($('#txtDatea').val())){
                 			t_accy=$('#txtDatea').val();
                 		}
+                		//20160217
+                		if($('#cmbTypea').val()=='4'){
+                			t_accy=$('#txtDatea').val();
+                		}
                 		
                 		if(r_len==4){
                 			q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";charindex('" + $('#txtNoa').val() + "',zno)>0;" + (t_accy.substr(0,4)-1911) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAcc'), true);

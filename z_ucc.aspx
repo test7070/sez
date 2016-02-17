@@ -114,6 +114,10 @@
 						type : '0', //[25] 
 						name : 'xproject',
 						value : q_getPara('sys.project').toUpperCase()
+					}, {//3-4
+						type : '8',
+						name : 'lowsafe',//[26]
+						value : '1@低於安全存量'.split(',')
 					}]
 				});
 				q_popAssign();
@@ -134,6 +138,8 @@
 				
 				$('#Allucc').css('width','300px').css('height','30px');
 				$('#Allucc .label').css('width','0px');
+				$('#Lowsafe').css('width','300px').css('height','30px');
+				$('#Lowsafe .label').css('width','0px');
 				
 				$('#Xucc').css("width","605px");
 				$('#txtXucc').css("width","515px");
