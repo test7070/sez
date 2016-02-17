@@ -105,6 +105,16 @@
             		alert(q_getMsg('lblSno')+'或'+q_getMsg('lblIp')+'請擇一填選!!');
             		return;
             	}
+            	//判斷帳號是否重覆
+            	if(!emp($('#txtSno').val()) && q_cur==1){
+            		var t_where = "where=^^ sno='" + $('#txtSno').val() + "' and isnull(sno,'')!='' ^^";
+					q_gt(q_name, t_where, 0, 0, 0, "repsno", r_accy, 1);
+					var as = _q_appendData(q_name, "", true);
+					if (as[0] != undefined) {
+						alert(q_getMsg('lblSno')+'禁止重複!!');
+						return;
+					}
+            	}
             	
             	var isdate=false;
             	var isday=false;

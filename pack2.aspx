@@ -18,8 +18,8 @@
             var q_name = "pack2";
             var q_readonly = [];
             var q_readonlys = [];
-            var bbmNum = [['txtWeight', 10, 2,1]];
-            var bbsNum = [['txtInmount', 10, 2,1],['txtOutmount', 10, 2,1],['txtInweight', 10, 2,1],['txtOutweight', 10, 2,1],['txtWeight', 10, 2,1],['txtGweight', 10, 2,1],['txtLengthb', 10, 2,1],['txtWidth', 10, 2,1],['txtHeight', 10, 2,1],['txtCuft', 10, 2,1]];
+            var bbmNum = [['txtWeight', 10, 3,1]];
+            var bbsNum = [['txtInmount', 10, 2,1],['txtOutmount', 10, 2,1],['txtInweight', 10, 3,1],['txtOutweight', 10, 3,1],['txtWeight', 10, 3,1],['txtGweight', 10, 3,1],['txtLengthb', 10, 2,1],['txtWidth', 10, 2,1],['txtHeight', 10, 2,1],['txtCuft', 10, 3,1],['txtCuftctn', 10, 3,1],['txtCy20', 10, 2,1],['txtCy40', 10, 2,1],['txtHq40', 10, 2,1],['txtHq45', 10, 2,1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -34,6 +34,7 @@
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1) 
             });
+            
             function main() {
                 if (dataErr) {
                     dataErr = false;
@@ -58,15 +59,15 @@
 					}
                 });
                 $('#txtWeight').change(function () {
-	           	//計算BBS淨重
-	           	if(dec($('#txtWeight').val())>0){
-		           	for(var j = 0; j < q_bbsCount; j++) {
-		           		if(!emp($('#txtInmount_'+j).val()) && !emp($('#txtOutmount_'+j).val()))
-		           			q_tr('txtWeight_'+b_seq,q_float('txtInmount_'+b_seq)*q_float('txtOutmount_'+b_seq)*q_float('txtWeight'))
+		           	//計算BBS淨重
+		           	if(dec($('#txtWeight').val())>0){
+			           	for(var j = 0; j < q_bbsCount; j++) {
+			           		if(!emp($('#txtInmount_'+j).val()) && !emp($('#txtOutmount_'+j).val()))
+			           			q_tr('txtWeight_'+b_seq,q_float('txtInmount_'+b_seq)*q_float('txtOutmount_'+b_seq)*q_float('txtWeight'))
+			           	}
+			           	sum();
 		           	}
-		           	sum();
-	           	}
-	        });
+		        });
             }
             function q_boxClose(s2) {
                 var ret;
@@ -138,7 +139,8 @@
 			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 			                q_bodyId($(this).attr('id'));
 			                b_seq = t_IdSeq;
-			                q_tr('txtWeight_'+b_seq,q_float('txtInmount_'+b_seq)*q_float('txtOutmount_'+b_seq)*q_float('txtWeight'))
+			                q_tr('txtWeight_'+b_seq,q_float('txtInmount_'+b_seq)*q_float('txtOutmount_'+b_seq)*q_float('txtWeight'));
+			                q_tr('txtCuftctn_'+b_seq,q_float('txtInmount_'+b_seq)*q_float('txtOutmount_'+b_seq)*q_float('txtCuft_'+b_seq));
 						});
 						$('#txtOutmount_' + j).change(function () {
 			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -146,6 +148,7 @@
 			                b_seq = t_IdSeq;
 			                q_tr('txtWeight_'+b_seq,q_float('txtInmount_'+b_seq)*q_float('txtOutmount_'+b_seq)*q_float('txtWeight'))
 			                q_tr('txtGweight_'+b_seq,q_float('txtWeight_'+b_seq) + (q_float('txtOutmount_'+b_seq) * q_float('txtInweight_'+b_seq)) + q_float('txtOutweight_'+b_seq))
+			                q_tr('txtCuftctn_'+b_seq,q_float('txtInmount_'+b_seq)*q_float('txtOutmount_'+b_seq)*q_float('txtCuft_'+b_seq));
 						});
 						$('#txtWeight_' + j).change(function () {
 			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -170,18 +173,44 @@
 			                q_bodyId($(this).attr('id'));
 			                b_seq = t_IdSeq;
 			                q_tr('txtCuft_'+b_seq,round(q_float('txtLengthb_'+b_seq)*q_float('txtWidth_'+b_seq)*q_float('txtHeight_'+b_seq)*(0.032808*0.032808*0.032808),2))
+			                q_tr('txtCuftctn_'+b_seq,q_mul(q_mul(q_float('txtInmount_'+b_seq),q_float('txtOutmount_'+b_seq)),q_float('txtCuft_'+b_seq)));
+			                q_tr('txtCy20_'+b_seq,Math.floor(q_div(28,q_div(q_float('txtCuft_'+b_seq),35.315))));
+			                q_tr('txtCy40_'+b_seq,Math.floor(q_div(56,q_div(q_float('txtCuft_'+b_seq),35.315))));
+			                q_tr('txtHq40_'+b_seq,Math.floor(q_div(68,q_div(q_float('txtCuft_'+b_seq),35.315))));
+			                q_tr('txtHq45_'+b_seq,Math.floor(q_div(76,q_div(q_float('txtCuft_'+b_seq),35.315))));
 						});
 						$('#txtWidth_' + j).change(function () {
 			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 			                q_bodyId($(this).attr('id'));
 			                b_seq = t_IdSeq;
 			                q_tr('txtCuft_'+b_seq,round(q_float('txtLengthb_'+b_seq)*q_float('txtWidth_'+b_seq)*q_float('txtHeight_'+b_seq)*(0.032808*0.032808*0.032808),2))
+			                q_tr('txtCuftctn_'+b_seq,q_mul(q_mul(q_float('txtInmount_'+b_seq),q_float('txtOutmount_'+b_seq)),q_float('txtCuft_'+b_seq)));
+			                q_tr('txtCy20_'+b_seq,Math.floor(q_div(28,q_div(q_float('txtCuft_'+b_seq),35.315))));
+			                q_tr('txtCy40_'+b_seq,Math.floor(q_div(56,q_div(q_float('txtCuft_'+b_seq),35.315))));
+			                q_tr('txtHq40_'+b_seq,Math.floor(q_div(68,q_div(q_float('txtCuft_'+b_seq),35.315))));
+			                q_tr('txtHq45_'+b_seq,Math.floor(q_div(76,q_div(q_float('txtCuft_'+b_seq),35.315))));
 						});
 						$('#txtHeight_' + j).change(function () {
 			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 			                q_bodyId($(this).attr('id'));
 			                b_seq = t_IdSeq;
-			                q_tr('txtCuft_'+b_seq,round(q_float('txtLengthb_'+b_seq)*q_float('txtWidth_'+b_seq)*q_float('txtHeight_'+b_seq)*(0.032808*0.032808*0.032808),2))
+			                q_tr('txtCuft_'+b_seq,round(q_float('txtLengthb_'+b_seq)*q_float('txtWidth_'+b_seq)*q_float('txtHeight_'+b_seq)*(0.032808*0.032808*0.032808),3))
+			                q_tr('txtCuftctn_'+b_seq,q_mul(q_mul(q_float('txtInmount_'+b_seq),q_float('txtOutmount_'+b_seq)),q_float('txtCuft_'+b_seq)));
+			                q_tr('txtCy20_'+b_seq,Math.floor(q_div(28,q_div(q_float('txtCuft_'+b_seq),35.315))));
+			                q_tr('txtCy40_'+b_seq,Math.floor(q_div(56,q_div(q_float('txtCuft_'+b_seq),35.315))));
+			                q_tr('txtHq40_'+b_seq,Math.floor(q_div(68,q_div(q_float('txtCuft_'+b_seq),35.315))));
+			                q_tr('txtHq45_'+b_seq,Math.floor(q_div(76,q_div(q_float('txtCuft_'+b_seq),35.315))));
+						});
+						
+						$('#txtCuft_' + j).change(function () {
+			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+			                q_bodyId($(this).attr('id'));
+			                b_seq = t_IdSeq;
+			                q_tr('txtCuftctn_'+b_seq,q_mul(q_mul(q_float('txtInmount_'+b_seq),q_float('txtOutmount_'+b_seq)),q_float('txtCuft_'+b_seq)));
+			               	q_tr('txtCy20_'+b_seq,Math.floor(q_div(28,q_div(q_float('txtCuft_'+b_seq),35.315))));
+			                q_tr('txtCy40_'+b_seq,Math.floor(q_div(56,q_div(q_float('txtCuft_'+b_seq),35.315))));
+			                q_tr('txtHq40_'+b_seq,Math.floor(q_div(68,q_div(q_float('txtCuft_'+b_seq),35.315))));
+			                q_tr('txtHq45_'+b_seq,Math.floor(q_div(76,q_div(q_float('txtCuft_'+b_seq),35.315))));
 						});
 					}
 				}
@@ -193,6 +222,13 @@
                 _btnIns();
                 refreshBbm();
                 $('#txtNoa').focus();
+                if(window.parent.q_name=='ucx'){
+                	$('#txtNoa').val(window.parent.$('#txtNoa').val());
+                	$('#txtProduct').val(window.parent.$('#txtProduct').val());
+                	$('#txtSpec').val(window.parent.$('#txtSpec').val());
+                	$('#txtUnit').val(window.parent.$('#txtUnit').val());
+                	$('#txtWeight').val(window.parent.$('#txtUweight').val());
+                }                
             }
 
             function btnModi() {
@@ -325,7 +361,7 @@
             }
             .dbbm {
                 float: left;
-                width: 600px;
+                width: 700px;
                 /*margin: -1px;        
                 border: 1px black solid;*/
                 border-radius: 5px;
@@ -400,7 +436,7 @@
                 font-size:medium;
             }
             .dbbs {
-                width: 98%;
+                width: 1700px;
             }
             .tbbs a {
                 font-size: medium;
@@ -486,7 +522,12 @@
 					<td align="center" style="width:80px;"><a id='lblLengthb_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblWidth_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblHeight_s'> </a></td>
-					<td align="center" style="width:150px;"><a id='lblCuft_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblCuft_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblCuftctn_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblCy20_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblCy40_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblHq40_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblHq45_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -504,6 +545,11 @@
 					<td><input type="text" id="txtWidth.*" class="txt num c2" /></td>
 					<td><input type="text" id="txtHeight.*" class="txt num c2"/></td>
 					<td><input type="text" id="txtCuft.*" class="txt num c2"/></td>
+					<td><input type="text" id="txtCuftctn.*" class="txt num c2"/></td>
+					<td><input type="text" id="txtCy20.*" class="txt num c2"/></td>
+					<td><input type="text" id="txtCy40.*" class="txt num c2"/></td>
+					<td><input type="text" id="txtHq40.*" class="txt num c2"/></td>
+					<td><input type="text" id="txtHq45.*" class="txt num c2"/></td>
 				</tr>
 			</table>
 		</div>
