@@ -513,8 +513,8 @@
                <td class="td1"><span> </span><a id="lblCointype" class="lbl"> </a></td>
                <td class="td2" ><select id="cmbCoin"  class="txt c1"> </select></td>
                <td class="td3" ><input id="txtFloata" type="text" class="txt num c1"/></td>
-               <td class="td4"><span> </span><a id="lblPaymentterms" class="lbl"> </a></td>
-               <td class="td5" colspan="2"><input id="txtPaymentterms" type="text" class="txt c1"/></td>
+               <td class="td4"><span> </span><a id="lblPayterms" class="lbl"> </a></td>
+               <td class="td5" colspan="2"><input id="txtPayterms" type="text" class="txt c1"/></td>
             </tr>
              <tr class="tr4">
 				<td class="td1"><span> </span><a id="lblMarkno" class="lbl"> </a></td>

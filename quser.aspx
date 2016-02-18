@@ -26,8 +26,8 @@
             q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
             //ajaxPath = ""; //  execute in Root
 			
-			aPop = new Array(['txtNoa', '', 'sss', 'noa,namea', '0txtNoa,txtNamea', 'sss_b.aspx']);
-			
+			aPop = new Array(['txtSno', '', 'nhpe', 'noa,namea', '0txtSno,txtNamea', 'nhpe_b.aspx']);
+			brwCount2 = 35;
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -78,6 +78,8 @@
             function btnIns() {
                 _btnIns();
                 $('.chkday').prop('checked',true);
+                $('#txtBtime').val('00:00');
+                $('#txtEtime').val('23:59');
                 refreshBbm();
                 $('#txtNoa').focus();
             }
@@ -132,8 +134,8 @@
             	|| $('#chkD5').prop('checked') || $('#chkD6').prop('checked') || $('#chkD7').prop('checked')){
             		isday=true;
             	}
-            	if((isdate && isday) || (!isdate && !isday)){
-            		alert(q_getMsg('lblBdate')+'或'+q_getMsg('lblDays')+'請擇一填選!!');
+            	if((!isdate && !isday)){
+            		alert(q_getMsg('lblBdate')+'或'+q_getMsg('lblDays')+'請填選!!');
             		return;
             	}
             	
@@ -398,13 +400,13 @@
 					<tr>
 						<td class="td1"><span> </span><a id='lblDays' class="lbl"> </a></td>
 						<td class="td2" colspan="3">
-							<input id="chkD1"  type="checkbox" class="chkday" /><a>1</a>
-							<input id="chkD2"  type="checkbox" class="chkday" /><a>2</a>
-							<input id="chkD3"  type="checkbox" class="chkday" /><a>3</a>
-							<input id="chkD4"  type="checkbox" class="chkday" /><a>4</a>
-							<input id="chkD5"  type="checkbox" class="chkday" /><a>5</a>
-							<input id="chkD6"  type="checkbox" class="chkday" /><a>6</a>
-							<input id="chkD7"  type="checkbox" class="chkday" /><a>7</a>
+							<input id="chkD1"  type="checkbox" class="chkday" /><a>一</a>
+							<input id="chkD2"  type="checkbox" class="chkday" /><a>二</a>
+							<input id="chkD3"  type="checkbox" class="chkday" /><a>三</a>
+							<input id="chkD4"  type="checkbox" class="chkday" /><a>四</a>
+							<input id="chkD5"  type="checkbox" class="chkday" /><a>五</a>
+							<input id="chkD6"  type="checkbox" class="chkday" /><a>六</a>
+							<input id="chkD7"  type="checkbox" class="chkday" /><a>日</a>
 						</td>
 					</tr>
 					<tr>
@@ -425,12 +427,22 @@
 						</td>
 						<td class="td4"> </td>
 					</tr>
-					<tr>
+					<tr style="display: none;">
 						<td class="td1"><span> </span><a id='lblAuthno' class="lbl"> </a></td>
 						<td class="td2" colspan="2"><input id="txtAuthno"  type="text" class="txt c1"/></td>
 						<td class="td4"> </td>
 					</tr>
-					
+					<tr>
+						<td class="td2" colspan="5" style="color: red;">
+							　　注意事項　1.必填：IP 或 帳號擇一控管<BR>
+							　　　　　　　2.必填：起迄日或工作日(週一~日)，可同時輸入<BR>
+							　　　　　　　3.必填：登入時間<BR>
+						</td>
+					</tr>
+					<tr style="height: 5px;">
+						<td class="td1"> </td>
+						<td class="td2"> </td>
+					</tr>
 				</table>
 			</div>
 		</div>
