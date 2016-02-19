@@ -39,16 +39,12 @@
                     dataErr = false;
                     return;
                 }
-
                 q_mask(bbmMask);
-
                 mainForm(0);
                 // 1=Last  0=Top
-
                 $('#txtNoa').focus();
-
             }///  end Main()
-			var insed=false;//判斷電話是否重覆輸入
+            
             function mainPost() {
             	bbmMask = [['txtBegindate', r_picd],['txtCondate', r_picd],['txtEnddate', r_picd]];
             	q_mask(bbmMask);
@@ -58,8 +54,8 @@
 				 
 				 $('#txtTelno').change(function () {
 				 	if(!emp($('#txtTelno').val())){
-				 		t_where = "where=^^ telno='"+$('#txtTelno').val()+"' ^^"
-	           			q_gt('tel', t_where , 0, 0, 0, "", r_accy);
+				 		t_where = "where=^^ telno='"+$('#txtTelno').val()+"' and noa!='"+$('#txtNoa').val()+"' ^^"
+	           			q_gt('tel', t_where , 0, 0, 0, "tel_change", r_accy);
 				 	}
 			     });
 				 
@@ -99,46 +95,9 @@
 			     });
             }
             
-            function txtCopy(dest, source) {
-                var adest = dest.split(',');
-                var asource = source.split(',');
-                $('#' + adest[0]).focus(function() {
-                    if(trim($(this).val()).length == 0)
-                        $(this).val(q_getMsg('msgCopy'));
-                });
-                $('#' + adest[0]).focusout(function() {
-                    var t_copy = ($(this).val().substr(0, 1) == '=');
-                    var t_clear = ($(this).val().substr(0, 2) == ' =');
-                    for( i = 0; i < adest.length; i++) {
-                        if(t_copy)
-                            $('#' + adest[i]).val($('#' + asource[i]).val());
-
-                        if(t_clear)
-                           $('#' + adest[i]).val('');
-
-                    }
-                });
-            }
-
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
-                    case 'conn':
-
-                        break;
-
-                    case 'sss':
-                        ret = getb_ret();
-                        if(q_cur > 0 && q_cur < 4)
-                            q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-                        break;
-
-                    case 'sss':
-                        ret = getb_ret();
-                        if(q_cur > 0 && q_cur < 4)
-                            q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
-                        break;
-
                     case q_name + '_s':
                         q_boxClose2(s2);
                         ///   q_boxClose 3/4
@@ -148,25 +107,26 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                    case 'sss':
-                        q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
-                        break;
-
+                	case 'tel_change':
+                		var as = _q_appendData("tel", "", true);
+            			if(as[0]!=undefined){
+            				alert('電話重覆輸入!!');
+            				$('#txtTelno').focus();
+            			}
+                		break;
+                	case 'tel_btnOk':
+                		var as = _q_appendData("tel", "", true);
+                		if(as[0]!=undefined){
+                			alert('電話重覆輸入!!');
+                			$('#txtTelno').focus();
+                		}else{
+                			checktel=true;
+                			btnOk();
+                		}
+                		break;
                     case q_name:
                         if(q_cur == 4)
                             q_Seek_gtPost();
-
-                        if(q_cur == 1 || q_cur == 2){
-                           var as = _q_appendData("tel", "", true);
-            				if(as[0]!=undefined){
-            					insed=true;
-            					alert('電話重覆輸入!!');
-            					$('#txtTelno').focus();
-            				}else{
-            					insed=false;
-            				}
-		        		}
-
                         break;
                 }  /// end switch
             }
@@ -197,18 +157,16 @@
             }
             
             function sum() {
-            	if ($('#chkNet')[0].checked)
-            	{
+            	if ($('#chkNet').prop('checked')){
 					q_tr('txtTotal' ,q_float('txtFeerate')+q_float('txtNetfee'));
-				}
-				else
-				{
+				}else{
 					q_tr('txtTotal' ,q_float('txtFeerate'));
 					q_tr('txtNetfee' ,0);
 				}
             }
-
-            function btnOk() {          	
+			
+			var checktel=false;
+            function btnOk() {
                 var t_err = '';
                 t_err = q_chkEmpField([['txtTelno', q_getMsg('lblMobile')]]);
 
@@ -217,10 +175,13 @@
                     return;
                 }
                 
-                if(insed){
-            		alert('電話重覆輸入!!');
-                	return;
+                if(!checktel){
+					t_where = "where=^^ telno='"+$('#txtTelno').val()+"' and noa!='"+$('#txtNoa').val()+"' ^^"
+		           	q_gt('tel', t_where , 0, 0, 0, "tel_btnOk", r_accy);
+		           	return;
                 }
+                
+                checktel=false;
 	            var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
 	            if (s1.length == 0 || s1 == "AUTO")   
 	                q_gtnoa(q_name, replaceAll('T' + $('#txtPartno').val(), '/', ''));
@@ -328,8 +289,7 @@
                	}
                	return 0;//錯誤
             }
-
-
+            
         </script>
         <style type="text/css">
 			#dmain {
