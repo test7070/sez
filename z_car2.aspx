@@ -586,7 +586,7 @@
 					$('#q_report').find('span.radio').eq(t_index).parent().click();
 					
 					$('#chkSssno input').each(function(index) {
-						if($(this).val()==t_sssno)
+						if(t_sssno.indexOf($(this).val())>-1)
 							$(this).prop('checked',true);
 						else
 							$(this).prop('checked',false);

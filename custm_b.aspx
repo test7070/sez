@@ -59,7 +59,7 @@
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
                 q_cmbParse("cmbWtype", q_getPara('custm.wtype'));
                 q_cmbParse("cmbQtype", q_getPara('custm.qtype'));
-                q_cmbParse("cmbIncoterms", q_getPara('sys.incoterms'));
+                q_cmbParse("cmbPayterms", q_getPara('sys.payterms'));
             }
 
             function bbsAssign() {
@@ -175,8 +175,8 @@
 					<td> </td>
 				</tr>
 				<tr>
-					<td><a id="lblIncoterms" style="float:right;"> </a></td>
-					<td><select id="cmbIncoterms" style='width:98%;'> </select></td>
+					<td><a id="lblPayterms" style="float:right;"> </a></td>
+					<td><select id="cmbPayterms" style='width:98%;'> </select></td>
 					<td> </td>
 					<td> </td>
 					<td> </td>

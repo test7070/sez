@@ -23,10 +23,11 @@
 			var decbbs = ['weight', 'uweight', 'price'];
 			var decbbm = ['weight', 'hours', 'pretime', 'mount', 'wages', 'makes'/*, 'mechs', 'trans'*/, 'molds', 'packs', 'uweight', 'price'];
 			var decbbt = [];
-			var q_readonly = ['textCosta','txtModel','txtStationg', 'textCostb', 'textCostc', 'textCostd', 'textCostw', 'textCostm', 'textCostp', 'textCostt', 'textCosttotal', 'textStk', 'textOrdemount', 'textPlanmount', 'textIntmount', 'textAvaistk','txtMolds','txtRev'];
+			var q_readonly = ['txtModel','txtStationg','txtMolds','txtRev'];
 			var q_readonlys = [];
 			var q_readonlyt = ['txtAssm'];
-			var bbmNum = [['txtPrice', 12, 2, 1],['txtPreday', 12, 0, 1],['txtHours', 10, 3, 1],['txtMinutes', 10, 3, 1],['txtPretime', 12, 2, 1],['txtBadperc', 12, 2, 1],['txtUweight', 12, 2, 1],['txtMakes', 15, 2, 1],['txtPacks', 15, 2, 1],['txtWages', 15, 2, 1]/*,['txtMechs', 15, 2, 1],['txtTrans', 15, 2, 1]*/,['txtSafemount', 15, 2, 1]];
+			var bbmNum = [['txtPrice', 12, 2, 1],['txtPreday', 12, 0, 1],['txtHours', 10, 3, 1],['txtMinutes', 10, 3, 1],['txtPretime', 12, 2, 1],['txtBadperc', 12, 2, 1],['txtUweight', 12, 2, 1],['txtMakes', 15, 2, 1]
+			,['txtPacks', 15, 2, 1],['txtWages', 15, 2, 1],['txtCost', 15, 2, 1]/*,['txtMechs', 15, 2, 1],['txtTrans', 15, 2, 1]*/,['txtSafemount', 15, 2, 1]];
 			var bbsNum = [['txtMount', 12, 2,1]/*, ['txtWeight', 11, 2]*/, ['txtCost', 11, 2], ['txtHours', 9, 2,1],['txtLoss', 10, 2,1],['txtDividea', 10, 0,1],['txtMul', 10, 2,1]];
 			var bbtNum = [['txtMount_', 12, 2, 1]/*, ['txtWeight_', 12, 2 ,1]*/,['txtPrice_', 12, 2, 1], ['txtEndmount_', 12, 0, 1], ['txtEndweight_', 12, 2, 1]];
 			var bbmMask = [];
@@ -140,42 +141,6 @@
 					q_box("ucccust.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucccust', "95%", "95%", q_getMsg('btnCustproduct'));
 				});
 
-				$('#btnCosttotal').click(function(e) {
-					$('#btnCosttotal').attr('disabled', 'disabled');
-					$('#btnCosttotal').val('讀取中...');
-					////////////控制顯示位置
-					$('#div_costtotal').css('top', e.pageY);
-					$('#div_costtotal').css('left', e.pageX - $('#div_costtotal').width());
-					//原料成本
-					var t_costa=0;
-					for (var i = 0; i < q_bbsCount; i++) {
-						t_costa=q_add(t_costa,dec($('#txtCost_'+i).val()));
-					}
-					$('#textCosta').val(t_costa);
-					//直接人工
-					$('#textCostb').val(dec($('#txtWages').val()));
-					//製造費用
-					$('#textCostc').val(dec($('#txtMakes').val()));
-					//委外單價
-					$('#textCostd').val(dec($('#txtPrice').val()));
-					//模具成本
-					$('#textCostm').val(dec($('#txtMolds').val()));
-					//包裝費用
-					$('#textCostp').val(dec($('#txtPacks').val()));
-					//報廢成本
-					//運輸單價
-					//成本合計
-					$('#textCosttotal').val(round(dec($('#textCosta').val()) + dec($('#textCostb').val()) + dec($('#textCostc').val()) + dec($('#textCostd').val()) + dec($('#textCostw').val()) + dec($('#textCostm').val()) + dec($('#textCostp').val()) + dec($('#textCostt').val()), 0));
-					
-					$('#div_costtotal').toggle();
-					$('#btnCosttotal').val(q_getMsg('btnCosttotal'));
-				});
-
-				$('#btnClose_div_costtotal').click(function() {
-					$('#div_costtotal').toggle();
-					$('#btnCosttotal').removeAttr('disabled');
-				});
-
 				$('#btnModel').click(function(){
 					var t_where = "noa='" + $.trim($('#txtNoa').val()) + "'";
 					q_box("ucab.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucab', "95%", "95%", $('#btnModel').val());
@@ -201,8 +166,46 @@
 						Unlock();
 					}
 				});
+				
+				$('#txtWages').change(function() {
+					costsum();
+				});
+				$('#txtMakes').change(function() {
+					costsum();
+				});
+				$('#txtPrice').change(function() {
+					costsum();
+				});
+				$('#txtMolds').change(function() {
+					costsum();
+				});
+				$('#txtPacks').change(function() {
+					costsum();
+				});
 			}
-
+			
+			function costsum() {
+				//原料成本
+				var t_costa=0;
+				for (var i = 0; i < q_bbsCount; i++) {
+					t_costa=q_add(t_costa,dec($('#txtCost_'+i).val()));
+				}
+				//直接人工
+				var t_costb=dec($('#txtWages').val());
+				//製造費用
+				var t_costc=dec($('#txtMakes').val());
+				//委外單價
+				var t_costd=dec($('#txtPrice').val());
+				//模具成本
+				var t_costm=dec($('#txtMolds').val());
+				//包裝費用
+				var t_costp=dec($('#txtPacks').val());
+				//報廢成本
+				//運輸單價
+				//成本合計
+				$('#txtCost').val(q_add(q_add(q_add(q_add(q_add(t_costa,t_costb),t_costc),t_costd),t_costm),t_costp));
+			}
+			
 			var t_td = '';
 			function q_boxClose(s2) {
 				var ret;
@@ -362,6 +365,10 @@
 				for (var j = 0; j < q_bbsCount; j++) {
 					$('#lblNo_' + j).text(j + 1);
 					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+						$('#txtCost_'+j).change(function() {
+							costsum();
+						});
+						
 						$('#btnProductno_'+ j).click(function() {
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
@@ -374,19 +381,7 @@
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-							/*
-							var thisVal = $.trim($(this).val());
-							if(thisVal.length>0){
-								for(var k=0;k<q_bbsCount;k++){
-									var bbsPno = $.trim($('#txtProductno_'+k).val());
-									if((thisVal==bbsPno) && (dec(b_seq) != dec(k))){
-										alert('與表身第 ' + (k+1) + ' 筆重複');
-										$('#btnMinus_'+b_seq).click();
-										return;
-									}
-								}
-							}
-							*/
+							
 							if (emp($('#txtNoa').val())) {
 								alert('請先輸入【' + q_getMsg('lblNoa') + '】');
 								$('#txtNoa').focus();
@@ -691,9 +686,6 @@
 			function refresh(recno) {
 				_refresh(recno);
 				getMolds();
-				$('#div_costtotal').hide();
-				$('#btnStkcost').removeAttr('disabled');
-				$('#btnStkcost').val(q_getMsg('btnStkcost'));
 				//format();
 				$('.images').html('');
 				if(!emp($('#txtImages').val())&&!emp($('#txtNoa').val())){
@@ -1020,69 +1012,6 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
-		<div id="div_costtotal" style="position:absolute; top:300px; left:500px; display:none; width:300px; background-color: #ffffff; ">
-			<table id="table_stkcost" class="table_row" style="width:100%;" border="1" cellpadding='1' cellspacing='0'>
-				<tr style="background-color: #FFE7CD;">
-					<td align="center" width="50%"><a class="lbl">原料成本</a></td>
-					<td align="center" width="50%">
-					<input id="textCosta" type="text" class="txt num c1"/>
-					</td>
-				</tr>
-				<tr style="background-color: #FFE7CD;">
-					<td align="center" ><a class="lbl">直接人工</a></td>
-					<td align="center" >
-					<input id="textCostb" type="text" class="txt num c1"/>
-					</td>
-				</tr>
-				<tr style="background-color: #FFE7CD;">
-					<td align="center" ><a class="lbl">製造費用</a></td>
-					<td align="center" >
-					<input id="textCostc" type="text" class="txt num c1"/>
-					</td>
-				</tr>
-				<tr style="background-color: #FFE7CD;">
-					<td align="center" ><a class="lbl">委外單價</a></td>
-					<td align="center" >
-					<input id="textCostd" type="text" class="txt num c1"/>
-					</td>
-				</tr>
-				<tr style="background-color: #FFE7CD;display: none;">
-					<td align="center" ><a class="lbl">報廢成本</a></td>
-					<td align="center" >
-					<input id="textCostw" type="text" class="txt num c1"/>
-					</td>
-				</tr>
-				<tr style="background-color: #FFE7CD;">
-					<td align="center" ><a class="lbl">模具成本</a></td>
-					<td align="center" >
-					<input id="textCostm" type="text" class="txt num c1"/>
-					</td>
-				</tr>
-				<tr style="background-color: #FFE7CD;">
-					<td align="center" ><a class="lbl">包裝費用</a></td>
-					<td align="center" >
-					<input id="textCostp" type="text" class="txt num c1"/>
-					</td>
-				</tr>
-				<tr style="background-color: #FFE7CD;display: none;">
-					<td align="center" ><a class="lbl">運輸單價</a></td>
-					<td align="center" >
-					<input id="textCostt" type="text" class="txt num c1"/>
-					</td>
-				</tr>
-				<tr style="background-color: #FFE7CD;">
-					<td align="center" ><a class="lbl">成本合計</a></td>
-					<td align="center" >
-					<input id="textCosttotal" type="text" class="txt num c1"/>
-					</td>
-				</tr>
-				<tr style="background-color: #FFE7CD;">
-					<td align="center" colspan='2'>
-					<input id="btnClose_div_costtotal" type="button" value="關閉視窗">
-					</td>
-				</tr>
-			</table>
-		</div>
 		<div id="div_row" style="position:absolute; top:300px; left:500px; display:none; width:150px; background-color: #ffffff; ">
 			<table id="table_row" class="table_row" style="width:100%;" border="1" cellpadding='1' cellspacing='0'>
 				<tr>
@@ -1241,7 +1170,9 @@
 						<td style="display: none;"><input id="txtRev" type="text" class="txt c1" style="width: 30%;"/></td>
 						<td colspan="2">
 							<span style="float: left;"> </span><input id="btnModel" type="button" />
-							<span style="float: left;"> </span><input id="btnCosttotal" type="button" />
+							<span style="float: left;"> </span><input id="btnCustproduct" type="button" />
+ 							<span style="float: left;"> </span><input id="btnPack2" type="button" />
+ 							<input id="btnUcctd" type="button" style="display: none;"/>
 						</td>
 						<!--
 						<td><span> </span><a id="lblTrans" class="lbl"> </a></td>
@@ -1249,15 +1180,12 @@
 						-->
 					</tr>
 					<tr>
+						<td><span> </span><a id="lblCost" class="lbl"> </a></td>
+						<td><input id="txtCost" type="text" class="txt num c1"/></td>
 						<td><span> </span><a id="lblUcano" class="lbl"> </a></td>
 						<td><input id="txtUcano" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblUccno" class="lbl"> </a></td>
 						<td><input id="txtUccno" type="text" class="txt c1"/></td>
-						<td colspan="2">
-							<span style="float: left;"> </span><input id="btnCustproduct" type="button" />
- 							<span style="float: left;"> </span><input id="btnPack2" type="button" />
- 							<input id="btnUcctd" type="button" style="display: none;"/>
-						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
