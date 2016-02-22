@@ -11,7 +11,7 @@
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
     
-    var q_name = 'pack2s', t_bbsTag = 'tbbs', t_content = " field=noa,packway,pack,inmount,outmount,inweight,outweight,weight,gweight,lengthb,width,height,cuft", afilter = [], bbsKey = ['noa'],  as; //, t_where = '';
+    var q_name = 'pack2s', t_bbsTag = 'tbbs', t_content = " field=noa,packway,pack,inmount,outmount,inweight,outweight,weight,gweight,lengthb,width,height,cuft,cbm,uweight", afilter = [], bbsKey = ['noa'],  as; //, t_where = '';
     var t_sqlname = 'pack2s_load'; t_postname = q_name; brwCount2 = 10;
     var isBott = false;  /// 是否已按過 最後一頁
     var txtfield = [], afield, t_data, t_htm;
@@ -56,24 +56,26 @@
 <div  id="dbbs"  >
         <table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
             <tr style='color:White; background:#003366;' >
-                <td align="center"></td>
-                <td align="center"><a id='lblPackway'></a></td>
-                <td align="center"><a id='lblPack'></a></td>
-                <td align="center"><a id='lblInmount'></a></td>
-                <td align="center"><a id='lblOutmount'></a></td>
-                <td align="center"><a id='lblInweight'></a></td>
-                <td align="center"><a id='lblOutweight'></a></td>
-                <td align="center"><a id='lblWeight'></a></td>
-                <td align="center"><a id='lblGweight'></a></td>
-                <td align="center"><a id='lblLengthb'></a></td>
-                <td align="center"><a id='lblWidth'></a></td>
-                <td align="center"><a id='lblHeight'></a></td>
-                <td align="center"><a id='lblCuft'></a></td>
+                <td align="center"> </td>
+                <td align="center"><a id='lblPackway'> </a></td>
+                <td align="center"><a id='lblPack'> </a></td>
+                <td align="center"><a id='lblInmount'> </a></td>
+                <td align="center"><a id='lblOutmount'> </a></td>
+                <td align="center"><a id='lblInweight'> </a></td>
+                <td align="center"><a id='lblOutweight'> </a></td>
+                <td align="center"><a id='lblWeight'> </a></td>
+                <td align="center"><a id='lblGweight'> </a></td>
+                <td align="center"><a id='lblLengthb'> </a></td>
+                <td align="center"><a id='lblWidth'> </a></td>
+                <td align="center"><a id='lblHeight'> </a></td>
+                <td align="center"><a id='lblCbm'> </a></td>
+                <td align="center"><a id='lblCuft'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;" align="center"><input name="sel"  id="radSel.*" type="radio" /></td>
                 <td style="width:4%;">
                 	<input class="txt" id="txtPackway.*" type="text" style="width:99%;"/>
+                	<input class="txt" id="txtUweight.*" type="hidden" style="width:99%;"/>
                 	<input class="txt" id="txtNoa.*" type="hidden" style="width:99%;"/>
                 </td>
                 <td style="width:8%;"><input class="txt" id="txtPack.*" type="text" style="width:99%; text-align:left;"/></td>
@@ -86,6 +88,7 @@
                 <td style="width:8%;"><input class="txt" id="txtLengthb.*" type="text" style="width:99%; text-align:right;"/></td>
                 <td style="width:8%;"><input class="txt" id="txtWidth.*" type="text" style="width:99%; text-align:right;"/></td>
                 <td style="width:8%;"><input class="txt" id="txtHeight.*" type="text" style="width:99%; text-align:right;"/></td>
+                <td style="width:8%;"><input class="txt" id="txtCbm.*" type="text" style="width:99%; text-align:right;"/></td>
                 <td style="width:8%;"><input class="txt" id="txtCuft.*" type="text" style="width:99%; text-align:right;"/><input id="recno.*" type="hidden" /></td>
             </tr>
         </table>
