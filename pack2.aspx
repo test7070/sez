@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -19,7 +19,8 @@
             var q_readonly = [];
             var q_readonlys = [];
             var bbmNum = [['txtWeight', 10, 3,1]];
-            var bbsNum = [['txtInmount', 10, 2,1],['txtOutmount', 10, 2,1],['txtInweight', 10, 3,1],['txtOutweight', 10, 3,1],['txtWeight', 10, 3,1],['txtGweight', 10, 3,1],['txtLengthb', 10, 2,1],['txtWidth', 10, 2,1],['txtHeight', 10, 2,1],['txtCuft', 10, 3,1],['txtCuftctn', 10, 3,1],['txtCy20', 10, 2,1],['txtCy40', 10, 2,1],['txtHq40', 10, 2,1],['txtHq45', 10, 2,1]];
+            var bbsNum = [['txtInmount', 10, 2,1],['txtOutmount', 10, 2,1],['txtInweight', 10, 3,1],['txtOutweight', 10, 3,1],['txtWeight', 10, 3,1],['txtGweight', 10, 3,1],['txtLengthb', 10, 2,1],['txtWidth', 10, 2,1],['txtHeight', 10, 2,1],['txtCuft', 10, 3,1],['txtCbm', 10, 3,1]
+            /*,['txtCy20', 10, 2,1],['txtCy40', 10, 2,1],['txtHq40', 10, 2,1],['txtHq45', 10, 2,1]*/];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -140,7 +141,6 @@
 			                q_bodyId($(this).attr('id'));
 			                b_seq = t_IdSeq;
 			                q_tr('txtWeight_'+b_seq,q_float('txtInmount_'+b_seq)*q_float('txtOutmount_'+b_seq)*q_float('txtWeight'));
-			                q_tr('txtCuftctn_'+b_seq,q_float('txtInmount_'+b_seq)*q_float('txtOutmount_'+b_seq)*q_float('txtCuft_'+b_seq));
 						});
 						$('#txtOutmount_' + j).change(function () {
 			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -148,7 +148,6 @@
 			                b_seq = t_IdSeq;
 			                q_tr('txtWeight_'+b_seq,q_float('txtInmount_'+b_seq)*q_float('txtOutmount_'+b_seq)*q_float('txtWeight'))
 			                q_tr('txtGweight_'+b_seq,q_float('txtWeight_'+b_seq) + (q_float('txtOutmount_'+b_seq) * q_float('txtInweight_'+b_seq)) + q_float('txtOutweight_'+b_seq))
-			                q_tr('txtCuftctn_'+b_seq,q_float('txtInmount_'+b_seq)*q_float('txtOutmount_'+b_seq)*q_float('txtCuft_'+b_seq));
 						});
 						$('#txtWeight_' + j).change(function () {
 			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -172,45 +171,22 @@
 			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 			                q_bodyId($(this).attr('id'));
 			                b_seq = t_IdSeq;
-			                q_tr('txtCuft_'+b_seq,round(q_float('txtLengthb_'+b_seq)*q_float('txtWidth_'+b_seq)*q_float('txtHeight_'+b_seq)*(0.032808*0.032808*0.032808),2))
-			                q_tr('txtCuftctn_'+b_seq,q_mul(q_mul(q_float('txtInmount_'+b_seq),q_float('txtOutmount_'+b_seq)),q_float('txtCuft_'+b_seq)));
-			                q_tr('txtCy20_'+b_seq,Math.floor(q_div(28,q_div(q_float('txtCuft_'+b_seq),35.315))));
-			                q_tr('txtCy40_'+b_seq,Math.floor(q_div(56,q_div(q_float('txtCuft_'+b_seq),35.315))));
-			                q_tr('txtHq40_'+b_seq,Math.floor(q_div(68,q_div(q_float('txtCuft_'+b_seq),35.315))));
-			                q_tr('txtHq45_'+b_seq,Math.floor(q_div(76,q_div(q_float('txtCuft_'+b_seq),35.315))));
+			                q_tr('txtCuft_'+b_seq,round(q_mul(q_mul(q_float('txtLengthb_'+b_seq),q_float('txtWidth_'+b_seq)),q_float('txtHeight_'+b_seq))*(0.032808*0.032808*0.032808),2))
+			                q_tr('txtCbm_'+b_seq,round(q_div(q_mul(q_mul(q_float('txtLengthb_'+b_seq),q_float('txtWidth_'+b_seq)),q_float('txtHeight_'+b_seq)),1000000),3));
 						});
 						$('#txtWidth_' + j).change(function () {
 			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 			                q_bodyId($(this).attr('id'));
 			                b_seq = t_IdSeq;
-			                q_tr('txtCuft_'+b_seq,round(q_float('txtLengthb_'+b_seq)*q_float('txtWidth_'+b_seq)*q_float('txtHeight_'+b_seq)*(0.032808*0.032808*0.032808),2))
-			                q_tr('txtCuftctn_'+b_seq,q_mul(q_mul(q_float('txtInmount_'+b_seq),q_float('txtOutmount_'+b_seq)),q_float('txtCuft_'+b_seq)));
-			                q_tr('txtCy20_'+b_seq,Math.floor(q_div(28,q_div(q_float('txtCuft_'+b_seq),35.315))));
-			                q_tr('txtCy40_'+b_seq,Math.floor(q_div(56,q_div(q_float('txtCuft_'+b_seq),35.315))));
-			                q_tr('txtHq40_'+b_seq,Math.floor(q_div(68,q_div(q_float('txtCuft_'+b_seq),35.315))));
-			                q_tr('txtHq45_'+b_seq,Math.floor(q_div(76,q_div(q_float('txtCuft_'+b_seq),35.315))));
+			                q_tr('txtCuft_'+b_seq,round(q_mul(q_mul(q_float('txtLengthb_'+b_seq),q_float('txtWidth_'+b_seq)),q_float('txtHeight_'+b_seq))*(0.032808*0.032808*0.032808),2))
+			                q_tr('txtCbm_'+b_seq,round(q_div(q_mul(q_mul(q_float('txtLengthb_'+b_seq),q_float('txtWidth_'+b_seq)),q_float('txtHeight_'+b_seq)),1000000),3));
 						});
 						$('#txtHeight_' + j).change(function () {
 			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 			                q_bodyId($(this).attr('id'));
 			                b_seq = t_IdSeq;
-			                q_tr('txtCuft_'+b_seq,round(q_float('txtLengthb_'+b_seq)*q_float('txtWidth_'+b_seq)*q_float('txtHeight_'+b_seq)*(0.032808*0.032808*0.032808),3))
-			                q_tr('txtCuftctn_'+b_seq,q_mul(q_mul(q_float('txtInmount_'+b_seq),q_float('txtOutmount_'+b_seq)),q_float('txtCuft_'+b_seq)));
-			                q_tr('txtCy20_'+b_seq,Math.floor(q_div(28,q_div(q_float('txtCuft_'+b_seq),35.315))));
-			                q_tr('txtCy40_'+b_seq,Math.floor(q_div(56,q_div(q_float('txtCuft_'+b_seq),35.315))));
-			                q_tr('txtHq40_'+b_seq,Math.floor(q_div(68,q_div(q_float('txtCuft_'+b_seq),35.315))));
-			                q_tr('txtHq45_'+b_seq,Math.floor(q_div(76,q_div(q_float('txtCuft_'+b_seq),35.315))));
-						});
-						
-						$('#txtCuft_' + j).change(function () {
-			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-			                q_bodyId($(this).attr('id'));
-			                b_seq = t_IdSeq;
-			                q_tr('txtCuftctn_'+b_seq,q_mul(q_mul(q_float('txtInmount_'+b_seq),q_float('txtOutmount_'+b_seq)),q_float('txtCuft_'+b_seq)));
-			               	q_tr('txtCy20_'+b_seq,Math.floor(q_div(28,q_div(q_float('txtCuft_'+b_seq),35.315))));
-			                q_tr('txtCy40_'+b_seq,Math.floor(q_div(56,q_div(q_float('txtCuft_'+b_seq),35.315))));
-			                q_tr('txtHq40_'+b_seq,Math.floor(q_div(68,q_div(q_float('txtCuft_'+b_seq),35.315))));
-			                q_tr('txtHq45_'+b_seq,Math.floor(q_div(76,q_div(q_float('txtCuft_'+b_seq),35.315))));
+			                q_tr('txtCuft_'+b_seq,round(q_mul(q_mul(q_float('txtLengthb_'+b_seq),q_float('txtWidth_'+b_seq)),q_float('txtHeight_'+b_seq))*(0.032808*0.032808*0.032808),2))
+			                q_tr('txtCbm_'+b_seq,round(q_div(q_mul(q_mul(q_float('txtLengthb_'+b_seq),q_float('txtWidth_'+b_seq)),q_float('txtHeight_'+b_seq)),1000000),3));
 						});
 					}
 				}
@@ -436,7 +412,7 @@
                 font-size:medium;
             }
             .dbbs {
-                width: 1700px;
+                width: 1260px;
             }
             .tbbs a {
                 font-size: medium;
@@ -522,12 +498,8 @@
 					<td align="center" style="width:80px;"><a id='lblLengthb_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblWidth_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblHeight_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblCbm_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblCuft_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblCuftctn_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblCy20_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblCy40_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblHq40_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblHq45_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -544,12 +516,8 @@
 					<td><input type="text" id="txtLengthb.*" class="txt num c2" /></td>
 					<td><input type="text" id="txtWidth.*" class="txt num c2" /></td>
 					<td><input type="text" id="txtHeight.*" class="txt num c2"/></td>
+					<td><input type="text" id="txtCbm.*" class="txt num c2"/></td>
 					<td><input type="text" id="txtCuft.*" class="txt num c2"/></td>
-					<td><input type="text" id="txtCuftctn.*" class="txt num c2"/></td>
-					<td><input type="text" id="txtCy20.*" class="txt num c2"/></td>
-					<td><input type="text" id="txtCy40.*" class="txt num c2"/></td>
-					<td><input type="text" id="txtHq40.*" class="txt num c2"/></td>
-					<td><input type="text" id="txtHq45.*" class="txt num c2"/></td>
 				</tr>
 			</table>
 		</div>
