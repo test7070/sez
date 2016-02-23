@@ -67,7 +67,8 @@
 				q_tr('txtTotal', t_total);
 				q_tr('txtTotalus', q_mul(q_float('txtTotal'), q_float('txtFloata')));
 			}
-
+			
+			var SeekF = new Array();
 			function mainPost() {
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd], ['txtOdate', r_picd]];
@@ -127,12 +128,14 @@
 				
 				$('#btnOk_div_getprice').click(function() {
 					//回寫單價
-					$('#txtPrice_'+$('#textNoq').val()).val($('#textCost3').val());
-					$('#txtWeight_'+$('#textNoq').val()).val($('#textWeight').val());
-					$('#txtPackwayno_'+$('#textNoq').val()).val($('#textPackwayno').val());
-					$('#txtPackway_'+$('#textNoq').val()).val($('#textPackway').val());
+					if(q_cur==1 || q_cur==2){
+						$('#txtPrice_'+$('#textNoq').val()).val($('#textCost3').val());
+						$('#txtWeight_'+$('#textNoq').val()).val($('#textWeight').val());
+						$('#txtPackwayno_'+$('#textNoq').val()).val($('#textPackwayno').val());
+						$('#txtPackway_'+$('#textNoq').val()).val($('#textPackway').val());
+						sum();
+					}
 					$('#div_getprice').hide();
-					sum();
 				});
 				
 				$('#div_pack2').click(function() {
@@ -231,6 +234,33 @@
 					}
 					$('#textWeight').val(t_weight);
 				});
+				
+				//下一格
+				SeekF=[];
+				$("#table_getprice [type='text'] ").each(function() {
+					SeekF.push($(this).attr('id'));
+				});
+						
+				SeekF.push('btnOk_div_getprice');
+				$("#table_getprice [type='text'] ").each(function() {
+					$(this).bind('keydown', function(event) {
+						keypress_bbm(event, $(this), SeekF, 'btnOk_div_getprice');
+					});
+				});
+				
+				$("#table_getprice .num").each(function() {
+					$(this).keyup(function(e) {
+						if(e.keyCode>=37 && e.keyCode<=40)
+							return;
+						var tmp=$(this).val();
+						tmp=tmp.match(/\d{1,}\.{0,1}\d{0,}/);
+						$(this).val(tmp);
+					});
+					
+					$(this).focusin(function() {
+						$(this).select();
+					});
+				});
 			}
 			
 			function divtrantypechange(){
@@ -240,8 +270,8 @@
 					var cycbm=dec($('#textCycbm').val());
 					var cbm=dec($('#textCbm').val());
 					var t_ctnmount=q_mul(dec($('#textInmount').val()),dec($('#textOutmount').val()));//一箱多少產品
-					var t_cbmmount=q_mul(Math.ceil(q_div(cycbm,cbm)),t_ctnmount); //一櫃可裝多少產品
-					var unitprice=round(q_div(cyprice,t_cbmmount),3); //平均一產品成本
+					var t_cbmmount=cbm==0?0:q_mul(Math.ceil(q_div(cycbm,cbm)),t_ctnmount); //一櫃可裝多少產品
+					var unitprice=t_cbmmount==0?0:round(q_div(cyprice,t_cbmmount),3); //平均一產品成本
 					$('#textTranprice').val(unitprice);
 				}else if ($('[name="trantype"]:checked').val()=='kg') {
 					var kgprice=dec($('#textKgprice').val());
@@ -251,7 +281,10 @@
 					var cuftprice=dec($('#textCuftprice').val());
 					var cuft=$('#textCuft').val();
 					var t_ctnmount=q_mul(dec($('#textInmount').val()),dec($('#textOutmount').val()));//一箱多少產品
-					$('#textTranprice').val(round(q_div(q_mul(cuftprice,cuft),t_ctnmount),3));
+					if(t_ctnmount==0)
+						$('#textTranprice').val(0);
+					else
+						$('#textTranprice').val(round(q_div(q_mul(cuftprice,cuft),t_ctnmount),3));
 				}
 				$('#textCost2').val(q_add(t_cost,q_add(dec($('#textFee').val()),dec($('#textTranprice').val()))));
 				divpaytermschange();
@@ -503,7 +536,7 @@
 							q_box("z_vccrecord.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vccrecord', "95%", "95%", q_getMsg('lblRecord_s'));
 						});
 						
-						$('#btnGetprice_'+j).click(function() {
+						$('#btnGetprice_'+j).click(function(e) {
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
@@ -524,10 +557,35 @@
 									$('#textUweight').val('');
 									$('#textCost').val('');
 								}
+								$('#textPackwayno').val($('#txtPackwayno_'+b_seq).val());
+								$('#textPackway').val($('#txtPackway_'+b_seq).val());
+								var t_where = "where=^^ noa='"+$('#textProductno').val()+"' and packway='"+$('#textPackwayno').val()+"' ^^";
+								q_gt('pack2s', t_where, 0, 0, 0, "getpack2s", r_accy, 1);
+								var as = _q_appendData("pack2s", "", true);
+								if (as[0] != undefined) {
+									$('#textInmount').val(as[0].inmount);
+									$('#textOutmount').val(as[0].outmount);
+									$('#textInweight').val(as[0].inweight);
+									$('#textOutweight').val(as[0].outweight);
+									$('#textCbm').val(as[0].cbm);
+									$('#textCuft').val(as[0].cuft);	
+								}else{
+									$('#textInmount').val('');
+									$('#textOutmount').val('');
+									$('#textInweight').val('');
+									$('#textOutweight').val('');
+									$('#textCbm').val('');
+									$('#textCuft').val('');	
+								}
 								$('#textProfit').val($('#txtProfit').val());
 								$('#textInsurance').val($('#txtInsurance').val());
 								$('#textCommission').val($('#txtCommission').val());
 								$('#combPayterms').val($('#cmbPayterms').val());
+								$('#textMount').change();
+								$('#textCost').change();
+								$('#div_getprice').css('top', e.pageY- $('#div_getprice').height());
+								$('#div_getprice').css('left', e.pageX - $('#div_getprice').width());
+								
 								$('#div_getprice').show();
 							}
 						});
@@ -604,6 +662,7 @@
 			function refresh(recno) {
 				_refresh(recno);
 				HiddenField();
+				$('#div_getprice').hide();
 			}
 
 			function readonly(t_para, empty) {
@@ -685,12 +744,25 @@
 							q_gt('cust', t_where, 0, 0, 0, "getcust",r_accy,1);
 							var as = _q_appendData("cust", "", true);
 							if (as[0] != undefined) {
-								
+								$('#txtPaytype').val(as[0].paytype);
+								$('#cmbTrantype').val(as[0].trantype);
+								$('#txtTel').val(as[0].tel);
+								$('#txtFax').val(as[0].fax);
+								$('#txtPost').val(as[0].zip_comp);
+								$('#txtAddr').val(as[0].addr_comp);
+								$('#txtProfit').val(as[0].profit);
+								$('#txtConn').val(as[0].conn);
+								$('#txtSalesno').val(as[0].salesno);
+								$('#txtSales').val(as[0].sales);
+							}
+							var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
+							q_gt('custm', t_where, 0, 0, 0, "getcustm",r_accy,1);
+							var as = _q_appendData("custm", "", true);
+							if (as[0] != undefined) {
+								$('#cmbPayterms').val(as[0].payterms);
 							}
 							
-							['txtCustno', 'lblCust', 'cust', 'noa,nick,paytype,trantype,tel,fax,zip_comp,addr_comp,profit'
-				, 'txtCustno,txtComp,txtPaytype,cmbTrantype,txtTel,txtFax,txtPost,txtAddr,txtProfit', 'cust_b.aspx'],
-							
+							$('#txtBdock').focus();
 							var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
 							q_gt('custaddr', t_where, 0, 0, 0, "");
 						}
@@ -840,8 +912,8 @@
 	</head>
 	<body>
 		<div id="div_getprice" style="position:absolute; top:300px; left:500px; display:none; width:600px; background-color: #FFE7CD; ">
-			<table id="table_getprice" class="table_row" style="width:100%;" cellpadding='1' cellspacing='0'>
-				<tr style="height: 1px;">
+			<table id="table_getprice" class="table_row" style="width:100%;" cellpadding='1' cellspacing='0' border='1' >
+				<tr style="display: none;">
 					<td align="center" width="100px"> </td>
 					<td align="center" width="100px"> </td>
 					<td align="center" width="100px"> </td>
@@ -1096,6 +1168,8 @@
 						<td colspan="2">
 							<input id="chkEnda" type="checkbox"/>
 							<span> </span><a id='lblEnda'> </a>
+							<input id="chkCancel" type="checkbox"/>
+							<span> </span><a id='lblCancel'> </a>
 						</td>
 					</tr>
 				</table>
@@ -1117,6 +1191,7 @@
 					<td align="center" style="width:100px;"><a id='lblTotal_s'> </a></td>
 					<td align="center"><a id='lblMemo_s'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblEnda_s'> </a></td>
+					<td align="center" style="width:40px;"><a id='lblCancels'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td align="center"><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
@@ -1142,6 +1217,7 @@
 					<td><input id="txtTotal.*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
 					<td align="center"><input id="chkEnda.*" type="checkbox"/></td>
+					<td align="center"><input id="chkCancel.*" type="checkbox"/></td>
 				</tr>
 			</table>
 		</div>
