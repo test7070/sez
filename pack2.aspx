@@ -18,7 +18,7 @@
             var q_name = "pack2";
             var q_readonly = [];
             var q_readonlys = [];
-            var bbmNum = [['txtWeight', 10, 3,1]];
+            var bbmNum = [['txtUweight', 10, 3,1]];
             var bbsNum = [['txtInmount', 10, 2,1],['txtOutmount', 10, 2,1],['txtInweight', 10, 3,1],['txtOutweight', 10, 3,1],['txtWeight', 10, 3,1],['txtGweight', 10, 3,1],['txtLengthb', 10, 2,1],['txtWidth', 10, 2,1],['txtHeight', 10, 2,1],['txtCuft', 10, 3,1],['txtCbm', 10, 3,1]
             /*,['txtCy20', 10, 2,1],['txtCy40', 10, 2,1],['txtHq40', 10, 2,1],['txtHq45', 10, 2,1]*/];
             var bbmMask = [];
@@ -59,12 +59,13 @@
 						}
 					}
                 });
-                $('#txtWeight').change(function () {
+                $('#txtUweight').change(function () {
 		           	//計算BBS淨重
-		           	if(dec($('#txtWeight').val())>0){
+		           	if(dec($('#txtUweight').val())>0){
 			           	for(var j = 0; j < q_bbsCount; j++) {
 			           		if(!emp($('#txtInmount_'+j).val()) && !emp($('#txtOutmount_'+j).val()))
-			           			q_tr('txtWeight_'+b_seq,q_float('txtInmount_'+b_seq)*q_float('txtOutmount_'+b_seq)*q_float('txtWeight'))
+			           			q_tr('txtWeight_'+j,q_float('txtInmount_'+j)*q_float('txtOutmount_'+j)*q_float('txtUweight'));
+			           			q_tr('txtGweight_'+j,q_float('txtWeight_'+j) + (q_float('txtOutmount_'+j) * q_float('txtInweight_'+j)) + q_float('txtOutweight_'+j))
 			           	}
 			           	sum();
 		           	}
@@ -140,13 +141,14 @@
 			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 			                q_bodyId($(this).attr('id'));
 			                b_seq = t_IdSeq;
-			                q_tr('txtWeight_'+b_seq,q_float('txtInmount_'+b_seq)*q_float('txtOutmount_'+b_seq)*q_float('txtWeight'));
+			                q_tr('txtWeight_'+b_seq,q_float('txtInmount_'+b_seq)*q_float('txtOutmount_'+b_seq)*q_float('txtUweight'));
+			                q_tr('txtGweight_'+b_seq,q_float('txtWeight_'+b_seq) + (q_float('txtOutmount_'+b_seq) * q_float('txtInweight_'+b_seq)) + q_float('txtOutweight_'+b_seq))
 						});
 						$('#txtOutmount_' + j).change(function () {
 			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 			                q_bodyId($(this).attr('id'));
 			                b_seq = t_IdSeq;
-			                q_tr('txtWeight_'+b_seq,q_float('txtInmount_'+b_seq)*q_float('txtOutmount_'+b_seq)*q_float('txtWeight'))
+			                q_tr('txtWeight_'+b_seq,q_float('txtInmount_'+b_seq)*q_float('txtOutmount_'+b_seq)*q_float('txtUweight'))
 			                q_tr('txtGweight_'+b_seq,q_float('txtWeight_'+b_seq) + (q_float('txtOutmount_'+b_seq) * q_float('txtInweight_'+b_seq)) + q_float('txtOutweight_'+b_seq))
 						});
 						$('#txtWeight_' + j).change(function () {
@@ -171,21 +173,21 @@
 			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 			                q_bodyId($(this).attr('id'));
 			                b_seq = t_IdSeq;
-			                q_tr('txtCuft_'+b_seq,round(q_mul(q_mul(q_float('txtLengthb_'+b_seq),q_float('txtWidth_'+b_seq)),q_float('txtHeight_'+b_seq))*(0.032808*0.032808*0.032808),2))
+			                q_tr('txtCuft_'+b_seq,round(q_mul(q_mul(q_float('txtLengthb_'+b_seq),q_float('txtWidth_'+b_seq)),q_float('txtHeight_'+b_seq))*(0.032808*0.032808*0.032808),3))
 			                q_tr('txtCbm_'+b_seq,round(q_div(q_mul(q_mul(q_float('txtLengthb_'+b_seq),q_float('txtWidth_'+b_seq)),q_float('txtHeight_'+b_seq)),1000000),3));
 						});
 						$('#txtWidth_' + j).change(function () {
 			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 			                q_bodyId($(this).attr('id'));
 			                b_seq = t_IdSeq;
-			                q_tr('txtCuft_'+b_seq,round(q_mul(q_mul(q_float('txtLengthb_'+b_seq),q_float('txtWidth_'+b_seq)),q_float('txtHeight_'+b_seq))*(0.032808*0.032808*0.032808),2))
+			                q_tr('txtCuft_'+b_seq,round(q_mul(q_mul(q_float('txtLengthb_'+b_seq),q_float('txtWidth_'+b_seq)),q_float('txtHeight_'+b_seq))*(0.032808*0.032808*0.032808),3))
 			                q_tr('txtCbm_'+b_seq,round(q_div(q_mul(q_mul(q_float('txtLengthb_'+b_seq),q_float('txtWidth_'+b_seq)),q_float('txtHeight_'+b_seq)),1000000),3));
 						});
 						$('#txtHeight_' + j).change(function () {
 			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 			                q_bodyId($(this).attr('id'));
 			                b_seq = t_IdSeq;
-			                q_tr('txtCuft_'+b_seq,round(q_mul(q_mul(q_float('txtLengthb_'+b_seq),q_float('txtWidth_'+b_seq)),q_float('txtHeight_'+b_seq))*(0.032808*0.032808*0.032808),2))
+			                q_tr('txtCuft_'+b_seq,round(q_mul(q_mul(q_float('txtLengthb_'+b_seq),q_float('txtWidth_'+b_seq)),q_float('txtHeight_'+b_seq))*(0.032808*0.032808*0.032808),3))
 			                q_tr('txtCbm_'+b_seq,round(q_div(q_mul(q_mul(q_float('txtLengthb_'+b_seq),q_float('txtWidth_'+b_seq)),q_float('txtHeight_'+b_seq)),1000000),3));
 						});
 					}
@@ -203,7 +205,7 @@
                 	$('#txtProduct').val(window.parent.$('#txtProduct').val());
                 	$('#txtSpec').val(window.parent.$('#txtSpec').val());
                 	$('#txtUnit').val(window.parent.$('#txtUnit').val());
-                	$('#txtWeight').val(window.parent.$('#txtUweight').val());
+                	$('#txtUweight').val(window.parent.$('#txtUweight').val());
                 }                
             }
 
@@ -237,6 +239,7 @@
                 as['product'] = abbm2['product'];
                 as['spec'] = abbm2['spec'];
 				as['unit'] = abbm2['unit'];
+				as['uweight'] = abbm2['uweight'];
                 return true;
             }
 
@@ -472,7 +475,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblWeight' class="lbl"> </a></td>
-						<td><input id="txtWeight" type="text" class="txt num c1" /></td>
+						<td><input id="txtUweight" type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>

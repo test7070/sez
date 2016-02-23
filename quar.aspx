@@ -21,7 +21,7 @@
 			var decbbs = ['price', 'weight', 'mount', 'total', 'dime', 'width', 'lengthb', 'c1', 'notv', 'theory'];
 			var decbbm = ['money', 'tax', 'total', 'weight', 'floata', 'mount', 'price', 'totalus'];
 			var q_readonly = ['txtNoa','txtWorker', 'txtComp', 'txtAcomp', 'txtSales', 'txtWorker2'];
-			var q_readonlys = ['txtNo3'];
+			var q_readonlys = ['txtNo3','txtPackway','txtPackwayno'];
 			var bbmNum = [];
 			var bbsNum = [];
 			var bbmMask = [];
@@ -33,8 +33,8 @@
 			brwNowPage = 0;
 			brwKey = 'Datea';
 			aPop = new Array(
-				['txtProductno_', 'btnProduct_', 'ucx', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucx_b.aspx'],
-				['txtCustno', 'lblCust', 'cust', 'noa,nick,paytype,trantype,tel,fax,zip_comp,addr_comp', 'txtCustno,txtComp,txtPaytype,cmbTrantype,txtTel,txtFax,txtPost,txtAddr', 'cust_b.aspx'],
+				['txtProductno_', 'btnProduct_', 'ucx', 'noa,product,unit,spec,cost', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_,txtPrice_', 'ucx_b.aspx'],
+				['txtCustno', 'lblCust', 'cust', 'noa,nick','txtCustno,txtComp', 'cust_b.aspx'],
 				['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
 			);
@@ -67,7 +67,8 @@
 				q_tr('txtTotal', t_total);
 				q_tr('txtTotalus', q_mul(q_float('txtTotal'), q_float('txtFloata')));
 			}
-
+			
+			var SeekF = new Array();
 			function mainPost() {
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd], ['txtOdate', r_picd]];
@@ -120,12 +121,261 @@
 					}
 				});
 				
+				//div 事件
+				$('#btnClose_div_getprice').click(function() {
+					$('#div_getprice').hide();
+				});
+				
+				$('#btnOk_div_getprice').click(function() {
+					//回寫單價
+					if(q_cur==1 || q_cur==2){
+						$('#txtPrice_'+$('#textNoq').val()).val($('#textCost3').val());
+						$('#txtWeight_'+$('#textNoq').val()).val($('#textWeight').val());
+						$('#txtPackwayno_'+$('#textNoq').val()).val($('#textPackwayno').val());
+						$('#txtPackway_'+$('#textNoq').val()).val($('#textPackway').val());
+						sum();
+					}
+					$('#div_getprice').hide();
+				});
+				
+				$('#div_pack2').click(function() {
+					t_where = "noa='" + $('#textProductno').val() + "'";
+					q_box("pack2_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'divpack2', "95%", "95%", '包裝方式');
+				});
+				
+				$('#textCost').change(function() {
+					divtrantypechange();
+					var cost2=dec($('#textCost2').val());
+					var tranprice=dec($('#textTranprice').val());
+					var profit=$('#textProfit').val();
+					var insurance=$('#textInsurance').val();
+					var commission=$('#textCommission').val();
+					$('#textProfitmoney').val(round(q_mul(cost2,q_div(profit,100)),3));
+					$('#textInsurmoney').val(round(q_mul(cost2,q_div(insurance,100)),3));
+					$('#textCommimoney').val(round(q_mul(cost2,q_div(commission,100)),3));
+					divpaytermschange();
+				});
+				
+				$('[name="trantype"]').change(function() {
+					divtrantypechange();
+				});
+				
+				$('#textCyprice').change(function() {
+					divtrantypechange();
+				});
+				
+				$('#textCycbm').change(function() {
+					divtrantypechange();
+				});
+				
+				$('#textKgprice').change(function() {
+					divtrantypechange();
+				});
+				
+				$('#textCuftprice').change(function() {
+					divtrantypechange();
+				});
+				
+				$('#textTranprice').change(function() {
+					var t_cost=dec($('#textCost').val());
+					$('#textCost2').val(q_add(t_cost,q_add(dec($('#textFee').val()),dec($('#textTranprice').val()))));
+					divpaytermschange();
+				});
+				
+				$('#textFee').change(function() {
+					var t_cost=dec($('#textCost').val());
+					$('#textCost2').val(q_add(t_cost,q_add(dec($('#textFee').val()),dec($('#textTranprice').val()))));
+					divpaytermschange();
+				});
+				
+				$('#textProfit').change(function() {
+					var profit=$('#textProfit').val();
+					var cost2=dec($('#textCost2').val());
+					$('#textProfitmoney').val(round(q_mul(cost2,q_div(profit,100)),3));
+					divpaytermschange();
+				});
+				
+				$('#textInsurance').change(function() {
+					var insurance=$('#textInsurance').val();
+					var cost2=dec($('#textCost2').val());
+					$('#textInsurmoney').val(round(q_mul(cost2,q_div(insurance,100)),3));
+					divpaytermschange();
+				});
+				
+				$('#textCommission').change(function() {
+					var commission=$('#textCommission').val();
+					var cost2=dec($('#textCost2').val());
+					$('#textCommimoney').val(round(q_mul(cost2,q_div(commission,100)),3));
+					divpaytermschange();
+				});
+				
+				$('#combPayterms').change(function() {
+					divpaytermschange();
+				});
+				
+				$('#textMount').change(function() {
+					var t_weight=0;
+					var t_mount=dec($('#textMount').val());
+					var t_uweight=dec($('#textUweight').val());
+					var t_inmount=dec($('#textInmount').val());
+					var t_outmount=dec($('#textOutmount').val());
+					var t_inweight=dec($('#textInweight').val());
+					var t_outweight=dec($('#textOutweight').val());
+					var t_pfmount=Math.floor(q_div(t_mount,q_mul(t_inmount,t_outmount))); //一整箱
+					var t_pcmount=Math.ceil(q_div(t_mount,q_mul(t_inmount,t_outmount))); //總箱數
+					var t_emount=q_sub(dec($('#textMount').val()),q_mul(t_pfmount,q_mul(t_inmount,t_outmount))); //散裝數量
+					t_weight=q_add(q_add(q_mul(q_mul(t_inmount,t_outmount),t_uweight),t_outweight),q_mul(t_inweight,t_outmount));//一箱毛重
+					t_weight=q_mul(t_pfmount,t_weight); //整箱毛重
+					if(t_emount>0){ //散裝(淨重+外包裝重+內包裝重)
+						var tt_weight=q_mul(t_emount,t_uweight);
+						tt_weight=q_add(tt_weight,t_outweight);
+						tt_weight=q_add(tt_weight,q_mul(Math.ceil(q_div(t_emount,t_inmount)),t_inweight));
+						t_weight=q_add(t_weight,tt_weight);
+					}
+					$('#textWeight').val(t_weight);
+				});
+				
+				//下一格
+				SeekF=[];
+				$("#table_getprice [type='text'] ").each(function() {
+					SeekF.push($(this).attr('id'));
+				});
+						
+				SeekF.push('btnOk_div_getprice');
+				$("#table_getprice [type='text'] ").each(function() {
+					$(this).bind('keydown', function(event) {
+						keypress_bbm(event, $(this), SeekF, 'btnOk_div_getprice');
+					});
+				});
+				
+				$("#table_getprice .num").each(function() {
+					$(this).keyup(function(e) {
+						if(e.keyCode>=37 && e.keyCode<=40)
+							return;
+						var tmp=$(this).val();
+						tmp=tmp.match(/\d{1,}\.{0,1}\d{0,}/);
+						$(this).val(tmp);
+					});
+					
+					$(this).focusin(function() {
+						$(this).select();
+					});
+				});
+			}
+			
+			function divtrantypechange(){
+				var t_cost=dec($('#textCost').val());
+				if($('[name="trantype"]:checked').val()=='cy'){
+					var cyprice=dec($('#textCyprice').val());
+					var cycbm=dec($('#textCycbm').val());
+					var cbm=dec($('#textCbm').val());
+					var t_ctnmount=q_mul(dec($('#textInmount').val()),dec($('#textOutmount').val()));//一箱多少產品
+					var t_cbmmount=cbm==0?0:q_mul(Math.ceil(q_div(cycbm,cbm)),t_ctnmount); //一櫃可裝多少產品
+					var unitprice=t_cbmmount==0?0:round(q_div(cyprice,t_cbmmount),3); //平均一產品成本
+					$('#textTranprice').val(unitprice);
+				}else if ($('[name="trantype"]:checked').val()=='kg') {
+					var kgprice=dec($('#textKgprice').val());
+					$('#textMount').change();
+					$('#textTranprice').val(q_mul(dec($('#textWeight').val()),kgprice));
+				}else if ($('[name="trantype"]:checked').val()=='cuft') {
+					var cuftprice=dec($('#textCuftprice').val());
+					var cuft=$('#textCuft').val();
+					var t_ctnmount=q_mul(dec($('#textInmount').val()),dec($('#textOutmount').val()));//一箱多少產品
+					if(t_ctnmount==0)
+						$('#textTranprice').val(0);
+					else
+						$('#textTranprice').val(round(q_div(q_mul(cuftprice,cuft),t_ctnmount),3));
+				}
+				$('#textCost2').val(q_add(t_cost,q_add(dec($('#textFee').val()),dec($('#textTranprice').val()))));
+				divpaytermschange();
+			}
+			
+			function divpaytermschange(){
+				var cost=dec($('#textCost').val());				
+				var tranprice=dec($('#textTranprice').val());
+				var fee=dec($('#textFee').val());
+				var profit=$('#textProfit').val();
+				var insurance=$('#textInsurance').val();
+				var commission=$('#textCommission').val();
+				var payterms= $('#combPayterms').val();
+				var cost3=0
+				switch (payterms) {//P利潤 I保險 C佣金 F運費
+					case 'C&F'://(成本/(1-P)+F) //=CFR   
+						cost3=round(q_add(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),tranprice),3);
+						break;
+					case 'C&F&C'://(成本/(1-P)+F)/(1-C)
+						cost3=round(q_div(q_add(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),tranprice),q_sub(1,q_div(commission,100))),3);
+						break;
+					case 'C&I': //成本/(1-P)/(1-I)
+						cost3=round(q_div(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),q_sub(1,q_div(insurance,100))),3);
+						break;
+					case 'C&I&C'://成本/(1-P)/(1-I)/(1-C)
+						cost3=round(q_div(q_div(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),q_sub(1,q_div(insurance,100))),q_sub(1,q_div(commission,100))),3);
+						break;
+					case 'CIF'://(成本/(1-P)+F)/(1-I)   
+						cost3=round(q_div(q_add(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),tranprice),q_sub(1,q_div(insurance,100))),3);
+						break;
+					case 'CIF&C'://(成本/(1-P)+F)/(1-I)/(1-C)
+						cost3=round(q_div(q_div(q_add(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),tranprice),q_sub(1,q_div(insurance,100))),q_sub(1,q_div(commission,100))),3);
+						break;
+					case 'EXW'://成本/(1-P)
+						cost3=round(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),3);
+						break;
+					case 'FOB'://成本/(1-P)
+						cost3=round(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),3);
+						break;
+					case 'FOB&C': //成本/(1-P)/(1-C)
+						cost3=round(q_div(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),q_sub(1,q_div(commission,100))),3);
+						break;
+				}
+				$('#textCost3').val(cost3);
 			}
 
 			function q_boxClose(s2) {
-				var
-				ret;
+				var ret;
 				switch (b_pop) {
+					case 'divpack2':
+						ret = getb_ret();
+						if (ret != undefined) {
+							$('#textPackwayno').val(ret[0].packway);
+							$('#textPackway').val(ret[0].pack);
+							$('#textInmount').val(ret[0].inmount);
+							$('#textOutmount').val(ret[0].outmount);
+							$('#textInweight').val(ret[0].inweight);
+							$('#textOutweight').val(ret[0].outweight);
+							$('#textCbm').val(ret[0].cbm);
+							$('#textCuft').val(ret[0].cuft);
+							$('#textMount').change();
+						}
+						break;
+					case 'pack2':
+						ret = getb_ret();
+						if (ret != undefined) {
+							$('#txtPackwayno_'+b_seq).val(ret[0].packway);
+							$('#txtPackway_'+b_seq).val(ret[0].pack);
+							
+							//計算重量
+							var t_weight=0;
+							var t_mount=dec($('#txtMount_'+b_seq).val());
+							var t_uweight=dec(ret[0].uweight);
+							var t_inmount=dec(ret[0].inmount);
+							var t_outmount=dec(ret[0].outmount);
+							var t_inweight=dec(ret[0].inweight);
+							var t_outweight=dec(ret[0].outweight);
+							var t_pfmount=Math.floor(q_div(t_mount,q_mul(t_inmount,t_outmount))); //一整箱
+							var t_pcmount=Math.ceil(q_div(t_mount,q_mul(t_inmount,t_outmount))); //總箱數
+							var t_emount=q_sub(t_mount,q_mul(t_pfmount,q_mul(t_inmount,t_outmount))); //散裝數量
+							t_weight=q_add(q_add(q_mul(q_mul(t_inmount,t_outmount),t_uweight),t_outweight),q_mul(t_inweight,t_outmount));//一箱毛重
+							t_weight=q_mul(t_pfmount,t_weight); //整箱毛重
+							if(t_emount>0){ //散裝(淨重+外包裝重+內包裝重)
+								var tt_weight=q_mul(t_emount,t_uweight);
+								tt_weight=q_add(tt_weight,t_outweight);
+								tt_weight=q_add(tt_weight,q_mul(Math.ceil(q_div(t_emount,t_inmount)),t_inweight));
+								t_weight=q_add(t_weight,tt_weight);
+							}
+							$('#txtWeight_'+b_seq).val(t_weight);
+						}
+						break;
 					case q_name + '_s':
 						q_boxClose2(s2);
 						break;
@@ -251,21 +501,34 @@
 			function bbsAssign() {
 				for (var j = 0; j < q_bbsCount; j++) {
 					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+						$('#btnMinus_' + j).click(function() {
+							sum();
+						});
 						$('#txtUnit_' + j).change(function() {
 							sum();
 						});
 						$('#txtMount_' + j).change(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							
+							$('#txtTotal_'+b_seq).val(q_mul(dec($('#txtMount_'+b_seq).val()),dec($('#txtPrice_'+b_seq).val())));
 							sum();
 						});
 						$('#txtWeight_' + j).change(function () {
 							sum();
 						});
 						$('#txtPrice_' + j).change(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							
+							$('#txtTotal_'+b_seq).val(q_mul(dec($('#txtMount_'+b_seq).val()),dec($('#txtPrice_'+b_seq).val())));
 							sum();
 						});
+						
 						$('#btnVccrecord_' + j).click(function() {
 							t_IdSeq = -1;
-							/// 要先給 才能使用 q_bodyId()
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
 							//t_where = "cust='" + $('#txtCustno').val() + "' and noq='" + $('#txtProductno_' + b_seq).val() + "'";
@@ -273,8 +536,67 @@
 							q_box("z_vccrecord.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vccrecord', "95%", "95%", q_getMsg('lblRecord_s'));
 						});
 						
-						$('#btnGetprice_'+j).click(function() {
-							$('#div_getprice').show();
+						$('#btnGetprice_'+j).click(function(e) {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(!emp($('#txtProductno_'+b_seq).val())){
+								$('#textNoq').val(b_seq);
+								$('#textProductno').val($('#txtProductno_'+b_seq).val());
+								$('#textProduct').val($('#txtProduct_'+b_seq).val());
+								$('#textUnit').val($('#txtUnit_'+b_seq).val());
+								$('#textMount').val($('#txtMount_'+b_seq).val());
+								var t_where = "where=^^ noa='"+$('#textProductno').val()+"' ^^";
+								q_gt('ucx', t_where, 0, 0, 0, "getucx", r_accy, 1);
+								var as = _q_appendData("ucx", "", true);
+								if (as[0] != undefined) {
+									$('#textCost').val(as[0].cost);
+									$('#textUweight').val(as[0].uweight);
+								}else{
+									$('#textCost').val('');
+									$('#textUweight').val('');
+									$('#textCost').val('');
+								}
+								$('#textPackwayno').val($('#txtPackwayno_'+b_seq).val());
+								$('#textPackway').val($('#txtPackway_'+b_seq).val());
+								var t_where = "where=^^ noa='"+$('#textProductno').val()+"' and packway='"+$('#textPackwayno').val()+"' ^^";
+								q_gt('pack2s', t_where, 0, 0, 0, "getpack2s", r_accy, 1);
+								var as = _q_appendData("pack2s", "", true);
+								if (as[0] != undefined) {
+									$('#textInmount').val(as[0].inmount);
+									$('#textOutmount').val(as[0].outmount);
+									$('#textInweight').val(as[0].inweight);
+									$('#textOutweight').val(as[0].outweight);
+									$('#textCbm').val(as[0].cbm);
+									$('#textCuft').val(as[0].cuft);	
+								}else{
+									$('#textInmount').val('');
+									$('#textOutmount').val('');
+									$('#textInweight').val('');
+									$('#textOutweight').val('');
+									$('#textCbm').val('');
+									$('#textCuft').val('');	
+								}
+								$('#textProfit').val($('#txtProfit').val());
+								$('#textInsurance').val($('#txtInsurance').val());
+								$('#textCommission').val($('#txtCommission').val());
+								$('#combPayterms').val($('#cmbPayterms').val());
+								$('#textMount').change();
+								$('#textCost').change();
+								$('#div_getprice').css('top', e.pageY- $('#div_getprice').height());
+								$('#div_getprice').css('left', e.pageX - $('#div_getprice').width());
+								
+								$('#div_getprice').show();
+							}
+						});
+						
+						$('#btnPackway_'+j).click(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							
+							t_where = "noa='" + $('#txtProductno_'+b_seq).val() + "'";
+							q_box("pack2_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pack2', "95%", "95%", '包裝方式');
 						});
 					}
 				}
@@ -340,6 +662,7 @@
 			function refresh(recno) {
 				_refresh(recno);
 				HiddenField();
+				$('#div_getprice').hide();
 			}
 
 			function readonly(t_para, empty) {
@@ -417,6 +740,29 @@
 				switch (s1) {
 					case 'txtCustno':
 						if (!emp($('#txtCustno').val())) {
+							var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
+							q_gt('cust', t_where, 0, 0, 0, "getcust",r_accy,1);
+							var as = _q_appendData("cust", "", true);
+							if (as[0] != undefined) {
+								$('#txtPaytype').val(as[0].paytype);
+								$('#cmbTrantype').val(as[0].trantype);
+								$('#txtTel').val(as[0].tel);
+								$('#txtFax').val(as[0].fax);
+								$('#txtPost').val(as[0].zip_comp);
+								$('#txtAddr').val(as[0].addr_comp);
+								$('#txtProfit').val(as[0].profit);
+								$('#txtConn').val(as[0].conn);
+								$('#txtSalesno').val(as[0].salesno);
+								$('#txtSales').val(as[0].sales);
+							}
+							var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
+							q_gt('custm', t_where, 0, 0, 0, "getcustm",r_accy,1);
+							var as = _q_appendData("custm", "", true);
+							if (as[0] != undefined) {
+								$('#cmbPayterms').val(as[0].payterms);
+							}
+							
+							$('#txtBdock').focus();
 							var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
 							q_gt('custaddr', t_where, 0, 0, 0, "");
 						}
@@ -566,8 +912,8 @@
 	</head>
 	<body>
 		<div id="div_getprice" style="position:absolute; top:300px; left:500px; display:none; width:600px; background-color: #FFE7CD; ">
-			<table id="table_stkcost" class="table_row" style="width:100%;" cellpadding='1' cellspacing='0'>
-				<tr style="height: 1px;">
+			<table id="table_getprice" class="table_row" style="width:100%;" cellpadding='1' cellspacing='0' border='1' >
+				<tr style="display: none;">
 					<td align="center" width="100px"> </td>
 					<td align="center" width="100px"> </td>
 					<td align="center" width="100px"> </td>
@@ -578,26 +924,37 @@
 				<tr>
 					<td align="center"><a class="lbl">產品</a></td>
 					<td align="center" colspan="2"><input id="textProductno" type="text" class="txt c1" disabled="disabled"/></td>
-					<td align="center" colspan="3"><input id="textProduct" type="text" class="txt c1" disabled="disabled"/></td>
+					<td align="center" colspan="3">
+						<input id="textProduct" type="text" class="txt c1" disabled="disabled"/>
+						<input id="textNoq" type="hidden" class="txt c1" disabled="disabled"/>
+					</td>
 				</tr>
 				<tr>
 					<td align="center"><a class="lbl">單位</a></td>
 					<td align="center"><input id="textUnit" type="text" class="txt c1" disabled="disabled"/></td>
+					<td align="center"><a class="lbl">數量</a></td>
+					<td align="center"><input id="textMount" type="text" class="txt num c1"/></td>
 					<td align="center"><a class="lbl">產品成本</a></td>
 					<td align="center"><input id="textCost" type="text" class="txt num c1"/></td>
 				</tr>
 				<tr>
 					<td align="center"><a class="lbl">單位重</a></td>
 					<td align="center"><input id="textUweight" type="text" class="txt num c1"/></td>
-					<td align="center"><a class="lbl">包裝方式</a></td>
-					<td align="center"><input id="textPackwayno" type="text" class="txt c1"/></td>
-					<td align="center" colspan="2"><input id="textPackwayname" type="text" class="txt c1"/></td>
+					<td align="center"><a id="div_pack2" class="lbl" style="cursor: pointer;color: #4297D7;font-weight: bolder;">包裝方式</a></td>
+					<td align="center"><input id="textPackwayno" type="text" class="txt c1" disabled="disabled"/></td>
+					<td align="center" colspan="2"><input id="textPackway" type="text" class="txt c1" disabled="disabled"/></td>
 				</tr>
 				<tr>
-					<td align="center"><a class="lbl">Inner</a></td>
-					<td align="center"><input id="textInner" type="text" class="txt num c1" disabled="disabled"/></td>
-					<td align="center"><a class="lbl">Outer</a></td>
-					<td align="center"><input id="textOuter" type="text" class="txt num c1" disabled="disabled"/></td>
+					<td align="center"><a class="lbl">內包裝</a></td>
+					<td align="center"><input id="textInmount" type="text" class="txt num c1" disabled="disabled"/></td>
+					<td align="center"><a class="lbl">外包裝</a></td>
+					<td align="center"><input id="textOutmount" type="text" class="txt num c1" disabled="disabled"/></td>
+				</tr>
+				<tr>
+					<td align="center"><a class="lbl">內包裝重</a></td>
+					<td align="center"><input id="textInweight" type="text" class="txt num c1" disabled="disabled"/></td>
+					<td align="center"><a class="lbl">外包裝重</a></td>
+					<td align="center"><input id="textOutweight" type="text" class="txt num c1" disabled="disabled"/></td>
 				</tr>
 				<tr>
 					<td align="center"><a class="lbl">CBM/CTN</a></td>
@@ -634,7 +991,7 @@
 				</tr>
 				<tr style="background-color: #E7CDFF; ">
 					<td align="center"><a class="lbl">運費成本</a></td>
-					<td align="center"><input id="textTranPrice" type="text" class="txt num c1"/></td>
+					<td align="center"><input id="textTranprice" type="text" class="txt num c1"/></td>
 					<td align="center"><a class="lbl">其他支出</a></td>
 					<td align="center"><input id="textFee" type="text" class="txt num c1"/></td>
 					<td align="center"><a class="lbl">成本合計</a></td>
@@ -643,27 +1000,30 @@
 				<tr style="background-color: #EC7DD2; ">
 					<td align="center"><a class="lbl">Profit</a></td>
 					<td align="center"><input id="textProfit" type="text" class="txt num c1" style="width: 70%"/>&nbsp; %</td>
-					<td align="center"><input id="textProfitmoney" type="text" class="txt num c1"/></td>
-					<td align="center" colspan="3"> </td>
-				</tr>
-				<tr style="background-color: #EC7DD2; ">
 					<td align="center"><a class="lbl">Insurance</a></td>
 					<td align="center"><input id="textInsurance" type="text" class="txt num c1" style="width: 70%"/>&nbsp; %</td>
-					<td align="center"><input id="textInsurmoney" type="text" class="txt num c1"/></td>
 					<td align="center"><a class="lbl">Commission</a></td>
 					<td align="center"><input id="textCommission" type="text" class="txt num c1" style="width: 70%"/>&nbsp; %</td>
-					<td align="center"><input id="textCommimoney" type="text" class="txt num c1"/></td>
 				</tr>
-				<tr style="background-color: #52EDFC;">
+				<tr style="background-color: #EC7DD2;display: none;">
+					<td align="right"><a class="lbl">$</a></td>
+					<td align="center"><input id="textInsurmoney" type="text" class="txt num c1"/></td>
+					<td align="right"><a class="lbl">$</a></td>
+					<td align="center"><input id="textCommimoney" type="text" class="txt num c1"/></td>
+					<td align="right"><a class="lbl">$</a></td>
+					<td align="center"><input id="textProfitmoney" type="text" class="txt num c1"/></td>
+				</tr>
+				<tr style="background-color: #52FDAC;">
 					<td align="center"><a class="lbl">價格條件</a></td>
 					<td align="center"><select id="combPayterms" class="txt c1"> </select></td>
 					<td align="center"><a class="lbl">試算單價</a></td>
 					<td align="center"><input id="textCost3" type="text" class="txt num c1"/></td>
-					<td align="center" colspan="2"> </td>
+					<td align="center"><a class="lbl">試算總重量</a></td>
+					<td align="center"><input id="textWeight" type="text" class="txt num c1"/></td>
 				</tr>
-				<tr>
+				<tr style="background-color: #F1A0A2;">
 					<td align="center" colspan='6'>
-						<input id="btnOk_div_getprice" type="button" value="回寫單價">
+						<input id="btnOk_div_getprice" type="button" value="取回單價/重量">
 						<input id="btnClose_div_getprice" type="button" value="關閉視窗">
 					</td>
 				</tr>
@@ -748,15 +1108,18 @@
 						<td><span> </span><a id='lblEdock' class="lbl"> </a></td>
 						<td colspan="2"><input id="txtEdock" type="text" class="txt c1"/></td>
 					</tr>
-					<tr class="tr7">
+					<tr class="tr8">
 						<td><span> </span><a id='lblPayterms' class="lbl"> </a></td>
 						<td><select id="cmbPayterms" class="txt c1"> </select></td>
 						<td><span> </span><a id='lblVia' class="lbl"> </a></td>
 						<td colspan="2"><input id="txtVia" type="text" class="txt c1"/></td>
 						<!--<td><span> </span><a id='lblPrice' class="lbl"> </a></td>
 						<td colspan="2"><input id="txtPrice" type="text" class="txt c1 num"/></td>-->
+						<td><span> </span><a id='lblSales' class="lbl btn"> </a></td>
+						<td><input id="txtSalesno" type="text" class="txt c1"/></td>
+						<td><input id="txtSales" type="text" class="txt c1"/></td>
 					</tr>
-					<tr class="tr7">
+					<tr class="tr9">
 						<td><span> </span><a id='lblProfit' class="lbl"> </a></td>
 						<td><input id="txtProfit" type="text" class="txt c5 num"/><a>&nbsp; %</a></td>
 						<td><span> </span><a id='lblPaytype' class="lbl"> </a></td>
@@ -764,33 +1127,30 @@
 							<input id="txtPaytype" type="text" class="txt c1" style="width: 190px;"/>
 							<select id="combPaytype" class="txt c1" onchange='combPay_chg()' style="width: 25px;"> </select>
 						</td>
-						<td><span> </span><a id='lblSales' class="lbl btn"> </a></td>
-						<td><input id="txtSalesno" type="text" class="txt c1"/></td>
-						<td><input id="txtSales" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblFloata' class="lbl"> </a></td>
+						<td><select id="cmbCoin" class="txt c1" onchange='coin_chg()'> </select></td>
+						<td><input id="txtFloata" type="text" class="txt c1 num"/></td>
 					</tr>
-					<tr class="tr7">
+					<tr class="tr10">
 						<td><span> </span><a id='lblInsurance' class="lbl"> </a></td>
 						<td><input id="txtInsurance" type="text" class="txt c5 num" /><a>&nbsp; %</a></td>
 						<td><span> </span><a id='lblCommission' class="lbl"> </a></td>
 						<td><input id="txtCommission" type="text" class="txt c5 num"/><a>&nbsp; %</a></td>
 						<td> </td>
-						<td><span> </span><a id='lblFloata' class="lbl"> </a></td>
-						<td><select id="cmbCoin" class="txt c1" onchange='coin_chg()'> </select></td>
-						<td><input id="txtFloata" type="text" class="txt c1 num"/></td>
 					</tr>
-					<tr class="tr8">
+					<tr class="tr11">
 						<td><span> </span><a id='lblMount' class="lbl"> </a></td>
 						<td  colspan='2'><input id="txtMount" type="text" class="txt c1 num"/></td>
 						<td><span> </span><a id='lblWeight' class="lbl"> </a></td>
 						<td colspan='2'><input id="txtWeight" type="text" class="txt c1 num"/></td>
 					</tr>
-					<tr class="tr9">
+					<tr class="tr12">
 						<td><span> </span><a id='lblTotal' class="lbl"> </a></td>
 						<td colspan='2'><input id="txtTotal" type="text" class="txt c1 num"/></td>
 						<td><span> </span><a id='lblTotalus' class="lbl"> </a></td>
 						<td colspan='2'><input id="txtTotalus"	type="text" class="txt c1 num"/></td>
 					</tr>
-					<tr class="tr10">
+					<tr class="tr13">
 						<td align="right">
 							<span> </span><a id='lblMemo' class="lbl"> </a>
 						</td>
@@ -798,7 +1158,7 @@
 							<textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea>
 						</td>
 					</tr>
-					<tr class="tr11">
+					<tr class="tr14">
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker" type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
@@ -808,6 +1168,8 @@
 						<td colspan="2">
 							<input id="chkEnda" type="checkbox"/>
 							<span> </span><a id='lblEnda'> </a>
+							<input id="chkCancel" type="checkbox"/>
+							<span> </span><a id='lblCancel'> </a>
 						</td>
 					</tr>
 				</table>
@@ -818,20 +1180,21 @@
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:40px;"><input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" /></td>
 					<td align="center" style="width:40px;"><a id='lblNo3_s'> </a></td>
-					<td align="center" style="width:180px;"><a id='lblProductno_s'> </a></td>
+					<td align="center" style="width:170px;"><a id='lblProductno_s'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblPrice_s'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblGetprice_s'> </a></td>
-					<td align="center" style="width:40px;"><a id='lblPackway_s'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblPackway_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblWeight_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblTotal_s'> </a></td>
 					<td align="center"><a id='lblMemo_s'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblEnda_s'> </a></td>
+					<td align="center" style="width:40px;"><a id='lblCancels'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
-					<td><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
+					<td align="center"><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
 					<td><input id="txtNo3.*" type="text" class="txt c1" /></td>
 					<td align="center">
 						<input id="txtProductno.*" type="text" class="txt c1" style="width: 85%;" />
@@ -845,11 +1208,16 @@
 					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
 					<td><input id="txtPrice.*" type="text" class="txt c1 num"/></td>
 					<td align="center"><input class="btn" id="btnGetprice.*" type="button" value='.' style=" font-weight: bold;"/></td>
-					<td><input id="txtPackway.*" type="text" class="txt c1"/></td>
+					<td>
+						<input id="txtPackwayno.*" type="text" class="txt c1" style="width: 60%;"/>
+						<input class="btn" id="btnPackway.*" type="button" value='.' style=" font-weight: bold;"/>
+						<input id="txtPackway.*" type="text" class="txt isSpec c1"/>
+					</td>
 					<td><input id="txtWeight.*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtTotal.*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
 					<td align="center"><input id="chkEnda.*" type="checkbox"/></td>
+					<td align="center"><input id="chkCancel.*" type="checkbox"/></td>
 				</tr>
 			</table>
 		</div>

@@ -117,7 +117,7 @@
                         var as = _q_appendData("gqb", "", true);
                         //if(as.length>q_bbsCount)
                         q_gridAddRow(bbsHtm, 'tbbs', 'chkSel,txtCheckno,txtBankno,txtBank,txtDatea,txtMoney,txtTaccl,txtCompno,txtComp,txtTcompno,txtTcomp'
-                        , as.length, as, 'sel,gqbno,bankno,bank,indate,money,accl,compno,comp,tcompno,tcomp', '');
+                        , as.length, as, 'sel,gqbno,bankno,bank,indate,money,tacc1,compno,comp,tcompno,tcomp', '');
 
                         for (var j = 0; j < q_bbsCount; j++) {
                             if ($('#chkSel_' + j).prop("checked")) {//判斷是否被選取
@@ -143,6 +143,7 @@
                 sum();
                 var t_checkno = "";
                 var t_cmoney = "", t_money = 0;
+                var t_err='';
                 for (var i = 0; i < q_bbsCount; i++) {
                     if ($.trim($('#txtCheckno_' + i).val()).length > 0) {
                         t_checkno += (t_checkno.length > 0 ? "," : "") + $.trim($('#txtCheckno_' + i).val());
@@ -151,9 +152,20 @@
                     if (t_money != 0) {
                         t_cmoney += ',' + t_money + ',';
                     }
+                    
+                    //1050223 只取第一筆無託會票據
+                    if(q_getPara('sys.project').toUpperCase()=='VU' && $('#cmbTypea').val()=='1' && !emp($('#txtCheckno_'+i).val()) && emp($('#txtTaccl_'+i).val()) && t_err.length==0){
+                    	t_err=$('#txtCheckno_'+i).val()+"無"+q_getMsg('lblTaccl')+"!!"
+                    }
                 }
                 $('#txtCheckno').val(t_checkno);
                 $('#txtCmoney').val(t_cmoney);
+                
+                if(t_err.length>0){
+                	alert(t_err);
+                    return;
+                }
+                
                 if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
                     alert(q_getMsg('lblDatea') + '錯誤。');
                     return;
