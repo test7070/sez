@@ -154,7 +154,7 @@
                     }
                     
                     //1050223 只取第一筆無託會票據
-                    if(q_getPara('sys.project').toUpperCase()=='VU' && !emp($('#txtCheckno_'+i).val()) && emp($('#txtTaccl_'+i).val()) && t_err.length==0){
+                    if(q_getPara('sys.project').toUpperCase()=='VU' && $('#cmbTypea').val()=='1' && !emp($('#txtCheckno_'+i).val()) && emp($('#txtTaccl_'+i).val()) && t_err.length==0){
                     	t_err=$('#txtCheckno_'+i).val()+"無"+q_getMsg('lblTaccl')+"!!"
                     }
                 }
