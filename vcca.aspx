@@ -157,6 +157,8 @@
 							t_vccano = $('#txtNoa').val();
 							t_custno = $('#txtCustno').val();
 							t_where = "b.custno='"+t_custno+"' and (c.noa='"+t_vccano+"' or c.noa is null)";
+							if(q_getPara('sys.project').toUpperCase() == 'VU')
+								t_where +="and b.datea>'2016/02/22' and (ISNULL(b.atax,0)=1 or isnull(b.tax,0)>0)";
 							q_box("vccavcc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+";"+JSON.stringify({vccano:t_vccano,custno:t_custno}), "vccavcc", "95%", "95%", '');
 						}else{
 							var t_noa = '';
