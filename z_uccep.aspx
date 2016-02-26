@@ -51,9 +51,9 @@
 				q_getFormat();
 				q_langShow();
 
-				$('#txtXdate1').mask('999/99/99');
+				$('#txtXdate1').mask(r_picd);
 				$('#txtXdate1').datepicker();
-				$('#txtXdate2').mask('999/99/99');
+				$('#txtXdate2').mask(r_picd);
 				$('#txtXdate2').datepicker();
 				
 				  if (q_getId()[3] != undefined) {
