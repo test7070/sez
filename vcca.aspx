@@ -223,6 +223,35 @@
                 				return;
                 			}
                 		}
+                		//鉅昕
+                		//發票開立金額 不可大於該客戶當月出貨金額
+						//項目有預收款排除
+						var isExist = false;
+						for(var i=0;i<q_bbsCount;i++){
+							if($('#txtProduct_0').val().indexOf('預收')>=0){
+								isExist = true;
+								break;
+							}
+						}
+						if(q_getPara('sys.project').toUpperCase()=='FE' && !isExist){
+							q_func('qtxt.query.checkMoney', 'vcca.txt,checkMoney,'+$('#txtNoa').val()+';'+$('#txtCustno').val()+';'+$('#txtMon').val());	
+						}else{
+							wrServer($('#txtNoa').val());
+						}
+						break;
+					case 'qtxt.query.checkMoney':
+						var as = _q_appendData("tmp0", "", true, true);
+                		if(as[0]!=undefined){
+            				var t_money = q_float('txtMoney');
+            				var t_vcca = parseFloat(as[0].vcca);
+                			var t_vcc = parseFloat(as[0].vcc);
+                			
+                			if(t_money+t_vcca > t_vcc){
+                				alert('本張發票金額'+t_money+' + 其他發票金額 '+t_vcca+'大於出貨金額 '+t_vcc);
+                				//Unlock(1);
+                				//return;
+                			}
+                		}
                 		wrServer($('#txtNoa').val());
 						break;
 					default:
