@@ -262,7 +262,9 @@
                     alert(t_err);
                     return;
                 }
-                change_hr_used();
+               	if(dec($('#txtHr_used').val())==0)
+                	change_hr_used();
+                	
                 var t_noa = trim($('#txtNoa').val());
 
                 if (t_noa.length == 0 || t_noa == "AUTO")
