@@ -254,7 +254,7 @@
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
-		<div id="q_menu"></div>
+		<div id="q_menu"> </div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<input type="button" id="btnCostbcc" value="轉盤點單"/>
 			<div id="container">
@@ -274,7 +274,7 @@
                 </tr>
                 <tr>
                     <td align="center" colspan="4" style="padding: 2px;text-align: center;border-width: 0px;background-color: pink;">                   
-                         <select type="text" id="cmbType" style="float:center;width:50%;"/select>
+                         <select id="cmbType" style="float:center;width:50%;"> </select>
                     </td>
                 </tr>
                 <tr>
@@ -297,8 +297,12 @@
                     	<input type="text" id="txtEproductno" style="width:20%;" />
                     	<input type="text" id="txtEproduct" style="width:20%;" disabled="disabled"/>
                     </td>
-					
 				</tr>
+				<tr>
+                    <td colspan="4" align="center" style="background-color: pink;color: blue;">
+                    	※盤點單匯入前，請先【成本結轉】至當月。
+                    </td>
+                </tr>
                 <tr>
                     <td colspan="2" align="center" style="background-color: pink;">
                     <input type="button" id="btnExport" style="width:70%;" value="匯入" />
