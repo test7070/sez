@@ -25,26 +25,37 @@
             function q_gfPost() {
                $('#q_report').q_report({
                         fileName : 'z_rc2p',
-                        options : [{
+                        options : [{/* [1]*/
 	                        type : '0',
 	                        name : 'accy',
 	                        value : r_accy
-	                    },  {
+	                    },  {/* [2][3]*/
 	                        type : '1',
 	                        name : 'xnoa'
-	                    }, {
+	                    }, {/* [4][5]*/
 	                        type : '1',
 	                        name : 'date'
-	                    },
-	                    {
+	                    },{/* [6][7]*/
 	                        type : '2',
 	                        name : 'cust',
 	                        dbf : 'cust',
 	                        index : 'noa,comp',
 	                        src : 'cust_b.aspx'
-	                    } , {
+	                    } , {/* [8][9]*/
 	                        type : '1',
 	                        name : 'xmon'
+	                    },{/* [10]*/
+	                        type : '0',
+	                        name : 'accy',
+	                        value : q_getPara('sys.isspec')
+	                    },{/* [11]*/
+	                        type : '0',
+	                        name : 'xproject',
+	                        value : q_getPara('sys.project').toUpperCase()
+	                    },{/* [12]*/
+	                        type : '0',
+	                        name : 'isspec',
+	                        value : q_getPara('sys.isspec')
 	                    }]
                     });
                 q_popAssign();
