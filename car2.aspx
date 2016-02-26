@@ -654,16 +654,25 @@
             }
 
             function btnPrint() {
-                switch(q_getPara('sys.comp').substring(0,2)){
-                    case '大昌':
-                        q_box("z_car2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy + "_" + r_cno, 'z_car2', "95%", "95%", m_print);
-                    case '菱揚':
-                        q_box("z_car2_rj.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy + "_" + r_cno, 'z_car2_ej', "95%", "95%", m_print);
-                    case '峻富':
-                        q_box("z_car2_ef.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy + "_" + r_cno, 'z_car2_ej', "95%", "95%", m_print);
-                    default:
-                        
-                }	
+            	switch(q_getPara('sys.project').toUpperCase()){
+            		case 'BS':
+            			//全興
+            			q_box("z_car2_ef.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy + "_" + r_cno, 'z_car2_ej', "95%", "95%", m_print);
+            			break;
+            		default:
+            			switch(q_getPara('sys.comp').substring(0,2)){
+		                    case '大昌':
+		                        q_box("z_car2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy + "_" + r_cno, 'z_car2', "95%", "95%", m_print);
+		                    case '菱揚':
+		                        q_box("z_car2_rj.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy + "_" + r_cno, 'z_car2_ej', "95%", "95%", m_print);
+		                    case '峻富':
+		                        q_box("z_car2_ef.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy + "_" + r_cno, 'z_car2_ej', "95%", "95%", m_print);
+		                    default:
+		                        
+		                }
+		                break;	
+            	}
+                
             }
 
             function btnOk() {
