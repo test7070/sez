@@ -20,20 +20,20 @@
 			var q_name = "quar";
 			var decbbs = ['price', 'weight', 'mount', 'total', 'dime', 'width', 'lengthb', 'c1', 'notv', 'theory'];
 			var decbbm = ['money', 'tax', 'total', 'weight', 'floata', 'mount', 'price', 'totalus'];
-			var q_readonly = ['txtNoa','txtWorker', 'txtComp', 'txtAcomp', 'txtSales', 'txtWorker2'];
-			var q_readonlys = ['txtNo3','txtPackway','txtPackwayno'];
+			var q_readonly = ['txtNoa','txtWorker', 'txtComp', 'txtAcomp', 'txtSales','txtTotal','txtTotalus', 'txtWorker2','txtMount','txtWeight','txtCost','txtBenifit'];
+			var q_readonlys = ['txtNo3','txtPackway','txtPackwayno','txtCost'];
 			var bbmNum = [];
 			var bbsNum = [];
 			var bbmMask = [];
 			var bbsMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
-			brwCount2 = 15;
+			brwCount2 = 17;
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'Datea';
 			aPop = new Array(
-				['txtProductno_', 'btnProduct_', 'ucx', 'noa,product,unit,spec,cost', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_,txtPrice_', 'ucx_b.aspx'],
+				['txtProductno_', 'btnProduct_', 'ucx', 'noa,product,unit,spec,cost', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_,txtCost_,txtPrice_', 'ucx_b.aspx'],
 				['txtCustno', 'lblCust', 'cust', 'noa,nick','txtCustno,txtComp', 'cust_b.aspx'],
 				['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
@@ -56,16 +56,28 @@
 			}
 
 			function sum() {
-				var t1 = 0, t_unit, t_mount=0, t_weight = 0, t_total = 0;
+				var t1 = 0, t_unit, t_mount=0, t_weight = 0, t_total = 0,t_cost=0,t_benifit=0;
 				for (var j = 0; j < q_bbsCount; j++) {
 					t_mount = q_add(t_mount, q_float('txtMount_' + j));
 					t_weight = q_add(t_weight, q_float('txtWeight_' + j));
 					t_total = q_add(t_total, q_float('txtTotal_' + j));
+					t_cost=q_add(t_cost, q_mul(q_float('txtCost_' + j),q_float('txtMount_' + j)));
 				}
-				q_tr('txtMount', t_total);
+				q_tr('txtMount', t_mount);
 				q_tr('txtWeight',t_weight);
 				q_tr('txtTotal', t_total);
 				q_tr('txtTotalus', q_mul(q_float('txtTotal'), q_float('txtFloata')));
+				t_cost=q_add(t_cost,q_float('txtBankfee'));
+				t_cost=q_add(t_cost,q_float('txtCustomsfee'));
+				t_cost=q_add(t_cost,q_float('txtPortfee'));
+				t_cost=q_add(t_cost,q_float('txtTranfee'));
+				t_cost=q_add(t_cost,q_float('txtVisafee'));
+				t_cost=q_add(t_cost,q_float('txtBillfee'));
+				t_cost=q_add(t_cost,q_float('txtCertfee'));
+				t_cost=q_add(t_cost,q_float('txtOthfee'));
+				q_tr('txtCost', round(t_cost,0));
+				t_benifit=q_sub(t_total,t_cost);
+				q_tr('txtBenifit', round(t_benifit,0));
 			}
 			
 			var SeekF = new Array();
@@ -73,9 +85,10 @@
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd], ['txtOdate', r_picd]];
 				q_mask(bbmMask);
-				bbmNum = [['txtTotal', 15, 0, 1],['txtTotalus', 15, 2, 1], ['txtFloata', 11, 5, 1],['txtMount', 15, q_getPara('vcc.mountPrecision'), 1],['txtWeight', 15, q_getPara('vcc.weightPrecision'), 1]];
+				bbmNum = [['txtTotal', 15, 0, 1],['txtTotalus', 15, 2, 1], ['txtFloata', 11, 5, 1],['txtMount', 15, q_getPara('vcc.mountPrecision'), 1],['txtWeight', 15, q_getPara('vcc.weightPrecision'), 1]
+				,['txtCost', 15, 0, 1],['txtBenifit', 15, 0, 1],['txtBankfee', 15, 0, 1],['txtCustomsfee', 15, 0, 1],['txtPortfee', 15, 0, 1],['txtTranfee', 15, 0, 1],['txtVisafee', 15, 0, 1],['txtBillfee', 15, 0, 1],['txtCertfee', 15, 0, 1],['txtOthfee', 15, 0, 1]];
 				bbsNum = [['txtMount', 10, q_getPara('vcc.mountPrecision'), 1],['txtMount', 10, q_getPara('vcc.weightPrecision'), 1]
-				, ['txtPrice', 10, q_getPara('vcc.pricePrecision'), 1]	, ['txtTotal', 15, 0, 1]];
+				, ['txtPrice', 10, q_getPara('vcc.pricePrecision'), 1]	, ['txtCost', 10, q_getPara('vcc.pricePrecision'), 1]	, ['txtTotal', 15, 0, 1]];
 				
 				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
@@ -113,12 +126,17 @@
 						q_gt('custaddr', t_where, 0, 0, 0, "");
 					}
 				});
+				
 				$('#chkCancel').click(function(){
 					if($(this).prop('checked')){
 						for(var k=0;k<q_bbsCount;k++){
 							$('#chkCancel_'+k).prop('checked',true);
 						}
 					}
+				});
+				
+				$('.fee').change(function() {
+					sum();
 				});
 				
 				//div 事件
@@ -130,9 +148,11 @@
 					//回寫單價
 					if(q_cur==1 || q_cur==2){
 						$('#txtPrice_'+$('#textNoq').val()).val($('#textCost3').val());
+						$('#txtCost_'+$('#textNoq').val()).val($('#textCost').val());
 						$('#txtWeight_'+$('#textNoq').val()).val($('#textWeight').val());
 						$('#txtPackwayno_'+$('#textNoq').val()).val($('#textPackwayno').val());
 						$('#txtPackway_'+$('#textNoq').val()).val($('#textPackway').val());
+						$('#txtTotal_'+$('#textNoq').val()).val(q_mul(dec($('#txtMount_'+$('#textNoq').val()).val()),dec($('#txtPrice_'+$('#textNoq').val()).val())));
 						sum();
 					}
 					$('#div_getprice').hide();
@@ -221,15 +241,15 @@
 					var t_outmount=dec($('#textOutmount').val());
 					var t_inweight=dec($('#textInweight').val());
 					var t_outweight=dec($('#textOutweight').val());
-					var t_pfmount=Math.floor(q_div(t_mount,q_mul(t_inmount,t_outmount))); //一整箱
-					var t_pcmount=Math.ceil(q_div(t_mount,q_mul(t_inmount,t_outmount))); //總箱數
+					var t_pfmount=q_mul(t_inmount,t_outmount)==0?0:Math.floor(q_div(t_mount,q_mul(t_inmount,t_outmount))); //一整箱
+					var t_pcmount=q_mul(t_inmount,t_outmount)==0?0:Math.ceil(q_div(t_mount,q_mul(t_inmount,t_outmount))); //總箱數
 					var t_emount=q_sub(dec($('#textMount').val()),q_mul(t_pfmount,q_mul(t_inmount,t_outmount))); //散裝數量
 					t_weight=q_add(q_add(q_mul(q_mul(t_inmount,t_outmount),t_uweight),t_outweight),q_mul(t_inweight,t_outmount));//一箱毛重
 					t_weight=q_mul(t_pfmount,t_weight); //整箱毛重
 					if(t_emount>0){ //散裝(淨重+外包裝重+內包裝重)
 						var tt_weight=q_mul(t_emount,t_uweight);
 						tt_weight=q_add(tt_weight,t_outweight);
-						tt_weight=q_add(tt_weight,q_mul(Math.ceil(q_div(t_emount,t_inmount)),t_inweight));
+						tt_weight=q_add(tt_weight,q_mul(Math.ceil((t_inmount==0?1:q_div(t_emount,t_inmount))),t_inweight));
 						t_weight=q_add(t_weight,tt_weight);
 					}
 					$('#textWeight').val(t_weight);
@@ -362,15 +382,15 @@
 							var t_outmount=dec(ret[0].outmount);
 							var t_inweight=dec(ret[0].inweight);
 							var t_outweight=dec(ret[0].outweight);
-							var t_pfmount=Math.floor(q_div(t_mount,q_mul(t_inmount,t_outmount))); //一整箱
-							var t_pcmount=Math.ceil(q_div(t_mount,q_mul(t_inmount,t_outmount))); //總箱數
+							var t_pfmount=q_mul(t_inmount,t_outmount)==0?0:Math.floor(q_div(t_mount,q_mul(t_inmount,t_outmount))); //一整箱
+							var t_pcmount=q_mul(t_inmount,t_outmount)==0?0:Math.ceil(q_div(t_mount,q_mul(t_inmount,t_outmount))); //總箱數
 							var t_emount=q_sub(t_mount,q_mul(t_pfmount,q_mul(t_inmount,t_outmount))); //散裝數量
 							t_weight=q_add(q_add(q_mul(q_mul(t_inmount,t_outmount),t_uweight),t_outweight),q_mul(t_inweight,t_outmount));//一箱毛重
 							t_weight=q_mul(t_pfmount,t_weight); //整箱毛重
 							if(t_emount>0){ //散裝(淨重+外包裝重+內包裝重)
 								var tt_weight=q_mul(t_emount,t_uweight);
 								tt_weight=q_add(tt_weight,t_outweight);
-								tt_weight=q_add(tt_weight,q_mul(Math.ceil(q_div(t_emount,t_inmount)),t_inweight));
+								tt_weight=q_add(tt_weight,q_mul(Math.ceil((t_inmount==0?1:q_div(t_emount,t_inmount))),t_inweight));
 								t_weight=q_add(t_weight,tt_weight);
 							}
 							$('#txtWeight_'+b_seq).val(t_weight);
@@ -512,7 +532,7 @@
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
 							
-							$('#txtTotal_'+b_seq).val(q_mul(dec($('#txtMount_'+b_seq).val()),dec($('#txtPrice_'+b_seq).val())));
+							$('#txtTotal_'+b_seq).val(round(q_mul(dec($('#txtMount_'+b_seq).val()),dec($('#txtPrice_'+b_seq).val())),0));
 							sum();
 						});
 						$('#txtWeight_' + j).change(function () {
@@ -523,7 +543,14 @@
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
 							
-							$('#txtTotal_'+b_seq).val(q_mul(dec($('#txtMount_'+b_seq).val()),dec($('#txtPrice_'+b_seq).val())));
+							$('#txtTotal_'+b_seq).val(round(q_mul(dec($('#txtMount_'+b_seq).val()),dec($('#txtPrice_'+b_seq).val())),0));
+							sum();
+						});
+						
+						$('#txtTotal_' + j).change(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
 							sum();
 						});
 						
@@ -550,12 +577,11 @@
 								q_gt('ucx', t_where, 0, 0, 0, "getucx", r_accy, 1);
 								var as = _q_appendData("ucx", "", true);
 								if (as[0] != undefined) {
-									$('#textCost').val(as[0].cost);
+									$('#textCost').val($('#txtCost_'+b_seq).val());
 									$('#textUweight').val(as[0].uweight);
 								}else{
-									$('#textCost').val('');
+									$('#textCost').val($('#txtCost_'+b_seq).val());
 									$('#textUweight').val('');
-									$('#textCost').val('');
 								}
 								$('#textPackwayno').val($('#txtPackwayno_'+b_seq).val());
 								$('#textPackway').val($('#txtPackway_'+b_seq).val());
@@ -1134,36 +1160,57 @@
 					<tr class="tr10">
 						<td><span> </span><a id='lblInsurance' class="lbl"> </a></td>
 						<td><input id="txtInsurance" type="text" class="txt c5 num" /><a>&nbsp; %</a></td>
-						<td><span> </span><a id='lblCommission' class="lbl"> </a></td>
-						<td><input id="txtCommission" type="text" class="txt c5 num"/><a>&nbsp; %</a></td>
-						<td> </td>
-					</tr>
-					<tr class="tr11">
 						<td><span> </span><a id='lblMount' class="lbl"> </a></td>
 						<td  colspan='2'><input id="txtMount" type="text" class="txt c1 num"/></td>
 						<td><span> </span><a id='lblWeight' class="lbl"> </a></td>
 						<td colspan='2'><input id="txtWeight" type="text" class="txt c1 num"/></td>
 					</tr>
+					
 					<tr class="tr12">
+						<td><span> </span><a id='lblCommission' class="lbl"> </a></td>
+						<td><input id="txtCommission" type="text" class="txt c5 num"/><a>&nbsp; %</a></td>
 						<td><span> </span><a id='lblTotal' class="lbl"> </a></td>
 						<td colspan='2'><input id="txtTotal" type="text" class="txt c1 num"/></td>
 						<td><span> </span><a id='lblTotalus' class="lbl"> </a></td>
 						<td colspan='2'><input id="txtTotalus"	type="text" class="txt c1 num"/></td>
 					</tr>
 					<tr class="tr13">
-						<td align="right">
-							<span> </span><a id='lblMemo' class="lbl"> </a>
-						</td>
+						<td align="right"><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td colspan='7' >
 							<textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea>
 						</td>
 					</tr>
 					<tr class="tr14">
+						<td><span> </span><a id='lblBankfee' class="lbl"> </a></td>
+						<td><input id="txtBankfee" type="text" class="txt c1 num fee"/></td>
+						<td><span> </span><a id='lblCustomsfee' class="lbl"> </a></td>
+						<td><input id="txtCustomsfee"	 type="text" class="txt c1 num fee"/></td>
+						<td><span> </span><a id='lblPortfee' class="lbl"> </a></td>
+						<td><input id="txtPortfee" type="text" class="txt c1 num fee"/></td>
+						<td><span> </span><a id='lblTranfee' class="lbl"> </a></td>
+						<td><input id="txtTranfee" type="text" class="txt c1 num fee"/></td>
+					</tr>
+					<tr class="tr15">
+						<td><span> </span><a id='lblVisafee' class="lbl"> </a></td>
+						<td><input id="txtVisafee" type="text" class="txt c1 num fee"/></td>
+						<td><span> </span><a id='lblBillfee' class="lbl"> </a></td>
+						<td><input id="txtBillfee" type="text" class="txt c1 num fee"/></td>
+						<td><span> </span><a id='lblCertfee' class="lbl"> </a></td>
+						<td><input id="txtCertfee" type="text" class="txt c1 num fee"/></td>
+						<td><span> </span><a id='lblOthfee' class="lbl"> </a></td>
+						<td><input id="txtOthfee" type="text" class="txt c1 num fee"/></td>
+					</tr>
+					<tr class="tr16">
+						<td><span> </span><a id='lblCost' class="lbl"> </a></td>
+						<td colspan='3'><input id="txtCost" type="text" class="txt c1 num"/></td>
+						<td><span> </span><a id='lblBenifit' class="lbl"> </a></td>
+						<td colspan='3'><input id="txtBenifit"	type="text" class="txt c1 num"/></td>
+					</tr>
+					<tr class="tr17">
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker" type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
 						<td><input id="txtWorker2" type="text" class="txt c1" /></td>
-						<td> </td>
 						<td> </td>
 						<td colspan="2">
 							<input id="chkEnda" type="checkbox"/>
@@ -1175,7 +1222,7 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1260px;">
+		<div class='dbbs' style="width: 1400px;">
 			<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1' >
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:40px;"><input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" /></td>
@@ -1184,14 +1231,16 @@
 					<td align="center" style="width:200px;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblPrice_s'> </a></td>
+					<td align="center" style="width:100px;">
+						<a id='lblPrice_s'> </a><BR><a id='lblCost_s'> </a>
+					</td>
 					<td align="center" style="width:40px;"><a id='lblGetprice_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblPackway_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblWeight_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblTotal_s'> </a></td>
 					<td align="center"><a id='lblMemo_s'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblEnda_s'> </a></td>
-					<td align="center" style="width:40px;"><a id='lblCancels'> </a></td>
+					<td align="center" style="width:40px;"><a id='lblCancel_s'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td align="center"><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
@@ -1206,7 +1255,10 @@
 					</td>
 					<td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
-					<td><input id="txtPrice.*" type="text" class="txt c1 num"/></td>
+					<td>
+						<input id="txtPrice.*" type="text" class="txt c1 num"/>
+						<input id="txtCost.*" type="text" class="txt c1 num"/>
+					</td>
 					<td align="center"><input class="btn" id="btnGetprice.*" type="button" value='.' style=" font-weight: bold;"/></td>
 					<td>
 						<input id="txtPackwayno.*" type="text" class="txt c1" style="width: 60%;"/>

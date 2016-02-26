@@ -42,20 +42,16 @@
 		<div  id="dbbs"  >
 			<table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style='width:98%' >
 				<tr>
-					<th align="center" ></th>
-					<th align="center" style='color:blue;'><a id='lblNoa'> </a></th>
-					<th align="center" style='color:blue;'><a id='lblProduct'> </a></th>
+					<td align="center" > </td>
+					<td align="center" style='color:blue;'><a id='lblNoa'> </a></td>
+					<td align="center" style='color:blue;'><a id='lblProduct'> </a></td>
+					<td align="center" style='color:blue;'><a id='lblSpec'> </a></td>
 				</tr>
 				<tr>
-					<td style="width:2%;">
-					<input name="sel"  id="radSel.*" type="radio" />
-					</td>
-					<td style="width:20%;">
-					<input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" />
-					</td>
-					<td style="width:63%;">
-					<input class="txt" id="txtProduct.*" type="text" style="width:99%;"  readonly="readonly" />
-					</td>
+					<td style="width:2%;"><input name="sel"  id="radSel.*" type="radio" /></td>
+					<td style="width:20%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+					<td style="width:63%;"><input class="txt" id="txtProduct.*" type="text" style="width:99%;"  readonly="readonly" /></td>
+					<td style="width:63%;"><input class="txt" id="txtSpec.*" type="text" style="width:99%;"  readonly="readonly" /></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/brow_ctrl.inc"-->
