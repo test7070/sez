@@ -34,7 +34,7 @@
 			brwNowPage = 0;
 			brwKey = 'noa';
 			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'],
-				['txtUno', 'lblUno', 'view_uccc', 'uno,productno,product,spec,dime,width,lengthb,radius,weight,eweight,itype,custno,source', 'txtUno,txtProductno,txtProduct,txtSpec,txtDime,txtWidth,txtLengthb,txtRadius,txtOweight,txtEweight,cmbItype,txtCustno,txtSource', 'uccc_seek_b.aspx?;;;1=0', '95%', '95%'], 
+				['txtUno', 'lblUno', 'view_uccc', 'uno,productno,product,spec,dime,width,lengthb,radius,weight,eweight,itype,custno,source,uno2', 'txtUno,txtProductno,txtProduct,txtSpec,txtDime,txtWidth,txtLengthb,txtRadius,txtOweight,txtEweight,cmbItype,txtCustno,txtSource,txtUno2', 'uccc_seek_b.aspx?;;;1=0', '95%', '95%'], 
 				['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'], 
 				['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtCust_', 'cust_b.aspx'], 
 				['txtMechno', 'lblMech', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'], 
@@ -190,6 +190,7 @@
 							$('#cmbItype').val(b_ret[0].itype);
 							$('#txtCustno').val(b_ret[0].custno);
 							$('#txtSource').val(b_ret[0].source);
+							$('#txtUno2').val(b_ret[0].uno2);
 							//新增自動帶入品名與厚度
 							bbscopybbm();
 						}
@@ -287,7 +288,7 @@
 							$('#txtGweight').val(as[0].eweight);
 							$('#txtMemo').val(as[0].memo);
 							$('#txtGmount').val(1);
-							
+							$('#txtUno2').val(as[0].uno2);
 							//新增自動帶入品名與厚度
 							bbscopybbm();
 						}else{
@@ -568,7 +569,7 @@
 						$('#txtSource_'+i).val($('#txtSource').val());
 					}
 				for(var i=0;i<q_bbsCount;i++){
-					$('#txtUno2_'+i).val($('#txtUno').val());
+					$('#txtUno2_'+i).val($('#txtUno2').val());
 				}
 					
 				//裕承隆 暫時先不檢查
@@ -1393,8 +1394,9 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblUno" class="lbl btn"> </a></td>
-						<td colspan="3"><input id="txtUno" type="text" class="txt c1"/>
-					
+						<td colspan="3">
+							<input id="txtUno" type="text" class="txt c1"/>
+							<input id="txtUno2" type="text" style="display:none;"/>
 						</td>
 						<td><span> </span><a id="lblProduct" class="lbl"> </a></td>
 						<td>
