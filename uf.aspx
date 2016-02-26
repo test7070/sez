@@ -312,6 +312,19 @@
                         $('#txtCheckno_' + j).css('background-color', 'rgb(237, 237, 238)').css('color', 'green');
                     }
                 }// j
+                
+                if(q_getPara('sys.project').toUpperCase()=='VU'){ //1050226
+					$('#txtBankno').attr('readonly', 'readonly').css('background-color', 'rgb(237, 237, 238)').css('color', 'green');
+					$('#txtBank').attr('readonly', 'readonly').css('background-color', 'rgb(237, 237, 238)').css('color', 'green');
+					$('#txtCno').attr('readonly', 'readonly').css('background-color', 'rgb(237, 237, 238)').css('color', 'green');
+					$('#txtAcomp').attr('readonly', 'readonly').css('background-color', 'rgb(237, 237, 238)').css('color', 'green');
+					$('#txtAccount').attr('readonly', 'readonly').css('background-color', 'rgb(237, 237, 238)').css('color', 'green');
+					$('#txtAcc1').attr('readonly', 'readonly').css('background-color', 'rgb(237, 237, 238)').css('color', 'green');
+					$('#txtAcc2').attr('readonly', 'readonly').css('background-color', 'rgb(237, 237, 238)').css('color', 'green');
+					
+					aPop = new Array(['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx']);
+                }
+                
             }
             
             function compshow() {
