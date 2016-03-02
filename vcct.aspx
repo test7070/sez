@@ -23,13 +23,13 @@
             brwCount2 = 20;
             brwList = [];
             brwNowPage = 0;
-            brwKey = 'noa';
+            brwKey = 'noa,kind';
             q_copy=1;
             aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
             //ajaxPath = ""; //  execute in Root
 
             $(document).ready(function() {
-                bbmKey = ['noa'];
+                bbmKey = ['noa','kind'];
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1);
                 q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
@@ -179,12 +179,13 @@
                             alert('已存在 ' + as[0].noa);
                             Unlock(1);
                         } else {
-                        	if($('#cmbTypea').val()=='2'){
+                        	if($('#cmbTypea').val()=='2' && ($('#cmbKind').val()!='33' && $('#cmbKind').val()!='34')){
                         		var t_where = "where=^^ cno='" + $('#txtCno').val() + "' and ('" + $('#txtDatea').val() + "' between bdate and edate) " + " and exists(select noa from vccars where vccars.noa=vccar.noa and ('" + $('#txtNoa').val() + "' between binvono and einvono)) ^^";
                         		q_gt('vccar', t_where, 0, 0, 0, "", r_accy);
-                        		return;
-                        	}
-                            wrServer($('#txtNoa').val());
+                        		break;
+                        	}else{
+	                            wrServer($('#txtNoa').val());
+                           }
                         }
                         break;
                     case 'vccar':
@@ -293,7 +294,7 @@
                     xmlSql = q_preXml();
 
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-                _btnOk(key_value, bbmKey[0], '', '', 2);
+                _btnOk(key_value, bbmKey[0], bbmKey[1], '', 2);
             }
 
             function refresh(recno) {

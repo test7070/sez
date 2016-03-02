@@ -1213,6 +1213,8 @@
 						<td><input id="txtWorker2" type="text" class="txt c1" /></td>
 						<td> </td>
 						<td colspan="2">
+							<input id="chkIsproj" type="checkbox"/>
+							<span> </span><a id='lblIsproj'> </a>
 							<input id="chkEnda" type="checkbox"/>
 							<span> </span><a id='lblEnda'> </a>
 							<input id="chkCancel" type="checkbox"/>
