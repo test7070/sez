@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -488,13 +488,19 @@
 				var t_custno = trim($('#txtCustno').val());
 				var t_where = '';
 				if (t_custno.length > 0) {
-					t_where = "noa+'_'+no3 not in (select isnull(quatno,'')+'_'+isnull(no3,'') from view_ordes" + r_accy + " where noa!='" + $('#txtNoa').val() + "' ) and isnull(enda,0)=0 and isnull(cancel,0)=0"
-					t_where = t_where + ' and ' + q_sqlPara("custno", t_custno)+" and datea>='"+$('#txtOdate').val()+"'";
+					if($('#cmbStype').val()=='3'){ //外銷
+						t_where = "a.enda!=1 and a.cancel!=1 and custno='"+t_custno+"' and  datea>='"+$('#txtOdate').val()+"' ";
+						q_box("quar_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'quars', "95%", "95%", $('#btnQuat').val());
+					}else{
+						t_where = "noa+'_'+no3 not in (select isnull(quatno,'')+'_'+isnull(no3,'') from view_ordes" + r_accy + " where noa!='" + $('#txtNoa').val() + "' ) and isnull(enda,0)=0 and isnull(cancel,0)=0"
+						t_where = t_where + ' and ' + q_sqlPara("custno", t_custno)+" and datea>='"+$('#txtOdate').val()+"'";
+						q_box("quat_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'quats', "95%", "95%", $('#btnQuat').val());	
+					}
 				}else {
 					alert(q_getMsg('msgCustEmp'));
 					return;
 				}
-				q_box("quat_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'quats', "95%", "95%", $('#btnQuat').val());
+				
 			}
 			
 			function btnOk() {

@@ -65,6 +65,7 @@
             q_mask(bbmMask);
             //q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 			//q_cmbParse("cmbCoin", ('').concat(new Array('台幣', '美元', '日幣', '港幣', '人民幣', '歐元', '英鎊', '新加坡幣')));
+			q_cmbParse("cmbPayterms", q_getPara('sys.payterms'));
 			
 			if(window.parent.q_name=='orde'){
 				//讀取嘜頭選項
@@ -514,7 +515,7 @@
                <td class="td2" ><select id="cmbCoin"  class="txt c1"> </select></td>
                <td class="td3" ><input id="txtFloata" type="text" class="txt num c1"/></td>
                <td class="td4"><span> </span><a id="lblPayterms" class="lbl"> </a></td>
-               <td class="td5" colspan="2"><input id="txtPayterms" type="text" class="txt c1"/></td>
+               <td class="td5" colspan="2"><select id="cmbPayterms" class="txt c1"> </select></td>
             </tr>
              <tr class="tr4">
 				<td class="td1"><span> </span><a id="lblMarkno" class="lbl"> </a></td>

@@ -52,7 +52,7 @@
 				['txtTggno__', 'btnTggno__', 'tgg', 'noa,nick', 'txtTggno__,txtNick__', 'tgg_b.aspx'],
 				['txtProcessno__', 'btnProcessno__', 'process', 'noa,process', 'txtProcessno__,txtProcess__', 'process_b.aspx'],
 				['txtUcano', 'lblUcano', 'uca', 'noa,product', '0txtUcano', 'uca_b.aspx'],
-				['txtUccno', 'lblUccno', 'ucauccc', 'noa,product', '0txtUccno', 'ucacc_b.aspx']
+				['txtUccno', 'lblUccno', 'ucaucc', 'noa,product', '0txtUccno', 'ucacc_b.aspx']
 			);
 
 			$(document).ready(function() {
