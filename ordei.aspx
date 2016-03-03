@@ -21,13 +21,14 @@
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
         aPop = new Array(['txtInspection_compno', 'lblInspection_comp', 'tgg', 'noa,comp', 'txtInspection_compno,txtInspection_comp', 'tgg_b.aspx']
-		,['txtBcompno', 'lblBcomp', 'tgg', 'noa,comp', 'txtBcompno,txtBcomp', 'tgg_b.aspx']
-		,['txtTrancompno', 'lblTrancomp', 'tgg', 'noa,comp', 'txtTrancompno,txtTrancomp', 'tgg_b.aspx']
-		,['txtAgentno', 'lblAgent', 'cust', 'noa,comp', 'txtAgentno,txtAgent', 'cust_b.aspx']
-		,['txtNegotiatingbankno', 'lblNegotiatingbank', 'bank', 'noa,bank', 'txtNegotiatingbankno,txtNegotiatingbank', 'bank_b.aspx']
-		,['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx']
-		,['txtConsigneeno', 'lblConsignee', 'cust', 'noa,comp', 'txtConsigneeno,txtConsignee', 'cust_b.aspx']
-		,['txtNotifyno', 'lblNotify', 'cust', 'noa,comp', 'txtNotifyno,txtNotify', 'cust_b.aspx']
+			,['txtBcompno', 'lblBcomp', 'tgg', 'noa,comp', 'txtBcompno,txtBcomp', 'tgg_b.aspx']
+			,['txtForwarderno', 'lblForwarder', 'tgg', 'noa,comp', 'txtForwarderno,txtForwarder', 'tgg_b.aspx']
+			,['txtAgentno', 'lblAgent', 'cust', 'noa,comp', 'txtAgentno,txtAgent', 'cust_b.aspx']
+			,['txtNegotiatingbankno', 'lblNegotiatingbank', 'bank', 'noa,bank', 'txtNegotiatingbankno,txtNegotiatingbank', 'bank_b.aspx']
+			,['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx']
+			,['txtConsigneeno', 'lblConsignee', 'cust', 'noa,comp', 'txtConsigneeno,txtConsignee', 'cust_b.aspx']
+			,['txtNotifyno', 'lblNotify', 'cust', 'noa,comp', 'txtNotifyno,txtNotify', 'cust_b.aspx']
+			,['txtLcno', '', 'lcs', 'lcno,lcodate', 'txtLcno,txtLcdated', 'lcs.aspx']
 		);
 		
         $(document).ready(function () {
@@ -93,8 +94,6 @@
             		}
             	}
             });
-            
-            
         }
 
         function q_boxClose( s2) {
@@ -155,6 +154,24 @@
         function btnIns() {
             _btnIns();
             $('#txtLcno').focus();
+            
+            if(window.parent.q_name=='orde'){
+				//讀取報價資料
+				var wParent = window.parent.document;
+				var t_quarno= wParent.getElementById("txtQuatno").value
+				var t_where="where=^^ noa='"+t_quarno+"'^^";
+	            q_gt('quar', t_where, 0, 0, 0, "", r_accy,1);
+	            var as = _q_appendData("quar", "", true);
+            	if(as[0] != undefined){
+            		$('#txtBdock').val(as[0].bdock);
+            		$('#txtEdock').val(as[0].edock);
+            		$('#txtConn').val(as[0].conn);
+            		$('#txtCommissionpercent').val(as[0].commission);
+            		$('#cmbCoin').val(as[0].coin);
+            		$('#txtFloata').val(as[0].floata);
+            		$('#cmbPayterms').val(as[0].payterms);
+            	}
+           }
         }
 
         function btnModi() {
@@ -453,10 +470,10 @@
                		<input id="txtInspection_compno" type="text" class="txt c2"/>
                		<input id="txtInspection_comp" type="text" class="txt c3"/>
                	</td>
-               <td class="td3"><span> </span><a id="lblTrancomp" class="lbl btn"> </a></td>
+               <td class="td3"><span> </span><a id="lblForwarder" class="lbl btn"> </a></td>
                <td class="td4" colspan="2">
-               		<input id="txtTrancompno" type="text" class="txt c2"/>
-               		<input id="txtTrancomp" type="text" class="txt c3"/>
+               		<input id="txtForwarderno" type="text" class="txt c2"/>
+               		<input id="txtForwarder" type="text" class="txt c3"/>
                	</td>
             </tr>
             <tr class="trX">

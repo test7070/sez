@@ -231,6 +231,7 @@
 							b_ret = getb_ret();
 							if (!b_ret || b_ret.length == 0)
 								return;
+							$('#txtQuatno').val(b_ret[0].noa);
 							//取得報價的第一筆匯率等資料
 							var t_where = "where=^^ noa='" + b_ret[0].noa + "' ^^";
 							q_gt('quat', t_where, 0, 0, 0, "", r_accy);
@@ -242,7 +243,24 @@
 							bbsAssign();
 						}
 						break;
+					case 'quars':
+						if (q_cur > 0 && q_cur < 4) {
+							b_ret = getb_ret();
+							if (!b_ret || b_ret.length == 0)
+								return;
+							$('#txtQuatno').val(b_ret[0].noa);
+							//取得報價的第一筆匯率等資料
+							var t_where = "where=^^ noa='" + b_ret[0].noa + "' ^^";
+							q_gt('quar', t_where, 0, 0, 0, "", r_accy);
 
+							var i, j = 0;
+							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtUnit,txtPrice,txtMount,txtQuatno,txtNo3'
+							, b_ret.length, b_ret, 'xproductno,product,spec,unit,price,mount,noa,no3', 'txtProductno,txtProduct,txtSpec');
+							/// 最後 aEmpField 不可以有【數字欄位】
+							sum();
+							bbsAssign();
+						}
+						break;
 					case q_name + '_s':
 						q_boxClose2(s2);
 						break;
@@ -445,6 +463,26 @@
 						break;
 					case 'quat':
 						var as = _q_appendData("quat", "", true);
+						if (as[0] != undefined) {
+							$('#txtFloata').val(as[0].floata);
+							$('#cmbCoin').val(as[0].coin);
+							$('#txtPaytype').val(as[0].paytype);
+							$('#txtSalesno').val(as[0].salesno);
+							$('#txtSales').val(as[0].sales);
+							$('#txtContract').val(as[0].contract);
+							$('#cmbTrantype').val(as[0].trantype);
+							$('#txtTel').val(as[0].tel);
+							$('#txtFax').val(as[0].fax);
+							$('#txtPost').val(as[0].post);
+							$('#txtAddr').val(as[0].addr);
+							$('#txtPost2').val(as[0].post2);
+							$('#txtAddr2').val(as[0].addr2);
+							$('#cmbTaxtype').val(as[0].taxtype);
+							sum();
+						}
+						break;
+					case 'quar':
+						var as = _q_appendData("quar", "", true);
 						if (as[0] != undefined) {
 							$('#txtFloata').val(as[0].floata);
 							$('#cmbCoin').val(as[0].coin);
@@ -1036,26 +1074,26 @@
 			<div class='dbbm'>
 				<table class="tbbm" id="tbbm" style="width: 872px;">
 					<tr class="tr1" style="height: 0px">
-						<td class="td1" style="width: 108px;"></td>
-						<td class="td2" style="width: 108px;"></td>
-						<td class="td3" style="width: 108px;"></td>
-						<td class="td4" style="width: 108px;"></td>
-						<td class="td5" style="width: 108px;"></td>
-						<td class="td6" style="width: 108px;"></td>
-						<td class="td7" style="width: 108px;"></td>
-						<td class="td7" style="width: 108px;"></td>
+						<td class="td1" style="width: 108px;"> </td>
+						<td class="td2" style="width: 108px;"> </td>
+						<td class="td3" style="width: 108px;"> </td>
+						<td class="td4" style="width: 108px;"> </td>
+						<td class="td5" style="width: 108px;"> </td>
+						<td class="td6" style="width: 108px;"> </td>
+						<td class="td7" style="width: 108px;"> </td>
+						<td class="td7" style="width: 108px;"> </td>
 					</tr>
 					<tr class="tr1">
 						<td class="td1"><span> </span><a id='lblOdate' class="lbl"> </a></td>
 						<td class="td2"><input id="txtOdate" type="text" class="txt c1"/></td>
 						<td class="td3"><span> </span><a id='lblStype' class="lbl"> </a></td>
-						<td class="td4"><select id="cmbStype" class="txt c1"></select></td>
+						<td class="td4"><select id="cmbStype" class="txt c1"> </select></td>
 						<td class="td5"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td class="td6" colspan="2"><input id="txtNoa" type="text" class="txt c1"/></td>
 						<td class="td8" align="center"><input id="btnOrdei" type="button" /></td>
 					</tr>
 					<tr class="tr2">
-						<td class="td1"><span> </span><a id="lblAcomp" class="lbl btn"></a></td>
+						<td class="td1"><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtCno" type="text" class="txt c1"/></td>
 						<td class="td3" colspan="2"><input id="txtAcomp" type="text" class="txt c1"/></td>
 						<td class="td5" ><span> </span><a id='lblContract' class="lbl"> </a></td>
@@ -1069,7 +1107,7 @@
 						<td class="td5"><span> </span><a id='lblPaytype' class="lbl"> </a></td>
 						<td class="td6"><input id="txtPaytype" type="text" class="txt c1"/></td>
 						<td class="td7">
-							<select id="combPaytype" class="txt c1" onchange='combPaytype_chg()' ></select>
+							<select id="combPaytype" class="txt c1" onchange='combPaytype_chg()' > </select>
 						</td>
 						<td class="td8" align="center"><input id="btnCredit" type="button" value='' /></td>
 					</tr>
@@ -1080,6 +1118,7 @@
 						<td class="td6" colspan="2"><input id="txtFax" type="text" class="txt c1" /></td>
 						<td class="td8" align="center">
 							<input id="btnQuat" type="button" value='' />
+							<input id="txtQuatno" type="hidden" class="txt c1" />
 						</td>
 					</tr>
 					<tr class="tr5">
@@ -1119,13 +1158,13 @@
 						</td>
 						<td class="td4"><span> </span><a id='lblTax' class="lbl"> </a></td>
 						<td class="td5"><input id="txtTax" type="text" class="txt num c1"/></td>
-						<td class="td6"><select id="cmbTaxtype" class="txt c1" onchange='sum()' ></select></td>
+						<td class="td6"><select id="cmbTaxtype" class="txt c1" onchange='sum()' > </select></td>
 						<td class="td7"><span> </span><a id='lblTotal' class="lbl"> </a></td>
 						<td class="td8"><input id="txtTotal" type="text" class="txt num c1"/></td>
 					</tr>
 					<tr class="tr9">
 						<td class="td1"><span> </span><a id='lblFloata' class="lbl"> </a></td>
-						<td class="td2"><select id="cmbCoin"class="txt c1" onchange='coin_chg()'> </select></td>
+						<td class="td2"><select id="cmbCoin" class="txt c1" onchange='coin_chg()'> </select></td>
 						<td class="td3"><input id="txtFloata" type="text" class="txt num c1" /></td>
 						<td class="td4"><span> </span><a id='lblTotalus' class="lbl"> </a></td>
 						<td class="td5" colspan='2'><input id="txtTotalus" type="text" class="txt num c1"/></td>
