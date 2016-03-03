@@ -273,6 +273,9 @@
 					return;
 				}
                 
+                //1050303 避免與出貨vcct_load 有問題 稅務vcct +noq 且noq=kind
+                $('#txtNoq').val($('#cmbKind').val());
+                
                 if (q_cur == 1) {
                 	if($('#cmbKind').val()=='23' || $('#cmbKind').val()=='24' || $('#cmbKind').val()=='33' || $('#cmbKind').val()=='34'){
                 		t_where = "where=^^ noa='" + $('#txtNoa').val() + "' and kind in('23','24','33','34') ^^";
@@ -715,7 +718,10 @@
 						<td><span> </span><a id="lblTypea" class="lbl"> </a></td>
 						<td><select id="cmbTypea" class="txt c1"> </select></td>
 						<td><span> </span><a id="lblKind" class="lbl"> </a></td>
-						<td colspan="3"><select id="cmbKind" class="txt c1"> </select></td>
+						<td colspan="3">
+							<select id="cmbKind" class="txt c1"> </select>
+							<input id="txtNoq" type="hidden">
+						</td>
 						<td> </td>
 						<td><input id="btnVcca" type="button"/></td>
 					</tr>
