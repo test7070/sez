@@ -113,7 +113,7 @@
                         var as = _q_appendData("custm", "", true);
                         if (as[0] != undefined) {
                             var t_memo = as[0].postmemo;
-                            t_memo = t_memo.substring(2, t_memo.length);
+                            //105/03/02 t_memo = t_memo.substring(2, t_memo.length);
                             //t_memo=t_memo.substring(0,t_memo.indexOf('##'));
                             $('#txtMemo_' + b_seq).val(t_memo);
                             //$('#txtMemo_'+b_seq).val('附回郵');
@@ -330,7 +330,8 @@
                     case 'txtUseno_':
                         if (q_getPara('sys.project').toUpperCase() == 'XY') {
                             if ($('#cmbKind').val() != '廠商') {
-                                t_where = "where=^^ noa='" + $('#txtUseno_' + b_seq).val() + "' and charindex('附回郵',postmemo)>0 ^^";
+                            	//1050302 不管附回郵 都顯示出來 and charindex('附回郵',postmemo)>0
+                                t_where = "where=^^ noa='" + $('#txtUseno_' + b_seq).val() + "' ^^";
                                 q_gt('custm', t_where, 0, 0, 0, "cust_post_xy", r_accy);
                             }
                             t_where = "where=^^ noa='" + $('#txtUseno_' + b_seq).val() + "' and isnull(bill,0)=1^^";

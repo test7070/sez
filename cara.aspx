@@ -169,23 +169,24 @@
                 switch (b_pop) {
                 	case 'sss':
                         ret = getb_ret();
-	                        if(ret[0]!=undefined){
-	                        	$('#textSssno').val('');
-	                        	for (var i = 0; i < ret.length; i++) {
-	                        		if($('#textSssno').val().length>0){
-		                            	var temp=$('#textSssno').val();
-		                            	$('#textSssno').val(temp+'.'+ret[i].noa);
-		                            }else{
-		                            	$('#textSssno').val(ret[i].noa);
-		                            } 
-	                        	}
+						if(ret[0]!=undefined){
+	                       	$('#textSssno').val('');
+	                       	for (var i = 0; i < ret.length; i++) {
+	                       		if($('#textSssno').val().length>0){
+		                           	var temp=$('#textSssno').val();
+		                           	$('#textSssno').val(temp+'.'+ret[i].noa);
+								}else{
+		                           	$('#textSssno').val(ret[i].noa);
+								} 
 							}
-					break;
+						}
+						break;
                 	case 'ticket':
                 		if (q_cur > 0 && q_cur < 4) {
 	                        b_ret = getb_ret();
-	                        if (!b_ret || b_ret.length == 0)
-	                            return;
+	                        if (!b_ret || b_ret.length == 0){
+	                            break;
+							}
 	                            
 	                        if (b_seq < 0 || b_seq >= q_bbsCount){
 	                        	$('#txtOutmoney_' + b_seq).val(b_ret[0].phr);

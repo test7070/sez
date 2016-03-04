@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -26,6 +26,7 @@
 			var bbsMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
+			brwCount2 = 14;
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'Datea';
@@ -45,7 +46,6 @@
 				bbsKey = ['noa', 'noq'];
 				q_brwCount();
 				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
-
 			});
 
 			function main() {
@@ -67,6 +67,10 @@
 
 				var t_where = "where=^^ 1=1  ^^";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
+				
+				$('#cmbStype').change(function() {
+					HiddenTreat();
+				});
 
 				$('#btnBoaj').click(function() {
 					var t_noa = $('#txtNoa').val();
@@ -89,7 +93,7 @@
 				});
 
 				$('#btnPack').click(function() {
-					var t_noa = $('#txtInvo').val();
+					var t_noa = $('#txtNoa').val();
 					var t_where = '';
 					if (t_noa.length > 0){
 						t_where = "noa='" + t_noa + "'";
@@ -99,7 +103,7 @@
 
 				$('#btnOrdeimport').click(function() {
 					var ordeno = $('#txtOrdeno').val();
-					var t_where = " 1=1 and noa in (select noa from view_orde where stype='"+$('#cmbStype').val()+"')";
+					var t_where = " 1=1 and noa in (select noa from view_orde where stype='"+$('#cmbStype').val()+"') and isnull(enda,0)=0 and isnull(cancel,0)=0 ";
 					if (ordeno.length > 0)
 						t_where += " and noa='" + ordeno + "'";
 					t_where += q_sqlPara2('custno', $('#txtCustno').val());
@@ -119,14 +123,6 @@
 						focus_addr = $(this).attr('id');
 						var t_where = "where=^^ noa='" + t_custno + "' ^^";
 						q_gt('cust', t_where, 0, 0, 0, "");
-					}
-				});
-
-				$('#txtOrdeno').change(function() {
-					var t_ordeno = trim($('#txtOrdeno').val());
-					if (!emp(t_ordeno)) {
-						var t_where = "where=^^ noa='" + t_ordeno + "' ^^";
-						q_gt('ordei', t_where, 0, 0, 0, "", r_accy);
 					}
 				});
 
@@ -153,7 +149,7 @@
 							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtProductno,txtProduct,txtUnit,txtSpec,txtMount', b_ret.length, b_ret, 'noa,no2,productno,product,unit,spec,mount', 'txtProductno');
 							if (b_ret[0].noa != undefined) {
 								var t_where = "noa='" + b_ret[0].noa + "'";
-								q_gt('orde', t_where, 0, 0, 0, "", r_accy);
+								q_gt('view_orde', t_where, 0, 0, 0, "", r_accy);
 							}
 						}
 						break;
@@ -205,16 +201,35 @@
 						$('#txtPmemo').val(t_pmemo);
 						$('#txtConn').val(t_conn);
 						break;
-					case 'orde':
-						var orde = _q_appendData("orde", "", true);
-						if (orde[0] != undefined)
+					case 'view_orde':
+						var orde = _q_appendData("view_orde", "", true);
+						if (orde[0] != undefined){
+							$('#txtOrdeno').val(orde[0].noa);
+							$('#txtCno').val(orde[0].cno);
+							$('#txtAcomp').val(orde[0].acomp);
 							$('#txtCustno').val(orde[0].custno);
-						$('#txtComp').val(orde[0].comp);
-						$('#txtTel').val(orde[0].tel);
-						$('#txtFax').val(orde[0].fax);
-						$('#txtTrantype').val(orde[0].trantype);
-						$('#txtAddr_post').val(orde[0].addr2);
-						$('#txtOrdeno').val(orde[0].noa);
+							$('#txtComp').val(orde[0].comp);
+							$('#txtTel').val(orde[0].tel);
+							$('#txtFax').val(orde[0].fax);
+							$('#txtTrantype').val(orde[0].trantype);
+							$('#txtPaytype').val(orde[0].paytype);
+							if(orde[0].addr2!=''){
+								$('#txtZip_post').val(orde[0].post2);
+								$('#txtAddr_post').val(orde[0].addr2);
+							}else{
+								$('#txtZip_post').val(orde[0].post);
+								$('#txtAddr_post').val(orde[0].addr);
+							}
+							$('#txtSalesno').val(orde[0].salesno);
+							$('#txtSales').val(orde[0].sales);
+							$('#txtMemo').val(orde[0].memo);
+							
+							var t_ordeno = trim(orde[0].noa);
+							if (!emp(t_ordeno)) {
+								var t_where = "where=^^ noa='" + t_ordeno + "' ^^";
+								q_gt('ordei', t_where, 0, 0, 0, "", r_accy);
+							}
+						}
 						break;
 					case 'cust':
 						var as = _q_appendData("cust", "", true);
@@ -359,10 +374,10 @@
 			}
 			
 			function ChangeCuft(){
-				if(emp($('#txtInvo').val())){
-					$('#textCuft').val(0);
+				if(emp($('#txtNoa').val())){
+					$('#textCuft').val('');
 				}else{
-					var t_where = "where=^^ noa='" + $('#txtInvo').val()+ "' ^^";
+					var t_where = "where=^^ noa='" + $('#txtNoa').val()+ "' ^^";
 					q_gt('packing', t_where, 0, 0, 0, "");
 				}
 			}
@@ -381,6 +396,11 @@
 					return (hasSpec.toString()=='1');
 				}else if(returnType=='rack'){
 					return (hasRackComp.toString()=='1');
+				}
+				if($('#cmbStype').val()=='3'){
+					$('.isexport').show();
+				}else{
+					$('.isexport').hide();
 				}
 			}
 
@@ -455,13 +475,6 @@
 
 			function q_popPost(s1) {
 				switch (s1) {
-					case 'txtOrdeno':
-						var t_ordeno = trim($('#txtOrdeno').val());
-						if (!emp(t_ordeno)) {
-							var t_where = "where=^^ noa='" + t_ordeno + "' ^^";
-							q_gt('ordei', t_where, 0, 0, 0, "", r_accy);
-						}
-						break;
 					case 'txtCustno':
 						if (!emp($('#txtCustno').val())) {
 							var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
@@ -666,24 +679,24 @@
 						<td class="td4" style="width: 105px;"> </td>
 						<td class="td6" style="width: 105px;"> </td>
 					</tr>
-					<tr class="tr1">
+					<tr>
 						<td class="td1"><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td class="td2"><input id="txtDatea"  type="text" class="txt c1"/></td>
 						<td class="td4"><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td class="td5" colspan="2"><input id="txtNoa"  type="text" class="txt c1"/></td>
-						<td class="td3"><span> </span><a id="lblOrdeno" class="lbl"> </a></td>
-						<td class="td4"><input id="txtOrdeno"  type="text" class="txt c1"/></td>
+						<td class="td3"><span> </span><a id="lblStype" class="lbl"> </a></td>
+						<td class="td4"><select id="cmbStype" class="txt c1"> </select></td>
 						<td class="td6"><input id="btnOrdeimport" type="button"/></td>
 					</tr>
-					<tr class="tr2">
+					<tr>
 						<td class="td1"><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtCno"  type="text" class="txt c1"/></td>
 						<td class="td3" colspan="3"><input id="txtAcomp"  type="text" class="txt c7"/></td>
-						<td class="td3"><span> </span><a id="lblStype" class="lbl"> </a></td>
-						<td class="td4"><select id="cmbStype" class="txt c1"> </select></td>
-						<td class="td6"><input id="btnBoaj" type="button"/></td>
+						<td class="td3"><span> </span><a id="lblOrdeno" class="lbl"> </a></td>
+						<td class="td4"><input id="txtOrdeno"  type="text" class="txt c1"/></td>
+						<td class="td6"><input id="btnBoaj" type="button" class="isexport"/></td>
 					</tr>
-					<tr class="tr2">
+					<tr>
 						<td class="td1"><span> </span><a id="lblCustno" class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtCustno"  type="text" class="txt c1"/></td>
 						<td class="td3" colspan="3"><input id="txtComp"  type="text" class="txt c7"/></td>
@@ -691,14 +704,13 @@
 						<td class="td5"><input id="txtPaytype" type="text" class="txt c1"/></td>
 						<td class="td6"><select id="combPaytype" class="txt c1" onchange='combPaytype_chg();'> </select></td>
 					</tr>
-					<tr class="tr3">
+					<tr>
 						<td class="td1"><span> </span><a id="lblTel" class="lbl"> </a></td>
 						<td class="td2" colspan="4"><input id="txtTel"  type="text" class="txt c7"/></td>
 						<td class="td1"><span> </span><a id="lblFax" class="lbl"> </a></td>
 						<td class="td2" colspan="2"><input id="txtFax"  type="text" class="txt c7"/></td>
 					</tr>
-
-					<tr class="tr4">
+					<tr>
 						<td class="td1"><span> </span><a id="lblAddr_post" class="lbl"> </a></td>
 						<td class="td2" colspan="4">
 							<input id="txtZip_post"  type="text" class="txt c7" style="width: 25%;"/>
@@ -708,20 +720,20 @@
 						<td class="td3"><span> </span><a id="lblTrantype" class="lbl"> </a></td>
 						<td class="td4" colspan="2"><select id="cmbTrantype" class="txt c1"> </select></td>
 					</tr>
-					<tr class="tr5">
+					<tr>
 						<td class="td1"><span> </span><a id="lblDeivery_addr" class="lbl"> </a></td>
 						<td class="td2" colspan="4"><input id="txtDeivery_addr"  type="text" class="txt c7"/></td>
 						<td class="td6"><span> </span><a id="lblConn" class="lbl"> </a></td>
 						<td class="td7" colspan="2"><input id="txtConn"  type="text" class="txt c1"/></td>
 					</tr>
-					<tr class="tr6">
+					<tr>
 						<td class="td1"><span> </span><a id="lblCardeal" class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtCardealno"  type="text" class="txt c1"/></td>
 						<td class="td3" colspan="3"><input id="txtCardeal"  type="text" class="txt c1"/></td>
 						<td class="td6"><span> </span><a id="lblCarno" class="lbl"> </a></td>
 						<td class="td7" colspan="2"><input id="txtCarno"  type="text" class="txt c1"/></td>
 					</tr>
-					<tr class="tr6">
+					<tr class="isexport">
 						<td class="td1"><span> </span><a id="lblInvo" class="lbl btn"> </a></td>
 						<td class="td2" colspan="2"><input id="txtInvo"  type="text" class="txt c1"/></td>
 						<!--<td class="td6"><input id="btnInvo" type="button"/></td>-->
@@ -730,7 +742,7 @@
 						<td class="td1"><span> </span><a id="lblLcno" class="lbl"> </a></td>
 						<td class="td2" colspan="2"><input id="txtLcno"  type="text" class="txt c1"/></td>
 					</tr>
-					<tr class="tr6">
+					<tr>
 						<td class="td1"><span> </span><a id="lblSales" class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtSalesno"  type="text" class="txt c1"/></td>
 						<td class="td3"><input id="txtSales"  type="text" class="txt c1"/></td>
@@ -739,22 +751,22 @@
 						<td class="td8"><span> </span><a id="lblTotal" class="lbl"> </a></td>
 						<td class="td9" colspan="2"><input id="txtTotal"  type="text" class="txt c1 num"/></td>
 					</tr>
-					<tr class="tr7">
+					<tr class="isexport">
 						<td class="td1"><span> </span><a id="lblImemo" class="lbl"> </a></td>
 						<td class="td2" colspan="8"><textarea id="txtImemo" cols="5" rows="10" style="width: 99%;height: 50px;"> </textarea></td>
 					</tr>
-					<tr class="tr7">
+					<tr class="isexport">
 						<td class="td1"><span> </span><a id="lblPmemo" class="lbl"> </a></td>
 						<td class="td2" colspan="8"><textarea id="txtPmemo" cols="5" rows="10" style="width: 99%;height: 50px;"> </textarea></td>
 					</tr>
-					<tr class="tr7">
+					<tr>
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td class="td2" colspan="8"><textarea id="txtMemo" cols="5" rows="10" style="width: 99%;height: 50px;"> </textarea></td>
 					</tr>
-					<tr class="tr7">
-						<td class="td1"><span> </span><a id="lblCuft" class="lbl"> </a></td>
-						<td class="td2"><input id="textCuft"  type="text" class="txt c1 num "/></td>
-						<td class="td6"><input id="btnPack" type="button"/> </td>
+					<tr>
+						<td class="isexport"><span> </span><a id="lblCuft" class="lbl"> </a></td>
+						<td class="isexport"><input id="textCuft"  type="text" class="txt c1 num "/></td>
+						<td class="isexport"><input id="btnPack" type="button"/> </td>
 						<td class="td5"><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td class="td6"><input id="txtWorker" type="text" class="txt c1" /></td>
 						<td class="td7"><span> </span><a id='lblWorker2' class="lbl"> </a></td>

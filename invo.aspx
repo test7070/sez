@@ -66,7 +66,7 @@
                  });*/
 
                 if (q_getPara('sys.project').toUpperCase() == 'GU') {
-					$('#btnPack').hide();
+					//$('#btnPack').hide();
 					$('.isgenvcc').hide();
                 }
                 
@@ -252,7 +252,7 @@
                 t_day = t_date.getUTCDate();
                 t_day = t_day > 9 ? t_day + '' : '0' + t_day;
                 $('#txtDatea').val(t_year + '/' + t_month + '/' + t_day);
-                $('#btnPack').attr('disabled', 'disabled');
+                //$('#btnPack').attr('disabled', 'disabled');
                 $('#txtNoa').focus();
             }
 
@@ -365,7 +365,7 @@
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
                 _btnOk(key_value, bbmKey[0], '', '', 2);
                 $('#btnInvo').removeAttr('disabled');
-                $('#btnPack').removeAttr('disabled');
+                //$('#btnPack').removeAttr('disabled');
             }
 
             function refresh(recno) {
@@ -438,7 +438,7 @@
             function btnCancel() {
                 _btnCancel();
                 $('#btnInvo').removeAttr('disabled');
-                $('#btnPack').removeAttr('disabled');
+                //$('#btnPack').removeAttr('disabled');
             }
 
             function sum() {
@@ -662,7 +662,7 @@
 						<td><input id="txtTotal" type="text" class="txt c1 num" /></td>
 						<td><span> </span><a id="lblAmount" class="lbl"> </a></td>
 						<td><input id="txtAmount" type="text" class="txt c1 num" /></td>
-						<td><input id="btnPack" type="button"/></td>
+						<td><!--<input id="btnPack" type="button"/>--></td>
 						<td class="isgenvcc"><span style="float: left;"> </span>
 							<input id="chkIsgenvcc" type="checkbox" style="float: left;"/>
 							<a id='lblIsgenvcc' class="lbl" style="float: left;"> </a>
