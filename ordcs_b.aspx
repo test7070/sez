@@ -191,6 +191,7 @@
 					<td align="center" style="width:250px;"><a id='lblProduct'> </a> <a id='lblSpec' class="isSpec"> </a></td>
 					<td align="center" style="width:80px;"><a id='lblUnit'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblMount'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblWeight'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblPrice'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblNoa'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblMemo'> </a></td>
@@ -205,6 +206,7 @@
 					</td>
 					<td><input class="txt" id="txtUnit.*" type="text" style="width:95%;"/></td>
 					<td><input class="txt" id="txtMount.*" type="text" style="width:95%; text-align:right;"/></td>
+					<td><input class="txt" id="txtWeight.*" type="text" style="width:95%; text-align:right;"/></td>
 					<td><input class="txt" id="txtPrice.*" type="text" style="width:95%; text-align:right;"/></td>
 					<td>
 						<input class="txt" id="txtNoa.*" type="text" style="width:75%;float:left;"/>
