@@ -97,6 +97,13 @@
                     	q_gt('view_vcc', t_where, 0, 0, 0, "getvcc", r_accy);
                 	}
 				});
+				
+				$('#txtOrdeno').change(function() {
+                	if (!emp($('#txtOrdeno').val())) {
+                		t_where = "where=^^ noa='" + $('#txtOrdeno').val() + "'^^";
+                    	q_gt('view_orde', t_where, 0, 0, 0, "getorde", r_accy);
+                	}
+				});
             }
 
             function q_boxClose(s2) {///   q_boxClose 2/4
@@ -177,7 +184,7 @@
                         		$('#txtPer').val('express');	
                         	
                         	$('#txtCno').val(as[0].cno);
-                        	$('#txtPno').val(as[0].ordeno);	
+                        	$('#txtPno').val(as[0].custorde);	
                         	$('#cmbCoin').val(as[0].coin);
                         	$('#txtFloata').val(as[0].floata);
                         	
@@ -202,7 +209,39 @@
 					case 'getorde':
 						var as = _q_appendData("view_orde", "", true);
                         if (as[0] != undefined) {
-							$('#txtContract').val(as[0].contract);
+                        	if(q_getPara('sys.project').toUpperCase() != 'GU' ){
+								$('#txtCustno').val(as[0].custno);
+	                        	$('#txtComp').val(as[0].comp);
+	                        	if(as[0].addr2.length>0)
+	                        		$('#txtAddr').val(as[0].addr2);
+	                        	else
+	                        		$('#txtAddr').val(as[0].addr);
+	                        		
+	                        	$('#txtShipped').val(as[0].acomp);
+	                        		
+	                        	if(as[0].trantype=='海運')
+	                        		$('#txtPer').val('sea freight');	
+	                        	if(as[0].trantype=='空運')
+	                        		$('#txtPer').val('air freight');
+	                        	if(as[0].trantype=='快遞')
+	                        		$('#txtPer').val('express');	
+	                        	
+	                        	$('#txtCno').val(as[0].cno);
+	                        	$('#txtPno').val(as[0].custorde);	
+	                        	$('#cmbCoin').val(as[0].coin);
+	                        	$('#txtFloata').val(as[0].floata);
+	                        	
+	                        	t_where = "where=^^ noa='" + $('#txtOrdeno').val() + "'^^";
+	                    		q_gt('view_vcce', t_where, 0, 0, 0, "view_vcce", r_accy,1);
+	                    		var vcce = _q_appendData("view_vcce", "", true);
+                        		if (vcce[0] != undefined) {
+                        			t_where = "where=^^ noa='" + vcce[0].noa + "'^^";
+	                    			q_gt('boaj', t_where, 0, 0, 0, "getboaj", r_accy);
+                        		}
+                        	}
+                        	
+                        	$('#txtContract').val(as[0].contract);
+                        	
 							t_where = "where=^^ noa='" + as[0].noa + "'^^";
 	                    	q_gt('view_ordes', t_where, 0, 0, 0, "getordes", r_accy);	
 							
@@ -573,14 +612,14 @@
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk' class="lbl"> </a></td>
 						<td align="center" style="width:25%"><a id='vewNoa' class="lbl"> </a></td>
-						<td align="center" style="width:40%"><a id='vewVccno' class="lbl"> </a></td>
+						<td align="center" style="width:40%"><a id='vewOrdeno' class="lbl"> </a></td>
 					</tr>
 					<tr>
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
 						<td align="center" id='noa'>~noa</td>
-						<td align="center" id='vccno'>~vccno</td>
+						<td align="center" id='ordeno'>~ordeno</td>
 					</tr>
 				</table>
 			</div>
@@ -599,8 +638,8 @@
 						<td><input id="txtNoa"  type="text"  class="txt c1"/></td>
 						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td><input id="txtDatea" type="text" class="txt c1" /></td>
-						<td><span> </span><a id="lblVccno" class="lbl"> </a></td>
-						<td><input id="txtVccno" type="text" class="txt c1" /></td>
+						<td><span> </span><a id="lblOrdeno" class="lbl"> </a></td>
+						<td><input id="txtOrdeno" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td ><span> </span><a id='lblCustno' class="lbl btn"> </a></td>
@@ -662,15 +701,17 @@
 						<td><input id="txtTotal" type="text" class="txt c1 num" /></td>
 						<td><span> </span><a id="lblAmount" class="lbl"> </a></td>
 						<td><input id="txtAmount" type="text" class="txt c1 num" /></td>
+						<td><span> </span><a id="lblVccno" class="lbl"> </a></td>
+						<td><input id="txtVccno" type="text" class="txt c1" /></td>
+					</tr>
+					<tr class="tr9">
+						<td><span> </span><a id='lblTitle' class="lbl"> </a></td>
+						<td colspan="3"><input id="txtTitle" type="text" class="txt c1" /></td>
 						<td><!--<input id="btnPack" type="button"/>--></td>
 						<td class="isgenvcc"><span style="float: left;"> </span>
 							<input id="chkIsgenvcc" type="checkbox" style="float: left;"/>
 							<a id='lblIsgenvcc' class="lbl" style="float: left;"> </a>
 						</td>
-					</tr>
-					<tr class="tr9">
-						<td><span> </span><a id='lblTitle' class="lbl"> </a></td>
-						<td colspan="5"><input id="txtTitle" type="text" class="txt c1" /></td>
 					</tr>
 					<tr class="tr10">
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>

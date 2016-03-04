@@ -298,7 +298,10 @@
 							q_gt('ordc', t_where, 0, 0, 0, "", r_accy);
 
 							$('#txtOrdcno').val(b_ret[0].noa);
-							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtSpec,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtPrice,txtTotal,txtMemo', b_ret.length, b_ret, 'uno,productno,spec,product,unit,mount,noa,no2,price,total,memo', 'txtProductno,txtProduct');
+							if(q_getPara('sys.project').toUpperCase()=='XY')
+								ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtSpec,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtPrice,txtTotal,txtMemo,txtCustno,txtComp', b_ret.length, b_ret, 'uno,productno,spec,product,unit,mount,noa,no2,price,total,memo,custno,comp', 'txtProductno,txtProduct');
+							else
+								ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtSpec,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtPrice,txtTotal,txtMemo', b_ret.length, b_ret, 'uno,productno,spec,product,unit,mount,noa,no2,price,total,memo', 'txtProductno,txtProduct');
 							bbsAssign();
 							sum();
 						}
@@ -567,11 +570,8 @@
 				var t_tggno = trim($('#txtTggno').val());
 				var t_ordeno = trim($('#txtOrdeno').val());
 				var t_where = " kind!='2' &&";
-				if (t_tggno.length > 0) {
-					if (t_ordeno.length > 0)
-						t_where = "isnull(b.enda,0)=0 && isnull(cancel,'0')='0' && isnull(view_ordcs.enda,0)=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "") + "&& " + (t_ordeno.length > 0 ? q_sqlPara("noa", t_ordeno) : "");
-					else
-						t_where = "isnull(b.enda,0)=0 && isnull(cancel,'0')='0' && isnull(view_ordcs.enda,0)=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "");
+				if (t_tggno.length > 0 || q_getPara('sys.project').toUpperCase()=='XY' ){
+					t_where = "isnull(b.enda,0)=0 && isnull(b.cancel,'0')='0' && isnull(view_ordcs.enda,0)=0 " + q_sqlPara2("tggno", t_tggno) +  q_sqlPara2("noa", t_ordeno);
 					t_where = t_where;
 				} else {
 					var t_err = q_chkEmpField([['txtTggno', q_getMsg('lblTgg')]]);

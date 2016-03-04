@@ -118,7 +118,11 @@
 						type : '8',
 						name : 'lowsafe',//[26]
 						value : '1@低於安全存量'.split(',')
-					}]
+					},{/* [27]*/
+                        type : '0',
+                        name : 'isspec',
+                        value : q_getPara('sys.isspec')
+                    }]
 				});
 				q_popAssign();
 				q_getFormat();
