@@ -1396,7 +1396,6 @@
 						<td><span> </span><a id="lblUno" class="lbl btn"> </a></td>
 						<td colspan="3">
 							<input id="txtUno" type="text" class="txt c1"/>
-							<input id="txtUno2" type="text" style="display:none;"/>
 						</td>
 						<td><span> </span><a id="lblProduct" class="lbl"> </a></td>
 						<td>
@@ -1474,6 +1473,12 @@
 						<td><span> </span><a id="lblWorker2" class="lbl" > </a></td>
 						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
 					</tr>
+					<tr>
+						<td><span> </span><a id="lblUno2" class="lbl btn">原批號</a></td>
+						<td colspan="3">
+							<input id="txtUno2" type="text" class="txt c1"/>
+						</td>
+					</tr>
 				</table>
 			</div>
 		</div>
@@ -1508,7 +1513,7 @@
 					<td style="width:50px;" align="center" class="pe_hide pk_hide"><a id='lblSpecial'> </a></td>
 					<td style="width:50px;" align="center"><a id='lblCname'> </a></td>
 					<td style="width:60px;" align="center" class="pe_hide"><a id='lblSources'>鋼廠 </a></td>
-					<td style="width:150px;" align="center"><a id='lblUno2'>原批號</a></td>
+					<td style="width:150px;" align="center"><a id='lblUno2s'>原批號</a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td style="width:1%;">
