@@ -92,7 +92,11 @@
 						type : '0',//[18]
 						name : 'xproject',
 						value : q_getPara('sys.project').toUpperCase()
-					}]
+					},{
+                        type : '5', //[19]
+                        name : 'xorder',
+                        value : ('odate@訂單日,cust@客戶,orde@訂單').split(',')
+                    }]
                 });
                 q_popAssign();
                 q_getFormat();
