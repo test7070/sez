@@ -23,13 +23,13 @@
             brwCount2 = 20;
             brwList = [];
             brwNowPage = 0;
-            brwKey = 'noa,kind';
+            brwKey = 'noa,noq';
             q_copy=1;
             aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
             //ajaxPath = ""; //  execute in Root
 
             $(document).ready(function() {
-                bbmKey = ['noa','kind'];
+                bbmKey = ['noa','noq'];
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1);
                 q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
@@ -76,6 +76,7 @@
 				$('#cmbTypea').change(function(e) {
                 	$('#cmbKind').val('');
                 	field_change();
+                	refreshBbm();
                 });
                  
 				$('#cmbKind').change(function(e) {
@@ -487,6 +488,7 @@
                 	$('#chkIstwo').prop('checked',false);
                 	$('.self').hide();
                 	$('#chkIsself').prop('checked',false);
+                	$('.carrier').show();
                 	
                 	if('22,25,26,27'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!='' && (q_cur==1 || q_cur==2)){ //彙加張數
                 		$('#txtMount').removeAttr('disabled').css('background','white');
@@ -517,7 +519,7 @@
                 	/*$('#txtMount').val('').hide();
                 	$('#txtDutymemo').val('').hide();
                 	$('#txtBook').val('').hide();*/
-                	
+                	$('.carrier').hide();
                 	$('.self').show();
                 	
                 	if('32,34'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!=''){
@@ -746,6 +748,7 @@
 						<td><input id="txtSerial"  type="text" class="txt c1" /></td>
 						<td colspan="4"> 
 							<span style="float: left;"> </span><span style="float: left;"> </span>
+							<a id='lblIscarrier' class="lbl carrier" style="float: left;"> </a><span style="float: left;" class="carrier"> </span><input id="chkIscarrier" type="checkbox" style="float: left;" class="carrier"/>
 							<a id='lblIstwo' class="lbl two" style="float: left;"> </a><span style="float: left;" class="two"> </span><input id="chkIstwo" type="checkbox" style="float: left;" class="two"/>
 							<a id='lblIsasset' class="lbl asset" style="float: left;"> </a><span style="float: left;" class="asset"> </span><input id="chkIsasset" type="checkbox" style="float: left;" class="asset"/>
 							<a id='lblIsself' class="lbl self" style="float: left;"> </a><span style="float: left;" class="self"> </span><input id="chkIsself" type="checkbox" style="float: left;" class="self"/>

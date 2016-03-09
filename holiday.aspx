@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title></title>
+        <title> </title>
         <script src="../script/jquery.min.js" type="text/javascript"></script>
         <script src='../script/qj2.js' type="text/javascript"></script>
         <script src='qset.js' type="text/javascript"></script>
@@ -139,7 +139,10 @@
             function refreshBbm() {
                 if (q_cur == 1) {
                     $('#txtNoa').css('color', 'black').css('background', 'white').removeAttr('readonly');
+                    $('#txtNoa').datepicker();
                 } else {
+                	$('#txtNoa').datepicker('destroy');
+                	$('#txtNoa').removeClass('hasDatepicker');
                     $('#txtNoa').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
                 }
             }
@@ -206,7 +209,7 @@
             }
             .dview {
                 float: left;
-                width: 400px;
+                width: 320px;
                 border-width: 0px;
             }
             .tview {
@@ -336,29 +339,23 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr style="height:1px;">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td class="tdZ"></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td>
-						<input id="txtNoa"  type="text" class="txt c1" />
-						</td>
+						<td><input id="txtNoa"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td colspan="3">
-						<input id="txtMemo"  type="text" class="txt c1" />
-						</td>
+						<td colspan="3"><input id="txtMemo"  type="text" class="txt c1" /></td>
 					</tr>
 					<!--<tr>
                         <td><span> </span><a id='lblIsholiday' class="lbl"> </a></td>
-                        <td>
-                        <input type="checkbox" id="chkIshokiday"/>
-                        </td>
+                        <td><input type="checkbox" id="chkIshokiday"/></td>
 					</tr>-->
 					<tr>
                         <td><span> </span><a id='lblIswork' class="lbl"> </a></td>
@@ -366,9 +363,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
-						<td colspan="3">
-						<input id="txtWorker" type="text" class="txt c1" />
-						</td>
+						<td colspan="3"><input id="txtWorker" type="text" class="txt c1" /></td>
 					</tr>
 				</table>
 			</div>

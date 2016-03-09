@@ -56,7 +56,7 @@
 		            $('#textTypea_'+j).css('background', t_background2);
 		            
 		            if (q_getPara('sys.project').toUpperCase()=='XY'){
-		            	if(!($('#txtPaytype_'+j).val().indexOf('收現')==0 || $('#txtPaytype_'+j).val().indexOf('貨到現金')==0)){
+		            	if(!($('#txtPaytype_'+j).val().indexOf('收現')>-1 || $('#txtPaytype_'+j).val().indexOf('貨到現金')>-1)){
 		            		$('#txtTotal_'+j).val(0);
 		            	}
 		            	xy_cust+=(xy_cust.length>0?",":"")+"'"+$('#txtCustno_'+j).val()+"'";

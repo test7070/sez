@@ -21,10 +21,10 @@
 			q_desc = 1;
 			q_tables = 's';
 			var q_name = "orde";
-			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtSales', 'txtOrdbno', 'txtOrdcno','txtUmmno'];
-			var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtC1', 'txtNotv'];
-			var bbmNum = [['txtTotal', 10, 0, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1],['txtFloata', 10, 5, 1], ['txtTotalus', 15, 2, 1], ['txtDeposit', 15, 0, 1]];
-			var bbsNum = [];
+			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtSales', 'txtOrdbno', 'txtOrdcno','txtUmmno','textCuft'];
+			var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtC1', 'txtNotv','txtPackwayno','txtPackway'];
+			var bbmNum = [['txtTotal', 10, 0, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1],['txtFloata', 10, 5, 1], ['txtTotalus', 15, 2, 1], ['txtDeposit', 15, 0, 1],['textCuft', 15, 2, 1]];
+			var bbsNum = [['txtCuft', 15, 2, 1]];
 			var bbmMask = [];
 			var bbsMask = [];
 			q_sqlCount = 6;
@@ -86,6 +86,15 @@
 				q_tr('txtTotal', q_add(t1, dec($('#txtTax').val())));
 				q_tr('txtTotalus', q_mul(q_float('txtMoney'), q_float('txtFloata')));
 				calTax();
+				cufttotal();
+			}
+			
+			function cufttotal() {
+				var t_cuft=0;
+				for (var j = 0; j < q_bbsCount; j++) {
+					t_cuft=q_add(t_cuft,dec($('#txtCuft_'+j).val()));	
+				}
+				$('#textCuft').val(t_cuft);
 			}
 
 			function mainPost() {
@@ -307,12 +316,81 @@
 							q_gt('quar', t_where, 0, 0, 0, "", r_accy);
 
 							var i, j = 0;
-							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtUnit,txtPrice,txtMount,txtQuatno,txtNo3'
-							, b_ret.length, b_ret, 'xproductno,product,spec,unit,price,mount,noa,no3', 'txtProductno,txtProduct,txtSpec');
+							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtUnit,txtPrice,txtMount,txtQuatno,txtNo3,txtPackwayno,txtPackway'
+							, b_ret.length, b_ret, 'xproductno,product,spec,unit,price,mount,noa,no3,packwayno,packway', 'txtProductno,txtProduct,txtSpec');
 							/// 最後 aEmpField 不可以有【數字欄位】
+							
+							//處理cuft
+							for(var i=0;i<q_bbsCount;i++){
+								if(!emp($('#txtProductno_'+i).val()) && !emp($('#txtPackwayno_'+i).val()) && dec($('#txtCuft_'+i).val())==0){
+									var t_where="where=^^ noa='"+$('#txtProductno_'+i).val()+"' and packway='"+$('#txtPackwayno_'+i).val()+"' ^^";
+		                			q_gt('pack2s', t_where, 0, 0, 0, "", r_accy,1);
+		                			var as = _q_appendData("pack2s", "", true);
+			                    	if (as[0] != undefined) {
+			                    		var t_gweight=0; //毛重
+			                    		var t_nweight=0; //淨重
+										var t_mount=dec($('#txtMount_'+i).val());
+										var t_uweight=dec(as[0].uweight);
+										var t_inmount=dec(as[0].inmount);
+										var t_outmount=dec(as[0].outmount);
+										var t_inweight=dec(as[0].inweight);
+										var t_outweight=dec(as[0].outweight);
+										var t_cuft=dec(as[0].cuft);
+										t_nweight=q_mul(t_mount,t_uweight);
+										var t_pfmount=q_mul(t_inmount,t_outmount)==0?0:Math.floor(q_div(t_mount,q_mul(t_inmount,t_outmount))); //一整箱
+										var t_pcmount=q_mul(t_inmount,t_outmount)==0?0:Math.ceil(q_div(t_mount,q_mul(t_inmount,t_outmount))); //總箱數
+										var t_emount=q_sub(t_mount,q_mul(t_pfmount,q_mul(t_inmount,t_outmount))); //散裝數量
+										t_gweight=q_add(q_add(q_mul(q_mul(t_inmount,t_outmount),t_uweight),t_outweight),q_mul(t_inweight,t_outmount));//一箱毛重
+										t_gweight=q_mul(t_pfmount,t_gweight); //整箱毛重
+										if(t_emount>0){ //散裝(淨重+外包裝重+內包裝重)
+											var tt_weight=q_mul(t_emount,t_uweight);
+											tt_weight=q_add(tt_weight,t_outweight);
+											tt_weight=q_add(tt_weight,q_mul(Math.ceil((t_inmount==0?1:q_div(t_emount,t_inmount))),t_inweight));
+											t_gweight=q_add(t_gweight,tt_weight);
+										}
+										//$('#txtWeight_'+i).val(t_nweight);
+										//$('#txtGweight_'+i).val(t_gweight);
+										$('#txtCuft_'+i).val(q_mul(t_cuft,t_pcmount));
+		                			}
+	                			}
+							}
+							
 							sum();
 							bbsAssign();
 						}
+						break;
+					case 'pack2':
+						if(!emp($('#txtProductno_'+b_seq).val()) && !emp($('#txtPackwayno_'+b_seq).val())){
+							var t_where="where=^^ noa='"+$('#txtProductno_'+b_seq).val()+"' and packway='"+$('#txtPackwayno_'+b_seq).val()+"' ^^";
+		                	q_gt('pack2s', t_where, 0, 0, 0, "", r_accy,1);
+		                	var as = _q_appendData("pack2s", "", true);
+							if (as[0] != undefined) {
+								var t_gweight=0; //毛重
+								var t_nweight=0; //淨重
+								var t_mount=dec($('#txtMount_'+b_seq).val());
+								var t_uweight=dec(as[0].uweight);
+								var t_inmount=dec(as[0].inmount);
+								var t_outmount=dec(as[0].outmount);
+								var t_inweight=dec(as[0].inweight);
+								var t_outweight=dec(as[0].outweight);
+								var t_cuft=dec(as[0].cuft);
+								t_nweight=q_mul(t_mount,t_uweight);
+								var t_pfmount=q_mul(t_inmount,t_outmount)==0?0:Math.floor(q_div(t_mount,q_mul(t_inmount,t_outmount))); //一整箱
+								var t_pcmount=q_mul(t_inmount,t_outmount)==0?0:Math.ceil(q_div(t_mount,q_mul(t_inmount,t_outmount))); //總箱數
+								var t_emount=q_sub(t_mount,q_mul(t_pfmount,q_mul(t_inmount,t_outmount))); //散裝數量
+								t_gweight=q_add(q_add(q_mul(q_mul(t_inmount,t_outmount),t_uweight),t_outweight),q_mul(t_inweight,t_outmount));//一箱毛重
+								t_gweight=q_mul(t_pfmount,t_gweight); //整箱毛重
+								if(t_emount>0){ //散裝(淨重+外包裝重+內包裝重)
+									var tt_weight=q_mul(t_emount,t_uweight);
+									tt_weight=q_add(tt_weight,t_outweight);
+									tt_weight=q_add(tt_weight,q_mul(Math.ceil((t_inmount==0?1:q_div(t_emount,t_inmount))),t_inweight));
+									t_gweight=q_add(t_gweight,tt_weight);
+								}
+								//$('#txtWeight_'+b_seq).val(t_nweight);
+								//$('#txtGweight_'+b_seq).val(t_gweight);
+								$('#txtCuft_'+b_seq).val(q_mul(t_cuft,t_pcmount));
+		                	}
+	                	}
 						break;
 					case q_name + '_s':
 						q_boxClose2(s2);
@@ -749,6 +827,15 @@
 							t_where = "title='本期訂單' and bdate='"+q_cdn(q_date(),-61)+"' and edate='"+q_cdn(q_date(),+61)+"' and noa='"+$('#txtProductno_' + b_seq).val()+"' and product='"+$('#txtProduct_' + b_seq).val()+"' ";
 							q_box("z_workgorde.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'scheduled', "95%", "95%", q_getMsg('PopScheduled'));
 						});
+						
+						$('#btnPackway_'+j).click(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							
+							t_where = "noa='" + $('#txtProductno_'+b_seq).val() + "'";
+							q_box("pack2_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pack2', "95%", "95%", '包裝方式');
+						});
 					}
 				}
 				_bbsAssign();
@@ -911,6 +998,7 @@
 				});
 				$('#div_addr2').hide();
 				HiddenTreat();
+				cufttotal();
 			}
 
 			function readonly(t_para, empty) {
@@ -930,6 +1018,7 @@
 				$('#div_addr2').hide();
 				readonly_addr2();
 				HiddenTreat();
+				cufttotal();
 				
 				$('#cmbStype').attr('disabled', 'disabled');
 			}
@@ -1244,6 +1333,8 @@
 						<td colspan='4'><input id="txtAddr" type="text" class="txt c1"/></td>
 						<!--<td><span> </span><a id='lblOrdbno' class="lbl"> </a></td>
 						<td><input id="txtOrdbno" type="text" class="txt c1"/></td>-->
+						<td> </td>
+						<td><input id="btnImg" type="button" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAddr2' class="lbl"> </a></td>
@@ -1290,8 +1381,8 @@
 						<td colspan='2'><input id="txtTotalus" type="text" class="txt num c1"/></td>
 						<!--<td><span> </span><a id="lblApv" class="lbl"> </a></td>
 						<td><input id="txtApv" type="text" class="txt c1" disabled="disabled"/></td>-->
-						<td> </td>
-						<td><input id="btnImg" type="button" /></td>
+						<td><span> </span><a id='lblCuft' class="lbl"> </a></td>
+						<td><input id="textCuft" type="text" class="txt num c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAcc1' class="lbl"> </a></td>
@@ -1325,7 +1416,7 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1600px;">
+		<div class='dbbs' style="width: 1785px;">
 			<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1'>
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:45px;">
@@ -1338,6 +1429,8 @@
 					<td align="center" style="width:85px;"><a id='lblMount'> </a></td>
 					<td align="center" style="width:85px;"><a id='lblPrices'> </a></td>
 					<td align="center" style="width:115px;"><a id='lblTotal_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblPackway_s'> </a></td>
+					<td align="center" style="width:85px;"><a id='lblCuft_s'> </a></td>
 					<td align="center" style="width:150px;display: none;" class="isimg"><a id='lblImg_s'> </a></td>
 					<td align="center" style="width:85px;"><a id='lblGemounts'> </a></td>
 					<td align="center" style="width:175px;"><a id='lblMemos'> </a></td>
@@ -1366,6 +1459,12 @@
 					<td><input class="txt num c7" id="txtMount.*" type="text" /></td>
 					<td><input class="txt num c7" id="txtPrice.*" type="text" /></td>
 					<td><input class="txt num c7" id="txtTotal.*" type="text" /></td>
+					<td>
+						<input id="txtPackwayno.*" type="text" class="txt c1" style="width: 60%;"/>
+						<input class="btn" id="btnPackway.*" type="button" value='.' style=" font-weight: bold;"/>
+						<input id="txtPackway.*" type="text" class="txt c1"/>
+					</td>
+					<td><input class="txt num c7" id="txtCuft.*" type="text" /></td>
 					<td class="isimg" style="display: none;"><img id="images.*" style="width: 150px;"></td>
 					<td>
 						<input class="txt num c1" id="txtC1.*" type="text" />

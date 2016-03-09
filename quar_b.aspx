@@ -9,7 +9,7 @@
 	<script src='../script/mask.js' type="text/javascript"></script>
 	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript">
-		var q_name = 'quars', t_bbsTag = 'tbbs', t_content = " field=xproductno,productno,product,spec,unit,mount,notv,noa,no3,price  order=odate ", afilter = [], bbsKey = ['noa', 'no3'], t_count = 0, as;
+		var q_name = 'quars', t_bbsTag = 'tbbs', t_content = " field=xproductno,productno,product,spec,unit,mount,notv,noa,no3,price,packwayno,packway  order=odate ", afilter = [], bbsKey = ['noa', 'no3'], t_count = 0, as;
 		var t_sqlname = 'quars';
 		t_postname = q_name;
 		brwCount = -1;
