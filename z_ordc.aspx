@@ -70,6 +70,14 @@
                         type : '5', 
                         name : 'end',
                         value : [q_getPara('report.all')].concat(new Array('1@Y', '0@N'))
+                    },{/* [16]*/
+                        type : '0',
+                        name : 'xproject',
+                        value : q_getPara('sys.project').toUpperCase()
+                    },{/* [17]*/
+                        type : '0',
+                        name : 'isspec',
+                        value : q_getPara('sys.isspec')
                     }]
                 });
                 q_popAssign();

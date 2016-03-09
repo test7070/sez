@@ -447,6 +447,9 @@
             
             function field_change() {
             	var x_kind=$('#cmbKind').val();
+            	if(x_kind=='')
+            		x_kind=abbm[q_recno].kind;
+            		
             	$('#cmbKind').text('');
             	var kind=q_getPara('vcct.kind').split(',');
                 var t_kind='@';

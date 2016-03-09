@@ -24,9 +24,9 @@
 			var q_readonly = ['txtMoney', 'txtTotal', 'txtChkno', 'txtTax', 'txtAccno', 'txtWorker', 'txtTrdno', 'txtVccno'];
 			var q_readonlys = [];
 			var q_readonlyt = ['txtVccaccy','txtVccno','txtVccnoq'];
-			var bbmNum = [['txtMoney', 15, 0], ['txtTax', 15, 0], ['txtTotal', 15, 0]];
-			var bbsNum = [['txtMount', 15, 3], ['txtGmount', 15, 4], ['txtEmount', 15, 4], ['txtPrice', 15, 3], ['txtTotal', 15, 0]];
-			var bbtNum = [['txtMoney', 15, 0, 1]];
+			var bbmNum = [['txtMoney', 15, 0,1], ['txtTax', 15, 0,1], ['txtTotal', 15, 0,1]];
+			var bbsNum = [['txtMount', 15, 3,1], ['txtGmount', 15, 4,1], ['txtEmount', 15, 4,1], ['txtPrice', 15, 3,1], ['txtTotal', 15, 0,1]];
+			var bbtNum = [['txtMount', 15, 0, 1],['txtWeight', 15, 2, 1],['txtPrice', 15, 2, 1],['txtMoney', 15, 0, 1]];
 			var bbmMask = [];
 			var bbsMask = [];
 			var bbtMask = [];
@@ -406,9 +406,28 @@
 	                    		q_box(t_tablea+".aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $(this).val() + "';" + t_accy, t_tablea, "95%", "95%", q_getMsg("pop"+t_tablea));
 	                    	}
 	                    });
+	                    
+	                    $('#btnMinut__' + i).click(function() {
+							setTimeout(bbtsum,10);
+						});
+						
+						$('#txtMount__'+i).focusout(function() {
+							if(q_cur==1 || q_cur==2)
+								bbtsum();
+						});
+						
+						$('#txtWeight__'+i).focusout(function() {
+							if(q_cur==1 || q_cur==2)
+								bbtsum();
+						});
+						$('#txtMoney__'+i).focusout(function() {
+							if(q_cur==1 || q_cur==2)
+								bbtsum();
+						});
                     }
                 }
                 _bbtAssign();
+                bbtsum();
             }
 
 			function btnIns() {
@@ -688,6 +707,39 @@
 
 			function btnCancel() {
 				_btnCancel();
+			}
+			
+			function bbtsum() {
+            	var tot_mount=0,tot_weight=0,tot_money=0;
+                for (var i = 0; i < q_bbtCount; i++) {
+	                tot_mount=q_add(tot_mount,dec($('#txtMount__'+i).val()));
+	                tot_weight=q_add(tot_weight,dec($('#txtWeight__'+i).val()));
+	                tot_money=q_add(tot_money,dec($('#txtMoney__'+i).val()));
+				}
+				if(tot_mount!=0)
+					$('#lblTot_mount').text(FormatNumber(tot_mount));
+				else
+					$('#lblTot_mount').text('');
+				if(tot_weight!=0)
+					$('#lblTot_weight').text(FormatNumber(tot_weight));
+				else
+					$('#lblTot_weight').text('');
+				if(tot_money!=0)
+					$('#lblTot_money').text(FormatNumber(tot_money));
+				else
+					$('#lblTot_money').text('');
+            }
+            
+            function FormatNumber(n) {
+				var xx = "";
+				if (n < 0) {
+					n = Math.abs(n);
+					xx = "-";
+				}
+				n += "";
+				var arr = n.split(".");
+				var re = /(\d{1,3})(?=(\d{3})+$)/g;
+				return xx + arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
 			}
 
 			function checkId(str) {
@@ -1028,10 +1080,10 @@
 						<td style="width:20px;"> </td>
 						<td style="width:120px; text-align: center;">出貨單號</td>
 						<td style="width:200px; text-align: center;">品名</td>
-						<td style="width:100px; text-align: center;">數量</td>
-						<td style="width:100px; text-align: center;">重量</td>
+						<td style="width:100px; text-align: center;">數量<BR><a id='lblTot_mount'> </a></td>
+						<td style="width:100px; text-align: center;">重量<BR><a id='lblTot_weight'> </a></td>
 						<td style="width:100px; text-align: center;">單價</td>
-						<td style="width:100px; text-align: center;">金額</td>
+						<td style="width:100px; text-align: center;">金額<BR><a id='lblTot_money'> </a></td>
 					</tr>
 					<tr>
 						<td>

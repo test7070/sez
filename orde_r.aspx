@@ -21,7 +21,7 @@
 			q_desc = 1;
 			q_tables = 's';
 			var q_name = "orde";
-			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtSales', 'txtOrdbno', 'txtOrdcno'];
+			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtSales', 'txtOrdbno', 'txtOrdcno','txtUmmno'];
 			var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtC1', 'txtNotv'];
 			var bbmNum = [['txtTotal', 10, 0, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1],['txtFloata', 10, 5, 1], ['txtTotalus', 15, 2, 1], ['txtDeposit', 15, 0, 1]];
 			var bbsNum = [];
@@ -145,6 +145,7 @@
 						q_box("z_credit.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";custno='" + $('#txtCustno').val() + "';" + r_accy + ";" + q_cur, 'ordei', "95%", "95%", q_getMsg('btnCredit'));
 					}
 				});
+				
 				$('#btnImg').click(function() {
 					if($('.isimg').is(':hidden')){
 						$('.isimg').show();
@@ -155,6 +156,12 @@
 						imgshowhide();
 						$('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-150)+"px");
 					}
+				});
+				
+				$('#txtUmmno').bind('contextmenu',function(e) {
+						e.preventDefault();
+						if(!emp($('#txtUmmno').val()))
+							q_box("umm.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtUmmno').val() + "';" + r_accy + ";" + q_cur, 'umm', "95%", "95%", q_getMsg('popUmm'));
 				});
 				////-----------------以下為addr2控制事件---------------
 				$('#btnAddr2').mousedown(function(e) {
@@ -798,6 +805,70 @@
 
 				_btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
 			}
+			
+			function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                    
+				if(!emp($('#txtUmmno').val()) || !emp($('#txtAcc1').val()) || dec($('#txtDeposit').val())!=0 ){
+					if(!emp($('#txtUmmno').val())){
+						q_func('umm_post.post.modi', r_accy + ',' + $('#txtUmmno').val() + ',0');
+					}else{
+						q_func('qtxt.query.ins', 'orde.txt,ordetoumm,'+ encodeURI(r_accy)+';' 
+						+ encodeURI($('#txtNoa').val()) + ';1;' + encodeURI(q_getPara('sys.key_umm')) + ';' 
+						+ encodeURI(q_getPara('sys.project').toUpperCase()) + ';' 
+						+ encodeURI(r_userno) + ';' + encodeURI(r_name));
+					}
+				}
+            }
+            
+            function q_funcPost(t_func, result) {
+                switch(t_func) {
+                	case 'qtxt.query.ins':
+                        var as = _q_appendData("tmp0", "", true, true);
+                        if (as[0] != undefined) {
+                            abbm[q_recno]['ummno'] = as[0].ummno;
+                            $('#txtUmmno').val(as[0].ummno);
+
+                            if (as[0].ummno.length > 0) {
+                                q_func('umm_post.post', r_accy + ',' + as[0].ummno + ',1');
+                            }
+                        }
+                        break;
+                	case 'umm_post.post.modi':
+                		q_func('qtxt.query.modi', 'orde.txt,ordetoumm,'+ encodeURI(r_accy)+';' 
+						+ encodeURI($('#txtNoa').val()) + ';0;' + encodeURI(q_getPara('sys.key_umm')) + ';' 
+						+ encodeURI(q_getPara('sys.project').toUpperCase()) + ';' 
+						+ encodeURI(r_userno) + ';' + encodeURI(r_name));
+                		break;
+                	case 'qtxt.query.modi':
+                		q_func('qtxt.query.modi2', 'orde.txt,ordetoumm,'+ encodeURI(r_accy)+';' 
+						+ encodeURI($('#txtNoa').val()) + ';1;' + encodeURI(q_getPara('sys.key_umm')) + ';' 
+						+ encodeURI(q_getPara('sys.project').toUpperCase()) + ';' 
+						+ encodeURI(r_userno) + ';' + encodeURI(r_name));
+                		break;	
+                	case 'qtxt.query.modi2':
+                		var as = _q_appendData("tmp0", "", true, true);
+                        if (as[0] != undefined) {
+                            abbm[q_recno]['ummno'] = as[0].ummno;
+                            $('#txtUmmno').val(as[0].ummno);
+
+                            if (as[0].ummno.length > 0) {
+                                q_func('umm_post.post', r_accy + ',' + as[0].ummno + ',1');
+                            }
+                        }
+                		break;
+					case 'umm_post.post.dele':
+						q_func('qtxt.query.dele', 'orde.txt,ordetoumm,'+ encodeURI(r_accy)+';' 
+						+ encodeURI($('#txtNoa').val()) + ';0;' + encodeURI(q_getPara('sys.key_umm')) + ';' 
+						+ encodeURI(q_getPara('sys.project').toUpperCase()) + ';' 
+						+ encodeURI(r_userno) + ';' + encodeURI(r_name));
+						break;
+                    case 'qtxt.query.dele':
+                        _btnOk($('#txtNoa').val(), bbmKey[0], ( bbsHtm ? bbsKey[1] : ''), '', 3);
+                        break;
+                }
+            }
 
 			function bbsSave(as) {
 				if (!as['productno'] && !as['product'] && !as['spec'] && !dec(as['total'])) {
@@ -917,7 +988,18 @@
 			}
 
 			function btnDele() {
-				_btnDele();
+				//_btnDele();
+				if (emp($('#txtNoa').val()))
+					return;
+				
+				if (!confirm(mess_dele))
+                    return;
+                q_cur = 3;
+                if ($('#txtUmmno').val().length > 0) {
+					q_func('umm_post.post.dele', r_accy + ',' + $('#txtUmmno').val() + ',0');
+				}else{
+					_btnOk($('#txtNoa').val(), bbmKey[0], ( bbsHtm ? bbsKey[1] : ''), '', 3);
+				}
 			}
 
 			function btnCancel() {
@@ -1208,6 +1290,8 @@
 						<td colspan='2'><input id="txtTotalus" type="text" class="txt num c1"/></td>
 						<!--<td><span> </span><a id="lblApv" class="lbl"> </a></td>
 						<td><input id="txtApv" type="text" class="txt c1" disabled="disabled"/></td>-->
+						<td> </td>
+						<td><input id="btnImg" type="button" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAcc1' class="lbl"> </a></td>
@@ -1215,6 +1299,14 @@
 						<td><input id="txtAcc2" type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblDeposit' class="lbl"> </a></td>
 						<td colspan='2'><input id="txtDeposit" type="text" class="txt num c1"/></td>
+						<td><span> </span><a id='lblUmmno' class="lbl"> </a></td>
+						<td colspan='2'><input id="txtUmmno" type="text" class="txt c1" /></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
+						<td colspan='2'><input id="txtWorker" type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
+						<td colspan='2'><input id="txtWorker2" type="text" class="txt c1" /></td>
 						<td colspan="2">
 							<input id="chkIsproj" type="checkbox"/>
 							<span> </span><a id='lblIsproj'> </a>
@@ -1223,13 +1315,6 @@
 							<input id="chkCancel" type="checkbox"/>
 							<span> </span><a id='lblCancel'> </a>
 						</td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
-						<td colspan='2'><input id="txtWorker" type="text" class="txt c1" /></td>
-						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
-						<td colspan='2'><input id="txtWorker2" type="text" class="txt c1" /></td>
-						<td><input id="btnImg" type="button" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class='lbl'> </a></td>
