@@ -167,6 +167,7 @@
 							}
 							bbsClear();
 							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtCust,txtStyle,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtMemo,txtProductno,txtSpec,txtOrdeno,txtNo2,txtClass,txtSize', b_ret.length, b_ret, 'custno,cust,style,radius,width,dime,lengthb,mount,memo,productno,spec,noa,no2,class,size', '');
+							//console.log('q_boxClose: ordes');
 							sum();
 						}
 						break;
