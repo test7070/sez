@@ -122,6 +122,10 @@
                         dbf : 'acc',
                         index : 'acc1,acc2',
                         src : "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno
+                    }, {/*[36]*/
+                        type : '5',
+                        name : 'xmerge',
+                        value : new Array('整合', '區分')
                     }]
                 });
                 q_popAssign();

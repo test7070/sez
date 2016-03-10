@@ -177,9 +177,15 @@
                     case 'checkVcctno_btnOk':
                         var as = _q_appendData("vcct", "", true);
                         if (as[0] != undefined) {
-                            alert('已存在 ' + as[0].noa);
-                            Unlock(1);
+                        	if($('#cmbKind').val()=='23' || $('#cmbKind').val()=='24' || $('#cmbKind').val()=='33' || $('#cmbKind').val()=='34'){
+                        		$('#txtNoq').val(('000'+(as.length+1)).slice(-3));
+                        		wrServer($('#txtNoa').val());
+                        	}else{
+	                            alert('已存在 ' + as[0].noa);
+	                            Unlock(1);
+                           }
                         } else {
+                        	$('#txtNoq').val('001');
                         	if($('#cmbTypea').val()=='2' && ($('#cmbKind').val()!='33' && $('#cmbKind').val()!='34')){
                         		var t_where = "where=^^ cno='" + $('#txtCno').val() + "' and ('" + $('#txtDatea').val() + "' between bdate and edate) " + " and exists(select noa from vccars where vccars.noa=vccar.noa and ('" + $('#txtNoa').val() + "' between binvono and einvono)) ^^";
                         		q_gt('vccar', t_where, 0, 0, 0, "", r_accy);
@@ -273,9 +279,6 @@
 					Unlock(1);
 					return;
 				}
-                
-                //1050303 避免與出貨vcct_load 有問題 稅務vcct +noq 且noq=kind
-                $('#txtNoq').val($('#cmbKind').val());
                 
                 if (q_cur == 1) {
                 	if($('#cmbKind').val()=='23' || $('#cmbKind').val()=='24' || $('#cmbKind').val()=='33' || $('#cmbKind').val()=='34'){

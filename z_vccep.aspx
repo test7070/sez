@@ -85,13 +85,15 @@
                     });
                 q_popAssign();
                 	
-                $('#txtXdate1').mask('999/99/99');
+                $('#txtXdate1').mask(r_picd);
                 $('#txtXdate1').datepicker();
-                $('#txtXdate2').mask('999/99/99');
+                $('#txtXdate1').val(q_cdn(q_date(),-60));
+                $('#txtXdate2').mask(r_picd);
                 $('#txtXdate2').datepicker();
-                $('#txtCldate1').mask('999/99/99');
+                $('#txtXdate2').val(q_date());
+                $('#txtCldate1').mask(r_picd);
                 $('#txtCldate1').datepicker();
-                $('#txtCldate2').mask('999/99/99');
+                $('#txtCldate2').mask(r_picd);
                 $('#txtCldate2').datepicker();  
                 
                 
