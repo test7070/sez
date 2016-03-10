@@ -72,6 +72,15 @@
 	                        type : '0',
 	                        name : 'xstype',
 	                        value : q_getPara('orde.stype')
+	                    },{
+	                        type : '6',
+	                        name : 'xcustorde'
+	                    },{
+	                        type : '6',
+	                        name : 'xblno'
+	                    },{
+	                        type : '6',
+	                        name : 'xcaseno'
 	                    }]
                     });
                 q_popAssign();

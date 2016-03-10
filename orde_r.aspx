@@ -234,9 +234,6 @@
 					}
 				});
 				
-				var s2=new Array(q_name+'_s',"where=^^stype='3' ^^ ");
-                q_boxClose2(s2);
-				
 			}
 			
 			//addr2控制事件vvvvvv-------------------
@@ -393,6 +390,9 @@
 	                	}
 						break;
 					case q_name + '_s':
+						if(s2[1]!=undefined){
+							s2[1]="where=^^ stype='3' and "+replaceAll(s2[1],"where=^^",'');
+						}
 						q_boxClose2(s2);
 						break;
 				}
@@ -705,7 +705,7 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
 					return;
-				q_box('orde_s.aspx', q_name + '_s', "500px", "450px", q_getMsg("popSeek"));
+				q_box('orde_r_s.aspx', q_name + '_s', "500px", "450px", q_getMsg("popSeek"));
 			}
 
 			function combPaytype_chg() {
