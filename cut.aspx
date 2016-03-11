@@ -602,7 +602,7 @@
  				var t_where = '';
  				for(var i=0;i<q_bbsCount;i++){
  					if($.trim($('#txtBno_'+i).val()).length>0)
- 						t_where += (t_where.length>0?' or ':'')+"(uno='" + replaceAll($.trim($('#txtBno_'+i).val()),"'","~#$") + "' and not(accy='" + r_accy + "' and tablea='cuts' and noa='" + $.trim($('#txtNoa').val())+"'))";
+ 						t_where += (t_where.length>0?' or ':'')+"(uno='" + replaceAll($.trim($('#txtBno_'+i).val()),"'","~#$") + "' and not( tablea='cuts' and noa='" + $.trim($('#txtNoa').val())+"'))";
  				}
  				if(t_where.length>0)
                		q_gt('view_uccb', "where=^^"+t_where+"^^", 0, 0, 0, 'btnOk_checkuno');
