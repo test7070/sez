@@ -466,6 +466,13 @@
 					case 'ordc':
 						var ordc = _q_appendData("ordc", "", true);
 						if (ordc[0] != undefined) {
+							if(q_getPara('sys.project').toUpperCase()=='XY'){
+								$('#txtTggno').val(ordc[0].tggno);
+								$('#txtTgg').val(ordc[0].tgg);
+								$('#txtTel').val(ordc[0].tel);
+								$('#txtPost').val(ordc[0].post);
+								$('#txtAddr').val(ordc[0].addr);
+							}
 							$('#combPaytype').val(ordc[0].paytype);
 							$('#txtPaytype').val(ordc[0].pay);
 							$('#cmbTrantype').val(ordc[0].trantype);
