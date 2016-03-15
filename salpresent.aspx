@@ -137,6 +137,19 @@
             			}else if(q_getPara('sys.project').toUpperCase()=='DC'){
             				as[j].clockin='08:00';
             				as[j].clockout='17:30';
+            			}if(q_getPara('sys.project').toUpperCase()=='RK'){
+            				if(as[j].class5=='01'){ //現場班
+            					as[j].clockin='08:00';
+            					as[j].clockout='17:00';
+            				}
+            				if(as[j].class5=='02'){//辦公室班
+            					as[j].clockin='08:30';
+            					as[j].clockout='17:30';
+            				}
+            				if(as[j].class5=='03'){//辦公室-台北班
+            					as[j].clockin='09:00';
+            					as[j].clockout='17:30';
+            				}
             			}else{
             				as[j].clockin='08:00';
             				as[j].clockout='17:00';
