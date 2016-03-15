@@ -80,6 +80,27 @@
 					q_cmbParse("cmbSalbtypec", c_typec);
 				});
 				
+				$('#cmbMinusitem').change(function() {
+					if (q_getPara('sys.project').toUpperCase()=='RK' && $('#cmbMinusitem :selected').text()=='便當費'){
+						$('#txtMinus').val(q_mul(dec($('#txtDay_meal').val()),60));
+					}
+				});
+				
+				$('#cmbPlusitem').change(function() {
+					if (q_getPara('sys.project').toUpperCase()=='RK' && $('#cmbPlusitem :selected').text()=='便當費'){
+						$('#txtPlus').val(q_mul(dec($('#txtDay_meal').val()),60));
+					}
+				});
+				
+				$('#txtDay_meal')$.change(function() {
+					if (q_getPara('sys.project').toUpperCase()=='RK' && $('#cmbMinusitem :selected').text()=='便當費'){
+						$('#txtMinus').val(q_mul(dec($('#txtDay_meal').val()),60));
+					}
+					if (q_getPara('sys.project').toUpperCase()=='RK' && $('#cmbPlusitem :selected').text()=='便當費'){
+						$('#txtPlus').val(q_mul(dec($('#txtDay_meal').val()),60));
+					}
+				});
+				
 				$('#lblAccno').click(function() {
 					q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0, 3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
 				});

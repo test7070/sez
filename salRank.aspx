@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
-    <title></title>
+    <title> </title>
     <script src="../script/jquery.min.js" type="text/javascript"></script>
     <script src='../script/qj2.js' type="text/javascript"></script>
         <script src='qset.js' type="text/javascript"></script>
@@ -82,6 +82,9 @@
 				$('#lblBo_full').text('全勤獎金');
 				$('#lblBo_oth').text('特別責任加給');
 			}
+			if (q_getPara('sys.project').toUpperCase()=='RK'){
+				$('.rkhide').hide();
+			}
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
@@ -137,6 +140,9 @@
             _bbsAssign();
             if (q_getPara('sys.project').toUpperCase()=='DJ'){
 		        $('#lblMoneys').text('底薪');
+			}
+			if (q_getPara('sys.project').toUpperCase()=='RK'){
+				$('.rkhide').hide();
 			}
         }
 
@@ -403,9 +409,9 @@
         <div class="dview" id="dview" style="float: left;  width:32%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
-                <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:20%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:25%"><a id='vewMoney'></a></td>
+                <td align="center" style="width:5%"><a id='vewChk'> </a></td>
+                <td align="center" style="width:20%"><a id='vewNoa'> </a></td>
+                <td align="center" style="width:25%"><a id='vewMoney'> </a></td>
                 <!--<td align="center" style="width:25%"><a id='vewLevel1'></a></td>
                 <td align="center" style="width:25%"><a id='vewLevel2'></a></td>-->
                 
@@ -423,36 +429,36 @@
         <div class='dbbm' style="width: 68%;float:left">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
         <tr>
-            <td class='td1'><span> </span><a id="lblNoa" class="lbl" ></a></td>
-            <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
-            <td class='td3'><span> </span><a id="lblBo_admin" class="lbl" ></a></td>
-            <td class="td4"><input id="txtBo_admin" type="text" class="txt num c1" /></td> 
-            <td class='td5'><span> </span><a id="lblBo_traffic" class="lbl" ></a></td>
-            <td class="td6"><input id="txtBo_traffic" type="text"class="txt num c1" /></td> 
+            <td><span> </span><a id="lblNoa" class="lbl" > </a></td>
+            <td><input id="txtNoa"  type="text" class="txt c1"/> </td>
+            <td class="rkhide"><span> </span><a id="lblBo_admin" class="lbl" > </a></td>
+            <td class="rkhide"><input id="txtBo_admin" type="text" class="txt num c1" /></td> 
+            <td class="rkhide"><span> </span><a id="lblBo_traffic" class="lbl" > </a></td>
+            <td class="rkhide"><input id="txtBo_traffic" type="text" class="txt num c1" /></td> 
         </tr>
-        <tr>            
-            <td class='td1'><span> </span><a id="lblBo_full" class="lbl"></a></td>
-            <td class="td2"><input id="txtBo_full" type="text" class="txt num c1" /></td>
-            <td class='td3'><span> </span><a id="lblBo_special" class="lbl" ></a></td>
-            <td class="td4"><input id="txtBo_special" type="text" class="txt num c1" /></td>
-            <td class='td5'><span> </span><a id="lblBo_oth" class="lbl"></a></td>
-            <td class="td6"><input id="txtBo_oth" type="text" class="txt num c1" /></td>
+        <tr class="rkhide">            
+            <td><span> </span><a id="lblBo_full" class="lbl"> </a></td>
+            <td><input id="txtBo_full" type="text" class="txt num c1" /></td>
+            <td><span> </span><a id="lblBo_special" class="lbl" > </a></td>
+            <td><input id="txtBo_special" type="text" class="txt num c1" /></td>
+            <td><span> </span><a id="lblBo_oth" class="lbl"> </a></td>
+            <td><input id="txtBo_oth" type="text" class="txt num c1" /></td>
         </tr>        
         <tr>            
-            <td class='td1'><span> </span><a id="lblMoney" class="lbl" ></a></td>
-            <td class="td2"><input id="txtMoney"  type="text" class="txt num c1" /></td>
-            <td class='td3'><span> </span><a id="lblLevel" class="lbl" ></a></td>
-            <td class="td4"><input id="txtLevel21" type="text"  class="txt" style=" width: 43%;"/>~<input id="txtLevel22" type="text"   class="txt" style=" width: 43%;"/></td>
-            <td class='td5'><span> </span><a id="lblDiff" class="lbl" ></a></td>
-            <td class="td6"><input id="txtDiff"  type="text" class="txt num c1" /></td> 
+            <td><span> </span><a id="lblMoney" class="lbl" > </a></td>
+            <td><input id="txtMoney"  type="text" class="txt num c1" /></td>
+            <td><span> </span><a id="lblLevel" class="lbl" > </a></td>
+            <td><input id="txtLevel21" type="text"  class="txt" style=" width: 43%;"/>~<input id="txtLevel22" type="text"   class="txt" style=" width: 43%;"/></td>
+            <td><span> </span><a id="lblDiff" class="lbl" > </a></td>
+            <td><input id="txtDiff"  type="text" class="txt num c1" /></td> 
         </tr>
         <tr>            
-            <td class='td1'></td>
-            <td class="td2"></td>
-            <td class='td3'></td>
-            <td class="td4"></td>
-            <td class='td5'></td>
-            <td class="td6"><input id="btnLevel" type="button"/></td> 
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td><input id="btnLevel" type="button"/></td> 
         </tr>              
         </table>
         </div>
@@ -461,8 +467,8 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <td align="center"><a id='lblLevel1s'></a></td>
-                <td align="center"><a id='lblMoneys'></a></td>
+                <td align="center"><a id='lblLevel1s'> </a></td>
+                <td align="center"><a id='lblMoneys'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>

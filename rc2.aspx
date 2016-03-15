@@ -299,9 +299,9 @@
 
 							$('#txtOrdcno').val(b_ret[0].noa);
 							if(q_getPara('sys.project').toUpperCase()=='XY')
-								ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtSpec,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtPrice,txtTotal,txtMemo,txtCustno,txtComp', b_ret.length, b_ret, 'uno,productno,spec,product,unit,mount,noa,no2,price,total,memo,custno,comp', 'txtProductno,txtProduct');
+								ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtSpec,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtPrice,txtTotal,txtMemo,txtCustno,txtComp', b_ret.length, b_ret, 'uno,productno,spec,product,unit,notv,noa,no2,price,total,memo,custno,comp', 'txtProductno,txtProduct');
 							else
-								ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtSpec,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtPrice,txtTotal,txtMemo', b_ret.length, b_ret, 'uno,productno,spec,product,unit,mount,noa,no2,price,total,memo', 'txtProductno,txtProduct');
+								ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtSpec,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtPrice,txtTotal,txtMemo', b_ret.length, b_ret, 'uno,productno,spec,product,unit,notv,noa,no2,price,total,memo', 'txtProductno,txtProduct');
 							bbsAssign();
 							sum();
 						}
@@ -466,6 +466,13 @@
 					case 'ordc':
 						var ordc = _q_appendData("ordc", "", true);
 						if (ordc[0] != undefined) {
+							if(q_getPara('sys.project').toUpperCase()=='XY'){
+								$('#txtTggno').val(ordc[0].tggno);
+								$('#txtTgg').val(ordc[0].tgg);
+								$('#txtTel').val(ordc[0].tel);
+								$('#txtPost').val(ordc[0].post);
+								$('#txtAddr').val(ordc[0].addr);
+							}
 							$('#combPaytype').val(ordc[0].paytype);
 							$('#txtPaytype').val(ordc[0].pay);
 							$('#cmbTrantype').val(ordc[0].trantype);
