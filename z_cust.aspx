@@ -43,8 +43,8 @@
                     fileName : 'z_cust',
                     options : [{//[1]
                         type : '0',
-                        name : 'accy',
-                        value : q_getId()[4]
+                        name : 'db',
+                        value : q_db
                     }, {//[2]
                         type : '0',
                         name : 'namea',

@@ -32,7 +32,14 @@
 					return;
 				main();
 			});
-			
+			function sum(){
+				var t_credit = 0;
+				for(var i=0;i<q_bbsCount;i++){
+					t_credit += q_float('txtCredit_'+i);		
+				}
+				$('#txtA1').val(t_credit);
+				$('#txtA5').val(q_float('txtA1')-q_float('txtA2')-q_float('txtA3')-q_float('txtA4'));
+			}
 			function main() {
 				if (dataErr) {
 					dataErr = false;
@@ -44,8 +51,38 @@
 				});
 				q_mask(bbmMask);
 				
-				
+				if (window.parent.q_name == 'cust') {
+                    var wParent = window.parent.document;
+                    q_func('qtxt.query.credit', 'credit.txt,fe,'+ encodeURI(wParent.getElementById("txtNoa").value) + ';non');
+                }
 			}
+			function q_funcPost(t_func, result) {
+                switch(t_func) {
+                    case 'qtxt.query.credit':
+                        var as = _q_appendData("tmp0", "", true, true);                     
+                        if(as[0]!=undefined){
+                            var credit = parseFloat(as[0].credit.length==0?"0":as[0].credit);
+                            var orde = parseFloat(as[0].orde.length==0?"0":as[0].orde);
+						 	var ordetax = parseFloat(as[0].ordetax.length==0?"0":as[0].ordetax);
+						 	var vcctotal = parseFloat(as[0].vcctotal.length==0?"0":as[0].vcctotal);
+						 	var vcca = parseFloat(as[0].vcca.length==0?"0":as[0].vcca);
+						 	var gqb = parseFloat(as[0].gqb.length==0?"0":as[0].gqb);
+						 	var umm = parseFloat(as[0].umm.length==0?"0":as[0].umm);
+						 	var total = parseFloat(as[0].total.length==0?"0":as[0].total);
+						 	
+                            var curorde = 0;
+                            var curtotal = 0;
+                          	
+                          	$('#txtA1').val(credit);
+                          	$('#txtA2').val(orde+ordetax);
+                          	$('#txtA3').val(vcctotal+vcca-umm);
+                          	$('#txtA4').val(gqb);
+                          	$('#txtA5').val(total);  
+                        }
+                        break;
+                }
+            }
+
 			function q_gtPost(t_name) {
 				switch(t_name){
 					case 'GetCredit':
@@ -78,6 +115,7 @@
 						if(q_cur==0 || q_cur==4){
 							_readonlys(true);
 						}
+						sum();
 						break;
 				}
 			}
@@ -93,6 +131,7 @@
 						t_credit = q_mul(q_div(t_refv,(t_basev==0?1:t_basev)),t_mul);
 						$('#txtCredit_'+n).val(t_credit);
 						$('#txtWorker_'+n).val(r_name);
+						sum();
 					});
 				}
 				_bbsAssign();
@@ -127,9 +166,6 @@
 			function refresh() {
 				_refresh();
 				q_gt('credit', '', 0, 0, 0, "GetCredit", r_accy);
-			}
-
-			function sum() {
 			}
 
 			function readonly(t_para, empty) {
@@ -207,7 +243,20 @@
 				</tr>
 			</table>
 		</div>
+		<div>
+			<a style="float:left;">額度 </a>
+			<input id="txtA1" type="text" style="float:left;width:120px;color:green;" readonly="readonly"/>
+			<a style="float:left;">-未出訂單  </a>
+			<input id="txtA2" type="text" style="float:left;width:120px;color:green;" readonly="readonly"/>
+			<a style="float:left;">-應收貨款 </a>
+			<input id="txtA3" type="text" style="float:left;width:120px;color:green;" readonly="readonly"/>
+			<a style="float:left;">-應收票據  </a>
+			<input id="txtA4" type="text" style="float:left;width:120px;color:green;" readonly="readonly"/>
+			<a style="float:left;">=可用額度 </a>
+			<input id="txtA5" type="text" style="float:left;width:120px;color:green;" readonly="readonly"/>
+		</div>
 		<!--#include file="../inc/pop_modi.inc"-->
+		
 		<input id="q_sys" type="hidden" />
 	</body>
 </html>

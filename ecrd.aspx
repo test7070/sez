@@ -85,6 +85,7 @@
 			function btnIns() {
 				_btnIns();
 				$('#txtNoa').val('AUTO');
+				$('#txtDatea').val(q_date());
 				$('#txtCustno').focus();
 			}
 	
