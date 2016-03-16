@@ -68,7 +68,15 @@
                     }, {
                         type : '6', //[15]
                         name : 'multucc'
-                    }, {/*[16]*/
+                    },{/* [16]*/
+                        type : '0',
+                        name : 'xproject',
+                        value : q_getPara('sys.project').toUpperCase()
+                    },{/* [17]*/
+                        type : '0',
+                        name : 'isspec',
+                        value : q_getPara('sys.isspec')
+                    }, {/*[18]*/
 						type : '6',
 						name : 'xy_custno'
 					}]
