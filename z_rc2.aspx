@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -15,6 +15,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
+			aPop = new Array(['txtXy_custno', '', 'cust', 'noa,comp', 'txtXy_custno', 'cust_b.aspx']);
 			if (location.href.indexOf('?') < 0) {
 				location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
 			}
@@ -67,7 +68,10 @@
                     }, {
                         type : '6', //[15]
                         name : 'multucc'
-                    }]
+                    }, {/*[16]*/
+						type : '6',
+						name : 'xy_custno'
+					}]
 				});
 				q_popAssign();
 				$('#txtDate1').mask('999/99/99');
