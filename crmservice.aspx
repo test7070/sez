@@ -18,7 +18,7 @@
 
             var q_name = "crmservice";
             var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
-            var bbmNum = [];
+            var bbmNum = [['txtMoney',15,0,1]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -27,14 +27,16 @@
             brwKey = 'noa';
             //brwCount2 = 15;
             
-            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', '0txtCustno,txtComp', 'cust_b.aspx']
-            ,['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx']
+            aPop = new Array(
+            	['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
+            	,['txtCustno', 'lblCust', 'cust', 'noa,comp', '0txtCustno,txtComp', 'cust_b.aspx']
+            	,['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx']
             );
        
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1)
+                q_gt(q_name, q_content, q_sqlCount, 1);
                 $('#txtNoa').focus
             });
 
@@ -45,11 +47,31 @@
                 }
                 mainForm(0);
             }
-
+			
+			var z_cno='';
+			var z_acomp='';
             function mainPost() {
-                bbmMask = [['txtDatea', r_picd],['txtTimea', '99:99'],['txtDaten', r_picd],['txtTimen', '99:99']];
+                bbmMask = [['txtDatea', r_picd],['txtTimea', '99:99'],['txtDaten', r_picd],['txtTimen', '99:99']
+                ,['txtRepdate', r_picd],['txtReptime', '99:99']];
                 q_mask(bbmMask);
-				q_cmbParse("cmbReason", ",抱怨,咨詢,溝通,售後服務");
+				q_cmbParse("cmbReason", ",抱怨,客訴賠償,咨詢,溝通,售後服務");
+				
+				q_gt('acomp', '', 0, 0, 0, "");
+				
+				$('#cmbReason').change(function() {
+					ReasonChange();
+				});
+				
+				$('#lblRepdate').click(function() {
+					if(q_cur==1 || q_cur==2){
+						$('#txtRepdate').val(q_date());
+			            			            
+			            var timeDate= new Date();
+						var tHours = timeDate.getHours();
+						var tMinutes = timeDate.getMinutes();
+			            $('#txtReptime').val(padL(tHours, '0', 2)+':'+padL(tMinutes, '0', 2));
+					}
+				});
             }
             
             function q_boxClose(s2) {
@@ -64,7 +86,13 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                	
+                	case 'acomp':
+                		var as = _q_appendData("acomp", "", true);
+                		if(as[0]!=undefined){
+                			z_cno=as[0].noa;
+							z_acomp=as[0].acomp;
+                		}
+                		break;
                 }  /// end switch
             }
 
@@ -78,6 +106,9 @@
                 _btnIns();
                 $('#txtNoa').val('AUTO');
 	            $('#txtDatea').val(q_date());
+	            $('#txtCno').val(z_cno);
+	            $('#txtAcomp').val(z_acomp);
+	            
 	            var timeDate= new Date();
 				var tHours = timeDate.getHours();
 				var tMinutes = timeDate.getMinutes();
@@ -140,6 +171,7 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                ReasonChange();
             }
 			
             function readonly(t_para, empty) {
@@ -196,6 +228,14 @@
 
             function btnCancel() {
                 _btnCancel();
+            }
+            
+            function ReasonChange() {
+            	if($('#cmbReason').val()=='客訴賠償'){
+            		$('.reparation').show();
+            	}else{
+            		$('.reparation').hide();
+            	}
             }
 		</script>
 		<style type="text/css">
@@ -351,6 +391,11 @@
 						<td><input id="txtTimea"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id='lblAcomp' class="lbl btn"> </a></td>
+						<td ><input id="txtCno" type="text" class="txt c1" /></td>
+						<td colspan="2"><input id="txtAcomp" type="text" class="txt c1" /></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id='lblCust' class="lbl btn"> </a></td>
 						<td ><input id="txtCustno" type="text" class="txt c1" /></td>
 						<td colspan="2"><input id="txtComp" type="text" class="txt c1" /></td>
@@ -358,6 +403,8 @@
 					<tr>
 						<td><span> </span><a id='lblReason' class="lbl"> </a></td>
 						<td><select id="cmbReason" class="txt c1"> </select></td>
+						<td class="reparation"><span> </span><a id='lblMoney' class="lbl"> </a></td>
+						<td class="reparation"><input id="txtMoney" type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblSss' class="lbl btn"> </a></td>
@@ -367,6 +414,12 @@
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td colspan="3"><textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblRepdate' class="lbl btn"> </a></td>
+						<td><input id="txtRepdate"  type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblReptime' class="lbl"> </a></td>
+						<td><input id="txtReptime"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo2" class="lbl"> </a></td>
