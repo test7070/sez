@@ -29,7 +29,7 @@
             
             aPop = new Array(
             	['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
-            	,['txtCustno', 'lblCust', 'cust', 'noa,comp', '0txtCustno,txtComp', 'cust_b.aspx']
+            	,['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']
             	,['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx']
             );
        
