@@ -2,7 +2,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -11,6 +11,8 @@
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
 			var q_name = "sss_s";
+			
+			aPop = [['txtNoa', '', 'sss', 'noa,namea', 'txtNoa,txtNamea', 'sss_b.aspx']];
 			
 			function z_data() {
 			}
@@ -81,6 +83,7 @@
 				t_cno = $('#cmbCno').val();
 				t_jobno = $('#cmbJobno').val();
 				t_end=$('#cmbEnd').val();
+				t_id = $('#txtId').val();
 
 				var t_where = " 1=1 " 
 				+ q_sqlPara2("noa", t_noa) 
@@ -88,6 +91,10 @@
 				+ q_sqlPara2("partno", t_partno)
 				+ q_sqlPara2("cno", t_cno)
 				+ q_sqlPara2("jobno", t_jobno); 
+				
+				if(t_id.length>0){
+					t_where +="and (isnull(id,'')='"+t_id+"' or isnull(passportno,'')='"+t_id+"') ";
+				}
 				
 				if (t_end=='Y')
 					t_where +="and isnull(outdate,'')='' ";
@@ -127,9 +134,7 @@
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:30%;"><a id='lblNoa'> </a></td>
-					<td>
-					<input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" />
-					</td>
+					<td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:30%;"><a id='lblNamea'> </a></td>
@@ -140,6 +145,10 @@
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:30%;">在職/離職</td>
 					<td>	<select id="cmbEnd" style="width:215px; font-size:medium;"> </select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:30%;">身分證</td>
+					<td><input class="txt" id="txtId" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
