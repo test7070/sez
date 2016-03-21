@@ -33,7 +33,7 @@
 		 			['txtCno','lblCno','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
 		 			['txtTranno','lblTranno','tgg','noa,comp','txtTranno,txtTrancomp','tgg_b.aspx'],
 					['txtCustno_', 'btnCustno_', 'cust', 'noa,comp', 'txtCustno_,txtComp_', 'cust_b.aspx'],
-					['txtVcceno_', '', 'vcce', 'noa,custno,comp', 'txtVcceno_,txtCustno_,txtComp_', '']
+					['txtVcceno_', '', 'vcce', 'noa,custno,comp,invo', 'txtVcceno_,txtCustno_,txtComp_,txtInvono_', '']
 			);
 			$(document).ready(function () {
 				bbmKey = ['noa'];
@@ -165,8 +165,6 @@
 		                    q_bodyId($(this).attr('id'));
 		                    b_seq = t_IdSeq;
 		                    
-		                    var t_where="where=^^ vcceno='"+$('#txtVcceno_'+b_seq).val()+"'^^";
-                			q_gt('invo', t_where, 0, 0, 0, "", r_accy);
                 			t_where="where=^^ noa='"+$('#txtVcceno_'+b_seq).val()+"'^^";
                 			q_gt('packing', t_where, 0, 0, 0, "", r_accy);
 						});
@@ -272,8 +270,6 @@
 	        function q_popPost(s1) {
 		    	switch (s1) {
 			        case 'txtVcceno_':
-		    			var t_where="where=^^ vcceno='"+$('#txtVcceno_'+b_seq).val()+"'^^";
-                		q_gt('invo', t_where, 0, 0, 0, "", r_accy);
                 		t_where="where=^^ noa='"+$('#txtVcceno_'+b_seq).val()+"'^^";
                 		q_gt('packing', t_where, 0, 0, 0, "", r_accy);
 			        break;
@@ -491,7 +487,7 @@
 				<td align="center" style="width:8%;"><a id='lblCuft_s'> </a></td>
 				<td align="center" style="width:8%;"><a id='lblMount_s'> </a></td>
 				<td align="center" ><a id='lblMemo_s'> </a></td>
-				<td align="center" style="width:9%;"><a id='lblVccno_s'> </a></td>
+				<!--<td align="center" style="width:9%;"><a id='lblVccno_s'> </a></td>-->
 			</tr>
 			<tr  style='background:#cad3ff;'>
 				<td align="center">
@@ -509,7 +505,7 @@
 				<td><input id="txtCuft.*"  type="text"  class="txt c1 num"/></td>
 				<td><input id="txtMount.*"  type="text"  class="txt c1 num"/></td>
 				<td><input id="txtMemo.*"  type="text"  class="txt c1"/></td>
-				<td><input id="txtVccno.*"  type="text"  class="txt c1"/></td>
+				<!--<td><input id="txtVccno.*"  type="text"  class="txt c1"/></td>-->
 			</tr>
 		</table>
 	</div>

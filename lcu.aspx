@@ -121,16 +121,14 @@
                 		var as = _q_appendData("lcu", "", true);
                         if (as[0] != undefined){
                         	alert(q_getMsg('lblLcno')+'已存在!!');
-                            return;
                         }
                 		break;
                 	case 'check_btnOk':
                 		var as = _q_appendData("lcu", "", true);
                         if (as[0] != undefined){
-                        	if(confirm(q_getMsg('lblLcno')+'已存在,是否要儲存!!'))
-                        		q_gtnoa(q_name, replaceAll(q_getPara('sys.key_lcu') + $('#txtDatea').val(), '/', ''));
-                        	else
-                            	return;
+                        	alert(q_getMsg('lblLcno')+'已存在!!')
+                        }else{
+                        	q_gtnoa(q_name, replaceAll(q_getPara('sys.key_lcu') + $('#txtDatea').val(), '/', ''));
                         }
                 		break;
                     case q_name:

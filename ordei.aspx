@@ -28,7 +28,7 @@
 			,['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx']
 			,['txtConsigneeno', 'lblConsignee', 'cust', 'noa,comp', 'txtConsigneeno,txtConsignee', 'cust_b.aspx']
 			,['txtNotifyno', 'lblNotify', 'cust', 'noa,comp', 'txtNotifyno,txtNotify', 'cust_b.aspx']
-			,['txtLcno', '', 'lcs', 'lcno,lcodate', 'txtLcno,txtLcdated', 'lcs.aspx']
+			,['txtLcno', '', 'lcu', 'lcno,issuedate', 'txtLcno,txtLcdated', 'lcu.aspx']
 		);
 		
         $(document).ready(function () {
