@@ -15,6 +15,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+			aPop = new Array(['txtXy_custno', '', 'cust', 'noa,comp', 'txtXy_custno', 'cust_b.aspx']);
             if(location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;101";
             }
@@ -78,7 +79,10 @@
                         type : '0',
                         name : 'isspec',
                         value : q_getPara('sys.isspec')
-                    }]
+                    }, {/* [18]*/
+						type : '6',
+						name : 'xy_custno'
+					}]
                 });
                 q_popAssign();
                 q_getFormat();

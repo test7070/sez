@@ -92,7 +92,7 @@
 					}
 				});
 				
-				$('#txtDay_meal')$.change(function() {
+				$('#txtDay_meal').change(function() {
 					if (q_getPara('sys.project').toUpperCase()=='RK' && $('#cmbMinusitem :selected').text()=='便當費'){
 						$('#txtMinus').val(q_mul(dec($('#txtDay_meal').val()),60));
 					}
