@@ -119,11 +119,12 @@
 	                            as[i]._day = as[i]._day * 8;
                             }else{
                             	if (as[i].indate.length > 0){//判斷到職日是否有輸入，若沒輸入則無特休
-	                                as[i]._year = dec($('#txtNoa').val())-dec(as[i].indate.substr(0, r_len))-1+(
-	                                +((12-dec(as[i].indate.substr((r_len+1), 2))+(dec(as[i].indate.substr((r_lenm+1), 2))>15 && q_getPara('sys.comp').indexOf('大昌')>-1 ?0:1))/12)
+	                                as[i]._year = dec($('#txtNoa').val())-dec(as[i].indate.substr(0, 3))-1+(
+	                                +((12-dec(as[i].indate.substr(4, 2))) /12)
+	                                //+(((30-(dec(as[i].indate.substr(7, 2))==31?30:dec(as[i].indate.substr(7, 2)))) /30)/12)
 	                                );
 	                                
-	                                if (as[i]._year == 0 && as[i].indate.substr(r_len+1) == '01/01') {
+	                                if (as[i]._year == 0 && as[i].indate.substr(4) == '01/01') {
 	                                	as[i]._year=dec(as[i]._year)+1
 	                                }
 	                            }else{
@@ -136,7 +137,7 @@
 									//正常
 									as[i]._day = round(as[i]._year*7*8,0);
 									//半天限制
-									//as[i]._day=Math.floor(as[i]._day/4)*4;
+									as[i]._day=Math.floor(as[i]._day/4)*4;
 								}else if (as[i]._year < 3)
 	                                as[i]._day = 7*8;
 	                            else if (as[i]._year < 5)
