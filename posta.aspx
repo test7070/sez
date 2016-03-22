@@ -186,15 +186,20 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
+                q_box('posta_s.aspx', q_name + '_s', "550px", "440px", q_getMsg("popSeek"));
             }
 
             function bbsAssign() {
-                for (var j = 0; j < q_bbsCount; j++) {
-                    $('#txtUseno_' + j).click(function() {
+                for (var i = 0; i < q_bbsCount; i++) {
+                    $('#lblNo_' + i).text(i + 1);
+                    if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+                    	
+                    }
+                    /*$('#txtUseno_' + i).click(function() {
                         t_IdSeq = -1;
                         q_bodyId($(this).attr('id'));
                         b_seq = t_IdSeq;
-                    });
+                    });*/
                 }
                 _bbsAssign();
 
@@ -544,7 +549,8 @@
 			<table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width: 1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
-					<td align="center" style="width: 10%;" class="isXY"><a id='lblSno_s'> </a></td>
+					<td style="width:20px;"> </td>
+					<td align="center" style="width: 10%;"><a id='lblSno_s'>掛號號碼</a></td>
 					<td align="center" style="width: 13%;"><a id='lblUseno_s'> </a></td>
 					<td align="center" style="width: 15%;"><a id='lblComp_s'> </a></td>
 					<td align="center" style="width: 65px;"><a id='lblZipcode_s'> </a></td>
@@ -558,7 +564,8 @@
 						<input class="btn" id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 						<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
-					<td class="isXY"><input id="txtSno.*" type="text" class="txt c1 isXY" /></td>
+					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+					<td><input id="txtSno.*" type="text" class="txt c1" /></td>
 					<td>
 						<input id="txtUseno.*" type="text" class="txt" style="width:80%;"/>
 						<input type="button" id="btnUseno.*" value="." style="width:1%;">
