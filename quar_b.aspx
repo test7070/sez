@@ -34,6 +34,7 @@
 			_bbsAssign();
 			if(q_getPara('sys.isspec')!='1')
 				$('.isSpec').hide();
+			imgshowhide();
 		}
 		function q_gtPost() { 
 	
@@ -50,6 +51,32 @@
 			
 			if(q_getPara('sys.isspec')!='1')
 				$('.isSpec').hide();
+		}
+		
+		function imgshowhide() {
+			for(var i=0;i<q_bbsCount;i++){
+				if(!emp($('#txtXproductno_'+i).val())){
+					var t_where = "where=^^ noa='" + $('#txtXproductno_'+i).val() + "' ^^";
+					q_gt('ucaucc', t_where, 0, 0, 0, "",r_accy,1);
+					var as = _q_appendData("ucaucc", "", true);
+					if (as[0] != undefined) {
+						var imagename=as[0].images.split(';');
+						if(imagename[0]!=''){
+							imagename.sort();
+							for (var j=0 ;j<imagename.length;j++){
+								if(imagename[j]!=''){
+									$('#images_'+i).attr('src', "../images/upload/"+$('#txtXproductno_'+i).val()+'_'+imagename[j]+"?"+new Date());
+									break;
+								}
+							}
+						}
+					}else{
+						$('#images_'+i).removeAttr('src');
+					}
+				}else{
+					$('#images_'+i).removeAttr('src');
+				}
+			}
 		}
 	</script>
 	<style type="text/css">
@@ -88,8 +115,9 @@
 				<td align="center"><a id='lblPrice'> </a></td>
 				<td align="center"><a id='lblNoa'> </a></td>
 				<td align="center"><a id='lblMemo'> </a></td>
+				<td align="center"><a id='lblImg'> </a></td>
 			</tr>
-			<tr  style='background:#cad3ff;'>
+			<tr style='background:#cad3ff;height: 150px;'>
 				<td style="width:1%;" align="center"><input id="chkSel.*" type="checkbox"  /></td>
 				<td style="width:15%;"><input class="txt"  id="txtXproductno.*" type="text" style="width:98%;" /></td>
 				<td style="width:20%;">
@@ -99,8 +127,12 @@
 				<td style="width:4%;"><input class="txt" id="txtUnit.*" type="text" style="width:98%;"/></td>
 				<td style="width:8%;"><input class="txt" id="txtMount.*" type="text" style="width:98%; text-align:right;"/></td>
 				<td style="width:8%;"><input class="txt" id="txtPrice.*" type="text" style="width:98%; text-align:right;"/></td>
-				<td style="width:13%;"><input class="txt" id="txtNoa.*" type="text" style="width:70%;"/><input class="txt" id="txtNo3.*" type="text" style="width:25%;" /></td>
+				<td style="width:13%;">
+					<input class="txt" id="txtNoa.*" type="text" style="width:98%;"/>
+					<input class="txt" id="txtNo3.*" type="text" style="width:98%;" />
+				</td>
 				<td><input class="txt" id="txtMemo.*" type="text" style="width:98%;"/><input id="recno.*" type="hidden" /></td>
+				<td style="width:150px;"><img id="images.*" style="width: 150px;"></td>
 			</tr>
 		</table>
 		<!--#include file="../inc/pop_ctrl.inc"--> 

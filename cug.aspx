@@ -882,7 +882,7 @@
                 sum();
                 $('#btnCug').removeAttr('disabled');
                 if(cngisbtnok){
-                	$('#btnOk').click();
+                	btnOk();
                 }
             }
             
