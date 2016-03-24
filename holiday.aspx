@@ -139,10 +139,14 @@
             function refreshBbm() {
                 if (q_cur == 1) {
                     $('#txtNoa').css('color', 'black').css('background', 'white').removeAttr('readonly');
-                    $('#txtNoa').datepicker();
+                    if(r_len==3){
+                    	$('#txtNoa').datepicker();
+                    }
                 } else {
-                	$('#txtNoa').datepicker('destroy');
-                	$('#txtNoa').removeClass('hasDatepicker');
+                	if(r_len==3){
+	                	$('#txtNoa').datepicker('destroy');
+	                	$('#txtNoa').removeClass('hasDatepicker');
+                	}
                     $('#txtNoa').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
                 }
             }
