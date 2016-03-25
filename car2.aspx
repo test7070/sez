@@ -9,6 +9,10 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             this.errorHandler = null;
             function onPageError(error) {
@@ -41,12 +45,12 @@
                 
                 //判斷舊車牌
                 if(q_content!="" && q_getId()[3].substr(0,6)=="a.noa="){
-                	t_oldnoa=replaceAll(q_getId()[3],'a.noa','a.oldnoa')
+                	t_oldnoa=replaceAll(q_getId()[3],'a.noa','a.oldnoa');
                 	t_where =" where=^^ "+q_getId()[3]+" or "+t_oldnoa+"^^ ";
                 	q_content=t_where;
                 }
                 
-                q_gt(q_name, q_content, q_sqlCount, 1)
+                q_gt(q_name, q_content, q_sqlCount, 1);
             });
             
             function main() {
@@ -592,7 +596,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('car2_s.aspx', q_name + '_s', "500px", "450px", q_getMsg("popSeek"));
+                q_box('car2_s.aspx', q_name + '_s', "500px", "500px", q_getMsg("popSeek"));
             }
 
             function btnIns() {

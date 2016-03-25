@@ -1,6 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
 		<title></title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
@@ -8,7 +7,12 @@
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
+		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
 			var q_name = "car2_s";
 			
@@ -24,6 +28,7 @@
 
 			function main() {
 				mainSeek();
+				
 				q_gf('', q_name);
 			}
 
@@ -35,7 +40,10 @@
 				q_mask(bbmMask);
 				q_gt('cardeal', '', 0, 0, 0, "");
 				q_cmbParse("cmbCartype", '@全部,'+q_getPara('car2.cartype'));
+				q_gt('carkind', '', 0, 0, 0, "");
 				
+				$('#txtBindate').datepicker();
+				$('#txtEindate').datepicker();
 				$('#txtCarno').focus();
 				/*$('#txtEindate').keydown(function(e) {
 					if(e.which==13)
@@ -52,6 +60,14 @@
                         }
                         q_cmbParse("cmbCardealno", t_cardeal);
                         break;
+                    case 'carkind':
+                        var as = _q_appendData("carkind", "", true);
+                        var t_item = "@全部";
+                        for ( i = 0; i < as.length; i++) {
+                            t_item += (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].kind;
+                        }
+                        q_cmbParse("cmbCarkindno", t_item);
+                        break;
                 }
             }
 
@@ -66,7 +82,7 @@
 				t_cartype = $('#cmbCartype').val();
 				t_cardno = $('#txtCardno').val();
 				t_engineno = $('#txtEngineno').val();
-
+				t_carkindno = $('#cmbCarkindno').val();
 				var t_where = " 1=1 " 
 				+ q_sqlPara2("indate", t_bindate, t_eindate) + q_sqlPara2("driverno", t_driverno) 
 				+ q_sqlPara2("a.cardealno", t_cardealno) 
@@ -77,6 +93,9 @@
 				
 				if(!emp(t_carno))
 					t_where+= " and (charindex('"+t_carno+"',a.noa)>0 or charindex('"+t_carno+"',oldnoa)>0 or a.noa in (select noa from carchange where charindex('"+t_carno+"',oldcarno)>0)) ";
+				
+				if(t_carkindno.length>0)
+					t_where+= " and carkindno='"+t_carkindno+"'";
 				
 				t_where = " where=^^" + t_where + " ^^ ";	
 				return t_where;
@@ -101,6 +120,10 @@
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblCardealno'></a></td>
 					<td><select class="txt" id="cmbCardealno" style="width:215px; font-size:medium;"> </select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblCarkindno'>車頭種類</a></td>
+					<td><select class="txt" id="cmbCarkindno" style="width:215px; font-size:medium;"> </select></td>
 				</tr>
 				<tr class='seek_tr'>
 					<td   style="width:35%;" ><a id='lblDatea'></a></td>
