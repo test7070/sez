@@ -22,6 +22,11 @@
             $(document).ready(function() {
                 q_getId();
                 q_gf('', 'z_vcca');
+                
+                $('#q_report').click(function(e) {
+	            	if(q_getPara('sys.project').toUpperCase()!='SB')
+	                	$('#Sbtype').hide();
+	            });
             });
             
             function q_gfPost() {
@@ -85,22 +90,26 @@
                     }, {/*6 [12]*/
                         type : '6',
                         name : 'xcno'
-                    }, {/*3 [13][14]*/
+                    }, {/*7 [13][14]*/
                         type : '2',
                         name : 'xtgg',
                         dbf : 'tgg',
                         index : 'noa,comp',
                         src : 'tgg_b.aspx'
-                    }, {
+                    }, {/*8 [15]*/
 						type : '5',
-						name : 'vccbtypea', //[15]
+						name : 'vccbtypea', 
 						value : [q_getPara('report.all')].concat(q_getPara('vccb.typea').split(','))
-					}, {/*6 [16]*/
+					}, {/*9 [16]*/
                         type : '6',
                         name : 'xbinvono'
-                    }, {/*6 [17]*/
+                    }, {/*10 [17]*/
                         type : '6',
                         name : 'xeinvono'
+                    }, {/*11 [18] proj=SB用*/
+                        type : '5',
+                        name : 'sbtype',
+                        value : ['#non@全部','1@直銷','2@代銷']
                     }]
                 });
                 
@@ -121,27 +130,10 @@
                 $('#txtXdate1').mask(r_picd);
                 $('#txtXdate2').mask(r_picd);
                 
-                var t_date, t_year, t_month, t_day;
-                t_date = new Date();
-                t_date.setDate(1);
-                t_year = t_date.getUTCFullYear() - r_1911;
-                t_year = t_year > 99 ? t_year + '' : '0' + t_year;
-                t_month = t_date.getUTCMonth() + 1;
-                t_month = t_month > 9 ? t_month + '' : '0' + t_month;
-                t_day = t_date.getUTCDate();
-                t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-                $('#txtXmon1').val(t_year + '/' + t_month);
-
-                t_date = new Date();
-                t_date.setDate(35);
-                t_date.setDate(0);
-                t_year = t_date.getUTCFullYear() - r_1911;
-                t_year = t_year > 99 ? t_year + '' : '0' + t_year;
-                t_month = t_date.getUTCMonth() + 1;
-                t_month = t_month > 9 ? t_month + '' : '0' + t_month;
-                t_day = t_date.getUTCDate();
-                t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-                $('#txtXmon2').val(t_year + '/' + t_month);
+                $('#txtXdate1').val(q_date().substr(0,r_len)+'/01/01');
+                $('#txtXdate2').val(q_date().substr(0,r_len)+'/12/31');
+                $('#txtXmon1').val(q_date().substr(0,r_lenm));
+                $('#txtXmon2').val(q_date().substr(0,r_lenm));
                 
                 $('#Xcno').css("width","300px");
                 $('#txtXcno').css("width","90px");
@@ -157,6 +149,9 @@
                  
                 $('#txtXcno').val(z_cno);
                 $('#txtXacomp').val(z_acomp);
+                
+                if(q_getPara('sys.project').toUpperCase()!='SB')
+	                $('#Sbtype').hide();
                 
                 /*$("input[type='checkbox'][value='checkAll']").click(function() {
                     if ($(this).next('span').text() == '全選') {

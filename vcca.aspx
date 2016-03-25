@@ -111,6 +111,20 @@
 				
 				if(q_getPara('sys.project').toUpperCase()=='VU')
 					$('#chkAtax').show();
+					
+				if(q_getPara('sys.project').toUpperCase()=='SB'){
+					bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm],['txtType', 'A']];
+					$('.isSB').show();
+				}
+					
+				$('#txtType').focus(function() {
+					if(q_getPara('sys.project').toUpperCase()=='SB')
+						q_msg($('#txtType'), "1直銷,2代銷");
+				}).change(function() {
+					if($('#txtType').val()!='1' && $('#txtType').val()!='2' && q_getPara('sys.project').toUpperCase()=='SB'){
+						$('#txtType').val('1');
+					}
+				});
 
 				$('#cmbTaxtype').focus(function() {
 					var len = $("#cmbTaxtype").children().length > 0 ? $("#cmbTaxtype").children().length : 1;
@@ -453,6 +467,10 @@
 					$('#txtAddress').val('');
 					$('#txtBuyerno').val('');
 					$('#txtBuyer').val('');
+				}
+				
+				if (q_getPara('sys.project').toUpperCase()=='SB'){
+					$('#txtType').val('1');
 				}
 				
 				$('#cmbTaxtype').val(1);
@@ -953,13 +971,13 @@
 			<div class="dbbm">
 				<table class="tbbm"  id="tbbm">
 					<tr style="height:1px;">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td class="tdZ"></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
@@ -973,7 +991,10 @@
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td><input id="txtNoa"  type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblMon' class="lbl"> </a></td>
+						<td>
+							<input id="txtType"  type="text" class="txt c1 isSB" style="display: none;width: 20px;" />
+							<span> </span><a id='lblMon' class="lbl"> </a>
+						</td>
 						<td><input id="txtMon"  type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblChkno' class="lbl"> </a></td>
 						<td><input id="txtChkno"  type="text" class="txt c1" /></td>
