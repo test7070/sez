@@ -217,6 +217,13 @@
                     case 'txtCno':
                         q_func('qtxt.query.checkdata', 'vcca.txt,checkdata,' +q_cur+';'+$('#txtNoa').val()+';'+$('#txtCno').val()+';'+$('#txtDatea').val());
                         break;
+                	case 'txtProductno_':
+                		var n = b_seq;
+                		t_productno = $('#txtProductno_'+n).val();
+                		t_date = $('#txtDatea').val();
+                		if(t_productno.length>0)
+                			q_func('qtxt.query.vcca_mount_'+n, 'vcca.txt,vcca_mount,'+$('#txtNoa').val()+';'+$('#txtCno').val()+';'+t_date+';'+t_productno);
+                		break;
                     default:
                         break;
                 }
@@ -274,6 +281,31 @@
                 		wrServer($('#txtNoa').val());
 						break;
 					default:
+						if(t_func.substring(0,22)=='qtxt.query.vcca_mount_'){
+							//檢查發票產品庫存(只有警告)
+							var n = t_func.replace(/qtxt\u002Equery\u002Evcca\u005Fmount\u005F([0-9]+)/,'$1');
+							var t_productno = $('#txtProductno_'+n).val();
+							var t_date = $('#txtDatea').val();
+							//var n = t_func.replace(/qtxt\u002Equery\u002Evcca\u005Fmount\u005F([0-9]+)\u005F(.+)/,'$1');
+							//var t_date = t_func.replace(/qtxt\u002Equery\u002Evcca\u005Fmount\u005F([0-9]+)\u005F(.+)\u005F(.+)/,'$2');
+							//var t_productno = t_func.replace(/qtxt\u002Equery\u002Evcca\u005Fmount\u005F([0-9]+)\u005F(.+)\u005F(.+)/,'$3');
+							var t_mount = 0;//庫存
+							
+							var as = _q_appendData("tmp0", "", true, true);
+	                		if(as[0]!=undefined){
+	                			try{
+	                				t_mount = parseFloat(as[0].mount);
+	                			}catch(e){}
+	                		}
+	                		var t_curmount = 0;//本張發票數量
+	                		for(var i=0;i<q_bbsCount;i++){
+	                			if($('#txtProductno_'+i).val()==t_productno)
+	                				t_curmount = q_add(t_curmount,q_float('txtMount_'+i));
+	                		}
+	                		if(t_curmount>t_mount){
+	                			alert('產品【'+t_productno+'】'+t_date+' 庫存：'+t_mount);
+	                		}
+						}
 						break;
 				}
 			}
@@ -387,10 +419,12 @@
 					$('#lblNo_' + j).text(j + 1);
 					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
 						$('#txtMount_' + j).change(function() {
-							t_IdSeq = -1;
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-                        	$('#txtMoney_'+b_seq).val(round(q_mul(q_float('txtMount_'+b_seq),q_float('txtPrice_'+b_seq)),0));
+							var n = $(this).attr('id').replace('txtMount_','');
+							t_productno = $('#txtProductno_'+n).val();
+	                		t_date = $('#txtDatea').val();
+	                		if(t_productno.length>0)
+	                			q_func('qtxt.query.vcca_mount_'+n, 'vcca.txt,vcca_mount,'+$('#txtNoa').val()+';'+$('#txtCno').val()+';'+t_date+';'+t_productno);
+							
 							sum();
 						});
 						$('#txtPrice_' + j).change(function() {
@@ -639,7 +673,7 @@
 
 			function refresh(recno) {
 				_refresh(recno);
-				t_count = 0
+				t_count = 0;
 				try{
 					for(var i=0;i<q_bbtCount;i++)
 						if($('#txtVccno__'+i).val().length>0)
@@ -948,6 +982,7 @@
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:120px; color:black;"><a id='vewNoa'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
+                        <td align="center" style="width:80px; color:black;"><a id='vewCust'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewBuyer'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewMoney'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTax'> </a></td>
@@ -960,6 +995,7 @@
 						</td>
 						<td id='noa' style="text-align: center;">~noa</td>
 						<td id='datea' style="text-align: center;">~datea</td>
+                        <td id='nick' style="text-align: left;">~nick</td>
 						<td id='buyer,4' style="text-align: left;">~buyer,4</td>
 						<td id='money,0,1' style="text-align: right;">~money,0,1</td>
 						<td id='tax,0,1' style="text-align: right;">~tax,0,1</td>
