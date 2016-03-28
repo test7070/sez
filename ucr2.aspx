@@ -19,7 +19,7 @@
 				alert("An error occurred:\r\n" + error.Message);
 			}
 			q_tables = 's';
-			var q_name = "ucr";
+			var q_name = "ucr2";
 			var decbbt = [];
 			var q_readonly = ['txtWorker','txtWorker2'];
 			var q_readonlys = [];
@@ -35,7 +35,7 @@
 			brwCount2 = 8;
 			q_copy=1;
 			aPop = new Array(
-				['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,spec', '0txtProductno_,txtProduct_,txtSpec_', 'ucc_b.aspx']
+				['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,spec,unit', 'txtProductno_,txtProduct_,txtSpec_,txtUnit_', 'ucc_b.aspx']
 			);
 
 			$(document).ready(function() {
@@ -62,8 +62,9 @@
 			function mainPost() {
 				q_getFormat();
 				bbmMask = [];
+				bbsNum = [['txtMount', 15, q_getPara('vcc.mountPrecision'), 1], ['txtWeight', 15, q_getPara('vcc.weightPrecision'), 1], ['txtLoss', 10, 2, 1]];
 				q_mask(bbmMask);
-				q_cmbParse("cmbTypea", q_getPara('ucr.typea'));
+				q_cmbParse("cmbTypea", q_getPara('ucr2.typea'));
 				
 				//上方插入空白行
 				$('#lblTop_row').mousedown(function(e) {
@@ -148,7 +149,7 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
 					return;
-				q_box('ucr_s.aspx', q_name + '_s', "500px", "320px", $('#btnSeek').val());
+				q_box('ucr2_s.aspx', q_name + '_s', "500px", "320px", $('#btnSeek').val());
 			}
 			
 			function bbsAssign() {
@@ -573,14 +574,18 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1000px;">
+		<div class='dbbs' style="width: 1260px;">
 			<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1' >
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:40px;"><input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" /></td>
 					<td style="width:20px;"> </td>
-					<td align="center" style="width:200px;"><a id='lblProductno_s'> </a></td>
-					<td align="center" style="width:260px;"><a id='lblProduct_s'> </a></td>
-					<td align="center" style="width:260px;"><a id='lblSpec_s'> </a></td>
+					<td align="center" style="width:180px;"><a id='lblProductno_s'> </a></td>
+					<td align="center" style="width:210px;"><a id='lblProduct_s'> </a></td>
+					<td align="center" style="width:210px;"><a id='lblSpec_s'> </a></td>
+					<td align="center" style="width:50px;"><a id='lblUnit_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblMount_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblWeight_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblLoss_s'> </a></td>
 					<td align="center" style="width:280px;"><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
@@ -591,7 +596,11 @@
 						<input id="txtProductno.*" type="text" class="txt c1" style="width: 85%;"/>
 					</td>
 					<td><input id="txtProduct.*" type="text" class="txt c1"/></td>
-					<td><input id="txtSpec.*" type="text" class="txt c1" /></td>
+					<td><input id="txtSpec.*" type="text" class="txt c1"/></td>
+					<td><input id="txtUnit.*" type="text" class="txt c1" /></td>
+					<td><input id="txtMount.*" type="text" class="txt num c1" /></td>
+					<td><input id="txtWeight.*" type="text" class="txt num c1" /></td>
+					<td><input id="txtLoss.*" type="text" class="txt num c1" /></td>
 					<td>
 						<input id="txtMemo.*" type="text" class="txt c1"/>
 						<input id="txtNoq.*" type="hidden" />
