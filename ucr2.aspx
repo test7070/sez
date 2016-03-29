@@ -64,7 +64,7 @@
 				bbmMask = [];
 				bbsNum = [['txtMount', 15, q_getPara('vcc.mountPrecision'), 1], ['txtWeight', 15, q_getPara('vcc.weightPrecision'), 1], ['txtLoss', 10, 2, 1]];
 				q_mask(bbmMask);
-				q_cmbParse("cmbTypea", q_getPara('ucr2.typea'));
+				//q_cmbParse("cmbTypea", q_getPara('ucr2.typea'));
 				
 				//上方插入空白行
 				$('#lblTop_row').mousedown(function(e) {
@@ -546,8 +546,8 @@
 					<tr>
 						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td><input id="txtNoa" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblTypea" class="lbl"> </a></td>
-						<td><select id="cmbTypea" class="txt c1" style="font-size: medium;"> </select></td>
+						<!--<td><span> </span><a id="lblTypea" class="lbl"> </a></td>
+						<td><select id="cmbTypea" class="txt c1" style="font-size: medium;"> </select></td>-->
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblProduct" class="lbl"> </a></td>

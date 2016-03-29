@@ -26,7 +26,7 @@
 			function q_gfPost() {
 				q_getFormat();
 				q_langShow();
-				q_cmbParse("cmbTypea", '@全部,' + q_getPara('ucr2.typea'));
+				//q_cmbParse("cmbTypea", '@全部,' + q_getPara('ucr2.typea'));
 				$('#txtNoa').focus();
 			}
 
@@ -39,11 +39,10 @@
 			function q_seekStr() {
 				t_noa = $('#txtNoa').val();
 				t_product = $('#txtProduct').val();
-				t_typea = $('#cmbTypea').val();
+				//t_typea = $('#cmbTypea').val();
 				t_engpro = $('#txtEngpro').val();
 
-				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +
-										q_sqlPara2("typea", t_typea);
+				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) ;//q_sqlPara2("typea", t_typea)
 										
 				if (t_product.length > 0)
 					t_where += " and charindex('" + t_product + "',product)>0";
@@ -82,10 +81,10 @@
 					<td class='seek'><a id='lblEngpro'> </a></td>
 					<td><input class="txt c1" id="txtEngpro" type="text" /></td>
 				</tr>
-				<tr class='seek_tr'>
+				<!--<tr class='seek_tr'>
 					<td class='seek'><a id='lblTypea'> </a></td>
 					<td><select id="cmbTypea" class="c1" > </select></td>
-				</tr>
+				</tr>-->
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
 		</div>
