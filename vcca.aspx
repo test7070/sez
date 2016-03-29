@@ -221,7 +221,7 @@
                 		var n = b_seq;
                 		t_productno = $('#txtProductno_'+n).val();
                 		t_date = $('#txtDatea').val();
-                		if(t_productno.length>0 && q_getPara('sys.project').toUpperCase()!='VU')
+                		if(t_productno.length>0 && q_getPara('sys.project').toUpperCase()!='VU' && q_getPara('sys.project').toUpperCase()!='YC' && q_getPara('sys.project').toUpperCase()!='XY')
                 			q_func('qtxt.query.vcca_mount_'+n, 'vcca.txt,vcca_mount,'+$('#txtNoa').val()+';'+$('#txtCno').val()+';'+t_date+';'+t_productno);
                 		break;
                     default:
@@ -422,7 +422,7 @@
 							var n = $(this).attr('id').replace('txtMount_','');
 							t_productno = $('#txtProductno_'+n).val();
 	                		t_date = $('#txtDatea').val();
-	                		if(t_productno.length>0 && q_getPara('sys.project').toUpperCase()!='VU')
+	                		if(t_productno.length>0 && q_getPara('sys.project').toUpperCase()!='VU'  && q_getPara('sys.project').toUpperCase()!='YC' && q_getPara('sys.project').toUpperCase()!='XY')
 	                			q_func('qtxt.query.vcca_mount_'+n, 'vcca.txt,vcca_mount,'+$('#txtNoa').val()+';'+$('#txtCno').val()+';'+t_date+';'+t_productno);
 							
 							sum();
