@@ -24,6 +24,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
+            q_copy=1;
             //ajaxPath = ""; //  execute in Root
             aPop = new Array(
 				['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick', 'txtTggno,txtComp,txtNick', 'tgg_b.aspx'],
