@@ -59,7 +59,7 @@
 			function mainPost() {
 				q_getFormat();
 				bbmMask = [['txtDatea',r_picd]]
-            	bbmNum = [['txtMount', 15, q_getPara('rc2.mountPrecision'), 1], ['txtWeight', 15, q_getPara('rc2.weightPrecision'), 1]];
+            	bbmNum = [['txtMount', 15, q_getPara('rc2.mountPrecision'), 1]];//, ['txtWeight', 15, q_getPara('rc2.weightPrecision'), 1]
             	bbsNum = [['txtMount', 15, q_getPara('rc2.mountPrecision'), 1], ['txtWeight', 15, q_getPara('rc2.weightPrecision'), 1]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbTypea", q_getPara('ucrout3.typea'));
@@ -506,8 +506,8 @@
 						<td><input id="txtUnit" type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblMount' class="lbl"> </a></td>
 						<td><input id="txtMount" type="text" class="txt num c1" /></td>
-						<td><span> </span><a id='lblWeight' class="lbl"> </a></td>
-						<td><input id="txtWeight" type="text" class="txt num c1" /></td>
+						<!--<td><span> </span><a id='lblWeight' class="lbl"> </a></td>
+						<td><input id="txtWeight" type="text" class="txt num c1" /></td>-->
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>

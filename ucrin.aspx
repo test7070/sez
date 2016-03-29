@@ -28,7 +28,7 @@
             //ajaxPath = ""; //  execute in Root
             aPop = new Array(
 				['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick', 'txtTggno,txtComp,txtNick', 'tgg_b.aspx'],
-				['txtProductno', 'lblProductno', 'ucr', 'noa,product,unit', 'txtProductno,txtProduct,txtUnit', 'ucr_b.aspx']
+				['txtProductno', 'lblProductno', 'ucc', 'noa,product,spec,unit', 'txtProductno,txtProduct,txtSpec,txtUnit', 'ucc_b.aspx']
 			);
 
             $(document).ready(function() {
@@ -377,6 +377,12 @@
 						<td><input id="txtProductno" type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblProduct' class="lbl"> </a></td>
 						<td colspan="3"><input id="txtProduct" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td> </td>
+						<td> </td>
+						<td><span> </span><a id='lblSpec' class="lbl"> </a></td>
+						<td colspan="3"><input id="txtSpec" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblUnit' class="lbl"> </a></td>

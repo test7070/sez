@@ -11,7 +11,7 @@
 		<script type="text/javascript">
 			var q_name = "ucrin_s";
 			aPop = new Array(
-				['txtProductno', '', 'ucr', 'noa,product', 'txtProductno', "ucr_b.aspx"],
+				['txtProductno', '', 'ucc', 'noa,product', 'txtProductno', "ucc_b.aspx"],
 				['txtTggno', '', 'tgg', 'noa,comp', 'txtTggno', "tgg_b.aspx"]
 			);
 			$(document).ready(function() {
