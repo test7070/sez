@@ -19,7 +19,7 @@
 				alert("An error occurred:\r\n" + error.Message);
 			}
 			q_tables = 's';
-			var q_name = "ucrout";
+			var q_name = "ucrout3";
 			var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
 			var q_readonlys = [];
 			var bbmNum = [];
@@ -34,7 +34,7 @@
 			brwCount2 = 8;
 			q_copy=1;
 			aPop = new Array(
-				['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'],
+				['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick', 'txtTggno,txtComp,txtNick', 'tgg_b.aspx'],
 				['txtProductno', 'lblProductno', 'ucr2', 'noa,product,unit', 'txtProductno,txtProduct,txtUnit', 'ucr2_b.aspx'],
 				['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,spec,unit', 'txtProductno_,txtProduct_,txtSpec_,txtUnit_', 'ucc_b.aspx']
 			);
@@ -59,10 +59,10 @@
 			function mainPost() {
 				q_getFormat();
 				bbmMask = [['txtDatea',r_picd]]
-            	bbmNum = [['txtMount', 15, q_getPara('vcc.mountPrecision'), 1], ['txtWeight', 15, q_getPara('vcc.weightPrecision'), 1]];
-            	bbsNum = [['txtMount', 15, q_getPara('vcc.mountPrecision'), 1], ['txtWeight', 15, q_getPara('vcc.weightPrecision'), 1]];
+            	bbmNum = [['txtMount', 15, q_getPara('rc2.mountPrecision'), 1], ['txtWeight', 15, q_getPara('rc2.weightPrecision'), 1]];
+            	bbsNum = [['txtMount', 15, q_getPara('rc2.mountPrecision'), 1], ['txtWeight', 15, q_getPara('rc2.weightPrecision'), 1]];
 				q_mask(bbmMask);
-				q_cmbParse("cmbTypea", q_getPara('ucrout.typea'));
+				q_cmbParse("cmbTypea", q_getPara('ucrout3.typea'));
 				
 				$('#btnUcr2s').click(function() {
 					if((q_cur==1 || q_cur==2) && !emp($('#txtProductno').val())){
@@ -113,7 +113,7 @@
 			}
 
 			function btnOk() {
-				var t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')],['txtDatea', q_getMsg('lblDatea')], ['txtCustno', q_getMsg('lblCust')], ['txtCno', q_getMsg('lblAcomp')]]);
+				var t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')],['txtDatea', q_getMsg('lblDatea')], ['txtTggno', q_getMsg('lblTgg')], ['txtCno', q_getMsg('lblAcomp')]]);
 				if (t_err.length > 0) {
 					alert(t_err);
 					return;
@@ -128,7 +128,7 @@
 
 				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
 				if (s1.length == 0 || s1 == "AUTO")
-					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_ucrout') + $('#txtDatea').val(), '/', ''));
+					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_ucrout3') + $('#txtDatea').val(), '/', ''));
 				else
 					wrServer(s1);
 			}
@@ -136,7 +136,7 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
 					return;
-				q_box('ucrout_s.aspx', q_name + '_s', "500px", "450px", $('#btnSeek').val());
+				q_box('ucrout3_s.aspx', q_name + '_s', "500px", "350px", $('#btnSeek').val());
 			}
 			
 			function bbsAssign() {
@@ -488,23 +488,12 @@
 						<td><input id="txtNoa"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblCust' class="lbl btn"> </a></td>
-						<td><input id="txtCustno" type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblTgg' class="lbl btn"> </a></td>
+						<td><input id="txtTggno" type="text" class="txt c1" /></td>
 						<td colspan="4">
 							<input id="txtComp" type="text" class="txt c1"/>
 							<input id="txtNick" type="hidden" class="txt c1"/>
 						</td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblVccno' class="lbl"> </a></td>
-						<td>
-							<input id="txtVccno"  type="text" class="txt c1" style="width: 70%;"/>
-							<input id="txtVccnoq"  type="text" class="txt c1" style="width: 28%;"/>
-						</td>
-						<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
-						<td><input id="txtWorkno"  type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblEntryno' class="lbl"> </a></td>
-						<td><input id="txtEntryno"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblProductno' class="lbl btn"> </a></td>
@@ -546,7 +535,6 @@
 					<td align="center" style="width:100px;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblWeight_s'> </a></td>
 					<td align="center" style="width:280px;"><a id='lblMemo_s'> </a></td>
-					<td align="center" style="width:150px;"><a id='lblCaseno_s'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td align="center"><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
@@ -564,7 +552,6 @@
 						<input id="txtMemo.*" type="text" class="txt c1"/>
 						<input id="txtNoq.*" type="hidden" />
 					</td>
-					<td><input id="txtCaseno.*" type="text" class="txt c1" /></td>
 				</tr>
 			</table>
 		</div>
