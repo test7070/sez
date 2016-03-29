@@ -525,6 +525,20 @@
 		            Unlock(1);
 		            return false;
 		        }
+		        
+		        //智勝判斷
+		        if(q_getPara('sys.project').toUpperCase()=='VU'){
+		        	var vu_err='';
+		        	for (var i = 0; i < q_bbsCount; i++) {
+		        		if(($('#txtAcc1_'+i).val().substr(0,4)=='2131' || $('#txtPayc_'+i).val()=='支票') && emp($('#txtBankno_'+i).val())){
+		        			vu_err=vu_err+$('#txtAcc1_'+i).val()+' '+$('#txtAcc2_'+i).val()+' '+q_getMsg('lblBankno')+'空白!!\n';
+		        		}
+		        	}
+		        	if(vu_err.length>0){
+		        		alert(vu_err);
+		        		return;
+		        	}
+		        }
 
 		        var t_money = 0, t_chgs = 0, t_paysale,t_mon='';
 		        for (var i = 0; i < q_bbsCount; i++) {

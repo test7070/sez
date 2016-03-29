@@ -136,7 +136,7 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
 					return;
-				q_box('ucrout_s.aspx', q_name + '_s', "500px", "320px", $('#btnSeek').val());
+				q_box('ucrout_s.aspx', q_name + '_s', "500px", "450px", $('#btnSeek').val());
 			}
 			
 			function bbsAssign() {

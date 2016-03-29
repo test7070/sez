@@ -9,10 +9,10 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			var q_name = "ucrin_s";
+			var q_name = "ucrout_s";
 			aPop = new Array(
-				['txtProductno', '', 'ucr', 'noa,product', 'txtProductno', "ucr_b.aspx"],
-				['txtTggno', '', 'tgg', 'noa,comp', 'txtTggno', "tgg_b.aspx"]
+				['txtProductno', '', 'ucr2', 'noa,product', 'txtProductno', "ucr2_b.aspx"],
+				['txtCustno', '', 'cust', 'noa,comp', 'txtCustno', "cust_b.aspx"]
 			);
 			$(document).ready(function() {
 				main();
@@ -29,7 +29,7 @@
 				q_langShow();
 				bbmMask = [['txtBdate', r_picd],['txtEdate', r_picd]];
 				q_mask(bbmMask);
-				q_cmbParse("cmbTypea", '@全部,' + q_getPara('ucrin.typea'));
+				q_cmbParse("cmbTypea", '@全部,' + q_getPara('ucrout.typea'));
 				$('#txtNoa').focus();
 			}
 
@@ -46,19 +46,19 @@
 				t_bdate = $('#txtBdate').val();
 				t_edate = $('#txtEdate').val();
 				
-				t_tggno = $('#txtTggno').val();
-				t_rc2no = $('#txtRc2no').val();
+				t_custno = $('#txtCustno').val();
+				t_vccno = $('#txtVccno').val();
 				t_entryno = $('#txtEntryno').val();
-				t_caseno = $('#txtCaseno').val();
+				t_workno = $('#txtWorkno').val();
 
 				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)
 												  + q_sqlPara2("datea", t_bdate,t_edate) 
 												  + q_sqlPara2("productno", t_productno) 
-												  + q_sqlPara2("typea", t_typea)
-												  + q_sqlPara2("tggno", t_tggno)
-												  + q_sqlPara2("rc2no", t_rc2no)
+												  + q_sqlPara2("typea", t_typea) 
+												  + q_sqlPara2("custno", t_custno)
+												  + q_sqlPara2("vccno", t_vccno)
 												  + q_sqlPara2("entryno", t_entryno)
-												  + q_sqlPara2("caseno", t_caseno)
+												  + q_sqlPara2("workno", t_workno)
 												  ;
 										
 				
@@ -99,20 +99,20 @@
 					<td><select id="cmbTypea" class="c1" > </select></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'><a id='lblTgg'> </a></td>
-					<td><input class="txt c1" id="txtTggno" type="text" /></td>
+					<td class='seek'><a id='lblCust'> </a></td>
+					<td><input class="txt c1" id="txtCustno" type="text" /></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'><a id='lblRc2no'> </a></td>
-					<td><input class="txt c1" id="txtRc2no" type="text" /></td>
+					<td class='seek'><a id='lblVccno'> </a></td>
+					<td><input class="txt c1" id="txtVccno" type="text" /></td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'><a id='lblEntryno'> </a></td>
 					<td><input class="txt c1" id="txtEntryno" type="text" /></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'><a id='lblCaseno'> </a></td>
-					<td><input class="txt c1" id="txtCaseno" type="text" /></td>
+					<td class='seek'><a id='lblWorkno'> </a></td>
+					<td><input class="txt c1" id="txtWorkno" type="text" /></td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'><a id='lblProductno'> </a></td>
