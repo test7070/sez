@@ -525,6 +525,19 @@
 		            Unlock(1);
 		            return false;
 		        }
+		        
+		        //1050329 只要是應付票據 和付款條件是支票 都要打銀行帳號
+		        var t_err='';
+		        for (var i = 0; i < q_bbsCount; i++) {
+		        	if(($('#txtAcc2_'+i).val().substr(0,4)=='應付票據' || $('#txtPayc_'+i).val()=='支票') && emp($('#txtBankno_'+i).val())){
+		        		t_err=t_err+$('#txtAcc1_'+i).val()+' '+$('#txtAcc2_'+i).val()+' '+q_getMsg('lblBankno')+'空白!!\n';
+		        	}
+		        }
+		        if(t_err.length>0){
+		        	alert(t_err);
+		        	Unlock(1);
+		        	return;
+		        }
 
 		        var t_money = 0, t_chgs = 0, t_paysale,t_mon='';
 		        for (var i = 0; i < q_bbsCount; i++) {
