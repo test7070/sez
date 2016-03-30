@@ -32,7 +32,10 @@
 						dbf : 'cust',
 						index : 'noa,comp',
 						src : 'cust_b.aspx'
-                    }]
+                    },{
+						type : '6', //[5]
+						name : 'xname'
+					}]
 				});
 				
                 q_popAssign();
