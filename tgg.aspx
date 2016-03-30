@@ -340,8 +340,9 @@
 					return;
 				}
 				
-				if($('#txtNick').val() == ''){
-					$('#txtNick').val($('#txtComp').val().substr(0,2))
+				if($('#txtNick').val().length == 0){
+					alert('請輸入'+q_getMsg("lblNick"));
+					return;
 				}	
 					
 				$('#txtKdate').val(q_date());

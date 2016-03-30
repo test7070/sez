@@ -204,11 +204,11 @@
                         alert('查詢日數不得大於３６６天。');
                         return;
                     }*/
-                   	//2016/03/15  改為不需檢查日期,但強制輸入科目
-                   	if($.trim($('#txtXacc1a').val()).length==0 && $.trim($('#txtXacc2a').val()).length==0){
+                   	
+                   	/*if($.trim($('#txtXacc1a').val()).length==0 && $.trim($('#txtXacc2a').val()).length==0){
                    		alert('請輸入會計科目。');
                         return;
-                   	}
+                   	}*/
                     $('#btnOk').click();
                 });
 				
