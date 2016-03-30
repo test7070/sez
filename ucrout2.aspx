@@ -198,6 +198,7 @@
 		<style type="text/css">
             #dmain {
                 overflow: hidden;
+                width: 1260px;
             }
             .dview {
                 float: left;
