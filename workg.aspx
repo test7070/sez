@@ -17,7 +17,7 @@
 			this.errorHandler = null;
 			q_tables = 't';
 			var q_name = "workg";
-			var q_readonly = ['txtNoa','txtFact', 'txtDatea', 'txtWorker', 'txtWorker2', 'txtOrdbno','txtWadate'];
+			var q_readonly = ['txtNoa','txtFact', 'txtDatea', 'txtWorker', 'txtWorker2', 'txtOrdbno'];//105/03/30 開放 'txtWadate' 
 			var q_readonlys = ['txtWorkno','txtWorkhno', 'txtIndate', 'txtInmount', 'txtWmount', 'txtOrdeno','txtNoq','txtUindate'];
 			var q_readonlyt = [];
 			var bbmNum = [];
@@ -26,7 +26,7 @@
 				['txtIntmount', 15, 0, 1], ['txtPurmount', 15, 0, 1], ['txtAvailmount', 15, 0, 1],
 				['txtBornmount', 15, 0, 1], ['txtSalemount', 15, 0, 1], ['txtMount', 15, 0, 1],
 				['txtInmount', 15, 0, 1], ['txtWmount', 15, 0, 1], ['txtSaleforecast', 15, 0, 1],
-				['txtForecastprepare', 15, 0, 1], ['txtUnprepare', 15, 0, 1], ['txtPrepare', 15, 0, 1]
+				['txtForecastprepare', 15, 0, 1], ['txtUnprepare', 15, 0, 1], ['txtPrepare', 15, 0, 1], ['txtDayborn', 15, 0, 1]
 			];
 			var bbtNum = [];
 			var bbmMask = [];
@@ -692,7 +692,7 @@
 						$('.orde').attr('disabled', 'disabled');
 						$('.odm').val('');
 					}
-					$('.dbbs').css('width','3200px');
+					$('.dbbs').css('width','3300px');
 					$('#lblMount_s').css('color','white');
 				}else{
 					$('.sf').hide();
@@ -704,7 +704,7 @@
 						$('.safo').attr('disabled', 'disabled');
 						$('.sam').val('');
 					}
-					$('.dbbs').css('width','2750px');
+					$('.dbbs').css('width','2850px');
 					$('#lblMount_s').css('color','red');
 				}
 			}
@@ -1128,7 +1128,7 @@
 				font-size: medium;
 			}
 			.dbbs {
-				width: 3100px;
+				width: 3300px;
 			}
 			.dbbs .tbbs {
 				margin: 0;
@@ -1336,6 +1336,7 @@
 						</td>
 						<!--<td style="width:80px;"><a id='lblCuadate_s'> </a></td>-->
 						<td style="width:130px;"><a id='lblStation_s'> </a></td>
+						<td style="width:100px;"><a id='lblDayborn_s'> </a></td>
 						<td style="width:180px;"><a id='lblWorkno_s'> </a></td>
 						<td style="width:180px;"><a id='lblWorkhno_s'> </a></td>
 						<td style="width:50px;"><a id='lblRank_s'> </a></td>
@@ -1382,15 +1383,14 @@
 						<!--<td><input id="txtBornmount.*" type="text" class="txt c1 num"/></td>-->
 						<td><input id="txtSalemount.*" type="text" class="txt c1 num orde"/></td>
 						<td style="display: none;"><input id="txtPlanmount.*" type="text" class="txt c1 num orde"/></td>
-						<td>
-							<input id="txtMount.*" type="text" class="txt c1 num orde odm"/>
-						</td>
+						<td><input id="txtMount.*" type="text" class="txt c1 num orde odm"/></td>
 						<!--<td><input id="txtCuadate.*" type="text" class="txt c1"/></td>-->
 						<td>
 							<input id="txtStationno.*" type="text" class="txt c1" style="width: 70%"/>
 							<input id="btnStation.*" type="button" style="float:left;font-size: medium; font-weight: bold;" value="."/>
 							<input id="txtStation.*" type="text" class="txt c1"/>
 						</td>
+						<td><input id="txtDayborn.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
 						<td><input id="txtWorkhno.*" type="text" class="txt c1"/></td>
 						<td><input id="txtRank.*" type="text" class="txt c1" style="text-align: center;"/></td>
