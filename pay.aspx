@@ -116,10 +116,11 @@
                 	var t_tggno = $.trim($('#txtTggno').val());
                 	var t_tggno2 = $.trim($('#txtTggno2').val()).replace(/\,/g,'@');
                 	var t_mon = $.trim($('#txtMon').val());
-                	if(t_tggno.length==0){
+                	/* 2016/03/31   沒有廠商就匯入全部的資料 
+                	 	if(t_tggno.length==0){
                 		alert('請先輸入'+q_getMsg('lblTgg')+'!!');
                 		return;
-                	}
+                	}*/
                 	q_gt('pay_import',"where=^^['"+t_noa+"','"+t_tggno+"','"+t_tggno2+"','"+t_mon+"','"+q_getPara('rc2.d4taxtype')+"')^^", 0, 0, 0, "pay_import");
 		        });
 		        $('#btnMon').click(function (e) {
@@ -127,10 +128,11 @@
                 	var t_tggno = $.trim($('#txtTggno').val());
                 	var t_tggno2 = $.trim($('#txtTggno2').val()).replace(/\,/g,'@');
                 	var t_mon = $.trim($('#txtMon').val());
-                	if(t_tggno.length==0){
+                	/* 2016/03/31   沒有廠商就匯入全部的資料 
+                	 	if(t_tggno.length==0){
                 		alert('請先輸入'+q_getMsg('lblTgg')+'!!');
                 		return;
-                	}
+                	}*/
                 	if(t_mon.length==0){
                 		alert('請先輸入'+q_getMsg('lblMon')+'!!');
                 		return;
@@ -520,11 +522,12 @@
 		            Unlock(1);
 		            return;
 		        }
-		        if ($.trim($('#txtTggno').val()).length == 0) {
+		         //2016/03/31 允許 沒有廠商編號
+		        /*if ($.trim($('#txtTggno').val()).length == 0) {
 		            alert(m_empty + q_getMsg('lblTgg'));
 		            Unlock(1);
 		            return false;
-		        }
+		        }*/
 		        
 		        //1050329 只要是應付票據 和付款條件是支票 都要打銀行帳號
 		        var t_err='';
@@ -585,6 +588,13 @@
 		        	}
 		        	q_tr('txtOpay',yufu_total);
 		        }
+		        //2016/03/31  沒有廠商編號,禁止預付
+		        if($.trim($('#txtTggno').val()).length==0 && q_float('txtOpay')!=0){
+		        	alert( '無廠商編號,禁止預付');
+		        	Unlock(1);
+		        	return;
+		        }
+		        
 		        //先檢查BBS沒問題才存檔      
                 checkGqb_bbs(q_bbsCount-1);
 		    }
@@ -609,7 +619,7 @@
 		            }else if(q_cur ==2){
 		            	$('#txtWorker2').val(r_name);
 		            }else{
-		            	alert("error: btnok!")
+		            	alert("error: btnok!");
 		            }
             		var t_noa = trim($('#txtNoa').val());
 			        var t_date = trim($('#txtDatea').val());

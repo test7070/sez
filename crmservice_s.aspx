@@ -31,7 +31,7 @@
         bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
         q_mask(bbmMask);
         $('#txtNoa').focus();
-        q_cmbParse("cmbReason", ",抱怨,客訴賠償,咨詢,溝通,售後服務");
+        q_cmbParse("cmbReason", ",抱怨,客訴賠償,咨詢,溝通,售後服務,其他");
         $('#txtNamea').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
         $('#txtComp').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
     }

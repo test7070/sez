@@ -318,6 +318,22 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'getMaxNoa':
+						var t_noa = 'A000';
+						var as = _q_appendData("cust", "", true);
+						if (as[0] != undefined) {
+							t_noa = as[as.length-1].noa;
+						}
+						try{
+							t_num = parseInt(t_noa.replace('A','')) + 1;
+							t_noa = '00'+t_num;
+							t_noa = 'A'+t_noa.substring(t_noa.length-3,t_noa.length);
+						}catch(e){
+							
+						}
+						wrServer(t_noa);
+						Unlock();
+						break;
 					case 'custtype':
 						var as = _q_appendData("custtype", "", true);
 						if (as[0] != undefined) {
@@ -623,11 +639,11 @@
 				
 				Lock();
 				$('#txtNoa').val($.trim($('#txtNoa').val()));
-				if (q_cur==1 && !((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val()))) {
+				/*if (q_cur==1 && !((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val()))) {
 					alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。' + String.fromCharCode(13) + 'EX: A01、A01-001');
 					Unlock();
 					return;
-				}
+				}*/
 
 				if ($('#txtStartdate').val() > '31') {
 					alert(q_getMsg("lblStartdate") + '最大天數為31日');
@@ -647,7 +663,7 @@
 					t_err = t_err + q_getMsg("lblGetdate") + q_getMsg("msgErr") + '\r';
 					
 				if($('#txtNick').val() == ''){
-					$('#txtNick').val($('#txtComp').val().substr(0,2))
+					$('#txtNick').val($('#txtComp').val().substr(0,2));
 				}	
 					
 				if(q_cur==1)
@@ -655,7 +671,18 @@
 					
 				$('#txtWorker').val(r_name);
 				
-				Save();
+				if(q_getPara('sys.project').toUpperCase() == 'RK'){
+					//A流水號 自動編
+					t_noa = $.trim($('#txtNoa').val());
+			        if (t_noa.length == 0 || t_noa == "AUTO"){
+			        	t_where = "where=^^noa like 'A[0-9][0-9][0-9]' ^^";
+			        	q_gt('cust', t_where, 0, 0, 0, "getMaxNoa");
+			        }
+			        else
+			            wrServer(t_noa);
+				}else{
+					Save();	
+				}
 			}
 			function Save(){
 				if (q_cur == 1) {

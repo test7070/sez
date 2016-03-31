@@ -60,6 +60,10 @@
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
                 q_cmbParse("cmbTypea", q_getPara('bccin.typea'));
 
+				if(q_getPara('sys.project').toUpperCase()=='RK'){
+					$('.RK_hide').hide();
+				}
+
                 $('#txtInvono').change(function() {
                 	$(this).val($.trim($(this).val().toUpperCase()));
                 	if ($(this).val().length > 0 && !(/^[A-Z]{2}[0-9]{8}$/g).test($(this).val()))
@@ -602,9 +606,9 @@
 							<select id="cmbPartno" class="txt c1"> </select>
 							<input id="txtPart" type="text" style="display:none;"/>
 						</td>
-						<td><span> </span><a id="lblStore" class="lbl"> </a></td>
+						<td><span> </span><a id="lblStore" class="lbl RK_hide"> </a></td>
 						<td>
-							<select id="cmbStoreno" class="txt c1"> </select>
+							<select id="cmbStoreno" class="txt c1 RK_hide"> </select>
 						</td>
 						<td><span> </span><a id='lblOrdcno' class="lbl"> </a></td>
 						<td><input id="txtOrdcno"  type="text" class="txt c1"/></td>

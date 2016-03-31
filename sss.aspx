@@ -43,7 +43,7 @@
 				else
 					q_content = "where=^^noa='" + r_userno + "'^^";
 
-				q_gt(q_name, q_content, q_sqlCount, 1)
+				q_gt(q_name, q_content, q_sqlCount, 1);
                 
                 //q_gt('authority', "where=^^a.noa='sss' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1)
             });
@@ -686,7 +686,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
-						<td colspan="5"><input id="txtMemo"  type="text"  class="txt c1"/></td>
+						<td colspan="5"><textarea id="txtMemo" rows="5" class="txt c1"> </textarea></td>
 					</tr>
 					<tr>
 						<td> </td>
