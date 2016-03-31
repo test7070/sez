@@ -619,11 +619,11 @@
 				
 				Lock();
 				$('#txtNoa').val($.trim($('#txtNoa').val()));
-				if (q_cur==1 && !((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val()))) {
+				/*if (q_cur==1 && !((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val()))) {
 					alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。' + String.fromCharCode(13) + 'EX: A01、A01-001');
 					Unlock();
 					return;
-				}
+				}*/
 
 				if ($('#txtStartdate').val() > '31') {
 					alert(q_getMsg("lblStartdate") + '最大天數為31日');
@@ -643,7 +643,7 @@
 					t_err = t_err + q_getMsg("lblGetdate") + q_getMsg("msgErr") + '\r';
 					
 				if($('#txtNick').val() == ''){
-					$('#txtNick').val($('#txtComp').val().substr(0,2))
+					$('#txtNick').val($('#txtComp').val().substr(0,2));
 				}	
 					
 				if(q_cur==1)
@@ -651,7 +651,11 @@
 					
 				$('#txtWorker').val(r_name);
 				
-				Save();
+				if(q_getPara('sys.project').toUpperCase() == 'RK'){
+					
+				}else{
+					Save();	
+				}
 			}
 			function Save(){
 				if (q_cur == 1) {
