@@ -22,7 +22,7 @@
 			var decbbm = ['money', 'tax', 'total', 'weight', 'floata', 'mount', 'price', 'totalus'];
 			var q_readonly = ['txtNoa','txtWorker', 'txtComp', 'txtAcomp', 'txtSales','txtTotal','txtTotalus', 'txtWorker2'
 			,'txtMount','txtWeight','txtCost','txtBenifit','txtCasemount','txtCuft','txtCuftnotv'];
-			var q_readonlys = ['txtNo3','txtPackway','txtPackwayno','txtCost'];
+			var q_readonlys = ['txtNo3','txtPackway','txtPackwayno','txtCost','txtProfit','txtPayterms'];
 			var bbmNum = [];
 			var bbsNum = [];
 			var bbmMask = [];
@@ -63,6 +63,8 @@
 					t_weight = q_add(t_weight, q_float('txtWeight_' + j));
 					t_total = q_add(t_total, q_float('txtTotal_' + j));
 					t_cost=q_add(t_cost, q_mul(q_float('txtCost_' + j),q_float('txtMount_' + j)));
+					
+					$('#txtProfit_'+j).val(q_sub(q_float('txtTotal_' + j),q_mul(q_float('txtCost_' + j),q_float('txtMount_' + j))));
 				}
 				q_tr('txtMount', t_mount);
 				q_tr('txtWeight',t_weight);
@@ -109,9 +111,10 @@
 				bbmMask = [['txtDatea', r_picd], ['txtOdate', r_picd]];
 				q_mask(bbmMask);
 				bbmNum = [['txtTotal', 15, 0, 1],['txtTotalus', 15, 2, 1], ['txtFloata', 11, 5, 1],['txtMount', 15, q_getPara('vcc.mountPrecision'), 1],['txtWeight', 15, q_getPara('vcc.weightPrecision'), 1]
-				,['txtCost', 15, 0, 1],['txtBenifit', 15, 0, 1],['txtBankfee', 15, 0, 1],['txtCustomsfee', 15, 0, 1],['txtPortfee', 15, 0, 1],['txtTranfee', 15, 0, 1],['txtVisafee', 15, 0, 1],['txtBillfee', 15, 0, 1],['txtCertfee', 15, 0, 1],['txtOthfee', 15, 0, 1]];
+				,['txtCost', 15, 0, 1],['txtBenifit', 15, 0, 1],['txtBankfee', 15, 0, 1],['txtCustomsfee', 15, 0, 1],['txtPortfee', 15, 0, 1],['txtTranfee', 15, 0, 1],['txtVisafee', 15, 0, 1],['txtBillfee', 15, 0, 1],['txtCertfee', 15, 0, 1],['txtOthfee', 15, 0, 1]
+				,['txtProfit', 10, 2, 1],['txtInsurance', 10, 2, 1],['txtCommission', 10, 2, 1]	];
 				bbsNum = [['txtMount', 10, q_getPara('vcc.mountPrecision'), 1],['txtMount', 10, q_getPara('vcc.weightPrecision'), 1]
-				, ['txtPrice', 10, q_getPara('vcc.pricePrecision'), 1]	, ['txtCost', 10, q_getPara('vcc.pricePrecision'), 1]	, ['txtTotal', 15, 0, 1]];
+				, ['txtPrice', 10, q_getPara('vcc.pricePrecision'), 1]	, ['txtCost', 10, q_getPara('vcc.pricePrecision'), 1]	, ['txtTotal', 15, 0, 1], ['txtProfit', 15, 0, 1]];
 				
 				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
@@ -197,6 +200,7 @@
 						$('#txtPackwayno_'+$('#textNoq').val()).val($('#textPackwayno').val());
 						$('#txtPackway_'+$('#textNoq').val()).val($('#textPackway').val());
 						$('#txtTotal_'+$('#textNoq').val()).val(q_mul(dec($('#txtMount_'+$('#textNoq').val()).val()),dec($('#txtPrice_'+$('#textNoq').val()).val())));
+						$('#txtPayterms_'+$('#textNoq').val()).val($('#combPayterms').val());
 						sum();
 					}
 					$('#div_getprice').hide();
@@ -688,7 +692,12 @@
 								$('#textProfit').val($('#txtProfit').val());
 								$('#textInsurance').val($('#txtInsurance').val());
 								$('#textCommission').val($('#txtCommission').val());
-								$('#combPayterms').val($('#cmbPayterms').val());
+								
+								if(!emp($('#txtPayterms_'+b_seq).val()))
+									$('#combPayterms').val($('#txtPayterms_'+b_seq).val());
+								else
+									$('#combPayterms').val($('#cmbPayterms').val());
+								
 								$('#textMount').change();
 								$('#textCost').change();
 								$('#div_getprice').css('top', e.pageY- $('#div_getprice').height());
@@ -1337,10 +1346,11 @@
 					<td align="center" style="width:40px;"><a id='lblUnit_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblPrice_s'> </a><BR><a id='lblCost_s'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblGetprice_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblPayterms_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblPackway_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblWeight_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblCuft_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblTotal_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblTotal_s'> </a><BR><a id='lblProfit_s'> </a></td>
 					<td align="center" style="width:150px;display: none;" class="isimg"><a id='lblImg_s'> </a></td>
 					<td align="center"><a id='lblMemo_s'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblEnda_s'> </a></td>
@@ -1364,6 +1374,7 @@
 						<input id="txtCost.*" type="text" class="txt c1 num"/>
 					</td>
 					<td align="center"><input class="btn" id="btnGetprice.*" type="button" value='.' style=" font-weight: bold;"/></td>
+					<td>	<input id="txtPayterms.*" type="text" class="txt c1 "/></td>
 					<td>
 						<input id="txtPackwayno.*" type="text" class="txt c1" style="width: 60%;"/>
 						<input class="btn" id="btnPackway.*" type="button" value='.' style=" font-weight: bold;"/>
@@ -1371,7 +1382,10 @@
 					</td>
 					<td><input id="txtWeight.*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtCuft.*" type="text" class="txt c1 num"/></td>
-					<td><input id="txtTotal.*" type="text" class="txt c1 num"/></td>
+					<td>
+						<input id="txtTotal.*" type="text" class="txt c1 num"/>
+						<input id="txtProfit.*" type="text" class="txt c1 num"/>
+					</td>
 					<td class="isimg" style="display: none;"><img id="images.*" style="width: 150px;"></td>
 					<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
 					<td align="center"><input id="chkEnda.*" type="checkbox"/></td>

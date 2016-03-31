@@ -69,6 +69,11 @@
                         btnMinus($(this).attr('id'));
                     });
                 } //j
+                
+                if(q_getPara('sys.isport')=='1') //外銷
+                	$('.isport').show();
+                else
+                	$('.isport').hide();
             }
 
             function btnOk() {
@@ -153,16 +158,8 @@
 				<tr>
 					<td><a id="lblQtype" style="float:right;"> </a></td>
 					<td><select id="cmbQtype" style='width:98%;'> </select></td>
-					<td> </td>
-					<td> </td>
-					<td> </td>
-					<td> </td>
-				</tr>
-				<tr>
 					<td><a id="lblWtype" style="float:right;"> </a></td>
 					<td><select id="cmbWtype" style='width:98%;'> </select></td>
-					<td> </td>
-					<td> </td>
 					<td> </td>
 					<td> </td>
 				</tr>
@@ -174,19 +171,41 @@
 					<td> </td>
 					<td> </td>
 				</tr>
-				<tr>
+				<tr class="isport">
+					<td><a id="lblAgent" style="float:right;"> </a></td>
+					<td colspan="3">
+						<input id="txtAgentno" type="text" style='width:30%;'/>
+						<input id="txtAgent" type="text" style='width:68%;'/>
+					</td>
+					<td> </td>
+				</tr>
+				<tr class="isport">
 					<td><a id="lblPayterms" style="float:right;"> </a></td>
 					<td><select id="cmbPayterms" style='width:98%;'> </select></td>
-					<td> </td>
-					<td> </td>
+					<td><a id="lblCountry" style="float:right;"> </a></td>
+					<td><select id="cmbCountry" style='width:98%;'> </select></td>
 					<td> </td>
 					<td> </td>
 				</tr>
-				<tr>
+				<tr class="isport">
+					<td><a id="lblForworder" style="float:right;"> </a></td>
+					<td colspan="3">
+						<input id="txtForworderno" type="text" style='width:30%;'/>
+						<input id="txtForworder" type="text" style='width:68%;'/>
+					</td>
+					<td> </td>
+				</tr>
+				<tr class="isport">
 					<td><a id="lblBcomp" style="float:right;"> </a></td>
-					<td><input id="txtBcomp" maxlength='40' type="text" style='width:98%;'/></td>
+					<td colspan="3">
+						<input id="txtBcompno" type="text" style='width:30%;'/>
+						<input id="txtBcomp" type="text" style='width:68%;'/>
+					</td>
+					<td> </td>
+				</tr>
+				<tr class="isport">
 					<td><a id="lblBoat" style="float:right;"> </a></td>
-					<td><input id="txtBoat" maxlength='20' type="text" style='width:98%;'/></td>
+					<td><input id="txtBoat" type="text" style='width:98%;'/></td>
 					<td> </td>
 					<td> </td>
 				</tr>
