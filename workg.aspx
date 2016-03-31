@@ -88,8 +88,10 @@
 							return;
 						}
 						
-						$('#txtWbdate').val(q_cdn($('#txtBdate').val(),-dec(q_getPara('orde.preborn'))));
-						$('#txtWedate').val(q_cdn($('#txtEdate').val(),-dec(q_getPara('orde.preborn'))));
+						if(emp($('#txtWbdate').val()))
+							$('#txtWbdate').val(q_cdn($('#txtBdate').val(),-dec(q_getPara('orde.preborn'))));
+						if(emp($('#txtWedate').val()))
+							$('#txtWedate').val(q_cdn($('#txtEdate').val(),-dec(q_getPara('orde.preborn'))));
 						
 						var sbdate='',sedate='';
 						if (emp($('#txtSfbdate').val())) {
@@ -98,7 +100,7 @@
 							sbdate=$('#txtSfbdate').val();
 						}
 						if (emp($('#txtSfedate').val())) {
-							sedate='999/99/99';
+							sedate=r_picd;
 						}else{
 							sedate=$('#txtSfedate').val();
 						}
@@ -148,7 +150,7 @@
 							bdate=$('#txtBdate').val();
 						}
 						if (emp($('#txtEdate').val())) {
-							edate='999/99/99';
+							edate=r_picd;
 						}else{
 							edate=$('#txtEdate').val();
 						}
@@ -161,7 +163,7 @@
 							sbdate=$('#txtSfbdate').val();
 						}
 						if (emp($('#txtSfedate').val())) {
-							sedate='999/99/99';
+							sedate=r_picd;
 						}else{
 							sedate=$('#txtSfedate').val();
 						}
@@ -214,13 +216,16 @@
 						}else{
 							sbdate=$('#txtSfbdate').val();
 						}
-						$('#txtWbdate').val(q_cdn(sbdate,-dec(q_getPara('orde.preborn'))));
+						
+						if(emp($('#txtWbdate').val()))
+							$('#txtWbdate').val(q_cdn(sbdate,-dec(q_getPara('orde.preborn'))));
 						
 						if (emp($('#txtSfedate').val())) {
-							sedate='999/99/99';
+							sedate=r_picd;
 						}else{
 							sedate=$('#txtSfedate').val();
-							$('#txtWedate').val(q_cdn($('#txtSfedate').val(),-dec(q_getPara('orde.preborn'))));
+							if(emp($('#txtWedate').val()))
+								$('#txtWedate').val(q_cdn($('#txtSfedate').val(),-dec(q_getPara('orde.preborn'))));
 						}
 						var t_where = "where=^^ ['" + q_date() + "','','') where productno=b.productno ^^"
 						
@@ -416,7 +421,7 @@
 							sbdate=$('#txtSfbdate').val();
 						}
 						if (emp($('#txtSfedate').val())) {
-							sedate='999/99/99';
+							sedate=r_picd;
 						}else{
 							sedate=$('#txtSfedate').val();
 						}

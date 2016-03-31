@@ -1065,16 +1065,16 @@
 							<input id="txtGrpno" type="text" style="float:left; width:40%;"/>
 							<input id="txtGrpname" type="text" style="float:left; width:60%;"/>
 						</td>
-						<td><span> </span><a id='lblTeam' class="lbl"> </a></td>
-						<td><input id="txtTeam" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblTel' class="lbl"> </a></td>
+						<td><input id="txtTel" type="text" class="txt c7"/></td>
+						<!--<td><span> </span><a id='lblTeam' class="lbl"> </a></td>
+						<td><input id="txtTeam" type="text" class="txt c1"/></td>-->
 						<!--<td><span> </span><a id='lblTeampaytype' class="lbl"> </a></td>
 						<td><input id="txtTeampaytype" type="text" class="txt c1"/></td>-->
 						<td><span> </span><a id='lblConn' class="lbl" style="display: none;"> </a></td>
 						<td><input id="txtConn" type="text" class="txt c1" style="display: none;"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblTel' class="lbl"> </a></td>
-						<td><input id="txtTel" type="text" class="txt c7"/></td>
 						<td><span> </span><a id='lblFax' class="lbl"> </a></td>
 						<td><input id="txtFax" type="text" class="txt c7"/></td>
 						<td><span> </span><a id='lblMobile' class="lbl"> </a></td>
