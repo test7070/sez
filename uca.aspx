@@ -26,9 +26,11 @@
 			var q_readonly = ['textCosta','txtModel','txtStationg', 'textCostb', 'textCostc', 'textCostd', 'textCostw', 'textCostm', 'textCostp', 'textCostt', 'textCosttotal', 'textStk', 'textOrdemount', 'textPlanmount', 'textIntmount', 'textAvaistk','txtMolds','txtRev'];
 			var q_readonlys = [];
 			var q_readonlyt = ['txtAssm'];
-			var bbmNum = [['txtPrice', 12, 2, 1],['txtPreday', 12, 0, 1],['txtHours', 10, 3, 1],['txtMinutes', 10, 3, 1],['txtPretime', 12, 2, 1],['txtBadperc', 12, 2, 1],['txtUweight', 12, 2, 1],['txtMakes', 15, 2, 1],['txtPacks', 15, 2, 1],['txtWages', 15, 2, 1]/*,['txtMechs', 15, 2, 1],['txtTrans', 15, 2, 1]*/,['txtSafemount', 15, 2, 1]];
+			var bbmNum = [['txtPrice', 12, 2, 1],['txtPreday', 12, 0, 1],['txtHours', 10, 3, 1],['txtMinutes', 10, 3, 1],['txtHminutes', 10, 3, 1],['txtPretime', 12, 2, 1],['txtBadperc', 12, 2, 1],['txtUweight', 12, 2, 1],['txtMakes', 15, 2, 1],['txtPacks', 15, 2, 1],['txtWages', 15, 2, 1]/*,['txtMechs', 15, 2, 1],['txtTrans', 15, 2, 1]*/,['txtSafemount', 15, 2, 1]];
 			var bbsNum = [['txtMount', 12, 2,1]/*, ['txtWeight', 11, 2]*/, ['txtHours', 9, 2,1],['txtLoss', 10, 2,1],['txtDividea', 10, 0,1],['txtMul', 10, 2,1]];
-			var bbtNum = [['txtMount_', 12, 2, 1]/*, ['txtWeight_', 12, 2 ,1]*/,['txtPrice_', 12, 2, 1], ['txtEndmount_', 12, 0, 1], ['txtEndweight_', 12, 2, 1]];
+			var bbtNum = [['txtMount', 12, 2, 1]/*, ['txtWeight_', 12, 2 ,1]*/,['txtPrice', 12, 2, 1], ['txtEndmount', 12, 0, 1], ['txtEndweight', 12, 2, 1]
+			,['txtMinutes', 10, 3, 1],['txtHminutes', 10, 3, 1],['txtLoss', 10, 2, 1],['txtMakes', 15, 2, 1],['txtMakes_fee', 15, 2, 1],['txtWages', 15, 2, 1],['txtWages_fee', 15, 2, 1]
+			];
 			var bbmMask = [];
 			var bbsMask = [];
 			var bbtMask = [];
@@ -1178,7 +1180,7 @@
 				font-size: medium;
 				color: blue;
 				background: pink;
-				width: 1415px;
+				width: 1655px;
 			}
 			#tbbt tr {
 				height: 35px;
@@ -1474,15 +1476,22 @@
 					<tr>
 						<td class="td3"><span> </span><a id="lblHours" class="lbl"> </a></td>
 						<td class="td4">
-							<input id="txtHours" type="text" class="txt num" style="width:30%;"/>
-							<span style="float:left;width:15%;padding-left:3px;">Hr.</span>
-							<input id="txtMinutes" type="text" class="txt num" style="width:30%;"/>
+							<input id="txtHours" type="text" class="txt num" style="display: none;"/>
+							<span style="float:left;width:15%;padding-left:3px;display: none;">Hr.</span>
+							<input id="txtMinutes" type="text" class="txt num c1" style="width: 70%;"/>
 							<span style="float:left;width:15%;padding-left:3px;">Min.</span>
 						</td>
-						<td class="td5"><span> </span><a id="lblPretime" class="lbl"> </a></td>
-						<td class="td6"><input id="txtPretime" type="text" class="txt c1 num"/></td>
-						<td class="td1"><span> </span><a id="lblPreday" class="lbl"> </a></td>
-						<td class="td2"><input id="txtPreday" type="text" class="txt c1 num"/></td>
+						<td><span> </span><a id="lblHminutes" class="lbl"> </a></td>
+						<td>
+							<input id="txtHminutes" type="text" class="txt num c1" style="width: 70%;" />
+							<span style="float:left;width:15%;padding-left:3px;">Min.</span>
+						</td>
+						<td><span> </span><a id="lblPretime" class="lbl"> </a></td>
+						<td>
+							<input id="txtPretime" type="text" class="txt c1 num" style="width:30%;"/><span style="float: left;"> </span>
+							<a id="lblPreday" class="lbl" style="float: left;"> </a><span style="float: left;"> </span>
+							<input id="txtPreday" type="text" class="txt c1 num" style="width:30%;"/>
+						</td>
 					</tr>
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
@@ -1594,9 +1603,13 @@
 					<!--<td align="center" style="width:8%;"><a id='lblMount_t'></a></td>-->
 					<td align="center" style="width:100px;"><a id='lblPrice_t'> </a></td>
 					<!--<td align="center" style="width:8%;"><a id='lblEndmount_t'></a></td>-->
-					<td align="center" style="width:75px;"><a id='lblHours_t'> </a></td>
+					<td align="center" style="width:75px; display: none;"><a id='lblHours_t'> </a></td>
+					<td align="center" style="width:75px;"><a id='lblMinutes_t'> </a></td>
+					<td align="center" style="width:75px;"><a id='lblHminutes_t'> </a></td>
 					<td align="center" style="width:175px;"><a id='lblProductno_t'> </a></td>
 					<td align="center" style="width:190px;"><a id='lblAssm_t'> </a></td>
+					<td align="center" style="width:87px;"><a id='lblMount_t'> </a></td>
+					<td align="center" style="width:87px;"><a id='lblLoss_t'> </a></td>
 					<td align="center" style="width:87px;"><a id='lblWages_t'> </a></td>
 					<td align="center" style="width:87px;"><a id='lblMakes_t'> </a></td>
 					<td align="center" style="width:103px;"><a id='lblWages_fee_t'> </a></td>
@@ -1632,12 +1645,16 @@
 					<input id="txtEndmount..*" type="text" class="txt c1 num"/>
 					<input id="txtEndweight..*" type="text" class="txt c1 num"/>
 					</td>-->
-					<td><input id="txtHours..*" type="text" class="txt c1 num"/></td>
+					<td style="display: none;"><input id="txtHours..*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtMinutes..*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtHminutes..*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtProductno..*" type="text" class="txt c1"/></td>
 					<td>
 						<input id="btnAssm..*" type="button" value='.' style=" font-weight: bold;width:1%; float: left;" />
 						<input id="txtAssm..*" type="text" class="txt" style="width: 80%"/>
 					</td>
+					<td><input id="txtMount..*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtLoss..*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtWages..*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtMakes..*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtWages_fee..*" type="text" class="txt c1 num"/></td>

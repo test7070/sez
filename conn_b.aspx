@@ -2,7 +2,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta http-equiv="Content-Language" content="en-us" />
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src="../script/qj2.js" type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -40,12 +40,13 @@
 
                 main();
             });
+            
             function main() {
                 if (dataErr) {
                     dataErr = false;
                     return;
                 }
-                q_gt('part', '', 0, 0, 0, "");
+                //q_gt('part', '', 0, 0, 0, ""); //105/03/31 拿掉下拉自己輸入
                 mainBrow(6, t_content, t_sqlname, t_postname);
 				$('#btnTop').hide();
 				$('#btnPrev').hide();
@@ -64,10 +65,10 @@
                 	});*/
 				}
                 _bbsAssign();
-                for (var j = 0; j < q_bbsCount; j++) {
+                /*for (var j = 0; j < q_bbsCount; j++) {
 					if(abbs[j])
 						$('#cmbPartno_'+j).val(abbs[j].partno);
-				}
+				}*/
             }
 			
 			var maxnoq='000';
@@ -89,9 +90,9 @@
                 	}
                 }
                 
-                for (var i = 0; i < q_bbsCount; i++){
+                /*for (var i = 0; i < q_bbsCount; i++){
                 	$('#txtPart_'+i).val($('#cmbPartno_'+i).find(":selected").text());
-               	 }
+               	 }*/
 
                 _btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
                 
@@ -139,14 +140,14 @@
             function q_gtPost(t_name) {  /// 資料下載後 ...
                 switch (t_name) {
 					case 'conn_maxnoq':
-					var as = _q_appendData("conn", "", true);
-					if (as[0] != undefined) {
-						maxnoq=as[as.length-1].noq;
-					}
-					search_noq=true;
-					btnOk();
+						var as = _q_appendData("conn", "", true);
+						if (as[0] != undefined) {
+							maxnoq=as[as.length-1].noq;
+						}
+						search_noq=true;
+						btnOk();
 					break;
-				    case 'part':
+				    /*case 'part':
                         var as = _q_appendData("part", "", true);
                         if (as[0] != undefined) {
                             var t_item = "";
@@ -160,7 +161,7 @@
                             	$('#cmbPartno_'+j).val(abbs[j].partno);
                             }
                         }
-                    break;
+                    break;*/
 				}
             }
 
@@ -197,24 +198,25 @@
 					<td align="center">
 					<input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  />
 					</td>
-					<td align="center"><a id='lblNamea'></a></td>
-					<td align="center"><a id='lblJob'></a></td>
-					<td align="center"><a id='lblPart'></a></td>
-					<td align="center"><a id='lblTel'></a></td>
-					<td align="center"><a id='lblExt'></a></td>
-					<td align="center"><a id='lblFax'></a></td>
-					<td align="center"><a id='lblMobile'></a></td>
-					<td align="center"><a id='lblEmail'></a></td>
-					<td align="center"><a id='lblAddr'></a></td>
-					<td align="center"><a id='lblMemo'></a></td>
-					<td align="center"><a id='lblBill'></a></td>
+					<td align="center"><a id='lblNamea'> </a></td>
+					<td align="center"><a id='lblJob'> </a></td>
+					<td align="center"><a id='lblPart'> </a></td>
+					<td align="center"><a id='lblTel'> </a></td>
+					<td align="center"><a id='lblExt'> </a></td>
+					<td align="center"><a id='lblFax'> </a></td>
+					<td align="center"><a id='lblMobile'> </a></td>
+					<td align="center"><a id='lblEmail'> </a></td>
+					<td align="center"><a id='lblAddr'> </a></td>
+					<td align="center"><a id='lblMemo'> </a></td>
+					<td align="center"><a id='lblBill'> </a></td>
 					
 				</tr>
 				<tr  style='background:#cad3ff;font-size: 14px;'>
 					<td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style="font-weight: bold;"  /></td>
-					<td style="width:6%;"><input class="txt"  id="txtNamea.*" type="text" style="width:98%;"  /></td>
-					<td style="width:6%;"><input class="txt" id="txtJob.*" type="text" style="width:98%;"   /></td>
-					<td style="width:6%;"><select id="cmbPartno.*" class="txt c1"> </select> <input class="txt" id="txtPart.*" type="text" style="display: none;"   /></td>
+					<td style="width:6%;"><input class="txt"  id="txtNamea.*" type="text" style="width:98%;"/></td>
+					<td style="width:6%;"><input class="txt" id="txtJob.*" type="text" style="width:98%;" /></td>
+					<!--<td style="width:6%;"><select id="cmbPartno.*" class="txt c1"> </select> <input class="txt" id="txtPart.*" type="text" style="display: none;"   /></td>-->
+					<td style="width:6%;"><input class="txt" id="txtPart.*" type="text" style="width:98%;"/></td>
 					<td style="width:10%;"><input class="txt" id="txtTel.*" type="text" style="width:94%;"  /></td>
 					<td style="width:5%;"><input class="txt" id="txtExt.*" type="text" style="width:94%; text-align:right"  /></td>
 					<td style="width:10%;"><input class="txt" id="txtFax.*" type="text" style="width:94%;"  /></td>
