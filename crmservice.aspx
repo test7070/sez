@@ -54,7 +54,7 @@
                 bbmMask = [['txtDatea', r_picd],['txtTimea', '99:99'],['txtDaten', r_picd],['txtTimen', '99:99']
                 ,['txtRepdate', r_picd],['txtReptime', '99:99']];
                 q_mask(bbmMask);
-				q_cmbParse("cmbReason", ",抱怨,客訴賠償,咨詢,溝通,售後服務");
+				q_cmbParse("cmbReason", ",抱怨,客訴賠償,咨詢,溝通,售後服務,其他");
 				
 				q_gt('acomp', '', 0, 0, 0, "");
 				

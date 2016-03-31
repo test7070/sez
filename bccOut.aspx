@@ -58,6 +58,9 @@
                 q_gt('store', '', 0, 0, 0, "");
                 q_gt('part', '', 0, 0, 0, "");
                 
+                if(q_getPara('sys.project').toUpperCase()=='RK'){
+					$('.RK_hide').hide();
+				}
             }
 
             function q_boxClose(s2) {
@@ -453,9 +456,9 @@
 							<input id="txtPart"  type="text"  style="display:none;"/>
 						</td>
 						<td> </td>
-						<td><span> </span><a id="lblStore" class="lbl"> </a></td>
+						<td><span> </span><a id="lblStore" class="lbl RK_hide"> </a></td>
 						<td>
-							<select id="cmbStoreno" class="txt c1"> </select>
+							<select id="cmbStoreno" class="txt c1 RK_hide"> </select>
 						</td>
 					</tr>
 					<tr>
