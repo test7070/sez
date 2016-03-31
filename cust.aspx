@@ -156,9 +156,13 @@
 				q_cmbParse("cmbStatus", q_getPara('cust.status'));
 
 				//後面有需要的公司在顯示
-				$('.btnUcam').hide();// 嘜頭
+				$('#btnUcam').hide();// 嘜頭
+				if(q_getPara('sys.isport')=='1'){ //外銷
+					$('#btnUcam').show();
+					$('#btnCustm').show();
+				}
 				if (q_getPara('sys.project').toUpperCase()=='GU'){
-					$('.btnUcam').show();
+					$('#btnUcam').show();
 				}
 				$('#btnCustm').hide();//稅務資料
 				if (q_getPara('sys.project').toUpperCase()=='XY' || q_getPara('sys.project').toUpperCase()=='YC'){
@@ -197,7 +201,7 @@
 						}else if (q_getPara('sys.project').toUpperCase()=='VU'){
 							q_box("custm_vu.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'custm', "600px", "700px", $('#btnCustm').val());
 						}else{
-							q_box("custm_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'custm', "600px", "700px", $('#btnCustm').val());
+							q_box("custm_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'custm', "700px", "700px", $('#btnCustm').val());
 						}
 					}
 				});
@@ -1041,6 +1045,7 @@
 						<td colspan="2">
 							<input id="btnConn" type="button" />
 							<input id="btnCustm" type="button" />
+							<input id="btnUcam" type="button" style="display: none;"/>
 							<!--<input id="btnTmpcustno_xy" type="button" value="轉正式客戶" style="display: none;"/>-->
 						</td>						
 					</tr>
@@ -1083,7 +1088,6 @@
 					<tr>
 						<td><span> </span><a id='lblInvoicetitle' class="lbl"> </a></td>
 						<td colspan='3'><input id="txtInvoicetitle" type="text" class="txt c7"/></td>
-						<td><input id="btnUcam" type="button" style="float: right;" class="btnUcam" style="display: none;"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAddr_comp' class="lbl"> </a></td>
