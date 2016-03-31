@@ -314,6 +314,22 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'getMaxNoa':
+						var t_noa = 'A000';
+						var as = _q_appendData("cust", "", true);
+						if (as[0] != undefined) {
+							t_noa = as[as.length-1].noa;
+						}
+						try{
+							t_num = parseInt(t_noa.replace('A','')) + 1;
+							t_noa = '00'+t_num;
+							t_noa = 'A'+t_noa.substring(t_noa.length-3,t_noa.length);
+						}catch(e){
+							
+						}
+						wrServer(t_noa);
+						Unlock();
+						break;
 					case 'custtype':
 						var as = _q_appendData("custtype", "", true);
 						if (as[0] != undefined) {
@@ -652,7 +668,14 @@
 				$('#txtWorker').val(r_name);
 				
 				if(q_getPara('sys.project').toUpperCase() == 'RK'){
-					
+					//A流水號 自動編
+					t_noa = $.trim($('#txtNoa').val());
+			        if (t_noa.length == 0 || t_noa == "AUTO"){
+			        	t_where = "where=^^noa like 'A[0-9][0-9][0-9]' ^^";
+			        	q_gt('cust', t_where, 0, 0, 0, "getMaxNoa");
+			        }
+			        else
+			            wrServer(t_noa);
 				}else{
 					Save();	
 				}
