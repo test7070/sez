@@ -28,6 +28,7 @@
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'Datea';
+			q_copy=1;
 			aPop = new Array(
 				//['txtPost', 'lblPost', 'addr', 'post,addr', 'txtPost', 'addr_b.aspx'],
 				['txtPost', 'lblPost', 'addr', 'noa,post', 'txtPost,txtAddr', 'addr2_b.aspx'],
