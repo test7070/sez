@@ -27,6 +27,12 @@
 			var bbmKey = ['noa'], bbsKey = ['noa', 'noq'];
 			q_tables = 's';
 			
+			aPop = new Array(
+				['txtAgentno', 'lblAgent', 'cust', 'noa,comp', 'txtAgentno,txtAgent', 'cust_b.aspx'],
+				['txtBcompno', 'lblBcomp', 'tgg', 'noa,comp', 'txtBcompno,txtBcomp', 'tgg_b.aspx'],
+				['txtForwarderno', 'lblForwarder', 'tgg', 'noa,comp', 'txtForwarderno,txtForwarder', 'tgg_b.aspx']
+			);
+			
             $(document).ready(function() {
                 if (location.href.indexOf('?') < 0)// debug
                 {
@@ -60,6 +66,7 @@
                 q_cmbParse("cmbWtype", q_getPara('custm.wtype'));
                 q_cmbParse("cmbQtype", q_getPara('custm.qtype'));
                 q_cmbParse("cmbPayterms", q_getPara('sys.payterms'));
+                q_gt('country', '', 0, 0, 0, "");
             }
 
             function bbsAssign() {
@@ -113,7 +120,19 @@
             function sum() {
             }
 
-            function q_gtPost() {
+            function q_gtPost(t_name) {
+            	switch (t_name) {
+            		case 'country':
+						var as = _q_appendData("country", "", true);
+		                var t_item = " @ ";
+						for ( i = 0; i < as.length; i++) {
+							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' +as[i].cname;
+						}
+						q_cmbParse("cmbCountry", t_item);
+						if (abbm[q_recno] != undefined)
+							$("#cmbCountry").val(abbm[q_recno].country);
+						break;
+            	}
             }
 
             function readonly(t_para, empty) {
@@ -188,10 +207,10 @@
 					<td> </td>
 				</tr>
 				<tr class="isport">
-					<td><a id="lblForworder" style="float:right;"> </a></td>
+					<td><a id="lblForwarder" style="float:right;"> </a></td>
 					<td colspan="3">
-						<input id="txtForworderno" type="text" style='width:30%;'/>
-						<input id="txtForworder" type="text" style='width:68%;'/>
+						<input id="txtForwarderno" type="text" style='width:30%;'/>
+						<input id="txtForwarder" type="text" style='width:68%;'/>
 					</td>
 					<td> </td>
 				</tr>
