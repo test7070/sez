@@ -27,7 +27,7 @@
 			var q_readonlys = [];
 			var q_readonlyt = ['txtAssm'];
 			var bbmNum = [['txtPrice', 12, 2, 1],['txtPreday', 12, 0, 1],['txtHours', 10, 3, 1],['txtMinutes', 10, 3, 1],['txtHminutes', 10, 3, 1],['txtSec', 2, 0, 1],['txtHsec', 2, 0, 1]
-			,['txtPretime', 12, 2, 1],['txtBadperc', 12, 2, 1],['txtUweight', 12, 2, 1],['txtMakes', 15, 2, 1],['txtPacks', 15, 2, 1],['txtWages', 15, 2, 1],['txtSafemount', 15, 2, 1]];/*,['txtMechs', 15, 2, 1],['txtTrans', 15, 2, 1]*/
+			,['txtPretime', 12, 2, 1],['txtBadperc', 12, 2, 1],['txtUweight', 12, 2, 1],['txtMakes', 15, 2, 1],['txtPacks', 15, 2, 1],['txtWages', 15, 2, 1],['txtSafemount', 15, 2, 1],['txtStdmount', 15, 2, 1]];/*,['txtMechs', 15, 2, 1],['txtTrans', 15, 2, 1]*/
 			var bbsNum = [['txtMount', 12, 2,1]/*, ['txtWeight', 11, 2]*/, ['txtHours', 9, 2,1],['txtLoss', 10, 2,1],['txtDividea', 10, 0,1],['txtMul', 10, 2,1]];
 			var bbtNum = [['txtMount', 12, 2, 1]/*, ['txtWeight_', 12, 2 ,1]*/,['txtPrice', 12, 2, 1], ['txtEndmount', 12, 0, 1], ['txtEndweight', 12, 2, 1]
 			,['txtMinutes', 10, 3, 1],['txtHminutes', 10, 3, 1],['txtSec', 2, 0, 1],['txtHsec', 2, 0, 1]
@@ -1373,9 +1373,9 @@
 			<div class="dview" id="dview" style="float: left; width:400px;" >
 				<table class="tview" id="tview" border="1" cellpadding='2' cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
-						<td align="center" style="width:40px"><a id='vewChk'></a></td>
-						<td align="center" style="width:150px"><a id='vewNoa'></a></td>
-						<td align="center" style="width:210px"><a id='vewProduct'></a></td>
+						<td align="center" style="width:40px"><a id='vewChk'> </a></td>
+						<td align="center" style="width:150px"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:210px"><a id='vewProduct'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
@@ -1472,8 +1472,13 @@
 						<td class="td2"><input id="txtStyle" type="text" class="txt c1"/></td>
 						<td class="td3"><span> </span><a id="lblGroupano" class="lbl"> </a></td>
 						<td class="td4"><select id="cmbGroupano" class="txt c1" style="font-size: medium;"> </select></td>
-						<td class="td5"><span> </span><a id="lblSafemount" class="lbl"> </a></td>
-						<td class="td6"><input id="txtSafemount" type="text" class="txt c1 num"/></td>
+						<td class="td5"><span> </span><a id="lblStdmount" class="lbl" > </a></td>
+						<td class="td6"><input id="txtStdmount" type="text" class="txt c1 num" style="width:30%;"/>
+							<span style="float: left;"> </span>
+							<a id="lblSafemount" class="lbl" style="float: left;"> </a>
+							<span style="float: left;"> </span>
+							<input id="txtSafemount" type="text" class="txt c1 num" style="width:30%;"/>
+						</td>
 					</tr>
 					<tr>
 						<td class="td3"><span> </span><a id="lblHours" class="lbl"> </a></td>

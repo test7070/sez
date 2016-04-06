@@ -22,7 +22,7 @@
             var q_readonly = ['txtNoa', 'txtDatea','txtWorker'];
             var q_readonlys = [];
             var bbmNum = [];
-            var bbsNum = [['txtOprice', 10, 2, 1],['txtPrice', 10, 2, 1],['txtDiscount', 10, 2, 1],['txtTaxrate', 5, 2, 1],['txtNotaxprice', 10, 2, 1]];
+            var bbsNum = [['txtOprice', 10, 2, 1],['txtPrice', 10, 2, 1],['txtDiscount', 10, 2, 1],['txtTaxrate', 5, 2, 1],['txtNotaxprice', 10, 2, 1],['txtCommission', 10, 2, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -31,7 +31,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
-            ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit,saleprice', 'txtProductno_,txtProduct_,txtUnit_,txtOprice_', 'uca_b.aspx']);
+            ['txtProductno_', 'btnProductno_', 'view_ucaucc', 'noa,product,unit,saleprice', 'txtProductno_,txtProduct_,txtUnit_,txtOprice_', 'ucaucc_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -100,6 +100,7 @@
                 bbmMask = [['txtDatea', r_picd],['txtBdate', r_picd]];
                 q_getFormat();
                 q_mask(bbmMask);
+                q_cmbParse("cmbPayterms", q_getPara('sys.payterms'),'s');
                 
                 $('#txtBdate').focusout(function() {
                     q_cd($(this).val(), $(this));
@@ -237,6 +238,10 @@
                 }
                 
                 _bbsAssign();
+                
+                if(q_getPara('sys.isport')=='1'){ //外銷
+                	$('.isport').show();
+                }
             }
 
             function bbsSave(as) {
@@ -260,10 +265,16 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                if(q_getPara('sys.isport')=='1'){ //外銷
+                	$('.isport').show();
+                }
             }
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                if(q_getPara('sys.isport')=='1'){ //外銷
+                	$('.isport').show();
+                }
             }
 
             function btnMinus(id) {
@@ -529,13 +540,15 @@
 						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:10%;"><a id='lblProductno_s'> </a></td>
-					<td align="center" style="width:20%;"><a id='lblProduct_s'> </a></td>
+					<td align="center" style="width:18%;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:4%;"><a id='lblUnit_s'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblOprice_s'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblDiscount_s'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblNotaxprice_s'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblTaxrate_s'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblPrice_s'> </a></td>
+					<td align="center" style="width:8%;display: none;" class="isport"><a id='lblPayterms_s'> </a></td>
+					<td align="center" style="width:7%;display: none;" class="isport"><a id='lblCommission_s'> </a></td>
 					<td align="center" style="width:20%;"><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
@@ -547,14 +560,16 @@
 						<input id="txtProductno.*" type="text" style="width: 80%;float:left;"/>
 						<input id="btnProductno.*" type="button" style="width: 1%;float:left;font-size: medium; font-weight: bold;" value="."/>
 					</td>
-					<td><input id="txtProduct.*" type="text" style="width: 98%;"/></td>
-					<td><input id="txtUnit.*" type="text" style="width: 98%;"/></td>
-					<td><input id="txtOprice.*" type="text" style="width: 98%;text-align: right;"/></td>
-					<td><input id="txtDiscount.*" type="text" style="width: 98%;text-align: right;"/></td>
-					<td><input id="txtNotaxprice.*" type="text" style="width: 98%;text-align: right;"/></td>
-					<td><input id="txtTaxrate.*" type="text" style="width: 98%;text-align: right;"/></td>
-					<td><input id="txtPrice.*" type="text" style="width: 98%;text-align: right;"/></td>
-					<td><input id="txtMemo.*" type="text" style="width: 98%;"/></td>
+					<td><input id="txtProduct.*" type="text" class="txt c1"/></td>
+					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
+					<td><input id="txtOprice.*" type="text" class="txt num c1"/></td>
+					<td><input id="txtDiscount.*" type="text" class="txt num c1"/></td>
+					<td><input id="txtNotaxprice.*" type="text" class="txt num c1"/></td>
+					<td><input id="txtTaxrate.*" type="text" class="txt num c1"/></td>
+					<td><input id="txtPrice.*" type="text" class="txt num c1"/></td>
+					<td class="isport" style="display: none;"><select id="cmbPayterms.*" class="txt c1" style="font-size: medium;"> </select></td>
+					<td class="isport" style="display: none;"><input id="txtCommission.*" type="text" class="txt num c1"/></td>
+					<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
 				</tr>
 			</table>
 		</div>

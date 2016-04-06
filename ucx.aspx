@@ -27,7 +27,7 @@
 			var q_readonlys = [];
 			var q_readonlyt = ['txtAssm'];
 			var bbmNum = [['txtPrice', 12, 2, 1],['txtPreday', 12, 0, 1],['txtHours', 10, 3, 1],['txtMinutes', 10, 3, 1],['txtPretime', 12, 2, 1],['txtBadperc', 12, 2, 1],['txtUweight', 12, 2, 1],['txtMakes', 15, 2, 1]
-			,['txtPacks', 15, 2, 1],['txtWages', 15, 2, 1],['txtCost', 15, 2, 1]/*,['txtMechs', 15, 2, 1],['txtTrans', 15, 2, 1]*/,['txtSafemount', 15, 2, 1]];
+			,['txtPacks', 15, 2, 1],['txtWages', 15, 2, 1],['txtCost', 15, 2, 1]/*,['txtMechs', 15, 2, 1],['txtTrans', 15, 2, 1]*/,['txtSafemount', 15, 2, 1],['txtStdmount', 15, 2, 1] ];
 			var bbsNum = [['txtMount', 12, 2,1]/*, ['txtWeight', 11, 2]*/, ['txtCost', 11, 2], ['txtHours', 9, 2,1],['txtLoss', 10, 2,1],['txtDividea', 10, 0,1],['txtMul', 10, 2,1]];
 			var bbtNum = [['txtMount_', 12, 2, 1]/*, ['txtWeight_', 12, 2 ,1]*/,['txtPrice_', 12, 2, 1], ['txtEndmount_', 12, 0, 1], ['txtEndweight_', 12, 2, 1]];
 			var bbmMask = [];
@@ -1060,9 +1060,9 @@
 						<td style="width:100px;"> </td>
 						<td style="width:190px;"> </td>
 						<td style="width:100px;"> </td>
-						<td style="width:190px;"> </td>
-						<td style="width:100px;"> </td>
 						<td style="width:170px;"> </td>
+						<td style="width:100px;"> </td>
+						<td style="width:190px;"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
@@ -1108,8 +1108,13 @@
 						<td><input id="txtStyle" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblGroupano" class="lbl"> </a></td>
 						<td><select id="cmbGroupano" class="txt c1" style="font-size: medium;"> </select></td>
-						<td><span> </span><a id="lblSafemount" class="lbl"> </a></td>
-						<td><input id="txtSafemount" type="text" class="txt c1 num"/></td>
+						<td><span> </span><a id="lblStdmount" class="lbl" > </a></td>
+						<td><input id="txtStdmount" type="text" class="txt c1 num" style="width:30%;"/>
+							<span style="float: left;"> </span>
+							<a id="lblSafemount" class="lbl" style="float: left;"> </a>
+							<span style="float: left;"> </span>
+							<input id="txtSafemount" type="text" class="txt c1 num" style="width:30%;"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblProcess" class="lbl btn"> </a></td>

@@ -34,8 +34,8 @@
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
-           q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
-           q_gt('flors_coin', '', 0, 0, 0, "flors_coin");
+			q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
+			//q_gt('flors_coin', '', 0, 0, 0, "flors_coin");
             $('#txtNoa').focus();
             
             //一個訂單只有一個ordei
@@ -66,7 +66,7 @@
             q_mask(bbmMask);
             //q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 			//q_cmbParse("cmbCoin", ('').concat(new Array('台幣', '美元', '日幣', '港幣', '人民幣', '歐元', '英鎊', '新加坡幣')));
-			q_cmbParse("cmbPayterms", q_getPara('sys.payterms'));
+			//q_cmbParse("cmbPayterms", q_getPara('sys.payterms'));
 			
 			if(window.parent.q_name=='orde'){
 				//讀取嘜頭選項
@@ -453,16 +453,17 @@
                <td class="td5" colspan="2"><input id="txtGoal" type="text" class="txt c1"/></td> 
             </tr>
             <tr class="tr5">
-               <td class="td1"><span> </span><a id="lblAgent" class="lbl btn"> </a></td>
-               <td class="td2" colspan="2">
-               		<input id="txtAgentno" type="text" class="txt c2"/>
+				<!--<td class="td1"><span> </span><a id="lblAgent" class="lbl btn"> </a></td>
+				<td class="td2" colspan="2">
+					<input id="txtAgentno" type="text" class="txt c2"/>
                		<input id="txtAgent" type="text" class="txt c3"/>
-               	</td>
-               <td class="td4"><span> </span><a id="lblBcomp" class="lbl btn"> </a></td>
-               <td class="td5" colspan="2">
+				</td>-->
+				<td class="td4"><span> </span><a id="lblBcomp" class="lbl btn"> </a></td>
+				<td class="td5" colspan="2">
                		<input id="txtBcompno" type="text" class="txt c2"/>
                		<input id="txtBcomp" type="text" class="txt c3"/>
-               	</td> 
+				</td> 
+				<td colspan="3"> </td>
             </tr>
 			<tr class="trX">
                <td class="td1"><span> </span><a id="lblInspection_comp" class="lbl btn"> </a></td>
@@ -489,11 +490,12 @@
 				</td>
             </tr>
             <tr class="trX">
-               <td class="td1"><span> </span><a id="lblCommissionpercent" class="lbl"> </a></td>
+               <!--<td class="td1"><span> </span><a id="lblCommissionpercent" class="lbl"> </a></td>
                <td class="td2"><input id="txtCommissionpercent" type="text" class="txt num c1"/></td>
-               <td>%</td>
+               <td>%</td>-->
                <td class="td3"><span> </span><a id="lblAccount" class="lbl"> </a></td>
                <td class="td4" colspan="2"><input id="txtAccount" type="text" class="txt c1"/></td>
+               <td colspan="3"> </td>
             </tr>
             <tr class="trX">
                <td class="td1"><span> </span><a id="lblConsignee" class="lbl btn"> </a></td>
@@ -527,13 +529,13 @@
                <td class="td3"><span> </span><a id="lblBusinesstype" class="lbl"> </a></td>
                <td class="td4" colspan="2"><input id="txtBusinesstype" type="text" class="txt c1"/></td>
             </tr>
-            <tr class="trZ">
+            <!--<tr class="trZ">
                <td class="td1"><span> </span><a id="lblCointype" class="lbl"> </a></td>
                <td class="td2" ><select id="cmbCoin"  class="txt c1"> </select></td>
                <td class="td3" ><input id="txtFloata" type="text" class="txt num c1"/></td>
                <td class="td4"><span> </span><a id="lblPayterms" class="lbl"> </a></td>
                <td class="td5" colspan="2"><select id="cmbPayterms" class="txt c1"> </select></td>
-            </tr>
+            </tr>-->
              <tr class="tr4">
 				<td class="td1"><span> </span><a id="lblMarkno" class="lbl"> </a></td>
 				<td class="td2"><select id="cmbMarkno" class="txt c1"> </select></td> 
