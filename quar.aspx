@@ -22,14 +22,14 @@
 			var decbbm = ['money', 'tax', 'total', 'weight', 'floata', 'mount', 'price', 'totalus'];
 			var q_readonly = ['txtNoa','txtWorker', 'txtComp', 'txtAcomp', 'txtSales','txtTotal','txtTotalus', 'txtWorker2'
 			,'txtMount','txtWeight','txtCost','txtBenifit','txtCasemount','txtCuft','txtCuftnotv'];
-			var q_readonlys = ['txtNo3','txtPackway','txtPackwayno','txtCost','txtProfit','txtPayterms'];
+			var q_readonlys = ['txtNo3','txtPackway','txtPackwayno','txtCost','txtBenifit','txtPayterms','txtBenifit2','txtPayterms2'];
 			var bbmNum = [];
 			var bbsNum = [];
 			var bbmMask = [];
 			var bbsMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
-			brwCount2 = 18;
+			brwCount2 = 16;
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'Datea';
@@ -65,7 +65,8 @@
 					t_total = q_add(t_total, q_float('txtTotal_' + j));
 					t_cost=q_add(t_cost, q_mul(q_float('txtCost_' + j),q_float('txtMount_' + j)));
 					
-					$('#txtProfit_'+j).val(q_sub(q_float('txtTotal_' + j),q_mul(q_float('txtCost_' + j),q_float('txtMount_' + j))));
+					$('#txtBenifit_'+j).val(round(q_sub(q_mul(q_float('txtPrice_' + j),q_float('txtMount_' + j)),q_mul(q_float('txtCost_' + j),q_float('txtMount_' + j))),0));
+					$('#txtBenifit2_'+j).val(round(q_sub(q_mul(q_float('txtPrice2_' + j),q_float('txtMount_' + j)),q_mul(q_float('txtCost_' + j),q_float('txtMount_' + j))),0));
 				}
 				q_tr('txtMount', t_mount);
 				q_tr('txtWeight',t_weight);
@@ -113,14 +114,16 @@
 				q_mask(bbmMask);
 				bbmNum = [['txtTotal', 15, 0, 1],['txtTotalus', 15, 2, 1], ['txtFloata', 11, 5, 1],['txtMount', 15, q_getPara('vcc.mountPrecision'), 1],['txtWeight', 15, q_getPara('vcc.weightPrecision'), 1]
 				,['txtCost', 15, 0, 1],['txtBenifit', 15, 0, 1],['txtBankfee', 15, 0, 1],['txtCustomsfee', 15, 0, 1],['txtPortfee', 15, 0, 1],['txtTranfee', 15, 0, 1],['txtVisafee', 15, 0, 1],['txtBillfee', 15, 0, 1],['txtCertfee', 15, 0, 1],['txtOthfee', 15, 0, 1]
-				,['txtProfit', 10, 2, 1],['txtInsurance', 10, 2, 1],['txtCommission', 10, 2, 1]	];
+				];//,['txtProfit', 10, 2, 1],['txtInsurance', 10, 2, 1],['txtCommission', 10, 2, 1]
 				bbsNum = [['txtMount', 10, q_getPara('vcc.mountPrecision'), 1],['txtMount', 10, q_getPara('vcc.weightPrecision'), 1]
-				, ['txtPrice', 10, q_getPara('vcc.pricePrecision'), 1]	, ['txtCost', 10, q_getPara('vcc.pricePrecision'), 1]	, ['txtTotal', 15, 0, 1], ['txtProfit', 15, 0, 1]];
+				, ['txtPrice', 10, q_getPara('vcc.pricePrecision'), 1]	, ['txtPrice2', 10, q_getPara('vcc.pricePrecision'), 1]	
+				, ['txtCost', 10, q_getPara('vcc.pricePrecision'), 1]	, ['txtTotal', 15, 0, 1], ['txtBenifit', 15, 0, 1], ['txtBenifit2', 15, 0, 1]];
 				
 				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
-				q_cmbParse("cmbPayterms", q_getPara('sys.payterms'));
+				//q_cmbParse("cmbPayterms", q_getPara('sys.payterms'),'s');
 				q_cmbParse("combPayterms", q_getPara('sys.payterms'));
+				q_cmbParse("combPayterms2", q_getPara('sys.payterms'));
 				
 				q_cmbParse("cmbCasetype", "20',40'" );
 				
@@ -200,8 +203,21 @@
 						$('#txtWeight_'+$('#textNoq').val()).val($('#textWeight').val());
 						$('#txtPackwayno_'+$('#textNoq').val()).val($('#textPackwayno').val());
 						$('#txtPackway_'+$('#textNoq').val()).val($('#textPackway').val());
-						$('#txtTotal_'+$('#textNoq').val()).val(q_mul(dec($('#txtMount_'+$('#textNoq').val()).val()),dec($('#txtPrice_'+$('#textNoq').val()).val())));
+						$('#txtTotal_'+$('#textNoq').val()).val(round(q_mul(dec($('#txtMount_'+$('#textNoq').val()).val()),dec($('#txtPrice_'+$('#textNoq').val()).val())),0));
 						$('#txtPayterms_'+$('#textNoq').val()).val($('#combPayterms').val());
+						
+						$('#txtProfit_'+$('#textNoq').val()).val($('#textProfit').val());
+						$('#txtInsurance_'+$('#textNoq').val()).val($('#textInsurance').val());
+						$('#txtCommission_'+$('#textNoq').val()).val($('#textCommission').val());
+						
+						//--------------------------------------------------------
+						$('#txtPrice2_'+$('#textNoq').val()).val($('#textCost32').val());
+						$('#txtPayterms2_'+$('#textNoq').val()).val($('#combPayterms2').val());
+						
+						$('#txtProfit2_'+$('#textNoq').val()).val($('#textProfit2').val());
+						$('#txtInsurance2_'+$('#textNoq').val()).val($('#textInsurance2').val());
+						$('#txtCommission2_'+$('#textNoq').val()).val($('#textCommission2').val());
+						
 						sum();
 					}
 					$('#div_getprice').hide();
@@ -222,6 +238,15 @@
 					$('#textProfitmoney').val(round(q_mul(cost2,q_div(profit,100)),3));
 					$('#textInsurmoney').val(round(q_mul(cost2,q_div(insurance,100)),3));
 					$('#textCommimoney').val(round(q_mul(cost2,q_div(commission,100)),3));
+					
+					var profit2=$('#textProfit2').val();
+					var insurance2=$('#textInsurance2').val();
+					var commission2=$('#textCommission2').val();
+					
+					$('#textProfitmoney2').val(round(q_mul(cost2,q_div(profit2,100)),3));
+					$('#textInsurmoney2').val(round(q_mul(cost2,q_div(insurance2,100)),3));
+					$('#textCommimoney2').val(round(q_mul(cost2,q_div(commission2,100)),3));
+					
 					divpaytermschange();
 				});
 				
@@ -264,6 +289,13 @@
 					divpaytermschange();
 				});
 				
+				$('#textProfit2').change(function() {
+					var profit2=$('#textProfit2').val();
+					var cost2=dec($('#textCost2').val());
+					$('#textProfitmoney2').val(round(q_mul(cost2,q_div(profit2,100)),3));
+					divpaytermschange();
+				});
+				
 				$('#textInsurance').change(function() {
 					var insurance=$('#textInsurance').val();
 					var cost2=dec($('#textCost2').val());
@@ -271,18 +303,75 @@
 					divpaytermschange();
 				});
 				
+				$('#textInsurance2').change(function() {
+					var insurance2=$('#textInsurance2').val();
+					var cost2=dec($('#textCost2').val());
+					$('#textInsurmoney2').val(round(q_mul(cost2,q_div(insurance2,100)),3));
+					divpaytermschange();
+				});
+				
 				$('#textCommission').change(function() {
 					var commission=$('#textCommission').val();
 					var cost2=dec($('#textCost2').val());
 					$('#textCommimoney').val(round(q_mul(cost2,q_div(commission,100)),3));
+					
+					divpaytermschange();
+				});
+				
+				$('#textCommission2').change(function() {
+					var commission2=$('#textCommission2').val();
+					var cost2=dec($('#textCost2').val());
+					$('#textCommimoney2').val(round(q_mul(cost2,q_div(commission2,100)),3));
 					divpaytermschange();
 				});
 				
 				$('#combPayterms').change(function() {
+					if(!emp($('#txtAgentno').val()) && !emp($('#txtProductno_'+$('#textNoq').val()).val()) && !emp($('#combPayterms').val())){
+						var t_where = "where=^^ a.custno='"+$('#txtAgentno').val()+"' and b.xproductno='"+$('#txtProductno_'+$('#textNoq').val()).val()+"' and a.payterms='"+$('#combPayterms').val()+"' and '"+$('#txtOdate').val()+"'>=a.bdate order by bdate desc,noa desc ^^";
+						q_gt('custprices', t_where, 0, 0, 0, "getcustprices", r_accy, 1);
+						var as = _q_appendData("custprices", "", true);
+						if (as[0] != undefined) {
+							$('#textCommission').val(as[0].commission);
+						}
+					}
+					divpaytermschange();
+				});
+				
+				$('#combPayterms2').change(function() {
+					if(!emp($('#txtAgentno').val()) && !emp($('#txtProductno_'+$('#textNoq').val()).val()) && !emp($('#combPayterms2').val())){
+						var t_where = "where=^^ a.custno='"+$('#txtAgentno').val()+"' and b.xproductno='"+$('#txtProductno_'+$('#textNoq').val()).val()+"' and a.payterms='"+$('#combPayterms2').val()+"' and '"+$('#txtOdate').val()+"'>=a.bdate order by bdate desc,noa desc ^^";
+						q_gt('custprices', t_where, 0, 0, 0, "getcustprices", r_accy, 1);
+						var as = _q_appendData("custprices", "", true);
+						if (as[0] != undefined) {
+							$('#textCommission2').val(as[0].commission);
+						}
+					}
 					divpaytermschange();
 				});
 				
 				$('#textMount').change(function() {
+					var t_weight=0;
+					var t_mount=dec($('#textMount').val());
+					var t_uweight=dec($('#textUweight').val());
+					var t_inmount=dec($('#textInmount').val());
+					var t_outmount=dec($('#textOutmount').val());
+					var t_inweight=dec($('#textInweight').val());
+					var t_outweight=dec($('#textOutweight').val());
+					var t_pfmount=q_mul(t_inmount,t_outmount)==0?0:Math.floor(q_div(t_mount,q_mul(t_inmount,t_outmount))); //一整箱
+					var t_pcmount=q_mul(t_inmount,t_outmount)==0?0:Math.ceil(q_div(t_mount,q_mul(t_inmount,t_outmount))); //總箱數
+					var t_emount=q_sub(dec($('#textMount').val()),q_mul(t_pfmount,q_mul(t_inmount,t_outmount))); //散裝數量
+					t_weight=q_add(q_add(q_mul(q_mul(t_inmount,t_outmount),t_uweight),t_outweight),q_mul(t_inweight,t_outmount));//一箱毛重
+					t_weight=q_mul(t_pfmount,t_weight); //整箱毛重
+					if(t_emount>0){ //散裝(淨重+外包裝重+內包裝重)
+						var tt_weight=q_mul(t_emount,t_uweight);
+						tt_weight=q_add(tt_weight,t_outweight);
+						tt_weight=q_add(tt_weight,q_mul(Math.ceil((t_inmount==0?1:q_div(t_emount,t_inmount))),t_inweight));
+						t_weight=q_add(t_weight,tt_weight);
+					}
+					$('#textWeight').val(t_weight);
+				});
+				
+				$('#textUweight').change(function() {
 					var t_weight=0;
 					var t_mount=dec($('#textMount').val());
 					var t_uweight=dec($('#textUweight').val());
@@ -368,36 +457,73 @@
 				var commission=$('#textCommission').val();
 				var payterms= $('#combPayterms').val();
 				var cost3=0
+				var precision=dec(q_getPara('vcc.pricePrecision'));
 				switch (payterms) {//P利潤 I保險 C佣金 F運費
-					case 'C&F'://(成本/(1-P)+F) //=CFR   
-						cost3=round(q_add(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),tranprice),3);
+					case 'C＆F'://(成本/(1-P)+F) //=CFR   
+						cost3=round(q_add(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),tranprice),precision);
 						break;
-					case 'C&F&C'://(成本/(1-P)+F)/(1-C)
-						cost3=round(q_div(q_add(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),tranprice),q_sub(1,q_div(commission,100))),3);
+					case 'C＆F＆C'://(成本/(1-P)+F)/(1-C)
+						cost3=round(q_div(q_add(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),tranprice),q_sub(1,q_div(commission,100))),precision);
 						break;
-					case 'C&I': //成本/(1-P)/(1-I)
-						cost3=round(q_div(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),q_sub(1,q_div(insurance,100))),3);
+					case 'C＆I': //成本/(1-P)/(1-I)
+						cost3=round(q_div(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),q_sub(1,q_div(insurance,100))),precision);
 						break;
-					case 'C&I&C'://成本/(1-P)/(1-I)/(1-C)
-						cost3=round(q_div(q_div(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),q_sub(1,q_div(insurance,100))),q_sub(1,q_div(commission,100))),3);
+					case 'C＆I＆C'://成本/(1-P)/(1-I)/(1-C)
+						cost3=round(q_div(q_div(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),q_sub(1,q_div(insurance,100))),q_sub(1,q_div(commission,100))),precision);
 						break;
 					case 'CIF'://(成本/(1-P)+F)/(1-I)   
-						cost3=round(q_div(q_add(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),tranprice),q_sub(1,q_div(insurance,100))),3);
+						cost3=round(q_div(q_add(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),tranprice),q_sub(1,q_div(insurance,100))),precision);
 						break;
-					case 'CIF&C'://(成本/(1-P)+F)/(1-I)/(1-C)
-						cost3=round(q_div(q_div(q_add(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),tranprice),q_sub(1,q_div(insurance,100))),q_sub(1,q_div(commission,100))),3);
+					case 'CIF＆C'://(成本/(1-P)+F)/(1-I)/(1-C)
+						cost3=round(q_div(q_div(q_add(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),tranprice),q_sub(1,q_div(insurance,100))),q_sub(1,q_div(commission,100))),precision);
 						break;
 					case 'EXW'://成本/(1-P)
-						cost3=round(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),3);
+						cost3=round(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),precision);
 						break;
 					case 'FOB'://成本/(1-P)
-						cost3=round(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),3);
+						cost3=round(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),precision);
 						break;
-					case 'FOB&C': //成本/(1-P)/(1-C)
-						cost3=round(q_div(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),q_sub(1,q_div(commission,100))),3);
+					case 'FOB＆C': //成本/(1-P)/(1-C)
+						cost3=round(q_div(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),q_sub(1,q_div(commission,100))),precision);
 						break;
 				}
 				$('#textCost3').val(cost3);
+				//-------------------------------------------------------------------------------------------------	
+				var profit2=$('#textProfit2').val();
+				var insurance2=$('#textInsurance2').val();
+				var commission2=$('#textCommission2').val();
+				var payterms2= $('#combPayterms2').val();
+				var cost32=0
+				switch (payterms2) {//P利潤 I保險 C佣金 F運費
+					case 'C＆F'://(成本/(1-P)+F) //=CFR   
+						cost32=round(q_add(q_div(q_add(cost,fee),q_sub(1,q_div(profit2,100))),tranprice),precision);
+						break;
+					case 'C＆F＆C'://(成本/(1-P)+F)/(1-C)
+						cost32=round(q_div(q_add(q_div(q_add(cost,fee),q_sub(1,q_div(profit2,100))),tranprice),q_sub(1,q_div(commission2,100))),precision);
+						break;
+					case 'C＆I': //成本/(1-P)/(1-I)
+						cost32=round(q_div(q_div(q_add(cost,fee),q_sub(1,q_div(profit2,100))),q_sub(1,q_div(insurance2,100))),precision);
+						break;
+					case 'C＆I＆C'://成本/(1-P)/(1-I)/(1-C)
+						cost32=round(q_div(q_div(q_div(q_add(cost,fee),q_sub(1,q_div(profit2,100))),q_sub(1,q_div(insurance2,100))),q_sub(1,q_div(commission2,100))),precision);
+						break;
+					case 'CIF'://(成本/(1-P)+F)/(1-I)   
+						cost32=round(q_div(q_add(q_div(q_add(cost,fee),q_sub(1,q_div(profit2,100))),tranprice),q_sub(1,q_div(insurance2,100))),precision);
+						break;
+					case 'CIF＆C'://(成本/(1-P)+F)/(1-I)/(1-C)
+						cost32=round(q_div(q_div(q_add(q_div(q_add(cost,fee),q_sub(1,q_div(profit2,100))),tranprice),q_sub(1,q_div(insurance2,100))),q_sub(1,q_div(commission2,100))),precision);
+						break;
+					case 'EXW'://成本/(1-P)
+						cost32=round(q_div(q_add(cost,fee),q_sub(1,q_div(profit2,100))),precision);
+						break;
+					case 'FOB'://成本/(1-P)
+						cost32=round(q_div(q_add(cost,fee),q_sub(1,q_div(profit2,100))),precision);
+						break;
+					case 'FOB＆C': //成本/(1-P)/(1-C)
+						cost32=round(q_div(q_div(q_add(cost,fee),q_sub(1,q_div(profit2,100))),q_sub(1,q_div(commission2,100))),precision);
+						break;
+				}
+				$('#textCost32').val(cost32);
 			}
 			
 			function imgshowhide() {
@@ -690,14 +816,20 @@
 								if($('#cmbCasetype').val()=="40'")
 									$('#textCycbm').val(67.7);
 								
-								$('#textProfit').val($('#txtProfit').val());
+								/*$('#textProfit').val($('#txtProfit').val());
 								$('#textInsurance').val($('#txtInsurance').val());
 								$('#textCommission').val($('#txtCommission').val());
+								$('#combPayterms').val($('#cmbPayterms').val());
+								*/
+								$('#combPayterms').val($('#txtPayterms_'+b_seq).val());
+								$('#textProfit').val($('#txtProfit_'+b_seq).val());
+								$('#textInsurance').val($('#txtInsurance_'+b_seq).val());
+								$('#textCommission').val($('#txtCommission_'+b_seq).val());
 								
-								if(!emp($('#txtPayterms_'+b_seq).val()))
-									$('#combPayterms').val($('#txtPayterms_'+b_seq).val());
-								else
-									$('#combPayterms').val($('#cmbPayterms').val());
+								$('#combPayterms2').val($('#txtPayterms2_'+b_seq).val());
+								$('#textProfit2').val($('#txtProfit2_'+b_seq).val());
+								$('#textInsurance2').val($('#txtInsurance2_'+b_seq).val());
+								$('#textCommission2').val($('#txtCommission2_'+b_seq).val());
 								
 								$('#textMount').change();
 								$('#textCost').change();
@@ -885,7 +1017,7 @@
 							q_gt('custm', t_where, 0, 0, 0, "getcustm",r_accy,1);
 							var as = _q_appendData("custm", "", true);
 							if (as[0] != undefined) {
-								$('#cmbPayterms').val(as[0].payterms);
+								//$('#cmbPayterms').val(as[0].payterms);
 								$('#txtAgentno').val(as[0].agentno);
 								$('#txtAgent').val(as[0].agent);
 							}
@@ -1036,7 +1168,7 @@
 			.tbbs tr.error input[type="text"] {
 				color: red;
 			}
-			input[type="text"], input[type="button"] {
+			input[type="text"], input[type="button"] ,select{
 				font-size: medium;
 			}
 		</style>
@@ -1092,6 +1224,8 @@
 					<td align="center"><input id="textCbm" type="text" class="txt num c1" disabled="disabled"/></td>
 					<td align="center"><a class="lbl">CUFT/CTN</a></td>
 					<td align="center"><input id="textCuft" type="text" class="txt num c1" disabled="disabled"/></td>
+					<td align="center"><a class="lbl">試算總重量</a></td>
+					<td align="center"><input id="textWeight" type="text" class="txt num c1"/></td>
 				</tr>
 				<tr style="background-color: #E7FFCD; " >
 					<td align="center"><a class="lbl">運費選擇</a></td>
@@ -1128,6 +1262,11 @@
 					<td align="center"><a class="lbl">成本合計</a></td>
 					<td align="center"><input id="textCost2" type="text" class="txt num c1"/></td>
 				</tr>
+				
+				<tr style="background-color: #EC7DD2; ">
+					<td align="center">單價1</td>
+					<td colspan="5"> </td>
+				</tr>
 				<tr style="background-color: #EC7DD2; ">
 					<td align="center"><a class="lbl">Profit</a></td>
 					<td align="center"><input id="textProfit" type="text" class="txt num c1" style="width: 70%"/>&nbsp; %</td>
@@ -1144,14 +1283,44 @@
 					<td align="right"><a class="lbl">$</a></td>
 					<td align="center"><input id="textProfitmoney" type="text" class="txt num c1"/></td>
 				</tr>
-				<tr style="background-color: #52FDAC;">
+				<tr style="background-color: #EC7DD2;">
 					<td align="center"><a class="lbl">價格條件</a></td>
 					<td align="center"><select id="combPayterms" class="txt c1"> </select></td>
 					<td align="center"><a class="lbl">試算單價</a></td>
 					<td align="center"><input id="textCost3" type="text" class="txt num c1"/></td>
-					<td align="center"><a class="lbl">試算總重量</a></td>
-					<td align="center"><input id="textWeight" type="text" class="txt num c1"/></td>
+					<td align="center"> </td>
+					<td align="center"> </td>
 				</tr>
+				
+				<tr style="background-color: #52FDAC; ">
+					<td align="center">單價2</td>
+					<td align="center" colspan="5"> </td>
+				</tr>
+				<tr style="background-color: #52FDAC; ">
+					<td align="center"><a class="lbl">Profit</a></td>
+					<td align="center"><input id="textProfit2" type="text" class="txt num c1" style="width: 70%"/>&nbsp; %</td>
+					<td align="center"><a class="lbl">Insurance</a></td>
+					<td align="center"><input id="textInsurance2" type="text" class="txt num c1" style="width: 70%"/>&nbsp; %</td>
+					<td align="center"><a class="lbl">Commission</a></td>
+					<td align="center"><input id="textCommission2" type="text" class="txt num c1" style="width: 70%"/>&nbsp; %</td>
+				</tr>
+				<tr style="background-color: #52FDAC;display: none;">
+					<td align="right"><a class="lbl">$</a></td>
+					<td align="center"><input id="textInsurmoney2" type="text" class="txt num c1"/></td>
+					<td align="right"><a class="lbl">$</a></td>
+					<td align="center"><input id="textCommimoney2" type="text" class="txt num c1"/></td>
+					<td align="right"><a class="lbl">$</a></td>
+					<td align="center"><input id="textProfitmoney2" type="text" class="txt num c1"/></td>
+				</tr>
+				<tr style="background-color: #52FDAC;">
+					<td align="center"><a class="lbl">價格條件</a></td>
+					<td align="center"><select id="combPayterms2" class="txt c1"> </select></td>
+					<td align="center"><a class="lbl">試算單價</a></td>
+					<td align="center"><input id="textCost32" type="text" class="txt num c1"/></td>
+					<td align="center"> </td>
+					<td align="center"> </td>
+				</tr>
+				
 				<tr style="background-color: #F1A0A2;">
 					<td align="center" colspan='6'>
 						<input id="btnOk_div_getprice" type="button" value="取回單價/重量">
@@ -1243,49 +1412,45 @@
 						<td colspan="2"><input id="txtEdock" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblPayterms' class="lbl"> </a></td>
-						<td><select id="cmbPayterms" class="txt c1"> </select></td>
-						<td><span> </span><a id='lblVia' class="lbl"> </a></td>
-						<td colspan="2"><input id="txtVia" type="text" class="txt c1"/></td>
+						<!--<td><span> </span><a id='lblPayterms' class="lbl"> </a></td>
+						<td><select id="cmbPayterms" class="txt c1"> </select></td>-->
 						<!--<td><span> </span><a id='lblPrice' class="lbl"> </a></td>
 						<td colspan="2"><input id="txtPrice" type="text" class="txt c1 num"/></td>-->
+						<!--<td><span> </span><a id='lblVia' class="lbl"> </a></td>
+						<td colspan="2"><input id="txtVia" type="text" class="txt c1"/></td>-->
+						<td><span> </span><a id='lblPaytype' class="lbl"> </a></td>
+						<td>
+							<input id="txtPaytype" type="text" class="txt c1" style="width: 80px;"/>
+							<select id="combPaytype" class="txt c1" onchange='combPay_chg()' style="width: 25px;"> </select>
+						</td>
 						<td><span> </span><a id='lblSales' class="lbl btn"> </a></td>
 						<td><input id="txtSalesno" type="text" class="txt c1"/></td>
 						<td><input id="txtSales" type="text" class="txt c1"/></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblProfit' class="lbl"> </a></td>
-						<td><input id="txtProfit" type="text" class="txt c5 num"/><a>&nbsp; %</a></td>
-						<td><span> </span><a id='lblPaytype' class="lbl"> </a></td>
-						<td colspan="2">
-							<input id="txtPaytype" type="text" class="txt c1" style="width: 190px;"/>
-							<select id="combPaytype" class="txt c1" onchange='combPay_chg()' style="width: 25px;"> </select>
-						</td>
 						<td><span> </span><a id='lblFloata' class="lbl"> </a></td>
 						<td><select id="cmbCoin" class="txt c1" onchange='coin_chg()'> </select></td>
 						<td><input id="txtFloata" type="text" class="txt c1 num"/></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblInsurance' class="lbl"> </a></td>
-						<td><input id="txtInsurance" type="text" class="txt c5 num" /><a>&nbsp; %</a></td>
-						<td><span> </span><a id='lblMount' class="lbl"> </a></td>
-						<td  colspan='2'><input id="txtMount" type="text" class="txt c1 num"/></td>
-						<td><span> </span><a id='lblWeight' class="lbl"> </a></td>
-						<td colspan='2'><input id="txtWeight" type="text" class="txt c1 num"/></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblCommission' class="lbl"> </a></td>
-						<td><input id="txtCommission" type="text" class="txt c5 num"/><a>&nbsp; %</a></td>
-						<td><span> </span><a id='lblTotal' class="lbl"> </a></td>
-						<td colspan='2'><input id="txtTotal" type="text" class="txt c1 num"/></td>
-						<td><span> </span><a id='lblTotalus' class="lbl"> </a></td>
-						<td colspan='2'><input id="txtTotalus"	type="text" class="txt c1 num"/></td>
 					</tr>
 					<tr>
 						<td align="right"><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td colspan='7' >
 							<textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea>
 						</td>
+					</tr>
+					<tr>
+						<!--<td><span> </span><a id='lblProfit' class="lbl"> </a></td>
+						<td><input id="txtProfit" type="text" class="txt c5 num"/><a>&nbsp; %</a></td>-->
+						<!--<td><span> </span><a id='lblInsurance' class="lbl"> </a></td>
+						<td><input id="txtInsurance" type="text" class="txt c5 num" /><a>&nbsp; %</a></td>-->
+						<!--<td><span> </span><a id='lblCommission' class="lbl"> </a></td>
+						<td><input id="txtCommission" type="text" class="txt c5 num"/><a>&nbsp; %</a></td>-->
+						<td><span> </span><a id='lblMount' class="lbl"> </a></td>
+						<td><input id="txtMount" type="text" class="txt c1 num"/></td>
+						<td><span> </span><a id='lblWeight' class="lbl"> </a></td>
+						<td><input id="txtWeight" type="text" class="txt c1 num"/></td>
+						<td><span> </span><a id='lblTotal' class="lbl"> </a></td>
+						<td><input id="txtTotal" type="text" class="txt c1 num"/></td>
+						<td><span> </span><a id='lblTotalus' class="lbl"> </a></td>
+						<td><input id="txtTotalus"	type="text" class="txt c1 num"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblCasetype' class="lbl"> </a></td>
@@ -1341,7 +1506,7 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1530px;">
+		<div class='dbbs' style="width: 1830px;">
 			<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1' >
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:40px;"><input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" /></td>
@@ -1350,13 +1515,15 @@
 					<td align="center" style="width:200px;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblPrice_s'> </a><BR><a id='lblCost_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblCost_s'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblGetprice_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblPayterms_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblPrice_s'> </a><BR></td>
+					<td align="center" style="width:100px;"><a id='lblBenifit_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblPackway_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblWeight_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblCuft_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblTotal_s'> </a><BR><a id='lblProfit_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblTotal_s'> </a></td>
 					<td align="center" style="width:150px;display: none;" class="isimg"><a id='lblImg_s'> </a></td>
 					<td align="center"><a id='lblMemo_s'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblEnda_s'> </a></td>
@@ -1376,11 +1543,28 @@
 					<td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
 					<td>
-						<input id="txtPrice.*" type="text" class="txt c1 num"/>
 						<input id="txtCost.*" type="text" class="txt c1 num"/>
+						
+						<input id="txtProfit.*" type="hidden" class="txt c1 num"/>
+						<input id="txtCommission.*" type="hidden" class="txt c1 num"/>
+						<input id="txtInsurance.*" type="hidden" class="txt c1 num"/>
+						<input id="txtProfit2.*" type="hidden" class="txt c1 num"/>
+						<input id="txtCommission2.*" type="hidden" class="txt c1 num"/>
+						<input id="txtInsurance2.*" type="hidden" class="txt c1 num"/>
 					</td>
 					<td align="center"><input class="btn" id="btnGetprice.*" type="button" value='.' style=" font-weight: bold;"/></td>
-					<td>	<input id="txtPayterms.*" type="text" class="txt c1 "/></td>
+					<td><!--<select id="cmbPayterms.*" class="txt c1"> </select>-->
+						<input id="txtPayterms.*" type="text" class="txt c1"/>
+						<input id="txtPayterms2.*" type="text" class="txt c1"/>
+					</td>
+					<td>
+						<input id="txtPrice.*" type="text" class="txt c1 num"/>
+						<input id="txtPrice2.*" type="text" class="txt c1 num"/>
+					</td>
+					<td>
+						<input id="txtBenifit.*" type="text" class="txt c1 num"/>
+						<input id="txtBenifit2.*" type="text" class="txt c1 num"/>
+					</td>
 					<td>
 						<input id="txtPackwayno.*" type="text" class="txt c1" style="width: 60%;"/>
 						<input class="btn" id="btnPackway.*" type="button" value='.' style=" font-weight: bold;"/>
@@ -1388,10 +1572,7 @@
 					</td>
 					<td><input id="txtWeight.*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtCuft.*" type="text" class="txt c1 num"/></td>
-					<td>
-						<input id="txtTotal.*" type="text" class="txt c1 num"/>
-						<input id="txtProfit.*" type="text" class="txt c1 num"/>
-					</td>
+					<td><input id="txtTotal.*" type="text" class="txt c1 num"/></td>
 					<td class="isimg" style="display: none;"><img id="images.*" style="width: 150px;"></td>
 					<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
 					<td align="center"><input id="chkEnda.*" type="checkbox"/></td>

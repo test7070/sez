@@ -246,7 +246,7 @@
 
             function bbsSave(as) {
                 t_err = '';
-                if (parseFloat(as['productno']) == 0) {
+                if (!as['productno'] && !as['product']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
