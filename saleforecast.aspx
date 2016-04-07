@@ -155,7 +155,7 @@
 			}
 
 			function bbsSave(as) {
-				if(!as['productno']) {
+				if(!as['productno'] && !as['mount']) {
 					as[bbsKey[1]] = '';
 					return;
 				}
