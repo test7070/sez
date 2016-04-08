@@ -326,24 +326,32 @@
 				});
 				
 				$('#combPayterms').change(function() {
-					if(!emp($('#txtAgentno').val()) && !emp($('#txtProductno_'+$('#textNoq').val()).val()) && !emp($('#combPayterms').val())){
-						var t_where = "where=^^ a.custno='"+$('#txtAgentno').val()+"' and b.xproductno='"+$('#txtProductno_'+$('#textNoq').val()).val()+"' and a.payterms='"+$('#combPayterms').val()+"' and '"+$('#txtOdate').val()+"'>=a.bdate order by bdate desc,noa desc ^^";
+					if(!emp($('#txtCustno').val()) && !emp($('#txtProductno_'+$('#textNoq').val()).val()) && !emp($('#combPayterms').val())){
+						var t_where = "where=^^ a.custno='"+$('#txtCustno').val()+"' and b.xproductno='"+$('#txtProductno_'+$('#textNoq').val()).val()+"' and a.payterms='"+$('#combPayterms').val()+"' and '"+$('#txtOdate').val()+"'>=a.bdate order by bdate desc,noa desc ^^";
 						q_gt('custprices', t_where, 0, 0, 0, "getcustprices", r_accy, 1);
 						var as = _q_appendData("custprices", "", true);
 						if (as[0] != undefined) {
 							$('#textCommission').val(as[0].commission);
+							$('#textInsurance').val(as[0].insurance);
+							$('#textProfit').val(as[0].profit);
+							$('#textCost').val(as[0].cost);
+							$('#textTranprice').val(as[0].tranprice);
 						}
 					}
 					divpaytermschange();
 				});
 				
 				$('#combPayterms2').change(function() {
-					if(!emp($('#txtAgentno').val()) && !emp($('#txtProductno_'+$('#textNoq').val()).val()) && !emp($('#combPayterms2').val())){
-						var t_where = "where=^^ a.custno='"+$('#txtAgentno').val()+"' and b.xproductno='"+$('#txtProductno_'+$('#textNoq').val()).val()+"' and a.payterms='"+$('#combPayterms2').val()+"' and '"+$('#txtOdate').val()+"'>=a.bdate order by bdate desc,noa desc ^^";
+					if(!emp($('#txtCustno').val()) && !emp($('#txtProductno_'+$('#textNoq').val()).val()) && !emp($('#combPayterms2').val())){
+						var t_where = "where=^^ a.custno='"+$('#txtCustno').val()+"' and b.xproductno='"+$('#txtProductno_'+$('#textNoq').val()).val()+"' and a.payterms='"+$('#combPayterms2').val()+"' and '"+$('#txtOdate').val()+"'>=a.bdate order by bdate desc,noa desc ^^";
 						q_gt('custprices', t_where, 0, 0, 0, "getcustprices", r_accy, 1);
 						var as = _q_appendData("custprices", "", true);
 						if (as[0] != undefined) {
 							$('#textCommission2').val(as[0].commission);
+							$('#textInsurance2').val(as[0].insurance);
+							$('#textProfit2').val(as[0].profit);
+							$('#textCost').val(as[0].cost);
+							$('#textTranprice').val(as[0].tranprice);
 						}
 					}
 					divpaytermschange();
@@ -1028,6 +1036,29 @@
 						}
 						break;
 					case 'txtProductno_':
+						//取前面兩筆
+						if(!emp($('#txtCustno').val()) && !emp($('#txtProductno_'+b_seq).val())){
+							var t_where = "where=^^ a.custno='"+$('#txtCustno').val()+"' and b.xproductno='"+$('#txtProductno_'+b_seq).val()+"' and '"+$('#txtOdate').val()+"'>=a.bdate order by bdate desc,noa desc ^^";
+							q_gt('custprices', t_where, 0, 0, 0, "getcustprices", r_accy, 1);
+							var as = _q_appendData("custprices", "", true);
+							if (as[0] != undefined) {
+								$('#txtCommission_'+b_seq).val(as[0].commission);
+								$('#txtInsurance_'+b_seq).val(as[0].insurance);
+								$('#txtProfit_'+b_seq).val(as[0].profit);
+								$('#txtPayterms_'+b_seq).val(as[0].payterms);
+								$('#txtCost_'+b_seq).val(as[0].cost);
+								$('#txtPrice_'+b_seq).val(as[0].price2);
+							}
+							if (as[1] != undefined) {
+								$('#txtCommission2_'+b_seq).val(as[1].commission);
+								$('#txtInsurance2_'+b_seq).val(as[1].insurance);
+								$('#txtProfit2_'+b_seq).val(as[1].profit);
+								$('#txtPayterms2_'+b_seq).val(as[1].payterms);
+								$('#txtCost2_'+b_seq).val(as[1].cost);
+								$('#txtPrice2_'+b_seq).val(as[1].price2);
+							}
+						}
+						
 						imgshowhide();
 						break;
 				}

@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -11,18 +11,20 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
             this.errorHandler = null;
-
+			
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-
+			
+			q_copy=1;
             q_desc = 1;
             q_tables = 's';
             var q_name = "custprice";
             var q_readonly = ['txtNoa', 'txtDatea','txtWorker'];
             var q_readonlys = [];
             var bbmNum = [];
-            var bbsNum = [['txtOprice', 10, 2, 1],['txtPrice', 10, 2, 1],['txtDiscount', 10, 2, 1],['txtTaxrate', 5, 2, 1],['txtNotaxprice', 10, 2, 1],['txtCommission', 10, 2, 1]];
+            var bbsNum = [['txtOprice', 10, 2, 1],['txtPrice', 10, 2, 1],['txtDiscount', 10, 2, 1],['txtTaxrate', 5, 2, 1],['txtNotaxprice', 10, 2, 1]
+            ,['txtCost', 10, 2, 1],['txtTranprice', 10, 2, 1],['txtCommission', 10, 2, 1],['txtProfit', 10, 2, 1],['txtInsurance', 10, 2, 1],['txtPrice2', 10, 2, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -39,54 +41,6 @@
                 q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
             });
             
-            function currentData() {}
-			currentData.prototype = {
-				data : [],
-				/*新增時複製的欄位*/
-				//bbm
-				include : ['txtCustno', 'txtComp'],
-				
-				//bbs
-				includes : ['txtProductno_', 'txtProduct_','txtOprice_','txtDiscount_','txtNotaxprice_','txtTaxrate_','txtPrice_','txtMemo_'],
-				
-				/*記錄當前的資料*/
-				copy : function() {
-					this.data = new Array();
-					for (var i in fbbm) {
-						var isInclude = false;
-						for (var j in this.include) {
-							if (fbbm[i] == this.include[j] ) {
-								isInclude = true;
-								break;
-							}
-						}
-						if (isInclude ) {
-							this.data.push({
-								field : fbbm[i],
-								value : $('#' + fbbm[i]).val()
-							});
-						}
-					}
-					//bbs
-					for (var i in this.includes) {
-						for(var j = 0; j < q_bbsCount; j++) {
-							this.data.push({
-								field : this.includes[i]+j,
-								value : $('#' + this.includes[i]+j).val()
-							});
-						}
-					}
-				},
-				/*貼上資料*/
-				paste : function() {
-					for (var i in this.data) {
-					   	$('#' + this.data[i].field).val(this.data[i].value);
-				   	}
-				}
-			};
-			
-			var curData = new currentData();
-
             function main() {
                 if (dataErr) {
                     dataErr = false;
@@ -158,13 +112,7 @@
             }
 
             function btnIns() {
-            	if($('#Copy').is(':checked')){
-					curData.copy();
-				}
                 _btnIns();
-                if($('#Copy').is(':checked')){
-					curData.paste();
-				}
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtBdate').val(q_date());
@@ -212,27 +160,70 @@
                     		t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-								q_tr('txtNotaxprice_'+b_seq,round(q_div(q_mul(dec($('#txtOprice_'+b_seq).val()),dec($('#txtDiscount_'+b_seq).val())),100),2));
-								q_tr('txtPrice_'+b_seq,round(q_add(q_float('txtNotaxprice_'+b_seq),q_div(q_mul(q_float('txtNotaxprice_'+b_seq),q_float('txtTaxrate_'+b_seq)),100)),2));
+							q_tr('txtNotaxprice_'+b_seq,round(q_div(q_mul(dec($('#txtOprice_'+b_seq).val()),dec($('#txtDiscount_'+b_seq).val())),100),2));
+							q_tr('txtPrice_'+b_seq,round(q_add(q_float('txtNotaxprice_'+b_seq),q_div(q_mul(q_float('txtNotaxprice_'+b_seq),q_float('txtTaxrate_'+b_seq)),100)),2));
 						});
 						$('#txtDiscount_'+i).change(function() {
                     		t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-								q_tr('txtNotaxprice_'+b_seq,round(q_div(q_mul(dec($('#txtOprice_'+b_seq).val()),dec($('#txtDiscount_'+b_seq).val())),100),2));
-								q_tr('txtPrice_'+b_seq,round(q_add(q_float('txtNotaxprice_'+b_seq),q_div(q_mul(q_float('txtNotaxprice_'+b_seq),q_float('txtTaxrate_'+b_seq)),100)),2));
+							q_tr('txtNotaxprice_'+b_seq,round(q_div(q_mul(dec($('#txtOprice_'+b_seq).val()),dec($('#txtDiscount_'+b_seq).val())),100),2));
+							q_tr('txtPrice_'+b_seq,round(q_add(q_float('txtNotaxprice_'+b_seq),q_div(q_mul(q_float('txtNotaxprice_'+b_seq),q_float('txtTaxrate_'+b_seq)),100)),2));
 						});
 						$('#txtNotaxprice_'+i).change(function() {
                     		t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-								q_tr('txtPrice_'+b_seq,round(q_add(q_float('txtNotaxprice_'+b_seq),q_div(q_mul(q_float('txtNotaxprice_'+b_seq),q_float('txtTaxrate_'+b_seq)),100)),2));
+							q_tr('txtPrice_'+b_seq,round(q_add(q_float('txtNotaxprice_'+b_seq),q_div(q_mul(q_float('txtNotaxprice_'+b_seq),q_float('txtTaxrate_'+b_seq)),100)),2));
 						});
 						$('#txtTaxrate_'+i).change(function() {
                     		t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-								q_tr('txtPrice_'+b_seq,round(q_add(q_float('txtNotaxprice_'+b_seq),q_div(q_mul(q_float('txtNotaxprice_'+b_seq),q_float('txtTaxrate_'+b_seq)),100)),2));
+							q_tr('txtPrice_'+b_seq,round(q_add(q_float('txtNotaxprice_'+b_seq),q_div(q_mul(q_float('txtNotaxprice_'+b_seq),q_float('txtTaxrate_'+b_seq)),100)),2));
+						});
+						
+						//isport
+						$('#txtCost_'+i).change(function() {
+                    		t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							paytermschange(b_seq);
+						});
+						
+						$('#cmbPayterms_'+i).change(function() {
+                    		t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							paytermschange(b_seq);
+						});
+						
+						$('#txtCommission_'+i).change(function() {
+                    		t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							paytermschange(b_seq);
+						});
+						
+						$('#txtProfit_'+i).change(function() {
+                    		t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							paytermschange(b_seq);
+						});
+						
+						$('#txtInsurance_'+i).change(function() {
+                    		t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							paytermschange(b_seq);
+						});
+						
+						$('#txtTranprice_'+i).change(function() {
+                    		t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							paytermschange(b_seq);
 						});
                     }
                 }
@@ -241,8 +232,52 @@
                 
                 if(q_getPara('sys.isport')=='1'){ //外銷
                 	$('.isport').show();
+                	$('.isnotport').hide();
+                	$('#lblCustno').text('客戶');
                 }
             }
+            
+            function paytermschange(n){
+				var cost=dec($('#txtCost_'+n).val());
+				var tranprice=dec($('#txtTranprice_'+n).val());
+				var fee=0;
+				var profit=dec($('#txtProfit_'+n).val());
+				var insurance=dec($('#txtInsurance_'+n).val());
+				var commission=dec($('#txtCommission_'+n).val());
+				var payterms= $('#cmbPayterms_'+n).val();
+				var price=0
+				var precision=dec(q_getPara('vcc.pricePrecision'));
+				switch (payterms) {//P利潤 I保險 C佣金 F運費
+					case 'C＆F'://(成本/(1-P)+F) //=CFR   
+						price=round(q_add(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),tranprice),precision);
+						break;
+					case 'C＆F＆C'://(成本/(1-P)+F)/(1-C)
+						price=round(q_div(q_add(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),tranprice),q_sub(1,q_div(commission,100))),precision);
+						break;
+					case 'C＆I': //成本/(1-P)/(1-I)
+						price=round(q_div(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),q_sub(1,q_div(insurance,100))),precision);
+						break;
+					case 'C＆I＆C'://成本/(1-P)/(1-I)/(1-C)
+						price=round(q_div(q_div(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),q_sub(1,q_div(insurance,100))),q_sub(1,q_div(commission,100))),precision);
+						break;
+					case 'CIF'://(成本/(1-P)+F)/(1-I)   
+						price=round(q_div(q_add(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),tranprice),q_sub(1,q_div(insurance,100))),precision);
+						break;
+					case 'CIF＆C'://(成本/(1-P)+F)/(1-I)/(1-C)
+						price=round(q_div(q_div(q_add(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),tranprice),q_sub(1,q_div(insurance,100))),q_sub(1,q_div(commission,100))),precision);
+						break;
+					case 'EXW'://成本/(1-P)
+						price=round(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),precision);
+						break;
+					case 'FOB'://成本/(1-P)
+						price=round(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),precision);
+						break;
+					case 'FOB＆C': //成本/(1-P)/(1-C)
+						price=round(q_div(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),q_sub(1,q_div(commission,100))),precision);
+						break;
+				}
+				$('#txtPrice2_'+n).val(price);
+			}
 
             function bbsSave(as) {
                 t_err = '';
@@ -267,6 +302,8 @@
                 _refresh(recno);
                 if(q_getPara('sys.isport')=='1'){ //外銷
                 	$('.isport').show();
+                	$('.isnotport').hide();
+                	$('#lblCustno').text('客戶');
                 }
             }
 
@@ -274,6 +311,8 @@
                 _readonly(t_para, empty);
                 if(q_getPara('sys.isport')=='1'){ //外銷
                 	$('.isport').show();
+                	$('.isnotport').hide();
+                	$('#lblCustno').text('客戶');
                 }
             }
 
@@ -506,10 +545,6 @@
 						<td class="td2">
 							<input id="txtDatea"  type="text" class="txt c1"/>
 						</td>
-						<td class="td3">
-							<input id="Copy" type="checkbox" />
-							<span> </span><a id="lblCopy"> </a>
-						</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblCustno' class="lbl btn"> </a></td>
@@ -542,13 +577,18 @@
 					<td align="center" style="width:10%;"><a id='lblProductno_s'> </a></td>
 					<td align="center" style="width:18%;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:4%;"><a id='lblUnit_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblOprice_s'> </a></td>
-					<td align="center" style="width:7%;"><a id='lblDiscount_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblNotaxprice_s'> </a></td>
-					<td align="center" style="width:7%;"><a id='lblTaxrate_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblPrice_s'> </a></td>
+					<td align="center" style="width:10%;" class="isnotport"><a id='lblOprice_s'> </a></td>
+					<td align="center" style="width:7%;" class="isnotport"><a id='lblDiscount_s'> </a></td>
+					<td align="center" style="width:10%;" class="isnotport"><a id='lblNotaxprice_s'> </a></td>
+					<td align="center" style="width:7%;" class="isnotport"><a id='lblTaxrate_s'> </a></td>
+					<td align="center" style="width:10%;" class="isnotport"><a id='lblPrice_s'> </a></td>
+					<td align="center" style="width:8%;display: none;" class="isport"><a id='lblCost_s'> </a></td>
+					<td align="center" style="width:8%;display: none;" class="isport"><a id='lblTranprice_s'> </a></td>
 					<td align="center" style="width:8%;display: none;" class="isport"><a id='lblPayterms_s'> </a></td>
 					<td align="center" style="width:7%;display: none;" class="isport"><a id='lblCommission_s'> </a></td>
+					<td align="center" style="width:7%;display: none;" class="isport"><a id='lblProfit_s'> </a></td>
+					<td align="center" style="width:7%;display: none;" class="isport"><a id='lblInsurance_s'> </a></td>
+					<td align="center" style="width:7%;display: none;" class="isport"><a id='lblPrice2_s'> </a></td>
 					<td align="center" style="width:20%;"><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
@@ -562,13 +602,18 @@
 					</td>
 					<td><input id="txtProduct.*" type="text" class="txt c1"/></td>
 					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
-					<td><input id="txtOprice.*" type="text" class="txt num c1"/></td>
-					<td><input id="txtDiscount.*" type="text" class="txt num c1"/></td>
-					<td><input id="txtNotaxprice.*" type="text" class="txt num c1"/></td>
-					<td><input id="txtTaxrate.*" type="text" class="txt num c1"/></td>
-					<td><input id="txtPrice.*" type="text" class="txt num c1"/></td>
+					<td class="isnotport"><input id="txtOprice.*" type="text" class="txt num c1"/></td>
+					<td class="isnotport"><input id="txtDiscount.*" type="text" class="txt num c1"/></td>
+					<td class="isnotport"><input id="txtNotaxprice.*" type="text" class="txt num c1"/></td>
+					<td class="isnotport"><input id="txtTaxrate.*" type="text" class="txt num c1"/></td>
+					<td class="isnotport"><input id="txtPrice.*" type="text" class="txt num c1"/></td>
+					<td class="isport" style="display: none;"><input id="txtCost.*" type="text" class="txt num c1"/></td>
+					<td class="isport" style="display: none;"><input id="txtTranprice.*" type="text" class="txt num c1"/></td>
 					<td class="isport" style="display: none;"><select id="cmbPayterms.*" class="txt c1" style="font-size: medium;"> </select></td>
 					<td class="isport" style="display: none;"><input id="txtCommission.*" type="text" class="txt num c1"/></td>
+					<td class="isport" style="display: none;"><input id="txtProfit.*" type="text" class="txt num c1"/></td>
+					<td class="isport" style="display: none;"><input id="txtInsurance.*" type="text" class="txt num c1"/></td>
+					<td class="isport" style="display: none;"><input id="txtPrice2.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
 				</tr>
 			</table>

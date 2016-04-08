@@ -36,9 +36,9 @@
 			brwCount2 = 8;
 			aPop = new Array(
 				['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']
-				,['txtProductno_', '', 'ucx', 'noa,product', 'txtProductno_,txtProduct_', 'ucx_b.aspx']
-				,['txtProductno', 'lblProduct', 'ucc', 'noa,product,spec,unit', 'txtProductno,txtProduct,txtSpec,txtUnit', 'ucc_b.aspx']
-				,['txtTggno_', '', 'tgg', 'noa,comp', 'txtTggno_,txtTgg_', ""]
+				//,['txtProductno_', '', 'ucx', 'noa,product', 'txtProductno_,txtProduct_', 'ucx_b.aspx']
+				,['txtProductno', 'lblProduct', 'ucaucc', 'noa,product,spec,unit', 'txtProductno,txtProduct,txtSpec,txtUnit', 'ucaucc_b.aspx']
+				,['txtTggno_', 'btnTggno_', 'tgg', 'noa,comp', 'txtTggno_,txtTgg_', "tgg_b.aspx"]
 			);
 
 			$(document).ready(function() {
@@ -792,7 +792,7 @@
 						<td style="width:40px;"><a id='lblSale_s'>外加稅</a></td>
 						<td style="width:100px;"><a id='lblTxa_s'>稅金</a></td>
 						<td style="width:100px;"><a id='lblW01_s'>總金額</a></td>
-						<td style="width:150px;"><a id='lblNeed_s'> </a><BR><a id='lblMemo_s'> </a></td>
+						<td style="width:150px;"><a id='lblMemo_s'> </a><BR><a id='lblBornproductno_s'>生產件號</a></td>
 						<td style="width:40px;"><a id='lblEnda_s'>完工</a></td>
 						<td style="width:80px;"><a id='lblDatea_s'>完工日</a></td>
 						<td style="width:40px;"><a id='lblPay_s'>請款</a></td>
@@ -820,8 +820,8 @@
 						<td><input id="txtW02.*" type="text" class="txt c1" style="text-align:right;"/></td>
 						<td><input id="txtW01.*" type="text" class="txt c1" style="text-align:right; "/></td>
 						<td>
-							<input id="txtNeed.*" type="text" class="txt c1"/>
 							<input id="txtMemo.*" type="text" class="txt c1"/>
+							<input id="txtProductno.*" type="text" class="txt c1"/>
 						</td>
 						<td><input id="chkEnda.*" type="checkbox" class="txt c1" /></td>
 						<td><input id="txtDatea.*" type="text" class="txt c1"/></td>
