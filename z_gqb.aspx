@@ -146,6 +146,15 @@
 					$('#txtYdate2').datepicker();
 				}
                 
+                
+				var r_1911=1911;
+				if(r_len==4){//西元年
+					r_1911=0;
+				}else{
+					$('#txtDate1').datepicker();
+					$('#txtDate2').datepicker();
+				}
+                
 				$('#txtR_tel').val(q_getPara('sys.tel'));
 	            $('#txtR_addr').val(q_getPara('sys.addr'));
                 $('#txtDate1').mask(r_picd);
@@ -158,6 +167,26 @@
                 $('#txtUdate2').mask(r_picd);
                 $('#txtYdate1').mask(r_picd);
                 $('#txtYdate2').mask(r_picd);
+                
+                var t_date, t_year, t_month, t_day;
+                t_date = new Date();
+                t_year = t_date.getUTCFullYear() - r_1911;
+                t_year = t_year > 99 ? t_year + '' : '0' + t_year;
+                t_month = t_date.getUTCMonth() + 1;
+                t_month = t_month > 9 ? t_month + '' : '0' + t_month;
+                t_day = t_date.getUTCDate();
+                t_day = t_day > 9 ? t_day + '' : '0' + t_day;
+                $('#txtYdate1').val(t_year + '/' + t_month + '/' + t_day);     
+
+                t_date = new Date();
+                t_date.setDate(38);
+                t_year = t_date.getUTCFullYear() - r_1911;
+                t_year = t_year > 99 ? t_year + '' : '0' + t_year;
+                t_month = t_date.getUTCMonth() + 3;
+                t_month = t_month > 9 ? t_month + '' : '0' + t_month;
+                t_day = t_date.getUTCDate();
+                t_day = t_day > 9 ? t_day + '' : '0' + t_day;
+                $('#txtYdate2').val(t_year + '/' + t_month + '/' + t_day);
 
                 $('#txtYacc1').change(function() {
                     var s1 = trim($(this).val());
