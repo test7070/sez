@@ -17,10 +17,10 @@
 			this.errorHandler = null;
 			q_tables = 't';
 			var q_name = "cub";
-			var q_readonly = ['txtNoa','txtComp','txtWorker','txtWorker2','txtMo','txtVcceno'];
+			var q_readonly = ['txtNoa','txtComp','txtWorker','txtWorker2','txtMo','txtVcceno','txtCost'];
 			var q_readonlys = ['txtDate2', 'txtOrdeno', 'txtNo2','txtMo','txtW01'];
 			var q_readonlyt = [];
-			var bbmNum = [['txtMount',10,0,1]];
+			var bbmNum = [['txtMount',10,0,1],['txtCost',15,0,1]];
 			var bbsNum = [];
 			var bbtNum = [];
 			var bbmMask = [];
@@ -58,7 +58,11 @@
 			}
 			
 			function sum() {
-				
+				var t_cost=0;
+				for (var j = 0; j < q_bbsCount; j++) {
+					t_cost=q_add(t_cost,dec($('#txtMo_'+j).val()));
+				}
+				$('#txtCost').val(t_cost);
 			}
 
 			function mainPost() {
@@ -117,7 +121,7 @@
                         q_gt('view_vcc', "where=^^zipcode='" + $('#txtNoa').val() + "'^^", 0, 0, 0, "",r_accy,1);
                         var ass = _q_appendData("view_vcc", "", true);
                         if (ass[0] != undefined) {
-                        	q_func('vcc_post.post', ass[i].accy + ',' + ass[i].noa + ',0');
+                        	q_func('vcc_post.post', ass[0].accy + ',' + ass[0].noa + ',0');
                             sleep(100);
                         }
                         
@@ -134,7 +138,7 @@
                         q_gt('view_vcc', "where=^^zipcode='" + $('#txtNoa').val() + "'^^", 0, 0, 0, "",r_accy,1);
                         var ass = _q_appendData("view_vcc", "", true);
                         if (ass[0] != undefined) {
-                        	q_func('vcc_post.post', ass[i].accy + ',' + ass[i].noa + ',1');
+                        	q_func('vcc_post.post', ass[0].accy + ',' + ass[0].noa + ',1');
                             sleep(100);
                         }
                         
@@ -150,7 +154,7 @@
                         q_gt('view_vcc', "where=^^zipcode='" + $('#txtNoa').val() + "'^^", 0, 0, 0, "",r_accy,1);
                         var ass = _q_appendData("view_vcc", "", true);
                         if (ass[0] != undefined) {
-                        	q_func('vcc_post.post', ass[i].accy + ',' + ass[i].noa + ',0');
+                        	q_func('vcc_post.post', ass[0].accy + ',' + ass[0].noa + ',0');
                             sleep(100);
                         }
                         
@@ -245,6 +249,7 @@
 				$('#txtNoa').val('AUTO');
 				$('#txtDatea').val(q_date());
 				$('#txtDatea').focus();
+				$('#txtMount').val(1);
 				
 				if(emp($('#txtProcess_0').val())){//自動產生流程
 					var as =[];
@@ -366,7 +371,8 @@
 	                                $('#txtW02_' + b_seq).val(round(q_mul(dec($('#txtMo_' + b_seq).val()), t_taxrate), 0));
 	                            }
                             	$('#txtW01_' + b_seq).val(q_add(dec($('#txtW02_' + b_seq).val()), dec($('#txtMo_' + b_seq).val())));
-                            }                    			                	
+                            }
+                            sum();
                         });
 						
 						$('#txtPrice_' + i).change(function() {
@@ -383,7 +389,8 @@
 	                                $('#txtW02_' + b_seq).val(round(q_mul(dec($('#txtMo_' + b_seq).val()), t_taxrate), 0));
 	                            }
                             	$('#txtW01_' + b_seq).val(q_add(dec($('#txtW02_' + b_seq).val()), dec($('#txtMo_' + b_seq).val())));
-                            }   
+                            }
+                            sum();
                         });
 						
 						if ($('#chkSale_' + i).is(':checked'))
@@ -762,8 +769,8 @@
 						</td>-->
 					</tr>
 					<tr>
-						<td> </td>
-						<td> </td>
+						<td><span> </span><a id="lblCost" class="lbl" > </a></td>
+						<td><input id="txtCost" type="text" class="txt num c1"/></td>
 						<td><span> </span><a id="lblWorker" class="lbl" > </a></td>
 						<td><input id="txtWorker" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblWorker2" class="lbl" > </a></td>
