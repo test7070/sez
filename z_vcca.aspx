@@ -110,6 +110,10 @@
                         type : '5',
                         name : 'sbtype',
                         value : ['#non@全部','1@直銷','2@代銷']
+                    },{/*0 [19]*/
+                        type : '0',
+                        name : 'xrlen',
+                        value : r_len
                     }]
                 });
                 
