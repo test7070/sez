@@ -711,6 +711,11 @@
 						<td><span> </span><a id="lblCust" class="lbl btn" > </a></td>
 						<td><input id="txtCustno" type="text" class="txt c1"/></td>
 						<td colspan="2"><input id="txtComp" type="text" class="txt c1"/></td>
+						<td> </td>
+						<td>
+							<input id="chkIsproj" type="checkbox"/>
+							<a id='lblIsproj'>核單</a>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblProduct" class="lbl" > </a></td>
@@ -744,11 +749,9 @@
 					<tr>
 						<td> </td>
 						<td colspan="2">
-							<input id="chkIsproj" type="checkbox"/>
-							<a id='lblIsproj'>核單</a>
 							<input id="chkEnda" type="checkbox"/>
-							<a id='lblEnda'>寄送</a>
-							<span> </span><a id="lblEdate" class="lbl" >寄送日期</a>
+							<a id='lblEnda'>產生出貨單</a>
+							<span> </span><a id="lblEdate" class="lbl" >出貨日期</a>
 						</td>
 						<td><input id="txtEdate" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblVccno" class="lbl" >出貨單號</a></td>
