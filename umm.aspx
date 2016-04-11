@@ -299,6 +299,7 @@
                 		for (var i = 0; i < as.length; i++) {
                 			if(q_getPara('sys.project').toUpperCase()=='XY'){
                 				as[i].tablea='vcc_xy';
+                				as[i].memo=as[i].comp+' '+as[i].memo
                 			}else if(q_getPara('sys.project').toUpperCase()=='RB'){
 								as[i].tablea='vcc_rb';
 							}else if(q_getPara('sys.project').toUpperCase()=='IT'){

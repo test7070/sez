@@ -88,14 +88,18 @@
                 q_getFormat();
                 q_langShow();
                 
-                $('#txtDate1').mask('999/99/99');
-                $('#txtDate1').datepicker();
-                $('#txtDate2').mask('999/99/99');
-                $('#txtDate2').datepicker();
- 				$('#txtOdate1').mask('999/99/99');
-                $('#txtOdate1').datepicker();
-                $('#txtOdate2').mask('999/99/99');
-                $('#txtOdate2').datepicker();
+                $('#txtDate1').mask(r_picd);
+                $('#txtDate2').mask(r_picd);
+ 				$('#txtOdate1').mask(r_picd);
+                $('#txtOdate2').mask(r_picd);
+                if(r_len==3){
+	                $('#txtDate1').datepicker();
+	                $('#txtDate2').datepicker();
+	                $('#txtOdate1').datepicker();
+	                $('#txtOdate2').datepicker();
+                }
+                $('#txtOdate1').val(q_date().substr(0,r_lenm)+'/01');
+                $('#txtOdate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1));
             }
 
             function q_boxClose(s2) {
