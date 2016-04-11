@@ -78,6 +78,13 @@
                         dbf : 'ucr2',
                         index : 'noa,product',
                         src : 'ucr2_b.aspx'
+                    },{
+                        type : '6',//[18]
+                        name : 'xcaseno'
+                    }, {
+                        type : '0', //[19]
+                        name : 'xucrouttypea',
+                        value : q_getPara('ucrout.typea')
                     }]
                 });
                 q_popAssign();
