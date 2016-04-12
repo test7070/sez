@@ -47,6 +47,9 @@
 				q_popAssign();
 				q_getFormat();
 				q_langShow();
+				
+				$('#txtXdate1').mask(r_picd);
+                $('#txtXdate2').mask(r_picd);
 			}
 
 			function q_boxClose(s2) {

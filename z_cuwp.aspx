@@ -225,12 +225,17 @@
 								t_count++;
 							}
 							OutHtm+= '</tr>';
-							OutHtm= '<table id="cTable" border="1px" cellpadding="0" cellspacing="0" width="'+((t_count*80)+200)+'px">'+OutHtm;
+							OutHtm= '<table id="cTable" border="1px" cellpadding="0" cellspacing="0" width="'+((t_count*80)+210)+'px">'+OutHtm;
 							
-							for(var i=0;i<as.length;i=i+5){
+							for(var i=0;i<Math.floor(as.length/5)*5;i=i+5){
 								OutHtm+='<tr style="width: 100px;">'
-								OutHtm+='<td rowspan="5">'+((i+5)==as.length?'總計':(as[i].station))+'</td>';
-								OutHtm+='<td style="width: 90px;text-align: left;">排產機時</td>';
+								if((i+7)==as.length){ //總計
+									OutHtm+='<td rowspan="6">總計</td>';
+								}else{
+									OutHtm+='<td rowspan="5">'+as[i].station+'</td>';
+								}
+								
+								OutHtm+='<td style="width: 100px;text-align: left;">排產機時</td>';
 								tt_count=1;
 								while(tt_count<t_count){
 									OutHtm+='<td style="width: 80px;">'+round(dec(eval('as[i].days'+('00'+tt_count).substr(-2))),2)+'</td>';
@@ -265,6 +270,23 @@
 									tt_count++;
 								}
 								OutHtm+= '</tr>';
+								
+								if((i+7)==as.length){ //總計
+									OutHtm+= '<tr>';
+									OutHtm+='<td style="text-align: left;">預估直接人工</td>';
+									tt_count=1;
+									while(tt_count<t_count){
+										OutHtm+='<td>'+round(eval('as[i+5].days'+('00'+tt_count).substr(-2)),2)+'</td>';
+										tt_count++;
+									}
+									OutHtm+= '</tr>';
+									
+									OutHtm+='<tr>'; //預估直接人工 合計
+									OutHtm+='<td colspan="2" style="text-align: center;">'+$('#txtXdate1').val()+'-'+$('#txtXdate2').val()+'<BR>預估直接人工 合計</td>';
+									OutHtm+='<td colspan="2" style="text-align: center;">'+round(eval('as[i+6].days01'),2)+'</td>';
+									OutHtm+='<td colspan="'+(t_count-2)+'" style="text-align: left;"></td>';
+									OutHtm+= '</tr>';
+								}
 							}
 							OutHtm+= '</table>';
 							$('#chart').html(OutHtm);
