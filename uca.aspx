@@ -889,6 +889,15 @@
 
 				return true;
 			}
+			
+			function bbtSave(as) {
+                if (!as['processno'] && !as['process'] && !as['tggno'] && !as['stationno'] && !as['productno'] && !as['assm']) {
+                    as[bbtKey[1]] = '';
+                    return;
+                }
+                q_nowf();
+                return true;
+            }
 
 			function sum() {
 
