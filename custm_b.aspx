@@ -126,7 +126,7 @@
 						var as = _q_appendData("country", "", true);
 		                var t_item = " @ ";
 						for ( i = 0; i < as.length; i++) {
-							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' +as[i].cname;
+							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' +as[i].cname+' '+as[i].country;
 						}
 						q_cmbParse("cmbCountry", t_item);
 						if (abbm[q_recno] != undefined)
@@ -155,6 +155,13 @@
 	<body>
 		<div class='dbbm' style="width: 100%;">
 			<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
+				<tr style="height:1px;">
+					<td style="width:20%;"> </td>
+					<td style="width:30%;"> </td>
+					<td style="width:25%;"> </td>
+					<td style="width:25%;"> </td>
+					<td style="width:3px;"> </td>
+				</tr>
 				<tr>
 					<td><a id="lblStype" style="float:right;"> </a></td>
 					<td><select id="cmbStype"  style='width:98%;'> </select></td>
@@ -163,13 +170,11 @@
 						<a id="vewChkstype"> </a>
 					</td>
 					<td> </td>
-					<td> </td>
 					<td><input id="txtNoa" type="hidden" /></td>
 				</tr>
 				<tr>
 					<td><a id="lblTaxtype" style="float:right;"> </a></td>
 					<td><select id="cmbTaxtype" style='width:98%;'> </select></td>
-					<td> </td>
 					<td> </td>
 					<td> </td>
 					<td> </td>
@@ -180,14 +185,12 @@
 					<td><a id="lblWtype" style="float:right;"> </a></td>
 					<td><select id="cmbWtype" style='width:98%;'> </select></td>
 					<td> </td>
-					<td> </td>
 				</tr>
 				<tr>
 					<td><a id="lblVccad" style="float:right;"> </a></td>
 					<td><input id="txtVccad" type="text" style='width:98%;'/></td>
 					<td><a id="lblP23" style="float:right;"> </a></td>
 					<td><input id="txtP23"maxlength="10" type="text" style="width:98%;" /></td>
-					<td> </td>
 					<td> </td>
 				</tr>
 				<tr class="isport">
@@ -201,9 +204,13 @@
 				<tr class="isport">
 					<td><a id="lblPayterms" style="float:right;"> </a></td>
 					<td><select id="cmbPayterms" style='width:98%;'> </select></td>
-					<td><a id="lblCountry" style="float:right;"> </a></td>
-					<td><select id="cmbCountry" style='width:98%;'> </select></td>
 					<td> </td>
+					<td> </td>
+					<td> </td>
+				</tr>
+				<tr class="isport">
+					<td><a id="lblCountry" style="float:right;"> </a></td>
+					<td colspan="3"><select id="cmbCountry" style='width:98%;'> </select></td>
 					<td> </td>
 				</tr>
 				<tr class="isport">
