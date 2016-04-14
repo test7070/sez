@@ -13,25 +13,13 @@
 		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
 		<script src="css/jquery/ui/jquery.ui.core.js"></script>
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
-		<script src="css/jquery/ui/jquery.ui.datepicker.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
             aPop = new Array(['txtYacc1', '', 'acc', 'acc1,acc2', 'txtYacc1', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
 
             $(document).ready(function() {
                 q_getId();
                 q_gf('', 'z_gqb');
-				
-				$.datepicker.regional['zh-TW']={
-				   dayNames:["星期日","星期一","星期二","星期三","星期四","星期五","星期六"],
-				   dayNamesMin:["日","一","二","三","四","五","六"],
-				   monthNames:["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
-				   monthNamesShort:["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
-				   prevText:"上月",
-				   nextText:"次月",
-				   weekHeader:"週"
-				};
-				//將預設語系設定為中文
-				$.datepicker.setDefaults($.datepicker.regional["zh-TW"]);
             });
             function q_gfPost() {
                 $('#q_report').q_report({
@@ -143,29 +131,21 @@
                 q_getFormat();
                 q_langShow();
                 
-                $('#txtDate1').datepicker({dateFormat: 'yy/mm/dd'});
-				$('#txtDate2').datepicker({dateFormat: 'yy/mm/dd'});
-				$('#txtXchkdate1').datepicker({dateFormat: 'yy/mm/dd'});
-				$('#txtXchkdate2').datepicker({dateFormat: 'yy/mm/dd'});
-				$('#txtIndate1').datepicker({dateFormat: 'yy/mm/dd'});
-				$('#txtIndate2').datepicker({dateFormat: 'yy/mm/dd'});
-				$('#txtUdate1').datepicker({dateFormat: 'yy/mm/dd'});
-				$('#txtUdate2').datepicker({dateFormat: 'yy/mm/dd'});
-				$('#txtYdate1').datepicker({dateFormat: 'yy/mm/dd'});
-				$('#txtYdate2').datepicker({dateFormat: 'yy/mm/dd'});
+                if(r_len==4){                	
+                	$.datepicker.r_len=4;
+					$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+                }
                 
-				if(r_len==3){
-					$('#txtDate1').change(function() {changechdate($(this));});
-					$('#txtDate2').change(function() {changechdate($(this));});
-					$('#txtXchkdate1').change(function() {changechdate($(this));});
-					$('#txtXchkdate2').change(function() {changechdate($(this));});
-					$('#txtIndate1').change(function() {changechdate($(this));});
-					$('#txtIndate2').change(function() {changechdate($(this));});
-					$('#txtUdate1').change(function() {changechdate($(this));});
-					$('#txtUdate2').change(function() {changechdate($(this));});
-					$('#txtYdate1').change(function() {changechdate($(this));});
-					$('#txtYdate2').change(function() {changechdate($(this));});
-				}
+				$('#txtDate1').datepicker();
+				$('#txtDate2').datepicker();
+				$('#txtXchkdate1').datepicker();
+				$('#txtXchkdate2').datepicker();
+				$('#txtIndate1').datepicker();
+				$('#txtIndate2').datepicker();
+				$('#txtUdate1').datepicker();
+				$('#txtUdate2').datepicker();
+				$('#txtYdate1').datepicker();
+				$('#txtYdate2').datepicker();
                 
 				$('#txtR_tel').val(q_getPara('sys.tel'));
 	            $('#txtR_addr').val(q_getPara('sys.addr'));
