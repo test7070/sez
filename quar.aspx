@@ -749,6 +749,38 @@
 							b_seq = t_IdSeq;
 							
 							$('#txtTotal_'+b_seq).val(round(q_mul(dec($('#txtMount_'+b_seq).val()),dec($('#txtPrice_'+b_seq).val())),0));
+							
+							//重新計算重量
+							if(!emp($('#txtProductno_'+b_seq).val()) && !emp($('#txtPackwayno_'+b_seq).val()))
+							var t_where = "where=^^ noa='"+$('#txtProductno_'+b_seq).val()+"' and packway='"+$('#txtPackwayno_'+b_seq).val()+"' ^^";
+							q_gt('pack2s', t_where, 0, 0, 0, "getpack2s", r_accy, 1);
+							var as = _q_appendData("pack2s", "", true);
+							if (as[0] != undefined) {
+								//計算重量
+								var t_weight=0;
+								var t_mount=dec($('#txtMount_'+b_seq).val());
+								var t_uweight=dec(as[0].uweight);
+								var t_inmount=dec(as[0].inmount);
+								var t_outmount=dec(as[0].outmount);
+								var t_inweight=dec(as[0].inweight);
+								var t_outweight=dec(as[0].outweight);
+								var t_cuft=dec(as[0].cuft);
+								var t_pfmount=q_mul(t_inmount,t_outmount)==0?0:Math.floor(q_div(t_mount,q_mul(t_inmount,t_outmount))); //一整箱
+								var t_pcmount=q_mul(t_inmount,t_outmount)==0?0:Math.ceil(q_div(t_mount,q_mul(t_inmount,t_outmount))); //總箱數
+								var t_emount=q_sub(t_mount,q_mul(t_pfmount,q_mul(t_inmount,t_outmount))); //散裝數量
+								t_weight=q_add(q_add(q_mul(q_mul(t_inmount,t_outmount),t_uweight),t_outweight),q_mul(t_inweight,t_outmount));//一箱毛重
+								t_weight=q_mul(t_pfmount,t_weight); //整箱毛重
+								if(t_emount>0){ //散裝(淨重+外包裝重+內包裝重)
+									var tt_weight=q_mul(t_emount,t_uweight);
+									tt_weight=q_add(tt_weight,t_outweight);
+									tt_weight=q_add(tt_weight,q_mul(Math.ceil((t_inmount==0?1:q_div(t_emount,t_inmount))),t_inweight));
+									t_weight=q_add(t_weight,tt_weight);
+								}
+								$('#txtWeight_'+b_seq).val(t_weight);
+								$('#txtCuft_'+b_seq).val(q_mul(t_cuft,t_pcmount));
+							}
+							cufttotal();
+							
 							sum();
 						});
 						$('#txtWeight_' + j).change(function () {
@@ -1057,6 +1089,39 @@
 								$('#txtCost2_'+b_seq).val(as[1].cost);
 								$('#txtPrice2_'+b_seq).val(as[1].price2);
 							}
+							$('#txtMount_'+b_seq).val(1);
+							//105/04/15 取第一種包裝
+							var t_where = "where=^^ noa='"+$('#txtProductno_'+b_seq).val()+"'  ^^";
+							q_gt('pack2s', t_where, 0, 0, 0, "gettop1pack2s", r_accy, 1);
+							var as = _q_appendData("pack2s", "", true);
+							if (as[0] != undefined) {
+								$('#txtPackwayno_'+b_seq).val(as[0].packway);
+								$('#txtPackway_'+b_seq).val(as[0].pack);
+								//計算重量
+								var t_weight=0;
+								var t_mount=dec($('#txtMount_'+b_seq).val());
+								var t_uweight=dec(as[0].uweight);
+								var t_inmount=dec(as[0].inmount);
+								var t_outmount=dec(as[0].outmount);
+								var t_inweight=dec(as[0].inweight);
+								var t_outweight=dec(as[0].outweight);
+								var t_cuft=dec(as[0].cuft);
+								var t_pfmount=q_mul(t_inmount,t_outmount)==0?0:Math.floor(q_div(t_mount,q_mul(t_inmount,t_outmount))); //一整箱
+								var t_pcmount=q_mul(t_inmount,t_outmount)==0?0:Math.ceil(q_div(t_mount,q_mul(t_inmount,t_outmount))); //總箱數
+								var t_emount=q_sub(t_mount,q_mul(t_pfmount,q_mul(t_inmount,t_outmount))); //散裝數量
+								t_weight=q_add(q_add(q_mul(q_mul(t_inmount,t_outmount),t_uweight),t_outweight),q_mul(t_inweight,t_outmount));//一箱毛重
+								t_weight=q_mul(t_pfmount,t_weight); //整箱毛重
+								if(t_emount>0){ //散裝(淨重+外包裝重+內包裝重)
+									var tt_weight=q_mul(t_emount,t_uweight);
+									tt_weight=q_add(tt_weight,t_outweight);
+									tt_weight=q_add(tt_weight,q_mul(Math.ceil((t_inmount==0?1:q_div(t_emount,t_inmount))),t_inweight));
+									t_weight=q_add(t_weight,tt_weight);
+								}
+								$('#txtWeight_'+b_seq).val(t_weight);
+								$('#txtCuft_'+b_seq).val(q_mul(t_cuft,t_pcmount));
+							}
+							cufttotal();
+							sum();
 						}
 						
 						imgshowhide();
