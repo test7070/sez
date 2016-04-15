@@ -45,15 +45,24 @@
                         dbf : 'store',
                         index : 'noa,store',
                         src : 'store_b.aspx'
-                    }]
+                    }, {
+						type : '2', //[9][10]
+						name : 'xstation',
+						dbf : 'station',
+						index : 'noa,station',
+						src : 'station_b.aspx'
+					}]
                 });
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
-                $('#txtDate1').mask('999/99/99');
+                $('#txtDate1').mask(r_picd);
                 $('#txtDate1').datepicker();
-                $('#txtDate2').mask('999/99/99');
+                $('#txtDate2').mask(r_picd);
                 $('#txtDate2').datepicker();
+                $('#txtDate1').val(q_date().substr(0,r_lenm)+'/01');
+                $('#txtDate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1));
+                
 				$('.q_report .option:first').css('width','700px')
 				$('#Product').css('width','690px');
 				$('#Product .c2').css('width','130px');
