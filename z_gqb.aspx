@@ -20,6 +20,19 @@
             $(document).ready(function() {
                 q_getId();
                 q_gf('', 'z_gqb');
+                
+                $('#q_report').click(function(e) {
+                	if($('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report=='z_gqb4'
+                	|| $('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report=='z_gqb11'
+                	|| $('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report=='z_gqb13'
+                	|| $('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report=='z_gqb14'){
+                		$('#txtYdate1').attr('disabled', 'disabled');
+                		$('#txtIndate1').attr('disabled', 'disabled');
+                	}else{
+                		$('#txtYdate1').removeAttr('disabled');
+                		$('#txtIndate1').removeAttr('disabled');
+                	}
+                });
             });
             function q_gfPost() {
                 $('#q_report').q_report({
