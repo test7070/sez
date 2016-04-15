@@ -182,6 +182,11 @@
 				$('#txtPacks').change(function() {
 					costsum();
 				});
+				
+				$('#btnCub_r').click(function() {
+					var t_where = "1=1";
+					q_box("cub_r.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'cub_r', "95%", "95%", $('#btnCub_r').val());
+				});
 			}
 			
 			function costsum() {
@@ -1077,7 +1082,9 @@
 						<td><select id="cmbTypea" class="txt c1" style="font-size: medium;"> </select></td>-->
 						<td><span> </span><a id="lblProduct" class="lbl"> </a></td>
 						<td colspan='4'><input id="txtProduct" type="text" class="txt c1"/></td>
-						<td><input id="btnUploadimg" type="button" /></td>
+						<td><input id="btnUploadimg" type="button" />
+							<input id="btnCub_r" type="button" />
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblEngpro" class="lbl"> </a></td>

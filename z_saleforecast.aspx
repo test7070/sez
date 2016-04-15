@@ -27,48 +27,54 @@
 		   $('#q_report').q_report({
 				fileName : 'z_saleforecast',
 				options : [{
-					type : '0',
+					type : '0',//[1]
 					name : 'accy',
 					value : r_accy
 				},{
-					type : '2',
+					type : '0',//[2]
+					name : 'xlen',
+					value : r_len
+				},{
+					type : '2',//[3][4]
 					name : 'xcustno',
 					dbf : 'cust',
 					index : 'noa,comp',
 					src : 'cust_b.aspx'
 				},{
-					type : '2',
+					type : '2',//[5][6]
 					name : 'xproduct',
 					dbf : 'ucaucc',
 					index : 'noa,product',
 					src : 'ucaucc_b.aspx'
 				},{
-					type : '6',
+					type : '2',//[7][8]
+					name : 'xsales',
+					dbf : 'sss',
+					index : 'noa,namea',
+					src : 'sss_b.aspx'
+				},{
+					type : '6',//[9]
 					name : 'xmon'
 				},{
-					type : '6',
+					type : '6',//[10]
 					name : 'xyear'
 				},{
-					type : '1',
+					type : '1',//[11][12]
 					name : 'rmon'
 				}]
 			});
 			q_popAssign();
-			$('#txtXyear').mask('999');
-			$('#txtXmon').mask('999/99');
-			$('#txtRmon1').mask('999/99');
-			$('#txtRmon2').mask('999/99');
-			var t_date,t_year,t_month,t_day;
-			t_date = new Date();
-			t_date.setDate(1);
-			t_year = t_date.getUTCFullYear()-1911;
-			t_year = t_year>99?t_year+'':'0'+t_year;
-			t_month = t_date.getUTCMonth()+1;
-			t_month = t_month>9?t_month+'':'0'+t_month;
-			$('#txtXmon').val(t_year+'/'+t_month);
-			$('#txtXyear').val(t_year);
-			$('#txtRmon1').val(t_year+'/01');
-			$('#txtRmon2').val(t_year+'/'+t_month);
+			
+			
+			$('#txtXyear').mask(r_pic);
+			$('#txtXmon').mask(r_picm);
+			$('#txtRmon1').mask(r_pic);
+			$('#txtRmon2').mask(r_pic);
+			
+			$('#txtXmon').val(q_date().substr(0, r_lenm));
+			$('#txtXyear').val(q_date().substr(0, r_len));
+			$('#txtRmon1').val(q_date().substr(0, r_len)+'/01');
+			$('#txtRmon2').val(q_date().substr(0, r_lenm));
 		}
 		function q_boxClose(s2) {
 		}

@@ -1,5 +1,4 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title> </title>
@@ -10,10 +9,10 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = "saleforecast_s";
+            var q_name = "supforecast_s";
             var aPop = new Array(
 				['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
-				['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']
+				['txtFactno', 'lblFactory', 'factory', 'noa,factory', 'txtFactno,txtFactory', 'factory_b.aspx']
 			);
             $(document).ready(function() {
                 main();
@@ -38,12 +37,12 @@
             function q_seekStr() {
                 t_noa = $('#txtNoa').val();
                 t_mon = $('#txtMon').val();
-                t_custno = $('#txtCustno').val();
-                t_comp = $('#txtComp').val();
+                t_factno = $('#txtFactno').val();
+                t_factory = $('#txtFactory').val();
                 t_salesno = $('#txtSalesno').val();
                 t_sales = $('#txtSales').val();
 
-                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("mon", t_mon) + q_sqlPara2("custno", t_custno) + q_sqlPara2("comp", t_comp) + q_sqlPara2("salesno", t_salesno) + q_sqlPara2("sales", t_sales);
+                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("mon", t_mon) + q_sqlPara2("factno", t_factno) + q_sqlPara2("factory", t_factory) + q_sqlPara2("salesno", t_salesno) + q_sqlPara2("sales", t_sales);
 
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
@@ -70,12 +69,12 @@
 					<td><input class="txt" id="txtMon" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:30%;"><a id='lblCustno'> </a></td>
-					<td><input class="txt" id="txtCustno" type="text" style="width:215px; font-size:medium;" /></td>
+					<td class='seek'  style="width:30%;"><a id='lblFactno'> </a></td>
+					<td><input class="txt" id="txtFactno" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:30%;"><a id='lblComp'> </a></td>
-					<td><input class="txt" id="txtComp" type="text" style="width:215px; font-size:medium;" /></td>
+					<td class='seek'  style="width:30%;"><a id='lblFactory'> </a></td>
+					<td><input class="txt" id="txtFactory" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:30%;"><a id='lblSalesno'> </a></td>

@@ -13,14 +13,26 @@
 		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
 		<script src="css/jquery/ui/jquery.ui.core.js"></script>
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
-		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
             aPop = new Array(['txtYacc1', '', 'acc', 'acc1,acc2', 'txtYacc1', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
 
             $(document).ready(function() {
                 q_getId();
                 q_gf('', 'z_gqb');
-
+                
+                $('#q_report').click(function(e) {
+                	if($('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report=='z_gqb4'
+                	|| $('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report=='z_gqb11'
+                	|| $('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report=='z_gqb13'
+                	|| $('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report=='z_gqb14'){
+                		$('#txtYdate1').attr('disabled', 'disabled');
+                		$('#txtIndate1').attr('disabled', 'disabled');
+                	}else{
+                		$('#txtYdate1').removeAttr('disabled');
+                		$('#txtIndate1').removeAttr('disabled');
+                	}
+                });
             });
             function q_gfPost() {
                 $('#q_report').q_report({
@@ -132,28 +144,21 @@
                 q_getFormat();
                 q_langShow();
                 
+                if(r_len==4){                	
+                	$.datepicker.r_len=4;
+					$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+                }
                 
-				if(r_len==3){
-					$('#txtDate1').datepicker();
-					$('#txtDate2').datepicker();
-					$('#txtXchkdate1').datepicker();
-					$('#txtXchkdate2').datepicker();
-					$('#txtIndate1').datepicker();
-					$('#txtIndate2').datepicker();
-					$('#txtUdate1').datepicker();
-					$('#txtUdate2').datepicker();
-					$('#txtYdate1').datepicker();
-					$('#txtYdate2').datepicker();
-				}
-                
-                
-				var r_1911=1911;
-				if(r_len==4){//西元年
-					r_1911=0;
-				}else{
-					$('#txtDate1').datepicker();
-					$('#txtDate2').datepicker();
-				}
+				$('#txtDate1').datepicker();
+				$('#txtDate2').datepicker();
+				$('#txtXchkdate1').datepicker();
+				$('#txtXchkdate2').datepicker();
+				$('#txtIndate1').datepicker();
+				$('#txtIndate2').datepicker();
+				$('#txtUdate1').datepicker();
+				$('#txtUdate2').datepicker();
+				$('#txtYdate1').datepicker();
+				$('#txtYdate2').datepicker();
                 
 				$('#txtR_tel').val(q_getPara('sys.tel'));
 	            $('#txtR_addr').val(q_getPara('sys.addr'));
@@ -182,6 +187,14 @@
                 });
                 $('#Status option:eq(2)').attr('selected',true);
                 $('#Stype select').val('1')     
+            }
+            
+            function changechdate(a) {
+            	if(a.val().length==10){
+            		var t_year=('000'+(dec(a.val().substring(0,4))-1911).toString()).slice(-3);
+					var t_date=a.val().substring(4,10)
+					a.val(t_year+t_date);
+            	}
             }
 
             function q_boxClose(t_name) {

@@ -21,7 +21,7 @@
 			q_desc = 1;
 			q_tables = 's';
 			var q_name = "orde";
-			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtSales', 'txtOrdbno', 'txtOrdcno','txtUmmno','txtCuft','txtCasemount','txtCuftnotv'];
+			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtSales', 'txtOrdbno', 'txtOrdcno','txtUmmno','txtCuft','txtCasemount','txtCuftnotv','txtAgent','txtGtime'];
 			var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtC1', 'txtNotv','txtPackwayno','txtPackway','txtSprice','txtBenifit','txtPayterms'];
 			var bbmNum = [['txtTotal', 10, 0, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1],['txtFloata', 10, 5, 1], ['txtTotalus', 15, 2, 1], ['txtDeposit', 15, 0, 1],['txtCuft', 15, 2, 1]];
 			var bbsNum = [['txtCuft', 15, 2, 1]];
@@ -41,7 +41,8 @@
 				['txtCustno', 'lblCust', 'cust', 'noa,nick,paytype,trantype,tel,fax,zip_comp,addr_fact', 'txtCustno,txtComp,txtPaytype,cmbTrantype,txtTel,txtFax,txtPost,txtAddr', 'cust_b.aspx'],
 				['ordb_txtTggno_', '', 'tgg', 'noa,comp', 'ordb_txtTggno_,ordb_txtTgg_', ''],
 				['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
-				['txtAgentno', 'lblAgent', 'cust', 'noa,nick','txtAgentno,txtAgent', 'cust_b.aspx']
+				['txtAgentno', 'lblAgent', 'cust', 'noa,nick','txtAgentno,txtAgent', 'cust_b.aspx'],
+				['txtGdate', 'lblFactory', 'factory', 'noa,factory', 'txtGdate,txtGtime', 'factory_b.aspx']
 			);
 			
 			$(document).ready(function() {
@@ -68,26 +69,28 @@
 			}
 
 			function sum() {
-				var t1 = 0, t_unit, t_mount, t_weight = 0;
-				for (var j = 0; j < q_bbsCount; j++) {
-					t_unit = $('#txtUnit_' + j).val();
-					//t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() == 'kg' ? $('#txtWeight_' + j).val() : $('#txtMount_' + j).val()); // 計價量
-					t_mount = $('#txtMount_' + j).val();
-					// 計價量
-					//t_weight = t_weight + dec( $('#txtWeight_' + j).val()) ; // 重量合計
-					$('#txtTotal_' + j).val(round(q_mul(dec($('#txtPrice_' + j).val()), dec(t_mount)), 0));
-
-					q_tr('txtNotv_' + j, q_sub(q_float('txtMount_' + j), q_float('txtC1' + j)));
-					t1 = q_add(t1, dec($('#txtTotal_' + j).val()));
+				if(q_cur==1||q_cur==2){
+					var t1 = 0, t_unit, t_mount, t_weight = 0;
+					for (var j = 0; j < q_bbsCount; j++) {
+						t_unit = $('#txtUnit_' + j).val();
+						//t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() == 'kg' ? $('#txtWeight_' + j).val() : $('#txtMount_' + j).val()); // 計價量
+						t_mount = $('#txtMount_' + j).val();
+						// 計價量
+						//t_weight = t_weight + dec( $('#txtWeight_' + j).val()) ; // 重量合計
+						$('#txtTotal_' + j).val(round(q_mul(dec($('#txtPrice_' + j).val()), dec(t_mount)), 0));
+	
+						q_tr('txtNotv_' + j, q_sub(q_float('txtMount_' + j), q_float('txtC1' + j)));
+						t1 = q_add(t1, dec($('#txtTotal_' + j).val()));
+					}
+					$('#txtMoney').val(round(t1, 0));
+					if (!emp($('#txtPrice').val()))
+						$('#txtTranmoney').val(round(q_mul(t_weight, dec($('#txtPrice').val())), 0));
+					// $('#txtWeight').val(round(t_weight, 0));
+					q_tr('txtTotal', q_add(t1, dec($('#txtTax').val())));
+					q_tr('txtTotalus', q_mul(q_float('txtMoney'), q_float('txtFloata')));
+					calTax();
+					cufttotal();
 				}
-				$('#txtMoney').val(round(t1, 0));
-				if (!emp($('#txtPrice').val()))
-					$('#txtTranmoney').val(round(q_mul(t_weight, dec($('#txtPrice').val())), 0));
-				// $('#txtWeight').val(round(t_weight, 0));
-				q_tr('txtTotal', q_add(t1, dec($('#txtTax').val())));
-				q_tr('txtTotalus', q_mul(q_float('txtMoney'), q_float('txtFloata')));
-				calTax();
-				cufttotal();
 			}
 			
 			function cufttotal() {
@@ -170,6 +173,12 @@
 				$('#btnCredit').click(function() {
 					if (!emp($('#txtCustno').val())) {
 						q_box("z_credit.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";custno='" + $('#txtCustno').val() + "';" + r_accy + ";" + q_cur, 'ordei', "95%", "95%", q_getMsg('btnCredit'));
+					}
+				});
+				
+				$('#txtGdate').change(function() {
+					for(var i=0;i<q_bbsCount;i++){
+						getpdate(i);
 					}
 				});
 				
@@ -972,10 +981,10 @@
 					return;
 				}
 				
-				for(var k=0;k<q_bbsCount;k++){
+				/*for(var k=0;k<q_bbsCount;k++){
 					if(emp($('#txtDatea_'+k).val()))
 						$('#txtDatea_'+k).val(q_cdn($.trim($('#txtOdate').val()),15))
-				}
+				}*/
 				
 				//1030419 當專案沒有勾 BBM的取消和結案被打勾BBS也要寫入
 				if(!$('#chkIsproj').prop('checked')){
@@ -1054,6 +1063,11 @@
 							sum();
 						});
 						$('#txtMount_' + j).focusout(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if (q_cur == 1 || q_cur == 2) 
+								getpdate(b_seq);
 							sum();
 						});
 						$('#txtTotal_' + j).focusout(function() {
@@ -1481,6 +1495,69 @@
 				}
 			}
 			
+			function getpdate(x) {
+				var monhoilday=q_getPara('sys.saturday')=='1'?4:8;
+				var monday=0;//當月天數
+				var mongen=0,daygen=0;//當月產能
+				var t_date='',t_mon='';//計算日期
+				var factnotv=0;//排程量
+				if((q_cur==1 || q_cur==2)){
+					if(!emp($('#txtOdate').val()) && !emp($('#txtGdate').val()) && dec($('#txtMount_'+x).val())>0 ){
+						var t_where = "where=^^ mon='" + q_cdn($('#txtOdate').val(),1).substr(0,r_lenm) + "' and factno='"+$('#txtGdate').val()+"' ^^";
+						q_gt('supforecasts', t_where, 0, 0, 0, "",r_accy,1);
+						var ass = _q_appendData("supforecasts", "", true);
+						for ( i = 0; i < ass.length; i++) {
+							mongen=q_add(mongen,dec(ass[i].mount)); //當月總產能
+						}
+						
+						if(mongen>0){ //當有產能才計算
+							t_date=q_cdn($('#txtOdate').val(),1);
+							t_mon=q_cdn($('#txtOdate').val(),1).substr(0,r_lenm);
+							monday=dec(q_cdn(q_cdn(t_date.substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1).slice(-2));
+							daygen=q_div(mongen,q_sub(monday,monhoilday));
+							
+							//取未完工量
+							var t_where = "where=^^ a.enda!=1 and a.cancel!=1 and b.enda!=1 and b.cancel!=1 and a.gdate='"+$('#txtGdate').val()+"' and a.noa!='"+$('#txtNoa').val()+"' and isnull(b.mount,0)-isnull(c.c1,0)>0 group by a.gdate ^^";
+							q_gt('orde_r_factnotv', t_where, 0, 0, 0, "",r_accy,1);
+							var as = _q_appendData("view_orde", "", true);
+							if (as[0] != undefined) {
+								factnotv=dec(as[0].mount);
+							}
+							
+							//取得目前訂單的數量
+							var t_bbsmount=0;
+							for (var j = 0; j <= x; j++) {
+								t_bbsmount=q_add(t_bbsmount,$('#txtMount_'+j).val());
+							}
+							
+							factnotv=q_add(factnotv,t_bbsmount);
+							
+							while(factnotv>0){
+								if(t_date.substr(0,r_lenm) != t_mon){//取得新的產能
+									t_mon=t_date.substr(0,r_lenm);
+									var t_where = "where=^^ mon='" + t_mon + "' and factno='"+$('#txtGdate').val()+"' ^^";
+									q_gt('supforecasts', t_where, 0, 0, 0, "",r_accy,1);
+									var ast = _q_appendData("supforecasts", "", true);
+									if (ast[0] != undefined) {
+										mongen=0;
+										for ( i = 0; i < ast.length; i++) {
+											mongen=q_add(mongen,dec(ast[i].mount)); //當月總產能
+										}
+										monday=dec(q_cdn(q_cdn(t_date.substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1).slice(-2));
+										daygen=q_div(mongen,q_sub(monday,monhoilday));
+									}//如果沒有就沿用產能
+								}
+								
+								factnotv=q_sub(factnotv,mongen);
+								if(factnotv>0)
+									t_date=q_cdn(t_date,1);
+							}
+							$('#txtDatea_'+x).val(t_date);
+						}
+					}
+				}
+			}
+			
 		</script>
 		<style type="text/css">
 			#dmain {
@@ -1892,10 +1969,12 @@
 						<td colspan='2'><input id="txtUmmno" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id='lblFactory' class="lbl btn"> </a></td>
+						<td><input id="txtGdate" type="text" class="txt c1" /></td>
+						<td><input id="txtGtime" type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
-						<td colspan='2'><input id="txtWorker" type="text" class="txt c1" /></td>
-						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
-						<td colspan='2'><input id="txtWorker2" type="text" class="txt c1" /></td>
+						<td><input id="txtWorker" type="text" class="txt c1" /></td>
+						<td><input id="txtWorker2" type="text" class="txt c1" /></td>
 						<td colspan="2">
 							<input id="chkIsproj" type="checkbox"/>
 							<span> </span><a id='lblIsproj'> </a>

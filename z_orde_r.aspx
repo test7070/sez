@@ -60,6 +60,9 @@
                         dbf : 'ucaucc',
                         index : 'noa,product',
                         src : 'ucaucc_b.aspx'
+                    }, {
+                        type : '6', //[12]
+                        name : 'xyear'
                     }]
                 });
                 
@@ -70,6 +73,7 @@
                 $('#txtXdate2').mask(r_picd);
                 $('#txtXmon1').mask(r_picm);
                 $('#txtXmon2').mask(r_picm);
+                $('#txtXyear').mask(r_pic);
                 if(r_len==3){
                 	$('#txtXdate1').datepicker();
                 	$('#txtXdate2').datepicker();
@@ -78,6 +82,7 @@
                 $('#txtXdate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1));
                 $('#txtXmon1').val(q_date().substr(0,r_len)+'/01');
                 $('#txtXmon2').val(q_date().substr(0,r_len)+'/12');
+                $('#txtXyear').val(q_date().substr(0,r_len))
             }
 
             function q_boxClose(s2) {

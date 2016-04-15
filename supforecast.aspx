@@ -17,7 +17,7 @@
 			}
 			q_desc=1;
 			q_tables = 's';
-			var q_name = "saleforecast";
+			var q_name = "supforecast";
 			var q_readonly = ['txtNoa','txtDatea'];
 			var q_readonlys = ['txtNoq'];
 			var bbmNum = [];
@@ -26,14 +26,14 @@
 			var bbsMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
-			brwCount2 = 3;
+			brwCount2 = 5;
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'Noa';
 			aPop = new Array(
 				['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
-				['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'],
-				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx']
+				['txtFactno', 'lblFactory', 'factory', 'noa,factory', 'txtFactno,txtFactory', 'factory_b.aspx'],
+				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,spec,style,unit', 'txtProductno_,txtProduct_,txtSpec_,txtStyle_,txtUnit_', 'ucaucc_b.aspx']
 			);
 
 			$(document).ready(function() {
@@ -54,7 +54,7 @@
 			function mainPost() {
 				q_getFormat();
 				bbmMask = [['txtMon', r_picm],['txtDatea', r_picd]];
-				bbsMask = [['txtDatea', r_picd]];
+				bbsMask = [];
 				q_mask(bbmMask);
 				
 			}
@@ -73,7 +73,6 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
-					
 					case q_name:
 						if(q_cur == 4)
 							q_Seek_gtPost();
@@ -89,27 +88,9 @@
 					return;
 				}
 				
-				var t_date,t_year,t_month,t_day;
-				t_date = new Date((dec($('#txtMon').val().substr(0,3))+1911)+'/'+$('#txtMon').val().substr(4,2)+'/01');
-	            t_date.setDate(35);
-	            t_date.setDate(0);
-	            t_year = t_date.getUTCFullYear()-1911;
-	            t_year = t_year>99?t_year+'':'0'+t_year;
-	            t_month = t_date.getUTCMonth()+1;
-	            t_month = t_month>9?t_month+'':'0'+t_month;
-	            t_day = t_date.getDate();
-	            t_day = t_day>9?t_day+'':'0'+t_day;
-	            
-				for (var j = 0; j < q_bbsCount; j++) {
-					if(emp($('#txtDatea_'+j).val()) && !emp($('#txtProductno_'+j).val())){
-						$('#txtDatea_'+j).val(t_year+'/'+t_month+'/'+t_day);
-					}
-				} // j
-				
-				
 				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
 				if(s1.length == 0 || s1 == "AUTO")
-					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_saleforecast')+ $('#txtMon').val(), '/', ''));
+					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_supforecast')+ $('#txtMon').val(), '/', ''));
 				else
 					wrServer(s1);
 			}
@@ -117,7 +98,7 @@
 			function _btnSeek() {
 				if(q_cur > 0 && q_cur < 4)// 1-3
 					return;
-			   q_box('saleforecast_s.aspx', q_name + '_s', "500px", "420px", q_getMsg("popSeek"));
+			   q_box('supforecast_s.aspx', q_name + '_s', "500px", "420px", q_getMsg("popSeek"));
 			}
 
 			function bbsAssign() {
@@ -132,7 +113,7 @@
 				_btnIns();
 				$('#txtNoa').val('AUTO');
 				$('#txtDatea').val(q_date());
-				$('#txtMon').val(q_date().substr(0,6));
+				$('#txtMon').val(q_date().substr(0,r_lenm));
 				$('#txtMon').focus();
 			}
 
@@ -144,7 +125,7 @@
 			}
 
 			function btnPrint() {
-				q_box('z_saleforecast.aspx','', "95%", "95%", q_getMsg("popPrint"));
+				//q_box('z_supforecast.aspx','', "95%", "95%", q_getMsg("popPrint"));
 			}
 
 			function wrServer(key_value) {
@@ -161,11 +142,10 @@
 				}
 
 				q_nowf();
-				as['custno'] = abbm2['custno'];
+				as['factno'] = abbm2['factno'];
 				as['mon'] = abbm2['mon'];
 				return true;
 			}
-
 
 			function refresh(recno) {
 				_refresh(recno);
@@ -391,12 +371,12 @@
 			<tr>
 				<td align="center" style="width:5%"><a id='vewChk'> </a></td>
 				<td align="center" style="width:25%"><a id='vewMon'> </a></td>
-				<td align="center" style="width:25%"><a id='vewCust'> </a></td>
+				<td align="center" style="width:25%"><a id='vewFactory'> </a></td>
 			</tr>
 			 <tr>
 				   <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 				   <td align="center" id='mon'>~mon</td>
-				   <td align="center" id='nick'>~nick</td>
+				   <td align="center" id='factory'>~factory</td>
 			</tr>
 		</table>
 	</div>
@@ -413,10 +393,10 @@
 			<tr class="tr2">
 				<td class="td1"><span> </span><a id="lblSales" class="lbl btn"> </a></td>
 				<td class="td2"><input id="txtSalesno" type="text" class="txt c2"/><input id="txtSales" type="text" class="txt c3"/></td>
-				<td class="td3"><span> </span><a id="lblCust" class="lbl btn"> </a></td>
-				<td class="td4" colspan='2'><input id="txtCustno" type="text" class="txt c2"/>
-					<input id="txtComp" type="text" class="txt c3"/>
-					<input id="txtNick" type="hidden"/>
+				<td class="td3"><span> </span><a id="lblFactory" class="lbl btn"> </a></td>
+				<td class="td4" colspan='2'>
+					<input id="txtFactno" type="text" class="txt c2"/>
+					<input id="txtFactory" type="text" class="txt c3"/>
 				</td>
 			</tr>
 			<tr class="tr3">
@@ -435,8 +415,6 @@
 				<td align="center" style="width:100px;"><a id='lblStyle_s'> </a></td>
 				<td align="center" style="width:70px;"><a id='lblUnit_s'> </a></td>
 				<td align="center" style="width:100px;"><a id='lblMount_s'> </a></td>
-				<td align="center" style="width:100px;"><a id='lblPrice_s'> </a></td>
-				<td align="center" style="width:100px;"><a id='lblDatea_s'> </a></td>
 				<td align="center"><a id='lblMemo_s'> </a></td>
 			</tr>
 			<tr  style='background:#cad3ff;'>
@@ -445,7 +423,7 @@
 				<td ><input id="txtEdate.*" type="text" class="txt c1"/></td>-->
 				<td align="center">
 					<input id="txtProductno.*" type="text" class="txt c1" />
-					<input class="btn"  id="btnProductno.*" type="button" value='...' style=" font-weight: bold;" />
+					<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="width:50px;"/>
 				</td>
 				<td >
@@ -455,9 +433,7 @@
 				<td ><input id="txtStyle.*" type="text" class="txt c1"/></td>
 				<td ><input id="txtUnit.*" type="text" class="txt c1"/></td>
 				<td ><input id="txtMount.*" type="text" class="txt c1 num"/></td>
-				<td ><input id="txtPrice.*" type="text" class="txt c1 num"/></td>
-				<td ><input id="txtDatea.*" type="text" class="txt c1"/></td>
-				<td ><input id="txtMemo.*" type="text" class="txt c1"/><input id="txtNoq.*" type="hidden" /></td>
+				<td ><input id="txtMemo.*" type="text" class="txt c1"/></td>
 			</tr>
 		</table>
 		</div>

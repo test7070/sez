@@ -157,6 +157,7 @@
 
 				//後面有需要的公司在顯示
 				$('#btnUcam').hide();// 嘜頭
+				$('#btnCustm').hide();//稅務資料
 				if(q_getPara('sys.isport')=='1'){ //外銷
 					$('#btnUcam').show();
 					$('#btnCustm').show();
@@ -164,7 +165,6 @@
 				if (q_getPara('sys.project').toUpperCase()=='GU'){
 					$('#btnUcam').show();
 				}
-				$('#btnCustm').hide();//稅務資料
 				if (q_getPara('sys.project').toUpperCase()=='XY' || q_getPara('sys.project').toUpperCase()=='YC'){
 					$('#btnCustm').show();
 				}

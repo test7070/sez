@@ -62,6 +62,11 @@
             /*if(q_getPara('sys.project').toUpperCase()=='RB'){
             	q_readonlys = ['txtW133','txtW166','txtW100','txtHr_special']
             }*/
+           
+			$('#lblRein').click(function() {
+				if(q_cur==1 || q_cur==2)
+					$('#txtRein').val('Y');
+			});
             
              $('#chkHoliday').click(function () {
              	if(q_getPara('sys.project').toUpperCase()=='VU'){
@@ -341,6 +346,7 @@
         		$('.w133').show();
 	            $('.w166').hide();
 				$('.w100').show();
+				$('.rein').show();
             }else{
             	if($('#chkHoliday').prop('checked')){
 	            	$('.w133').hide();
@@ -453,6 +459,7 @@
             }
             .tbbm tr td .lbl.btn:hover {
                 color: #FF8F19;
+                cursor: pointer;
             }
             .txt.c1 {
                 width: 98%;
@@ -555,10 +562,12 @@
             <td ><span> </span><a id="lblNoa" class="lbl" > </a></td>
             <td ><input id="txtNoa"  type="text" class="txt c1"/></td>
             <!--<td><input id="txtDay" type="text" class="txt c1" /></td> 
-            <td><input id="txtRein" type="text" class="txt c1" /></td>
             <td><span> </span><a id="lblHours" class="lbl" > </a></td>--> 
             <td class='td6'><input id="chkHoliday" type="checkbox" style=' '/><span> </span><a id="lblHoliday" > </a></td>
-            <td class="td7"><input id="btnInput" type="button" /></td> 
+            <td class="td7"><input id="btnInput" type="button" />
+            	<input id="txtRein" type="text" class="txt c1 rein" style="width: 50px;float: right;display: none;" />
+            	<span style="float: right;"> </span><a id="lblRein" class="lbl btn rein" style="float: right;display: none;"> </a>
+            </td> 
         </tr>             
         <!--<tr class="tr2">
             <td ><span> </span><a id="lblData" class="lbl" > </a></td>
