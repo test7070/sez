@@ -184,7 +184,7 @@
 				});
 				
 				$('#btnCub_r').click(function() {
-					var t_where = "1=1";
+					var t_where = " isnull(productno,'')!='' and productno='" + $.trim($('#txtUcano').val()) + "' or productno='" + $.trim($('#txtUccno').val()) + "' ";
 					q_box("cub_r.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'cub_r', "95%", "95%", $('#btnCub_r').val());
 				});
 			}
