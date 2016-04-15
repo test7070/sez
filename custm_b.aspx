@@ -214,6 +214,11 @@
 					<td> </td>
 				</tr>
 				<tr class="isport">
+					<td><a id="lblArea" style="float:right;"> </a></td>
+					<td colspan="3"><input id="txtArea" type="text" style='width:98%;'/></td>
+					<td> </td>
+				</tr>
+				<tr class="isport">
 					<td><a id="lblForwarder" style="float:right;"> </a></td>
 					<td colspan="3">
 						<input id="txtForwarderno" type="text" style='width:30%;'/>
