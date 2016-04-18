@@ -21,7 +21,7 @@
                 q_getId();
                 q_gf('', 'z_gqb');
                 
-                $('#q_report').click(function(e) {
+                $('#q_report .report ').click(function(e) {
                 	if($('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report=='z_gqb4'
                 	|| $('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report=='z_gqb11'
                 	|| $('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report=='z_gqb13'
@@ -41,7 +41,7 @@
                 		$('#txtIndate1').removeAttr('disabled');
                 	}else{
                 		$('#txtIndate1').val(q_date().substr(0,r_lenm)+'/01');
-                		$('#txtIndate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',100).substr(0,r_lenm)+'/01',-1));
+                		$('#txtIndate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',130).substr(0,r_lenm)+'/01',-1));
                 		$('#txtYdate1').removeAttr('disabled');
                 		$('#txtIndate1').removeAttr('disabled');
                 		$('#txtDate1').val('');
@@ -161,7 +161,7 @@
                 
                 if(r_len==4){                	
                 	$.datepicker.r_len=4;
-					$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
                 }
                 
 				$('#txtDate1').datepicker();
@@ -191,7 +191,7 @@
                 $('#txtYdate1').val(q_date());
 				$('#txtIndate1').val(q_date().substr(0,r_lenm)+'/01');
                 $('#txtYdate2').val(q_cdn(q_date(),90));
-                $('#txtIndate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',100).substr(0,r_lenm)+'/01',-1));
+                $('#txtIndate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',130).substr(0,r_lenm)+'/01',-1));
 
                 $('#txtYacc1').change(function() {
                     var s1 = trim($(this).val());
