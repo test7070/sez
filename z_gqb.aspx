@@ -26,11 +26,26 @@
                 	|| $('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report=='z_gqb11'
                 	|| $('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report=='z_gqb13'
                 	|| $('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report=='z_gqb14'){
+                		$('#txtIndate1').val(q_date());
+                		$('#txtIndate2').val(q_cdn(q_date(),90));
                 		$('#txtYdate1').attr('disabled', 'disabled');
                 		$('#txtIndate1').attr('disabled', 'disabled');
-                	}else{
+                	}else if($('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report=='z_gqb5'
+                	|| $('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report=='z_gqb6'
+                	){
+                		$('#txtIndate1').val('');
+                		$('#txtIndate2').val('');
+                		$('#txtDate1').val(q_date().substr(0,r_lenm)+'/01');
+                		$('#txtDate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1));
                 		$('#txtYdate1').removeAttr('disabled');
                 		$('#txtIndate1').removeAttr('disabled');
+                	}else{
+                		$('#txtIndate1').val(q_date().substr(0,r_lenm)+'/01');
+                		$('#txtIndate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',100).substr(0,r_lenm)+'/01',-1));
+                		$('#txtYdate1').removeAttr('disabled');
+                		$('#txtIndate1').removeAttr('disabled');
+                		$('#txtDate1').val('');
+                		$('#txtDate2').val('');
                 	}
                 });
             });
@@ -173,10 +188,10 @@
                 $('#txtYdate1').mask(r_picd);
                 $('#txtYdate2').mask(r_picd);
                 
-                $('#txtYdate1').val(q_date());     
-				$('#txtIndate1').val(q_date());
+                $('#txtYdate1').val(q_date());
+				$('#txtIndate1').val(q_date().substr(0,r_lenm)+'/01');
                 $('#txtYdate2').val(q_cdn(q_date(),90));
-                $('#txtIndate2').val(q_cdn(q_date(),90));
+                $('#txtIndate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',100).substr(0,r_lenm)+'/01',-1));
 
                 $('#txtYacc1').change(function() {
                     var s1 = trim($(this).val());
@@ -187,14 +202,6 @@
                 });
                 $('#Status option:eq(2)').attr('selected',true);
                 $('#Stype select').val('1')     
-            }
-            
-            function changechdate(a) {
-            	if(a.val().length==10){
-            		var t_year=('000'+(dec(a.val().substring(0,4))-1911).toString()).slice(-3);
-					var t_date=a.val().substring(4,10)
-					a.val(t_year+t_date);
-            	}
             }
 
             function q_boxClose(t_name) {
