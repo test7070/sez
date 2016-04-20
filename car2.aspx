@@ -72,8 +72,13 @@
                 if(q_getPara('sys.project').toUpperCase()!="DC"){
                 	$(".btns").hide();
                 }
+                if(q_getPara('sys.project').toUpperCase() == 'BS'){
+                	$(".btns").show();
+                	$(".btns").find('input[type="button"]').hide();
+                	$('#btnCarinsurance').show();
+                }
                 
-                 if(q_getPara('sys.comp').indexOf('菱揚') > -1){
+                if(q_getPara('sys.comp').indexOf('菱揚') > -1){
                 	$(".btns").show();
                 	$('#btnCartax').hide();
                 }
