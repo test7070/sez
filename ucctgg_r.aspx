@@ -129,7 +129,7 @@
             }
 
             function btnPrint() {
-                
+                 	q_box('z_ucctgg.aspx' + "?;;;" + trim($('#txtTggno').val()) + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
