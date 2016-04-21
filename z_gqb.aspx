@@ -153,6 +153,10 @@
                         type : '5',
                         name : 'xmerge',
                         value : new Array('整合', '區分')
+                    }, {/*[37]*/
+                        type : '8',
+                        name : 'xnocollection',
+                        value : new Array('1@未託收' )
                     }]
                 });
                 q_popAssign();
@@ -202,6 +206,10 @@
                 });
                 $('#Status option:eq(2)').attr('selected',true);
                 $('#Stype select').val('1')     
+                
+                $('#Xnocollection').css('width','300px');
+                $('#chkXnocollection').css('width','300px');
+                $('#Xnocollection .label').css('width','0px');
             }
 
             function q_boxClose(t_name) {
