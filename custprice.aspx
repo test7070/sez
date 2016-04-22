@@ -33,6 +33,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
+            ['txtAgentno', 'lblAgentno', 'agent', 'noa,agent', 'txtAgentno,txtAgent', 'agent_b.aspx'],
             ['txtProductno_', 'btnProductno_', 'view_ucaucc', 'noa,product,unit,saleprice', 'txtProductno_,txtProduct_,txtUnit_,txtOprice_', 'ucaucc_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -108,7 +109,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('custprice_s.aspx', q_name + '_s', "500px", "300px", q_getMsg("popSeek"));
+                q_box('custprice_s.aspx', q_name + '_s', "500px", "320px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -535,22 +536,25 @@
 				<table class="tbbm"  id="tbbm">
 					<tr>
 						<td class="td1" style="width: 30%"><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td class="td2"  style="width: 50%">
-							<input id="txtNoa"  type="text" class="txt c1"/>
-						</td>
+						<td class="td2"  style="width: 50%"><input id="txtNoa"  type="text" class="txt c1"/></td>
 						<td class="td3"  style="width: 20%"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td class="td2">
-							<input id="txtDatea"  type="text" class="txt c1"/>
-						</td>
+						<td class="td2"><input id="txtDatea"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblCustno' class="lbl btn"> </a></td>
 						<td class="td2" colspan="2">
 							<input id="txtCustno"  type="text" class="txt c2"/>
 							<input id="txtComp"  type="text" class="txt c3"/>
+						</td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblAgentno' class="lbl btn"> </a></td>
+						<td class="td2" colspan="2">
+							<input id="txtAgentno"  type="text" class="txt c2"/>
+							<input id="txtAgent"  type="text" class="txt c3"/>
 						</td>
 					</tr>
 					<tr>

@@ -38,6 +38,8 @@
                 t_edate = $('#txtEdate').val();
                 t_custno = $('#txtCustno').val();
                 t_comp = $('#txtComp').val();
+                t_agentno = $('#txtAgentno').val();
+                t_agent = $('#txtAgent').val();
 
                 t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;
                 /// 100.  .
@@ -45,7 +47,8 @@
                 /// 100.  .
 
                 var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) 
-                						+ q_sqlPara2("custno", t_custno) + q_sqlPara2("comp", t_comp);
+                						+ q_sqlPara2("custno", t_custno) + q_sqlPara2("comp", t_comp)
+                						+ q_sqlPara2("agentno", t_agentno) + q_sqlPara2("agent", t_agent);
 
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
@@ -80,9 +83,15 @@
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblCustno'> </a></td>
 					<td>
-					<input class="txt" id="txtCustno" type="text" style="width:90px; font-size:medium;" />
-					&nbsp;
-					<input class="txt" id="txtComp" type="text" style="width:115px; font-size:medium;" />
+						<input class="txt" id="txtCustno" type="text" style="width:90px; font-size:medium;" />&nbsp;
+						<input class="txt" id="txtComp" type="text" style="width:115px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblAgentno'> </a></td>
+					<td>
+						<input class="txt" id="txtAgentno" type="text" style="width:90px; font-size:medium;" />&nbsp;
+						<input class="txt" id="txtAgent" type="text" style="width:115px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>
