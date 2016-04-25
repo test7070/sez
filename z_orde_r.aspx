@@ -49,20 +49,42 @@
                         type : '1', //[6][7]
                         name : 'xmon'
                     }, {
-                        type : '2', //[8][9]
-                        name : 'xagent',
+                        type : '1', //[8][9]
+                        name : 'xweek'
+                    }, {
+                        type : '6', //[10]
+                        name : 'xyear'
+                    }, {
+                        type : '2', //[11][12]
+                        name : 'xcust',
                         dbf : 'cust',
                         index : 'noa,comp',
                         src : 'cust_b.aspx'
                     }, {
-                        type : '2', //[10][11]
+                        type : '2', //[13][14]
+                        name : 'xagent',
+                        dbf : 'agent',
+                        index : 'noa,agent',
+                        src : 'agent_b.aspx'
+                    }, {
+                        type : '2', //[15][16]
                         name : 'xproduct',
                         dbf : 'ucaucc',
                         index : 'noa,product',
                         src : 'ucaucc_b.aspx'
                     }, {
-                        type : '6', //[12]
-                        name : 'xyear'
+                        type : '2', //[17][18]
+                        name : 'xsales',
+                        dbf : 'sss',
+                        index : 'noa,namea',
+                        src : 'sss_b.aspx'
+                    }, {
+                        type : '6', //[19]
+                        name : 'xsalegrp'
+                    }, {
+                        type : '5',//[20]
+                        name : 'xorder',
+                        value : new Array('custno@客戶別', 'odate@接單日期','unvcc@未出貨')
                     }]
                 });
                 
