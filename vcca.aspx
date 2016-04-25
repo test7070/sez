@@ -104,10 +104,16 @@
 					bbsNum = [['txtMount', 15, 2, 1], ['txtGmount', 15, 2, 1], ['txtEmount', 15, 2, 1], ['txtPrice', 15, 4, 1], ['txtMoney', 15, 0, 1]];
 				}
 				if (q_getPara('sys.project').toUpperCase()=='SB'){
+					aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
+					, ['txtAddress', '', 'view_road', 'memo,zipcode', '0txtAddress,txtZip', 'road_b.aspx']
+					, ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,serial,zip_invo,addr_invo', 'txtCustno,txtComp,txtNick,txtSerial,txtZip,txtAddress', 'cust_b.aspx']
+					, ['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp,serial', '0txtBuyerno,txtBuyer,txtSerial,txtMemo', 'cust_b.aspx']
+					, ['txtSerial', 'lblSerial', 'vccabuyer', 'serial,noa,buyer', '0txtSerial,txtBuyerno,txtBuyer', 'vccabuyer_b.aspx']
+					, ['txtProductno_', 'btnProductno_', 'ucca', 'noa,product,unit,rc2acc', 'txtProductno_,txtProduct_,txtUnit_,txtOrdeno_', 'ucca_b.aspx']);
 					bbmNum = [['txtMoney', 15, 0,1], ['txtTax', 15, 0,1], ['txtTotal', 15, 0,1]];
-					bbsNum = [['txtMount', 15, 3,1], ['txtGmount', 15, 4,1], ['txtEmount', 15, 4,1], ['txtPrice', 15, 3,1], ['txtMoney', 15, 2,1],['txtOrdeno', 15, 0,1]];
+					bbsNum = [['txtMount', 15, 3,1], ['txtGmount', 15, 4,1], ['txtEmount', 15, 4,1], ['txtPrice', 15, 3,1], ['txtMoney', 15, 2,1],['txtOrdeno', 15, 3,1]];
 					q_readonly = ['txtMoney', 'txtTotal', 'txtChkno', 'txtTax', 'txtAccno', 'txtWorker', 'txtTrdno', 'txtVccno','cmbTaxtype'];
-					q_readonlys = ['txtPrice','txtMoney'];
+					q_readonlys = ['txtPrice','txtMoney','txtOrdeno'];
 				}
 				
 				q_getFormat();
@@ -231,6 +237,7 @@
                 		t_date = $('#txtDatea').val();
                 		if(t_productno.length>0 && q_getPara('sys.project').toUpperCase()!='VU' && q_getPara('sys.project').toUpperCase()!='YC' && q_getPara('sys.project').toUpperCase()!='XY' && q_getPara('sys.project').toUpperCase()!='SB')
                 			q_func('qtxt.query.vcca_mount_'+n, 'vcca.txt,vcca_mount,'+$('#txtNoa').val()+';'+$('#txtCno').val()+';'+t_date+';'+t_productno);
+                		
                 		break;
                     default:
                         break;
@@ -434,11 +441,11 @@
 	                			q_func('qtxt.query.vcca_mount_'+n, 'vcca.txt,vcca_mount,'+$('#txtNoa').val()+';'+$('#txtCno').val()+';'+t_date+';'+t_productno);
 	                		
 	                		if(q_getPara('sys.project').toUpperCase()=='SB'){
+	                			var t_taxprice=dec($('#txtOrdeno_'+n).val());
 	                			var t_mount=dec($('#txtMount_'+n).val());
-	                			var t_taxmoney=dec($('#txtOrdeno_'+n).val());
 	                			if(t_mount!=0){
-	                				$('#txtPrice_'+n).val(round(q_div(round(q_div(t_taxmoney,1.05),2),t_mount),3));
-	                				$('#txtMoney_'+n).val(round(q_div(t_taxmoney,1.05),2));
+	                				$('#txtPrice_'+n).val(round(q_div(t_taxprice,1.05),3));
+	                				$('#txtMoney_'+b_seq).val(round(q_mul(q_float('txtMount_'+b_seq),q_float('txtPrice_'+b_seq)),2));
 	                			}else{
 	                				$('#txtPrice_'+n).val(0);
 	                				$('#txtMoney_'+n).val(0);
@@ -458,25 +465,6 @@
 							sum();
 						});
 						
-						$('#txtOrdeno_' + j).change(function() {
-							t_IdSeq = -1;
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-	                		
-	                		if(q_getPara('sys.project').toUpperCase()=='SB'){
-	                			var t_mount=dec($('#txtMount_'+b_seq).val());
-	                			var t_taxmoney=dec($('#txtOrdeno_'+b_seq).val());
-	                			if(t_mount!=0){
-	                				$('#txtPrice_'+b_seq).val(round(q_div(round(q_div(t_taxmoney,1.05),2),t_mount),3));
-	                				$('#txtMoney_'+b_seq).val(round(q_div(t_taxmoney,1.05),2));
-	                			}else{
-	                				$('#txtPrice_'+b_seq).val(0);
-	                				$('#txtMoney_'+b_seq).val(0);
-	                			}
-	                		}
-							
-							sum();
-						});
 					}
 				}
 				_bbsAssign();
@@ -578,8 +566,7 @@
 					q_box('z_vccap_fe.aspx' + "?;;;noa=" + trim($('#txtNoa').val())+";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
 				}else if (q_getPara('sys.project').toUpperCase()=='SB') {
 					q_box('z_vccap_sb.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
-				}
-				else {
+				}else {
 					q_box('z_vccap.aspx?;;;' + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
 				}
 			}
@@ -809,7 +796,7 @@
 			
 			function refreshBbs() {
                 if (q_getPara('sys.project').toUpperCase()=='SB') {
-                	$('#lblOrdeno').text('含稅金額');
+                	$('#lblOrdeno').text('含稅單價');
                 	$('#lblTotals').text('未稅金額');
                 	$('#lblPrice').text('未稅單價');
                 	$('.ordeno').show();
