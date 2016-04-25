@@ -103,6 +103,12 @@
 				if (q_getPara('sys.comp').substring(0,2)=='傑期'){
 					bbsNum = [['txtMount', 15, 2, 1], ['txtGmount', 15, 2, 1], ['txtEmount', 15, 2, 1], ['txtPrice', 15, 4, 1], ['txtMoney', 15, 0, 1]];
 				}
+				if (q_getPara('sys.project').toUpperCase()=='SB'){
+					bbmNum = [['txtMoney', 15, 0,1], ['txtTax', 15, 0,1], ['txtTotal', 15, 0,1]];
+					bbsNum = [['txtMount', 15, 3,1], ['txtGmount', 15, 4,1], ['txtEmount', 15, 4,1], ['txtPrice', 15, 3,1], ['txtMoney', 15, 2,1],['txtOrdeno', 15, 0,1]];
+					q_readonly = ['txtMoney', 'txtTotal', 'txtChkno', 'txtTax', 'txtAccno', 'txtWorker', 'txtTrdno', 'txtVccno','cmbTaxtype'];
+					q_readonlys = ['txtPrice','txtMoney'];
+				}
 				
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
@@ -221,7 +227,7 @@
                 		var n = b_seq;
                 		t_productno = $('#txtProductno_'+n).val();
                 		t_date = $('#txtDatea').val();
-                		if(t_productno.length>0 && q_getPara('sys.project').toUpperCase()!='VU' && q_getPara('sys.project').toUpperCase()!='YC' && q_getPara('sys.project').toUpperCase()!='XY')
+                		if(t_productno.length>0 && q_getPara('sys.project').toUpperCase()!='VU' && q_getPara('sys.project').toUpperCase()!='YC' && q_getPara('sys.project').toUpperCase()!='XY' && q_getPara('sys.project').toUpperCase()!='SB')
                 			q_func('qtxt.query.vcca_mount_'+n, 'vcca.txt,vcca_mount,'+$('#txtNoa').val()+';'+$('#txtCno').val()+';'+t_date+';'+t_productno);
                 		break;
                     default:
@@ -422,8 +428,20 @@
 							var n = $(this).attr('id').replace('txtMount_','');
 							t_productno = $('#txtProductno_'+n).val();
 	                		t_date = $('#txtDatea').val();
-	                		if(t_productno.length>0 && q_getPara('sys.project').toUpperCase()!='VU'  && q_getPara('sys.project').toUpperCase()!='YC' && q_getPara('sys.project').toUpperCase()!='XY')
+	                		if(t_productno.length>0 && q_getPara('sys.project').toUpperCase()!='VU'  && q_getPara('sys.project').toUpperCase()!='YC' && q_getPara('sys.project').toUpperCase()!='XY' && q_getPara('sys.project').toUpperCase()!='SB')
 	                			q_func('qtxt.query.vcca_mount_'+n, 'vcca.txt,vcca_mount,'+$('#txtNoa').val()+';'+$('#txtCno').val()+';'+t_date+';'+t_productno);
+	                		
+	                		if(q_getPara('sys.project').toUpperCase()=='SB'){
+	                			var t_mount=dec($('#txtMount_'+n).val());
+	                			var t_taxmoney=dec($('#txtOrdeno_'+n).val());
+	                			if(t_mount!=0){
+	                				$('#txtPrice_'+n).val(round(q_div(round(q_div(t_taxmoney,1.05),2),t_mount),3));
+	                				$('#txtMoney_'+n).val(round(q_div(t_taxmoney,1.05),2));
+	                			}else{
+	                				$('#txtPrice_'+n).val(0);
+	                				$('#txtMoney_'+n).val(0);
+	                			}
+	                		}
 							
 							sum();
 						});
@@ -437,9 +455,30 @@
 						$('#txtMoney_' + j).change(function() {
 							sum();
 						});
+						
+						$('#txtOrdeno_' + j).change(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+	                		
+	                		if(q_getPara('sys.project').toUpperCase()=='SB'){
+	                			var t_mount=dec($('#txtMount_'+b_seq).val());
+	                			var t_taxmoney=dec($('#txtOrdeno_'+b_seq).val());
+	                			if(t_mount!=0){
+	                				$('#txtPrice_'+b_seq).val(round(q_div(round(q_div(t_taxmoney,1.05),2),t_mount),3));
+	                				$('#txtMoney_'+b_seq).val(round(q_div(t_taxmoney,1.05),2));
+	                			}else{
+	                				$('#txtPrice_'+b_seq).val(0);
+	                				$('#txtMoney_'+b_seq).val(0);
+	                			}
+	                		}
+							
+							sum();
+						});
 					}
 				}
 				_bbsAssign();
+				refreshBbs();
 			}
 			function bbtAssign() {
                 for (var i = 0; i < q_bbtCount; i++) {
@@ -666,13 +705,14 @@
 						break;
 					default:
 				}
-				$('#txtMoney').val(t_money);
-				$('#txtTax').val(t_tax);
-				$('#txtTotal').val(t_total);
+				$('#txtMoney').val(round(t_money,0));
+				$('#txtTax').val(round(t_tax,0));
+				$('#txtTotal').val(round(t_total,0));
 			}
 
 			function refresh(recno) {
 				_refresh(recno);
+				refreshBbs();
 				t_count = 0;
 				try{
 					for(var i=0;i<q_bbtCount;i++)
@@ -690,7 +730,6 @@
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
-				
 				if (!emp($('#txtVccno').val())){
 					$('#txtNoa').attr('disabled','disabled');
 					$('#cmbTaxtype').attr('disabled','disabled');
@@ -708,7 +747,7 @@
 						$('#txtMemo_'+i).attr('disabled','disabled');
 					}
 				}
-				
+				refreshBbs();
 			}
 
 			function btnMinus(id) {
@@ -763,6 +802,16 @@
 			function btnCancel() {
 				_btnCancel();
 			}
+			
+			function refreshBbs() {
+                if (q_getPara('sys.project').toUpperCase()=='SB') {
+                	$('#lblOrdeno').text('含稅金額');
+                	$('#lblTotals').text('未稅金額');
+                	$('#lblPrice').text('未稅單價');
+                	$('.ordeno').show();
+                	$('.ordeno input').css('text-align','right');
+                }
+            }
 			
 			function bbtsum() {
             	var tot_mount=0,tot_weight=0,tot_money=0;
@@ -1108,6 +1157,7 @@
 					<td align="center" style="width:70px;"><a id='lblMount'> </a></td>
 					<td align="center" style="width:70px;"><a id='lblPrice'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblTotals'> </a></td>
+					<td align="center" style="width:80px;display: none;" class="ordeno"><a id='lblOrdeno'> </a></td>
 					<td align="center" style="width:180px;"><a id='lblMemos'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
@@ -1125,6 +1175,7 @@
 					<td><input id="txtMount.*" type="text" style="float:left;width: 95%; text-align: right;"/></td>
 					<td><input id="txtPrice.*" type="text" style="float:left;width: 95%; text-align: right;"/></td>
 					<td><input id="txtMoney.*" type="text" style="float:left;width: 95%; text-align: right;"/></td>
+					<td class="ordeno" style="display: none;"><input id="txtOrdeno.*" type="text" style="float:left;width: 95%;"/></td>
 					<td><input id="txtMemo.*" type="text" style="float:left;width: 95%;"/></td>
 				</tr>
 			</table>
