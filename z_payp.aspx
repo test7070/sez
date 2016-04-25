@@ -54,7 +54,7 @@
 	            }
 	            $('#btnOk').hide();	     
                 $('#btnOk2').click(function(e) {
-                    switch($('#q_report').data('info').radioIndex) {
+                    /*switch($('#q_report').data('info').radioIndex) {
                         case 0:
                             $('#chkLandScape').prop('checked',false);
                             break;
@@ -64,7 +64,7 @@
                         default:
                             $('#chkLandScape').prop('checked',false);
                             break;
-                    }
+                    }*/ //橫印關閉
                     $('#btnOk').click();
                 });
             }
