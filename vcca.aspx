@@ -576,7 +576,7 @@
 					q_box('z_vccap_pk.aspx' + "?;;;noa=" + trim($('#txtNoa').val())+";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
 				}else if (q_getPara('sys.project') == 'fe') {
 					q_box('z_vccap_fe.aspx' + "?;;;noa=" + trim($('#txtNoa').val())+";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
-				}else if (q_getPara('sys.project').toUpperCase()=='sb') {
+				}else if (q_getPara('sys.project').toUpperCase()=='SB') {
 					q_box('z_vccap_sb.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
 				}
 				else {
