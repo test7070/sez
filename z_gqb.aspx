@@ -210,6 +210,7 @@
                 $('#Xnocollection').css('width','300px');
                 $('#chkXnocollection').css('width','300px');
                 $('#Xnocollection .label').css('width','0px');
+                $('#chkXnocollection input').prop('checked',true);
             }
 
             function q_boxClose(t_name) {

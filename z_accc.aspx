@@ -120,17 +120,20 @@
                 $('#Yproject').css('width','98%');
                 $('#txtYproject').css('width','85%');
                 
-                var r_1911=1911;
-				if(r_len==4){//西元年
-					r_1911=0;
-				}else{
-					$('#txtDate1').datepicker();
-					$('#txtDate2').datepicker();
-				}
-
+                if(r_len==4){                	
+                	$.datepicker.r_len=4;
+					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+                }
+                
+				$('#txtDate1').datepicker();
+				$('#txtDate2').datepicker();
+				
                 $('#txtDate1').mask(r_picd);
                 $('#txtDate2').mask(r_picd);
                 $('#chkXpart').children('input').attr('checked', 'checked');
+                
+                $('#txtDate1').val(q_date().substr(0,r_len)+'/01/01');
+                $('#txtDate2').val(q_date());
                 
                 if (q_getPara('accc.proj').length == 0) {
                     $('#txtXproject1').attr('disabled', 'disabled');
