@@ -74,21 +74,31 @@
                         src : 'ucaucc_b.aspx'
                     }, {
                         type : '2', //[17][18]
+                        name : 'xfactory',
+                        dbf : 'factory',
+                        index : 'noa,factory',
+                        src : 'factory_b.aspx'
+                    }, {
+                        type : '2', //[19][20]
                         name : 'xsales',
                         dbf : 'sss',
                         index : 'noa,namea',
                         src : 'sss_b.aspx'
                     }, {
-                        type : '6', //[19]
+                        type : '6', //[21]
                         name : 'xsalegrp'
                     }, {
-                        type : '5',//[20]
+                        type : '5',//[22]
                         name : 'xorder',
                         value : new Array('custno@客戶別', 'odate@接單日期','unvcc@未出貨')
                     }, {
-                        type : '5',//[21]
+                        type : '5',//[23]
                         name : 'yorder',
                         value : new Array('salgrp@業務組別', 'sales@業務','custno@客戶別','pno@產品')
+                    }, {
+                        type : '5',//[24]
+                        name : 'zorder',
+                        value : new Array('fact@產線','custno@客戶別','salgrp@業務組別', 'sales@業務')
                     }]
                 });
                 
