@@ -1927,7 +1927,7 @@
 						<td><span> </span><a id='lblTrantype' class="lbl"> </a></td>
 						<td colspan="2"><select id="cmbTrantype" class="txt c1" name="D1" > </select></td>
 						<td><span> </span><a id='lblCustorde' class="lbl"> </a></td>
-						<td><select id="txtCustorde" class="txt c1"> </select></td>
+						<td><input id="txtCustorde" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblCasetype' class="lbl"> </a></td>

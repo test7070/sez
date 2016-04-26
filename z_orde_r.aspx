@@ -88,6 +88,9 @@
                     }]
                 });
                 
+                $('.q_report .report').css('width','500px');
+                $('.q_report .report div').css('width','250px');
+                
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
