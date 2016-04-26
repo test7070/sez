@@ -130,7 +130,7 @@
 				
                 $('#txtDate1').mask(r_picd);
                 $('#txtDate2').mask(r_picd);
-                $('#chkXpart').children('input').attr('checked', 'checked');
+                //$('#chkXpart').children('input').attr('checked', 'checked');
                 
                 $('#txtDate1').val(q_date().substr(0,r_len)+'/01/01');
                 $('#txtDate2').val(q_date());
