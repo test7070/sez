@@ -85,6 +85,10 @@
                         type : '5',//[20]
                         name : 'xorder',
                         value : new Array('custno@客戶別', 'odate@接單日期','unvcc@未出貨')
+                    }, {
+                        type : '5',//[21]
+                        name : 'yorder',
+                        value : new Array('salgrp@業務組別', 'sales@業務','custno@客戶別','pno@產品')
                     }]
                 });
                 

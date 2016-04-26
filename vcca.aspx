@@ -445,7 +445,7 @@
 	                			var t_mount=dec($('#txtMount_'+n).val());
 	                			if(t_mount!=0){
 	                				$('#txtPrice_'+n).val(round(q_div(t_taxprice,1.05),3));
-	                				$('#txtMoney_'+b_seq).val(round(q_mul(q_float('txtMount_'+b_seq),q_float('txtPrice_'+b_seq)),2));
+	                				$('#txtMoney_'+n).val(round(q_mul(q_float('txtMount_'+n),q_float('txtPrice_'+n)),2));
 	                			}else{
 	                				$('#txtPrice_'+n).val(0);
 	                				$('#txtMoney_'+n).val(0);
