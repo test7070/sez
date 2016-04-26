@@ -105,8 +105,57 @@
                 $('#txtXmon1').val(q_date().substr(0,r_len)+'/01');
                 $('#txtXmon2').val(q_date().substr(0,r_len)+'/12');
                 $('#txtXyear').val(q_date().substr(0,r_len))
+                
+                $('#txtXweek1').val(getISOYearWeek(new Date()));
+                $('#txtXweek2').val(dec($('#txtXweek1').val())+8);
+                
+                $('#txtXweek1').keyup(function() {
+                	$(this).val(dec($(this).val()));
+                	if($(this).val()=="NaN" || $(this).val()=="0")
+                		$(this).val('');
+                	if(dec($(this).val())>53)
+                		$(this).val(53);
+				});
+				$('#txtXweek2').keyup(function() {
+                	$(this).val(dec($(this).val()));
+                	if($(this).val()=="NaN" || $(this).val()=="0")
+                		$(this).val('');
+                	if(dec($(this).val())>53)
+                		$(this).val(53);
+				});
             }
-
+			
+			function getISOYearWeek(date){  
+		        var commericalyear=getCommerialYear(date);  
+		        var date2=getYearFirstWeekDate(commericalyear);     
+		        var day1=date.getDay();     
+		        if(day1==0) day1=7;     
+		        var day2=date2.getDay();     
+		        if(day2==0) day2=7;     
+		        var d = Math.round((date.getTime() - date2.getTime()+(day2-day1)*(24*60*60*1000)) / 86400000);       
+		        return Math.ceil(d / 7)+1;   
+		    }
+		    
+		    function getYearFirstWeekDate(commericalyear){  
+		        var yearfirstdaydate=new Date(commericalyear, 0, 1);     
+		        var daynum=yearfirstdaydate.getDay();   
+		        var monthday=yearfirstdaydate.getDate();  
+		        if(daynum==0) daynum=7;  
+		        if(daynum<=4){  
+		            return new Date(yearfirstdaydate.getFullYear(),yearfirstdaydate.getMonth(),monthday+1-daynum);  
+		        }else{  
+		            return new Date(yearfirstdaydate.getFullYear(),yearfirstdaydate.getMonth(),monthday+8-daynum)  
+		        }   
+		    }
+		    
+		    function getCommerialYear(date){  
+		        var daynum=date.getDay();   
+		        var monthday=date.getDate();  
+		        if(daynum==0) daynum=7;  
+		        var thisthurdaydate=new Date(date.getFullYear(),date.getMonth(),monthday+4-daynum);  
+		        return thisthurdaydate.getFullYear();  
+		    }
+		    
             function q_boxClose(s2) {
             }
 		</script>

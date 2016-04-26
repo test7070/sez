@@ -54,7 +54,7 @@
 			function mainPost() {
 				q_getFormat();
 				bbmMask = [['txtMon', r_picm],['txtDatea', r_picd]];
-				bbsMask = [];
+				bbsMask = [['txtDatea', r_picd]];
 				q_mask(bbmMask);
 				
 			}
@@ -415,6 +415,7 @@
 				<td align="center" style="width:100px;"><a id='lblStyle_s'> </a></td>
 				<td align="center" style="width:70px;"><a id='lblUnit_s'> </a></td>
 				<td align="center" style="width:100px;"><a id='lblMount_s'> </a></td>
+				<td align="center" style="width:100px;"><a id='lblDatea_s'> </a></td>
 				<td align="center"><a id='lblMemo_s'> </a></td>
 			</tr>
 			<tr  style='background:#cad3ff;'>
@@ -433,6 +434,7 @@
 				<td ><input id="txtStyle.*" type="text" class="txt c1"/></td>
 				<td ><input id="txtUnit.*" type="text" class="txt c1"/></td>
 				<td ><input id="txtMount.*" type="text" class="txt c1 num"/></td>
+				<td ><input id="txtDatea.*" type="text" class="txt c1"/></td>
 				<td ><input id="txtMemo.*" type="text" class="txt c1"/></td>
 			</tr>
 		</table>
