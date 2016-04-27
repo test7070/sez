@@ -42,6 +42,7 @@
 			q_copy=1;
 			aPop = new Array(
 				['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
+				['txtSssno', '', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'],
 				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,spec,unit', '0txtProductno_,txtProduct_,txtSpec_,txtUnit_', 'ucaucc_b.aspx'],
 				['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
 				['txtStationno__', 'btnStation__', 'station__', 'noa,station', 'txtStationno__,txtStation__', 'station_b.aspx'],
@@ -737,6 +738,11 @@
 						return false;
 					}*/
 				}
+				if(!emp($('#txtSssno').val())){
+					$('#txtSssno').attr('disabled', 'disabled');
+					$('#txtNamea').attr('disabled', 'disabled');
+				}
+				
 			}
 
 			function btnMinus(id) {
@@ -1201,9 +1207,14 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
-						<td colspan='5'>
+						<td colspan='3'>
 							<input id="txtMemo" type="text" class="txt c1" style="width: 99%;"/>
 							<input type="hidden" id="txtImages" class="txt c1"/>
+						</td>
+						<td><span> </span><a id="lblSssno" class="lbl"> </a></td>
+						<td>
+							<input id="txtSssno" type="text" class="txt" style="width: 45%;"/>
+							<input id="txtNamea" type="text" class="txt" style="width: 53%;"/>
 						</td>
 					</tr>
 					<input id="text_Noq" type="hidden" />
