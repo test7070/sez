@@ -801,9 +801,9 @@
 						<td><input class="txt c1" id="txtOrdeno.*" type="text" /></td>
 						<td><input class="txt c1" id="txtNo2.*" type="text" /></td>
 						<td>
-							<input class="txt c4" id="txtProductno.*" type="text" />
-							<input class="txt c5" id="txtProduct.*" type="text" />
+							<input class="txt c1" id="txtProductno.*" type="text"  style="width: 80%;"/>
 							<input class="btn"  id="btnProduct.*" type="button" value='.' style=" font-weight: bold;" />
+							<input class="txt c1" id="txtProduct.*" type="text" />
 						</td>
 						<td><input class="txt c1" id="txtUnit.*" type="text" /></td>
 						<td><input class="txt num c1" id="txtMount.*" type="text"/></td>

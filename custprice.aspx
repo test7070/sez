@@ -24,7 +24,7 @@
             var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [['txtOprice', 10, 2, 1],['txtPrice', 10, 2, 1],['txtDiscount', 10, 2, 1],['txtTaxrate', 5, 2, 1],['txtNotaxprice', 10, 2, 1]
-            ,['txtCost', 10, 2, 1],['txtTranprice', 10, 2, 1],['txtCommission', 10, 2, 1],['txtProfit', 10, 2, 1],['txtInsurance', 10, 2, 1],['txtPrice2', 10, 2, 1]];
+            ,['txtCost', 10, 3, 1],['txtTranprice', 10, 3, 1],['txtCommission', 10, 2, 1],['txtProfit', 10, 2, 1],['txtInsurance', 10, 2, 1],['txtPrice2', 10, 3, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -129,7 +129,7 @@
             }
 
             function btnPrint() {
-                //q_box('z_custprice.aspx', '', "95%", "650px", q_getMsg("popPrint"));
+                q_box('z_custprice.aspx', '', "95%", "650px", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
@@ -371,6 +371,21 @@
             function btnCancel() {
                 _btnCancel();
             }
+            
+            function q_popPost(s1) {
+				switch (s1) {
+					case 'txtProductno_':
+						if(!emp($('#txtProductno_'+b_seq).val()) &&dec($('#txtCost_'+b_seq).val())==0){
+							var t_where = "where=^^ noa='"+$('#txtProductno_'+b_seq).val()+"' ^^";
+							q_gt('ucx', t_where, 0, 0, 0, "getucxcost", r_accy, 1);
+							var as = _q_appendData("ucx", "", true);
+							if (as[0] != undefined) {
+								$('#txtCost_'+b_seq).val(as[0].cost);
+							}
+						}
+						break;
+				}
+			}
 		</script>
 		<style type="text/css">
             #dmain {

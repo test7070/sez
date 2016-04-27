@@ -55,17 +55,17 @@
 		
 		function imgshowhide() {
 			for(var i=0;i<q_bbsCount;i++){
-				if(!emp($('#txtXproductno_'+i).val())){
-					var t_where = "where=^^ noa='" + $('#txtXproductno_'+i).val() + "' ^^";
-					q_gt('ucaucc', t_where, 0, 0, 0, "",r_accy,1);
-					var as = _q_appendData("ucaucc", "", true);
+				if(!emp($('#txtProductno_'+i).val())){
+					var t_where = "where=^^ noa='" + $('#txtProductno_'+i).val() + "' ^^";
+					q_gt('ucx', t_where, 0, 0, 0, "",r_accy,1);
+					var as = _q_appendData("ucx", "", true);
 					if (as[0] != undefined) {
 						var imagename=as[0].images.split(';');
 						if(imagename[0]!=''){
 							imagename.sort();
 							for (var j=0 ;j<imagename.length;j++){
 								if(imagename[j]!=''){
-									$('#images_'+i).attr('src', "../images/upload/"+$('#txtXproductno_'+i).val()+'_'+imagename[j]+"?"+new Date());
+									$('#images_'+i).attr('src', "../images/upload/"+$('#txtProductno_'+i).val()+'_'+imagename[j]+"?"+new Date());
 									break;
 								}
 							}
@@ -119,7 +119,7 @@
 			</tr>
 			<tr style='background:#cad3ff;height: 150px;'>
 				<td style="width:1%;" align="center"><input id="chkSel.*" type="checkbox"  /></td>
-				<td style="width:15%;"><input class="txt"  id="txtXproductno.*" type="text" style="width:98%;" /></td>
+				<td style="width:15%;"><input class="txt"  id="txtProductno.*" type="text" style="width:98%;" /></td>
 				<td style="width:20%;">
 					<input class="txt" id="txtProduct.*" type="text" style="width:98%;" />
 					<input class="txt isSpec" id="txtSpec.*" type="text" style="width:98%;" />

@@ -24,7 +24,7 @@
 		    var bbmMask = [];
 		    var bbsMask = [];
             aPop = new Array(
-            	['txtProductno_', '', 'ucc', 'noa,engpro,spec', 'txtProductno_,txtProduct_,txtSpec_', 'ucc_b.aspx']
+            	['txtProductno_', '', 'view_ucaucc', 'noa,engpro,spec', 'txtProductno_,txtProduct_,txtSpec_', 'ucaucc_b.aspx']
             );
 		    $(document).ready(function () {
 		        bbmKey = [];
@@ -184,9 +184,9 @@
 		    }
 		
 		    function bbsSave(as) {
-		        if (!as['product']) {  // Dont Save Condition
+		        if (!as['productno'] && !as['product'] && !as['ctnno'] && !as['spec'] && !as['packway'] && !as['pack']) {  // Dont Save Condition
 		           as[bbsKey[0]] = '';   /// noa  empty --> dont save
-            	return;
+            		return;
         		}
         		q_getId2('', as);  // write keys to as
         		return true;
@@ -263,6 +263,7 @@
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:32px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:50px;display: none;"><a id='lblNo_s'> </a></td>
+					<td align="center" style="width:50px;"><a id='lblCtnno_s'> </a></td>
 					<td align="center" style="width:130px;"><a id='lblCtn_s'> </a></td>
 					<td align="center" style="width:160px;display: none;"><a id='lblUno_s'> </a></td>
 					<td align="center" style="width:170px;"><a id='lblProductno_s'> </a> /<a id='lblProduct_s'> </a></td>
@@ -288,6 +289,7 @@
                     	<input id="txtNoq.*" type="hidden" />
 					</td>
 					<td style="text-align: center;display: none;"><input class="txt" id="txtNo2.*" type="text" /></td>
+					<td><input class="txt" id="txtCtnno.*" type="text" /></td>
 					<td>
 						<input class="txt" id="txtBctn.*" type="text" style="width: 40%;" /><a style="float: left;">~</a>
 						<input class="txt" id="txtEctn.*" type="text" style="width: 40%;"/>

@@ -35,7 +35,7 @@
 			brwCount2 = 13;
 			
 			aPop = new Array(
-				['txtProductno_', 'btnProduct_', 'ucaucc2', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc2_b.aspx'],
+				['txtProductno_', 'btnProduct_', 'ucx', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucx_b.aspx'],
 				['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
 				['txtCustno', 'lblCust', 'cust', 'noa,nick,paytype,trantype,tel,fax,zip_comp,addr_fact', 'txtCustno,txtComp,txtPaytype,cmbTrantype,txtTel,txtFax,txtPost,txtAddr', 'cust_b.aspx'],
@@ -120,7 +120,8 @@
 				q_mask(bbmMask);
 				bbsMask = [['txtDatea', r_picd]];
 				bbsNum = [['txtPrice', 12, q_getPara('vcc.pricePrecision'), 1], ['txtMount', 9, q_getPara('vcc.mountPrecision'), 1], ['txtTotal', 15, 0, 1]
-				, ['txtBenifit', 15, 0, 1],['txtC1', 10, q_getPara('vcc.mountPrecision'), 1], ['txtNotv', 10, q_getPara('vcc.mountPrecision'), 1], ['txtSprice', 10, q_getPara('vcc.pricePrecision'), 1]];
+				, ['txtBenifit', 15, 0, 1],['txtC1', 10, q_getPara('vcc.mountPrecision'), 1], ['txtNotv', 10, q_getPara('vcc.mountPrecision'), 1], ['txtSprice', 10, q_getPara('vcc.pricePrecision'), 1]
+				,['txtCuft', 10, q_getPara('vcc.weightPrecision'), 1]];
 				q_cmbParse("cmbStype", q_getPara('orde.stype'));
 				//q_cmbParse("cmbCoin", q_getPara('sys.coin'));
 				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
@@ -288,6 +289,27 @@
 						$('#txtCommission_'+$('#textNoq').val()).val($('#textCommission').val());
 						
 						sum();
+						
+						if(!emp($('#txtProductno_'+$('#textNoq').val()).val()) && !emp($('#txtPackwayno_'+$('#textNoq').val()).val())){
+							var t_where="where=^^ noa='"+$('#txtProductno_'+$('#textNoq').val()).val()+"' and packway='"+$('#txtPackwayno_'+$('#textNoq').val()).val()+"' ^^";
+		                	q_gt('pack2s', t_where, 0, 0, 0, "", r_accy,1);
+		                	var as = _q_appendData("pack2s", "", true);
+							if (as[0] != undefined) {
+								var t_mount=dec($('#txtMount_'+$('#textNoq').val()).val());
+								var t_uweight=dec(as[0].uweight);
+								var t_inmount=dec(as[0].inmount)==0?1:dec(as[0].inmount);
+								var t_outmount=dec(as[0].outmount)==0?1:dec(as[0].outmount);
+								var t_inweight=dec(as[0].inweight);
+								var t_outweight=dec(as[0].outweight);
+								var t_cuft=dec(as[0].cuft);
+								t_nweight=q_mul(t_mount,t_uweight);
+								var t_pfmount=q_mul(t_inmount,t_outmount)==0?0:Math.floor(q_div(t_mount,q_mul(t_inmount,t_outmount))); //一整箱
+								var t_pcmount=q_mul(t_inmount,t_outmount)==0?0:Math.ceil(q_div(t_mount,q_mul(t_inmount,t_outmount))); //總箱數
+								var t_emount=q_sub(t_mount,q_mul(t_pfmount,q_mul(t_inmount,t_outmount))); //散裝數量
+								$('#txtCuft_'+b_seq).val(q_mul(t_cuft,t_pcmount));
+		                	}
+		                	cufttotal();
+	                	}
 					}
 					$('#div_getprice').hide();
 				});
@@ -383,8 +405,8 @@
 					var t_weight=0;
 					var t_mount=dec($('#textMount').val());
 					var t_uweight=dec($('#textUweight').val());
-					var t_inmount=dec($('#textInmount').val());
-					var t_outmount=dec($('#textOutmount').val());
+					var t_inmount=dec($('#textInmount').val())==0?1:dec($('#textInmount').val());
+					var t_outmount=dec($('#textOutmount').val())==0?1:dec($('#textOutmount').val());
 					var t_inweight=dec($('#textInweight').val());
 					var t_outweight=dec($('#textOutweight').val());
 					var t_pfmount=q_mul(t_inmount,t_outmount)==0?0:Math.floor(q_div(t_mount,q_mul(t_inmount,t_outmount))); //一整箱
@@ -405,8 +427,8 @@
 					var t_weight=0;
 					var t_mount=dec($('#textMount').val());
 					var t_uweight=dec($('#textUweight').val());
-					var t_inmount=dec($('#textInmount').val());
-					var t_outmount=dec($('#textOutmount').val());
+					var t_inmount=dec($('#textInmount').val())==0?1:dec($('#textInmount').val());
+					var t_outmount=dec($('#textOutmount').val())==0?1:dec($('#textOutmount').val());
 					var t_inweight=dec($('#textInweight').val());
 					var t_outweight=dec($('#textOutweight').val());
 					var t_pfmount=q_mul(t_inmount,t_outmount)==0?0:Math.floor(q_div(t_mount,q_mul(t_inmount,t_outmount))); //一整箱
@@ -599,7 +621,7 @@
 
 							var i, j = 0;
 							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtUnit,txtPrice,txtMount,txtQuatno,txtNo3,txtPackwayno,txtPackway,txtSprice,txtProfit,txtCommission,txtInsurance,txtPayterms,txtBenifit'
-							, b_ret.length, b_ret, 'xproductno,product,spec,unit,price,mount,noa,no3,packwayno,packway,cost,profit,commission,insurance,payterms,benifit', 'txtProductno,txtProduct,txtSpec');
+							, b_ret.length, b_ret, 'productno,product,spec,unit,price,mount,noa,no3,packwayno,packway,cost,profit,commission,insurance,payterms,benifit', 'txtProductno,txtProduct,txtSpec');
 							/// 最後 aEmpField 不可以有【數字欄位】
 							
 							//處理cuft
@@ -613,8 +635,8 @@
 			                    		var t_nweight=0; //淨重
 										var t_mount=dec($('#txtMount_'+i).val());
 										var t_uweight=dec(as[0].uweight);
-										var t_inmount=dec(as[0].inmount);
-										var t_outmount=dec(as[0].outmount);
+										var t_inmount=dec(as[0].inmount)==0?1:dec(as[0].inmount);
+										var t_outmount=dec(as[0].outmount)==0?1:dec(as[0].outmount);
 										var t_inweight=dec(as[0].inweight);
 										var t_outweight=dec(as[0].outweight);
 										var t_cuft=dec(as[0].cuft);
@@ -656,8 +678,8 @@
 								var t_nweight=0; //淨重
 								var t_mount=dec($('#txtMount_'+b_seq).val());
 								var t_uweight=dec(as[0].uweight);
-								var t_inmount=dec(as[0].inmount);
-								var t_outmount=dec(as[0].outmount);
+								var t_inmount=dec(as[0].inmount)==0?1:dec(as[0].inmount);
+								var t_outmount=dec(as[0].outmount)==0?1:dec(as[0].outmount);
 								var t_inweight=dec(as[0].inweight);
 								var t_outweight=dec(as[0].outweight);
 								var t_cuft=dec(as[0].cuft);
@@ -1174,6 +1196,8 @@
 								q_gt('pack2s', t_where, 0, 0, 0, "getpack2s", r_accy, 1);
 								var as = _q_appendData("pack2s", "", true);
 								if (as[0] != undefined) {
+									if(dec($('#textUweight').val())==0)
+										$('#textUweight').val(as[0].uweight)
 									$('#textInmount').val(as[0].inmount);
 									$('#textOutmount').val(as[0].outmount);
 									$('#textInweight').val(as[0].inweight);

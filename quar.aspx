@@ -115,9 +115,10 @@
 				bbmNum = [['txtTotal', 15, 0, 1],['txtTotalus', 15, 2, 1], ['txtFloata', 11, 5, 1],['txtMount', 15, q_getPara('vcc.mountPrecision'), 1],['txtWeight', 15, q_getPara('vcc.weightPrecision'), 1]
 				,['txtCost', 15, 0, 1],['txtBenifit', 15, 0, 1],['txtBankfee', 15, 0, 1],['txtCustomsfee', 15, 0, 1],['txtPortfee', 15, 0, 1],['txtTranfee', 15, 0, 1],['txtVisafee', 15, 0, 1],['txtBillfee', 15, 0, 1],['txtCertfee', 15, 0, 1],['txtOthfee', 15, 0, 1]
 				];//,['txtProfit', 10, 2, 1],['txtInsurance', 10, 2, 1],['txtCommission', 10, 2, 1]
-				bbsNum = [['txtMount', 10, q_getPara('vcc.mountPrecision'), 1],['txtMount', 10, q_getPara('vcc.weightPrecision'), 1]
+				bbsNum = [['txtMount', 10, q_getPara('vcc.mountPrecision'), 1],['txtWeight', 10, q_getPara('vcc.weightPrecision'), 1]
 				, ['txtPrice', 10, q_getPara('vcc.pricePrecision'), 1]	, ['txtPrice2', 10, q_getPara('vcc.pricePrecision'), 1]	
-				, ['txtCost', 10, q_getPara('vcc.pricePrecision'), 1]	, ['txtTotal', 15, 0, 1], ['txtBenifit', 15, 0, 1], ['txtBenifit2', 15, 0, 1]];
+				, ['txtCost', 10, q_getPara('vcc.pricePrecision'), 1]	, ['txtTotal', 15, 0, 1], ['txtBenifit', 15, 0, 1], ['txtBenifit2', 15, 0, 1]
+				,['txtCuft', 10, q_getPara('vcc.weightPrecision'), 1]];
 				
 				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
@@ -219,6 +220,30 @@
 						$('#txtCommission2_'+$('#textNoq').val()).val($('#textCommission2').val());
 						
 						sum();
+						
+						if(!emp($('#txtProductno_'+$('#textNoq').val()).val()) && !emp($('#txtPackwayno_'+$('#textNoq').val()).val())){
+							//重新計算cuft
+							var t_where = "where=^^ noa='"+$('#txtProductno_'+$('#textNoq').val()).val()+"'  ^^";
+							q_gt('pack2s', t_where, 0, 0, 0, "gettop1pack2s", r_accy, 1);
+							var as = _q_appendData("pack2s", "", true);
+							if (as[0] != undefined) {
+								$('#txtPackwayno_'+$('#textNoq').val()).val(as[0].packway);
+								$('#txtPackway_'+$('#textNoq').val()).val(as[0].pack);
+								//計算重量
+								var t_weight=0;
+								var t_mount=dec($('#txtMount_'+$('#textNoq').val()).val());
+								var t_uweight=dec(as[0].uweight);
+								var t_inmount=dec(as[0].inmount)==0?1:dec(as[0].inmount);
+								var t_outmount=dec(as[0].outmount)==0?1:dec(as[0].outmount);
+								var t_inweight=dec(as[0].inweight);
+								var t_outweight=dec(as[0].outweight);
+								var t_cuft=dec(as[0].cuft);
+								var t_pfmount=q_mul(t_inmount,t_outmount)==0?0:Math.floor(q_div(t_mount,q_mul(t_inmount,t_outmount))); //一整箱
+								var t_pcmount=q_mul(t_inmount,t_outmount)==0?0:Math.ceil(q_div(t_mount,q_mul(t_inmount,t_outmount))); //總箱數
+								$('#txtCuft_'+$('#textNoq').val()).val(q_mul(t_cuft,t_pcmount));
+							}
+							cufttotal();
+						}
 					}
 					$('#div_getprice').hide();
 				});
@@ -327,7 +352,7 @@
 				
 				$('#combPayterms').change(function() {
 					if(!emp($('#txtCustno').val()) && !emp($('#txtProductno_'+$('#textNoq').val()).val()) && !emp($('#combPayterms').val())){
-						var t_where = "where=^^ a.custno='"+$('#txtCustno').val()+"' and b.xproductno='"+$('#txtProductno_'+$('#textNoq').val()).val()+"' and a.payterms='"+$('#combPayterms').val()+"' and '"+$('#txtOdate').val()+"'>=a.bdate order by bdate desc,noa desc ^^";
+						var t_where = "where=^^ a.custno='"+$('#txtCustno').val()+"' and (b.xproductno='"+$('#txtProductno_'+$('#textNoq').val()).val()+"' or a.productno='"+$('#txtProductno_'+$('#textNoq').val()).val()+"') and a.payterms='"+$('#combPayterms').val()+"' and '"+$('#txtOdate').val()+"'>=a.bdate order by bdate desc,noa desc ^^";
 						q_gt('custprices', t_where, 0, 0, 0, "getcustprices", r_accy, 1);
 						var as = _q_appendData("custprices", "", true);
 						if (as[0] != undefined) {
@@ -343,7 +368,7 @@
 				
 				$('#combPayterms2').change(function() {
 					if(!emp($('#txtCustno').val()) && !emp($('#txtProductno_'+$('#textNoq').val()).val()) && !emp($('#combPayterms2').val())){
-						var t_where = "where=^^ a.custno='"+$('#txtCustno').val()+"' and b.xproductno='"+$('#txtProductno_'+$('#textNoq').val()).val()+"' and a.payterms='"+$('#combPayterms2').val()+"' and '"+$('#txtOdate').val()+"'>=a.bdate order by bdate desc,noa desc ^^";
+						var t_where = "where=^^ a.custno='"+$('#txtCustno').val()+"' and (b.xproductno='"+$('#txtProductno_'+$('#textNoq').val()).val()+"' or a.productno='"+$('#txtProductno_'+$('#textNoq').val()).val()+"') and a.payterms='"+$('#combPayterms2').val()+"' and '"+$('#txtOdate').val()+"'>=a.bdate order by bdate desc,noa desc ^^";
 						q_gt('custprices', t_where, 0, 0, 0, "getcustprices", r_accy, 1);
 						var as = _q_appendData("custprices", "", true);
 						if (as[0] != undefined) {
@@ -361,8 +386,8 @@
 					var t_weight=0;
 					var t_mount=dec($('#textMount').val());
 					var t_uweight=dec($('#textUweight').val());
-					var t_inmount=dec($('#textInmount').val());
-					var t_outmount=dec($('#textOutmount').val());
+					var t_inmount=dec($('#textInmount').val())==0?1:dec($('#textInmount').val());
+					var t_outmount=dec($('#textOutmount').val())==0?1:dec($('#textOutmount').val());
 					var t_inweight=dec($('#textInweight').val());
 					var t_outweight=dec($('#textOutweight').val());
 					var t_pfmount=q_mul(t_inmount,t_outmount)==0?0:Math.floor(q_div(t_mount,q_mul(t_inmount,t_outmount))); //一整箱
@@ -383,8 +408,8 @@
 					var t_weight=0;
 					var t_mount=dec($('#textMount').val());
 					var t_uweight=dec($('#textUweight').val());
-					var t_inmount=dec($('#textInmount').val());
-					var t_outmount=dec($('#textOutmount').val());
+					var t_inmount=dec($('#textInmount').val())==0?1:dec($('#textInmount').val());
+					var t_outmount=dec($('#textOutmount').val())==0?1:dec($('#textOutmount').val());
 					var t_inweight=dec($('#textInweight').val());
 					var t_outweight=dec($('#textOutweight').val());
 					var t_pfmount=q_mul(t_inmount,t_outmount)==0?0:Math.floor(q_div(t_mount,q_mul(t_inmount,t_outmount))); //一整箱
@@ -591,8 +616,8 @@
 							var t_weight=0;
 							var t_mount=dec($('#txtMount_'+b_seq).val());
 							var t_uweight=dec(ret[0].uweight);
-							var t_inmount=dec(ret[0].inmount);
-							var t_outmount=dec(ret[0].outmount);
+							var t_inmount=dec(ret[0].inmount)==0?1:dec(ret[0].inmount);
+							var t_outmount=dec(ret[0].outmount)==0?1:dec(ret[0].outmount);
 							var t_inweight=dec(ret[0].inweight);
 							var t_outweight=dec(ret[0].outweight);
 							var t_cuft=dec(ret[0].cuft);
@@ -760,8 +785,8 @@
 								var t_weight=0;
 								var t_mount=dec($('#txtMount_'+b_seq).val());
 								var t_uweight=dec(as[0].uweight);
-								var t_inmount=dec(as[0].inmount);
-								var t_outmount=dec(as[0].outmount);
+								var t_inmount=dec(as[0].inmount)==0?1:dec(as[0].inmount);
+								var t_outmount=dec(as[0].outmount)==0?1:dec(as[0].outmount);
 								var t_inweight=dec(as[0].inweight);
 								var t_outweight=dec(as[0].outweight);
 								var t_cuft=dec(as[0].cuft);
@@ -837,6 +862,8 @@
 								q_gt('pack2s', t_where, 0, 0, 0, "getpack2s", r_accy, 1);
 								var as = _q_appendData("pack2s", "", true);
 								if (as[0] != undefined) {
+									if(dec($('#textUweight').val())==0)
+										$('#textUweight').val(as[0].uweight)
 									$('#textInmount').val(as[0].inmount);
 									$('#textOutmount').val(as[0].outmount);
 									$('#textInweight').val(as[0].inweight);
@@ -1101,8 +1128,8 @@
 								var t_weight=0;
 								var t_mount=dec($('#txtMount_'+b_seq).val());
 								var t_uweight=dec(as[0].uweight);
-								var t_inmount=dec(as[0].inmount);
-								var t_outmount=dec(as[0].outmount);
+								var t_inmount=dec(as[0].inmount)==0?1:dec(as[0].inmount);
+								var t_outmount=dec(as[0].outmount)==0?1:dec(as[0].outmount);
 								var t_inweight=dec(as[0].inweight);
 								var t_outweight=dec(as[0].outweight);
 								var t_cuft=dec(as[0].cuft);

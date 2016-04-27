@@ -26,10 +26,10 @@
 			var q_readonly = ['txtModel','txtStationg','txtMolds','txtRev'];
 			var q_readonlys = [];
 			var q_readonlyt = ['txtAssm'];
-			var bbmNum = [['txtPrice', 12, 2, 1],['txtPreday', 12, 0, 1],['txtHours', 10, 3, 1],['txtMinutes', 10, 3, 1],['txtPretime', 12, 2, 1],['txtBadperc', 12, 2, 1],['txtUweight', 12, 2, 1],['txtMakes', 15, 2, 1]
-			,['txtPacks', 15, 2, 1],['txtWages', 15, 2, 1],['txtCost', 15, 2, 1]/*,['txtMechs', 15, 2, 1],['txtTrans', 15, 2, 1]*/,['txtSafemount', 15, 2, 1],['txtStdmount', 15, 2, 1] ];
-			var bbsNum = [['txtMount', 12, 2,1]/*, ['txtWeight', 11, 2]*/, ['txtCost', 11, 2], ['txtHours', 9, 2,1],['txtLoss', 10, 2,1],['txtDividea', 10, 0,1],['txtMul', 10, 2,1]];
-			var bbtNum = [['txtMount_', 12, 2, 1]/*, ['txtWeight_', 12, 2 ,1]*/,['txtPrice_', 12, 2, 1], ['txtEndmount_', 12, 0, 1], ['txtEndweight_', 12, 2, 1]];
+			var bbmNum = [['txtPrice', 12, 3, 1],['txtPreday', 12, 0, 1],['txtHours', 10, 3, 1],['txtMinutes', 10, 3, 1],['txtPretime', 12, 2, 1],['txtBadperc', 12, 2, 1],['txtUweight', 12, 2, 1],['txtMakes', 15, 3, 1]
+			,['txtPacks', 15, 3, 1],['txtWages', 15, 3, 1],['txtCost', 15, 3, 1]/*,['txtMechs', 15, 2, 1],['txtTrans', 15, 2, 1]*/,['txtSafemount', 15, 2, 1],['txtStdmount', 15, 2, 1] ];
+			var bbsNum = [['txtMount', 12, 2,1]/*, ['txtWeight', 11, 2]*/, ['txtCost', 11, 3 ,1], ['txtHours', 9, 2,1],['txtLoss', 10, 2,1],['txtDividea', 10, 0,1],['txtMul', 10, 2,1]];
+			var bbtNum = [['txtMount_', 12, 2, 1]/*, ['txtWeight_', 12, 2 ,1]*/,['txtPrice_', 12, 3, 1], ['txtEndmount_', 12, 0, 1], ['txtEndweight_', 12, 2, 1]];
 			var bbmMask = [];
 			var bbsMask = [];
 			var bbtMask = [];
@@ -184,7 +184,7 @@
 				});
 				
 				$('#btnCub_r').click(function() {
-					var t_where = " isnull(productno,'')!='' and productno='" + $.trim($('#txtUcano').val()) + "' or productno='" + $.trim($('#txtUccno').val()) + "' ";
+					var t_where = " isnull(productno,'')!='' and (productno='" + $.trim($('#txtUcano').val()) + "' or productno='" + $.trim($('#txtUccno').val()) + "' or productno='" + $.trim($('#txtNoa').val()) + "') ";
 					q_box("cub_r.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'cub_r', "95%", "95%", $('#btnCub_r').val());
 				});
 			}
