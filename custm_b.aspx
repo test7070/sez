@@ -28,7 +28,7 @@
 			q_tables = 's';
 			
 			aPop = new Array(
-				['txtAgentno', 'lblAgent', 'cust', 'noa,comp', 'txtAgentno,txtAgent', 'cust_b.aspx'],
+				['txtAgentno', 'lblAgent', 'agent', 'noa,agent', 'txtAgentno,txtAgent', 'agent_b.aspx'],
 				['txtBcompno', 'lblBcomp', 'tgg', 'noa,comp', 'txtBcompno,txtBcomp', 'tgg_b.aspx'],
 				['txtForwarderno', 'lblForwarder', 'tgg', 'noa,comp', 'txtForwarderno,txtForwarder', 'tgg_b.aspx']
 			);

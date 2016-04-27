@@ -99,6 +99,13 @@
                         type : '5',//[24]
                         name : 'zorder',
                         value : new Array('fact@產線','custno@客戶別','salgrp@業務組別', 'sales@業務')
+                    },{
+                        type : '1', //[25][26]
+                        name : 'yyear'
+                    }, {
+                        type : '5',//[27]
+                        name : 'xshow',
+                        value : new Array('money@金額','mount@數量','profit@PF')
                     }]
                 });
                 
@@ -113,6 +120,8 @@
                 $('#txtXmon1').mask(r_picm);
                 $('#txtXmon2').mask(r_picm);
                 $('#txtXyear').mask(r_pic);
+                $('#txtYyear1').mask(r_pic);
+                $('#txtYyear2').mask(r_pic);
                 if(r_len==3){
                 	$('#txtXdate1').datepicker();
                 	$('#txtXdate2').datepicker();
@@ -122,6 +131,8 @@
                 $('#txtXmon1').val(q_date().substr(0,r_len)+'/01');
                 $('#txtXmon2').val(q_date().substr(0,r_len)+'/12');
                 $('#txtXyear').val(q_date().substr(0,r_len))
+                $('#txtYyear1').val(dec(q_date().substr(0,r_len))-5);
+                $('#txtYyear2').val(q_date().substr(0,r_len));
                 
                 $('#txtXweek1').val(getISOYearWeek(new Date()));
                 $('#txtXweek2').val(dec($('#txtXweek1').val())+8);

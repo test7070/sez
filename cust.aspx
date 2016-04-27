@@ -160,6 +160,7 @@
 				$('#btnCustm').hide();//稅務資料
 				if(q_getPara('sys.isport')=='1'){ //外銷
 					$('#btnUcam').show();
+					$('#btnCustm').val('貿易設定');
 					$('#btnCustm').show();
 				}
 				if (q_getPara('sys.project').toUpperCase()=='GU'){
