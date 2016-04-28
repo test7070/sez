@@ -36,7 +36,7 @@
 				$('.isSpec').hide();
 			imgshowhide();
 			for(var i=0;i<q_bbsCount;i++){
-				if($('#chkChk1_'+i).prop('checked')){
+				if($('#chkChk1_'+i).prop('checked') || !$('#chkChk2_'+i).prop('checked')){
 					$('#txtPrice_'+i).show();
 					$('#txtPrice2_'+i).hide();
 				}else{
