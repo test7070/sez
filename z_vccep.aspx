@@ -87,15 +87,16 @@
                 	
                 $('#txtXdate1').mask(r_picd);
                 $('#txtXdate1').datepicker();
-                $('#txtXdate1').val(q_cdn(q_date(),-60));
+                $('#txtXdate1').val(q_cdn(q_date(),-7));
                 $('#txtXdate2').mask(r_picd);
                 $('#txtXdate2').datepicker();
-                $('#txtXdate2').val(q_date());
+                $('#txtXdate2').val(q_cdn(q_date(),+7));
                 $('#txtCldate1').mask(r_picd);
                 $('#txtCldate1').datepicker();
+                $('#txtCldate1').val(q_date());
                 $('#txtCldate2').mask(r_picd);
                 $('#txtCldate2').datepicker();  
-                
+                $('#txtCldate2').val(q_cdn(q_date(),+14));
                 
 	            /*var t_date,t_year,t_month,t_day;
 	            t_date = new Date();
