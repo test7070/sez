@@ -1003,10 +1003,10 @@
 					return;
 				}
 				
-				/*for(var k=0;k<q_bbsCount;k++){
+				for(var k=0;k<q_bbsCount;k++){
 					if(emp($('#txtDatea_'+k).val()))
-						$('#txtDatea_'+k).val(q_cdn($.trim($('#txtOdate').val()),15))
-				}*/
+						getpdate(k);
+				}
 				
 				//1030419 當專案沒有勾 BBM的取消和結案被打勾BBS也要寫入
 				if(!$('#chkIsproj').prop('checked')){
@@ -1551,7 +1551,7 @@
 							//取得目前訂單的數量
 							var t_bbsmount=0;
 							for (var j = 0; j <= x; j++) {
-								t_bbsmount=q_add(t_bbsmount,$('#txtMount_'+j).val());
+								t_bbsmount=q_add(t_bbsmount,dec($('#txtMount_'+j).val()));
 							}
 							
 							factnotv=q_add(factnotv,t_bbsmount);
