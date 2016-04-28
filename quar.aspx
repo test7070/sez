@@ -1629,7 +1629,7 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1830px;">
+		<div class='dbbs' style="width: 1840px;">
 			<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1' >
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:40px;"><input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" /></td>
@@ -1640,7 +1640,7 @@
 					<td align="center" style="width:40px;"><a id='lblUnit_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblCost_s'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblGetprice_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblPayterms_s'> </a></td>
+					<td align="center" style="width:130px;"><a id='lblPayterms_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblPrice_s'> </a><BR></td>
 					<td align="center" style="width:100px;"><a id='lblBenifit_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblPackway_s'> </a></td>
@@ -1677,8 +1677,10 @@
 					</td>
 					<td align="center"><input class="btn" id="btnGetprice.*" type="button" value='.' style=" font-weight: bold;"/></td>
 					<td><!--<select id="cmbPayterms.*" class="txt c1"> </select>-->
-						<input id="txtPayterms.*" type="text" class="txt c1"/>
-						<input id="txtPayterms2.*" type="text" class="txt c1"/>
+						<input id="chkChk1.*" type="radio" name="radio.*" style="float: left;"/> 
+						<input id="txtPayterms.*" type="text" class="txt c1" style="width: 80%;"/>
+						<input id="chkChk2.*" type="radio" name="radio.*" style="float: left;"/>
+						<input id="txtPayterms2.*" type="text" class="txt c1" style="width: 80%;"/>
 					</td>
 					<td>
 						<input id="txtPrice.*" type="text" class="txt c1 num"/>

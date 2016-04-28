@@ -9,7 +9,7 @@
 	<script src='../script/mask.js' type="text/javascript"></script>
 	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript">
-		var q_name = 'quars', t_bbsTag = 'tbbs', t_content = " field=xproductno,productno,product,spec,unit,mount,notv,noa,no3,price,packwayno,packway  order=odate ", afilter = [], bbsKey = ['noa', 'no3'], t_count = 0, as;
+		var q_name = 'quars', t_bbsTag = 'tbbs', t_content = " field=xproductno,productno,product,spec,unit,mount,notv,noa,no3,price,price2,chk1,chk2,packwayno,packway  order=odate ", afilter = [], bbsKey = ['noa', 'no3'], t_count = 0, as;
 		var t_sqlname = 'quars';
 		t_postname = q_name;
 		brwCount = -1;
@@ -35,6 +35,15 @@
 			if(q_getPara('sys.isspec')!='1')
 				$('.isSpec').hide();
 			imgshowhide();
+			for(var i=0;i<q_bbsCount;i++){
+				if($('#chkChk1_'+i).prop('checked')){
+					$('#txtPrice_'+i).show();
+					$('#txtPrice2_'+i).hide();
+				}else{
+					$('#txtPrice_'+i).hide();
+					$('#txtPrice2_'+i).show();
+				}
+			}
 		}
 		function q_gtPost() { 
 	
@@ -126,7 +135,12 @@
 				</td>
 				<td style="width:4%;"><input class="txt" id="txtUnit.*" type="text" style="width:98%;"/></td>
 				<td style="width:8%;"><input class="txt" id="txtMount.*" type="text" style="width:98%; text-align:right;"/></td>
-				<td style="width:8%;"><input class="txt" id="txtPrice.*" type="text" style="width:98%; text-align:right;"/></td>
+				<td style="width:8%;">
+					<input class="txt" id="txtPrice.*" type="text" style="width:98%; text-align:right;"/>
+					<input class="txt" id="txtPrice2.*" type="text" style="width:98%; text-align:right;"/>
+					<input id="chkChk1.*" type="checkbox" style="display: none;"/>
+					<input id="chkChk2.*" type="checkbox" style="display: none;"/> 
+				</td>
 				<td style="width:13%;">
 					<input class="txt" id="txtNoa.*" type="text" style="width:98%;"/>
 					<input class="txt" id="txtNo3.*" type="text" style="width:98%;" />

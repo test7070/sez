@@ -620,6 +620,15 @@
 							q_gt('quar', t_where, 0, 0, 0, "", r_accy);
 
 							var i, j = 0;
+							for(var i=0;i<b_ret.length;i++){
+								if(b_ret[i].chk2=="true"){
+									b_ret[i].price=b_ret[i].price2;
+									b_ret[i].commission=b_ret[i].commission2;
+									b_ret[i].insurance=b_ret[i].insurance2;
+									b_ret[i].payterms=b_ret[i].payterms2;
+									b_ret[i].profit=b_ret[i].profit2;
+								}
+							}
 							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtUnit,txtPrice,txtMount,txtQuatno,txtNo3,txtPackwayno,txtPackway,txtSprice,txtProfit,txtCommission,txtInsurance,txtPayterms,txtBenifit'
 							, b_ret.length, b_ret, 'productno,product,spec,unit,price,mount,noa,no3,packwayno,packway,cost,profit,commission,insurance,payterms,benifit', 'txtProductno,txtProduct,txtSpec');
 							/// 最後 aEmpField 不可以有【數字欄位】
