@@ -66,6 +66,11 @@
 
 			function mainPost() {
 				q_getFormat();
+				if(r_len==4){                	
+                	$.datepicker.r_len=4;
+					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+                }
+				
 				bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtSfbdate', r_picd], ['txtSfedate', r_picd], ['txtWadate', r_picd], ['txtWbdate', r_picd], ['txtWedate', r_picd]];
 				bbsMask = [['txtRworkdate', r_picd], ['txtCuadate', r_picd], ['txtIndate', r_picd], ['txtUindate', r_picd]];
 				q_mask(bbmMask);

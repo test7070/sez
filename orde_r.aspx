@@ -571,7 +571,7 @@
 									imagename.sort();
 									for (var j=0 ;j<imagename.length;j++){
 										if(imagename[j]!=''){
-											$('#images_'+i).attr('src', "../images/upload/"+$('#txtProductno_'+i).val()+'_'+imagename[j]+"?"+new Date());
+											$('#images_'+i).attr('src', "../images/upload/"+replaceAll($('#txtProductno_'+i).val(),'/','CHR(47)')+'_'+imagename[j]+"?"+new Date());
 											break;
 										}
 									}

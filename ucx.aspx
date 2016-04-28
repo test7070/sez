@@ -285,7 +285,7 @@
 							var imagehtml="<table width='1260px'><tr>";
 							for (var i=0 ;i<imagename.length;i++){
 								if(imagename[i]!='')
-									imagehtml+="<td><img id='images_"+i+"' style='cursor: pointer;' width='200px' src='../images/upload/"+$('#txtNoa').val()+'_'+imagename[i]+"?"+new Date()+"'> </td>"
+									imagehtml+="<td><img id='images_"+i+"' style='cursor: pointer;' width='200px' src='../images/upload/"+replaceAll($('#txtNoa').val(),'/','CHR(47)')+'_'+imagename[i]+"?"+new Date()+"'> </td>"
 							}
 							imagehtml+="</tr></table>";
 							$('.images').html(imagehtml);
@@ -294,7 +294,7 @@
 								$('#images_'+i).click(function() {
 									var n = $(this).attr('id').split('_')[1];
 									t_where = "noa='" + $('#txtNoa').val() + "'";
-									q_box("../images/upload/"+$('#txtNoa').val()+'_'+imagename[n]+"?;;;;;"+new Date(), 'image', "85%", "85%", "");
+									q_box("../images/upload/"+replaceAll($('#txtNoa').val(),'/','CHR(47)')+'_'+imagename[n]+"?;;;;;"+new Date(), 'image', "85%", "85%", "");
 								});
 							}
 						}
@@ -700,7 +700,7 @@
 					var imagehtml="<table width='1260px'><tr>";
 					for (var i=0 ;i<imagename.length;i++){
 						if(imagename[i]!='')
-							imagehtml+="<td><img id='images_"+i+"' style='cursor: pointer;' width='200px' src='../images/upload/"+$('#txtNoa').val()+'_'+imagename[i]+"?"+new Date()+"'> </td>"
+							imagehtml+="<td><img id='images_"+i+"' style='cursor: pointer;' width='200px' src='../images/upload/"+replaceAll($('#txtNoa').val(),'/','CHR(47)')+'_'+imagename[i]+"?"+new Date()+"'> </td>"
 					}
 					imagehtml+="</tr></table>";
 					$('.images').html(imagehtml);
@@ -709,7 +709,7 @@
 						$('#images_'+i).click(function() {
 							var n = $(this).attr('id').split('_')[1];
 							t_where = "noa='" + $('#txtNoa').val() + "'";
-							q_box("../images/upload/"+$('#txtNoa').val()+'_'+imagename[n]+"?;;;;;"+new Date(), 'image', "85%", "85%", "");
+							q_box("../images/upload/"+replaceAll($('#txtNoa').val(),'/','CHR(47)')+'_'+imagename[n]+"?;;;;;"+new Date(), 'image', "85%", "85%", "");
 						});
 					}
 				}
