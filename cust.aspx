@@ -105,6 +105,8 @@
 				bbmMask = [['txtChkdate', r_picd], ['txtDueday', '999'], ['txtStartdate', '99'],['txtGetdate', '99']];
 				if (q_getPara('sys.project').toUpperCase()=='RB'){
 					bbmMask = [['txtChkdate', r_picd], ['txtDueday', '999'], ['txtStartdate', '99'],['txtGetdate', '99'],['txtNoa','AAAA']];
+					if(q_db.toUpperCase()=="ST3")
+						bbmMask = [['txtChkdate', r_picd], ['txtDueday', '999'], ['txtStartdate', '99'],['txtGetdate', '99'],['txtNoa','AA999']];
 				}
 				
 				q_mask(bbmMask);
@@ -471,12 +473,23 @@
 						break;
 					case 'RB_AutoCustno':
 						var as = _q_appendData("cust", "", true);
-						if($('#txtNoa').val().length==4){
-							if(as[0] != undefined){
-								var noa_seq=('0000'+((isNaN(dec(as[as.length-1].noa.slice(-4)))?0:dec(as[as.length-1].noa.slice(-4)))+1)).slice(-4);
-								$('#txtNoa').val($('#txtNoa').val()+noa_seq);
-							}else{	
-								$('#txtNoa').val($('#txtNoa').val()+'0001');
+						if(q_db.toUpperCase()=="ST3"){
+							if($('#txtNoa').val().length==5){
+								if(as[0] != undefined){
+									var noa_seq=('0000'+((isNaN(dec(as[as.length-1].noa.slice(-4)))?0:dec(as[as.length-1].noa.slice(-4)))+1)).slice(-4);
+									$('#txtNoa').val($('#txtNoa').val()+noa_seq);
+								}else{	
+									$('#txtNoa').val($('#txtNoa').val()+'0001');
+								}
+							}	
+						}else{
+							if($('#txtNoa').val().length==4){
+								if(as[0] != undefined){
+									var noa_seq=('0000'+((isNaN(dec(as[as.length-1].noa.slice(-4)))?0:dec(as[as.length-1].noa.slice(-4)))+1)).slice(-4);
+									$('#txtNoa').val($('#txtNoa').val()+noa_seq);
+								}else{	
+									$('#txtNoa').val($('#txtNoa').val()+'0001');
+								}
 							}
 						}
 						btnOk();
@@ -631,7 +644,14 @@
 					}
 				}
 				
-				if (q_getPara('sys.project').toUpperCase()=='RB' && $('#txtNoa').val().length==4){
+				if (q_cur==1 && q_getPara('sys.project').toUpperCase()=='RB' && q_db.toUpperCase()!="ST3" && $('#txtNoa').val().length==4){
+					//彩虹後面四碼由電腦產生
+					t_where = "where=^^ noa=(select MAX(noa) from cust where charindex('" + $('#txtNoa').val() + "',noa)=1 and len(noa)=8 ) ^^";
+					q_gt('cust', t_where, 0, 0, 0, "RB_AutoCustno", r_accy);
+					return;
+				}
+				
+				if (q_cur==1 && q_getPara('sys.project').toUpperCase()=='RB' && q_db.toUpperCase()=="ST3" && $('#txtNoa').val().length==5){
 					//彩虹後面四碼由電腦產生
 					t_where = "where=^^ noa=(select MAX(noa) from cust where charindex('" + $('#txtNoa').val() + "',noa)=1 and len(noa)=8 ) ^^";
 					q_gt('cust', t_where, 0, 0, 0, "RB_AutoCustno", r_accy);
