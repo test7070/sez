@@ -16,7 +16,7 @@
         }
         var q_name="ordei";
         var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
-        var bbmNum = [['txtFloata', 6, 2],['txtCommissionpercent', 6, 2]]; 
+        var bbmNum = [];//['txtFloata', 6, 2],['txtCommissionpercent', 6, 2] 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
@@ -166,9 +166,9 @@
             		$('#txtBdock').val(as[0].bdock);
             		$('#txtEdock').val(as[0].edock);
             		$('#txtConn').val(as[0].conn);
-            		$('#txtCommissionpercent').val(as[0].commission);
-            		$('#cmbCoin').val(as[0].coin);
-            		$('#txtFloata').val(as[0].floata);
+            		//$('#txtCommissionpercent').val(as[0].commission);
+            		//$('#cmbCoin').val(as[0].coin);
+            		//$('#txtFloata').val(as[0].floata);
             		$('#cmbPayterms').val(as[0].payterms);
             	}
            }

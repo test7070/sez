@@ -111,8 +111,8 @@
 				q_popAssign();
 				q_getFormat();
 				isSaturday = (q_getPara('sys.saturday').toString()=='1'?'1':'0');
-				$('#txtXdate1').datepicker().mask('999/99/99');
-				$('#txtXdate2').datepicker().mask('999/99/99');
+				$('#txtXdate1').datepicker().mask(r_picd);
+				$('#txtXdate2').datepicker().mask(r_picd);
 				$('#txtXdate1').val(q_date());
 				$('#txtXdate2').val(q_cdn(q_date(),15));
 				$('#btnXXX').click(function(e) {
@@ -286,11 +286,11 @@
 						}else{
 							var t_bdate = $.trim($('#txtXdate1').val());
 							var t_edate = $.trim($('#txtXdate2').val());
-							t_bdate = (t_bdate.length==9?t_bdate:q_date());
-							var t_bADdate = dec(t_bdate.substring(0,3))+1911+t_bdate.substr(3);
+							t_bdate = (t_bdate.length>=9?t_bdate:q_date());
+							var t_bADdate = r_len==3?(dec(t_bdate.substring(0,3))+1911)+t_bdate.substr(3):t_bdate;
 							var t_edate = $.trim($('#txtXdate2').val());
-							t_edate = (t_edate.length==9?t_edate:q_date());
-							var t_eADdate = dec(t_edate.substring(0,3))+1911+t_edate.substr(3);
+							t_edate = (t_edate.length>=9?t_edate:q_date());
+							var t_eADdate = r_len==3?(dec(t_edate.substring(0,3))+1911)+t_edate.substr(3):t_edate;
 							var myStartDate = new Date(t_bADdate);
 							var myEndDate = new Date(t_eADdate);
 							var DiffDays = ((myEndDate - myStartDate)/ 86400000);
@@ -298,7 +298,7 @@
 							var DateObj = [];
 							for(var j=0;j<=DiffDays;j++){
 								var thisDay = q_cdn(t_bdate,j);
-								var thisADday = dec(thisDay.substring(0,3))+1911+thisDay.substr(3);
+								var thisADday = r_len==3?dec(thisDay.substring(0,3))+1911+thisDay.substr(3):thisDay;
 								if((new Date(thisADday).getDay())!=0){
 									DateList.push(thisDay);
 									DateObj.push({
@@ -364,8 +364,8 @@
 							var tmpTd = '<tr>';
 							for(var j=0;j<DateList.length;j++){
 								var thisDay = DateList[j];
-								var thisADday = dec(thisDay.substring(0,3))+1911+thisDay.substr(3);
-								OutHtml += "<td class='tTitle tWidth'>" + thisDay.substr(4) + "</td>";
+								var thisADday = r_len==3?dec(thisDay.substring(0,3))+1911+thisDay.substr(3):thisDay;
+								OutHtml += "<td class='tTitle tWidth'>" + thisDay.substr(r_len+1) + "</td>";
 								tmpTd += "<td class='tTitle tWidth'>" + DayName[(new Date(thisADday).getDay())] + "</td>";
 							}
 							OutHtml += "<td class='tTitle tWidth' rowspan='2'>小計</td>";
@@ -411,11 +411,11 @@
 						}else{
 							var t_bdate = $.trim($('#txtXdate1').val());
 							var t_edate = $.trim($('#txtXdate2').val());
-							t_bdate = (t_bdate.length==9?t_bdate:q_date());
-							var t_bADdate = dec(t_bdate.substring(0,3))+1911+t_bdate.substr(3);
+							t_bdate = (t_bdate.length>=9?t_bdate:q_date());
+							var t_bADdate = r_len==3?(dec(t_bdate.substring(0,3))+1911)+t_bdate.substr(3):t_bdate;
 							var t_edate = $.trim($('#txtXdate2').val());
-							t_edate = (t_edate.length==9?t_edate:q_date());
-							var t_eADdate = dec(t_edate.substring(0,3))+1911+t_edate.substr(3);
+							t_edate = (t_edate.length>=9?t_edate:q_date());
+							var t_eADdate = r_len==3?(dec(t_edate.substring(0,3))+1911)+t_edate.substr(3):t_edate;
 							var myStartDate = new Date(t_bADdate);
 							var myEndDate = new Date(t_eADdate);
 							var DiffDays = ((myEndDate - myStartDate)/ 86400000);
@@ -423,7 +423,7 @@
 							var DateObj = [];
 							for(var j=0;j<=DiffDays;j++){
 								var thisDay = q_cdn(t_bdate,j);
-								var thisADday = dec(thisDay.substring(0,3))+1911+thisDay.substr(3);
+								var thisADday = r_len==3?dec(thisDay.substring(0,3))+1911+thisDay.substr(3):thisDay;
 								if((new Date(thisADday).getDay())!=0){
 									DateList.push(thisDay);
 									DateObj.push({
@@ -480,8 +480,8 @@
 							var tmpTd = '<tr>';
 							for(var j=0;j<DateList.length;j++){
 								var thisDay = DateList[j];
-								var thisADday = dec(thisDay.substring(0,3))+1911+thisDay.substr(3);
-								OutHtml += "<td class='tTitle tWidth'>" + thisDay.substr(4) + "</td>";
+								var thisADday = r_len==3?dec(thisDay.substring(0,3))+1911+thisDay.substr(3):thisDay;
+								OutHtml += "<td class='tTitle tWidth'>" + thisDay.substr(r_len+1) + "</td>";
 								tmpTd += "<td class='tTitle tWidth'>" + DayName[(new Date(thisADday).getDay())] + "</td>";
 							}
 							OutHtml += "<td class='tTitle tWidth' rowspan='2'>小計</td>";
@@ -522,11 +522,11 @@
 						}else{
 							var t_bdate = $.trim($('#txtXdate1').val());
 							var t_edate = $.trim($('#txtXdate2').val());
-							t_bdate = (t_bdate.length==9?t_bdate:q_date());
-							var t_bADdate = dec(t_bdate.substring(0,3))+1911+t_bdate.substr(3);
+							t_bdate = (t_bdate.length>=9?t_bdate:q_date());
+							var t_bADdate = r_len==3?(dec(t_bdate.substring(0,3))+1911)+t_bdate.substr(3):t_bdate;
 							var t_edate = $.trim($('#txtXdate2').val());
-							t_edate = (t_edate.length==9?t_edate:q_date());
-							var t_eADdate = dec(t_edate.substring(0,3))+1911+t_edate.substr(3);
+							t_edate = (t_edate.length>=9?t_edate:q_date());
+							var t_eADdate = r_len==3?(dec(t_edate.substring(0,3))+1911)+t_edate.substr(3):t_edate;
 							var myStartDate = new Date(t_bADdate);
 							var myEndDate = new Date(t_eADdate);
 							var DiffDays = ((myEndDate - myStartDate)/ 86400000);
@@ -534,7 +534,7 @@
 							var DateObj = [];
 							for(var j=0;j<=DiffDays;j++){
 								var thisDay = q_cdn(t_bdate,j);
-								var thisADday = dec(thisDay.substring(0,3))+1911+thisDay.substr(3);
+								var thisADday = r_len==3?dec(thisDay.substring(0,3))+1911+thisDay.substr(3):thisDay;
 								if((new Date(thisADday).getDay())!=0){
 									DateList.push(thisDay);
 									DateObj.push({
@@ -589,8 +589,8 @@
 							var tmpTd = '<tr>';
 							for(var j=0;j<DateList.length;j++){
 								var thisDay = DateList[j];
-								var thisADday = dec(thisDay.substring(0,3))+1911+thisDay.substr(3);
-								OutHtml += "<td class='tTitle tWidth'>" + thisDay.substr(4) + "</td>";
+								var thisADday = r_len==3?dec(thisDay.substring(0,3))+1911+thisDay.substr(3):thisDay;
+								OutHtml += "<td class='tTitle tWidth'>" + thisDay.substr(r_len+1) + "</td>";
 								tmpTd += "<td class='tTitle tWidth'>" + DayName[(new Date(thisADday).getDay())] + "</td>";
 							}
 							OutHtml += "<td class='tTitle tWidth' rowspan='2'>小計</td>";
@@ -649,11 +649,11 @@
 						}else{
 							var t_bdate = $.trim($('#txtXdate1').val());
 							var t_edate = $.trim($('#txtXdate2').val());
-							t_bdate = (t_bdate.length==9?t_bdate:q_date());
-							var t_bADdate = dec(t_bdate.substring(0,3))+1911+t_bdate.substr(3);
+							t_bdate = (t_bdate.length>=9?t_bdate:q_date());
+							var t_bADdate = r_len==3?(dec(t_bdate.substring(0,3))+1911)+t_bdate.substr(3):t_bdate;
 							var t_edate = $.trim($('#txtXdate2').val());
-							t_edate = (t_edate.length==9?t_edate:q_date());
-							var t_eADdate = dec(t_edate.substring(0,3))+1911+t_edate.substr(3);
+							t_edate = (t_edate.length>=9?t_edate:q_date());
+							var t_eADdate = r_len==3?(dec(t_edate.substring(0,3))+1911)+t_edate.substr(3):t_edate;
 							var myStartDate = new Date(t_bADdate);
 							var myEndDate = new Date(t_eADdate);
 							var DiffDays = ((myEndDate - myStartDate)/ 86400000);
@@ -661,7 +661,7 @@
 							var DateObj = [];
 							for(var j=0;j<=DiffDays;j++){
 								var thisDay = q_cdn(t_bdate,j);
-								var thisADday = dec(thisDay.substring(0,3))+1911+thisDay.substr(3);
+								var thisADday = r_len==3?dec(thisDay.substring(0,3))+1911+thisDay.substr(3):thisDay;
 								if((new Date(thisADday).getDay())!=0){
 									DateList.push(thisDay);
 									DateObj.push({
@@ -714,8 +714,8 @@
 							var tmpTd = '<tr>';
 							for(var j=0;j<DateList.length;j++){
 								var thisDay = DateList[j];
-								var thisADday = dec(thisDay.substring(0,3))+1911+thisDay.substr(3);
-								OutHtml += "<td class='tTitle tWidth'>" + thisDay.substr(4) + "</td>";
+								var thisADday = r_len==3?dec(thisDay.substring(0,3))+1911+thisDay.substr(3):thisDay;
+								OutHtml += "<td class='tTitle tWidth'>" + thisDay.substr(r_len+1) + "</td>";
 								tmpTd += "<td class='tTitle tWidth'>" + DayName[(new Date(thisADday).getDay())] + "</td>";
 							}
 							OutHtml += "<td class='tTitle tWidth' rowspan='2'>小計</td>";

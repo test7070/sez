@@ -58,40 +58,19 @@
 				$('#btnXXX').click(function(e) {
 					btnAuthority(q_name);
 				});
-				$('#txtXdate1').mask('999/99/99');
-				$('#txtXdate2').mask('999/99/99');
+				$('#txtXdate1').mask(r_picd);
+				$('#txtXdate2').mask(r_picd);
+				$('#txtXdate1').val(q_date().substr(0,r_lenm)+'/01');
+				$('#txtXdate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1));
+				
 				/* 終止日預設為起始日之月份最後一日*/
 				$('#txtXdate1').focusout(function() {
 					var Xdate1 = $('#txtXdate1').val();
-					var lastDays = '', w_year = '', w_mon = '';
-					if (Xdate1.length == 9) {
-						w_year = Xdate1.substring(0, 3);
-						w_mon = padL(Xdate1.substring(4, 6), '0', 2);
-						lastDays = $.datepicker._getDaysInMonth(w_year, w_mon - 1);
-						$('#txtXdate2').val(w_year + '/' + w_mon + '/' + lastDays);
+					if (Xdate1.length>0) {
+						$('#txtXdate2').val(q_cdn(q_cdn(Xdate1.substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1));
 					}
 				});
-				var t_date, t_year, t_month, t_day;
-				t_date = new Date();
-				t_date.setDate(1);
-				t_year = t_date.getUTCFullYear() - 1911;
-				t_year = t_year > 99 ? t_year + '' : '0' + t_year;
-				t_month = t_date.getUTCMonth() + 1;
-				t_month = t_month > 9 ? t_month + '' : '0' + t_month;
-				t_day = t_date.getUTCDate();
-				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-				$('#txtXdate1').val(t_year + '/' + t_month + '/' + t_day);
-
-				t_date = new Date();
-				t_date.setDate(35);
-				t_date.setDate(0);
-				t_year = t_date.getUTCFullYear() - 1911;
-				t_year = t_year > 99 ? t_year + '' : '0' + t_year;
-				t_month = t_date.getUTCMonth() + 1;
-				t_month = t_month > 9 ? t_month + '' : '0' + t_month;
-				t_day = t_date.getUTCDate();
-				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-				$('#txtXdate2').val(t_year + '/' + t_month + '/' + t_day);
+				
 				$("#btnRun").click(function(){
 					var t_index = $('#q_report').data('info').radioIndex;
 					var txtreport = $('#q_report').data('info').reportData[t_index].report;
@@ -227,12 +206,12 @@
 							OutHtm+= '</tr>';
 							OutHtm= '<table id="cTable" border="1px" cellpadding="0" cellspacing="0" width="'+((t_count*80)+210)+'px">'+OutHtm;
 							
-							for(var i=0;i<Math.floor(as.length/5)*5;i=i+5){
+							for(var i=0;i<Math.floor(as.length/6)*6;i=i+6){
 								OutHtm+='<tr style="width: 100px;">'
-								if((i+7)==as.length){ //總計
-									OutHtm+='<td rowspan="6">總計</td>';
+								if((i+8)==as.length){ //總計
+									OutHtm+='<td rowspan="7">總計</td>';
 								}else{
-									OutHtm+='<td rowspan="5">'+as[i].station+'</td>';
+									OutHtm+='<td rowspan="6">'+as[i].station+'</td>';
 								}
 								
 								OutHtm+='<td style="width: 100px;text-align: left;">排產機時</td>';
@@ -249,41 +228,48 @@
 									tt_count++;
 								}
 								OutHtm+= '</tr><tr>';
+								OutHtm+='<td style="text-align: left;">編制人時</td>';
+								tt_count=1;
+								while(tt_count<t_count){
+									OutHtm+='<td>'+round(eval('as[i+2].days'+('00'+tt_count).substr(-2)),2)+'</td>';
+									tt_count++;
+								}
+								OutHtm+= '</tr><tr>';
 								OutHtm+='<td style="text-align: left;">標準日機時</td>';
 								tt_count=1;
 								while(tt_count<t_count){
-									OutHtm+='<td>'+round(dec(eval('as[i+2].days'+('00'+tt_count).substr(-2))),2)+'</td>';
+									OutHtm+='<td>'+round(dec(eval('as[i+3].days'+('00'+tt_count).substr(-2))),2)+'</td>';
+									tt_count++;
+								}
+								OutHtm+= '</tr><tr>';
+								OutHtm+='<td style="text-align: left;">編製人數</td>';
+								tt_count=1;
+								while(tt_count<t_count){
+									OutHtm+='<td>'+round(dec(eval('as[i+4].days'+('00'+tt_count).substr(-2))),0)+'</td>';
 									tt_count++;
 								}
 								OutHtm+= '</tr><tr>';
 								OutHtm+='<td style="text-align: left;">出勤人數</td>';
 								tt_count=1;
 								while(tt_count<t_count){
-									OutHtm+='<td>'+round(dec(eval('as[i+3].days'+('00'+tt_count).substr(-2))),0)+'</td>';
-									tt_count++;
-								}
-								OutHtm+= '</tr><tr>';
-								OutHtm+='<td style="text-align: left;">編制人時</td>';
-								tt_count=1;
-								while(tt_count<t_count){
-									OutHtm+='<td>'+round(eval('as[i+4].days'+('00'+tt_count).substr(-2)),2)+'</td>';
+									OutHtm+='<td>'+round(dec(eval('as[i+5].days'+('00'+tt_count).substr(-2))),0)+'</td>';
 									tt_count++;
 								}
 								OutHtm+= '</tr>';
 								
-								if((i+7)==as.length){ //總計
+								if((i+8)==as.length){ //總計
 									OutHtm+= '<tr>';
 									OutHtm+='<td style="text-align: left;">預估直接人工</td>';
 									tt_count=1;
 									while(tt_count<t_count){
-										OutHtm+='<td>'+round(eval('as[i+5].days'+('00'+tt_count).substr(-2)),2)+'</td>';
+										OutHtm+='<td>'+round(eval('as[i+6].days'+('00'+tt_count).substr(-2)),2)+'</td>';
 										tt_count++;
 									}
 									OutHtm+= '</tr>';
 									
 									OutHtm+='<tr>'; //預估直接人工 合計
 									OutHtm+='<td colspan="2" style="text-align: center;">'+$('#txtXdate1').val()+'-'+$('#txtXdate2').val()+'<BR>預估直接人工 合計</td>';
-									OutHtm+='<td colspan="2" style="text-align: center;">'+round(eval('as[i+6].days01'),2)+'</td>';
+									OutHtm+='<td colspan="2" style="text-align: center;">'+round(eval('as[i+7].days01'),2)+'</td>';
 									OutHtm+='<td colspan="'+(t_count-2)+'" style="text-align: left;"></td>';
 									OutHtm+= '</tr>';
 								}

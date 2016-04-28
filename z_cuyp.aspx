@@ -50,6 +50,8 @@
 				
 				$('#txtXdate1').mask(r_picd);
                 $('#txtXdate2').mask(r_picd);
+                $('#txtXdate1').val(q_date().substr(0,r_lenm)+'/01');
+				$('#txtXdate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1));
 			}
 
 			function q_boxClose(s2) {
