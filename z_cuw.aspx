@@ -65,12 +65,12 @@
 				q_popAssign();
 				q_getFormat();
 				q_langShow();
-				$('#txtXcuadate1').datepicker().val(q_date()).mask('999/99/99');
-				$('#txtXcuadate2').datepicker().val(q_date()).mask('999/99/99');
-				$('#txtXuindate1').datepicker().val(q_date()).mask('999/99/99');
-				$('#txtXuindate2').datepicker().val(q_date()).mask('999/99/99');
-				$('#txtXdatea1').datepicker().val(q_date()).mask('999/99/99');
-				$('#txtXdatea2').datepicker().val(q_date()).mask('999/99/99');
+				$('#txtXcuadate1').datepicker().val(q_date()).mask(r_picd);
+				$('#txtXcuadate2').datepicker().val(q_date()).mask(r_picd);
+				$('#txtXuindate1').datepicker().val(q_date()).mask(r_picd);
+				$('#txtXuindate2').datepicker().val(q_date()).mask(r_picd);
+				$('#txtXdatea1').datepicker().val(q_date()).mask(r_picd);
+				$('#txtXdatea2').datepicker().val(q_date()).mask(r_picd);
 			}
 
 			function q_boxClose(s2) {

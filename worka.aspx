@@ -442,7 +442,7 @@
 							var t_edate = $.trim($('#txtEdate').val());
 							if (t_bdate.length > 0 || t_edate.length > 0) {
 								if (t_edate.length == 0)
-									t_edate = '999/99/99'
+									t_edate = r_picd
 								t_where += " and cuadate between '" + t_bdate + "' and '" + t_edate + "'";
 							}
 							
@@ -473,7 +473,7 @@
 							var t_edate = $.trim($('#txtEdate').val());
 							if (t_bdate.length > 0 || t_edate.length > 0) {
 								if (t_edate.length == 0)
-									t_edate = '999/99/99'
+									t_edate = r_picd
 								t_where += " and cuadate between '" + t_bdate + "' and '" + t_edate + "'";
 							}
 							//t_where+=" and (isnull(mount,0)-isnull(gmount,0))>0"

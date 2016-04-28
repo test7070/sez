@@ -58,11 +58,15 @@
 					var t_noa= wParent.getElementById("txtNoa").value;
 					$('#txtXnoa').val(t_noa);
 				}
+				if(r_len==4){                	
+                	$.datepicker.r_len=4;
+					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+                }
 				//$('#txtXdate').datepicker();
-				//$('#txtXdate').mask('999/99/99');
+				//$('#txtXdate').mask(r_picd);
 				//$('#txtXdate').val(q_date());
-				$('#txtXdate1').datepicker().mask('999/99/99');
-				$('#txtXdate2').datepicker().mask('999/99/99');
+				$('#txtXdate1').datepicker().mask(r_picd);
+				$('#txtXdate2').datepicker().mask(r_picd);
 				$('#txtXdate1').val(q_date());
 				$('#txtXdate2').val(q_cdn(q_date(),15));
 			}

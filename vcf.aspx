@@ -27,9 +27,9 @@
             var bbmNum = [['txtMoney', 10, 0, 1],['txtTotal', 10, 0, 1]];
             var bbsNum = [];
             var bbtNum = [];
-            var bbmMask = [['txtDatea', '999/99/99']];
-            var bbsMask = [['txtDatea', '999/99/99']];
-            var bbtMask = [['txtDatea', '999/99/99']];
+            var bbmMask = [['txtDatea', r_picd]];
+            var bbsMask = [['txtDatea', r_picd]];
+            var bbtMask = [['txtDatea', r_picd]];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];

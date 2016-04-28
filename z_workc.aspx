@@ -82,12 +82,14 @@
 				q_popAssign();
 				q_getFormat();
 				q_langShow();
-				$('#txtCuadate1').mask('999/99/99');
-				$('#txtCuadate2').mask('999/99/99');
-				$('#txtXdate1').mask('999/99/99');
-				$('#txtXdate2').mask('999/99/99');
-				$('#txtXdate1').val(q_date().substring(0, 7) + '01');
-				$('#txtCuadate1').val(q_date().substring(0, 7) + '01');
+				$('#txtCuadate1').mask(r_picd);
+				$('#txtCuadate2').mask(r_picd);
+				$('#txtXdate1').mask(r_picd);
+				$('#txtXdate2').mask(r_picd);
+				
+				$('#txtXdate1').val(q_date().substr(0,r_lenm)+'/01');
+				$('#txtCuadate1').val(q_date().substr(0,r_lenm)+'/01');
+				
 				$('.q_report .option:first').css('width','700px')
 				
 				$('#.q_report .option div.a1').css('width', '690px');
@@ -100,9 +102,8 @@
                 $('#Xtgg .c3').css('width', '130px');
                 $('#.q_report .option div .c5').css('width', '240px');
                 
-				var lastDays = $.datepicker._getDaysInMonth(q_date().substring(0, 3), q_date().substring(4, 6) - 1);
-				$('#txtXdate2').val(q_date().substring(0, 7) + lastDays);
-				$('#txtCuadate2').val(q_date().substring(0, 7) + lastDays);
+				$('#txtXdate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1));
+				$('#txtCuadate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1));
 				var t_key = q_getHref();
 				if (t_key[1] != undefined)
 					$('#txtXnoa').val(t_key[1]);

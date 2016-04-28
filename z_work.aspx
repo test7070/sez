@@ -140,17 +140,18 @@
 				q_popAssign();
 				q_getFormat();
 				q_langShow();
-				$('#txtXdate1').mask('999/99/99');
-				$('#txtXdate2').mask('999/99/99');
-				$('#txtYdate1').mask('999/99/99');
-                $('#txtYdate2').mask('999/99/99');
-                $('#txtXmon').mask('999/99');
-				$('#txtXmon').val(q_date().substring(0,6));
+				$('#txtXdate1').mask(r_picd);
+				$('#txtXdate2').mask(r_picd);
+				$('#txtYdate1').mask(r_picd);
+                $('#txtYdate2').mask(r_picd);
+                $('#txtXmon').mask(r_picm);
+				$('#txtXmon').val(q_date().substring(0,r_lenm));
                 $('#txtYdate1').datepicker();
                 $('#txtYdate2').datepicker();
                 $('#txtYdate1').val(q_date());
                 $('#txtYdate2').val(q_date());
-				$('#txtXdate1').val(q_date().substring(0,7)+'01');
+				$('#txtXdate1').val(q_date().substr(0,r_lenm)+'/01');
+	            $('#txtXdate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1));
 				//$('#txtXdate1').val(q_date().substring(0,7)+'01');
 				$('.q_report .option:first').css('width','700px')
 				$('#Xproductno').css('width','690px');
@@ -176,8 +177,6 @@
 				$('.option div.a2').css('width','340px');
 				$('#Aberrant').css('width','340px').css('height','30px');
 				$('#chkAberrant').css('width','250px');
-				var lastDays = $.datepicker._getDaysInMonth(q_date().substring(0, 3), q_date().substring(4, 6) - 1);
-				$('#txtXdate2').val(q_date().substring(0, 7) + lastDays);
 
 				$("#lblXcuano").css("font-size", "13px");
 			}

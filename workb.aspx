@@ -166,7 +166,7 @@
 						var t_bdate = $.trim($('#txtBdate').val());
 						var t_edate = $.trim($('#txtEdate').val());
 						if(t_bdate.length > 0 || t_edate.length>0){
-							if(t_edate.length == 0) t_edate='999/99/99'
+							if(t_edate.length == 0) t_edate=r_picd
 							t_where += " and uindate between '"+t_bdate+"' and '"+t_edate+"'";
 						}
 						

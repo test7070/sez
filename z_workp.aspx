@@ -95,10 +95,14 @@
 				q_popAssign();
 				q_getFormat();
 				q_langShow();
-				$('#txtXdate1').datepicker().mask('999/99/99');
-				$('#txtXdate2').datepicker().mask('999/99/99');
-				$('#txtXdate21').datepicker().mask('999/99/99');
-				$('#txtXdate22').datepicker().mask('999/99/99');
+				if(r_len==4){                	
+                	$.datepicker.r_len=4;
+					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+                }
+				$('#txtXdate1').datepicker().mask(r_picd);
+				$('#txtXdate2').datepicker().mask(r_picd);
+				$('#txtXdate21').datepicker().mask(r_picd);
+				$('#txtXdate22').datepicker().mask(r_picd);
 				$('#txtXnoa1').css('width', '160px');
 				$('#txtXnoa2').css('width', '160px');
 				var t_key = q_getHref();

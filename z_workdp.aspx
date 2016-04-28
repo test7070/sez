@@ -44,11 +44,10 @@
 				q_popAssign();
 				q_getFormat();
 				q_langShow();
-				$('#txtXdate1').mask('999/99/99');
-				$('#txtXdate2').mask('999/99/99');
-				$('#txtXdate1').val(q_date().substring(0, 7) + '01');
-				var lastDays = $.datepicker._getDaysInMonth(q_date().substring(0, 3), q_date().substring(4, 6) - 1);
-				$('#txtXdate2').val(q_date().substring(0, 7) + lastDays);
+				$('#txtXdate1').mask(r_picd);
+				$('#txtXdate2').mask(r_picd);
+				$('#txtXdate1').val(q_date().substr(0,r_lenm)+'/01');
+	            $('#txtXdate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1));
 				var t_key = q_getHref();
 				if (t_key[1] != undefined)
 					$('#txtXnoa').val(t_key[1]);

@@ -71,6 +71,10 @@
 			//var station_chk=false;
 			var t_xshowover='#non';
             function mainPost() {
+            	if(r_len==4){                	
+                	$.datepicker.r_len=4;
+					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+                }
                 bbmMask = [['txtBdate', r_picd],['txtEdate', r_picd]];
                 bbsMask = [['txtCuadate', r_picd],['txtUindate', r_picd],['txtNos', '9999'],['textDatea', r_picd]];
                 q_getFormat();
@@ -174,7 +178,7 @@
                 		
                 	var t_bdate='',t_edate='';
                 	t_bdate=$('#txtBdate').val();
-                	t_edate=!emp($('#txtEdate').val())?$('#txtEdate').val():'999/99/99';
+                	t_edate=!emp($('#txtEdate').val())?$('#txtEdate').val():r_picd;
                 	t_where=t_where+"(a.datea between '"+t_bdate+"' and '"+t_edate+"' ) and ";
                 	t_where=t_where+"a.stationno='"+$('#txtStationno').val()+"' ";
                 	
@@ -264,11 +268,11 @@
 				});
 				
 				//DIV事件---------------------------------------------------
-				$('#textUnfinishedate').mask('999/99/99');
-				$('#textUnfinishbdate').mask('999/99/99');
-				$('#textCugtbdate').mask('999/99/99');
+				$('#textUnfinishedate').mask(r_picd);
+				$('#textUnfinishbdate').mask(r_picd);
+				$('#textCugtbdate').mask(r_picd);
 				$('#textCugtbdate').datepicker();
-				$('#textCugtedate').mask('999/99/99');
+				$('#textCugtedate').mask(r_picd);
 				$('#textCugtedate').datepicker();
 				
 				$('#textCugtGen').keyup(function() {
@@ -367,9 +371,9 @@
 					$('#div_cugtweek').html(tmp_checkbox);
 				});
 				
-				$('#textRealbdate').mask('999/99/99');
+				$('#textRealbdate').mask(r_picd);
 				$('#textRealbdate').datepicker();
-				$('#textRealedate').mask('999/99/99');
+				$('#textRealedate').mask(r_picd);
 				$('#textRealedate').datepicker();
 				
 				$('#btn_div_real').click(function() {
@@ -505,7 +509,7 @@
 						var tmp = document.getElementById("copy_close");
 						tmp.parentNode.insertBefore(tr, tmp);
 						
-						$('#copy_txtCuadate_'+(rowslength+countrow)).mask('999/99/99');
+						$('#copy_txtCuadate_'+(rowslength+countrow)).mask(r_picd);
 		                $('#copy_txtCuadate_'+(rowslength+countrow)).datepicker({defaultDate:$('#copy_cuadate').text()});
 	                
 						countrow++;
@@ -1116,7 +1120,7 @@
                 switch (t_name) {
                 	case 'change_date_work':
                 		var as = _q_appendData("view_work", "", true);
-                		var previd='',nowid='',bdate='000/00/00',edate='999/99/99';
+                		var previd='',nowid='',bdate='000/00/00',edate=r_picd;
                 		for (var i = 0; i < as.length; i++) {
                 			if($('#txtWorkno_' + b_seq).val()==as[i].workno){
                 				previd=as[i].previd;

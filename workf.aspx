@@ -128,7 +128,7 @@
 					var t_edate = $.trim($('#txtEdate').val());
 					if (t_bdate.length > 0 || t_edate.length > 0) {
 						if (t_edate.length == 0)
-							t_edate = '999/99/99'
+							t_edate = r_picd
 						t_where += " and uindate between '" + t_bdate + "' and '" + t_edate + "'";
 					}
 					q_box("work_chk_f_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
@@ -161,7 +161,7 @@
 					$('#div_tgg').toggle();
 					if(!emp($('#tgg_txtTggno').val())){
 						var tgg_bdate=!emp($('#tgg_txtBdate').val())?$('#tgg_txtBdate').val():'000/00/00';
-						var tgg_edate=!emp($('#tgg_txtEdate').val())?$('#tgg_txtEdate').val():'999/99/99';
+						var tgg_edate=!emp($('#tgg_txtEdate').val())?$('#tgg_txtEdate').val():r_picd;
 						var t_where = "1=1 and isnull(enda,0)!=1 and isnull(isfreeze,0)!=1 and tggno!='' and tggno='" + $('#tgg_txtTggno').val() + "' ";
 						t_where+=" and (cuadate between '"+tgg_bdate+"' and '"+tgg_edate+"') ";
 						t_where+="and mount>isnull((select SUM(born-bkmount-wmount) from view_workfs where workno=view_work"+r_accy+".noa),0)";

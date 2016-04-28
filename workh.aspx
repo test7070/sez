@@ -31,7 +31,7 @@
 				['txtCost', 15, 0, 1], ['txtPrice', 15, 0, 1]
 			];
 			var bbmMask = [];
-			var bbsMask = [['txtCuadate', '999/99/99']];
+			var bbsMask = [['txtCuadate', r_picd]];
 			q_sqlCount = 6;
 			brwCount = 6;
 			brwList = [];

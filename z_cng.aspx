@@ -104,14 +104,18 @@
                 q_getFormat();
                 q_langShow();
                 q_popAssign();
+                if(r_len==4){                	
+                	$.datepicker.r_len=4;
+					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+                }
 
-                $('#txtDate1').mask('999/99/99');
+                $('#txtDate1').mask(r_picd);
                 $('#txtDate1').datepicker();
-                $('#txtDate2').mask('999/99/99');
+                $('#txtDate2').mask(r_picd);
                 $('#txtDate2').datepicker();
-                $('#txtMon1').mask('999/99');
-                $('#txtMon2').mask('999/99');
-                $('#txtXenddate').mask('999/99/99');
+                $('#txtMon1').mask(r_picm);
+                $('#txtMon2').mask(r_picm);
+                $('#txtXenddate').mask(r_picd);
                 $('#txtXenddate').datepicker();
                 $('#txtXenddate').val(q_date());
                 

@@ -34,8 +34,8 @@
 			];
 			var bbtNum = [];
 			var bbmMask = [];
-			var bbsMask = [['txtCuadate', '999/99/99']];
-			var bbtMask = [['txtCuadate', '999/99/99']];
+			var bbsMask = [['txtCuadate', r_picd]];
+			var bbtMask = [['txtCuadate', r_picd]];
 			q_sqlCount = 6;
 			brwCount = 6;
 			brwList = [];

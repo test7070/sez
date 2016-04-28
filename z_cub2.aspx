@@ -39,9 +39,13 @@
 					}]
 				});
 				q_popAssign();
-				$('#txtXdate1').mask('999/99/99');
+				if(r_len==4){                	
+                	$.datepicker.r_len=4;
+					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+                }
+				$('#txtXdate1').mask(r_picd);
 				$('#txtXdate1').datepicker();
-				$('#txtXdate2').mask('999/99/99');
+				$('#txtXdate2').mask(r_picd);
 				$('#txtXdate2').datepicker();
 				var t_date, t_year, t_month, t_day;
 				t_date = new Date();

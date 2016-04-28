@@ -62,6 +62,11 @@
 				bbmMask = [['txtDatea',r_picd],['txtBdate',r_picd],['txtEdate',r_picd]];
 				bbsMask = [['txtWorktime','9999-9999']];
 				q_mask(bbmMask);
+				if(r_len==4){                	
+                	$.datepicker.r_len=4;
+					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+                }
+				
 				q_gt('part', '', 0, 0, 0, "");
 				
 				$('#btnCopy').click(function() {
@@ -77,9 +82,9 @@
 					$('#div_copy').toggle();
 				});
 				//DIV事件---------------------------------------------------
-				$('#textCopybdate').mask('999/99/99');
+				$('#textCopybdate').mask(r_picd);
 				$('#textCopybdate').datepicker();
-				$('#textCopyedate').mask('999/99/99');
+				$('#textCopyedate').mask(r_picd);
 				$('#textCopyedate').datepicker();
 				
 				$('#btn_div_copy').click(function() {

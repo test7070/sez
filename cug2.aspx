@@ -60,6 +60,10 @@
 			//var station_chk=false;
 			var t_xshowover='#non';
             function mainPost() {
+            	if(r_len==4){                	
+                	$.datepicker.r_len=4;
+					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+                }
                 bbmMask = [['txtBdate', r_picd],['txtEdate', r_picd]];
                 bbsMask = [['txtCuadate', r_picd],['txtUindate', r_picd],['txtNos', '9999'],['textDatea', r_picd]];
                 q_getFormat();
@@ -123,7 +127,7 @@
                 		
                 	var t_bdate='',t_edate='';
                 	t_bdate=$('#txtBdate').val();
-                	t_edate=!emp($('#txtEdate').val())?$('#txtEdate').val():'999/99/99';
+                	t_edate=!emp($('#txtEdate').val())?$('#txtEdate').val():r_picd;
                 	t_where=t_where+"(a.datea between '"+t_bdate+"' and '"+t_edate+"' ) and ";
                 	t_where=t_where+"a.stationno='"+$('#txtStationno').val()+"' ";
                 	//排序
@@ -174,9 +178,9 @@
 					$('#div_real').toggle();
 				});
 				
-				$('#textRealbdate').mask('999/99/99');
+				$('#textRealbdate').mask(r_picd);
 				$('#textRealbdate').datepicker();
-				$('#textRealedate').mask('999/99/99');
+				$('#textRealedate').mask(r_picd);
 				$('#textRealedate').datepicker();
 				
 				//DIV事件---------------------------------------------------
@@ -279,7 +283,7 @@
 						var tmp = document.getElementById("copy_close");
 						tmp.parentNode.insertBefore(tr, tmp);
 						
-						$('#copy_txtCuadate_'+(rowslength+countrow)).mask('999/99/99');
+						$('#copy_txtCuadate_'+(rowslength+countrow)).mask(r_picd);
 		                $('#copy_txtCuadate_'+(rowslength+countrow)).datepicker({defaultDate:$('#copy_cuadate').text()});
 	                
 						countrow++;

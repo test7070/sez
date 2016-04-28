@@ -96,7 +96,7 @@
 							b_ret = getb_ret();
 							if (!b_ret || b_ret.length == 0)
 	                            return;
-							var mindate='999/99/99';
+							var mindate=r_picd;
 	                        for (i = 0; i < b_ret.length; i++) {
 	                        	if(mindate>b_ret[i].cuadate)
 	                        		mindate=b_ret[i].cuadate;

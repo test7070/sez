@@ -26,7 +26,7 @@
             var bbmNum = [];
             var bbsNum = [['txtGen', 10, 2, 1]];
             var bbmMask = [];
-            var bbsMask = [['txtDatea', '999/99/99']];
+            var bbsMask = [['txtDatea', r_picd]];
 
             aPop = new Array();
 
@@ -50,6 +50,10 @@
                 }
                 mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
                 q_mask(bbmMask);
+                if(r_len==4){                	
+                	$.datepicker.r_len=4;
+					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+                }
             }
 
             function q_gtPost(t_name) {
@@ -170,7 +174,10 @@
             }
             
             function getweek(t_date) {
-            	switch (new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()) {
+            	if(r_len==3){
+            		t_date=dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2));
+            	}
+            	switch (new Date(t_date).getDay()) {
             		case 0:
             			return '日'; 
             			break;

@@ -57,13 +57,18 @@
 					}]
 				});
                 q_popAssign();
+                
+                if(r_len==4){                	
+                	$.datepicker.r_len=4;
+					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+                }
                  
-                 $('#txtDate1').mask('999/99/99');
+                 $('#txtDate1').mask(r_picd);
 	             $('#txtDate1').datepicker();
-	             $('#txtDate2').mask('999/99/99');
+	             $('#txtDate2').mask(r_picd);
 	             $('#txtDate2').datepicker();
-	             $('#txtMon1').mask('999/99');  
-	             $('#txtMon2').mask('999/99');
+	             $('#txtMon1').mask(r_picm);  
+	             $('#txtMon2').mask(r_picm);
 	             
                 var t_noa=typeof(q_getId()[3])=='undefined'?'':q_getId()[3];
                 t_noa  =  t_noa.replace('noa=','');

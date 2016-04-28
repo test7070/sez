@@ -133,15 +133,19 @@
 					$('#btnXtgg1,#btnXtgg2').unbind('click');
 				}
 				q_popAssign();
+				if(r_len==4){                	
+                	$.datepicker.r_len=4;
+					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+                }
+                
 				$('#txtXenddate').datepicker();
-				$('#txtXenddate').mask('999/99/99');
-				$('#txtXdate1').mask('999/99/99');
-				$('#txtXdate2').mask('999/99/99');
-				$('#txtXdate21').mask('999/99/99');
-				$('#txtXdate22').mask('999/99/99');
-				$('#txtXdate31').mask('999/99/99');
-				$('#txtXdate32').mask('999/99/99');
-
+				$('#txtXenddate').mask(r_picd);
+				$('#txtXdate1').mask(r_picd);
+				$('#txtXdate2').mask(r_picd);
+				$('#txtXdate21').mask(r_picd);
+				$('#txtXdate22').mask(r_picd);
+				$('#txtXdate31').mask(r_picd);
+				$('#txtXdate32').mask(r_picd);
 
 				var wParent = window.parent.document;
 
@@ -648,11 +652,11 @@
 							var x = bkOrigin[0];
 							var y = (bkOrigin[1] + 5);
 							var end_width = 0;
-							var pre_date = '999/99/99';
+							var pre_date = r_picd;
 							for (var i = 0; i < s_data.detail.length; i++) {
 								var total = 0, tmptotal = 0;
 								var t_date = s_data.detail[i].cuadate;
-								pre_date = pre_date == '999/99/99' ? s_data.detail[i].cuadate : pre_date;
+								pre_date = pre_date == r_picd ? s_data.detail[i].cuadate : pre_date;
 								var tmpdate = s_data.detail[i].uindate;
 
 								//計算製程的起始Y

@@ -35,9 +35,13 @@
 				q_popAssign();
 				q_getFormat();
 				q_langShow();
-				$('#txtXdate1').mask('999/99/99');
+				if(r_len==4){                	
+                	$.datepicker.r_len=4;
+					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+                }
+				$('#txtXdate1').mask(r_picd);
 				$('#txtXdate1').datepicker();
-				$('#txtXdate2').mask('999/99/99');
+				$('#txtXdate2').mask(r_picd);
 				$('#txtXdate2').datepicker();
 				$('#txtXdate1').val(q_date()).focus();
 				$('#txtXdate2').val(q_date());

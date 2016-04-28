@@ -85,7 +85,7 @@
 					var t_edate = $.trim($('#txtEdate').val());
 					if (t_bdate.length > 0 || t_edate.length > 0) {
 						if (t_edate.length == 0)
-							t_edate = '999/99/99'
+							t_edate = r_picd
 						t_where += " and cuadate between '" + t_bdate + "' and '" + t_edate + "'";
 					}
 					q_box("work_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
@@ -123,7 +123,7 @@
 						var t_edate = $.trim($('#txtEdate').val());
 						if (t_bdate.length > 0 || t_edate.length > 0) {
 							if (t_edate.length == 0)
-								t_edate = '999/99/99'
+								t_edate = r_picd
 							
 							t_where1+=" and a.cuadate between '"+t_bdate+"' and '"+t_edate+"' and a.noa like 'W[0-9]%' ";
 						}

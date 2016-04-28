@@ -46,10 +46,10 @@
                 });
                 q_popAssign();
 
-                $('#txtXmon1').mask('999/99');
-                $('#txtXmon2').mask('999/99');
-                $('#txtXmon1').val(q_date().substr(0, 6));
-                $('#txtXmon2').val(q_date().substr(0, 6));
+                $('#txtXmon1').mask(r_picm);
+                $('#txtXmon2').mask(r_picm);
+                $('#txtXmon1').val(q_date().substr(0, r_lenm));
+                $('#txtXmon2').val(q_date().substr(0, r_lenm));
             }
 
             function q_boxClose(s2) {

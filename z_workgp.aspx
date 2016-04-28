@@ -49,6 +49,10 @@
 					}]
                     });
                 q_popAssign();
+                if(r_len==4){                	
+                	$.datepicker.r_len=4;
+					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+                }
                /*if(window.parent.q_name=='workg'){
 					var wParent = window.parent.document;
 					var t_noa= wParent.getElementById("txtNoa").value;
@@ -59,7 +63,7 @@
 				$('#Xproduct .c2').css('width','130px');
 				$('#Xproduct .c3').css('width','130px');
 				$('#txtXdate').datepicker();
-				$('#txtXdate').mask('999/99/99');
+				$('#txtXdate').mask(r_picd);
 				//$('#txtXdate').val(q_date());
 			}
 
