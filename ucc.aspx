@@ -859,7 +859,7 @@
 				<tr>
 					<td><input id="chkBrow.*" type="checkbox" style=''/></td>
 					<td align="left" id='noa'>~noa</td>
-					<td align="left" id='product'>~product</td>
+					<td align="left" id='product spec'>~product ~spec</td>
 				</tr>
 			</table>
 		</div>
