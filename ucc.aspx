@@ -290,7 +290,8 @@
 						if (as[0] != undefined) {
 							//取得最新流水號
 							var t_noa = trim($('#txtNoa').val());
-							var t_where = "where=^^ left(noa,6)='Y" + t_noa + "'  ^^";
+							var t_where = "where=^^ left(noa,"+(t_noa.length+1)+")='" + t_noa + "-' ^^";
+							//var t_where = "where=^^ left(noa,6)='Y" + t_noa + "'  ^^";
 							q_gt('ucaucc', t_where, 0, 0, 0, "btnOk_xy_checkNoa", r_accy);
 						}else{
 							alert('該客戶編號不存在，請輸入正確的客戶編號!!');
@@ -302,10 +303,11 @@
 						if (as[0] != undefined) {
 							var t_seq=as[(as.length-1)].noa.substr(-3);
 							t_seq=('000'+(dec(t_seq)+1)).substr(-3);
-							
-							$('#txtNoa').val('Y'+trim($('#txtNoa').val())+t_seq);
+							$('#txtNoa').val(trim($('#txtNoa').val())+'-'+t_seq);
+							//$('#txtNoa').val('Y'+trim($('#txtNoa').val())+t_seq);
 						}else{
-							$('#txtNoa').val('Y'+trim($('#txtNoa').val())+'001');
+							$('#txtNoa').val(trim($('#txtNoa').val())+'-001');
+							//$('#txtNoa').val('Y'+trim($('#txtNoa').val())+'001');
 						}
 						wrServer($('#txtNoa').val());
 						Unlock();
@@ -367,15 +369,15 @@
 							}
 							t_spec=t_spec+'0000';
 							//$('#txtNoa').val('B'+tmp.substr(0,2)+t_spec);
-							
+							$('#txtNoa').val(tmp.substr(0,2)+t_spec.substr(0,4));
 							//1112判斷版別 便品 B  空白 K 公版G 印刷Y 
-							var ucckey='B'; //預設便品
+							/*var ucckey='B'; //預設便品
 							if($('#txtStyle').val().indexOf('空')>-1)
 								ucckey='K';
 							if($('#txtStyle').val().indexOf('公')>-1)
 								ucckey='G';
 							
-							$('#txtNoa').val(ucckey+tmp.substr(0,2)+t_spec.substr(0,4));
+							$('#txtNoa').val(ucckey+tmp.substr(0,2)+t_spec.substr(0,4));*/
 						}
 						break;
 					/*case 'XY_newucc_checkNoa':

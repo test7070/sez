@@ -28,6 +28,14 @@
             }
 
             function q_gfPost() {
+            	var uccgaItem = '';
+            	q_gt('uccga', '', 0, 0, 0, "",r_accy,1);
+				var as = _q_appendData("uccga", "", true);
+				uccgaItem = " @全部";
+				for ( i = 0; i < as.length; i++) {
+					uccgaItem = uccgaItem + (uccgaItem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa + ' . ' + as[i].namea;
+				}
+            	
                 $('#qReport').q_report({
                     fileName : 'z_orde_r',
                     options : [{
@@ -106,6 +114,10 @@
                         type : '5',//[27]
                         name : 'xshow',
                         value : new Array('money@金額','mount@數量','profit@PF')
+                    },{
+                        type : '5', //[28]
+                        name : 'xgroupano',
+                        value : uccgaItem.split(',')
                     }]
                 });
                 
