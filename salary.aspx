@@ -895,6 +895,36 @@
 			            		}
 			            	}
 						});
+						
+						$('#txtMoney1_'+j).change(function() {
+							t_IdSeq = -1;
+		                    q_bodyId($(this).attr('id'));
+		                    b_seq = t_IdSeq;
+		                    if (q_getPara('sys.project').toUpperCase()=='VU'){
+			                    var t_money1=dec($('#txtMoney1_'+b_seq).val());
+			                    var t_money2=dec($('#txtMoney2_'+b_seq).val());
+			                    if($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1 )
+			                    	$('#txtBo_traffic_'+b_seq).val(q_mul(round(q_div(q_mul(t_money1,t_money2),100),0),100));
+			                    else
+									$('#txtBo_admin_'+b_seq).val(q_mul(round(q_div(q_mul(t_money1,t_money2),100),0),100));
+								sum();
+							}
+						});
+						
+						$('#txtMoney2_'+j).change(function() {
+							t_IdSeq = -1;
+		                    q_bodyId($(this).attr('id'));
+		                    b_seq = t_IdSeq;
+							if (q_getPara('sys.project').toUpperCase()=='VU'){
+			                    var t_money1=dec($('#txtMoney1_'+b_seq).val());
+			                    var t_money2=dec($('#txtMoney2_'+b_seq).val());
+			                    if($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1 )
+			                    	$('#txtBo_traffic_'+b_seq).val(q_mul(round(q_div(q_mul(t_money1,t_money2),100),0),100));
+			                    else
+									$('#txtBo_admin_'+b_seq).val(q_mul(round(q_div(q_mul(t_money1,t_money2),100),0),100));
+								sum();
+							}
+						});
 	            	}
 	            }
 	            _bbsAssign();
@@ -972,6 +1002,8 @@
 								var t_num=$(this).attr('id');
 								if (q_getPara('sys.project').toUpperCase()=='VU' && (t_num=='textAddh2_1' || t_num=='textAddh100' || t_num=='textOstand') )
 	           						q_tr('textAddmoney',Math.round(dec($('#textOstand').val())*1.3333*dec($('#textAddh2_1').val()))+Math.round(dec($('#textOstand').val())*1*dec($('#textAddh100').val())));//加班費
+	           					if (q_getPara('sys.project').toUpperCase()=='VU' && (t_num=='textMoney1' || t_num=='textMoney2') )
+	           						q_tr('textBo_admin',round(dec($('#textMoney1').val())*dec($('#textMoney2').val())/100,0)*100);
 								bbs_detail_sum();
 							});
 							$(this).focusin(function() {
