@@ -54,7 +54,23 @@
             }
 
             function bbsAssign() {
-                _bbsAssign();//_bbsAssign('tbbs', bbsHtm, fbbs, '_', bbsMask, bbsNum, q_readonlys, 'btnPlus');
+            	for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
+					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+            			$('#btnPackway_'+j).click(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							
+							t_where = "noa='" + $('#txtProductno_'+b_seq).val() + "'";
+							q_box("pack2_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pack2', "95%", "95%", '包裝方式');
+						});
+					}
+				}
+                _bbsAssign();
+                if(q_getPara('sys.isport')=='1') //外銷
+                	$('.isport').show();
+                else
+                	$('.isport').hide();
             }
 
             function btnOk() {
@@ -93,6 +109,20 @@
                 if(q_tables == 's')
                     bbsAssign();
             }
+            
+            function q_boxClose(s2) {
+				var ret;
+				switch (b_pop) {
+					case 'pack2':
+						ret = getb_ret();
+						if (ret != undefined) {
+							$('#txtPackwayno_'+b_seq).val(ret[0].packway);
+							$('#txtPackway_'+b_seq).val(ret[0].pack);
+						}
+						break;
+				}
+				b_pop = '';
+			}
 		</script>
 		<style type="text/css">
             td a {
@@ -109,6 +139,8 @@
 					<td class="td2" align="center" style="width:10%;"><a id='lblCustno'> </a></td>
 					<td class="td3" align="center" style="width:20%;"><a id='lblComp'> </a></td>
 					<td class="td4" align="center" style="width:15%;"><a id='lblProductno'> </a></td>
+					<td class="isport" align="center" style="width:10%;display: none;"><a id='lblPackwayno'> </a></td>
+					<td class="isport" align="center" style="width:15%;display: none;"><a id='lblPackway'> </a></td>
 					<!--<td class="td4" align="center" style="width:10%;"><a id='lblPrice'> </a></td>-->
 					<td class="td5" align="center" ><a id='lblMemo'> </a></td>
 				</tr>
@@ -119,7 +151,12 @@
 					</td>
 					<td class="td2"><input class="txt"  id="txtCustno.*" maxlength='30'type="text" style="width:95%;"  /></td>
 					<td class="td3"><input class="txt" id="txtComp.*" type="text" maxlength='90' style="width:95%;"   /></td>
-					<td class="td4"><input class="txt" id="txtProductno.*" type="text" maxlength='10' style="width:95%;"  /></td>
+					<td class="td4"><input class="txt" id="txtProductno.*" type="text" style="width:95%;"  /></td>
+					<td class="isport" style="display: none;">
+						<input class="txt" id="txtPackwayno.*" type="text" style="width:65%;"  />
+						<input class="btn" id="btnPackway.*" type="button" value='.' style=" font-weight: bold;"/>
+					</td>
+					<td class="isport" style="display: none;"><input class="txt" id="txtPackway.*" type="text" style="width:95%;"  /></td>
 					<!--<td class="td4"><input class="txt" id="txtPrice.*" type="text" maxlength='10' style="text-align: right ;width:95%;"  /></td>-->
 					<td class="td5"><input class="txt" id="txtMemo.*" type="text" maxlength='90' style="width:95%;"   /></td>
 				</tr>

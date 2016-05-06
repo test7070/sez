@@ -235,6 +235,11 @@
                 	$('.isport').show();
                 	$('.isnotport').hide();
                 	$('#lblCustno').text('客戶');
+                	$('.dbbs').css('width','2000px');
+                	$('.dbbs .isport.td1').css('width','5%');
+                	$('.dbbs .memo').css('width','6%');
+                	$('.dbbs .pno').css('width','7%');
+                	$('.dbbs .prod').css('width','12%');
                 }
             }
             
@@ -593,22 +598,26 @@
 					<td  align="center" style="width: 2%;">
 						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:10%;"><a id='lblProductno_s'> </a></td>
-					<td align="center" style="width:18%;"><a id='lblProduct_s'> </a></td>
+					<td align="center" style="width:12%;" class="pno"><a id='lblProductno_s'> </a></td>
+					<td align="center" style="width:18%;" class="prod"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:4%;"><a id='lblUnit_s'> </a></td>
 					<td align="center" style="width:10%;" class="isnotport"><a id='lblOprice_s'> </a></td>
 					<td align="center" style="width:7%;" class="isnotport"><a id='lblDiscount_s'> </a></td>
 					<td align="center" style="width:10%;" class="isnotport"><a id='lblNotaxprice_s'> </a></td>
 					<td align="center" style="width:7%;" class="isnotport"><a id='lblTaxrate_s'> </a></td>
 					<td align="center" style="width:10%;" class="isnotport"><a id='lblPrice_s'> </a></td>
-					<td align="center" style="width:8%;display: none;" class="isport"><a id='lblCost_s'> </a></td>
-					<td align="center" style="width:8%;display: none;" class="isport"><a id='lblTranprice_s'> </a></td>
-					<td align="center" style="width:8%;display: none;" class="isport"><a id='lblPayterms_s'> </a></td>
-					<td align="center" style="width:7%;display: none;" class="isport"><a id='lblCommission_s'> </a></td>
-					<td align="center" style="width:7%;display: none;" class="isport"><a id='lblProfit_s'> </a></td>
-					<td align="center" style="width:7%;display: none;" class="isport"><a id='lblInsurance_s'> </a></td>
-					<td align="center" style="width:7%;display: none;" class="isport"><a id='lblPrice2_s'> </a></td>
-					<td align="center" style="width:20%;"><a id='lblMemo_s'> </a></td>
+					<td align="center" style="width:7%;display: none;" class="isport td1"><a id='lblCost_s'> </a></td>
+					<td align="center" style="width:7%;display: none;" class="isport td1"><a id='lblTranprice_s'> </a></td>
+					<td align="center" style="width:7%;display: none;" class="isport td1"><a id='lblPayterms_s'> </a></td>
+					<td align="center" style="width:6%;display: none;" class="isport td1"><a id='lblCommission_s'> </a></td>
+					<td align="center" style="width:6%;display: none;" class="isport td1"><a id='lblProfit_s'> </a></td>
+					<td align="center" style="width:6%;display: none;" class="isport td1"><a id='lblInsurance_s'> </a></td>
+					<td align="center" style="width:6%;display: none;" class="isport td1"><a id='lblPrice2_s'> </a></td>
+					<td align="center" style="width:18%;" class="memo"><a id='lblMemo_s'> </a></td>
+					<td align="center" style="width:7%;display: none;" class="isport"><a id='lblMemo1_s'> </a></td>
+					<td align="center" style="width:7%;display: none;" class="isport"><a id='lblMemo2_s'> </a></td>
+					<td align="center" style="width:7%;display: none;" class="isport"><a id='lblMemo3_s'> </a></td>
+					<td align="center" style="width:7%;display: none;" class="isport"><a id='lblMemo4_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -634,6 +643,10 @@
 					<td class="isport" style="display: none;"><input id="txtInsurance.*" type="text" class="txt num c1"/></td>
 					<td class="isport" style="display: none;"><input id="txtPrice2.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
+					<td class="isport" style="display: none;"><input id="txtMemo1.*" type="text" class="txt c1"/></td>
+					<td class="isport" style="display: none;"><input id="txtMemo2.*" type="text" class="txt c1"/></td>
+					<td class="isport" style="display: none;"><input id="txtMemo3.*" type="text" class="txt c1"/></td>
+					<td class="isport" style="display: none;"><input id="txtMemo4.*" type="text" class="txt c1"/></td>
 				</tr>
 			</table>
 		</div>

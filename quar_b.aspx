@@ -35,7 +35,7 @@
 			if(q_getPara('sys.isspec')!='1')
 				$('.isSpec').hide();
 			imgshowhide();
-			for(var i=0;i<q_bbsCount;i++){
+			/*for(var i=0;i<q_bbsCount;i++){
 				if($('#chkChk1_'+i).prop('checked') || !$('#chkChk2_'+i).prop('checked')){
 					$('#txtPrice_'+i).show();
 					$('#txtPrice2_'+i).hide();
@@ -43,7 +43,7 @@
 					$('#txtPrice_'+i).hide();
 					$('#txtPrice2_'+i).show();
 				}
-			}
+			}*/
 		}
 		function q_gtPost() { 
 	
@@ -137,9 +137,9 @@
 				<td style="width:8%;"><input class="txt" id="txtMount.*" type="text" style="width:98%; text-align:right;"/></td>
 				<td style="width:8%;">
 					<input class="txt" id="txtPrice.*" type="text" style="width:98%; text-align:right;"/>
-					<input class="txt" id="txtPrice2.*" type="text" style="width:98%; text-align:right;"/>
+					<!--<input class="txt" id="txtPrice2.*" type="text" style="width:98%; text-align:right;"/>
 					<input id="chkChk1.*" type="checkbox" style="display: none;"/>
-					<input id="chkChk2.*" type="checkbox" style="display: none;"/> 
+					<input id="chkChk2.*" type="checkbox" style="display: none;"/>--> 
 				</td>
 				<td style="width:13%;">
 					<input class="txt" id="txtNoa.*" type="text" style="width:98%;"/>

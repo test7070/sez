@@ -282,6 +282,17 @@
 					alert(q_getMsg('lblDatea') + '錯誤。');
 					return;
 				}
+				
+				if($('#chkEnda').prop('checked') && (emp($('#txtCustno').val()) || emp($('#txtEdate').val()))){
+					if(emp($('#txtCustno').val()) && emp($('#txtEdate').val())){
+						alert('【'+q_getMsg('lblCust')+'】和【出貨日期】空白，不會產生出貨單!!');
+					}else if(emp($('#txtEdate').val())){
+						alert('【出貨日期】空白，不會產生出貨單!!');
+					}else{
+						alert('【'+q_getMsg('lblCust')+'】空白，不會產生出貨單!!');
+					}
+				}
+				
 				sum();
 				if(q_cur==1)
 					$('#txtWorker').val(r_name);
