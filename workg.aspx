@@ -121,7 +121,7 @@
 							t_where1=t_where1+"a.enda!='1' and (a.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and a.productno in (select noa from uca) and charindex(a.noa+'-'+a.no2,isnull((select ordeno+',' from view_workgs where noa!='"+$('#txtNoa').val()+"' FOR XML PATH('')),''))=0 group by a.productno,a.style ^^";
 
 							var t_where2 = "where[2]=^^e.enda!='1' and e.productno=a.productno and (e.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and e.productno in (select noa from uca) and charindex(e.noa+'-'+e.no2,isnull((select ordeno+',' from view_workgs where noa!='"+$('#txtNoa').val()+"' FOR XML PATH('')),''))=0 ^^";
-							var t_where3 = "where[3]=^^ (c.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and d.stype='4' and c.productno=a.productno and c.enda!='1' ^^"
+							var t_where3 = "where[3]=^^ (c.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and d.stype='5' and c.productno=a.productno and c.enda!='1' ^^"
 							
 							var t_where4 = "where[4]=^^ ";
 							if(!emp($('#txtCustno').val()))
@@ -193,7 +193,7 @@
 							t_where1=t_where1+"a.enda!='1' and (a.datea between '" + bdate + "' and '" + edate + "') and a.productno in (select noa from uca)  group by a.productno ^^";
 							
 							var t_where2 = "where[2]=^^e.enda!='1' and e.productno=a.productno and (e.datea between '" + bdate + "' and '" + edate + "') and e.productno in (select noa from uca) and charindex(e.noa+'-'+e.no2,isnull((select ordeno+',' from view_workgs where noa!='"+$('#txtNoa').val()+"' FOR XML PATH('')),''))=0 ^^";
-							var t_where3 = "where[3]=^^ (c.datea between '" + bdate + "' and '" + edate + "') and d.stype='4' and c.productno=a.productno and c.enda!='1' ^^"
+							var t_where3 = "where[3]=^^ (c.datea between '" + bdate + "' and '" + edate + "') and d.stype='5' and c.productno=a.productno and c.enda!='1' ^^"
 							
 							var t_where4 = "where[4]=^^ ";
 							if(!emp($('#txtCustno').val()))
