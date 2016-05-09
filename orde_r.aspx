@@ -50,9 +50,9 @@
 				bbsKey = ['noa', 'no2'];
 				q_brwCount();
 				if(q_content.length>0){
-					q_content="where=^^ stype='3' and "+replaceAll(q_content,"where=^^",'');
+					q_content="where=^^ (stype='3' or stype='4') and "+replaceAll(q_content,"where=^^",'');
 				}else{
-					q_content="where=^^ stype='3' ^^ "
+					q_content="where=^^ (stype='3' or stype='4') ^^ "
 				}
 				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
 				q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
@@ -122,7 +122,8 @@
 				bbsNum = [['txtPrice', 12, q_getPara('vcc.pricePrecision'), 1], ['txtMount', 9, q_getPara('vcc.mountPrecision'), 1], ['txtTotal', 15, 0, 1]
 				, ['txtBenifit', 15, 0, 1],['txtC1', 10, q_getPara('vcc.mountPrecision'), 1], ['txtNotv', 10, q_getPara('vcc.mountPrecision'), 1], ['txtSprice', 10, q_getPara('vcc.pricePrecision'), 1]
 				,['txtCuft', 10, q_getPara('vcc.weightPrecision'), 1]];
-				q_cmbParse("cmbStype", q_getPara('orde.stype'));
+				//q_cmbParse("cmbStype", q_getPara('orde.stype'));
+				q_cmbParse("cmbStype", '3@外銷,4@樣品');
 				//q_cmbParse("cmbCoin", q_getPara('sys.coin'));
 				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
@@ -743,7 +744,7 @@
 						break;
 					case q_name + '_s':
 						if(s2[1]!=undefined){
-							s2[1]="where=^^ stype='3' and "+replaceAll(s2[1],"where=^^",'');
+							s2[1]="where=^^ (stype='3' or stype='4') and "+replaceAll(s2[1],"where=^^",'');
 						}
 						q_boxClose2(s2);
 						break;
@@ -1456,7 +1457,7 @@
 				HiddenTreat();
 				cufttotal();
 				
-				$('#cmbStype').attr('disabled', 'disabled');
+				//$('#cmbStype').attr('disabled', 'disabled');
 			}
 			
 			function HiddenTreat() {
