@@ -22,6 +22,7 @@
 			];
 			var bbmMask = [];
 			q_desc = 1;
+			q_copy=1;
 			q_sqlCount = 6;
 			brwCount = 6;
 			brwList = [];

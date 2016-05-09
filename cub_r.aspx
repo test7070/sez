@@ -261,8 +261,12 @@
 					as.push({process:'客戶收樣品'});
 					as.push({process:'轉生產件號'});
 					as.push({process:'通知建製程'});
+					as.push({process:'會計詢價'});
 					as.push({process:'成本計算'});
+					as.push({process:'于經理回覆'});
 					as.push({process:'報價'});
+					as.push({process:'客戶銷售採購價格表'});
+					as.push({process:'DDK-ACTIVE 價格表'});
 					q_gridAddRow(bbsHtm, 'tbbs', 'txtProcess', as.length, as, 'process', '', '');
 				}
 			}
