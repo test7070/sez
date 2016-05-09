@@ -1053,9 +1053,12 @@
 				sum();
 
 				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
-				if (s1.length == 0 || s1 == "AUTO")
-					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_orde') + $('#txtOdate').val(), '/', ''));
-				else
+				if (s1.length == 0 || s1 == "AUTO"){
+					if($('#cmbStype').val()=='4')//樣品
+						q_gtnoa(q_name, replaceAll('S' + $('#txtOdate').val(), '/', ''));
+					else
+						q_gtnoa(q_name, replaceAll(q_getPara('sys.key_orde') + $('#txtOdate').val(), '/', ''));
+				}else
 					wrServer(s1);
 			}
 
