@@ -229,7 +229,7 @@
 					//var t_where = "where=^^ ['" + q_date() + "','','') where productno=a.productno ^^";
 					//var t_where1 = "where[1]=^^a.productno='" + $('#txtNoa').val() + "' and a.enda!='1' group by productno ^^";
 					//var t_where2 = "where[2]=^^1=0^^";
-					//var t_where3 = "where[3]=^^ d.stype='4' and c.productno=a.productno and c.enda!='1' ^^";
+					//var t_where3 = "where[3]=^^ d.stype='5' and c.productno=a.productno and c.enda!='1' ^^";
 					//var t_where4 = "where[4]=^^ 1=0 ^^";
 					//var t_where5 = "where[5]=^^ 1=0 ^^"
 					//q_gt('workg_orde', t_where + t_where1 + t_where2 + t_where3 + t_where4, 0, 0, 0, "", r_accy);
@@ -405,7 +405,7 @@
 						var t_where = "where=^^ ['" + q_date() + "','','') where productno=a.productno ^^";
 						var t_where1 = "where[1]=^^a.productno='" + $('#txtNoa').val() + "' and a.enda!='1' group by a.productno,a.style ^^";
 						var t_where2 = "where[2]=^^1=0^^";
-						var t_where3 = "where[3]=^^ d.stype='4' and c.productno=a.productno and c.enda!='1' ^^";
+						var t_where3 = "where[3]=^^ d.stype='5' and c.productno=a.productno and c.enda!='1' ^^";
 						var t_where4 = "where[4]=^^ 1=0 ^^";
 						var t_where5 = "where[5]=^^ 1=0 ^^"
 						var t_where6 = "where[6]=^^ 1=0 ^^"
@@ -519,10 +519,10 @@
 					if ($('#txtProductno__' + i).val() == $('#txtNoa').val())
 						endnoa = true;
 				}
-				if (tcount && !endnoa) {//有托工，但沒指定最後一個托工流程
+				/*if (tcount && !endnoa) {//有托工，但沒指定最後一個托工流程
 					alert('請指定一個托工流程為最後流程(在『在製編號』內填寫『物品編號』)');
 					return;
-				}
+				}*/
 				//產生bbt的在製編號
 				var noqt = 0;
 				for (var i = 0; i < q_bbtCount; i++) {

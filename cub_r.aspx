@@ -33,7 +33,7 @@
 			brwKey = 'noa';
 			q_desc = 1;
 			q_copy = 1;
-			brwCount2 = 8;
+			brwCount2 = 12;
 			aPop = new Array(
 				['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']
 				//,['txtProductno_', '', 'ucx', 'noa,product', 'txtProductno_,txtProduct_', 'ucx_b.aspx']
@@ -66,8 +66,9 @@
 			}
 
 			function mainPost() {
+				document.title='樣品流程管理';
 				q_getFormat();
-				bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd]];
+				bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd],['txtUindate', r_picd]];
 				bbsMask = [['txtDate2', r_picd], ['txtDatea', r_picd]];
 				
 				bbmNum = [['txtMount',10,q_getPara('vcc.mountPrecision'),1],['txtPrice', 15, q_getPara('vcc.pricePrecision'), 1]
@@ -260,8 +261,12 @@
 					as.push({process:'客戶收樣品'});
 					as.push({process:'轉生產件號'});
 					as.push({process:'通知建製程'});
+					as.push({process:'會計詢價'});
 					as.push({process:'成本計算'});
+					as.push({process:'于經理回覆'});
 					as.push({process:'報價'});
+					as.push({process:'客戶銷售採購價格表'});
+					as.push({process:'DDK-ACTIVE 價格表'});
 					q_gridAddRow(bbsHtm, 'tbbs', 'txtProcess', as.length, as, 'process', '', '');
 				}
 			}
@@ -282,6 +287,17 @@
 					alert(q_getMsg('lblDatea') + '錯誤。');
 					return;
 				}
+				
+				if($('#chkEnda').prop('checked') && (emp($('#txtCustno').val()) || emp($('#txtEdate').val()))){
+					if(emp($('#txtCustno').val()) && emp($('#txtEdate').val())){
+						alert('【'+q_getMsg('lblCust')+'】和【出貨日期】空白，不會產生出貨單!!');
+					}else if(emp($('#txtEdate').val())){
+						alert('【出貨日期】空白，不會產生出貨單!!');
+					}else{
+						alert('【'+q_getMsg('lblCust')+'】空白，不會產生出貨單!!');
+					}
+				}
+				
 				sum();
 				if(q_cur==1)
 					$('#txtWorker').val(r_name);
@@ -624,7 +640,7 @@
 				font-size: medium;
 			}
 			.dbbs {
-				width: 1260px;
+				width: 1500px;
 			}
 			.dbbs .tbbs {
 				margin: 0;
@@ -720,10 +736,11 @@
 						<td><span> </span><a id="lblCust" class="lbl btn" > </a></td>
 						<td><input id="txtCustno" type="text" class="txt c1"/></td>
 						<td colspan="2"><input id="txtComp" type="text" class="txt c1"/></td>
-						<td> </td>
+						<td><span> </span><a id="lblLevel" class="lbl" >服務等級</a></td>
+						<td><input id="txtLevel" type="text" class="txt c1" /></td>
 						<td>
 							<input id="chkIsproj" type="checkbox"/>
-							<a id='lblIsproj'>核單</a>
+							<a id='lblIsproj_r'>核單</a>
 						</td>
 					</tr>
 					<tr>
@@ -732,38 +749,68 @@
 						<td colspan="2"><input id="txtProduct" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblBdate" class="lbl" > </a></td>
 						<td><input id="txtBdate" type="text" class="txt c1" /></td>
+						<td><span> </span><a id="lblUindate" class="lbl" >應完工日</a></td>
+						<td><input id="txtUindate" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblSpec" class="lbl" > </a></td>
 						<td colspan="3"><input id="txtSpec" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblUnit" class="lbl" > </a></td>
 						<td><input id="txtUnit" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblStatus" class="lbl" >完成狀態</a></td>
+						<td><input id="txtStatus" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblMount" class="lbl" > </a></td>
+						<td><span> </span><a id="lblM1" class="lbl" >車縫</a></td>
+						<td><input id="txtM1" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblM2" class="lbl" >皮料號(1)</a></td>
+						<td><input id="txtM2" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblM3" class="lbl" >皮料號(4)</a></td>
+						<td><input id="txtM3" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblM4" class="lbl" >護片</a></td>
+						<td><input id="txtM4" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblM6" class="lbl" >印刷/位置</a></td>
+						<td colspan="7"><input id="txtM6" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblM5" class="lbl" >高週波</a></td>
+						<td><input id="txtM5" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblM7" class="lbl" >鞍座</a></td>
+						<td colspan="3"><input id="txtM7" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblM8" class="lbl" >電鍍</a></td>
+						<td><input id="txtM8" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblMount_r" class="lbl" >訂單數量</a></td>
 						<td><input id="txtMount" type="text" class="txt num c1"/></td>
 						<td><span> </span><a id="lblPrice" class="lbl" > </a></td>
 						<td><input id="txtPrice" type="text" class="txt num c1"/></td>
-						<td><span> </span><a id="lblMoney" class="lbl" >總計</a></td>
+						<td><span> </span><a id="lblMoney_r" class="lbl" >訂單金額</a></td>
 						<td><input id="txtMo" type="text" class="txt num c1"/></td>
+						<td><span> </span><a id="lblOrdeno" class="lbl" >訂單號碼</a></td>
+						<td><input id="txtOrdeno" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo2_pi" class="lbl" > </a></td>
 						<td colspan="5"><input id="txtMemo2" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblNo2" class="lbl" >訂序</a></td>
+						<td><input id="txtNo2" type="text" class="txt num c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl" > </a></td>
-						<td colspan="5"><input id="txtMemo" type="text" class="txt c1"/></td>
+						<td colspan="7"><input id="txtMemo" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td> </td>
 						<td colspan="2">
 							<input id="chkEnda" type="checkbox"/>
-							<a id='lblEnda'>產生出貨單</a>
-							<span> </span><a id="lblEdate" class="lbl" >出貨日期</a>
+							<a id='lblEnda_r'>產生出貨單</a>
+							<span> </span><a id="lblEdate_r" class="lbl" >出貨日期</a>
 						</td>
 						<td><input id="txtEdate" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblVccno" class="lbl" >出貨單號</a></td>
+						<td><span> </span><a id="lblVccno_r" class="lbl" >出貨單號</a></td>
 						<td><input id="txtVcceno" type="text" class="txt c1"/></td>
 						<!--<td>
 							<input id="chkCancel" type="checkbox"/>
@@ -780,58 +827,60 @@
 					</tr>
 				</table>
 			</div>
-			<div class='dbbs'>
-				<table id="tbbs" class='tbbs'>
-					<tr style='color:white; background:#003366;' >
-						<td style="width:20px;"><input id="btnPlus" type="button" style="font-size: medium; font-weight: bold;" value="＋"/></td>
-						<td style="width:20px;"> </td>
-						<td style="width:140px;"><a id='lblProcess_r_s'>流程</a></td>
-						<td style="width:140px;"><a id='lblTgg_s'>廠商名稱</a></td>
-						<td style="width:80px;"><a id='lblMount_s'> </a></td>
-						<td style="width:40px;"><a id='lblUnit_s'> </a></td>
-						<td style="width:70px;"><a id='lblPrice_s'> </a></td>
-						<td style="width:100px;"><a id='lblMo_s'>金額</a></td>
-						<td style="width:40px;"><a id='lblSale_s'>外加稅</a></td>
-						<td style="width:100px;"><a id='lblTxa_s'>稅金</a></td>
-						<td style="width:100px;"><a id='lblW01_s'>總金額</a></td>
-						<td style="width:150px;"><a id='lblMemo_s'> </a><BR><a id='lblBornproductno_s'>生產件號</a></td>
-						<td style="width:40px;"><a id='lblEnda_s'>完工</a></td>
-						<td style="width:80px;"><a id='lblDatea_s'>完工日</a></td>
-						<td style="width:40px;"><a id='lblPay_s'>請款</a></td>
-						<td style="width:150px;"><a id='lblOrdeno_s'>進貨單號</a></td>
-					</tr>
-					<tr style='background:#cad3ff;'>
-						<td align="center">
-							<input id="btnMinus.*" type="button" style="font-size: medium; font-weight: bold;" value="－"/>
-							<input id="txtNoq.*" type="text" style="display: none;"/>
-						</td>
-						<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-						<td>
-							<input id="txtProcess.*" type="text" class="txt c1"/>
-						</td>
-						<td>
-							<input id="txtTggno.*" type="text" class="txt c1" style="width: 80%;"/>
-							<input class="btn"  id="btnTggno.*" type="button" value='.' style=" font-weight: bold;" />
-							<input id="txtTgg.*" type="text" class="txt c1"/>
-						</td>
-						<td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
-						<td><input id="txtPrice.*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtMo.*" type="text" class="txt c1 num"/></td>
-						<td><input id="chkSale.*" type="checkbox" class="txt c1" /></td>
-						<td><input id="txtW02.*" type="text" class="txt c1" style="text-align:right;"/></td>
-						<td><input id="txtW01.*" type="text" class="txt c1" style="text-align:right; "/></td>
-						<td>
-							<input id="txtMemo.*" type="text" class="txt c1"/>
-							<input id="txtProductno.*" type="text" class="txt c1"/>
-						</td>
-						<td><input id="chkEnda.*" type="checkbox" class="txt c1" /></td>
-						<td><input id="txtDatea.*" type="text" class="txt c1"/></td>
-						<td><input id="chkCut.*" type="checkbox" class="txt c1"/></td>
-						<td><input id="txtOrdeno.*" type="text" class="txt c1 num" style="color:blue;width: 90%;text-align:left;"/></td>
-					</tr>
-				</table>
-			</div>
+		</div>
+		<div class='dbbs'>
+			<table id="tbbs" class='tbbs'>
+				<tr style='color:white; background:#003366;' >
+					<td style="width:20px;"><input id="btnPlus" type="button" style="font-size: medium; font-weight: bold;" value="＋"/></td>
+					<td style="width:20px;"> </td>
+					<td style="width:140px;"><a id='lblProcess_r_s'>流程</a></td>
+					<td style="width:140px;"><a id='lblTgg_r_s'>廠商名稱</a></td>
+					<td style="width:80px;"><a id='lblMount_r_s'>數量</a></td>
+					<td style="width:40px;"><a id='lblUnit_r_s'>單位</a></td>
+					<td style="width:70px;"><a id='lblPrice_r_s'>單價</a></td>
+					<td style="width:100px;"><a id='lblMo_r_s'>金額</a></td>
+					<td style="width:40px;"><a id='lblSalev_s'>外加稅</a></td>
+					<td style="width:100px;"><a id='lblTxa_r_s'>稅金</a></td>
+					<td style="width:100px;"><a id='lblW01_r_s'>總金額</a></td>
+					<td style="width:150px;"><a id='lblMemo_r_s'>備註</a><BR><a id='lblBornproductno_r_s'>生產件號</a></td>
+					<td style="width:40px;"><a id='lblEnda_r_s'>完工</a></td>
+					<td style="width:90px;"><a id='lblDatea_r_s'>完工日</a></td>
+					<td style="width:40px;"><a id='lblPay_r_s'>請款</a></td>
+					<td style="width:150px;"><a id='lblOrdeno_r_s'>進貨單號</a></td>
+					<td style="width:150px;"><a id='lblOth_r_s'>快遞帳號</a></td>
+				</tr>
+				<tr style='background:#cad3ff;'>
+					<td align="center">
+						<input id="btnMinus.*" type="button" style="font-size: medium; font-weight: bold;" value="－"/>
+						<input id="txtNoq.*" type="text" style="display: none;"/>
+					</td>
+					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+					<td>
+						<input id="txtProcess.*" type="text" class="txt c1"/>
+					</td>
+					<td>
+						<input id="txtTggno.*" type="text" class="txt c1" style="width: 80%;"/>
+						<input class="btn"  id="btnTggno.*" type="button" value='.' style=" font-weight: bold;" />
+						<input id="txtTgg.*" type="text" class="txt c1"/>
+					</td>
+					<td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
+					<td><input id="txtPrice.*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtMo.*" type="text" class="txt c1 num"/></td>
+					<td><input id="chkSale.*" type="checkbox" class="txt c1" /></td>
+					<td><input id="txtW02.*" type="text" class="txt c1" style="text-align:right;"/></td>
+					<td><input id="txtW01.*" type="text" class="txt c1" style="text-align:right; "/></td>
+					<td>
+						<input id="txtMemo.*" type="text" class="txt c1"/>
+						<input id="txtProductno.*" type="text" class="txt c1"/>
+					</td>
+					<td><input id="chkEnda.*" type="checkbox" class="txt c1" /></td>
+					<td><input id="txtDatea.*" type="text" class="txt c1"/></td>
+					<td><input id="chkCut.*" type="checkbox" class="txt c1"/></td>
+					<td><input id="txtOrdeno.*" type="text" class="txt c1" style="color:blue;width: 90%;text-align:left;"/></td>
+					<td><input id="txtOth.*" type="text" class="txt c1"/></td>
+				</tr>
+			</table>
 		</div>
 		<input id="q_sys" type="hidden" />
 		<div id="dbbt" class='dbbt' style="display: none;">

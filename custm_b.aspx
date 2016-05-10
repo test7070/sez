@@ -219,6 +219,11 @@
 					<td> </td>
 				</tr>
 				<tr class="isport">
+					<td><a id="lblEdock" style="float:right;"> </a></td>
+					<td colspan="3"><input id="txtEdock" type="text" style='width:98%;'/></td>
+					<td> </td>
+				</tr>
+				<tr class="isport">
 					<td><a id="lblForwarder" style="float:right;"> </a></td>
 					<td colspan="3">
 						<input id="txtForwarderno" type="text" style='width:30%;'/>
@@ -237,8 +242,8 @@
 				<tr class="isport">
 					<td><a id="lblBoat" style="float:right;"> </a></td>
 					<td><input id="txtBoat" type="text" style='width:98%;'/></td>
-					<td> </td>
-					<td> </td>
+					<td><a id="lblDhl" style="float:right;"> </a></td>
+					<td><input id="txtDhl" type="text" style='width:98%;'/></td>
 				</tr>
 			</table>
 		</div>

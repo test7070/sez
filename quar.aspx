@@ -22,7 +22,8 @@
 			var decbbm = ['money', 'tax', 'total', 'weight', 'floata', 'mount', 'price', 'totalus'];
 			var q_readonly = ['txtNoa','txtWorker', 'txtComp', 'txtAcomp', 'txtSales','txtTotal','txtTotalus', 'txtWorker2'
 			,'txtMount','txtWeight','txtCost','txtBenifit','txtCasemount','txtCuft','txtCuftnotv'];
-			var q_readonlys = ['txtNo3','txtPackway','txtPackwayno','txtCost','txtBenifit','txtPayterms','txtBenifit2','txtPayterms2'];
+			var q_readonlys = ['txtNo3','txtPackway','txtPackwayno','txtCost','txtBenifit','txtPayterms','txtBenifit2','txtPayterms2'
+			,'txtProfit','txtProfit2'];
 			var bbmNum = [];
 			var bbsNum = [];
 			var bbmMask = [];
@@ -122,7 +123,7 @@
 				
 				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
-				//q_cmbParse("cmbPayterms", q_getPara('sys.payterms'),'s');
+				q_cmbParse("cmbPayterms", q_getPara('sys.payterms'));
 				q_cmbParse("combPayterms", q_getPara('sys.payterms'));
 				q_cmbParse("combPayterms2", q_getPara('sys.payterms'));
 				
@@ -189,6 +190,40 @@
 				
 				$('#cmbCasetype').change(function() {
 					cufttotal();
+				});
+				
+				$('#cmbPayterms').change(function() {
+					if($(this).val().slice(-2)=='＆C'){
+						for (var j = 0; j < q_bbsCount; j++) {
+							if(!emp($('#txtProductno_'+j).val())){
+								$('#txtPayterms_'+j).val($(this).val());
+								bbspaytermschange(j);
+								$('#txtPayterms2_'+j).val($(this).val().substr(0,$(this).val().length-2));
+								uncommission(j);
+							}else{
+								$('#txtPayterms_'+j).val('');
+								$('#txtPayterms2_'+j).val('');
+								$('#txtPrice2_'+j).val('');
+								$('#txtProfit2_'+j).val('');
+								$('#txtCommission2_'+j).val('');
+								$('#txtInsurance2_'+j).val('');
+							}
+						}
+					}else{
+						for (var j = 0; j < q_bbsCount; j++) {
+							if(!emp($('#txtProductno_'+j).val())){
+								$('#txtPayterms_'+j).val($(this).val());
+							}else{
+								$('#txtPayterms_'+j).val('');
+							}
+							$('#txtPayterms2_'+j).val('');
+							$('#txtPrice2_'+j).val('');
+							$('#txtProfit2_'+j).val('');
+							$('#txtCommission2_'+j).val('');
+							$('#txtInsurance2_'+j).val('');
+						}
+					}
+					payterms2();
 				});
 				
 				//div 事件
@@ -482,7 +517,7 @@
 			}
 			
 			function divpaytermschange(){
-				var cost=dec($('#textCost').val());				
+				var cost=dec($('#textCost').val());
 				var tranprice=dec($('#textTranprice').val());
 				var fee=dec($('#textFee').val());
 				var profit=$('#textProfit').val();
@@ -883,12 +918,12 @@
 								if($('#cmbCasetype').val()=="40'")
 									$('#textCycbm').val(67.7);
 								
-								/*$('#textProfit').val($('#txtProfit').val());
+								$('#textProfit').val($('#txtProfit').val());
 								$('#textInsurance').val($('#txtInsurance').val());
 								$('#textCommission').val($('#txtCommission').val());
 								$('#combPayterms').val($('#cmbPayterms').val());
-								*/
-								$('#combPayterms').val($('#txtPayterms_'+b_seq).val());
+								
+								//$('#combPayterms').val($('#txtPayterms_'+b_seq).val());
 								$('#textProfit').val($('#txtProfit_'+b_seq).val());
 								$('#textInsurance').val($('#txtInsurance_'+b_seq).val());
 								$('#textCommission').val($('#txtCommission_'+b_seq).val());
@@ -919,6 +954,7 @@
 				}
 				_bbsAssign();
 				HiddenField();
+				payterms2();
 			}
 
 			function btnIns() {
@@ -937,6 +973,7 @@
 					var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
 					q_gt('custaddr', t_where, 0, 0, 0, "");
 				}
+				payterms2();
 			}
 
 			function btnModi() {
@@ -979,6 +1016,7 @@
 			function refresh(recno) {
 				_refresh(recno);
 				HiddenField();
+				payterms2();
 				$('#div_getprice').hide();
 			}
 
@@ -1084,7 +1122,7 @@
 							q_gt('custm', t_where, 0, 0, 0, "getcustm",r_accy,1);
 							var as = _q_appendData("custm", "", true);
 							if (as[0] != undefined) {
-								//$('#cmbPayterms').val(as[0].payterms);
+								$('#cmbPayterms').val(as[0].payterms);
 								$('#txtAgentno').val(as[0].agentno);
 								$('#txtAgent').val(as[0].agent);
 							}
@@ -1095,27 +1133,39 @@
 						}
 						break;
 					case 'txtProductno_':
-						//取前面兩筆
+						//取前面兩筆 //105/05/06 只會有一個交易條件
 						if(!emp($('#txtCustno').val()) && !emp($('#txtProductno_'+b_seq).val())){
-							var t_where = "where=^^ a.custno='"+$('#txtCustno').val()+"' and b.xproductno='"+$('#txtProductno_'+b_seq).val()+"' and '"+$('#txtOdate').val()+"'>=a.bdate order by bdate desc,noa desc ^^";
+							$('#txtPayterms_'+b_seq).val($('#cmbPayterms').val());
+							if($('#cmbPayterms').val().slice(-2)=='＆C'){
+								$('#txtPayterms2_'+b_seq).val($('#cmbPayterms').val().substr(0,$('#cmbPayterms').val().length-2));
+							}
+							
+							var t_where = "where=^^ a.custno='"+$('#txtCustno').val()+"' and b.xproductno='"+$('#txtProductno_'+b_seq).val()+"' and a.payterms='"+$('#cmbPayterms').val()+"' and '"+$('#txtOdate').val()+"'>=a.bdate order by bdate desc,noa desc ^^";
 							q_gt('custprices', t_where, 0, 0, 0, "getcustprices", r_accy, 1);
 							var as = _q_appendData("custprices", "", true);
 							if (as[0] != undefined) {
 								$('#txtCommission_'+b_seq).val(as[0].commission);
 								$('#txtInsurance_'+b_seq).val(as[0].insurance);
 								$('#txtProfit_'+b_seq).val(as[0].profit);
-								$('#txtPayterms_'+b_seq).val(as[0].payterms);
 								$('#txtCost_'+b_seq).val(as[0].cost);
 								$('#txtPrice_'+b_seq).val(as[0].price2);
+								
+								if($('#cmbPayterms').val().slice(-2)=='＆C'){
+									if(!emp($('#txtProductno_'+b_seq).val())){
+										$('#txtPayterms_'+b_seq).val($('#cmbPayterms').val());
+										$('#txtPayterms2_'+b_seq).val($('#cmbPayterms').val().substr(0,$('#cmbPayterms').val().length-2));
+										uncommission(b_seq);
+									}
+								}
 							}
-							if (as[1] != undefined) {
+							/*if (as[1] != undefined) {
 								$('#txtCommission2_'+b_seq).val(as[1].commission);
 								$('#txtInsurance2_'+b_seq).val(as[1].insurance);
 								$('#txtProfit2_'+b_seq).val(as[1].profit);
 								$('#txtPayterms2_'+b_seq).val(as[1].payterms);
 								$('#txtCost2_'+b_seq).val(as[1].cost);
 								$('#txtPrice2_'+b_seq).val(as[1].price2);
-							}
+							}*/
 							$('#txtMount_'+b_seq).val(1);
 							//105/04/15 取第一種包裝
 							var t_where = "where=^^ noa='"+$('#txtProductno_'+b_seq).val()+"'  ^^";
@@ -1155,6 +1205,79 @@
 						break;
 				}
 			}
+			
+			function payterms2() {
+				if($('#cmbPayterms').val().slice(-2)=='＆C'){
+					$('.payterms2').show();
+				}else{
+					$('.payterms2').hide();
+				}
+			}
+			
+			function uncommission(n) {
+				var t_commission=q_sub(1,q_div(dec($('#txtCommission_'+n).val()),100));
+				$('#txtPrice2_'+n).val(round(q_mul(dec($('#txtPrice_'+n).val()),t_commission),3));
+				$('#txtProfit2_'+n).val($('#txtProfit_'+n).val());
+				$('#txtCommission2_'+n).val($('#txtCommission_'+n).val());
+				$('#txtInsurance2_'+n).val($('#txtInsurance_'+n).val());
+			}
+			
+			function bbspaytermschange(n){
+				if(!emp($('#txtCustno').val()) && !emp($('#txtProductno_'+n).val()) && !emp($('#cmbPayterms').val())){
+					var t_where = "where=^^ a.custno='"+$('#txtCustno').val()+"' and (b.xproductno='"+$('#txtProductno_'+n).val()+"' or a.productno='"+$('#txtProductno_'+n).val()+"') and a.payterms='"+$('#combPayterms').val()+"' and '"+$('#txtOdate').val()+"'>=a.bdate order by bdate desc,noa desc ^^";
+					q_gt('custprices', t_where, 0, 0, 0, "getcustprices", r_accy, 1);
+					var as = _q_appendData("custprices", "", true);
+					if (as[0] != undefined) {
+						$('#txtCommission_'+n).val(as[0].commission);
+						$('#txtInsurance_'+n).val(as[0].insurance);
+						$('#txtProfit_'+n).val(as[0].profit);
+						$('#txtCost_'+n).val(as[0].cost);
+						$('#textTranprice').val(as[0].tranprice);
+						$('#txtPrice_'+n).val(as[0].price2);
+					}else{
+						var cost=dec($('#txtCost_'+n).val());				
+						var tranprice=dec($('#textTranprice').val()); //抓暫存的資料
+						var fee=dec($('#textFee').val()); //抓暫存的資料
+						var profit=$('#txtProfit_'+n).val();
+						var insurance=$('#txtInsurance_'+n).val();
+						var commission=$('#txtCommission_'+n).val();
+						var payterms= $('#txtPayterms_'+n).val();
+						var cost3=0
+						var precision=dec(q_getPara('vcc.pricePrecision'));
+						switch (payterms) {//P利潤 I保險 C佣金 F運費
+							case 'C＆F'://(成本/(1-P)+F) //=CFR   
+								cost3=round(q_add(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),tranprice),precision);
+								break;
+							case 'C＆F＆C'://(成本/(1-P)+F)/(1-C)
+								cost3=round(q_div(q_add(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),tranprice),q_sub(1,q_div(commission,100))),precision);
+								break;
+							case 'C＆I': //成本/(1-P)/(1-I)
+								cost3=round(q_div(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),q_sub(1,q_div(insurance,100))),precision);
+								break;
+							case 'C＆I＆C'://成本/(1-P)/(1-I)/(1-C)
+								cost3=round(q_div(q_div(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),q_sub(1,q_div(insurance,100))),q_sub(1,q_div(commission,100))),precision);
+								break;
+							case 'CIF'://(成本/(1-P)+F)/(1-I)   
+								cost3=round(q_div(q_add(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),tranprice),q_sub(1,q_div(insurance,100))),precision);
+								break;
+							case 'CIF＆C'://(成本/(1-P)+F)/(1-I)/(1-C)
+								cost3=round(q_div(q_div(q_add(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),tranprice),q_sub(1,q_div(insurance,100))),q_sub(1,q_div(commission,100))),precision);
+								break;
+							case 'EXW'://成本/(1-P)
+								cost3=round(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),precision);
+								break;
+							case 'FOB'://成本/(1-P)
+								cost3=round(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),precision);
+								break;
+							case 'FOB＆C': //成本/(1-P)/(1-C)
+								cost3=round(q_div(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),q_sub(1,q_div(commission,100))),precision);
+								break;
+						}
+						$('#txtPrice_'+n).val(cost3);
+					}
+				}
+			}
+			
 		</script>
 		<style type="text/css">
 			#dmain {
@@ -1408,18 +1531,18 @@
 				</tr>
 				<tr style="background-color: #EC7DD2;">
 					<td align="center"><a class="lbl">價格條件</a></td>
-					<td align="center"><select id="combPayterms" class="txt c1"> </select></td>
+					<td align="center"><select id="combPayterms" class="txt c1" disabled="disabled"> </select></td>
 					<td align="center"><a class="lbl">試算單價</a></td>
 					<td align="center"><input id="textCost3" type="text" class="txt num c1"/></td>
 					<td align="center"> </td>
 					<td align="center"> </td>
 				</tr>
 				
-				<tr style="background-color: #52FDAC; ">
+				<tr style="background-color: #52FDAC; " class="payterms2">
 					<td align="center">單價2</td>
 					<td align="center" colspan="5"> </td>
 				</tr>
-				<tr style="background-color: #52FDAC; ">
+				<tr style="background-color: #52FDAC; " class="payterms2">
 					<td align="center"><a class="lbl">Profit</a></td>
 					<td align="center"><input id="textProfit2" type="text" class="txt num c1" style="width: 70%"/>&nbsp; %</td>
 					<td align="center"><a class="lbl">Insurance</a></td>
@@ -1435,9 +1558,9 @@
 					<td align="right"><a class="lbl">$</a></td>
 					<td align="center"><input id="textProfitmoney2" type="text" class="txt num c1"/></td>
 				</tr>
-				<tr style="background-color: #52FDAC;">
+				<tr style="background-color: #52FDAC;" class="payterms2">
 					<td align="center"><a class="lbl">價格條件</a></td>
-					<td align="center"><select id="combPayterms2" class="txt c1"> </select></td>
+					<td align="center"><select id="combPayterms2" class="txt c1" disabled="disabled"> </select></td>
 					<td align="center"><a class="lbl">試算單價</a></td>
 					<td align="center"><input id="textCost32" type="text" class="txt num c1"/></td>
 					<td align="center"> </td>
@@ -1535,29 +1658,29 @@
 						<td colspan="2"><input id="txtEdock" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<!--<td><span> </span><a id='lblPayterms' class="lbl"> </a></td>
-						<td><select id="cmbPayterms" class="txt c1"> </select></td>-->
+						<td><span> </span><a id='lblPayterms' class="lbl"> </a></td>
+						<td><select id="cmbPayterms" class="txt c1"> </select></td>
 						<!--<td><span> </span><a id='lblPrice' class="lbl"> </a></td>
 						<td colspan="2"><input id="txtPrice" type="text" class="txt c1 num"/></td>-->
 						<!--<td><span> </span><a id='lblVia' class="lbl"> </a></td>
 						<td colspan="2"><input id="txtVia" type="text" class="txt c1"/></td>-->
 						<td><span> </span><a id='lblPaytype' class="lbl"> </a></td>
-						<td>
-							<input id="txtPaytype" type="text" class="txt c1" style="width: 80px;"/>
+						<td colspan="2">
+							<input id="txtPaytype" type="text" class="txt c1" style="width: 190px;"/>
 							<select id="combPaytype" class="txt c1" onchange='combPay_chg()' style="width: 25px;"> </select>
 						</td>
 						<td><span> </span><a id='lblSales' class="lbl btn"> </a></td>
 						<td><input id="txtSalesno" type="text" class="txt c1"/></td>
 						<td><input id="txtSales" type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblFloata' class="lbl"> </a></td>
-						<td><select id="cmbCoin" class="txt c1" onchange='coin_chg()'> </select></td>
-						<td><input id="txtFloata" type="text" class="txt c1 num"/></td>
 					</tr>
 					<tr>
 						<td align="right"><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td colspan='7' >
+						<td colspan='4' >
 							<textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea>
 						</td>
+						<td><span> </span><a id='lblFloata' class="lbl"> </a></td>
+						<td><select id="cmbCoin" class="txt c1" onchange='coin_chg()'> </select></td>
+						<td><input id="txtFloata" type="text" class="txt c1 num"/></td>
 					</tr>
 					<tr>
 						<!--<td><span> </span><a id='lblProfit' class="lbl"> </a></td>
@@ -1629,7 +1752,7 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1840px;">
+		<div class='dbbs' style="width: 1800px;">
 			<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1' >
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:40px;"><input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" /></td>
@@ -1640,9 +1763,9 @@
 					<td align="center" style="width:40px;"><a id='lblUnit_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblCost_s'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblGetprice_s'> </a></td>
-					<td align="center" style="width:130px;"><a id='lblPayterms_s'> </a></td>
+					<td align="center" style="width:100px;" class="payterms2"><a id='lblPayterms_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblPrice_s'> </a><BR></td>
-					<td align="center" style="width:100px;"><a id='lblBenifit_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblBenifit_s'> </a> %</td>
 					<td align="center" style="width:80px;"><a id='lblPackway_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblWeight_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblCuft_s'> </a></td>
@@ -1668,27 +1791,27 @@
 					<td>
 						<input id="txtCost.*" type="text" class="txt c1 num"/>
 						
-						<input id="txtProfit.*" type="hidden" class="txt c1 num"/>
 						<input id="txtCommission.*" type="hidden" class="txt c1 num"/>
 						<input id="txtInsurance.*" type="hidden" class="txt c1 num"/>
-						<input id="txtProfit2.*" type="hidden" class="txt c1 num"/>
 						<input id="txtCommission2.*" type="hidden" class="txt c1 num"/>
 						<input id="txtInsurance2.*" type="hidden" class="txt c1 num"/>
 					</td>
 					<td align="center"><input class="btn" id="btnGetprice.*" type="button" value='.' style=" font-weight: bold;"/></td>
-					<td><!--<select id="cmbPayterms.*" class="txt c1"> </select>-->
-						<input id="chkChk1.*" type="radio" name="radio.*" style="float: left;"/> 
-						<input id="txtPayterms.*" type="text" class="txt c1" style="width: 80%;"/>
-						<input id="chkChk2.*" type="radio" name="radio.*" style="float: left;"/>
-						<input id="txtPayterms2.*" type="text" class="txt c1" style="width: 80%;"/>
+					<td class="payterms2"><!--<select id="cmbPayterms.*" class="txt c1"> </select>-->
+						<!--<input id="chkChk1.*" type="radio" name="radio.*" style="float: left;"/>
+						<input id="chkChk2.*" type="radio" name="radio.*" style="float: left;"/>--> 
+						<input id="txtPayterms.*" type="text" class="txt c1"/>
+						<input id="txtPayterms2.*" type="text" class="txt c1"/>
 					</td>
 					<td>
 						<input id="txtPrice.*" type="text" class="txt c1 num"/>
-						<input id="txtPrice2.*" type="text" class="txt c1 num"/>
+						<input id="txtPrice2.*" type="text" class="txt c1 num payterms2"/>
 					</td>
 					<td>
-						<input id="txtBenifit.*" type="text" class="txt c1 num"/>
-						<input id="txtBenifit2.*" type="text" class="txt c1 num"/>
+						<input id="txtProfit.*" type="text" class="txt c1 num"/>
+						<input id="txtProfit2.*" type="text" class="txt c1 num payterms2"/>
+						<input id="txtBenifit.*" type="hidden" class="txt c1 num"/>
+						<input id="txtBenifit2.*" type="hidden" class="txt c1 num"/>
 					</td>
 					<td>
 						<input id="txtPackwayno.*" type="text" class="txt c1" style="width: 60%;"/>
