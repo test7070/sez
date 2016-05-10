@@ -519,10 +519,10 @@
 					if ($('#txtProductno__' + i).val() == $('#txtNoa').val())
 						endnoa = true;
 				}
-				if (tcount && !endnoa) {//有托工，但沒指定最後一個托工流程
+				/*if (tcount && !endnoa) {//有托工，但沒指定最後一個托工流程
 					alert('請指定一個托工流程為最後流程(在『在製編號』內填寫『物品編號』)');
 					return;
-				}
+				}*/
 				//產生bbt的在製編號
 				var noqt = 0;
 				for (var i = 0; i < q_bbtCount; i++) {

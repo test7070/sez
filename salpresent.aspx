@@ -18,8 +18,8 @@
         var q_name = "salpresent";
         var q_readonly = ['txtMount'];
         var q_readonlys = [];
-        var bbmNum = [['txtW100', 10, 1, 1],['txtW133', 10, 1, 1],['txtW166', 10, 1, 1],['txtHr_special', 10, 1, 1],['txtMount', 10, 0, 1]];  
-        var bbsNum = [['txtW100', 10, 1, 1],['txtW133', 10, 1, 1],['txtW166', 10, 1, 1],['txtHr_special', 10, 1, 1]];
+        var bbmNum = [['txtW100', 10, 1, 1],['txtW133', 10, 1, 1],['txtW166', 10, 1, 1],['txtW200', 10, 1, 1],['txtHr_special', 10, 1, 1],['txtMount', 10, 0, 1]];  
+        var bbsNum = [['txtW100', 10, 1, 1],['txtW133', 10, 1, 1],['txtW166', 10, 1, 1],['txtW200', 10, 1, 1],['txtHr_special', 10, 1, 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
@@ -76,13 +76,18 @@
              	
              	if($('#chkHoliday').prop('checked')){
 					for (var j = 0; j < q_bbsCount; j++) {
-					    $('#txtW100_'+j).val(q_add(dec($('#txtW133_'+j).val()),dec($('#txtW166_'+j).val())));
+					    $('#txtW100_'+j).val(q_add(q_add(dec($('#txtW133_'+j).val()),dec($('#txtW166_'+j).val())),dec($('#txtW200_'+j).val())));
 					    $('#txtW133_'+j).val(0);
 					    $('#txtW166_'+j).val(0);
+					    $('#txtW200_'+j).val(0);
 			    	}
              	}else{
              		for (var j = 0; j < q_bbsCount; j++) {
-	             		 if(dec($('#txtW100_'+j).val())>2){
+             			if(dec($('#txtW100_'+j).val())>4 && q_getPara('sys.project').toUpperCase()=='RK'){
+             				$('#txtW133_'+j).val(2);
+					    	$('#txtW166_'+j).val(2);
+					    	$('#txtW200_'+j).val(q_sub($('#txtW100_'+j).val(),4));
+             			}else if(dec($('#txtW100_'+j).val())>2){
 					    	$('#txtW133_'+j).val(2);
 					    	$('#txtW166_'+j).val(q_sub($('#txtW100_'+j).val(),2));
 					    }else{
@@ -121,7 +126,6 @@
             }   /// end Switch
             b_pop = '';
         }
-
 
         function q_gtPost(t_name) { 
             switch (t_name) {
@@ -265,19 +269,21 @@
 
         function sum() {
             var t1 = 0, t_unit, t_mount=0, t_weight = 0;
-            var t_w100=0,t_w133=0,t_w166=0,t_hr_special=0;
+            var t_w100=0,t_w133=0,t_w166=0,t_w200=0,t_hr_special=0;
             for (var j = 0; j < q_bbsCount; j++) {
             	if(!emp($('#txtSssno_'+j).val()))
             		t_mount++;
 				t_w100=q_add(t_w100,dec($('#txtW100_'+j).val()));
 				t_w133=q_add(t_w133,dec($('#txtW133_'+j).val()));
 				t_w166=q_add(t_w166,dec($('#txtW166_'+j).val()));
+				t_w200=q_add(t_w200,dec($('#txtW200_'+j).val()));
 				t_hr_special=q_add(t_hr_special,dec($('#txtHr_special_'+j).val()));
             }  // j
             
             $('#txtW100').val(t_w100);
             $('#txtW133').val(t_w133);
             $('#txtW166').val(t_w166);
+            $('#txtW200').val(t_w200);
             $('#txtHr_special').val(t_hr_special);
             
             $('#txtMount').val(t_mount);
@@ -345,16 +351,23 @@
         	if(q_getPara('sys.project').toUpperCase()=='VU'){
         		$('.w133').show();
 	            $('.w166').hide();
+	            $('.w200').hide();
 				$('.w100').show();
 				$('.rein').show();
             }else{
             	if($('#chkHoliday').prop('checked')){
 	            	$('.w133').hide();
 	            	$('.w166').hide();
+	            	$('.w200').hide();
 				    $('.w100').show();
 	            }else{
 	            	$('.w133').show();
 	            	$('.w166').show();
+	            	if(q_getPara('sys.project').toUpperCase()=='RK'){
+	            		$('.w200').show();	
+	            	}else{
+	            		$('.w200').hide();
+	            	}
 				    $('.w100').hide();
 	            }
             }
@@ -582,12 +595,12 @@
             <td class='w100'><span> </span><a id="lblW100" class="lbl" > </a></td>
             <td class='w100'><input id="txtW100"  type="text" class="txt num c1"/></td>
         </tr>
-        <!--<tr class="tr4">
-            <td><span> </span><a id="lblW200" class="lbl" > </a></td>
-            <td><input id="txtW200"  type="text" class="txt num c1"/></td>
-            <td><span> </span><a id="lblW300" class="lbl" > </a></td>
-            <td><input id="txtW300"  type="text" class="txt num c1"/></td>
-        </tr>-->
+        <tr class="w200">
+            <td class='w200'><span> </span><a id="lblW200" class="lbl" > </a></td>
+            <td class='w200'><input id="txtW200"  type="text" class="txt num c1"/></td>
+            <!--<td><span> </span><a id="lblW300" class="lbl" > </a></td>
+            <td><input id="txtW300"  type="text" class="txt num c1"/></td>-->
+        </tr>
         <tr class="tr4">
             <td><span> </span><a id="lblHr_special" class="lbl" > </a></td>
             <td><input id="txtHr_special"  type="text" class="txt num c1"/></td>
@@ -609,8 +622,8 @@
                 <td align="center" class='w133'><a id='lblW133_s'> </a></td>
                 <td align="center" class='w166'><a id='lblW166_s'> </a></td>
                 <td align="center" class='w100'><a id='lblW100_s'> </a></td>
-                <!--<td align="center"><a id='lblW200_s'> </a></td>
-                <td align="center"><a id='lblW300_s'> </a></td>-->
+                <td align="center" class='w200' style="display: none;"><a id='lblW200_s'> </a></td>
+                <!--<td align="center"><a id='lblW300_s'> </a></td>-->
                 <td align="center"><a id='lblHr_special_s'> </a></td>
                 <td align="center"><a id='lblMemo_s'> </a></td>
                 <!--<td align="center"><a id='lblHour_s'> </a></td>
@@ -626,8 +639,8 @@
                 <td class='w133'><input class="txt num c1" id="txtW133.*"type="text" /></td>
                 <td class='w166'><input class="txt num c1" id="txtW166.*"type="text" /></td>
                 <td class='w100'><input class="txt num c1" id="txtW100.*"type="text" /></td>
-                <!--<td ><input class="txt num c1" id="txtW200.*"type="text" /></td>
-                <td ><input class="txt num c1" id="txtW300.*"type="text" /></td>-->
+                <td class='w200' style="display: none;"><input class="txt num c1" id="txtW200.*"type="text" /></td>
+                <!--<td ><input class="txt num c1" id="txtW300.*"type="text" /></td>-->
                 <td ><input class="txt num c1" id="txtHr_special.*"type="text" /></td>
                 <td ><input class="txt c1" id="txtMemo.*"type="text" /></td>
                 <!--<td ><input class="txt num c1" id="txtHour.*"type="text" /></td>
