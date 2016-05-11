@@ -23,7 +23,7 @@
 			var q_name = "orde";
 			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtSales', 'txtOrdbno', 'txtOrdcno','txtUmmno','txtCuft','txtCasemount','txtCuftnotv','txtAgent','txtGtime'];
 			var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtC1', 'txtNotv','txtPackwayno','txtPackway','txtSprice','txtBenifit','txtPayterms'];
-			var bbmNum = [['txtTotal', 10, 0, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1],['txtFloata', 10, 5, 1], ['txtTotalus', 15, 2, 1], ['txtDeposit', 15, 0, 1],['txtCuft', 15, 2, 1]];
+			var bbmNum = [['txtTotal', 10, 0, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1],['txtFloata', 10, 5, 1], ['txtTotalus', 15, 2, 1], ['txtDeposit', 15, 0, 1],['txtCuft', 15, 2, 1],['txtDate3', 2, 0, 1]];
 			var bbsNum = [['txtCuft', 15, 2, 1]];
 			var bbmMask = [];
 			var bbsMask = [];
@@ -116,7 +116,7 @@
 			var t_imgshow=false;
 			function mainPost() {
 				q_getFormat();
-				bbmMask = [['txtOdate', r_picd],['txtDate1', r_picd],['txtDate2', r_picd],['txtDate3', '99'],['txtDate4', r_picd]];
+				bbmMask = [['txtOdate', r_picd],['txtDate1', r_picd],['txtDate2', r_picd],['txtDate4', r_picd]];
 				q_mask(bbmMask);
 				bbsMask = [['txtDatea', r_picd]];
 				bbsNum = [['txtPrice', 12, q_getPara('vcc.pricePrecision'), 1], ['txtMount', 9, q_getPara('vcc.mountPrecision'), 1], ['txtTotal', 15, 0, 1]

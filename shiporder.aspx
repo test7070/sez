@@ -54,7 +54,7 @@
 	
 			function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea',r_picd]];
+                bbmMask = [['txtDatea',r_picd],['txtOnboarddate',r_picd],['txtShippingdate',r_picd],['txtSaildate',r_picd],['txtCldate',r_picd]];
                 q_mask(bbmMask);
                 
                 
@@ -454,6 +454,24 @@
             		<td class="td4"><input id="txtSize" type="text" class="txt c1" /></td>
             		<td class="td5"><span> </span><a id="lblCaseyard" class="lbl"> </a></td>
             		<td class="td6"><input id="txtCaseyard" type="text" class="txt c1" /></td>
+				</tr>
+				<tr class="tr3">
+					<td class="td1"><span> </span><a id="lblBdock" class="lbl"> </a></td>
+					<td class="td2"><input id="txtBdock" type="text" class="txt c1" /></td>
+            		<td class="td3"><span> </span><a id="lblEdock" class="lbl"> </a></td>
+            		<td class="td4"><input id="txtEdock" type="text" class="txt c1" /></td>
+				</tr>
+				<tr class="tr3">
+					<td class="td1"><span> </span><a id="lblOnboarddate" class="lbl"> </a></td>
+					<td class="td2"><input id="txtOnboarddate" type="text" class="txt c1" /></td>
+            		<td class="td3"><span> </span><a id="lblShippingdate" class="lbl"> </a></td>
+            		<td class="td4"><input id="txtShippingdate" type="text" class="txt c1" /></td>
+				</tr>
+				<tr class="tr3">
+					<td class="td1"><span> </span><a id="lblSaildate" class="lbl"> </a></td>
+					<td class="td2"><input id="txtSaildate" type="text" class="txt c1" /></td>
+            		<td class="td3"><span> </span><a id="lblCldate" class="lbl"> </a></td>
+            		<td class="td4"><input id="txtCldate" type="text" class="txt c1" /></td>
 				</tr>
 				<tr class="tr4">
 					<td class="td1"><span> </span><a id='lblCno' class="lbl btn"> </a></td>

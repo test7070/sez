@@ -300,6 +300,12 @@
 							$('#txtShip').val(as[0].ship);
 							$('#txtCasesize').val(as[0].size);
 							$('#txtCaseyard').val(as[0].caseyard);
+							$('#txtBdock').val(as[0].bdock);
+							$('#txtEdock').val(as[0].edock);
+							$('#txtOnboarddate').val(as[0].onboarddate);
+							$('#txtShippingdate').val(as[0].shippingdate);
+							$('#txtSaildate').val(as[0].saildate);
+							$('#txtCldate').val(as[0].cldate);
 						}	
 					}
 					break;
