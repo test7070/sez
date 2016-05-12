@@ -211,6 +211,10 @@
                 $('#chkXnocollection').css('width','300px');
                 $('#Xnocollection .label').css('width','0px');
                 $('#chkXnocollection input').prop('checked',true);
+                
+                if(q_getPara('sys.project').toUpperCase()=='VU'){       
+                	$('#Sort01 select').val('indate');
+                }
             }
 
             function q_boxClose(t_name) {
