@@ -37,7 +37,7 @@
 			aPop = new Array(
 				['txtProductno_', 'btnProduct_', 'ucx', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucx_b.aspx'],
 				['txtSalesno', 'lblSales_r', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
-				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
+				['txtCno', 'lblAcomp_r', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
 				['txtCustno', 'lblCust_r', 'cust', 'noa,nick,paytype,trantype,tel,fax,zip_comp,addr_fact', 'txtCustno,txtComp,txtPaytype,cmbTrantype,txtTel,txtFax,txtPost,txtAddr', 'cust_b.aspx'],
 				['ordb_txtTggno_', '', 'tgg', 'noa,comp', 'ordb_txtTggno_,ordb_txtTgg_', ''],
 				['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
@@ -2035,7 +2035,7 @@
 						<td colspan='2'><input id="txtUmmno" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblFactory_s' class="lbl btn">Factory</a></td>
+						<td><span> </span><a id='lblFactory_r' class="lbl btn">Factory</a></td>
 						<td><input id="txtGdate" type="text" class="txt c1" /></td>
 						<td><input id="txtGtime" type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblWorker_r' class="lbl">Operator</a></td>
