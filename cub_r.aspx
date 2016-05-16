@@ -331,7 +331,7 @@
 			}
 
 			function bbtSave(as) {
-				if (!as['spec'] && !as['scolor'] && !as['size'] && !as['ucolor'] && !as['place'] && !as['pcolor'] && !as['memo'] ) {
+				if (!as['spec'] && !as['scolor'] && !as['size'] && !as['ucolor'] && !as['place'] && !as['prt'] && !as['memo'] ) {
 					as[bbtKey[1]] = '';
 					return;
 				}
@@ -473,7 +473,7 @@
                         		$('#xdownload').attr('src','cub_r_download.aspx?FileName='+$('#txtSpec__'+txtOrgName[1]).val()+'&TempName='+$('#'+txtfiles).val());
                         	if(txtOrgName[0]=='txtUcolor')
                         		$('#xdownload').attr('src','cub_r_download.aspx?FileName='+$('#txtSize__'+txtOrgName[1]).val()+'&TempName='+$('#'+txtfiles).val());
-                        	if(txtOrgName[0]=='txtPcolor')
+                        	if(txtOrgName[0]=='txtPrt')
                         		$('#xdownload').attr('src','cub_r_download.aspx?FileName='+$('#txtPlace__'+txtOrgName[1]).val()+'&TempName='+$('#'+txtfiles).val());
                         }else
                         	alert('無資料...!!');
@@ -511,7 +511,7 @@
 							$('#txtSpec__'+txtOrgName[1]).val(file.name);
 						if(txtOrgName[0]=='txtUcolor')
 							$('#txtSize__'+txtOrgName[1]).val(file.name);
-						if(txtOrgName[0]=='txtPcolor')
+						if(txtOrgName[0]=='txtPrt')
 							$('#txtPlace__'+txtOrgName[1]).val(file.name);
 						$('#'+txtName).val(guid()+Date.now()+ext);
 						
@@ -1023,8 +1023,8 @@
 					<td>
 						<span style="float: left;"> </span>
 						<input type="file" id="btnPrt..*" class="btnFiles" value="選擇檔案"/>
-						<input id="txtPcolor..*"  type="hidden"/>
-						<a id="lblPcolor..*" class='lblDownload lbl btn'> </a>
+						<input id="txtPrt..*"  type="hidden"/>
+						<a id="lblPrt..*" class='lblDownload lbl btn'> </a>
 						<BR>
 						<input id="txtPlace..*" type="text" class="txt c1"/>
 					</td>
