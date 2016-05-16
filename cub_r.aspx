@@ -744,6 +744,16 @@
 						</td>
 					</tr>
 					<tr>
+						<td><span> </span><a id="lblMount_r" class="lbl" >訂單數量</a></td>
+						<td><input id="txtMount" type="text" class="txt num c1"/></td>
+						<td><span> </span><a id="lblPrice" class="lbl" > </a></td>
+						<td><input id="txtPrice" type="text" class="txt num c1"/></td>
+						<td><span> </span><a id="lblMoney_r" class="lbl" >訂單金額</a></td>
+						<td><input id="txtMo" type="text" class="txt num c1"/></td>
+						<td><span> </span><a id="lblOrdeno" class="lbl" >訂單號碼</a></td>
+						<td><input id="txtOrdeno" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblProduct" class="lbl" > </a></td>
 						<td><input id="txtProductno" type="text" class="txt c1"/></td>
 						<td colspan="2"><input id="txtProduct" type="text" class="txt c1"/></td>
@@ -781,16 +791,6 @@
 						<td colspan="3"><input id="txtM7" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblM8" class="lbl" >電鍍</a></td>
 						<td><input id="txtM8" type="text" class="txt c1"/></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblMount_r" class="lbl" >訂單數量</a></td>
-						<td><input id="txtMount" type="text" class="txt num c1"/></td>
-						<td><span> </span><a id="lblPrice" class="lbl" > </a></td>
-						<td><input id="txtPrice" type="text" class="txt num c1"/></td>
-						<td><span> </span><a id="lblMoney_r" class="lbl" >訂單金額</a></td>
-						<td><input id="txtMo" type="text" class="txt num c1"/></td>
-						<td><span> </span><a id="lblOrdeno" class="lbl" >訂單號碼</a></td>
-						<td><input id="txtOrdeno" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo2_pi" class="lbl" > </a></td>
@@ -837,7 +837,7 @@
 					<td style="width:140px;"><a id='lblTgg_r_s'>廠商名稱</a></td>
 					<td style="width:80px;"><a id='lblMount_r_s'>數量</a></td>
 					<td style="width:40px;"><a id='lblUnit_r_s'>單位</a></td>
-					<td style="width:70px;"><a id='lblPrice_r_s'>單價</a></td>
+					<td style="width:150px;"><a id='lblPrice_r_s'>單價</a></td>
 					<td style="width:100px;"><a id='lblMo_r_s'>金額</a></td>
 					<td style="width:40px;"><a id='lblSalev_s'>外加稅</a></td>
 					<td style="width:100px;"><a id='lblTxa_r_s'>稅金</a></td>
