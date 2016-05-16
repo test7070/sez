@@ -476,7 +476,7 @@
                         	if(txtOrgName[0]=='txtPrt')
                         		$('#xdownload').attr('src','cub_r_download.aspx?FileName='+$('#txtPlace__'+txtOrgName[1]).val()+'&TempName='+$('#'+txtfiles).val());
                         }else
-                        	alert('無資料...!!');
+                        	alert('無資料下載!!');
 					});
 				});
 			}
