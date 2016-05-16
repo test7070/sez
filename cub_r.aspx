@@ -485,6 +485,9 @@
 				for (var i = 0; i < q_bbtCount; i++) {
 					$('#lblNo__' + i).text(i + 1);
 					if (!$('#btnMinut__' + i).hasClass('isAssign')) {
+						$('#btnMinut__' + i).click(function() {
+							ShowDownlbl();
+						});
 					}
 				}
 				_bbtAssign();
