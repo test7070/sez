@@ -88,8 +88,12 @@
 					q_box("invo.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'invo', "95%", "95%", q_getMsg('btnInvo'));
 				});
 				
-				$('#lblInvo').change(function() {
-					ChangeCuft();
+				$('#lblCaseno2').click(function() {
+					var t_noa = $('#txtCaseno2').val();
+					var t_where = '';
+					if (t_noa.length > 0)
+						t_where = "noa='" + t_noa + "'";
+					q_box("vcc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vcc', "95%", "95%", '出貨單');
 				});
 
 				$('#btnPack').click(function() {
@@ -132,7 +136,68 @@
 						q_gt('custaddr', t_where, 0, 0, 0, "");
 					}
 				});
+				
+				$('#btnToinvo').click(function() {
+					//post.0
+					/*q_gt('invo', "where=^^vcceno='" + $('#txtNoa').val() + "' or noa='"+$('#txtInvo').val()+"' ^^", 0, 0, 0, "",r_accy,1);
+					var ass = _q_appendData("invo", "", true);
+					if (ass[0] != undefined) {
+						q_func('invo_post.post', r_accy + ',' + ass[0].noa + ',0');
+						sleep(100);
+					}*/
+					//qfunc
+					q_func('qtxt.query.toinvo', 'packing.txt,toinvo,' + encodeURI($('#txtNoa').val()) + ';'+encodeURI(q_date())+';' + encodeURI(r_userno)+';'+ encodeURI(r_name)+';'+ encodeURI(r_accy)+';'+ encodeURI(r_len));
+					
+				});
+				$('#btnTovcc').click(function() {
+					//post.0
+					q_gt('view_vcc', "where=^^zipcode='" + $('#txtNoa').val() + "' or noa='"+$('#txtCaseno2').val()+"' ^^", 0, 0, 0, "",r_accy,1);
+					var ass = _q_appendData("view_vcc", "", true);
+					if (ass[0] != undefined) {
+						q_func('vcc_post.post', ass[0].accy + ',' + ass[0].noa + ',0');
+						sleep(100);
+					}
+					//qfunc
+					q_func('qtxt.query.tovcc', 'packing.txt,tovcc,' + encodeURI($('#txtNoa').val()) + ';'+encodeURI(q_date())+';' + encodeURI(r_userno)+';'+ encodeURI(r_name)+';'+ encodeURI(r_accy)+';'+ encodeURI(r_len));
+				});
 			}
+			
+			function sleep(milliseconds) {
+                var start = new Date().getTime();
+                for (var i = 0; i < 1e7; i++) {
+                    if ((new Date().getTime() - start) > milliseconds) {
+                        break;
+                    }
+                }
+            }
+            
+            function q_funcPost(t_func, result) {
+                switch(t_func) {
+                	case 'qtxt.query.toinvo':
+                	 var as = _q_appendData("tmp0", "", true, true);
+                        if (as[0] != undefined) {
+                            abbm[q_recno]['invo'] = as[0].invo;
+                            $('#txtInvo').val(as[0].invo);
+							alert('Invoice產生完畢!!');
+                            /*if (as[0].invo.length > 0) {
+                                q_func('invo_post.post', r_accy + ',' + as[0].invo + ',1');
+                            }*/
+                        }
+                		break;
+                    case 'qtxt.query.tovcc':
+                        var as = _q_appendData("tmp0", "", true, true);
+                        if (as[0] != undefined) {
+                            abbm[q_recno]['caseno2'] = as[0].vccno;
+                            $('#txtCaseno2').val(as[0].vccno);
+							
+                            if (as[0].vccno.length > 0) {
+                                q_func('vcc_post.post', as[0].accy + ',' + as[0].vccno + ',1');
+                            }
+                            alert('出貨單產生完畢!!');
+                        }
+                        break;
+                }
+            }
 
 			function q_boxClose(s2) {
 				var ret;
@@ -399,8 +464,12 @@
 				}
 				if($('#cmbStype').val()=='3'){
 					$('.isexport').show();
+					if(q_getPara('sys.isport')=='1'){ //外銷
+						$('.isport').show();
+					}
 				}else{
 					$('.isexport').hide();
+					$('.isport').hide();
 				}
 			}
 
@@ -409,12 +478,14 @@
 				HiddenTreat();
 				if (t_para) {
 					$('#btnBoaj').removeAttr('disabled');
-					$('#btnInvo').removeAttr('disabled');
+					$('#btnToinvo').removeAttr('disabled');
+					$('#btnTovcc').removeAttr('disabled');
 					$('#btnPack').removeAttr('disabled');
 					$('#combAddr').attr('disabled', 'disabled');
 				} else {
 					$('#btnBoaj').attr('disabled', 'disabled');
-					$('#btnInvo').attr('disabled', 'disabled');
+					$('#btnToinvo').attr('disabled', 'disabled');
+					$('#btnTovcc').attr('disabled', 'disabled');
 					$('#btnPack').attr('disabled', 'disabled');
 					$('#combAddr').removeAttr('disabled');
 				}
@@ -733,15 +804,6 @@
 						<td class="td6"><span> </span><a id="lblCarno" class="lbl"> </a></td>
 						<td class="td7" colspan="2"><input id="txtCarno"  type="text" class="txt c1"/></td>
 					</tr>
-					<tr class="isexport">
-						<td class="td1"><span> </span><a id="lblInvo" class="lbl btn"> </a></td>
-						<td class="td2" colspan="2"><input id="txtInvo"  type="text" class="txt c1"/></td>
-						<!--<td class="td6"><input id="btnInvo" type="button"/></td>-->
-						<td class="td6"> </td>
-						<td class="td6"> </td>
-						<td class="td1"><span> </span><a id="lblLcno" class="lbl"> </a></td>
-						<td class="td2" colspan="2"><input id="txtLcno"  type="text" class="txt c1"/></td>
-					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblSales" class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtSalesno"  type="text" class="txt c1"/></td>
@@ -750,6 +812,19 @@
 						<td class="td2"><input id="txtWeight"  type="text" class="txt c1 num"/></td>
 						<td class="td8"><span> </span><a id="lblTotal" class="lbl"> </a></td>
 						<td class="td9" colspan="2"><input id="txtTotal"  type="text" class="txt c1 num"/></td>
+					</tr>
+					<tr class="isexport">
+						<td class="td1"><span> </span><a id="lblInvo" class="lbl btn"> </a></td>
+						<td class="td2" colspan="2"><input id="txtInvo"  type="text" class="txt c1"/></td>
+						<td class="td4 isport" style="display: none;"><input id="btnToinvo" type="button" value="轉Invoice" /></td>
+						<td class="td5 isport" style="display: none;"> </td>
+						<td class="td6"><span> </span><a id="lblLcno" class="lbl"> </a></td>
+						<td class="td7" colspan="2"><input id="txtLcno"  type="text" class="txt c1"/></td>
+					</tr>
+					<tr class="isexport isport" style="display: none;">
+						<td class="td1"><span> </span><a id="lblCaseno2" class="lbl btn">出貨單號</a></td>
+						<td class="td2" colspan="2"><input id="txtCaseno2"  type="text" class="txt c1"/></td>
+						<td class="td4"><input id="btnTovcc" type="button" value="轉出貨單" /></td>
 					</tr>
 					<tr class="isexport">
 						<td class="td1"><span> </span><a id="lblImemo" class="lbl"> </a></td>
