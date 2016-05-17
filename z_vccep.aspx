@@ -120,8 +120,29 @@
 	            t_day = t_day>9?t_day+'':'0'+t_day;
 	            $('#txtXdate2').val(t_year+'/'+t_month+'/'+t_day);*/
 	            
-	             if(q_getHref()[1]!=undefined)
+	             if(q_getHref()[1]!=undefined){
                 	$('#txtXnoa').val(q_getHref()[1]);
+                	$('.option input').not('#txtXnoa').val('');
+                }
+                
+                $('#txtXnoa').change(function() {
+                	if($(this).val().length>0){
+                		$('.option input').not('#txtXnoa').val('');
+                	}else{
+                		$('#txtXdate1').mask(r_picd);
+		                $('#txtXdate1').datepicker();
+		                $('#txtXdate1').val(q_cdn(q_date(),-7));
+		                $('#txtXdate2').mask(r_picd);
+		                $('#txtXdate2').datepicker();
+		                $('#txtXdate2').val(q_cdn(q_date(),+7));
+		                $('#txtCldate1').mask(r_picd);
+		                $('#txtCldate1').datepicker();
+		                $('#txtCldate1').val(q_date());
+		                $('#txtCldate2').mask(r_picd);
+		                $('#txtCldate2').datepicker();  
+		                $('#txtCldate2').val(q_cdn(q_date(),+14));
+                	}
+				});
             }
 
             function q_boxClose(s2) {
