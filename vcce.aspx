@@ -146,19 +146,22 @@
 						sleep(100);
 					}*/
 					//qfunc
-					q_func('qtxt.query.toinvo', 'packing.txt,toinvo,' + encodeURI($('#txtNoa').val()) + ';'+encodeURI(q_date())+';' + encodeURI(r_userno)+';'+ encodeURI(r_name)+';'+ encodeURI(r_accy)+';'+ encodeURI(r_len));
+					if(!emp($('#txtNoa').val()))
+						q_func('qtxt.query.toinvo', 'packing.txt,toinvo,' + encodeURI($('#txtNoa').val()) + ';'+encodeURI(q_date())+';' + encodeURI(r_userno)+';'+ encodeURI(r_name)+';'+ encodeURI(r_accy)+';'+ encodeURI(r_len));
 					
 				});
 				$('#btnTovcc').click(function() {
-					//post.0
-					q_gt('view_vcc', "where=^^zipcode='" + $('#txtNoa').val() + "' or noa='"+$('#txtCaseno2').val()+"' ^^", 0, 0, 0, "",r_accy,1);
-					var ass = _q_appendData("view_vcc", "", true);
-					if (ass[0] != undefined) {
-						q_func('vcc_post.post', ass[0].accy + ',' + ass[0].noa + ',0');
-						sleep(100);
+					if(!emp($('#txtNoa').val())){
+						//post.0
+						q_gt('view_vcc', "where=^^zipcode='" + $('#txtNoa').val() + "' or noa='"+$('#txtCaseno2').val()+"' ^^", 0, 0, 0, "",r_accy,1);
+						var ass = _q_appendData("view_vcc", "", true);
+						if (ass[0] != undefined) {
+							q_func('vcc_post.post', ass[0].accy + ',' + ass[0].noa + ',0');
+							sleep(100);
+						}
+						//qfunc
+						q_func('qtxt.query.tovcc', 'packing.txt,tovcc,' + encodeURI($('#txtNoa').val()) + ';'+encodeURI(q_date())+';' + encodeURI(r_userno)+';'+ encodeURI(r_name)+';'+ encodeURI(r_accy)+';'+ encodeURI(r_len));
 					}
-					//qfunc
-					q_func('qtxt.query.tovcc', 'packing.txt,tovcc,' + encodeURI($('#txtNoa').val()) + ';'+encodeURI(q_date())+';' + encodeURI(r_userno)+';'+ encodeURI(r_name)+';'+ encodeURI(r_accy)+';'+ encodeURI(r_len));
 				});
 			}
 			

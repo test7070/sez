@@ -32,7 +32,7 @@
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'odate';
-			brwCount2 = 15;
+			brwCount2 = 17;
 			
 			aPop = new Array(
 				['txtProductno_', 'btnProduct_', 'ucx', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucx_b.aspx'],
@@ -216,6 +216,12 @@
 						imgshowhide();
 						$('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-150)+"px");
 					}
+				});
+				
+				$('#btnOrdc').click(function() {
+					//產生採購單
+					if(!emp($('#txtNoa').val()))
+						q_func('qtxt.query.orde2ordc_r', 'orde.txt,orde2ordc_r,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val())+ ';' + encodeURI(q_date())+ ';' + encodeURI(r_name));
 				});
 				
 				$('#txtUmmno').bind('contextmenu',function(e) {
@@ -1388,6 +1394,14 @@
                     case 'qtxt.query.dele':
                         _btnOk($('#txtNoa').val(), bbmKey[0], ( bbsHtm ? bbsKey[1] : ''), '', 3);
                         break;
+                    case 'qtxt.query.orde2ordc_r':
+                    	var as = _q_appendData("tmp0", "", true, true);
+                        if (as[0] != undefined) {
+                        	abbm[q_recno]['ordcno'] = as[0].ordcno;
+                            $('#txtOrdcno').val(as[0].ordcno);
+							alert(as[0].err);
+                        }
+                    	break;	
                 }
             }
 
@@ -1445,6 +1459,7 @@
 					$('#txtDate2').datepicker( 'destroy' );
 					$('#txtDate4').datepicker( 'destroy' );
 					$('#btnOrdem').removeAttr('disabled');
+					$('#btnOrdc').removeAttr('disabled');
 				} else {
 					$('#btnOrdei').attr('disabled', 'disabled');
 					$('#combAddr').removeAttr('disabled');
@@ -1453,6 +1468,7 @@
 					$('#txtDate2').datepicker();
 					$('#txtDate4').datepicker();
 					$('#btnOrdem').attr('disabled', 'disabled');
+					$('#btnOrdc').attr('disabled', 'disabled');
 				}	
 				
 				$('#div_addr2').hide();
@@ -2038,10 +2054,16 @@
 						<td><span> </span><a id='lblFactory_r' class="lbl btn">Factory</a></td>
 						<td><input id="txtGdate" type="text" class="txt c1" /></td>
 						<td><input id="txtGtime" type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblOrdcno_r' class="lbl">採購單號</a></td>
+						<td  colspan="2"><input id="txtOrdcno" type="text" class="txt c1" /></td>
+						<td><input id="btnOrdc" type="button" value="轉採購單" /></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id='lblWorker_r' class="lbl">Operator</a></td>
 						<td><input id="txtWorker" type="text" class="txt c1" /></td>
 						<td><input id="txtWorker2" type="text" class="txt c1" /></td>
-						<td colspan="2">
+						<td> </td>
+						<td colspan="3">
 							<input id="chkIsproj" type="checkbox"/>
 							<span> </span><a id='lblIsproj_r'>Project</a>
 							<input id="chkEnda" type="checkbox"/>
