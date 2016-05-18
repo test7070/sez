@@ -18,9 +18,9 @@
             q_tables = 's';
             var q_name = "invo";
             var q_readonly = ['txtTotal', 'txtAmount'];
-            var q_readonlys = [];
+            var q_readonlys = ['txtCost','txtBenifit'];
             var bbmNum = [['txtTotal', 15, 3, 1], ['txtAmount', 15, 2, 1], ['txtFloata', 15, 4, 1]];
-            var bbsNum = [['txtQuantity', 15, 3, 1], ['txtPrice', 15, 2, 1], ['txtWeight', 15, 2, 1], ['txtAmount', 15, 2, 1]];
+            var bbsNum = [['txtQuantity', 15, 3, 1], ['txtPrice', 15, 2, 1], ['txtWeight', 15, 2, 1], ['txtAmount', 15, 2, 1], ['txtCost', 15, 2, 1], ['txtBenifit', 15, 2, 1]];
             var bbmMask = [];
             var bbsMask = [];
 
@@ -732,8 +732,8 @@
 					<td align="center" style="width:2%;"><a id='lblUnit_s'> </a></td>
 					<td align="center" style="width:5%;"><a id='lblQuantity_s'> </a></td>
 					<td align="center" style="width:5%;"><a id='lblWeight_s'> </a></td>
-					<td align="center" style="width:5%;"><a id='lblPrice_s'> </a></td>
-					<td align="center" style="width:5%;"><a id='lblAmount_s'> </a></td>
+					<td align="center" style="width:5%;"><a id='lblPrice_s'> </a><BR><a id='lblCost_s'> </a></td>
+					<td align="center" style="width:5%;"><a id='lblAmount_s'> </a><BR><a id='lblBenifit_s'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblMemo_s'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblUno_s'> </a></td>
 				</tr>
@@ -751,8 +751,14 @@
 					<td><input id="txtUnit.*"  type="text"  class="txt c1"/></td>
 					<td><input id="txtQuantity.*"  type="text"  class="txt c1 num"/></td>
 					<td><input id="txtWeight.*"  type="text"  class="txt c1 num"/></td>
-					<td><input id="txtPrice.*"  type="text"  class="txt c1 num"/></td>
-					<td><input id="txtAmount.*"  type="text"  class="txt c1 num"/></td>
+					<td>
+						<input id="txtPrice.*"  type="text"  class="txt c1 num"/>
+						<input id="txtCost.*"  type="text"  class="txt c1 num"/>
+					</td>
+					<td>
+						<input id="txtAmount.*"  type="text"  class="txt c1 num"/>
+						<input id="txtBenifit.*"  type="text"  class="txt c1 num"/>
+					</td>
 					<td><input id="txtMemo.*"  type="text"  class="txt c1"/></td>
 					<td><input id="txtUno.*"  type="text"  class="txt c1"/></td>
 				</tr>
