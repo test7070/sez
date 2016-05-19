@@ -1548,7 +1548,7 @@
 					<td align="center"><a class="lbl">Insurance</a></td>
 					<td align="center"><input id="textInsurance2" type="text" class="txt num c1" style="width: 70%"/>&nbsp; %</td>
 					<td align="center"><a class="lbl">Commission</a></td>
-					<td align="center"><input id="textCommission2" type="text" class="txt num c1" style="width: 70%"/>&nbsp; %</td>
+					<td align="center"><input id="textCommission2" type="text" class="txt num c1" style="width: 70%" disabled="disabled"/>&nbsp; %</td>
 				</tr>
 				<tr style="background-color: #52FDAC;display: none;">
 					<td align="right"><a class="lbl">$</a></td>
@@ -1739,7 +1739,7 @@
 						<td><input id="txtWorker" type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
 						<td><input id="txtWorker2" type="text" class="txt c1" /></td>
-						<td colspan="3">
+						<td colspan="4">
 							<input id="chkIsproj" type="checkbox"/>
 							<span> </span><a id='lblIsproj'> </a>
 							<input id="chkEnda" type="checkbox"/>

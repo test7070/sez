@@ -19,7 +19,7 @@
 			var q_name = "cub";
 			var q_readonly = ['txtNoa','txtComp','txtWorker','txtWorker2','txtMo','txtVcceno','txtCost'];
 			var q_readonlys = ['txtDate2', 'txtOrdeno', 'txtNo2','txtMo','txtW01'];
-			var q_readonlyt = [];
+			var q_readonlyt = ['txtSpec','txtSize','txtPlace'];
 			var bbmNum = [['txtMount',10,0,1],['txtCost',15,0,1]];
 			var bbsNum = [];
 			var bbtNum = [];
@@ -331,7 +331,7 @@
 			}
 
 			function bbtSave(as) {
-				if (!as['productno']) {
+				if (!as['spec'] && !as['scolor'] && !as['size'] && !as['ucolor'] && !as['place'] && !as['prt'] && !as['memo'] ) {
 					as[bbtKey[1]] = '';
 					return;
 				}
@@ -451,14 +451,113 @@
 				_bbsAssign();
 				bbsdisabled();
 			}
-
+			
+			var guid = (function() {
+				function s4() {return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);}
+				return function() {return s4() + s4() + s4() + s4();};
+			})();
+			
+			function ShowDownlbl() {				
+				$('.lblDownload').text('').hide();
+				$('.lblDownload').each(function(){
+					var txtfiles=replaceAll($(this).attr('id'),'lbl','txt');
+					var lblfiles=replaceAll($(this).attr('id'),'lbl','lbl');
+					var txtOrgName = replaceAll($(this).attr('id'),'lbl','txt').split('__');
+					
+					if(!emp($('#'+txtfiles).val()))
+						$(this).text('下載').show();
+											
+					$('#'+lblfiles).click(function(e) {
+                        if(txtfiles.length>0){
+                        	if(txtOrgName[0]=='txtScolor')
+                        		$('#xdownload').attr('src','cub_r_download.aspx?FileName='+$('#txtSpec__'+txtOrgName[1]).val()+'&TempName='+$('#'+txtfiles).val());
+                        	if(txtOrgName[0]=='txtUcolor')
+                        		$('#xdownload').attr('src','cub_r_download.aspx?FileName='+$('#txtSize__'+txtOrgName[1]).val()+'&TempName='+$('#'+txtfiles).val());
+                        	if(txtOrgName[0]=='txtPrt')
+                        		$('#xdownload').attr('src','cub_r_download.aspx?FileName='+$('#txtPlace__'+txtOrgName[1]).val()+'&TempName='+$('#'+txtfiles).val());
+                        }else
+                        	alert('無資料下載!!');
+					});
+				});
+			}
+			
 			function bbtAssign() {
 				for (var i = 0; i < q_bbtCount; i++) {
 					$('#lblNo__' + i).text(i + 1);
 					if (!$('#btnMinut__' + i).hasClass('isAssign')) {
+						$('#btnMinut__' + i).click(function() {
+							ShowDownlbl();
+						});
 					}
 				}
 				_bbtAssign();
+				 if(q_cur==1 || q_cur==2){
+					$('.btnFiles').removeAttr('disabled', 'disabled');
+				}else{
+					$('.btnFiles').attr('disabled', 'disabled');
+				}
+		        $('.btnFiles').change(function() {
+					event.stopPropagation(); 
+					event.preventDefault();
+					if(q_cur==1 || q_cur==2){}else{return;}
+					var txtOrgName = replaceAll($(this).attr('id'),'btn','txt').split('__');
+					var txtName = replaceAll($(this).attr('id'),'btn','txt');
+					file = $(this)[0].files[0];
+					if(file){
+						Lock(1);
+						var ext = '';
+						var extindex = file.name.lastIndexOf('.');
+						if(extindex>=0){
+							ext = file.name.substring(extindex,file.name.length);
+						}
+						if(txtOrgName[0]=='txtScolor')
+							$('#txtSpec__'+txtOrgName[1]).val(file.name);
+						if(txtOrgName[0]=='txtUcolor')
+							$('#txtSize__'+txtOrgName[1]).val(file.name);
+						if(txtOrgName[0]=='txtPrt')
+							$('#txtPlace__'+txtOrgName[1]).val(file.name);
+						$('#'+txtName).val(guid()+Date.now()+ext);
+						
+						fr = new FileReader();
+						fr.fileName = $('#'+txtName).val();
+					    fr.readAsDataURL(file);
+					    fr.onprogress = function(e){
+							if ( e.lengthComputable ) { 
+								var per = Math.round( (e.loaded * 100) / e.total) ; 
+								$('#FileList').children().last().find('progress').eq(0).attr('value',per);
+							}; 
+						}
+						fr.onloadstart = function(e){
+							$('#FileList').append('<div styly="width:100%;"><progress id="progress" max="100" value="0" ></progress><progress id="progress" max="100" value="0" ></progress><a>'+fr.fileName+'</a></div>');
+						}
+						fr.onloadend = function(e){
+							$('#FileList').children().last().find('progress').eq(0).attr('value',100);
+							console.log(fr.fileName+':'+fr.result.length);
+							var oReq = new XMLHttpRequest();
+							oReq.upload.addEventListener("progress",function(e) {
+								if (e.lengthComputable) {
+									percentComplete = Math.round((e.loaded / e.total) * 100,0);
+									$('#FileList').children().last().find('progress').eq(1).attr('value',percentComplete);
+								}
+							}, false);
+							oReq.upload.addEventListener("load",function(e) {
+								Unlock(1);
+							}, false);
+							oReq.upload.addEventListener("error",function(e) {
+								alert("資料上傳發生錯誤!");
+							}, false);
+								
+							oReq.timeout = 360000;
+							oReq.ontimeout = function () { alert("Timed out!!!"); }
+							oReq.open("POST", 'cub_r_upload.aspx', true);
+							oReq.setRequestHeader("Content-type", "text/plain");
+							oReq.setRequestHeader("FileName", escape(fr.fileName));
+							oReq.send(fr.result);
+						};
+					}
+					ShowDownlbl();
+				});
+				ShowDownlbl();
 			}
 
 			function q_appendData(t_Table) {
@@ -688,6 +787,12 @@
 				text-align: center;
 				border: 2px pink double;
 			}
+			
+			.dbbt tr td .lbl.btn {
+                color: #4297D7;
+                font-weight: bolder;
+                cursor: pointer;
+            }
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -744,6 +849,16 @@
 						</td>
 					</tr>
 					<tr>
+						<td><span> </span><a id="lblMount_r" class="lbl" >訂單數量</a></td>
+						<td><input id="txtMount" type="text" class="txt num c1"/></td>
+						<td><span> </span><a id="lblPrice" class="lbl" > </a></td>
+						<td><input id="txtPrice" type="text" class="txt num c1"/></td>
+						<td><span> </span><a id="lblMoney_r" class="lbl" >訂單金額</a></td>
+						<td><input id="txtMo" type="text" class="txt num c1"/></td>
+						<td><span> </span><a id="lblOrdeno" class="lbl" >訂單號碼</a></td>
+						<td><input id="txtOrdeno" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblProduct" class="lbl" > </a></td>
 						<td><input id="txtProductno" type="text" class="txt c1"/></td>
 						<td colspan="2"><input id="txtProduct" type="text" class="txt c1"/></td>
@@ -783,16 +898,6 @@
 						<td><input id="txtM8" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblMount_r" class="lbl" >訂單數量</a></td>
-						<td><input id="txtMount" type="text" class="txt num c1"/></td>
-						<td><span> </span><a id="lblPrice" class="lbl" > </a></td>
-						<td><input id="txtPrice" type="text" class="txt num c1"/></td>
-						<td><span> </span><a id="lblMoney_r" class="lbl" >訂單金額</a></td>
-						<td><input id="txtMo" type="text" class="txt num c1"/></td>
-						<td><span> </span><a id="lblOrdeno" class="lbl" >訂單號碼</a></td>
-						<td><input id="txtOrdeno" type="text" class="txt c1"/></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id="lblMemo2_pi" class="lbl" > </a></td>
 						<td colspan="5"><input id="txtMemo2" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblNo2" class="lbl" >訂序</a></td>
@@ -825,6 +930,9 @@
 						<td><span> </span><a id="lblWorker2" class="lbl" > </a></td>
 						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
 					</tr>
+					<tr style="display: none;">
+						<td colspan="3"><div style="width:100%;" id="FileList"> </div></td>
+					</tr>
 				</table>
 			</div>
 		</div>
@@ -837,7 +945,7 @@
 					<td style="width:140px;"><a id='lblTgg_r_s'>廠商名稱</a></td>
 					<td style="width:80px;"><a id='lblMount_r_s'>數量</a></td>
 					<td style="width:40px;"><a id='lblUnit_r_s'>單位</a></td>
-					<td style="width:70px;"><a id='lblPrice_r_s'>單價</a></td>
+					<td style="width:150px;"><a id='lblPrice_r_s'>單價</a></td>
 					<td style="width:100px;"><a id='lblMo_r_s'>金額</a></td>
 					<td style="width:40px;"><a id='lblSalev_s'>外加稅</a></td>
 					<td style="width:100px;"><a id='lblTxa_r_s'>稅金</a></td>
@@ -883,18 +991,15 @@
 			</table>
 		</div>
 		<input id="q_sys" type="hidden" />
-		<div id="dbbt" class='dbbt' style="display: none;">
+		<div id="dbbt" class='dbbt'>
 			<table id="tbbt" class="tbbt">
 				<tr class="head" style="color:white; background:#003366;">
 					<td style="width:20px;"><input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/></td>
 					<td style="width:20px;"> </td>
-					<td style="width:150px; text-align: center;">領料編號</td>
-					<td style="width:200px; text-align: center;">領料名稱</td>
-					<td style="width:200px; text-align: center;">規格</td>
-					<td style="width:40px; text-align: center;">單位</td>
-					<td style="width:100px; text-align: center;">領料數量</td>
-					<td style="width:120px; text-align: center;">領料倉</td>
-					<td style="width:200px; text-align: center;">備註</td>
+					<td style="width:300px; text-align: center;">雷雕圖</td>
+					<td style="width:300px; text-align: center;">ai格式</td>
+					<td style="width:300px; text-align: center;">完成品pdf</td>
+					<td style="width:300px; text-align: center;">備註</td>
 				</tr>
 				<tr>
 					<td>
@@ -903,21 +1008,33 @@
 					</td>
 					<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
-						<input id="txtProductno..*" type="text" class="txt c1" style="width: 85%;"/>
-						<input class="btn"  id="btnProductno..*" type="button" value='.' style=" font-weight: bold;" />
+						<span style="float: left;"> </span>
+						<input type="file" id="btnScolor..*" class="btnFiles" value="選擇檔案"/>
+						<input id="txtScolor..*"  type="hidden"/>
+						<a id="lblScolor..*" class='lblDownload lbl btn'> </a>
+						<BR>
+						<input id="txtSpec..*" type="text" class="txt c1"/>
 					</td>
-					<td><input id="txtProduct..*" type="text" class="txt c1"/></td>
-					<td><input id="txtSpec..*" type="text" class="txt c1"/></td>
-					<td><input id="txtUnit..*" type="text" class="txt c1"/></td>
-					<td><input id="txtMount..*" type="text" class="txt c1 num"/></td>
 					<td>
-						<input id="txtStoreno..*" type="text" class="txt c1" style="width: 30%"/>
-						<input class="btn"  id="btnStoreno..*" type="button" value='.' style=" font-weight: bold;" />
-						<input id="txtStore..*" type="text" class="txt c1" style="width: 50%"/>
+						<span style="float: left;"> </span>
+						<input type="file" id="btnUcolor..*" class="btnFiles" value="選擇檔案"/>
+						<input id="txtUcolor..*"  type="hidden"/>
+						<a id="lblUcolor..*" class='lblDownload lbl btn'> </a>
+						<BR>
+						<input id="txtSize..*" type="text" class="txt c1"/>
+					</td>
+					<td>
+						<span style="float: left;"> </span>
+						<input type="file" id="btnPrt..*" class="btnFiles" value="選擇檔案"/>
+						<input id="txtPrt..*"  type="hidden"/>
+						<a id="lblPrt..*" class='lblDownload lbl btn'> </a>
+						<BR>
+						<input id="txtPlace..*" type="text" class="txt c1"/>
 					</td>
 					<td><input id="txtMemo..*" type="text" class="txt c1"/></td>
 				</tr>
 			</table>
 		</div>
+		<iframe id="xdownload" style="display:none;"> </iframe>
 	</body>
 </html>

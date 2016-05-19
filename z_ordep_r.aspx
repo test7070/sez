@@ -49,6 +49,9 @@
                 var t_key = q_getHref();
                 if(t_key[1] != undefined)
                 	$('#txtXnoa').val(t_key[1]);
+                	
+                $('.q_report .report').css('width','500px');
+                $('.q_report .report div').css('width','250px');
             }
 
             function q_boxClose(s2) {
