@@ -130,6 +130,7 @@
 						///   q_boxClose 3/4
 						break;
 				}   /// end Switch
+				b_pop='';
 			}
 
 			function q_gtPost(t_name) {
