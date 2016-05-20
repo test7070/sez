@@ -1512,7 +1512,7 @@
 					<td style="width:120px;" align="center" class="pe_hide"><a id='lblOrdenos'> </a></td>
 					<td style="width:30px;" align="center" class="pe_hide"><a id='lblNo2'> </a></td>
 					<td style="width:50px;" align="center" class="pe_hide pk_hide"><a id='lblSpecial'> </a></td>
-					<td style="width:50px;" align="center"><a id='lblCname'> </a></td>
+					<td style="width:50px;" align="center"><a>儲位</a></td>
 					<td style="width:60px;" align="center" class="pe_hide"><a id='lblSources'>鋼廠 </a></td>
 					<td style="width:150px;" align="center"><a id='lblUno2s'>原批號</a></td>
 				</tr>
@@ -1573,7 +1573,7 @@
 					<td  class="pe_hide"><input id="txtOrdeno.*" type="text" class="txt c2"/></td>
 					<td  class="pe_hide"><input id="txtNo2.*" type="text" class="txt c2"/></td>
 					<td  class="pe_hide pk_hide"><input id="txtSpecial.*" type="text" class="txt c2"/></td>
-					<td><input id="txtCname.*" type="text" class="txt c2"/></td>
+					<td><input id="txtPlace.*" type="text" class="txt c2"/></td>
 					<td class="pe_hide"><input id="txtSource.*" type="text" class="txt c2"/></td>
 					<td><input id="txtUno2.*" type="text" class="txt c2"/></td>
 				</tr>
