@@ -479,8 +479,8 @@
 				<td class="td6"><input id="txtNotify" type="text" class="txt c1"/></td> 
 				<td class="td1"><span> </span><a id="lblEntryno" class="lbl"> </a></td>
 				<td class="td2"><input id="txtEntryno" type="text" class="txt c1"/></td>
-				<td class="td3"><span> </span><a id="lblInvoiceno" class="lbl"> </a></td>
-				<td class="td4"><input id="txtInvoiceno" type="text" class="txt c1"/></td>               
+				<!--<td class="td3"><span> </span><a id="lblInvoiceno" class="lbl"> </a></td>
+				<td class="td4"><input id="txtInvoiceno" type="text" class="txt c1"/></td>-->               
             </tr>
             <tr class="tr4">
 				<td class="td1"><span> </span><a id="lblInspection_comp" class="lbl btn"> </a></td>

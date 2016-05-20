@@ -22,7 +22,8 @@
 			q_tables = 's';
 			var q_name = "orde";
 			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtSales', 'txtOrdbno', 'txtOrdcno','txtUmmno','txtCuft','txtCasemount','txtCuftnotv','txtAgent','txtGtime'];
-			var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtC1', 'txtNotv','txtPackwayno','txtPackway','txtSprice','txtBenifit','txtPayterms'];
+			var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtC1', 'txtNotv','txtPackwayno','txtPackway','txtSprice','txtBenifit','txtPayterms'
+										,'txtSize','txtProfit','txtDime'];
 			var bbmNum = [['txtTotal', 10, 0, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1],['txtFloata', 10, 5, 1], ['txtTotalus', 15, 2, 1], ['txtDeposit', 15, 0, 1],['txtCuft', 15, 2, 1],['txtDate3', 2, 0, 1]];
 			var bbsNum = [['txtCuft', 15, 2, 1]];
 			var bbmMask = [];
@@ -32,7 +33,7 @@
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'odate';
-			brwCount2 = 15;
+			brwCount2 = 17;
 			
 			aPop = new Array(
 				['txtProductno_', 'btnProduct_', 'ucx', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucx_b.aspx'],
@@ -121,7 +122,7 @@
 				bbsMask = [['txtDatea', r_picd]];
 				bbsNum = [['txtPrice', 12, q_getPara('vcc.pricePrecision'), 1], ['txtMount', 9, q_getPara('vcc.mountPrecision'), 1], ['txtTotal', 15, 0, 1]
 				, ['txtBenifit', 15, 0, 1],['txtC1', 10, q_getPara('vcc.mountPrecision'), 1], ['txtNotv', 10, q_getPara('vcc.mountPrecision'), 1], ['txtSprice', 10, q_getPara('vcc.pricePrecision'), 1]
-				,['txtCuft', 10, q_getPara('vcc.weightPrecision'), 1]];
+				,['txtCuft', 10, q_getPara('vcc.weightPrecision'), 1],['txtRadius', 12, q_getPara('vcc.pricePrecision'), 1]];
 				//q_cmbParse("cmbStype", q_getPara('orde.stype'));
 				q_cmbParse("cmbStype", '3@外銷,4@樣品');
 				//q_cmbParse("cmbCoin", q_getPara('sys.coin'));
@@ -216,6 +217,12 @@
 						imgshowhide();
 						$('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-150)+"px");
 					}
+				});
+				
+				$('#btnOrdc').click(function() {
+					//產生採購單
+					if(!emp($('#txtNoa').val()))
+						q_func('qtxt.query.orde2ordc_r', 'orde.txt,orde2ordc_r,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val())+ ';' + encodeURI(q_date())+ ';' + encodeURI(r_name));
 				});
 				
 				$('#txtUmmno').bind('contextmenu',function(e) {
@@ -647,8 +654,8 @@
 									b_ret[i].profit=b_ret[i].profit2;
 								}
 							}*/
-							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtUnit,txtPrice,txtMount,txtQuatno,txtNo3,txtPackwayno,txtPackway,txtSprice,txtProfit,txtCommission,txtInsurance,txtPayterms,txtBenifit'
-							, b_ret.length, b_ret, 'productno,product,spec,unit,price,mount,noa,no3,packwayno,packway,cost,profit,commission,insurance,payterms,benifit', 'txtProductno,txtProduct,txtSpec');
+							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtUnit,txtPrice,txtMount,txtQuatno,txtNo3,txtPackwayno,txtPackway,txtSprice,txtProfit,txtCommission,txtInsurance,txtPayterms,txtBenifit,txtSize,txtRadius,txtDime,txtWidth,txtLengthb'
+							, b_ret.length, b_ret, 'productno,product,spec,unit,price,mount,noa,no3,packwayno,packway,cost,profit,commission,insurance,payterms,benifit,payterms2,price2,profit2,commission2,insurance2', 'txtProductno,txtProduct,txtSpec');
 							/// 最後 aEmpField 不可以有【數字欄位】
 							
 							//處理cuft
@@ -1388,6 +1395,15 @@
                     case 'qtxt.query.dele':
                         _btnOk($('#txtNoa').val(), bbmKey[0], ( bbsHtm ? bbsKey[1] : ''), '', 3);
                         break;
+                    case 'qtxt.query.orde2ordc_r':
+                    	var as = _q_appendData("tmp0", "", true, true);
+                        if (as[0] != undefined) {
+                        	abbm[q_recno]['ordcno'] = as[0].ordcno;
+                            $('#txtOrdcno').val(as[0].ordcno);
+                            if(as[0].err.length>0)
+								alert(as[0].err);
+                        }
+                    	break;	
                 }
             }
 
@@ -1445,6 +1461,7 @@
 					$('#txtDate2').datepicker( 'destroy' );
 					$('#txtDate4').datepicker( 'destroy' );
 					$('#btnOrdem').removeAttr('disabled');
+					$('#btnOrdc').removeAttr('disabled');
 				} else {
 					$('#btnOrdei').attr('disabled', 'disabled');
 					$('#combAddr').removeAttr('disabled');
@@ -1453,6 +1470,7 @@
 					$('#txtDate2').datepicker();
 					$('#txtDate4').datepicker();
 					$('#btnOrdem').attr('disabled', 'disabled');
+					$('#btnOrdc').attr('disabled', 'disabled');
 				}	
 				
 				$('#div_addr2').hide();
@@ -2038,10 +2056,16 @@
 						<td><span> </span><a id='lblFactory_r' class="lbl btn">Factory</a></td>
 						<td><input id="txtGdate" type="text" class="txt c1" /></td>
 						<td><input id="txtGtime" type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblOrdcno_r' class="lbl">採購單號</a></td>
+						<td  colspan="2"><input id="txtOrdcno" type="text" class="txt c1" /></td>
+						<td><input id="btnOrdc" type="button" value="轉採購單" /></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id='lblWorker_r' class="lbl">Operator</a></td>
 						<td><input id="txtWorker" type="text" class="txt c1" /></td>
 						<td><input id="txtWorker2" type="text" class="txt c1" /></td>
-						<td colspan="2">
+						<td> </td>
+						<td colspan="3">
 							<input id="chkIsproj" type="checkbox"/>
 							<span> </span><a id='lblIsproj_r'>Project</a>
 							<input id="chkEnda" type="checkbox"/>
@@ -2079,11 +2103,13 @@
 					<td align="center" style="width:200px;"><a id='lblProduct_s_r'>Description</a></td>
 					<td align="center" style="width:55px;"><a id='lblUnit_r'>Unit</a></td>
 					<td align="center" style="width:85px;"><a id='lblMount_r'>Quantity</a></td>
-					<td align="center" style="width:85px;"><a id='lblPrices_r'>Unit Price</a><BR><a id='lblCost_s_r'>Cost</a></td>
+					<td align="center" style="width:85px;"><a id='lblCost_s_r'>Cost</a></td>
 					<td align="center" style="width:40px;"><a id='lblGetprice_s'> </a></td>
-					<td align="center" style="width:100px;display: none;"><a id='lblPayterms_s'>Price Term</a></td>
+					<td align="center" style="width:100px;"><a id='lblPayterms_s'>Price Term</a></td>
+					<td align="center" style="width:85px;"><a id='lblPrices_r'>Unit Price</a></td>
+					<td align="center" style="width:85px;"><a id='lblBenifit_s'> </a> %</td>
 					<td align="center" style="width:100px;"><a id='lblPackway_s'> </a></td>
-					<td align="center" style="width:115px;"><a id='lblTotal_s_r'>Amount</a><BR><a id='lblBenifit_s'> </a></td>
+					<td align="center" style="width:115px;"><a id='lblTotal_s_r'>Amount</a></td>
 					<td align="center" style="width:85px;"><a id='lblCuft_s'> </a></td>
 					<td align="center" style="width:150px;display: none;" class="isimg"><a id='lblImg_s'> </a></td>
 					<td align="center" style="width:85px;"><a id='lblGemounts'> </a></td>
@@ -2110,16 +2136,26 @@
 					</td>
 					<td align="center"><input class="txt c7" id="txtUnit.*" type="text"/></td>
 					<td><input class="txt num c7" id="txtMount.*" type="text" /></td>
+					<td><input class="txt num c7" id="txtSprice.*" type="text" /></td>
+					<td align="center"><input class="btn" id="btnGetprice.*" type="button" value='.' style=" font-weight: bold;"/></td>
 					<td>
-						<input class="txt num c7" id="txtPrice.*" type="text" />
-						<input class="txt num c7" id="txtSprice.*" type="text" />
-						
-						<input id="txtProfit.*" type="hidden" class="txt c1 num"/>
+						<input id="txtPayterms.*" type="text" class="txt c1"/>
+						<input id="txtSize.*" type="text" class="txt c1"/>
+					</td>
+					<td><input id="txtPrice.*" type="text" class="txt num c1"/>
+						<!--<input id="txtProfit.*" type="hidden" class="txt c1 num"/>-->
 						<input id="txtCommission.*" type="hidden" class="txt c1 num"/>
 						<input id="txtInsurance.*" type="hidden" class="txt c1 num"/>
+						
+						<input id="txtRadius.*" type="text" class="txt num c1"/>
+						<!--<input id="txtDime.*" type="hidden" class="txt c1 num"/>-->
+						<input id="txtWidth.*" type="hidden" class="txt c1 num"/>
+						<input id="txtLengthb.*" type="hidden" class="txt c1 num"/>
 					</td>
-					<td align="center"><input class="btn" id="btnGetprice.*" type="button" value='.' style=" font-weight: bold;"/></td>
-					<td style="display: none;"><input id="txtPayterms.*" type="text" class="txt c1"/></td>
+					<td>
+						<input id="txtProfit.*" type="text" class="txt c1 num"/>
+						<input id="txtDime.*" type="text" class="txt c1 num"/>
+					</td>
 					<td>
 						<input id="txtPackwayno.*" type="text" class="txt c1" style="width: 60%;"/>
 						<input class="btn" id="btnPackway.*" type="button" value='.' style=" font-weight: bold;"/>
@@ -2127,7 +2163,7 @@
 					</td>
 					<td>
 						<input class="txt num c7" id="txtTotal.*" type="text" />
-						<input class="txt num c7" id="txtBenifit.*" type="text" />
+						<input class="txt num c7" id="txtBenifit.*" type="text" style="display: none;" />
 					</td>
 					<td><input class="txt num c7" id="txtCuft.*" type="text" /></td>
 					<td class="isimg" style="display: none;"><img id="images.*" style="width: 150px;"></td>
