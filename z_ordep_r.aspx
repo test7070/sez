@@ -37,6 +37,10 @@
                     },{
                         type : '6',//[5]
                         name : 'xnoa'
+                    },{
+                        type : '8',//[6]
+                        name : 'showcomm',
+                        value : '1@含佣金&c'.split(',')
                     }]
                 });
                 q_popAssign();
