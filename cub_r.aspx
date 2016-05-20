@@ -263,7 +263,7 @@
 					as.push({process:'通知建製程'});
 					as.push({process:'會計詢價'});
 					as.push({process:'成本計算'});
-					as.push({process:'于經理回覆'});
+					as.push({process:'回覆'});
 					as.push({process:'報價'});
 					as.push({process:'客戶銷售採購價格表'});
 					as.push({process:'DDK-ACTIVE 價格表'});
@@ -996,9 +996,9 @@
 				<tr class="head" style="color:white; background:#003366;">
 					<td style="width:20px;"><input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/></td>
 					<td style="width:20px;"> </td>
-					<td style="width:300px; text-align: center;">雷雕圖</td>
 					<td style="width:300px; text-align: center;">ai格式</td>
-					<td style="width:300px; text-align: center;">完成品pdf</td>
+					<td style="width:300px; text-align: center;">雷雕圖</td>
+					<td style="width:300px; text-align: center;">完成品jpg</td>
 					<td style="width:300px; text-align: center;">備註</td>
 				</tr>
 				<tr>
@@ -1009,19 +1009,19 @@
 					<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
 						<span style="float: left;"> </span>
-						<input type="file" id="btnScolor..*" class="btnFiles" value="選擇檔案"/>
-						<input id="txtScolor..*"  type="hidden"/>
-						<a id="lblScolor..*" class='lblDownload lbl btn'> </a>
-						<BR>
-						<input id="txtSpec..*" type="text" class="txt c1"/>
-					</td>
-					<td>
-						<span style="float: left;"> </span>
 						<input type="file" id="btnUcolor..*" class="btnFiles" value="選擇檔案"/>
 						<input id="txtUcolor..*"  type="hidden"/>
 						<a id="lblUcolor..*" class='lblDownload lbl btn'> </a>
 						<BR>
 						<input id="txtSize..*" type="text" class="txt c1"/>
+					</td>
+					<td>
+						<span style="float: left;"> </span>
+						<input type="file" id="btnScolor..*" class="btnFiles" value="選擇檔案"/>
+						<input id="txtScolor..*"  type="hidden"/>
+						<a id="lblScolor..*" class='lblDownload lbl btn'> </a>
+						<BR>
+						<input id="txtSpec..*" type="text" class="txt c1"/>
 					</td>
 					<td>
 						<span style="float: left;"> </span>
