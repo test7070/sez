@@ -659,6 +659,17 @@
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 				_btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
 			}
+			
+			function q_stPost() {
+				if (!(q_cur == 1 || q_cur == 2))
+					return false;
+				if(!emp($('#txtNoa').val())){
+					//變動ucctgg
+					q_func('qtxt.query.updateucctgg', 'ucx.txt,updateucctgg,'+encodeURI($('#txtNoa').val()) +  ';' + encodeURI(q_date()) + ';' + encodeURI(r_name));
+					//變動uca
+					q_func('qtxt.query.insuca', 'ucx.txt,insuca,'+encodeURI($('#txtNoa').val()) +  ';' + encodeURI(q_date()) + ';' + encodeURI(r_name));
+				}
+			}
 
 			function bbsSave(as) {
 				t_err = '';
