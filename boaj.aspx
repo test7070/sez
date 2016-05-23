@@ -507,8 +507,8 @@
             <tr class="tr6">
 				<td class="td1"><span> </span><a id="lblEta" class="lbl"> </a></td>
 				<td class="td2"><input id="txtEta" type="text" class="txt c1"/></td>
-				<td class="td4"><span> </span><a id="lblEtd" class="lbl"> </a></td>
-				<td class="td5"><input id="txtEtd" type="text" class="txt c1"/></td>
+				<td class="td3"><span> </span><a id="lblEtd" class="lbl"> </a></td>
+				<td class="td4"><input id="txtEtd" type="text" class="txt c1"/></td>
             </tr>
             <tr class="tr7">
 				<td class="td1"><span> </span><a id="lblSono" class="lbl"> </a></td>
@@ -543,6 +543,8 @@
 				<td class="td2"><input id="txtOnboarddate" type="text" class="txt c1"/></td>
 				<td class="td3"><span> </span><a id="lblShippingdate" class="lbl"> </a></td>
 				<td class="td4"><input id="txtShippingdate" type="text" class="txt c1"/></td>
+				<td class="td5"><span> </span><a id="lblCutoff" class="lbl"> </a></td>
+				<td class="td6"><input id="txtCutoff" type="text" class="txt c1"/></td>
             </tr>
             <tr class="tr12">
 				<td class="td1"><span> </span><a id="lblSaildate" class="lbl"> </a></td>

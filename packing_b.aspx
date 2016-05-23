@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title> </title>
@@ -334,8 +334,7 @@
 					$('#txtGweight_'+noq).val(t_gweight);
 					$('#txtCuft_'+noq).val(q_mul(t_cuft,t_pcmount));
 				}
-		    }
-		    
+		    }			
 		    function q_boxClose(s2) { ///   q_boxClose 2/4 
 				var ret;
 				switch (b_pop) { 
@@ -356,6 +355,11 @@
 					break;  
 				}   /// end Switch
 				b_pop = '';
+			}
+			
+			function btnPrint() {
+				t_where = "report='" + $('#report').val(4) + "'";
+				q_box("z_vccep.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, '', "95%", "95%", q_getMsg('popPrint'));
 			}
 		
 		    function btnOk() {
@@ -443,6 +447,7 @@
 			<input id="btnSort1" type="button" value="箱號重排">
 			<input id="btnSort2" type="button" value="混箱箱號重排">
 			<input id="btnSplit" type="button" value="分裝尾箱">
+			<input id="btnPrint" type="button" value="列印">
 			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:1800px;'  >
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:32px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
