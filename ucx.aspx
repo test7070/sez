@@ -143,8 +143,12 @@
 				});
 
 				$('#btnModel').click(function(){
-					var t_where = "noa='" + $.trim($('#txtNoa').val()) + "'";
-					q_box("ucab.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucab', "95%", "95%", $('#btnModel').val());
+					//var t_where = "noa='" + $.trim($('#txtNoa').val()) + "'";
+					//q_box("ucab.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucab', "95%", "95%", $('#btnModel').val());
+					
+					var t_where = "mouldno='" + $.trim($('#cmbGroupano').val()) + "'";
+					q_box("modfixcs.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'modfixcs', "95%", "95%", $('#btnModel').val());
+					
 				});
 				$('#txtNoa').change(function(){
 					var thisVal = $.trim($(this).val());
