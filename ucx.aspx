@@ -27,7 +27,7 @@
 			var q_readonlys = [];
 			var q_readonlyt = ['txtAssm'];
 			var bbmNum = [['txtPrice', 12, 3, 1],['txtPreday', 12, 0, 1],['txtHours', 10, 3, 1],['txtMinutes', 10, 3, 1],['txtPretime', 12, 2, 1],['txtBadperc', 12, 2, 1],['txtUweight', 12, 2, 1],['txtMakes', 15, 3, 1]
-			,['txtPacks', 15, 3, 1],['txtWages', 15, 3, 1],['txtCost', 15, 3, 1]/*,['txtMechs', 15, 2, 1],['txtTrans', 15, 2, 1]*/,['txtSafemount', 15, 2, 1],['txtStdmount', 15, 2, 1] ];
+			,['txtPacks', 15, 3, 1],['txtWages', 15, 3, 1],['txtCost', 15, 3, 1]/*,['txtMechs', 15, 2, 1],['txtTrans', 15, 2, 1]*/,['txtSafemount', 15, 2, 1],['txtStdmount', 15, 2, 1],['txtMoq', 15, 2, 1]];
 			var bbsNum = [['txtMount', 12, 2,1]/*, ['txtWeight', 11, 2]*/, ['txtCost', 11, 3 ,1], ['txtHours', 9, 2,1],['txtLoss', 10, 2,1],['txtDividea', 10, 0,1],['txtMul', 10, 2,1]];
 			var bbtNum = [['txtMount_', 12, 2, 1]/*, ['txtWeight_', 12, 2 ,1]*/,['txtPrice_', 12, 3, 1], ['txtEndmount_', 12, 0, 1], ['txtEndweight_', 12, 2, 1]];
 			var bbmMask = [];
@@ -1162,7 +1162,13 @@
 							<span style="float:left;width:15%;padding-left:3px;">Hr.</span>
 						</td>
 						<td><span> </span><a id="lblBadperc" class="lbl"> </a></td>
-						<td><input id="txtBadperc" type="text" class="txt c1 num"/></td>
+						<td>
+							<input id="txtBadperc" type="text" class="txt c1 num" style="width:35%;"/>
+							<span style="float: left;width: 10px;"> </span>
+							<a id="lblMoq" class="lbl" style="float: left;"> </a><!--最低採購量-->
+							<span style="float: left;"> </span>
+							<input id="txtMoq" type="text" class="txt c1 num" style="width:35%;"/>
+						</td>
 					</tr>
 					<tr>
 						<!--

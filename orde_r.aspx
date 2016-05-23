@@ -2007,7 +2007,7 @@
 						<td><select id="cmbCasetype" class="txt c1"> </select></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblCustorde_' class="lbl">Cust Order</a></td>
+						<td><span> </span><a id='lblCustorde_r' class="lbl">Cust Order#</a></td>
 						<td colspan="2"><input id="txtCustorde" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblSales_s" class="lbl btn">Sales</a></td>
 						<td colspan="2">
