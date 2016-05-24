@@ -104,6 +104,9 @@
 				q_mask(bbmMask);
 				bbmNum = [['txtMoney', 15, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 15, 0, 1],['txtPrice', 10, q_getPara('rc2.pricePrecision'), 1], ['txtTotalus', 15, 0, 1], ['txtFloata', 10, 2, 1],['txtTranmoney',15,0,1],['txtTranadd',15,q_getPara('rc2.pricePrecision'),1]];
 				bbsNum = [['txtMount', 15, q_getPara('rc2.mountPrecision'), 1], ['txtPrice', 15, q_getPara('rc2.pricePrecision'), 1], ['txtTotal', 15, 0, 1]];
+				if(q_getPara('sys.project').toUpperCase()=='XY'){
+					q_readonlys = ['txtNoq','txtProduct','txtSpec','txtUnit'];
+				}
 				
 				q_cmbParse("cmbTranstyle", q_getPara('sys.transtyle'));
 				q_cmbParse("cmbTypea", q_getPara('rc2.typea'));
@@ -298,9 +301,20 @@
 							q_gt('ordc', t_where, 0, 0, 0, "", r_accy);
 
 							$('#txtOrdcno').val(b_ret[0].noa);
-							if(q_getPara('sys.project').toUpperCase()=='XY')
+							if(q_getPara('sys.project').toUpperCase()=='XY'){
+								//產品主檔
+								for (var i = 0; i < b_ret.length; i++) {
+									if (!emp(b_ret[i].productno)){
+										var t_where =" noa='"+b_ret[i].productno+"' ";
+										q_gt('ucc', "where=^^ "+t_where+" ^^", 0, 0, 0, "getuccspec",r_accy,1);
+										var as = _q_appendData("ucc", "", true, true);
+										if (as[0] != undefined) {
+											b_ret[i].spec=b_ret[i].style+' '+b_ret[i].spec;
+										}
+									}
+								}
 								ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtSpec,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtPrice,txtTotal,txtMemo,txtCustno,txtComp', b_ret.length, b_ret, 'uno,productno,spec,product,unit,notv,noa,no2,price,total,memo,custno,comp', 'txtProductno,txtProduct');
-							else
+							}else
 								ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtSpec,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtPrice,txtTotal,txtMemo', b_ret.length, b_ret, 'uno,productno,spec,product,unit,notv,noa,no2,price,total,memo', 'txtProductno,txtProduct');
 							bbsAssign();
 							sum();
@@ -685,6 +699,11 @@
 						$('#btnMinus_' + j).click(function() {
 							btnMinus($(this).attr('id'));
 						});
+						$('#txtProductno_' + j).change(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+						});
 						$('#txtUnit_' + j).change(function() {
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
@@ -922,6 +941,18 @@
 
 			function q_popPost(s1) {
 				switch (s1) {
+					case 'txtProductno_':
+						if(q_getPara('sys.project').toUpperCase()=='XY'){
+							if (!emp($('#txtProductno_'+b_seq).val())){
+								var t_where =" noa='"+$('#txtProductno_'+b_seq).val()+"' ";
+								q_gt('ucc', "where=^^ "+t_where+" ^^", 0, 0, 0, "getuccspec",r_accy,1);
+								var as = _q_appendData("ucc", "", true, true);
+								if (as[0] != undefined) {
+									$('#txtSpec_'+b_seq).val(as[0].style+' '+as[0].spec);
+								}
+							}
+						}
+						break;
 					case 'txtCardealno':
 						//取得車號下拉式選單
 						var thisVal = $('#txtCardealno').val();
