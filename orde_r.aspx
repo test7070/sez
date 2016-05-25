@@ -772,10 +772,10 @@
 								q_box("ordb.aspx?;;;charindex(noa,'" + noa + "')>0;" + r_accy, 'ordb', "95%", "95%", q_getMsg("popOrdb"));
 								break;
 							case 'ordcno':
-								q_box("ordc.aspx?;;;noa='" + noa + "';" + r_accy, 'ordc', "95%", "95%", q_getMsg("popOrdc"));
+								q_box("ordc.aspx?;;;charindex(noa,'" + noa + "')>0;" + r_accy, 'ordc', "95%", "95%", q_getMsg("popOrdc"));
 								break;
 							case 'quarno':
-								q_box("quar.aspx?;;;noa='" + noa + "';" + r_accy, 'quar', "95%", "95%", q_getMsg("popQuat"));
+								q_box("quar.aspx?;;;charindex(noa,'" + noa + "')>0;" + r_accy, 'quar', "95%", "95%", q_getMsg("popQuat"));
 								break;
 						}
 					}
