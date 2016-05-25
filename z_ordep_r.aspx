@@ -37,10 +37,15 @@
                     },{
                         type : '6',//[5]
                         name : 'xnoa'
-                    },{
+                    }/*,{
                         type : '8',//[6]
                         name : 'showcomm',
                         value : '1@含佣金&c'.split(',')
+                    }*/
+                   , {
+                        type : '5',//[6]
+                        name : 'xtarget',
+                        value : new Array('cust@Customer', 'agent@Agent')
                     },{
 	                    type : '2',//[7][8]
 	                    name : 'cust',
