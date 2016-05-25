@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -21,6 +21,52 @@
             $(document).ready(function() {
             	q_getId();
                 q_gf('', 'z_vccep');
+                  $('#q_report').click(function(e) {
+					if(window.parent.q_name=="packing_b"){
+						var delete_report=999;
+						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+							if($('#q_report').data().info.reportData[i].report=='z_vccep1')
+								delete_report=i;
+						}
+						if($('#q_report div div').text().indexOf('出貨通知管制表')>-1){
+							$('#q_report div div').eq(delete_report).hide();
+						}
+						delete_report=999;
+						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+							if($('#q_report').data().info.reportData[i].report=='z_vccep2')
+								delete_report=i;
+						}
+						if($('#q_report div div').text().indexOf('出貨通知書')>-1){
+							$('#q_report div div').eq(delete_report).hide();
+						}
+						delete_report=999;
+						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+							if($('#q_report').data().info.reportData[i].report=='z_vccep3')
+								delete_report=i;
+						}
+						if($('#q_report div div').text().indexOf('INVOICE')>-1){
+							$('#q_report div div').eq(delete_report).hide();
+						}
+						delete_report=999;
+						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+							if($('#q_report').data().info.reportData[i].report=='派車單')
+								delete_report=i;
+						}
+						if($('#q_report div div').text().indexOf('INVOICE')>-1){
+							$('#q_report div div').eq(delete_report).hide();
+						}
+						$('#q_report div div .radio').parent().each(function(index) {
+							if(!$(this).is(':hidden') && t_first){
+								$(this).children().removeClass('nonselect').addClass('select');
+								t_first=false;
+							}
+							if($(this).is(':hidden') && t_first){
+								$(this).children().removeClass('select').addClass('nonselect');
+							}
+						});
+					}
+				});
+                
             });
             function q_gfPost() {
                $('#q_report').q_report({
