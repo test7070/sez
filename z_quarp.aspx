@@ -37,6 +37,10 @@
                     },{
                         type : '6',//[5]
                         name : 'xnoa'
+                    }, {
+                        type : '5',//[6]
+                        name : 'xtarget',
+                        value : new Array('cust@Customer', 'agent@Agent')
                     }]
                 });
                 q_popAssign();
