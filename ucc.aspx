@@ -83,6 +83,11 @@
 			function mainPost() {
 				q_getFormat();
 				bbmMask = [['txtCdate', r_picd]];
+				
+				if(q_getPara('sys.project').toUpperCase()=='XY'){ //105/05/23 拿來做 採購/製令
+					bbmMask = [];
+				}
+				
 				q_mask(bbmMask);
 				/*if (q_getPara('sys.comp').indexOf('英特瑞') > -1)
 					q_cmbParse("cmbTypea", q_getPara('ucc.typea_it'));//IR

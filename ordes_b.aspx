@@ -2,7 +2,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta http-equiv="Content-Language" content="en-us" />
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src="../script/qj2.js" type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -103,6 +103,8 @@
 					$('.weight').hide();
 					$('#checkZero').show();
 					$('#Zero').show();
+					$('.isClassa').show();
+					$('.isSpec').css('width','75%');
 				}
 				if(q_getPara('sys.project').toUpperCase()=='RB'){
 					$('.weight').hide();
@@ -150,6 +152,7 @@
 					<td style="width:15%;"><input class="txt"  id="txtProductno.*" type="text" style="width:98%;" /></td>
 					<td style="width:15%;">
 						<input class="txt" id="txtProduct.*" type="text" style="width:98%;" />
+						<input class="txt isClassa" id="txtClassa.*" type="text" style="width:20%;display: none;" />
 						<input class="txt isSpec" id="txtSpec.*" type="text" style="width:98%;" />
 					</td>
 					<!--<td style="width:18%;"><input class="txt" id="txtSpec.*" type="text"  style="width:98%;" />
