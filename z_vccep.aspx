@@ -19,10 +19,12 @@
                 location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
             }
             $(document).ready(function() {
-            	q_getId();
+                _q_boxClose();
+                q_getId();
                 q_gf('', 'z_vccep');
-                  $('#q_report').click(function(e) {
-					if(window.parent.q_name=="packing_b"){
+                
+                $('#q_report').click(function(e) {
+					if(window.parent.q_name=="packing"){
 						var delete_report=999;
 						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
 							if($('#q_report').data().info.reportData[i].report=='z_vccep1')
@@ -44,17 +46,55 @@
 							if($('#q_report').data().info.reportData[i].report=='z_vccep3')
 								delete_report=i;
 						}
-						if($('#q_report div div').text().indexOf('INVOICE')>-1){
+						delete_report=999;
+						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+							if($('#q_report').data().info.reportData[i].report=='z_vccep5')
+								delete_report=i;
+						}
+						if($('#q_report div div').text().indexOf('派車單')>-1){
 							$('#q_report div div').eq(delete_report).hide();
 						}
 						delete_report=999;
 						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
-							if($('#q_report').data().info.reportData[i].report=='派車單')
+							if($('#q_report').data().info.reportData[i].report=='z_vccep6')
 								delete_report=i;
 						}
-						if($('#q_report div div').text().indexOf('INVOICE')>-1){
+						if($('#q_report div div').text().indexOf('提單櫃號明細表')>-1){
 							$('#q_report div div').eq(delete_report).hide();
 						}
+						delete_report=999;
+						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+							if($('#q_report').data().info.reportData[i].report=='z_vccep7')
+								delete_report=i;
+						}
+						if($('#q_report div div').text().indexOf('週結關排程表通知')>-1){
+							$('#q_report div div').eq(delete_report).hide();
+						}
+						delete_report=999;
+						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+							if($('#q_report').data().info.reportData[i].report=='z_vccep8')
+								delete_report=i;
+						}
+						if($('#q_report div div').text().indexOf('出貨通知書(中文)_DDK')>-1){
+							$('#q_report div div').eq(delete_report).hide();
+						}
+						delete_report=999;
+						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+							if($('#q_report').data().info.reportData[i].report=='z_vccep9')
+								delete_report=i;
+						}
+						if($('#q_report div div').text().indexOf('出貨通知書(英文)_DDK')>-1){
+							$('#q_report div div').eq(delete_report).hide();
+						}
+						delete_report=999;
+						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+							if($('#q_report').data().info.reportData[i].report=='z_vccep10')
+								delete_report=i;
+						}
+						if($('#q_report div div').text().indexOf('材積預算表')>-1){
+							$('#q_report div div').eq(delete_report).hide();
+						}
+						
 						$('#q_report div div .radio').parent().each(function(index) {
 							if(!$(this).is(':hidden') && t_first){
 								$(this).children().removeClass('nonselect').addClass('select');
@@ -66,6 +106,7 @@
 						});
 					}
 				});
+                
                 
             });
             function q_gfPost() {

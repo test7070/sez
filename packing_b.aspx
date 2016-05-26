@@ -223,6 +223,10 @@
 					}
 					$('#btnSort1').click();
 				});
+				$('#btnPrint').click(function() {
+					t_where = "noa='" + $('#txtNoa').val() + "'";
+					q_box("z_vccep.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, '', "95%", "95%", q_getMsg('popPrint'));
+				});
 			}
 		
 		    function bbsAssign() {
@@ -355,10 +359,6 @@
 					break;  
 				}   /// end Switch
 				b_pop = '';
-			}
-			
-			function btnPrint() {
-				q_box('z_vccep.aspx' + "?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, 'z_vccep', "95%", "95%", q_getMsg("popPrint"));
 			}
 		
 		    function btnOk() {
