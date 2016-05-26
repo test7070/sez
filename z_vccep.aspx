@@ -28,77 +28,10 @@
 					if(window.parent.q_name=="packing"){
 						var delete_report=999;
 						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
-							if($('#q_report').data().info.reportData[i].report=='z_vccep1')
-								delete_report=i;
+							if($('#q_report').data().info.reportData[i].report!='z_vccep4'){
+								$('#q_report div div').eq(i).hide();
+							}
 						}
-						if($('#q_report div div').text().indexOf('出貨通知管制表')>-1){
-							$('#q_report div div').eq(delete_report).hide();
-						}
-						delete_report=999;
-						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
-							if($('#q_report').data().info.reportData[i].report=='z_vccep2')
-								delete_report=i;
-						}
-						if($('#q_report div div').text().indexOf('出貨通知書')>-1){
-							$('#q_report div div').eq(delete_report).hide();
-						}
-						delete_report=999;
-						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
-							if($('#q_report').data().info.reportData[i].report=='z_vccep3')
-								delete_report=i;
-						}
-						if($('#q_report div div').text().indexOf('INVOICE')>-1){
-							$('#q_report div div').eq(delete_report).hide();
-						}
-						delete_report=999;
-						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
-							if($('#q_report').data().info.reportData[i].report=='z_vccep5')
-								delete_report=i;
-						}
-						if($('#q_report div div').text().indexOf('派車單')>-1){
-							$('#q_report div div').eq(delete_report).hide();
-						}
-						delete_report=999;
-						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
-							if($('#q_report').data().info.reportData[i].report=='z_vccep6')
-								delete_report=i;
-						}
-						if($('#q_report div div').text().indexOf('提單櫃號明細表')>-1){
-							$('#q_report div div').eq(delete_report).hide();
-						}
-						delete_report=999;
-						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
-							if($('#q_report').data().info.reportData[i].report=='z_vccep7')
-								delete_report=i;
-						}
-						if($('#q_report div div').text().indexOf('週結關排程表通知')>-1){
-							$('#q_report div div').eq(delete_report).hide();
-						}
-						delete_report=999;
-						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
-							if($('#q_report').data().info.reportData[i].report=='z_vccep8')
-								delete_report=i;
-						}
-						if($('#q_report div div').text().indexOf('出貨通知書(中文)_DDK')>-1){
-							$('#q_report div div').eq(delete_report).hide();
-						}
-						delete_report=999;
-						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
-							if($('#q_report').data().info.reportData[i].report=='z_vccep9')
-								delete_report=i;
-						}
-						if($('#q_report div div').text().indexOf('出貨通知書(英文)_DDK')>-1){
-							$('#q_report div div').eq(delete_report).hide();
-						}
-						delete_report=999;
-						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
-							if($('#q_report').data().info.reportData[i].report=='z_vccep10')
-								delete_report=i;
-						}
-						if($('#q_report div div').text().indexOf('材積預算表')>-1){
-							$('#q_report div div').eq(delete_report).hide();
-						}
-						delete_report=999;
 						
 						$('#q_report div div .radio').parent().each(function(index) {
 							if(!$(this).is(':hidden') && t_first){
@@ -235,6 +168,8 @@
 		                $('#txtCldate2').val(q_cdn(q_date(),+14));
                 	}
 				});
+				
+				$('#q_report div div .radio.select').click();
             }
 
             function q_boxClose(s2) {
