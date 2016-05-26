@@ -15,6 +15,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+			var t_first=true;
             if (location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
             }
@@ -45,6 +46,9 @@
 						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
 							if($('#q_report').data().info.reportData[i].report=='z_vccep3')
 								delete_report=i;
+						}
+						if($('#q_report div div').text().indexOf('INVOICE')>-1){
+							$('#q_report div div').eq(delete_report).hide();
 						}
 						delete_report=999;
 						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
@@ -94,6 +98,7 @@
 						if($('#q_report div div').text().indexOf('材積預算表')>-1){
 							$('#q_report div div').eq(delete_report).hide();
 						}
+						delete_report=999;
 						
 						$('#q_report div div .radio').parent().each(function(index) {
 							if(!$(this).is(':hidden') && t_first){

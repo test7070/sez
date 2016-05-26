@@ -224,7 +224,8 @@
 					$('#btnSort1').click();
 				});
 				$('#btnPrint').click(function() {
-					t_where = "noa='" + $('#txtNoa').val() + "'";
+					var t_key = q_getHref();
+					t_where = "noa='" +t_key[1]+ "'";
 					q_box("z_vccep.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, '', "95%", "95%", q_getMsg('popPrint'));
 				});
 			}
