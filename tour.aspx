@@ -15,7 +15,7 @@
         <script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
         <script type="text/javascript">    
             var q_name = "tour";
-            var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
+            var q_readonly = ['txtWorker','txtWorker2','txtWait','txtSold','txtUnsold','txtList'];
             var bbmNum = [];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -35,7 +35,7 @@
                 bbmKey = ['noa'];
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1)
-                $('#txtNoa').focus
+                $('#txtNoa').focus();
             });
 
             function main() {
@@ -48,8 +48,26 @@
             }
 
             function mainPost() {
-            	bbmMask = [['txtDatea',r_picd]]
-            	bbmNum = [];
+            	bbmMask = []
+            	bbmNum = [['txtDays', 10, 0, 1], ['txtSit', 10, 0, 1], ['txtSold', 10, 0, 1], ['txtUnsold', 10, 0, 1], ['txtList', 10, 0, 1], ['txtWait', 10, 0, 1]
+            		, ['txtPsit1', 10, 0, 1], ['txtPsit2', 10, 0, 1], ['txtRate', 10, 2, 1], ['txtDeposit', 10, 0, 1], ['txtCprice', 10, 0, 1]
+            		, ['txtPrice1', 10, 0, 1], ['txtPrice2', 10, 0, 1], ['txtPrice3', 10, 0, 1], ['txtPrice4', 10, 0, 1], ['txtPrice5', 10, 0, 1], ['txtPrice6', 10, 0, 1]
+            		, ['txtCpmoney1', 10, 0, 1], ['txtCpmoney2', 10, 0, 1], ['txtCpmoney3', 10, 0, 1], ['txtCpmoney4', 10, 0, 1], ['txtCpmoney5', 10, 0, 1]
+            		, ['txtCgmoney11', 10, 0, 1], ['txtCgmoney12', 10, 0, 1], ['txtCgmoney13', 10, 0, 1], ['txtCgmoney14', 10, 0, 1], ['txtCgmoney15', 10, 0, 1]
+            		, ['txtCgmoney21', 10, 0, 1], ['txtCgmoney22', 10, 0, 1], ['txtCgmoney23', 10, 0, 1], ['txtCgmoney24', 10, 0, 1], ['txtCgmoney25', 10, 0, 1]
+            		, ['txtCimoney1', 10, 0, 1], ['txtCimoney2', 10, 0, 1], ['txtCimoney3', 10, 0, 1], ['txtCimoney4', 10, 0, 1], ['txtCimoney5', 10, 0, 1]
+            		, ['txtCitax1', 10, 0, 1], ['txtCitax2', 10, 0, 1], ['txtCitax3', 10, 0, 1], ['txtCitax4', 10, 0, 1], ['txtCitax5', 10, 0, 1]
+            		, ['txtCotax1', 10, 0, 1], ['txtCotax2', 10, 0, 1], ['txtCotax3', 10, 0, 1], ['txtCotax4', 10, 0, 1], ['txtCotax5', 10, 0, 1]
+            		, ['txtCmtax1', 10, 0, 1], ['txtCmtax2', 10, 0, 1], ['txtCmtax3', 10, 0, 1], ['txtCmtax4', 10, 0, 1], ['txtCmtax5', 10, 0, 1]
+            		, ['txtCttax1', 10, 0, 1], ['txtCttax2', 10, 0, 1], ['txtCttax3', 10, 0, 1], ['txtCttax4', 10, 0, 1], ['txtCttax5', 10, 0, 1]
+            		, ['txtCdmoney1', 10, 0, 1], ['txtCdmoney2', 10, 0, 1], ['txtCdmoney3', 10, 0, 1], ['txtCdmoney4', 10, 0, 1], ['txtCdmoney5', 10, 0, 1]
+            		, ['txtCkmoney1', 10, 0, 1], ['txtCkmoney2', 10, 0, 1], ['txtCkmoney3', 10, 0, 1], ['txtCkmoney4', 10, 0, 1], ['txtCkmoney5', 10, 0, 1]
+            		, ['txtCsmoney1', 10, 0, 1], ['txtCsmoney2', 10, 0, 1], ['txtCsmoney3', 10, 0, 1], ['txtCsmoney4', 10, 0, 1], ['txtCsmoney5', 10, 0, 1]
+            		, ['txtCtmoney1', 10, 0, 1], ['txtCtmoney2', 10, 0, 1], ['txtCtmoney3', 10, 0, 1], ['txtCtmoney4', 10, 0, 1], ['txtCtmoney5', 10, 0, 1]
+            		, ['txtCknumber1', 10, 0, 1], ['txtCknumber2', 10, 0, 1], ['txtCknumber3', 10, 0, 1], ['txtCknumber4', 10, 0, 1], ['txtCknumber5', 10, 0, 1]
+            		, ['txtCsnumber1', 10, 0, 1], ['txtCsnumber2', 10, 0, 1], ['txtCsnumber3', 10, 0, 1], ['txtCsnumber4', 10, 0, 1], ['txtCsnumber5', 10, 0, 1]
+            		, ['txtCtnumber1', 10, 0, 1], ['txtCtnumber2', 10, 0, 1], ['txtCtnumber3', 10, 0, 1], ['txtCtnumber4', 10, 0, 1], ['txtCtnumber5', 10, 0, 1]
+            	];
                 q_mask(bbmMask);
                 
                 
@@ -64,12 +82,67 @@
 				});
 				
 				$('.cbutton').hide();
-				$('#btnTour').click();
+				$('#btnCost').click();
 				
 				$('#combGtype').change(function() {
 					if (q_cur == 1 || q_cur == 2) {
 						$('#txtGtype').val($('#combGtype').find("option:selected").text());
 					}
+				});
+				
+				$('.cd1').change(function() {
+					var t_cdmoney=0;
+					$('.cd1').each(function(index) {
+						t_cdmoney=q_add(t_cdmoney,dec($(this).val()));
+					});
+					$('#txtCdmoney1').val(t_cdmoney);
+				});
+				
+				$('.cd2').change(function() {
+					var t_cdmoney=0;
+					$('.cd2').each(function(index) {
+						t_cdmoney=q_add(t_cdmoney,dec($(this).val()));
+					});
+					$('#txtCdmoney2').val(t_cdmoney);
+				});
+				
+				$('.cd3').change(function() {
+					var t_cdmoney=0;
+					$('.cd3').each(function(index) {
+						t_cdmoney=q_add(t_cdmoney,dec($(this).val()));
+					});
+					$('#txtCdmoney3').val(t_cdmoney);
+				});
+				
+				$('.cd4').change(function() {
+					var t_cdmoney=0;
+					$('.cd4').each(function(index) {
+						t_cdmoney=q_add(t_cdmoney,dec($(this).val()));
+					});
+					$('#txtCdmoney4').val(t_cdmoney);
+				});
+				
+				$('.cd5').change(function() {
+					var t_cdmoney=0;
+					$('.cd5').each(function(index) {
+						t_cdmoney=q_add(t_cdmoney,dec($(this).val()));
+					});
+					$('#txtCdmoney5').val(t_cdmoney);
+				});
+				
+				$('.waitn').change(function() {
+					var t_wait=0;
+					if(!emp($('#txtOkdate1').val())){
+						t_wait=q_add(t_wait,dec($('#txtPsit1').val()));
+					}
+					if(!emp($('#txtOkdate2').val())){
+						t_wait=q_add(t_wait,dec($('#txtPsit2').val()));
+					}
+					$('#txtWait').val(t_wait);
+				});
+				
+				$('#txtSit').change(function() {
+					$('#txtUnsold').val(q_sub(dec($('#txtSit').val()),dec($('#txtSold').val())));
 				});
             }
 			
@@ -84,6 +157,15 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'checkTourno_btnOk':
+                		var as = _q_appendData("tour", "", true);
+                        if (as[0] != undefined) {
+                            alert('團號【 ' + as[0].noa + '】已存在!! ');
+                            return;
+                        } else {
+                            wrServer($('#txtNoa').val());
+                        }
+                        break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -99,9 +181,10 @@
 
             function btnIns() {
                 _btnIns();
-                $('#txtNoa').val('AUTO');
-                $('#txtDatea').focus();
-                $('#txtDatea').val(q_date());
+                $('#txtNoa').focus();
+                $('#txtDatea').val(replaceAll(q_date(),'/','').slice(-6));
+                $('#btnCost').click();
+                $('.cbutton').show();
             }
 
             function btnModi() {
@@ -133,13 +216,12 @@
 				else
 					$('#txtWorker2').val(r_name);
 					
-				//sum();
-
-				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
-				if (s1.length == 0 || s1 == "AUTO")
-					q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', '')); //q_getPara('sys.key_tour')
-				else
-					wrServer(s1);
+				if (q_cur == 1) {
+                    t_where = "where=^^ noa='" + $('#txtNoa').val() + "'^^";
+                    q_gt('tour', t_where, 0, 0, 0, "checkTourno_btnOk", r_accy);
+                } else {
+                    wrServer($('#txtNoa').val());
+                }
             }
 
             function wrServer(key_value) {
@@ -162,13 +244,13 @@
                 }
                 
                 var t_where = "where=^^ 1=1 ^^";
-				q_gt('tour', t_where, 0, 0, 0, "getgtype",r_accy,1);
+				q_gt('tour_gtype', t_where, 0, 0, 0, "getgtype",r_accy,1);
 				
 				var as = _q_appendData("tour", "", true);
 				var t_item = " @ ";
 				if (as[0] != undefined) {
 					for ( i = 0; i < as.length; i++) {
-						t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].combGtype;
+						t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].gtype;
 					}
 				}
 				document.all.combGtype.options.length = 0;
@@ -258,7 +340,7 @@
                 float: left;
                 width: 1260px;
                 margin: -1px;
-                border: 1px black solid;
+                /*border: 1px black solid;*/
                 border-radius: 5px;
             }
             .tbbm {
@@ -360,7 +442,7 @@
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
 						<td align="center" style="width:15%"><a id='vewDatea'>開團日</a></td>
 						<td align="center" style="width:25%"><a id='vewNoa'>團號</a></td>
-						<td align="center" style="width:30%"><a id='vewGrpname'>團別</a></td>
+						<td align="center" style="width:30%"><a id='vewGtype'>團別</a></td>
 					</tr>
 					<tr>
 						<td >
@@ -368,12 +450,12 @@
 						</td>
 						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='noa'>~noa</td>
-						<td align="center" id='grpname'>~grpname</td>
+						<td align="center" id='gtype'>~gtype</td>
 					</tr>
 				</table>
 			</div>
-			<input id="btnTour" type="button" class="cbutton" value="出團明細">
 			<input id="btnCost" type="button" class="cbutton" value="成本明細">
+			<input id="btnTour" type="button" class="cbutton" value="出團明細">
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm" border="0" cellpadding='2'  cellspacing='5'>
 					<tr style="height: 1px;">
@@ -416,10 +498,10 @@
 						<td colspan="2"><input id="txtList"  type="text" class="txt num c1" /></td>
 					</tr>
 					<tr class="tour">
-						<td><span> </span><a id='lblWait' class="lbl">座位</a></td>
+						<td><span> </span><a id='lblWait' class="lbl">候補</a></td>
 						<td colspan="3"><input id="txtWait"  type="text" class="txt num c1" /></td>
-						<td><span> </span><a id='lblDatea' class="lbl">開團日</a></td>
-						<td colspan="2"><input id="txtDatea"  type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblKdate' class="lbl">開團日</a></td>
+						<td colspan="2"><input id="txtKdate"  type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblGtype' class="lbl">團別</a></td>
 						<td colspan="6">
 							<input id="txtGtype" type="text" class="txt c1" style="width: 94%;"/>
@@ -458,21 +540,21 @@
 						<td><span> </span><a id='lblDate1' class="lbl">追加日1</a></td>
 						<td colspan="3"><input id="txtDate1"  type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblPsit1' class="lbl">機位數</a></td>
-						<td colspan="2"><input id="txtPsit1"  type="text" class="txt num c1" /></td>
+						<td colspan="2"><input id="txtPsit1"  type="text" class="txt num c1 waitn" /></td>
 						<td><span> </span><a id='lblPtname1' class="lbl">電代</a></td>
-						<td colspan="3"><input id="txtPtname1"  type="text" class="txt num c1" /></td>
+						<td colspan="3"><input id="txtPtname1"  type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblOkdate1' class="lbl">OK日</a></td>
-						<td colspan="2"><input id="txtOkdate1"  type="text" class="txt num c1" /></td>
+						<td colspan="2"><input id="txtOkdate1"  type="text" class="txt c1 waitn" /></td>
 					</tr>
 					<tr class="tour">
 						<td><span> </span><a id='lblDate2' class="lbl">追加日2</a></td>
 						<td colspan="3"><input id="txtDate2"  type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblPsit2' class="lbl">機位數</a></td>
-						<td colspan="2"><input id="txtPsit2"  type="text" class="txt num c1" /></td>
+						<td colspan="2"><input id="txtPsit2"  type="text" class="txt num c1 waitn" /></td>
 						<td><span> </span><a id='lblPtname2' class="lbl">電代</a></td>
-						<td colspan="3"><input id="txtPtname2"  type="text" class="txt num c1" /></td>
+						<td colspan="3"><input id="txtPtname2"  type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblOkdate2' class="lbl">OK日</a></td>
-						<td colspan="2"><input id="txtOkdate2"  type="text" class="txt num c1" /></td>
+						<td colspan="2"><input id="txtOkdate2"  type="text" class="txt c1 waitn" /></td>
 					</tr>
 					<tr class="tour">
 						<td style="text-align: center;"> </td>
@@ -579,8 +661,8 @@
 						<td> </td>
 						<td> </td>
 						<td> </td>
-						<td><span> </span><a id="lblOdate" class="lbl">訂團日</a></td>
-						<td><input id="txtOdate" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblSdate" class="lbl">訂團日</a></td>
+						<td><input id="txtSdate" type="text" class="txt c1"/></td>
 					</tr>
 					
 					
@@ -589,6 +671,8 @@
 						<td colspan="2"><input id="txtStype"  type="text" class="txt c1" /></td>
 						<td colspan="2"><span> </span><a id='lblCprice' class="lbl">單人房差售價</a></td>
 						<td colspan="2"><input id="txtCprice"  type="text" class="txt num c1" /></td>
+						<td colspan="2"><span> </span><a id='lblDatea' class="lbl">建檔日</a></td>
+						<td colspan="2"><input id="txtDatea"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr class="cost">
 						<td><span> </span><a id='lblMemo' class="lbl">備註</a></td>
@@ -607,41 +691,41 @@
 					<tr class="cost">
 						<td><span> </span><a class="lbl">機票款</a></td>
 						<td colspan="10">
-							<input id="txtCpmoney1"  type="text" class="txt num c1" style="width: 155px;" />
-							<input id="txtCpmoney2"  type="text" class="txt num c1" style="width: 155px;"/>
-							<input id="txtCpmoney3"  type="text" class="txt num c1" style="width: 155px;"/>
-							<input id="txtCpmoney4"  type="text" class="txt num c1" style="width: 155px;"/>
-							<input id="txtCpmoney5"  type="hidden" class="txt num c1" style="width: 155px;"/><span style="width: 155px;float: left;"> </span>
+							<input id="txtCpmoney1"  type="text" class="txt num c1 cd1" style="width: 155px;" />
+							<input id="txtCpmoney2"  type="text" class="txt num c1 cd2" style="width: 155px;"/>
+							<input id="txtCpmoney3"  type="text" class="txt num c1 cd3" style="width: 155px;"/>
+							<input id="txtCpmoney4"  type="text" class="txt num c1 cd4" style="width: 155px;"/>
+							<input id="txtCpmoney5"  type="hidden" class="txt num c1 cd5" style="width: 155px;"/><span style="width: 155px;float: left;"> </span>
 						</td>
 					</tr>
 					<tr class="cost">
 						<td><span> </span><a class="lbl">團費1</a></td>
 						<td colspan="10">
-							<input id="txtCgmoney11"  type="text" class="txt num c1" style="width: 155px;"/>
-							<input id="txtCgmoney12"  type="text" class="txt num c1" style="width: 155px;"/>
-							<input id="txtCgmoney13"  type="hidden" class="txt num c1" style="width: 155px;"/><span style="width: 155px;float: left;"> </span>
-							<input id="txtCgmoney14"  type="hidden" class="txt num c1" style="width: 155px;"/><span style="width: 155px;float: left;"> </span>
-							<input id="txtCgmoney15"  type="text" class="txt num c1" style="width: 155px;"/>
+							<input id="txtCgmoney11"  type="text" class="txt num c1 cd1" style="width: 155px;"/>
+							<input id="txtCgmoney12"  type="text" class="txt num c1 cd2" style="width: 155px;"/>
+							<input id="txtCgmoney13"  type="hidden" class="txt num c1 cd3" style="width: 155px;"/><span style="width: 155px;float: left;"> </span>
+							<input id="txtCgmoney14"  type="hidden" class="txt num c1 cd4" style="width: 155px;"/><span style="width: 155px;float: left;"> </span>
+							<input id="txtCgmoney15"  type="text" class="txt num c1 cd5" style="width: 155px;"/>
 						</td>
 					</tr>
 					<tr class="cost">
 						<td><span> </span><a class="lbl">團費2</a></td>
 						<td colspan="10">
-							<input id="txtCgmoney21"  type="text" class="txt num c1" style="width: 155px;"/>
-							<input id="txtCgmoney22"  type="text" class="txt num c1" style="width: 155px;"/>
-							<input id="txtCgmoney23"  type="hidden" class="txt num c1" style="width: 155px;"/><span style="width: 155px;float: left;"> </span>
-							<input id="txtCgmoney24"  type="hidden" class="txt num c1" style="width: 155px;"/><span style="width: 155px;float: left;"> </span>
-							<input id="txtCgmoney25"  type="text" class="txt num c1" style="width: 155px;"/>
+							<input id="txtCgmoney21"  type="text" class="txt num c1 cd1" style="width: 155px;"/>
+							<input id="txtCgmoney22"  type="text" class="txt num c1 cd2" style="width: 155px;"/>
+							<input id="txtCgmoney23"  type="hidden" class="txt num c1 cd3" style="width: 155px;"/><span style="width: 155px;float: left;"> </span>
+							<input id="txtCgmoney24"  type="hidden" class="txt num c1 cd4" style="width: 155px;"/><span style="width: 155px;float: left;"> </span>
+							<input id="txtCgmoney25"  type="text" class="txt num c1 cd5" style="width: 155px;"/>
 						</td>
 					</tr>
 					<tr class="cost">
 						<td><span> </span><a class="lbl">保費</a></td>
 						<td colspan="10">
-							<input id="txtCimoney1"  type="text" class="txt num c1" style="width: 155px;"/>
-							<input id="txtCimoney2"  type="text" class="txt num c1" style="width: 155px;"/>
-							<input id="txtCimoney3"  type="text" class="txt num c1" style="width: 155px;"/>
-							<input id="txtCimoney4"  type="hidden" class="txt num c1" style="width: 155px;"/><span style="width: 155px;float: left;"> </span>
-							<input id="txtCimoney5"  type="text" class="txt num c1" style="width: 155px;"/>
+							<input id="txtCimoney1"  type="text" class="txt num c1 cd1" style="width: 155px;"/>
+							<input id="txtCimoney2"  type="text" class="txt num c1 cd2" style="width: 155px;"/>
+							<input id="txtCimoney3"  type="text" class="txt num c1 cd3" style="width: 155px;"/>
+							<input id="txtCimoney4"  type="hidden" class="txt num c1 cd4" style="width: 155px;"/><span style="width: 155px;float: left;"> </span>
+							<input id="txtCimoney5"  type="text" class="txt num c1 cd5" style="width: 155px;"/>
 						</td>
 					</tr>
 					<tr class="cost">
@@ -650,41 +734,41 @@
 					<tr class="cost">
 						<td><span> </span><a class="lbl">內稅</a></td>
 						<td colspan="10">
-							<input id="txtCitax1"  type="text" class="txt num c1" style="width: 155px;"/>
-							<input id="txtCitax2"  type="text" class="txt num c1" style="width: 155px;"/>
-							<input id="txtCitax3"  type="hidden" class="txt num c1" style="width: 155px;"/><span style="width: 155px;float: left;"> </span>
-							<input id="txtCitax4"  type="text" class="txt num c1" style="width: 155px;"/>
-							<input id="txtCitax5"  type="text" class="txt num c1" style="width: 155px;" />
+							<input id="txtCitax1"  type="text" class="txt num c1 cd1" style="width: 155px;"/>
+							<input id="txtCitax2"  type="text" class="txt num c1 cd2" style="width: 155px;"/>
+							<input id="txtCitax3"  type="hidden" class="txt num c1 cd3" style="width: 155px;"/><span style="width: 155px;float: left;"> </span>
+							<input id="txtCitax4"  type="text" class="txt num c1 cd4" style="width: 155px;"/>
+							<input id="txtCitax5"  type="text" class="txt num c1 cd5" style="width: 155px;" />
 						</td>
 					</tr>
 					<tr class="cost">
 						<td><span> </span><a class="lbl">外稅</a></td>
 						<td colspan="10">
-							<input id="txtCotax1"  type="text" class="txt num c1" style="width: 155px;"/>
-							<input id="txtCotax2"  type="text" class="txt num c1" style="width: 155px;"/>
-							<input id="txtCotax3"  type="text" class="txt num c1" style="width: 155px;"/>
-							<input id="txtCotax4"  type="text" class="txt num c1" style="width: 155px;"/>
+							<input id="txtCotax1"  type="text" class="txt num c1 cd1" style="width: 155px;"/>
+							<input id="txtCotax2"  type="text" class="txt num c1 cd2" style="width: 155px;"/>
+							<input id="txtCotax3"  type="text" class="txt num c1 cd3" style="width: 155px;"/>
+							<input id="txtCotax4"  type="text" class="txt num c1 cd4" style="width: 155px;"/>
 							<input id="txtCotax5"  type="text" class="txt num c1" style="width: 155px;"/>
 						</td>
 					</tr>
 					<tr class="cost">
 						<td><span> </span><a class="lbl">中稅</a></td>
 						<td colspan="10">
-							<input id="txtCmtax1"  type="text" class="txt num c1" style="width: 155px;" />
-							<input id="txtCmtax2"  type="text" class="txt num c1" style="width: 155px;" />
-							<input id="txtCmtax3"  type="text" class="txt num c1" style="width: 155px;" />
-							<input id="txtCmtax4"  type="text" class="txt num c1" style="width: 155px;" />
-							<input id="txtCmtax5"  type="text" class="txt num c1" style="width: 155px;" />
+							<input id="txtCmtax1"  type="text" class="txt num c1 cd1" style="width: 155px;" />
+							<input id="txtCmtax2"  type="text" class="txt num c1 cd2" style="width: 155px;" />
+							<input id="txtCmtax3"  type="text" class="txt num c1 cd3" style="width: 155px;" />
+							<input id="txtCmtax4"  type="text" class="txt num c1 cd4" style="width: 155px;" />
+							<input id="txtCmtax5"  type="text" class="txt num c1 cd5" style="width: 155px;" />
 						</td>
 					</tr>
 					<tr class="cost">
 						<td><span> </span><a class="lbl">其他</a></td>
 						<td colspan="10">
-							<input id="txtCttax1"  type="text" class="txt num c1" style="width: 155px;" />
-							<input id="txtCttax2"  type="text" class="txt num c1" style="width: 155px;" />
-							<input id="txtCttax3"  type="text" class="txt num c1" style="width: 155px;" />
-							<input id="txtCttax4"  type="text" class="txt num c1" style="width: 155px;" />
-							<input id="txtCttax5"  type="text" class="txt num c1" style="width: 155px;" />
+							<input id="txtCttax1"  type="text" class="txt num c1 cd1" style="width: 155px;" />
+							<input id="txtCttax2"  type="text" class="txt num c1 cd2" style="width: 155px;" />
+							<input id="txtCttax3"  type="text" class="txt num c1 cd3" style="width: 155px;" />
+							<input id="txtCttax4"  type="text" class="txt num c1 cd4" style="width: 155px;" />
+							<input id="txtCttax5"  type="text" class="txt num c1 cd5" style="width: 155px;" />
 						</td>
 					</tr>
 					<tr class="cost">
