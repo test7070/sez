@@ -213,7 +213,8 @@
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').focus();
-                $('#txtDatea').val(replaceAll(q_date(),'/','').slice(-6));
+                $('#txtDatea').val(q_date());
+                $('#txtFdate').val(replaceAll(q_date(),'/','').slice(-6));
                 $('#btnCost').click();
                 $('.cbutton').show();
             }
@@ -222,7 +223,7 @@
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
-                $('#txtDatea').focus();
+                $('#txtFdate').focus();
             }
 
             function btnPrint() {
@@ -236,7 +237,7 @@
             }
 
             function btnOk() {
-                var t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')],['txtDatea', q_getMsg('lblDatea')]]);
+                var t_err = q_chkEmpField([['txtNoa', '團號'],['txtFdate', '建檔日']]);
 				if (t_err.length > 0) {
 					alert(t_err);
 					return;
@@ -470,29 +471,29 @@
 			<div class="dview" id="dview" style="float: left;  width:1260px;"  >
 				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
-						<td align="center" style="width:1%"><a id='vewChk'> </a></td>
-						<td align="center" style="width:8%"><a id='vewNoa'>團號</a></td>
-						<td align="center" style="width:3%"><a id='vewDeposit'>$</a></td>
-						<td align="center" style="width:2%"><a id='vewWeb'>網站</a></td>
-						<td align="center" style="width:8%"><a id='vewStype'>售價別</a></td>
-						<td align="center" style="width:4%"><a id='vewDdate'>出發日</a></td>
-						<td align="center" style="width:3%"><a id='vewDays'>天</a></td>
-						<td align="center" style="width:2%"><a id='vewTl'>TL</a></td>
-						<td align="center" style="width:2%"><a id='vewTicketno'>開票</a></td>
-						<td align="center" style="width:2%"><a id='vewSit'>座位</a></td>
-						<td align="center" style="width:2%"><a id='vewSold'>已售</a></td>
-						<td align="center" style="width:2%"><a id='vewTour'>Tour</a></td>
-						<td align="center" style="width:2%"><a id='vewTick'>Tick</a></td>
-						<td align="center" style="width:2%"><a id='vewJoins'>Join</a></td>
-						<td align="center" style="width:2%"><a id='vewUnsold'>未售</a></td>
-						<td align="center" style="width:2%"><a id='vewList'>名單</a></td>
-						<td align="center" style="width:2%"><a id='vewWait'>候補</a></td>
-						<td align="center" style="width:4%"><a id='vewPrice1'>大人</a></td>
-						<td align="center" style="width:4%"><a id='vewPrice2'>小孩</a></td>
-						<td align="center" style="width:4%"><a id='vewIck'>ICK$</a></td>
-						<td align="center" style="width:10%"><a id='vewGtype'>團別</a></td>
-						<td align="center" style="width:4%"><a id='vewSdate'>訂團日</a></td>
-						<td align="center" style="width:6%"><a id='vewHotel'>飯店OK</a></td>
+						<td align="center" style="width:1%;"><a id='vewChk'> </a></td>
+						<td align="center" style="width:8%;"><a id='vewNoa'>團號</a></td>
+						<td align="center" style="width:3%;"><a id='vewDeposit'>$</a></td>
+						<td align="center" style="width:2%;"><a id='vewWeb'>網站</a></td>
+						<td align="center" style="width:8%;"><a id='vewStype'>售價別</a></td>
+						<td align="center" style="width:4%;"><a id='vewDdate'>出發日</a></td>
+						<td align="center" style="width:3%;"><a id='vewDays'>天</a></td>
+						<td align="center" style="width:2%;"><a id='vewTl'>TL</a></td>
+						<td align="center" style="width:2%;"><a id='vewTicketno'>開票</a></td>
+						<td align="center" style="width:2%;"><a id='vewSit'>座位</a></td>
+						<td align="center" style="width:2%;"><a id='vewSold'>已售</a></td>
+						<td align="center" style="width:2%;"><a id='vewTour'>Tour</a></td>
+						<td align="center" style="width:2%;"><a id='vewTick'>Tick</a></td>
+						<td align="center" style="width:2%;"><a id='vewJoins'>Join</a></td>
+						<td align="center" style="width:2%;"><a id='vewUnsold'>未售</a></td>
+						<td align="center" style="width:2%;"><a id='vewList'>名單</a></td>
+						<td align="center" style="width:2%;"><a id='vewWait'>候補</a></td>
+						<td align="center" style="width:4%;"><a id='vewPrice1'>大人</a></td>
+						<td align="center" style="width:4%;"><a id='vewPrice2'>小孩</a></td>
+						<td align="center" style="width:4%;"><a id='vewIck'>ICK$</a></td>
+						<td align="center" style="width:10%;"><a id='vewGtype'>團別</a></td>
+						<td align="center" style="width:4%;"><a id='vewSdate'>訂團日</a></td>
+						<td align="center" style="width:6%;"><a id='vewHotel'>飯店OK</a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
@@ -512,9 +513,9 @@
 						<td align="center" id='unsold'>~unsold</td>
 						<td align="center" id='list'>~list</td>
 						<td align="center" id='wait'>~wait</td>
-						<td align="center" id='price1'>~price1</td>
-						<td align="center" id='price2'>~price2</td>
-						<td align="center" id='ick'>~ick</td>
+						<td align="center" id='price1,0,1' style="text-align: right;">~price1,0,1</td>
+						<td align="center" id='price2,0,1' style="text-align: right;">~price2,0,1</td>
+						<td align="center" id='ick,0,1' style="text-align: right;">~ick,0,1</td>
 						<td align="center" id='gtype'>~gtype</td>
 						<td align="center" id='sdate'>~sdate</td>
 						<td align="center" id='hotel'>~hotel</td>
@@ -541,7 +542,16 @@
 						<td style="width: 80px;"> </td>
 						<td style="width: 100px;"> </td>
 						<td style="width: 100px;"> </td>
-						<td style="width: 10px;"> </td>
+						<td style="width: 10px;">
+							<input id="txtDdate" type="hidden" class="txt c1" />
+							<input id="txtTl" type="hidden" class="txt c1" />
+							<input id="txtTour" type="hidden" class="txt c1" />
+							<input id="txtTick" type="hidden" class="txt c1" />
+							<input id="txtJoins" type="hidden" class="txt c1" />
+							<input id="txtIck" type="hidden" class="txt c1" />
+							<input id="txtHotel" type="hidden" class="txt c1" />
+							<input id="txtDatea" type="hidden" class="txt c1" />
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl">團號</a></td>
@@ -738,8 +748,8 @@
 						<td colspan="2"><input id="txtStype"  type="text" class="txt c1" /></td>
 						<td colspan="2"><span> </span><a id='lblCprice' class="lbl">單人房差售價</a></td>
 						<td colspan="2"><input id="txtCprice"  type="text" class="txt num c1" /></td>
-						<td colspan="2"><span> </span><a id='lblDatea' class="lbl">建檔日</a></td>
-						<td colspan="2"><input id="txtDatea"  type="text" class="txt c1" /></td>
+						<td colspan="2"><span> </span><a id='lblFdate' class="lbl">建檔日</a></td>
+						<td colspan="2"><input id="txtFdate"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr class="cost">
 						<td><span> </span><a id='lblMemo' class="lbl">備註</a></td>
