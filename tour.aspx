@@ -130,6 +130,41 @@
 					$('#txtCdmoney5').val(t_cdmoney);
 				});
 				
+				$('.cdm1').change(function() {
+					if($(this).val()<dec($('#txtCdmoney1').val())){
+						alert('金額不可低於底價!!')	
+						$(this).val($('#txtCdmoney1').val());
+					}
+				});
+				
+				$('.cdm2').change(function() {
+					if($(this).val()<dec($('#txtCdmoney2').val())){
+						alert('金額不可低於底價!!')	
+						$(this).val($('#txtCdmoney2').val());
+					}
+				});
+				
+				$('.cdm3').change(function() {
+					if($(this).val()<dec($('#txtCdmoney3').val())){
+						alert('金額不可低於底價!!')	
+						$(this).val($('#txtCdmoney3').val());
+					}
+				});
+				
+				$('.cdm4').change(function() {
+					if($(this).val()<dec($('#txtCdmoney4').val())){
+						alert('金額不可低於底價!!')	
+						$(this).val($('#txtCdmoney4').val());
+					}
+				});
+				
+				$('.cdm5').change(function() {
+					if($(this).val()<dec($('#txtCdmoney5').val())){
+						alert('金額不可低於底價!!')	
+						$(this).val($('#txtCdmoney5').val());
+					}
+				});
+				
 				$('.sitwait').change(function() {
 					var t_wait=0,t_addsit=0;
 					if(!emp($('#txtDate1').val()) && emp($('#txtOkdate1').val())){
@@ -172,6 +207,13 @@
 				
 				$('#txtSit').change(function() {
 					$('#txtUnsold').val(q_sub(dec($('#txtSit').val()),dec($('#txtSold').val())));
+				});
+				
+				$('#btnTrip').click(function() {
+					if(!emp($('#txtNoa').val())){
+						var t_where = "partno='"+$('#txtNoa').val()+"'";
+						q_box("trip_cp.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'trip', "95%", "95%", $('#btnTrip').val());
+					}
 				});
             }
 			
@@ -217,6 +259,7 @@
                 $('#txtFdate').val(replaceAll(q_date(),'/','').slice(-6));
                 $('#btnCost').click();
                 $('.cbutton').show();
+                refreshBbm();
             }
 
             function btnModi() {
@@ -224,6 +267,7 @@
                     return;
                 _btnModi();
                 $('#txtFdate').focus();
+                refreshBbm();
             }
 
             function btnPrint() {
@@ -287,6 +331,7 @@
 				}
 				document.all.combGtype.options.length = 0;
 				q_cmbParse("combGtype", t_item);
+				refreshBbm();
             }
             
             function readonly(t_para, empty) {
@@ -343,6 +388,14 @@
 
             function btnCancel() {
                 _btnCancel();
+            }
+            
+            function refreshBbm() {
+                if (q_cur == 1) {
+                    $('#txtNoa').css('color', 'black').css('background', 'white').removeAttr('readonly');
+                } else {
+                    $('#txtNoa').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
+                }
             }
 		</script>
 		<style type="text/css">
@@ -522,8 +575,8 @@
 					</tr>
 				</table>
 			</div>
-			<input id="btnCost" type="button" class="cbutton" value="成本明細">
-			<input id="btnTour" type="button" class="cbutton" value="出團明細">
+			<input id="btnCost" type="button" class="cbutton" value="1.成本檔">
+			<input id="btnTour" type="button" class="cbutton" value="2.出團檔">
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm" border="0" cellpadding='2'  cellspacing='5'>
 					<tr style="height: 1px;">
@@ -737,7 +790,7 @@
 						<td> </td>
 						<td> </td>
 						<td> </td>
-						<td> </td>
+						<td><input id="btnTrip" type="button" class="cbutton" value="母卡檔"></td>
 						<td><span> </span><a id="lblSdate" class="lbl">訂團日</a></td>
 						<td><input id="txtSdate" type="text" class="txt c1"/></td>
 					</tr>
@@ -869,45 +922,45 @@
 					<tr class="cost">
 						<td><span> </span><a class="lbl">PAK</a></td>
 						<td colspan="10">
-							<input id="txtCkmoney1"  type="text" class="txt num c1" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
+							<input id="txtCkmoney1"  type="text" class="txt num c1 cdm1" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
 							<input id="txtCknumber1"  type="text" class="txt num c1" style="width: 50px;"/><span style="width: 10px;float: left;"> </span>
-							<input id="txtCkmoney2"  type="text" class="txt num c1" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
+							<input id="txtCkmoney2"  type="text" class="txt num c1 cdm2" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
 							<input id="txtCknumber2"  type="text" class="txt num c1" style="width: 50px;"/><span style="width: 10px;float: left;"> </span>
-							<input id="txtCkmoney3"  type="text" class="txt num c1" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
+							<input id="txtCkmoney3"  type="text" class="txt num c1 cdm3" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
 							<input id="txtCknumber3"  type="text" class="txt num c1" style="width: 50px;"/><span style="width: 10px;float: left;"> </span>
-							<input id="txtCkmoney4"  type="text" class="txt num c1" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
+							<input id="txtCkmoney4"  type="text" class="txt num c1 cdm4" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
 							<input id="txtCknumber4"  type="text" class="txt num c1" style="width: 50px;"/><span style="width: 10px;float: left;"> </span>
-							<input id="txtCkmoney5"  type="text" class="txt num c1" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
+							<input id="txtCkmoney5"  type="text" class="txt num c1 cdm5" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
 							<input id="txtCknumber5"  type="text" class="txt num c1" style="width: 50px;"/><span style="width: 10px;float: left;"> </span>
 						</td>
 					</tr>
 					<tr class="cost">
 						<td><span> </span><a class="lbl">同行</a></td>
 						<td colspan="10">
-							<input id="txtCsmoney1"  type="text" class="txt num c1" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
+							<input id="txtCsmoney1"  type="text" class="txt num c1 cdm1" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
 							<input id="txtCsnumber1"  type="text" class="txt num c1" style="width: 50px;"/><span style="width: 10px;float: left;"> </span>
-							<input id="txtCsmoney2"  type="text" class="txt num c1" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
+							<input id="txtCsmoney2"  type="text" class="txt num c1 cdm2" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
 							<input id="txtCsnumber2"  type="text" class="txt num c1" style="width: 50px;"/><span style="width: 10px;float: left;"> </span>
-							<input id="txtCsmoney3"  type="text" class="txt num c1" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
+							<input id="txtCsmoney3"  type="text" class="txt num c1 cdm3" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
 							<input id="txtCsnumber3"  type="text" class="txt num c1" style="width: 50px;"/><span style="width: 10px;float: left;"> </span>
-							<input id="txtCsmoney4"  type="text" class="txt num c1" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
+							<input id="txtCsmoney4"  type="text" class="txt num c1 cdm4" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
 							<input id="txtCsnumber4"  type="text" class="txt num c1" style="width: 50px;"/><span style="width: 10px;float: left;"> </span>
-							<input id="txtCsmoney5"  type="text" class="txt num c1" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
+							<input id="txtCsmoney5"  type="text" class="txt num c1 cdm5" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
 							<input id="txtCsnumber5"  type="text" class="txt num c1" style="width: 50px;"/><span style="width: 10px;float: left;"> </span>
 						</td>
 					</tr>
 					<tr class="cost">
 						<td><span> </span><a class="lbl">直客</a></td>
 						<td colspan="10">
-							<input id="txtCtmoney1"  type="text" class="txt num c1" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
+							<input id="txtCtmoney1"  type="text" class="txt num c1 cdm1" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
 							<input id="txtCtnumber1"  type="text" class="txt num c1" style="width: 50px;"/><span style="width: 10px;float: left;"> </span>
-							<input id="txtCtmoney2"  type="text" class="txt num c1" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
+							<input id="txtCtmoney2"  type="text" class="txt num c1 cdm2" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
 							<input id="txtCtnumber2"  type="text" class="txt num c1" style="width: 50px;"/><span style="width: 10px;float: left;"> </span>
-							<input id="txtCtmoney3"  type="text" class="txt num c1" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
+							<input id="txtCtmoney3"  type="text" class="txt num c1 cdm3" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
 							<input id="txtCtnumber3"  type="text" class="txt num c1" style="width: 50px;"/><span style="width: 10px;float: left;"> </span>
-							<input id="txtCtmoney4"  type="text" class="txt num c1" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
+							<input id="txtCtmoney4"  type="text" class="txt num c1 cdm4" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
 							<input id="txtCtnumber4"  type="text" class="txt num c1" style="width: 50px;"/><span style="width: 10px;float: left;"> </span>
-							<input id="txtCtmoney5"  type="text" class="txt num c1" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
+							<input id="txtCtmoney5"  type="text" class="txt num c1 cdm5" style="width: 85px;"/><span style="width: 10px;float: left;"> </span>
 							<input id="txtCtnumber5"  type="text" class="txt num c1" style="width: 50px;"/><span style="width: 10px;float: left;"> </span>
 						</td>
 					</tr>
