@@ -130,21 +130,52 @@
 					$('#txtCdmoney5').val(t_cdmoney);
 				});
 				
-				$('.waitn').change(function() {
-					var t_wait=0;
-					if(!emp($('#txtOkdate1').val())){
+				$('.sitwait').change(function() {
+					var t_wait=0,t_addsit=0;
+					if(!emp($('#txtDate1').val()) && emp($('#txtOkdate1').val())){
 						t_wait=q_add(t_wait,dec($('#txtPsit1').val()));
 					}
-					if(!emp($('#txtOkdate2').val())){
+					if(!emp($('#txtDate2').val()) && emp($('#txtOkdate2').val())){
 						t_wait=q_add(t_wait,dec($('#txtPsit2').val()));
 					}
 					$('#txtWait').val(t_wait);
+					
+					if($(this).attr('id')=='txtOkdate1'){
+						if(!emp($('#txtOkdate1').val()) && t_okd1.length==0){
+							t_addsit=q_add(t_addsit,dec($('#txtPsit1').val()));
+						}
+						if(emp($('#txtOkdate1').val()) && t_okd1.length>0){
+							t_addsit=q_sub(t_addsit,dec($('#txtPsit1').val()));
+						}
+						$('#txtSit').val(q_add(dec($('#txtSit').val()),t_addsit));
+						t_okd1=$(this).val();
+					}					
+					if($(this).attr('id')=='txtOkdate2'){
+						if(!emp($('#txtOkdate2').val()) && t_okd2.length==0){
+							t_addsit=q_add(t_addsit,dec($('#txtPsit2').val()));
+						}
+						if(emp($('#txtOkdate2').val()) && t_okd2.length>0){
+							t_addsit=q_sub(t_addsit,dec($('#txtPsit2').val()));
+						}
+						$('#txtSit').val(q_add(dec($('#txtSit').val()),t_addsit));
+						t_okd2=$(this).val();
+					}
+					$('#txtSit').change();
+				});
+				
+				$('#txtOkdate1').focusin(function() {
+					t_okd1=$(this).val();
+				});
+				$('#txtOkdate1').focusin(function() {
+					t_okd2=$(this).val();
 				});
 				
 				$('#txtSit').change(function() {
 					$('#txtUnsold').val(q_sub(dec($('#txtSit').val()),dec($('#txtSold').val())));
 				});
             }
+			
+			var t_okd1='',t_okd2='';
 			
             function q_boxClose(s2) {
                 var ret;
@@ -436,21 +467,57 @@
 	<body>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' style="overflow:hidden;">
-			<div class="dview" id="dview" style="float: left;  width:35%;"  >
+			<div class="dview" id="dview" style="float: left;  width:1260px;"  >
 				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
-						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
-						<td align="center" style="width:15%"><a id='vewDatea'>開團日</a></td>
-						<td align="center" style="width:25%"><a id='vewNoa'>團號</a></td>
-						<td align="center" style="width:30%"><a id='vewGtype'>團別</a></td>
+						<td align="center" style="width:1%"><a id='vewChk'> </a></td>
+						<td align="center" style="width:8%"><a id='vewNoa'>團號</a></td>
+						<td align="center" style="width:3%"><a id='vewDeposit'>$</a></td>
+						<td align="center" style="width:2%"><a id='vewWeb'>網站</a></td>
+						<td align="center" style="width:8%"><a id='vewStype'>售價別</a></td>
+						<td align="center" style="width:4%"><a id='vewDdate'>出發日</a></td>
+						<td align="center" style="width:3%"><a id='vewDays'>天</a></td>
+						<td align="center" style="width:2%"><a id='vewTl'>TL</a></td>
+						<td align="center" style="width:2%"><a id='vewTicketno'>開票</a></td>
+						<td align="center" style="width:2%"><a id='vewSit'>座位</a></td>
+						<td align="center" style="width:2%"><a id='vewSold'>已售</a></td>
+						<td align="center" style="width:2%"><a id='vewTour'>Tour</a></td>
+						<td align="center" style="width:2%"><a id='vewTick'>Tick</a></td>
+						<td align="center" style="width:2%"><a id='vewJoins'>Join</a></td>
+						<td align="center" style="width:2%"><a id='vewUnsold'>未售</a></td>
+						<td align="center" style="width:2%"><a id='vewList'>名單</a></td>
+						<td align="center" style="width:2%"><a id='vewWait'>候補</a></td>
+						<td align="center" style="width:4%"><a id='vewPrice1'>大人</a></td>
+						<td align="center" style="width:4%"><a id='vewPrice2'>小孩</a></td>
+						<td align="center" style="width:4%"><a id='vewIck'>ICK$</a></td>
+						<td align="center" style="width:10%"><a id='vewGtype'>團別</a></td>
+						<td align="center" style="width:4%"><a id='vewSdate'>訂團日</a></td>
+						<td align="center" style="width:6%"><a id='vewHotel'>飯店OK</a></td>
 					</tr>
 					<tr>
-						<td >
-						<input id="chkBrow.*" type="checkbox" style=''/>
-						</td>
-						<td align="center" id='datea'>~datea</td>
+						<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
 						<td align="center" id='noa'>~noa</td>
+						<td align="center" id='deposit'>~deposit</td>
+						<td align="center" id='web'>~web</td>
+						<td align="center" id='stype'>~stype</td>
+						<td align="center" id='ddate'>~ddate</td>
+						<td align="center" id='days'>~days</td>
+						<td align="center" id='tl'>~tl</td>
+						<td align="center" id='ticketno'>~ticketno</td>
+						<td align="center" id='sit'>~sit</td>
+						<td align="center" id='sold'>~sold</td>
+						<td align="center" id='tour'>~tour</td>
+						<td align="center" id='tick'>~tick</td>
+						<td align="center" id='joins'>~joins</td>
+						<td align="center" id='unsold'>~unsold</td>
+						<td align="center" id='list'>~list</td>
+						<td align="center" id='wait'>~wait</td>
+						<td align="center" id='price1'>~price1</td>
+						<td align="center" id='price2'>~price2</td>
+						<td align="center" id='ick'>~ick</td>
 						<td align="center" id='gtype'>~gtype</td>
+						<td align="center" id='sdate'>~sdate</td>
+						<td align="center" id='hotel'>~hotel</td>
 					</tr>
 				</table>
 			</div>
@@ -538,23 +605,23 @@
 					</tr>
 					<tr class="tour">
 						<td><span> </span><a id='lblDate1' class="lbl">追加日1</a></td>
-						<td colspan="3"><input id="txtDate1"  type="text" class="txt c1" /></td>
+						<td colspan="3"><input id="txtDate1"  type="text" class="txt c1 sitwait" /></td>
 						<td><span> </span><a id='lblPsit1' class="lbl">機位數</a></td>
-						<td colspan="2"><input id="txtPsit1"  type="text" class="txt num c1 waitn" /></td>
+						<td colspan="2"><input id="txtPsit1"  type="text" class="txt num c1 sitwait" /></td>
 						<td><span> </span><a id='lblPtname1' class="lbl">電代</a></td>
 						<td colspan="3"><input id="txtPtname1"  type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblOkdate1' class="lbl">OK日</a></td>
-						<td colspan="2"><input id="txtOkdate1"  type="text" class="txt c1 waitn" /></td>
+						<td colspan="2"><input id="txtOkdate1"  type="text" class="txt c1 sitwait" /></td>
 					</tr>
 					<tr class="tour">
 						<td><span> </span><a id='lblDate2' class="lbl">追加日2</a></td>
-						<td colspan="3"><input id="txtDate2"  type="text" class="txt c1" /></td>
+						<td colspan="3"><input id="txtDate2"  type="text" class="txt c1 sitwait" /></td>
 						<td><span> </span><a id='lblPsit2' class="lbl">機位數</a></td>
-						<td colspan="2"><input id="txtPsit2"  type="text" class="txt num c1 waitn" /></td>
+						<td colspan="2"><input id="txtPsit2"  type="text" class="txt num c1 sitwait" /></td>
 						<td><span> </span><a id='lblPtname2' class="lbl">電代</a></td>
 						<td colspan="3"><input id="txtPtname2"  type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblOkdate2' class="lbl">OK日</a></td>
-						<td colspan="2"><input id="txtOkdate2"  type="text" class="txt c1 waitn" /></td>
+						<td colspan="2"><input id="txtOkdate2"  type="text" class="txt c1 sitwait" /></td>
 					</tr>
 					<tr class="tour">
 						<td style="text-align: center;"> </td>
