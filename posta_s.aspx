@@ -40,10 +40,17 @@
                 t_bdate = $('#txtBdate').val();
                 t_edate = $('#txtEdate').val();
                 t_sno = $.trim($('#txtSno').val());
+                t_useno = $.trim($('#txtUseno').val());
+                t_comp = $.trim($('#txtComp').val());
                 var t_where = " 1=1 " 
                 	+ q_sqlPara2("datea", t_bdate, t_edate);
 				if(t_sno.length>0)
 					t_where += " and exists(select noa from postas where postas.noa=posta.noa and charindex('"+t_sno+"',postas.sno)>0)";
+                if(t_useno.length>0)
+					t_where += " and exists(select noa from postas where postas.noa=posta.noa and charindex('"+t_useno+"',postas.useno)>0)";
+				if(t_comp.length>0)
+					t_where += " and exists(select noa from postas where postas.noa=posta.noa and charindex('"+t_comp+"',postas.comp)>0)";
+               
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
             }
@@ -70,8 +77,15 @@
 				</tr>
 				<tr class='seek_tr'>
 					<td style="width:35%;" ><a id='lblSno'>掛號號碼</a></td>
-					<td style="width:65%;  ">
-					<input class="txt" id="txtSno" type="text" style="width:150px; font-size:medium;" />
+					<td style="width:65%;"><input class="txt" id="txtSno" type="text" style="width:150px; font-size:medium;" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td style="width:35%;"><a id='lblUseno'>收件人編號</a></td>
+					<td style="width:65%;"><input class="txt" id="txtUseno" type="text" style="width:150px; font-size:medium;" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td style="width:35%;"><a id='lblComp'>收件人</a></td>
+					<td style="width:65%;"><input class="txt" id="txtComp" type="text" style="width:150px; font-size:medium;" /></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
