@@ -15,46 +15,24 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+			var t_first=true;
             if (location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
             }
             $(document).ready(function() {
-            	q_getId();
+                _q_boxClose();
+                q_getId();
                 q_gf('', 'z_vccep');
-                  $('#q_report').click(function(e) {
-					if(window.parent.q_name=="packing_b"){
+                
+                $('#q_report').click(function(e) {
+					if(window.parent.q_name=="packing"){
 						var delete_report=999;
 						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
-							if($('#q_report').data().info.reportData[i].report=='z_vccep1')
-								delete_report=i;
+							if($('#q_report').data().info.reportData[i].report!='z_vccep4'){
+								$('#q_report div div').eq(i).hide();
+							}
 						}
-						if($('#q_report div div').text().indexOf('出貨通知管制表')>-1){
-							$('#q_report div div').eq(delete_report).hide();
-						}
-						delete_report=999;
-						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
-							if($('#q_report').data().info.reportData[i].report=='z_vccep2')
-								delete_report=i;
-						}
-						if($('#q_report div div').text().indexOf('出貨通知書')>-1){
-							$('#q_report div div').eq(delete_report).hide();
-						}
-						delete_report=999;
-						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
-							if($('#q_report').data().info.reportData[i].report=='z_vccep3')
-								delete_report=i;
-						}
-						if($('#q_report div div').text().indexOf('INVOICE')>-1){
-							$('#q_report div div').eq(delete_report).hide();
-						}
-						delete_report=999;
-						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
-							if($('#q_report').data().info.reportData[i].report=='派車單')
-								delete_report=i;
-						}
-						if($('#q_report div div').text().indexOf('INVOICE')>-1){
-							$('#q_report div div').eq(delete_report).hide();
-						}
+						
 						$('#q_report div div .radio').parent().each(function(index) {
 							if(!$(this).is(':hidden') && t_first){
 								$(this).children().removeClass('nonselect').addClass('select');
@@ -66,6 +44,7 @@
 						});
 					}
 				});
+                
                 
             });
             function q_gfPost() {
@@ -189,6 +168,8 @@
 		                $('#txtCldate2').val(q_cdn(q_date(),+14));
                 	}
 				});
+				
+				$('#q_report div div .radio.select').click();
             }
 
             function q_boxClose(s2) {
