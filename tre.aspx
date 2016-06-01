@@ -195,7 +195,7 @@
 						if (abbm[q_recno] != undefined) {
 							$("#cmbCarteamno").val(abbm[q_recno].carteamno);
 						}
-						q_gridv('tview', browHtm, fbrow, abbm, aindex, brwNowPage, brwCount);
+						q_gridv('tview', browHtm, fbrow, abbm, brwNowPage, brwCount);
 						break;
                 	case 'carchg':
 						var as = _q_appendData("carchg", "", true);
