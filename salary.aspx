@@ -1089,6 +1089,7 @@
 		                	for (var i = 1; i < q_bbsCount; i++) {
 		                		if(emp($('#txtMoney2_'+i).val())){
 		                			$('#txtMoney2_'+i).val($('#txtMoney2_0').val());
+		                			$('#txtMoney2_'+i).change();
 		                		}
 		                	}
 	                	}
