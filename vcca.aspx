@@ -407,8 +407,9 @@
 				for (var j = 0; j < q_bbsCount; j++) {
 					$('#lblNo_' + j).text(j + 1);
 					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+						$('#chkAprice_'+j).click(function(e){refreshBbs();});
 						$('#txtMount_' + j).change(function() {
-							var n = $(this).attr('id').replace('txtMount_','');
+							var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
 							t_productno = $('#txtProductno_'+n).val();
 	                		t_date = $('#txtDatea').val();
 	                		if(t_productno.length>0 && q_getPara('sys.project').toUpperCase()!='VU'  && q_getPara('sys.project').toUpperCase()!='YC' && q_getPara('sys.project').toUpperCase()!='XY' && q_getPara('sys.project').toUpperCase()!='SB')
@@ -416,16 +417,11 @@
 							sum();
 						});
 						$('#txtPrice_' + j).change(function() {
-							t_IdSeq = -1;
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-                        	$('#txtMoney_'+b_seq).val(round(q_mul(q_float('txtMount_'+b_seq),q_float('txtPrice_'+b_seq)),0));
 							sum();
 						});
 						$('#txtMoney_' + j).change(function() {
 							sum();
 						});
-						
 					}
 				}
 				_bbsAssign();
@@ -562,7 +558,6 @@
 					
 				$('#txtTax').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
 				var t_mounts, t_prices, t_moneys=0, t_mount = 0, t_money = 0, t_taxrate, t_tax, t_total;
-				
 				//銷貨客戶
 				$('#txtCustno').attr('readonly', false);
 				$('#txtComp').attr('readonly', false);
@@ -581,6 +576,9 @@
 				$('#txtBuyer').attr('readonly', false);
 				
 				for (var k = 0; k < q_bbsCount; k++) {
+					if(!$('#chkAprice_'+k).prop('checked')){
+						$('#txtMoney_'+k).val(round(q_mul(q_float('txtMount_'+k),q_float('txtPrice_'+k)),0));
+					}
 					t_moneys = q_float('txtMoney_' + k);
                     t_money = q_add(t_money,t_moneys);
 				}
@@ -750,7 +748,17 @@
 			}
 			
 			function refreshBbs() {
-                
+                //金額小計自訂
+				for(var i=0;i<q_bbsCount;i++){
+					$('#txtMoney_'+i).attr('readonly','readonly');
+					if($('#chkAprice_'+i).prop('checked')){
+						$('#txtMoney_'+i).css('color','black').css('background-color','white');
+						if(q_cur==1 || q_cur==2)
+							$('#txtMoney_'+i).removeAttr('readonly');
+					}else{
+						$('#txtMoney_'+i).css('color','green').css('background-color','rgb(237,237,237)');
+					}
+				}
             }
 			
 			function bbtsum() {
@@ -1094,6 +1102,7 @@
 					<td align="center" style="width:70px;"><a id='lblMount'> </a></td>
 					<td align="center" style="width:70px;"><a id='lblPrice'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblTotals'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblAprice'>自訂金額</a></td>
 					<td align="center" style="width:80px;display: none;" class="ordeno"><a id='lblOrdeno'> </a></td>
 					<td align="center" style="width:180px;"><a id='lblMemos'> </a></td>
 				</tr>
@@ -1112,6 +1121,7 @@
 					<td><input id="txtMount.*" type="text" style="float:left;width: 95%; text-align: right;"/></td>
 					<td><input id="txtPrice.*" type="text" style="float:left;width: 95%; text-align: right;"/></td>
 					<td><input id="txtMoney.*" type="text" style="float:left;width: 95%; text-align: right;"/></td>
+					<td><input id="chkAprice.*" type="checkbox"/></td>
 					<td class="ordeno" style="display: none;"><input id="txtOrdeno.*" type="text" style="float:left;width: 95%;"/></td>
 					<td><input id="txtMemo.*" type="text" style="float:left;width: 95%;"/></td>
 				</tr>
