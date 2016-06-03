@@ -16,9 +16,31 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             var acompItem = '';
+            var t_first=true;
             $(document).ready(function() {
                 q_getId();
                 q_gt('acomp', '', 0, 0, 0, "");
+                
+                $('#qReport').click(function(e) {
+					if(window.parent.q_name=="orde" && q_getPara('sys.project').toUpperCase()=='XY' ){
+						var delete_report=999;
+						for(var i=0;i<$('#qReport').data().info.reportData.length;i++){
+							if($('#qReport').data().info.reportData[i].report!='z_orde5')
+								$('#qReport div div').eq(i).hide();
+						}
+												
+						$('#qReport div div .radio').parent().each(function(index) {
+							if(!$(this).is(':hidden') && t_first){
+								$(this).children().removeClass('nonselect').addClass('select');
+								t_first=false;
+							}
+							if($(this).is(':hidden') && t_first){
+								$(this).children().removeClass('select').addClass('nonselect');
+							}
+						});
+					}
+				});
+                
             });
             function q_gtPost(t_name) {
                 switch (t_name) {
@@ -118,6 +140,17 @@
                 
                 $('#txtXodate1').val(q_date().substr(0,r_lenm)+'/01');
                 $('#txtXodate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1));
+                
+                $('#qReport div div .radio.select').click();
+                if(window.parent.q_name=="orde" && q_getPara('sys.project').toUpperCase()=='XY' ){
+                	$('#txtXodate1').val('');
+                	$('#txtXodate2').val('');
+                	$('#txtXcust1a').val(window.parent.$('#txtCustno').val());
+                	$('#txtXcust1b').val(window.parent.$('#txtComp').val());
+                	$('#txtXcust2a').val(window.parent.$('#txtCustno').val());
+                	$('#txtXcust2b').val(window.parent.$('#txtComp').val());
+                	$('#btnOk').click();
+                }
             }
 
             function q_boxClose(s2) {
@@ -128,10 +161,10 @@
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
-		<div id="q_menu"></div>
+		<div id="q_menu"> </div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">
-				<div id="qReport"></div>
+				<div id="qReport"> </div>
 			</div>
 			<div class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->
