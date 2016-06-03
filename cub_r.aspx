@@ -261,8 +261,8 @@
 					as.push({process:'客戶收樣品'});
 					as.push({process:'轉生產件號'});
 					as.push({process:'通知建製程'});
-					as.push({process:'會計詢價'});
-					as.push({process:'成本計算'});
+					as.push({process:'越南會計報價日'});//as.push({process:'會計詢價'});
+					as.push({process:'PF計算 for 會計'});//as.push({process:'成本計算'});
 					as.push({process:'回覆'});
 					as.push({process:'報價'});
 					as.push({process:'客戶銷售採購價格表'});
