@@ -194,10 +194,7 @@
 					alert(t_err);
 					return;
 				}
-				if (!emp($('#txtSale_date').val()) && checkId($('#txtSale_date').val()) != 4) {
-					alert(q_getMsg('lblSale_date') + '錯誤。');
-					return;
-				}
+				
 				var t_noa = trim($('#txtNoa').val());
 				if (q_cur == 1)
 					$('#txtWorker').val(r_name);

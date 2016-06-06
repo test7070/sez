@@ -872,8 +872,8 @@
 						<td colspan="3"><input id="txtSpec" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblUnit" class="lbl" > </a></td>
 						<td><input id="txtUnit" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblStatus" class="lbl" >完成狀態</a></td>
-						<td><input id="txtStatus" type="text" class="txt c1" /></td>
+						<td  style="display: none;"><span> </span><a id="lblStatus" class="lbl" ></a>完成狀態</td>
+						<td><input id="txtStatus" type="hidden" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblM1" class="lbl" >車縫</a></td>

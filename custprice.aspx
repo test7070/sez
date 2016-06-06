@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
 		<title> </title>
@@ -613,7 +613,7 @@
 					<td align="center" style="width:6%;display: none;" class="isport td1"><a id='lblProfit_s'> </a></td>
 					<td align="center" style="width:6%;display: none;" class="isport td1"><a id='lblInsurance_s'> </a></td>
 					<td align="center" style="width:6%;display: none;" class="isport td1"><a id='lblPrice2_s'> </a></td>
-					<td align="center" style="width:18%;" class="memo"><a id='lblMemo_s'> </a></td>
+					<td align="center" style="width:8%;" class="memo"><a id='lblMemo_s'> </a></td>
 					<td align="center" style="width:7%;display: none;" class="isport"><a id='lblMemo1_s'> </a></td>
 					<td align="center" style="width:7%;display: none;" class="isport"><a id='lblMemo2_s'> </a></td>
 					<td align="center" style="width:7%;display: none;" class="isport"><a id='lblMemo3_s'> </a></td>
@@ -642,9 +642,9 @@
 					<td class="isport" style="display: none;"><input id="txtProfit.*" type="text" class="txt num c1"/></td>
 					<td class="isport" style="display: none;"><input id="txtInsurance.*" type="text" class="txt num c1"/></td>
 					<td class="isport" style="display: none;"><input id="txtPrice2.*" type="text" class="txt num c1"/></td>
-					<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
-					<td class="isport" style="display: none;"><input id="txtMemo1.*" type="text" class="txt c1"/></td>
-					<td class="isport" style="display: none;"><input id="txtMemo2.*" type="text" class="txt c1"/></td>
+					<td><input id="txtMemo.*" type="text"   class="txt c1"/></td>
+					<td class="isport" style="display: none;"><input id="txtMemo1.*" class="txt c1"/></td>
+					<td class="isport" style="display: none;"><input id="txtMemo2.*"  class="txt c1"/></td>
 					<td class="isport" style="display: none;"><input id="txtMemo3.*" type="text" class="txt c1"/></td>
 					<td class="isport" style="display: none;"><input id="txtMemo4.*" type="text" class="txt c1"/></td>
 				</tr>

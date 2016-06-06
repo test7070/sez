@@ -14,10 +14,6 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-			this.errorHandler = null;
-			function onPageError(error) {
-				alert("An error occurred:\r\n" + error.Message);
-			}
 
 			q_tables = 't';
 			var q_name = "vcca";
@@ -219,6 +215,18 @@
             }
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
+					case 'qtxt.query.vcca_apv':
+                		var as = _q_appendData("tmp0", "", true);
+                        if (as[0] != undefined) {
+                        	if(as[0].val == 1){
+                        		q_func('qtxt.query.checkdata_btnOk', 'vcca.txt,checkdata,' +q_cur+';'+$('#txtNoa').val()+';'+$('#txtCno').val()+';'+$('#txtDatea').val());	
+                        	}else{
+                        		alert(as[0].msg);
+                        		Unlock(1);
+                				return;
+                        	}
+                        }
+                		break;
 					case 'qtxt.query.checkdata':
 						var as = _q_appendData("tmp0", "", true, true);
                 		if(as[0]!=undefined){
@@ -393,8 +401,13 @@
 				$('#txtWorker').val(r_name);
 				
 				sum();
-				
-				q_func('qtxt.query.checkdata_btnOk', 'vcca.txt,checkdata,' +q_cur+';'+$('#txtNoa').val()+';'+$('#txtCno').val()+';'+$('#txtDatea').val());
+				//檢查發票抬頭
+				if(q_getPara('sys.project').toUpperCase()=='FE'){
+					//鉅昕印發票是印 COMP 那格,而不是買受人
+					q_func('qtxt.query.vcca_apv', 'vcca.txt,vcca_apv,'+r_userno+';vcca;' + $('#btnOk').data('guid')+';'+$('#txtNoa').val()+';'+$('#txtCustno').val()+';'+$('#txtComp').val()); 
+				}else{
+					q_func('qtxt.query.checkdata_btnOk', 'vcca.txt,checkdata,' +q_cur+';'+$('#txtNoa').val()+';'+$('#txtCno').val()+';'+$('#txtDatea').val());	
+				}
 			}
 
 			function _btnSeek() {
@@ -478,6 +491,7 @@
 				curData.copy();
 				_btnIns();
 				curData.paste();
+				$('#btnOk').data('guid',guid());//送簽核用
 				
 				if (q_getPara('sys.project').toUpperCase()=='VU'){//1050118
 					$('#txtCustno').val('');
@@ -489,17 +503,25 @@
 					$('#txtBuyer').val('');
 				}
 				
+				$('#txtNoa').data('key_buyer','');//檢查發票抬頭用
+				
 				$('#cmbTaxtype').val(1);
 				Lock(1, {
 					opacity : 0
 				});
 				q_gt('acomp', '', 0, 0, 0, 'getAcomp', r_accy);
 			}
+			var guid = (function() {
+				function s4() {return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);}
+				return function() {return s4() + s4() + '-' + s4() + '-' + s4() + '-' +s4() + '-' + s4() + s4() + s4();};
+			})();
 
 			function btnModi() {
 				if (emp($('#txtNoa').val()))
 					return;
 				_btnModi();
+				$('#btnOk').data('guid',guid());//送簽核用
+				$('#txtNoa').data('key_buyer','');//檢查發票抬頭用
 				$('#txtDatea').focus();
 				$('#txtNoa').attr('readonly', true).css('color', 'green').css('background-color', 'rgb(237,237,237)');
 				//讓發票號碼不可修改
