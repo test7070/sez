@@ -105,7 +105,7 @@
 				bbmNum = [['txtMoney', 15, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 15, 0, 1],['txtPrice', 10, q_getPara('rc2.pricePrecision'), 1], ['txtTotalus', 15, 0, 1], ['txtFloata', 10, 2, 1],['txtTranmoney',15,0,1],['txtTranadd',15,q_getPara('rc2.pricePrecision'),1]];
 				bbsNum = [['txtMount', 15, q_getPara('rc2.mountPrecision'), 1], ['txtPrice', 15, q_getPara('rc2.pricePrecision'), 1], ['txtTotal', 15, 0, 1]];
 				if(q_getPara('sys.project').toUpperCase()=='XY'){
-					q_readonlys = ['txtNoq','txtProduct','txtSpec','txtUnit'];
+					q_readonlys = ['txtNoq','txtProduct','txtSpec'];//'txtUnit'
 				}
 				
 				q_cmbParse("cmbTranstyle", q_getPara('sys.transtyle'));
