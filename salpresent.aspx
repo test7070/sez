@@ -620,9 +620,9 @@
                 <td align="center"><a id='lblSssno_s'> </a></td>
                 <td align="center"><a id='lblNamea_s'> </a></td>
                 <td align="center"><a id='lblClockin_s'> </a></td>
-                <td align="center"><a id='lblClockout_s'> </a></td>
                 <td align="center" class='rest' style="display: none;"><a id='lblRestin_s'> </a></td>
                 <td align="center" class='rest' style="display: none;"><a id='lblRestout_s'> </a></td>
+                <td align="center"><a id='lblClockout_s'> </a></td>
                 <td align="center"><a id='lblCardno_s'> </a></td>
                 <td align="center" class='w133'><a id='lblW133_s'> </a></td>
                 <td align="center" class='w166'><a id='lblW166_s'> </a></td>
@@ -639,9 +639,9 @@
                 <td ><input class="txt c1" id="txtSssno.*"type="text" /></td>
                 <td ><input class="txt c1" id="txtNamea.*"type="text" /></td>
                 <td ><input class="txt c1" id="txtClockin.*"type="text" /></td>
-                <td ><input class="txt c1" id="txtClockout.*"type="text" /></td>
                 <td class='rest' style="display: none;"><input class="txt c1" id="txtRestin.*"type="text" /></td>
                 <td class='rest' style="display: none;"><input class="txt c1" id="txtRestout.*"type="text" /></td>
+                <td ><input class="txt c1" id="txtClockout.*"type="text" /></td>
                 <td ><input class="txt c1" id="txtCardno.*"type="text" /></td>
                 <td class='w133'><input class="txt num c1" id="txtW133.*"type="text" /></td>
                 <td class='w166'><input class="txt num c1" id="txtW166.*"type="text" /></td>
