@@ -372,6 +372,9 @@
 	            }
             }
             if(q_getPara('sys.project').toUpperCase()=='FE'){
+            	$('.w133').show();
+            	$('.w166').show();
+            	$('.w100').show();
             	$('.rest').show();
             }
             sum();
