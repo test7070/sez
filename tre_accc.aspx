@@ -16,7 +16,7 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
 
-            q_desc = 1
+            q_desc = 1;
             var q_name = "tre_accc";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtPaybno', 'txtPayeno', 'txtChkeno', 'txtAccno1', 'txtAccno2', 'txtAccno3', 'txtBdriver', 'txtEdriver', 'txtTotal', 'txtTreno'];
             var bbmNum = [['txtOpay', 11, 0, 1], ['txtUnopay', 11, 0, 1], ['txtTotal', 11, 0, 1]];
@@ -29,10 +29,12 @@
             //ajaxPath = ""; //  execute in Root
             aPop = new Array(['txtBdriverno', 'lblBdriver', 'driver', 'noa,namea', 'txtBdriverno,txtBdriver', 'driver_b.aspx'], ['txtEdriverno', 'lblEdriver', 'driver', 'noa,namea', 'txtEdriverno,txtEdriver', 'driver_b.aspx'], ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
 
+			var t_item;
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1)
+                q_gt('carteam', '', 0, 0, 0, "");
+                
                 $('#txtNoa').focus();
             });
 
@@ -52,7 +54,8 @@
                 q_mask(bbmMask);
                 bbmMask2 = new Array(['txtBdate', r_picd], ['txtEdate', r_picd]);
                 q_mask(bbmMask2);
-                q_gt('carteam', '', 0, 0, 0, "");
+                q_cmbParse("cmbCarteamno", t_item);
+                
                 $("#cmbCarteamno").focus(function() {
                     var len = $("#cmbCarteamno").children().length > 0 ? $("#cmbCarteamno").children().length : 1;
                     $("#cmbCarteamno").attr('size', len + "");
@@ -226,18 +229,11 @@
 
                     case 'carteam':
                         var as = _q_appendData("carteam", "", true);
-                        var t_item = "";
+                        t_item = "";
                         for ( i = 0; i < as.length; i++) {
                             t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
                         }
-                        if(t_item.length>0)
-                        	q_cmbParse("cmbCarteamno", t_item);
-                        //q_cmbParse("cmbCarteamno2", t_item);
-                        $("#cmbCarteamno").val(abbm[q_recno].carteamno);
-
-                        //$("#cmbCarteamno2").val(abbm[q_recno].carteamno);
-                        q_gridv('tview', browHtm, fbrow, abbm, aindex, brwNowPage, brwCount);
-                        refresh(q_recno);
+                        q_gt(q_name, q_content, q_sqlCount, 1);
                         break;
                     case q_name:
                         if (q_cur == 4)

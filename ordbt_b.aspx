@@ -175,7 +175,7 @@
                     <td align="center" style='display:none;' ><a id='lblNoa'> </a></td>
 					<td style="width:200px; text-align: center;">廠商</td>
 					<td style="width:100px; text-align: center;">有效日期</td>
-					<td style="width:200px; text-align: center;">包裝方式</td>
+					<td style="width:200px; text-align: center;">備註</td>
 					<td style="width:100px; text-align: center;">期望單價</td>
 					<td style="width:100px; text-align: center;">廠商回報價</td>
 					<td style="width:100px; text-align: center;">回報日期</td>
@@ -197,7 +197,7 @@
 						<input id="txtTgg.*" type="text" style="width:45%;float:left;"/>
 					</td>
 					<td><input id="txtEdate.*" type="text" class="txt c1"/></td>
-					<td><input id="txtPack.*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtPack.*" type="text" class="txt c1"/></td>
 					<td><input id="txtPrice.*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtRprice.*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtRdate.*" type="text" class="txt c1"/></td>
