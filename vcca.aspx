@@ -148,9 +148,14 @@
 							q_pop('txtVccno', "vccst.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
 						else if (q_getPara('sys.project').toUpperCase()=='VU')
 							q_pop('txtVccno', "vcc_vu.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
+						else if (q_getPara('sys.project').toUpperCase()=='XY')
+							q_pop('txtVccno', "vcc_xy.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
 						else
 							q_pop('txtVccno', "vcc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
 					}else{
+						if (q_getPara('sys.project').toUpperCase()=='XY'){
+							return;
+						}
 						if(q_cur==1 || q_cur==2){
 							t_vccano = $('#txtNoa').val();
 							t_custno = $('#txtCustno').val();
