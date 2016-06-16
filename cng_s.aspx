@@ -45,14 +45,16 @@
 				t_edate = $('#txtEdate').val();
 				t_storeno = $('#txtStoreno').val();
 				t_storeinno = $('#txtStoreinno').val();
-
+				t_uno = $('#txtUno').val();
 
 				var t_where = " 1=1 " 
 					+ q_sqlPara2("noa", t_noa) 
 					+ q_sqlPara2("datea", t_bdate, t_edate) 
 					+ q_sqlPara2("storeno", t_storeno)
-					+ q_sqlPara2("storein", t_storein);
-
+					+ q_sqlPara2("storein", t_storeinno);
+				if(t_uno.length>0)
+		       		t_where += " and exists(select noa from view_cngs"+r_accy+" where view_cngs"+r_accy+".noa=view_cng"+r_accy+".noa and view_cngs"+r_accy+".uno='"+t_uno+"')";
+		       		
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
@@ -93,6 +95,12 @@
 					<td class='seek'  style="width:20%;"><a id='lblStorein'></a></td>
 					<td>
 					<input class="txt" id="txtStoreinno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblUno'>批號</a></td>
+					<td>
+					<input class="txt" id="txtUno" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>

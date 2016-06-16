@@ -123,7 +123,7 @@
 			function bbsAssign() {
 				for(var k=0;k<q_bbsCount;k++){
 					$('#txtRefv_'+k).change(function(){
-						var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+						var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
 						var t_refv=0,t_basev=0,t_mul=0,t_credit=0;
 						t_refv = dec($('#txtRefv_'+n).val());
 						t_basev = dec($('#txtBasev_'+n).val());
