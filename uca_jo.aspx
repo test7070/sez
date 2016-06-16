@@ -143,7 +143,7 @@
 				q_cmbParse("cmbMtype", q_getPara('uca.mtype'), 's');
 				q_gt('uccga', '', 0, 0, 0, "");
 				q_gt('uccgb', '', 0, 0, 0, "");
-				q_gt('uccgc', '', 0, 0, 0, "");
+				//q_gt('uccgc', '', 0, 0, 0, "");
 				
 				$('#btnUploadimg').click(function() {
 					t_where = "noa='" + $('#txtNoa').val() + "'";
@@ -413,7 +413,7 @@
 							}
 						}
 						break;
-					case 'uccgc':
+					/*case 'uccgc':
 						var as = _q_appendData("uccgc", "", true);
 						if (as[0] != undefined) {
 							var t_item = " @ ";
@@ -425,7 +425,7 @@
 								$("#cmbGroupcno").val(abbm[q_recno].groupcno);
 							}
 						}
-						break;
+						break;*/
 					case 'wcost':
 						var as = _q_appendData("wcost", "", true);
 						$('#textCosta').val(0);
@@ -1052,10 +1052,10 @@
 				
 				if(q_cur==1){
 					$('#cmbGroupbno').removeAttr('disabled');
-					$('#cmbGroupcno').removeAttr('disabled');
+					//$('#cmbGroupcno').removeAttr('disabled');
 				}else{
 					$('#cmbGroupbno').attr('disabled', 'disabled');
-					$('#cmbGroupcno').attr('disabled', 'disabled');
+					//$('#cmbGroupcno').attr('disabled', 'disabled');
 				}
 			}
 
@@ -1537,10 +1537,10 @@
 					<tr>
 						<td><span> </span><a id="lblSpec" class="lbl">型號</a></td>
 						<td><input id="txtSpec" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblSize" class="lbl">尺寸</a></td>
-						<td><input id="txtSize" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblStyle" class="lbl">車種</a></td>
-						<td><input id="txtStyle" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblGroupano" class="lbl">產品屬性</a></td>
+						<td><select id="cmbGroupano" class="txt c1" style="font-size: medium;"> </select></td>
+						<td><span> </span><a id="lblGroupbno" class="lbl">次產線代碼</a></td>
+						<td><select id="cmbGroupbno" class="txt c1" style="font-size: medium;"> </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblGroupeno" class="lbl">車縫</a></td>
@@ -1555,14 +1555,14 @@
 						<td><input id="txtGrouphno" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblGroupino" class="lbl">座管</a></td>
 						<td><input id="txtGroupino" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblGroupano" class="lbl">產品屬性</a></td>
-						<td><select id="cmbGroupano" class="txt c1" style="font-size: medium;"> </select></td>
+						<td><span> </span><a id="lblSize" class="lbl">尺寸</a></td>
+						<td><input id="txtSize" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblGroupbno" class="lbl">產線代碼</a></td>
-						<td><select id="cmbGroupbno" class="txt c1" style="font-size: medium;"> </select></td>
-						<td><span> </span><a id="lblGroupcno" class="lbl">次產線代碼</a></td>
-						<td><select id="cmbGroupcno" class="txt c1" style="font-size: medium;"> </select></td>
+						<td><span> </span><a id="lblStyle" class="lbl">車種</a></td>
+						<td><input id="txtStyle" type="text" class="txt c1"/></td>
+						<!--<td><span> </span><a id="lblGroupcno" class="lbl">次產線代碼</a></td>
+						<td><select id="cmbGroupcno" class="txt c1" style="font-size: medium;"> </select></td>-->
 						<td><span> </span><a id="lblGroupdno" class="lbl">銷售屬性</a></td>
 						<td><select id="cmbGroupdno" class="txt c1" style="font-size: medium;"> </select></td>
 					</tr>
