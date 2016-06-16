@@ -43,7 +43,16 @@
 				['ordb_txtTggno_', '', 'tgg', 'noa,comp', 'ordb_txtTggno_,ordb_txtTgg_', ''],
 				['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
 				['txtAgentno', 'lblAgent_r', 'cust', 'noa,nick','txtAgentno,txtAgent', 'cust_b.aspx'],
-				['txtGdate', 'lblFactory_r', 'factory', 'noa,factory', 'txtGdate,txtGtime', 'factory_b.aspx']
+				['txtGdate', 'lblFactory_r', 'factory', 'noa,factory', 'txtGdate,txtGtime', 'factory_b.aspx'],
+				['txtUcolor_','','adspec','noa,mon,memo,memo1,memo2','txtUcolor_','adspec_b.aspx'],
+				['txtScolor_','','adly','noa,mon,memo,memo1,memo2','txtScolor_','adly_b.aspx'],
+				['txtClass_','','adly','noa,mon,memo,memo1,memo2','txtClass_','adly_b.aspx'],
+				['txtClassa_','','adly','noa,mon,memo,memo1,memo2','txtClassa_','adly_b.aspx'],
+				['txtZinc_','','adly','noa,mon,memo,memo1,memo2','txtZinc_','adly_b.aspx'],
+				['txtSizea_','','adoth','noa,mon,memo,memo1,memo2','txtSizea_','adoth_b.aspx'],
+				['txtSource_','','adpro','noa,mon,memo,memo1,memo2','txtSource_','adpro_b.aspx'],
+				['txtHard_','','addime','noa,mon,memo,memo1,memo2','txtHard_','addime_b.aspx']
+				
 			);
 			
 			$(document).ready(function() {
@@ -131,14 +140,12 @@
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
 				q_cmbParse("cmbPayterms", q_getPara('sys.payterms'));
 				q_cmbParse("combPayterms", q_getPara('sys.payterms'));
-				
+				q_cmbParse("cmbCasetype", "20',40'" );
 				if(r_len==4){                	
                 	$.datepicker.r_len=4;
 					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
                 }
-				
-				q_cmbParse("cmbCasetype", "20',40'" );
-
+                
 				var t_where = "where=^^ 1=0 ^^";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
 
@@ -1277,6 +1284,95 @@
 								$('#div_getprice').show();
 							}
 						});
+						
+						$('#txtUcolor_' + j).click(function() {
+							if(!emp($(this).val())){
+								var t_where = "where=^^ noa='"+$(this).val()+"' ^^";
+								q_gt('adspec', t_where, 0, 0, 0, "",r_accy,1);
+								var as = _q_appendData("adspec", "", true);
+								if (as[0] != undefined) {
+									var tmsg=as[0].mon+(as[0].memo1.length>0?"<BR>"+as[0].memo1:'')+(as[0].memo2.length>0?"<BR>"+as[0].memo2:'')
+									q_msg($(this),tmsg,10,10000)
+								}
+							}
+						});
+						$('#txtScolor_' + j).click(function() {
+							if(!emp($(this).val())){
+								var t_where = "where=^^ noa='"+$(this).val()+"' ^^";
+								q_gt('adly', t_where, 0, 0, 0, "",r_accy,1);
+								var as = _q_appendData("adly", "", true);
+								if (as[0] != undefined) {
+									var tmsg=as[0].mon+(as[0].memo1.length>0?"<BR>"+as[0].memo1:'')+(as[0].memo2.length>0?"<BR>"+as[0].memo2:'')
+									q_msg($(this),tmsg,10,10000)
+								}
+							}
+						});
+						$('#txtClass_' + j).click(function() {
+							if(!emp($(this).val())){
+								var t_where = "where=^^ noa='"+$(this).val()+"' ^^";
+								q_gt('adly', t_where, 0, 0, 0, "",r_accy,1);
+								var as = _q_appendData("adly", "", true);
+								if (as[0] != undefined) {
+									var tmsg=as[0].mon+(as[0].memo1.length>0?"<BR>"+as[0].memo1:'')+(as[0].memo2.length>0?"<BR>"+as[0].memo2:'')
+									q_msg($(this),tmsg,10,10000)
+								}
+							}
+						});
+						$('#txtClassa_' + j).click(function() {
+							if(!emp($(this).val())){
+								var t_where = "where=^^ noa='"+$(this).val()+"' ^^";
+								q_gt('adly', t_where, 0, 0, 0, "",r_accy,1);
+								var as = _q_appendData("adly", "", true);
+								if (as[0] != undefined) {
+									var tmsg=as[0].mon+(as[0].memo1.length>0?"<BR>"+as[0].memo1:'')+(as[0].memo2.length>0?"<BR>"+as[0].memo2:'')
+									q_msg($(this),tmsg,10,10000)
+								}
+							}
+						});
+						$('#txtZinc_' + j).click(function() {
+							if(!emp($(this).val())){
+								var t_where = "where=^^ noa='"+$(this).val()+"' ^^";
+								q_gt('adly', t_where, 0, 0, 0, "",r_accy,1);
+								var as = _q_appendData("adly", "", true);
+								if (as[0] != undefined) {
+									var tmsg=as[0].mon+(as[0].memo1.length>0?"<BR>"+as[0].memo1:'')+(as[0].memo2.length>0?"<BR>"+as[0].memo2:'')
+									q_msg($(this),tmsg,10,10000)
+								}
+							}
+						});
+						$('#txtSizea_' + j).click(function() {
+							if(!emp($(this).val())){
+								var t_where = "where=^^ noa='"+$(this).val()+"' ^^";
+								q_gt('adoth', t_where, 0, 0, 0, "",r_accy,1);
+								var as = _q_appendData("adoth", "", true);
+								if (as[0] != undefined) {
+									var tmsg=as[0].mon+(as[0].memo1.length>0?"<BR>"+as[0].memo1:'')+(as[0].memo2.length>0?"<BR>"+as[0].memo2:'')
+									q_msg($(this),tmsg,10,10000)
+								}
+							}
+						});
+						$('#txtSource_' + j).click(function() {
+							if(!emp($(this).val())){
+								var t_where = "where=^^ noa='"+$(this).val()+"' ^^";
+								q_gt('adpro', t_where, 0, 0, 0, "",r_accy,1);
+								var as = _q_appendData("adpro", "", true);
+								if (as[0] != undefined) {
+									var tmsg=as[0].mon+(as[0].memo1.length>0?"<BR>"+as[0].memo1:'')+(as[0].memo2.length>0?"<BR>"+as[0].memo2:'')
+									q_msg($(this),tmsg,10,10000)
+								}
+							}
+						});
+						$('#txtHard_' + j).click(function() {
+							if(!emp($(this).val())){
+								var t_where = "where=^^ noa='"+$(this).val()+"' ^^";
+								q_gt('addime', t_where, 0, 0, 0, "",r_accy,1);
+								var as = _q_appendData("addime", "", true);
+								if (as[0] != undefined) {
+									var tmsg=as[0].mon+(as[0].memo1.length>0?"<BR>"+as[0].memo1:'')+(as[0].memo2.length>0?"<BR>"+as[0].memo2:'')
+									q_msg($(this),tmsg,10,10000)
+								}
+							}
+						});
 					}
 				}
 				_bbsAssign();
@@ -2093,7 +2189,7 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1985px;">
+		<div class='dbbs' style="width: 2385px;">
 			<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1'>
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:45px;">
@@ -2101,6 +2197,11 @@
 					</td>
 					<td align="center" style="width:160px;"><a id='lblProductno_r'>Item No.</a></td>
 					<td align="center" style="width:200px;"><a id='lblProduct_s_r'>Description</a></td>
+					<td align="center" style="width:95px;"><a id='lblMay_r'>車縫線顏色</a></td>
+					<td align="center" style="width:95px;"><a id='lblDa12_r'>皮料1/皮料2</a></td>
+					<td align="center" style="width:95px;"><a id='lblDa34_r'>皮料3/皮料4</a></td>
+					<td align="center" style="width:95px;"><a id='lblIn_r'>網烙印/轉印</a></td>
+					<td align="center" style="width:95px;"><a id='lblEle_r'>電鍍</a></td>
 					<td align="center" style="width:55px;"><a id='lblUnit_r'>Unit</a></td>
 					<td align="center" style="width:85px;"><a id='lblMount_r'>Quantity</a></td>
 					<td align="center" style="width:85px;"><a id='lblCost_s_r'>Cost</a></td>
@@ -2134,6 +2235,20 @@
 						<input class="txt c7" id="txtProduct.*" type="text" />
 						<input id="txtSpec.*" type="text" class="txt c1 isSpec"/>
 					</td>
+					<td><input id="txtUcolor.*" type="text" class="txt c1"/></td>
+					<td>
+						<input id="txtScolor.*" type="text" class="txt c1"/>
+						<input id="txtClass.*" type="text" class="txt c1"/>
+					</td>
+					<td>
+						<input id="txtClassa.*" type="text" class="txt c1"/>
+						<input id="txtZinc.*" type="text" class="txt c1"/>
+					</td>
+					<td>
+						<input id="txtSizea.*" type="text" class="txt c1"/>
+						<input id="txtSource.*" type="text" class="txt c1"/>
+					</td>
+					<td><input id="txtHard.*" type="text" class="txt c1"/></td>
 					<td align="center"><input class="txt c7" id="txtUnit.*" type="text"/></td>
 					<td><input class="txt num c7" id="txtMount.*" type="text" /></td>
 					<td><input class="txt num c7" id="txtSprice.*" type="text" /></td>
