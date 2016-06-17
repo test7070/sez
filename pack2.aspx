@@ -28,7 +28,12 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            aPop = new Array(['txtNoa', 'lblNoa', 'ucaucc', 'noa,product,unit,spec', 'txtNoa,txtProduct,txtUnit,txtSpec', 'ucaucc_b.aspx']);
+            aPop = new Array(
+            	['txtNoa', 'lblNoa', 'ucaucc', 'noa,product,unit,spec', 'txtNoa,txtProduct,txtUnit,txtSpec', 'ucaucc_b.aspx']
+            	,['txtPk1no_', 'btnPk1no_', 'ucc', 'noa,product', 'txtPk1no_,txtPk1_', 'ucc_b.aspx']
+            	,['txtPk2no_', 'btnPk2no_', 'ucc', 'noa,product', 'txtPk2no_,txtPk2_', 'ucc_b.aspx']
+            	,['txtPk3no_', 'btnPk3no_', 'ucc', 'noa,product', 'txtPk3no_,txtPk3_', 'ucc_b.aspx']
+            );
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -403,7 +408,7 @@
                 font-size:medium;
             }
             .dbbs {
-                width: 1260px;
+                width: 1560px;
             }
             .tbbs a {
                 font-size: medium;
@@ -480,6 +485,9 @@
 					</td>
 					<td align="center" style="width:80px;"><a id='lblPackway_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblPack_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblPk1_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblPk2_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblPk3_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblInmount_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblOutmount_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblInweight_s'> </a></td>
@@ -498,6 +506,21 @@
 					<input id="txtNoq.*" type="text" style="display: none;" /></td>
 					<td><input type="text" id="txtPackway.*" class="txt c2" /> </td>
 					<td><input type="text" id="txtPack.*" class="txt c2" /> </td>
+					<td>
+						<input type="text" id="txtPk1no.*" class="txt c2" style="width: 75%;"/>
+						<input class="btn" id="btnPk1no.*" type="button" value='.' style=" font-weight: bold;" />
+						<input type="text" id="txtPk1.*" class="txt c2" /> 
+					</td>
+					<td>
+						<input type="text" id="txtPk2no.*" class="txt c2" style="width: 75%;"/>
+						<input class="btn" id="btnPk2no.*" type="button" value='.' style=" font-weight: bold;" />
+						<input type="text" id="txtPk2.*" class="txt c2" /> 
+					</td>
+					<td>
+						<input type="text" id="txtPk3no.*" class="txt c2" style="width: 75%;"/>
+						<input class="btn" id="btnPk3no.*" type="button" value='.' style=" font-weight: bold;" />
+						<input type="text" id="txtPk3.*" class="txt c2" /> 
+					</td>
 					<td><input type="text" id="txtInmount.*" class="txt num c2" /> </td>
 					<td><input type="text" id="txtOutmount.*" class="txt num c2" /> </td>
 					<td><input type="text" id="txtInweight.*" class="txt num c2" /></td>

@@ -1168,7 +1168,20 @@
 							}*/
 							$('#txtMount_'+b_seq).val(1);
 							//105/04/15 取第一種包裝
-							var t_where = "where=^^ noa='"+$('#txtProductno_'+b_seq).val()+"'  ^^";
+							//105/06/17 依據客戶料號抓取包裝資料
+							var t_where = "where=^^ noa='"+$('#txtProductno_'+b_seq).val()+"' and custno='"+$('#txtCustno').val()+"' ^^";
+							q_gt('ucccust', t_where, 0, 0, 0, "getucccust", r_accy, 1);
+							var isucccust=false;
+							var as = _q_appendData("ucccust", "", true);
+							if (as[0] != undefined) {
+								$('#txtPackwayno_'+b_seq).val(as[0].packwayno);
+								$('#txtPackway_'+b_seq).val(as[0].packway);
+								isucccust=true;
+							}
+							if(isucccust)
+								var t_where = "where=^^ noa='"+$('#txtProductno_'+b_seq).val()+"' and packway='"+$('#txtPackwayno_'+b_seq).val()+"' ^^";
+							else
+								var t_where = "where=^^ noa='"+$('#txtProductno_'+b_seq).val()+"'  ^^";
 							q_gt('pack2s', t_where, 0, 0, 0, "gettop1pack2s", r_accy, 1);
 							var as = _q_appendData("pack2s", "", true);
 							if (as[0] != undefined) {
