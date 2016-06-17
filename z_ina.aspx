@@ -43,6 +43,12 @@
 					},{
 						type : '1',
 						name : 'noa'
+					},{
+						type : '2',
+						name : 'xproduct', 
+						dbf : 'ucaucc',
+						index : 'noa,product',
+						src : 'ucaucc_b.aspx'
 					}]
                     });
                 q_popAssign();
