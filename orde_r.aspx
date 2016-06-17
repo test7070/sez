@@ -44,14 +44,14 @@
 				['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
 				['txtAgentno', 'lblAgent_r', 'cust', 'noa,nick','txtAgentno,txtAgent', 'cust_b.aspx'],
 				['txtGdate', 'lblFactory_r', 'factory', 'noa,factory', 'txtGdate,txtGtime', 'factory_b.aspx'],
-				['txtUcolor_','','adspec','noa,mon,memo,memo1,memo2','txtUcolor_','adspec_b.aspx'],
-				['txtScolor_','','adly','noa,mon,memo,memo1,memo2','txtScolor_','adly_b.aspx'],
-				['txtClass_','','adly','noa,mon,memo,memo1,memo2','txtClass_','adly_b.aspx'],
-				['txtClassa_','','adly','noa,mon,memo,memo1,memo2','txtClassa_','adly_b.aspx'],
-				['txtZinc_','','adly','noa,mon,memo,memo1,memo2','txtZinc_','adly_b.aspx'],
-				['txtSizea_','','adoth','noa,mon,memo,memo1,memo2','txtSizea_','adoth_b.aspx'],
-				['txtSource_','','adpro','noa,mon,memo,memo1,memo2','txtSource_','adpro_b.aspx'],
-				['txtHard_','','addime','noa,mon,memo,memo1,memo2','txtHard_','addime_b.aspx']
+				['txtUcolor_','','adspec','noa,mon,memo,memo1,memo2','0txtUcolor_','adspec_b.aspx'],
+				['txtScolor_','','adly','noa,mon,memo,memo1,memo2','0txtScolor_','adly_b.aspx'],
+				['txtClass_','','adly','noa,mon,memo,memo1,memo2','0txtClass_','adly_b.aspx'],
+				['txtClassa_','','adly','noa,mon,memo,memo1,memo2','0txtClassa_','adly_b.aspx'],
+				['txtZinc_','','adly','noa,mon,memo,memo1,memo2','0txtZinc_','adly_b.aspx'],
+				['txtSizea_','','adoth','noa,mon,memo,memo1,memo2','0txtSizea_','adoth_b.aspx'],
+				['txtSource_','','adpro','noa,mon,memo,memo1,memo2','0txtSource_','adpro_b.aspx'],
+				['txtHard_','','addime','noa,mon,memo,memo1,memo2','0txtHard_','addime_b.aspx']
 				
 			);
 			
@@ -502,6 +502,10 @@
 						$(this).select();
 					});
 				});
+				
+				$('#btnClose_div_ucagroup').click(function() {
+					$('#div_ucagroup').hide();
+				});
 			}
 			
 			function divtrantypechange(){
@@ -813,60 +817,6 @@
 						if(abbm[q_recno])
 							$('#cmbCoin').val(abbm[q_recno].coin);
 						
-						break;
-					case 'orde_ordb':
-						var as = _q_appendData("view_orde", "", true);
-						var rowslength=document.getElementById("table_ordb").rows.length-1;
-						for (var j = 1; j < rowslength; j++) {
-							document.getElementById("table_ordb").deleteRow(1);
-						}
-							
-						for (var i = 0; i < as.length; i++) {
-							var tr = document.createElement("tr");
-							tr.id = "bbs_"+i;
-							tr.innerHTML= "<td id='ordb_tdNo2_"+i+"'><input id='ordb_txtNo2_"+i+"' type='text' value='"+as[i].no2+"' style='width: 45px' disabled='disabled' /><input id='ordb_txtNoa_"+i+"' type='text' value='"+as[i].noa+"' style='width: 45px;display:none' disabled='disabled' /></td>";
-							tr.innerHTML+="<td id='ordb_tdProdcut_"+i+"'><input id='ordb_txtProdcut_"+i+"' type='text' value='"+as[i].product+"' style='width: 200px' disabled='disabled' /></td>";
-							tr.innerHTML+="<td id='ordb_tdMount_"+i+"'><input id='ordb_txtMount_"+i+"' type='text' value='"+as[i].mount+"' style='width: 80px;text-align: right;' disabled='disabled' /></td>";
-							tr.innerHTML+="<td id='ordb_tdSafemount_"+i+"'><input id='ordb_txtSafemount_"+i+"' type='text' value='"+dec(as[i].safemount)+"' style='width: 80px;text-align: right;' disabled='disabled' /></td>";
-							tr.innerHTML+="<td id='ordb_tdStmount_"+i+"'><input id='ordb_txtStmount_"+i+"' type='text' value='"+as[i].stmount+"' style='width: 80px;text-align: right;' disabled='disabled' /></td>";
-							tr.innerHTML+="<td id='ordb_tdOcmount_"+i+"'><input id='ordb_txtOcmount_"+i+"' type='text' value='"+dec(as[i].ocmount)+"' style='width: 80px;text-align: right;' disabled='disabled' /></td>";
-							//庫存-訂單數量>安全量?不需請購:abs(安全量-(庫存-訂單數量))
-							tr.innerHTML+="<td id='ordb_tdObmount_"+i+"'><input id='ordb_txtObmount_"+i+"' type='text' value='"+(q_sub(dec(as[i].stmount),dec(as[i].mount))>as[i].safemount?0:Math.abs(q_sub(dec(as[i].safemount),q_sub(dec(as[i].stmount),dec(as[i].mount)))))+"' class='num' style='width: 80px;text-align: right;' /></td>";
-							tr.innerHTML+="<td id='ordb_tdTggno_"+i+"'><input id='ordb_txtTggno_"+i+"' type='text' value='"+as[i].tggno+"' style='width: 150px'  /><input id='ordb_txtTgg_"+i+"' type='text' value='"+as[i].tgg+"' style='width: 200px' disabled='disabled' /></td>";
-							tr.innerHTML+="<td id='ordb_tdInprice_"+i+"'><input id='ordb_txtInprice_"+i+"' type='text' value='"+(dec(as[i].tggprice)>0?as[i].tggprice:as[i].inprice)+"' class='num' style='width: 80px;text-align: right;' /></td>";
-								
-							var tmp = document.getElementById("ordb_close");
-							tmp.parentNode.insertBefore(tr,tmp);
-						}
-						$('#lblOrde2ordb').text(q_getMsg('lblOrde2ordb'));
-						$('#div_ordb').show();
-						
-						var SeekF= new Array();
-						$('#table_ordb td').children("input:text").each(function() {
-							if($(this).attr('disabled')!='disabled')
-								SeekF.push($(this).attr('id'));
-						});
-						
-						SeekF.push('btn_div_ordb');
-						$('#table_ordb td').children("input:text").each(function() {
-							$(this).keydown(function(event) {
-								if( event.which == 13) {
-									$('#'+SeekF[SeekF.indexOf($(this).attr('id'))+1]).focus();
-									$('#'+SeekF[SeekF.indexOf($(this).attr('id'))+1]).select();
-								}
-							});
-						});
-						
-						$('#table_ordb td .num').each(function() {
-							$(this).keyup(function() {
-								var tmp=$(this).val();
-								tmp=tmp.match(/\d{1,}\.{0,1}\d{0,}/);
-								$(this).val(tmp);
-							});
-						});
-						
-						refresh(q_recno);
-						q_cur=2;
 						break;
 					case 'msg_ucc':
 						var as = _q_appendData("ucc", "", true);
@@ -1285,91 +1235,177 @@
 							}
 						});
 						
-						$('#txtUcolor_' + j).click(function() {
-							if(!emp($(this).val())){
-								var t_where = "where=^^ noa='"+$(this).val()+"' ^^";
-								q_gt('adspec', t_where, 0, 0, 0, "",r_accy,1);
-								var as = _q_appendData("adspec", "", true);
+						$('#btnUcagroup_' + j).click(function(e) {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(!emp($('#txtProductno_'+b_seq).val())){
+								$('.ucano').text($('#txtProductno_'+b_seq).val());
+								var t_where = "where=^^ noa='"+$('#txtProductno_'+b_seq).val()+"' ^^";
+								q_gt('uca', t_where, 0, 0, 0, "",r_accy,1);
+								var as = _q_appendData("uca", "", true);
 								if (as[0] != undefined) {
-									var tmsg=as[0].mon+(as[0].memo1.length>0?"<BR>"+as[0].memo1:'')+(as[0].memo2.length>0?"<BR>"+as[0].memo2:'')
-									q_msg($(this),tmsg,10,10000)
-								}
-							}
-						});
-						$('#txtScolor_' + j).click(function() {
-							if(!emp($(this).val())){
-								var t_where = "where=^^ noa='"+$(this).val()+"' ^^";
-								q_gt('adly', t_where, 0, 0, 0, "",r_accy,1);
-								var as = _q_appendData("adly", "", true);
-								if (as[0] != undefined) {
-									var tmsg=as[0].mon+(as[0].memo1.length>0?"<BR>"+as[0].memo1:'')+(as[0].memo2.length>0?"<BR>"+as[0].memo2:'')
-									q_msg($(this),tmsg,10,10000)
-								}
-							}
-						});
-						$('#txtClass_' + j).click(function() {
-							if(!emp($(this).val())){
-								var t_where = "where=^^ noa='"+$(this).val()+"' ^^";
-								q_gt('adly', t_where, 0, 0, 0, "",r_accy,1);
-								var as = _q_appendData("adly", "", true);
-								if (as[0] != undefined) {
-									var tmsg=as[0].mon+(as[0].memo1.length>0?"<BR>"+as[0].memo1:'')+(as[0].memo2.length>0?"<BR>"+as[0].memo2:'')
-									q_msg($(this),tmsg,10,10000)
-								}
-							}
-						});
-						$('#txtClassa_' + j).click(function() {
-							if(!emp($(this).val())){
-								var t_where = "where=^^ noa='"+$(this).val()+"' ^^";
-								q_gt('adly', t_where, 0, 0, 0, "",r_accy,1);
-								var as = _q_appendData("adly", "", true);
-								if (as[0] != undefined) {
-									var tmsg=as[0].mon+(as[0].memo1.length>0?"<BR>"+as[0].memo1:'')+(as[0].memo2.length>0?"<BR>"+as[0].memo2:'')
-									q_msg($(this),tmsg,10,10000)
-								}
-							}
-						});
-						$('#txtZinc_' + j).click(function() {
-							if(!emp($(this).val())){
-								var t_where = "where=^^ noa='"+$(this).val()+"' ^^";
-								q_gt('adly', t_where, 0, 0, 0, "",r_accy,1);
-								var as = _q_appendData("adly", "", true);
-								if (as[0] != undefined) {
-									var tmsg=as[0].mon+(as[0].memo1.length>0?"<BR>"+as[0].memo1:'')+(as[0].memo2.length>0?"<BR>"+as[0].memo2:'')
-									q_msg($(this),tmsg,10,10000)
-								}
-							}
-						});
-						$('#txtSizea_' + j).click(function() {
-							if(!emp($(this).val())){
-								var t_where = "where=^^ noa='"+$(this).val()+"' ^^";
-								q_gt('adoth', t_where, 0, 0, 0, "",r_accy,1);
-								var as = _q_appendData("adoth", "", true);
-								if (as[0] != undefined) {
-									var tmsg=as[0].mon+(as[0].memo1.length>0?"<BR>"+as[0].memo1:'')+(as[0].memo2.length>0?"<BR>"+as[0].memo2:'')
-									q_msg($(this),tmsg,10,10000)
-								}
-							}
-						});
-						$('#txtSource_' + j).click(function() {
-							if(!emp($(this).val())){
-								var t_where = "where=^^ noa='"+$(this).val()+"' ^^";
-								q_gt('adpro', t_where, 0, 0, 0, "",r_accy,1);
-								var as = _q_appendData("adpro", "", true);
-								if (as[0] != undefined) {
-									var tmsg=as[0].mon+(as[0].memo1.length>0?"<BR>"+as[0].memo1:'')+(as[0].memo2.length>0?"<BR>"+as[0].memo2:'')
-									q_msg($(this),tmsg,10,10000)
-								}
-							}
-						});
-						$('#txtHard_' + j).click(function() {
-							if(!emp($(this).val())){
-								var t_where = "where=^^ noa='"+$(this).val()+"' ^^";
-								q_gt('addime', t_where, 0, 0, 0, "",r_accy,1);
-								var as = _q_appendData("addime", "", true);
-								if (as[0] != undefined) {
-									var tmsg=as[0].mon+(as[0].memo1.length>0?"<BR>"+as[0].memo1:'')+(as[0].memo2.length>0?"<BR>"+as[0].memo2:'')
-									q_msg($(this),tmsg,10,10000)
+									$('.ucaname').text(as[0].product);
+									$('.ucaspec').text(as[0].spec);
+									//車縫
+									$('.groupe.no').text(as[0].groupeno);
+									if(!emp($('.groupe.no').text())){
+										var t_where = "where=^^ noa='"+$('.groupe.no').text()+"' ^^";
+										q_gt('adsize', t_where, 0, 0, 0, "",r_accy,1);
+										var ass = _q_appendData("adsize", "", true);
+										if (ass[0] != undefined) {
+											$('.groupe.mon').text(ass[0].mon);
+											$('.groupe.memo1').text(ass[0].memo1);
+											$('.groupe.memo2').text(ass[0].memo2);
+										}
+									}
+									//車縫線顏色
+									$('.ucolor.no').text($('#txtUcolor_'+b_seq).val());
+									if(!emp($('.ucolor.no').text())){
+										var t_where = "where=^^ noa='"+$('.ucolor.no').text()+"' ^^";
+										q_gt('adspec', t_where, 0, 0, 0, "",r_accy,1);
+										var ass = _q_appendData("adspec", "", true);
+										if (ass[0] != undefined) {
+											$('.ucolor.mon').text(ass[0].mon);
+											$('.ucolor.memo1').text(ass[0].memo1);
+											$('.ucolor.memo2').text(ass[0].memo2);
+										}
+									}
+									//護片
+									$('.groupf.no').text(as[0].groupfno);
+									if(!emp($('.groupf.no').text())){
+										var t_where = "where=^^ noa='"+$('.groupf.no').text()+"' ^^";
+										q_gt('adsss', t_where, 0, 0, 0, "",r_accy,1);
+										var ass = _q_appendData("adsss", "", true);
+										if (ass[0] != undefined) {
+											$('.groupf.mon').text(ass[0].mon);
+											$('.groupf.memo1').text(ass[0].memo1);
+											$('.groupf.memo2').text(ass[0].memo2);
+										}
+									}
+									//皮料1
+									$('.scolor.no').text($('#txtScolor_'+b_seq).val());
+									if(!emp($('.scolor.no').text())){
+										var t_where = "where=^^ noa='"+$('.scolor.no').text()+"' ^^";
+										q_gt('adly', t_where, 0, 0, 0, "",r_accy,1);
+										var ass = _q_appendData("adly", "", true);
+										if (ass[0] != undefined) {
+											$('.scolor.mon').text(ass[0].mon);
+											$('.scolor.memo1').text(ass[0].memo1);
+											$('.scolor.memo2').text(ass[0].memo2);
+										}
+									}
+									//皮料2
+									$('.class.no').text($('#txtClass_'+b_seq).val());
+									if(!emp($('.class.no').text())){
+										var t_where = "where=^^ noa='"+$('.class.no').text()+"' ^^";
+										q_gt('adly', t_where, 0, 0, 0, "",r_accy,1);
+										var ass = _q_appendData("adly", "", true);
+										if (ass[0] != undefined) {
+											$('.class.mon').text(ass[0].mon);
+											$('.class.memo1').text(ass[0].memo1);
+											$('.class.memo2').text(ass[0].memo2);
+										}
+									}
+									//皮料3
+									$('.classa.no').text($('#txtClassa_'+b_seq).val());
+									if(!emp($('.classa.no').text())){
+										var t_where = "where=^^ noa='"+$('.classa.no').text()+"' ^^";
+										q_gt('adly', t_where, 0, 0, 0, "",r_accy,1);
+										var ass = _q_appendData("adly", "", true);
+										if (ass[0] != undefined) {
+											$('.classa.mon').text(ass[0].mon);
+											$('.classa.memo1').text(ass[0].memo1);
+											$('.classa.memo2').text(ass[0].memo2);
+										}
+									}
+									//皮料4
+									$('.zinc.no').text($('#txtZinc_'+b_seq).val());
+									if(!emp($('.zinc.no').text())){
+										var t_where = "where=^^ noa='"+$('.zinc.no').text()+"' ^^";
+										q_gt('adly', t_where, 0, 0, 0, "",r_accy,1);
+										var ass = _q_appendData("adly", "", true);
+										if (ass[0] != undefined) {
+											$('.zinc.mon').text(ass[0].mon);
+											$('.zinc.memo1').text(ass[0].memo1);
+											$('.zinc.memo2').text(ass[0].memo2);
+										}
+									}
+									//網烙印
+									$('.sizea.no').text($('#txtSizea_'+b_seq).val());
+									if(!emp($('.sizea.no').text())){
+										var t_where = "where=^^ noa='"+$('.sizea.no').text()+"' ^^";
+										q_gt('adoth', t_where, 0, 0, 0, "",r_accy,1);
+										var ass = _q_appendData("adoth", "", true);
+										if (ass[0] != undefined) {
+											$('.sizea.mon').text(ass[0].mon);
+											$('.sizea.memo1').text(ass[0].memo1);
+											$('.sizea.memo2').text(ass[0].memo2);
+										}
+									}
+									//轉印
+									$('.source.no').text($('#txtSource_'+b_seq).val());
+									if(!emp($('.source.no').text())){
+										var t_where = "where=^^ noa='"+$('.source.no').text()+"' ^^";
+										q_gt('adpro', t_where, 0, 0, 0, "",r_accy,1);
+										var ass = _q_appendData("adpro", "", true);
+										if (ass[0] != undefined) {
+											$('.source.mon').text(ass[0].mon);
+											$('.source.memo1').text(ass[0].memo1);
+											$('.source.memo2').text(ass[0].memo2);
+										}
+									}
+									//大弓
+									$('.groupg.no').text(as[0].groupgno);
+									if(!emp($('.groupg.no').text())){
+										var t_where = "where=^^ noa='"+$('.groupg.no').text()+"' ^^";
+										q_gt('adknife', t_where, 0, 0, 0, "",r_accy,1);
+										var ass = _q_appendData("adknife", "", true);
+										if (ass[0] != undefined) {
+											$('.groupg.mon').text(ass[0].mon);
+											$('.groupg.memo1').text(ass[0].memo1);
+											$('.groupg.memo2').text(ass[0].memo2);
+										}
+									}
+									//中束
+									$('.grouph.no').text(as[0].grouphno);
+									if(!emp($('.grouph.no').text())){
+										var t_where = "where=^^ noa='"+$('.grouph.no').text()+"' ^^";
+										q_gt('adpipe', t_where, 0, 0, 0, "",r_accy,1);
+										var ass = _q_appendData("adpipe", "", true);
+										if (ass[0] != undefined) {
+											$('.grouph.mon').text(ass[0].mon);
+											$('.grouph.memo1').text(ass[0].memo1);
+											$('.grouph.memo2').text(ass[0].memo2);
+										}
+									}
+									//座管
+									$('.groupi.no').text(as[0].groupino);
+									if(!emp($('.groupi.no').text())){
+										var t_where = "where=^^ noa='"+$('.groupi.no').text()+"' ^^";
+										q_gt('adtran', t_where, 0, 0, 0, "",r_accy,1);
+										var ass = _q_appendData("adtran", "", true);
+										if (ass[0] != undefined) {
+											$('.groupi.mon').text(ass[0].mon);
+											$('.groupi.memo1').text(ass[0].memo1);
+											$('.groupi.memo2').text(ass[0].memo2);
+										}
+									}
+									//電鍍
+									$('.hard.no').text($('#txtHard_'+b_seq).val());
+									if(!emp($('.hard.no').text())){
+										var t_where = "where=^^ noa='"+$('.hard.no').text()+"' ^^";
+										q_gt('addime', t_where, 0, 0, 0, "",r_accy,1);
+										var ass = _q_appendData("addime", "", true);
+										if (ass[0] != undefined) {
+											$('.hard.mon').text(ass[0].mon);
+											$('.hard.memo1').text(ass[0].memo1);
+											$('.hard.memo2').text(ass[0].memo2);
+										}
+									}
+									$('#div_ucagroup').css('top', e.pageY- $('#div_ucagroup').height());
+									$('#div_ucagroup').css('left', e.pageX +10);
+									$('#div_ucagroup').show();
 								}
 							}
 						});
@@ -1545,6 +1581,8 @@
 				$('#div_addr2').hide();
 				HiddenTreat();
 				cufttotal();
+				$('#div_getprice').hide();
+				$('#div_ucagroup').hide();
 			}
 
 			function readonly(t_para, empty) {
@@ -1967,29 +2005,126 @@
 				</tr>
 			</table>
 		</div>
-		<!--#include file="../inc/toolbar.inc"-->
-		<div id="div_ordb" style="position:absolute; top:180px; left:20px; display:none; width:1020px; background-color: #CDFFCE; border: 5px solid gray;">
-			<table id="table_ordb" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
+		<div id="div_ucagroup" style="position:absolute; top:300px; left:500px; display:none; width:680px; background-color: #FFE7CD; ">
+			<table id="table_ucagroup" class="table_row" style="width:100%;" cellpadding='1' cellspacing='0' border='1' >
 				<tr>
-					<td style="width:45px;background-color: #f8d463;" align="center">訂序</td>
-					<td style="width:200px;background-color: #f8d463;" align="center">品名</td>
-					<td style="width:80px;background-color: #f8d463;" align="center">訂單數量</td>
-					<td style="width:80px;background-color: #f8d463;" align="center">安全庫存</td>
-					<td style="width:80px;background-color: #f8d463;" align="center">庫存數量</td>
-					<td style="width:80px;background-color: #f8d463;" align="center">在途數量</td>
-					<td style="width:80px;background-color: #f8d463;" align="center">採購數量</td>
-					<td style="width:200px;background-color: #f8d463;" align="center">供應商</td>
-					<td style="width:80px;background-color: #f8d463;" align="center">進貨單價</td>
+					<td align="center"><a class="lbl">Item No.</a></td>
+					<td align="left" colspan="4" class="ucano"> </td>
 				</tr>
-				<tr id='ordb_close'>
-					<td align="center" colspan='9'>
-						<input id="btnClose_div_ordb" type="button" value="確定">
-						<input id="btnClose_div_ordb2" type="button" value="取消">
+				<tr>
+					<td align="center"><a class="lbl">Description</a></td>
+					<td align="left" colspan="4" class="ucaname"> </td>
+				</tr>
+				<tr>
+					<td align="center"><a class="lbl">型號</a></td>
+					<td align="left" colspan="4" class="ucaspec"> </td>
+				</tr>
+				<tr>
+					<td align="center" width="110px"><a class="lbl">要件</a></td>
+					<td align="center" width="120px"><a class="lbl">編號</a></td>
+					<td align="center" width="150px"><a class="lbl">中文</a></td>
+					<td align="center" width="150px"><a class="lbl">英文</a></td>
+					<td align="center" width="150px"><a class="lbl">越文</a></td>
+				</tr>
+				<tr>
+					<td align="center"><a class="lbl">車縫 Đường may</a></td>
+					<td align="center" class="groupe no"> </td>
+					<td align="center" class="groupe mon"> </td>
+					<td align="center" class="groupe memo1"> </td>
+					<td align="center" class="groupe memo2"> </td>
+				</tr>
+				<tr>
+					<td align="center"><a class="lbl">車縫線顏色 Màu chỉ may</a></td>
+					<td align="center" class="ucolor no"> </td>
+					<td align="center" class="ucolor mon"> </td>
+					<td align="center" class="ucolor memo1"> </td>
+					<td align="center" class="ucolor memo2"> </td>
+				</tr>
+				<tr>
+					<td align="center"><a class="lbl">護片 Phụ kiện</a></td>
+					<td align="center" class="groupf no"> </td>
+					<td align="center" class="groupf mon"> </td>
+					<td align="center" class="groupf memo1"> </td>
+					<td align="center" class="groupf memo2"> </td>
+				</tr>
+				<tr>
+					<td align="center"><a class="lbl">皮料1 Da1</a></td>
+					<td align="center" class="scolor no"> </td>
+					<td align="center" class="scolor mon"> </td>
+					<td align="center" class="scolor memo1"> </td>
+					<td align="center" class="scolor memo2"> </td>
+				</tr>
+				<tr>
+					<td align="center"><a class="lbl">皮料2 Da2</a></td>
+					<td align="center" class="class no"> </td>
+					<td align="center" class="class mon"> </td>
+					<td align="center" class="class memo1"> </td>
+					<td align="center" class="class memo2"> </td>
+				</tr>
+				<tr>
+					<td align="center"><a class="lbl">皮料3 Da3</a></td>
+					<td align="center" class="classa no"> </td>
+					<td align="center" class="classa mon"> </td>
+					<td align="center" class="classa memo1"> </td>
+					<td align="center" class="classa memo2"> </td>
+				</tr>
+				<tr>
+					<td align="center"><a class="lbl">皮料4 Da4</a></td>
+					<td align="center" class="zinc no"> </td>
+					<td align="center" class="zinc mon"> </td>
+					<td align="center" class="zinc memo1"> </td>
+					<td align="center" class="zinc memo2"> </td>
+				</tr>
+				<tr>
+					<td align="center"><a class="lbl">網烙印 In ép</a></td>
+					<td align="center" class="sizea no"> </td>
+					<td align="center" class="sizea mon"> </td>
+					<td align="center" class="sizea memo1"> </td>
+					<td align="center" class="sizea memo2"> </td>
+				</tr>
+				<tr>
+					<td align="center"><a class="lbl">轉印 In ủi</a></td>
+					<td align="center" class="source no"> </td>
+					<td align="center" class="source mon"> </td>
+					<td align="center" class="source memo1"> </td>
+					<td align="center" class="source memo2"> </td>
+				</tr>
+				<tr>
+					<td align="center"><a class="lbl">大弓 Gọng</a></td>
+					<td align="center" class="groupg no"> </td>
+					<td align="center" class="groupg mon"> </td>
+					<td align="center" class="groupg memo1"> </td>
+					<td align="center" class="groupg memo2"> </td>
+				</tr>
+				<tr>
+					<td align="center"><a class="lbl">中束 Bông</a></td>
+					<td align="center" class="grouph no"> </td>
+					<td align="center" class="grouph mon"> </td>
+					<td align="center" class="grouph memo1"> </td>
+					<td align="center" class="grouph memo2"> </td>
+				</tr>
+				<tr>
+					<td align="center"><a class="lbl">座管 Ống yên</a></td>
+					<td align="center" class="groupi no"> </td>
+					<td align="center" class="groupi mon"> </td>
+					<td align="center" class="groupi memo1"> </td>
+					<td align="center" class="groupi memo2"> </td>
+				</tr>
+				<tr>
+					<td align="center"><a class="lbl">電鍍 mạ</a></td>
+					<td align="center" class="hard no"> </td>
+					<td align="center" class="hard mon"> </td>
+					<td align="center" class="hard memo1"> </td>
+					<td align="center" class="hard memo2"> </td>
+				</tr>
+				<tr>
+					<td align="center" colspan='6'>
+						<input id="btnClose_div_ucagroup" type="button" value="關閉視窗">
 					</td>
 				</tr>
 			</table>
 		</div>
-		
+		<!--#include file="../inc/toolbar.inc"-->
 		<div id="div_addr2" style="position:absolute; top:244px; left:500px; display:none; width:530px; background-color: #CDFFCE; border: 5px solid gray;">
 			<table id="table_addr2" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
 				<tr>
@@ -2192,16 +2327,14 @@
 		<div class='dbbs' style="width: 2385px;">
 			<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1'>
 				<tr style='color:White; background:#003366;' >
-					<td align="center" style="width:45px;">
-						<input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" />
-					</td>
+					<td align="center" style="width:45px;"><input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" /></td>
 					<td align="center" style="width:160px;"><a id='lblProductno_r'>Item No.</a></td>
 					<td align="center" style="width:200px;"><a id='lblProduct_s_r'>Description</a></td>
-					<td align="center" style="width:95px;"><a id='lblMay_r'>車縫線顏色</a></td>
-					<td align="center" style="width:95px;"><a id='lblDa12_r'>皮料1/皮料2</a></td>
-					<td align="center" style="width:95px;"><a id='lblDa34_r'>皮料3/皮料4</a></td>
-					<td align="center" style="width:95px;"><a id='lblIn_r'>網烙印/轉印</a></td>
-					<td align="center" style="width:95px;"><a id='lblEle_r'>電鍍</a></td>
+					<td align="center" style="width:95px;"><a id='lblMay_r'>車縫線顏色<br>Màu chỉ may</a></td>
+					<td align="center" style="width:95px;"><a id='lblDa12_r'>皮料1 Da1<br>皮料2 Da2</a></td>
+					<td align="center" style="width:95px;"><a id='lblDa34_r'>皮料3 Da3<br>皮料4 Da4</a></td>
+					<td align="center" style="width:95px;"><a id='lblIn_r'>網烙印 In ép<br>轉印 In ủi</a></td>
+					<td align="center" style="width:95px;"><a id='lblEle_r'>電鍍<br>mạ</a></td>
 					<td align="center" style="width:55px;"><a id='lblUnit_r'>Unit</a></td>
 					<td align="center" style="width:85px;"><a id='lblMount_r'>Quantity</a></td>
 					<td align="center" style="width:85px;"><a id='lblCost_s_r'>Cost</a></td>
@@ -2230,6 +2363,7 @@
 						<input class="txt c6" id="txtProductno.*" maxlength='30'type="text" style="width:98%;" />
 						<input class="btn" id="btnProduct.*" type="button" value='.' style=" font-weight: bold;" />
 						<input class="txt c6" id="txtNo2.*" type="text" />
+						<input class="btn" id="btnUcagroup.*" type="button" value='要件明細' style="font-size: 10px;" />
 					</td>
 					<td>
 						<input class="txt c7" id="txtProduct.*" type="text" />

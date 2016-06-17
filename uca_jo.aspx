@@ -23,7 +23,10 @@
 			var decbbs = ['weight', 'uweight', 'price'];
 			var decbbm = ['weight', 'hours', 'pretime', 'mount', 'wages', 'makes'/*, 'mechs', 'trans'*/, 'molds', 'packs', 'uweight', 'price'];
 			var decbbt = [];
-			var q_readonly = ['txtNoa','textCosta','txtModel','txtStationg', 'textCostb', 'textCostc', 'textCostd', 'textCostw', 'textCostm', 'textCostp', 'textCostt', 'textCosttotal', 'textStk', 'textOrdemount', 'textPlanmount', 'textIntmount', 'textAvaistk','txtMolds','txtRev'];
+			var q_readonly = ['txtNoa','textCosta','txtModel','txtStationg', 'textCostb', 'textCostc', 'textCostd', 'textCostw', 'textCostm', 'textCostp', 'textCostt', 'textCosttotal', 'textStk', 'textOrdemount', 'textPlanmount', 'textIntmount', 'textAvaistk','txtMolds','txtRev'
+			,'textGroupemon','textGroupfmon','textGroupgmon','textGrouphmon','textGroupimon'
+			,'textGroupememo1','textGroupfmemo1','textGroupgmemo1','textGrouphmemo1','textGroupimemo1'
+			,'textGroupememo2','textGroupfmemo2','textGroupgmemo2','textGrouphmemo2','textGroupimemo2'];
 			var q_readonlys = [];
 			var q_readonlyt = ['txtAssm'];
 			var bbmNum = [['txtPrice', 12, 2, 1],['txtPreday', 12, 0, 1],['txtHours', 10, 3, 1],['txtMinutes', 10, 3, 1],['txtHminutes', 10, 3, 1],['txtSec', 2, 0, 1],['txtHsec', 2, 0, 1]
@@ -53,11 +56,11 @@
 				['txtProcessno_', 'btnProcessno_', 'process', 'noa,process', 'txtProcessno_,txtProcess_', 'process_b.aspx'],
 				['txtTggno__', 'btnTggno__', 'tgg', 'noa,nick', 'txtTggno__,txtNick__', 'tgg_b.aspx'],
 				['txtProcessno__', 'btnProcessno__', 'process', 'noa,process', 'txtProcessno__,txtProcess__', 'process_b.aspx'],
-				['txtGroupeno', 'lblGroupeno', 'adsize', 'noa,mon', 'txtGroupeno', 'adsize_b.aspx'],
-				['txtGroupfno', 'lblGroupfno', 'adsss', 'noa,mon', 'txtGroupfno', 'adsss_b.aspx'],
-				['txtGroupgno', 'lblGroupgno', 'adknife', 'noa,mon', 'txtGroupgno', 'adknife_b.aspx'],
-				['txtGrouphno', 'lblGrouphno', 'adpipe', 'noa,mon', 'txtGrouphno', 'adpipe_b.aspx'],
-				['txtGroupino', 'lblGroupino', 'adtran', 'noa,mon', 'txtGroupino', 'adtran_b.aspx']
+				['txtGroupeno', 'lblGroupeno', 'adsize', 'noa,mon,memo1,memo2', '0txtGroupeno,textGroupemon,textGroupememo1,textGroupememo2', 'adsize_b.aspx'],
+				['txtGroupfno', 'lblGroupfno', 'adsss', 'noa,mon,memo1,memo2', '0txtGroupfno,textGroupfmon,textGroupfmemo1,textGroupfmemo2', 'adsss_b.aspx'],
+				['txtGroupgno', 'lblGroupgno', 'adknife', 'noa,mon,memo1,memo2', '0txtGroupgno,textGroupgmon,textGroupgmemo1,textGroupgmemo2', 'adknife_b.aspx'],
+				['txtGrouphno', 'lblGrouphno', 'adpipe', 'noa,mon,memo1,memo2', '0txtGrouphno,textGrouphmon,textGrouphmemo1,textGrouphmemo2', 'adpipe_b.aspx'],
+				['txtGroupino', 'lblGroupino', 'adtran', 'noa,mon,memo1,memo2', '0txtGroupino,textGroupimon,textGroupemimo1,textGroupimemo2', 'adtran_b.aspx']
 			);	
 			
 			$(document).ready(function() {
@@ -261,62 +264,6 @@
 						q_gt('ucaucc', t_where, 0, 0, 0, "checkNoa", r_accy);
 					}
 				});*/
-				
-				$('#txtGroupeno').click(function() {
-					if(!emp($(this).val())){
-						var t_where = "where=^^ noa='"+$(this).val()+"' ^^";
-						q_gt('adsize', t_where, 0, 0, 0, "",r_accy,1);
-						var as = _q_appendData("adsize", "", true);
-						if (as[0] != undefined) {
-							var tmsg=as[0].mon+(as[0].memo1.length>0?"<BR>"+as[0].memo1:'')+(as[0].memo2.length>0?"<BR>"+as[0].memo2:'')
-							q_msg($(this),tmsg,10,10000)
-						}
-					}
-				});
-				$('#txtGroupfno').click(function() {
-					if(!emp($(this).val())){
-						var t_where = "where=^^ noa='"+$(this).val()+"' ^^";
-						q_gt('adsss', t_where, 0, 0, 0, "",r_accy,1);
-						var as = _q_appendData("adsss", "", true);
-						if (as[0] != undefined) {
-							var tmsg=as[0].mon+(as[0].memo1.length>0?"<BR>"+as[0].memo1:'')+(as[0].memo2.length>0?"<BR>"+as[0].memo2:'')
-							q_msg($(this),tmsg,10,10000)
-						}
-					}
-				});
-				$('#txtGroupgno').click(function() {
-					if(!emp($(this).val())){
-						var t_where = "where=^^ noa='"+$(this).val()+"' ^^";
-						q_gt('adknife', t_where, 0, 0, 0, "",r_accy,1);
-						var as = _q_appendData("adknife", "", true);
-						if (as[0] != undefined) {
-							var tmsg=as[0].mon+(as[0].memo1.length>0?"<BR>"+as[0].memo1:'')+(as[0].memo2.length>0?"<BR>"+as[0].memo2:'')
-							q_msg($(this),tmsg,-100,10000)
-						}
-					}
-				});
-				$('#txtGrouphno').click(function() {
-					if(!emp($(this).val())){
-						var t_where = "where=^^ noa='"+$(this).val()+"' ^^";
-						q_gt('adpipe', t_where, 0, 0, 0, "",r_accy,1);
-						var as = _q_appendData("adpipe", "", true);
-						if (as[0] != undefined) {
-							var tmsg=as[0].mon+(as[0].memo1.length>0?"<BR>"+as[0].memo1:'')+(as[0].memo2.length>0?"<BR>"+as[0].memo2:'')
-							q_msg($(this),tmsg,10,10000)
-						}
-					}
-				});
-				$('#txtGroupino').click(function() {
-					if(!emp($(this).val())){
-						var t_where = "where=^^ noa='"+$(this).val()+"' ^^";
-						q_gt('adtran', t_where, 0, 0, 0, "",r_accy,1);
-						var as = _q_appendData("adtran", "", true);
-						if (as[0] != undefined) {
-							var tmsg=as[0].mon+(as[0].memo1.length>0?"<BR>"+as[0].memo1:'')+(as[0].memo2.length>0?"<BR>"+as[0].memo2:'')
-							q_msg($(this),tmsg,10,10000)
-						}
-					}
-				});
 			}
 
 			var t_td = '';
@@ -1040,6 +987,62 @@
 						});
 					}
 				}
+				
+				//重新抓取5大要件名稱
+				if(!emp($('#txtGroupeno').val())){
+					var t_where = "where=^^ noa='"+$('#txtGroupeno').val()+"' ^^";
+					q_gt('adsize', t_where, 0, 0, 0, "",r_accy,1);
+					var as = _q_appendData("adsize", "", true);
+					if (as[0] != undefined) {
+						$('#textGroupemon').val(as[0].mon);
+						$('#textGroupememo1').val(as[0].memo1);
+						$('#textGroupememo2').val(as[0].memo2);
+					}
+				}
+				
+				if(!emp($('#txtGroupfno').val())){
+					var t_where = "where=^^ noa='"+$('#txtGroupfno').val()+"' ^^";
+					q_gt('adsss', t_where, 0, 0, 0, "",r_accy,1);
+					var as = _q_appendData("adsss", "", true);
+					if (as[0] != undefined) {
+						$('#textGroupfname').val(as[0].mon);
+						$('#textGroupfmemo1').val(as[0].memo1);
+						$('#textGroupfmemo2').val(as[0].memo2);
+					}
+				}
+				
+				if(!emp($('#txtGroupgno').val())){
+					var t_where = "where=^^ noa='"+$('#txtGroupgno').val()+"' ^^";
+					q_gt('adknife', t_where, 0, 0, 0, "",r_accy,1);
+					var as = _q_appendData("adknife", "", true);
+					if (as[0] != undefined) {
+						$('#textGroupgname').val(as[0].mon);
+						$('#textGroupgmemo1').val(as[0].memo1);
+						$('#textGroupgmemo2').val(as[0].memo2);
+					}
+				}
+				
+				if(!emp($('#txtGrouphno').val())){
+					var t_where = "where=^^ noa='"+$('#txtGrouphno').val()+"' ^^";
+					q_gt('adpipe', t_where, 0, 0, 0, "",r_accy,1);
+					var as = _q_appendData("adpipe", "", true);
+					if (as[0] != undefined) {
+						$('#textGrouphname').val(as[0].mon);
+						$('#textGrouphmemo1').val(as[0].memo1);
+						$('#textGrouphmemo2').val(as[0].memo2);
+					}
+				}
+				
+				if(!emp($('#txtGroupino').val())){
+					var t_where = "where=^^ noa='"+$('#txtGroupino').val()+"' ^^";
+					q_gt('adtran', t_where, 0, 0, 0, "",r_accy,1);
+					var as = _q_appendData("adtran", "", true);
+					if (as[0] != undefined) {
+						$('#textGroupiname').val(as[0].mon);
+						$('#textGroupimemo1').val(as[0].memo1);
+						$('#textGroupimemo2').val(as[0].memo2);
+					}
+				}
 			}
 
 			function readonly(t_para, empty) {
@@ -1543,22 +1546,59 @@
 						<td><select id="cmbGroupbno" class="txt c1" style="font-size: medium;"> </select></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblGroupeno" class="lbl">車縫</a></td>
-						<td><input id="txtGroupeno" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblGroupfno" class="lbl">護片</a></td>
-						<td><input id="txtGroupfno" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblGroupgno" class="lbl">大弓</a></td>
-						<td><input id="txtGroupgno" type="text" class="txt c1"/></td>
+						<td style="text-align: center;"><span> </span><a class="lbl" style="float: none;"> </a></td>
+						<td style="text-align: center;"><span> </span><a class="lbl" style="float: none;">編號/中文</a></td>
+						<td colspan="2" style="text-align: center;"><span> </span><a class="lbl" style="float: none;">英文</a></td>
+						<td colspan="2" style="text-align: center;"><span> </span><a class="lbl" style="float: none;">越文</a></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblGrouphno" class="lbl">中束</a></td>
-						<td><input id="txtGrouphno" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblGroupino" class="lbl">座管</a></td>
-						<td><input id="txtGroupino" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblGroupeno" class="lbl" style="text-align: right;">車縫<br>Đường may</a></td>
+						<td>
+							<input id="txtGroupeno" type="text" class="txt c1" style="width: 45%;"/>
+							<input id="textGroupemon" type="text" class="txt c1" style="width: 53%;"/>
+						</td>
+						<td colspan="2"><input id="textGroupememo1" type="text" class="txt c1"/></td>
+						<td colspan="2"><input id="textGroupememo2" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblGroupfno" class="lbl" style="text-align: right;">護片<br>Phụ kiện</a></td>
+						<td>
+							<input id="txtGroupfno" type="text" class="txt c1" style="width: 45%;"/>
+							<input id="textGroupfmon" type="text" class="txt c1" style="width: 53%;"/>
+						</td>
+						<td colspan="2"><input id="textGroupfmemo1" type="text" class="txt c1"/></td>
+						<td colspan="2"><input id="textGroupfmemo2" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblGroupgno" class="lbl" style="text-align: right;">大弓<br>Gọng</a></td>
+						<td>
+							<input id="txtGroupgno" type="text" class="txt c1" style="width: 45%;"/>
+							<input id="textGroupgmon" type="text" class="txt c1" style="width: 53%;"/>
+						</td>
+						<td colspan="2"><input id="textGroupgmemo1" type="text" class="txt c1"/></td>
+						<td colspan="2"><input id="textGroupgmemo2" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblGrouphno" class="lbl" style="text-align: right;">中束<br>Bông</a></td>
+						<td>
+							<input id="txtGrouphno" type="text" class="txt c1" style="width: 45%;"/>
+							<input id="textGrouphmno" type="text" class="txt c1" style="width: 53%;"/>
+						</td>
+						<td colspan="2"><input id="textGrouphmemo1" type="text" class="txt c1"/></td>
+						<td colspan="2"><input id="textGrouphmemo2" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblGroupino" class="lbl" style="text-align: right;">座管<br>Ống yên</a></td>
+						<td>
+							<input id="txtGroupino" type="text" class="txt c1" style="width: 45%;"/>
+							<input id="textGroupimon" type="text" class="txt c1" style="width: 53%;"/>
+						</td>
+						<td colspan="2"><input id="textGroupimemo1" type="text" class="txt c1"/></td>
+						<td colspan="2"><input id="textGroupimemo2" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblSize" class="lbl">尺寸</a></td>
 						<td><input id="txtSize" type="text" class="txt c1"/></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id="lblStyle" class="lbl">車種</a></td>
 						<td><input id="txtStyle" type="text" class="txt c1"/></td>
 						<!--<td><span> </span><a id="lblGroupcno" class="lbl">次產線代碼</a></td>
