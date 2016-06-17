@@ -60,8 +60,8 @@
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-							
-							t_where = "noa='" + $('#txtProductno_'+b_seq).val() + "'";
+							var t_key = q_getHref();
+							t_where = "noa='" + t_key[1] + "'";
 							q_box("pack2_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pack2', "95%", "95%", '包裝方式');
 						});
 					}
