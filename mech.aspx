@@ -43,6 +43,9 @@
         function mainPost() { 
            q_mask(bbmMask);
            //q_cmbParse("cmbTypea", q_getPara('mech.typea'));
+           
+			if (q_getPara('sys.project').toUpperCase()=='SF')
+				$('.nosf').hide();
         }
 
         function q_boxClose( s2) { 
@@ -99,7 +102,7 @@
                 return;
             }
             var t_noa = trim($('#txtNoa').val());
-            if ( t_noa.length==0 )   /// ??????s??
+            if ( t_noa.length==0 )
                 q_gtnoa(q_name, t_noa);
             else
                 wrServer(t_noa);
@@ -324,40 +327,40 @@
                 <div class='dbbm' style="width: 68%;float:left">
                     <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
                         <tr>
-                            <td class="td1"><span> </span><a id="lblNoa" class="lbl"></a></td>
+                            <td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
                             <td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
-                            <td class="td3"></td>
-                            <td class="td4"></td>
-                            <td class="td5"></td>
-                            <td class="td6"></td>
+                            <td class="td3"> </td>
+                            <td class="td4"> </td>
+                            <td class="td5"> </td>
+                            <td class="td6"> </td>
                         </tr>
                         <tr>
-                            <td class="td1"><span> </span><a id="lblMech" class="lbl"></a></td>
+                            <td class="td1"><span> </span><a id="lblMech" class="lbl"> </a></td>
                             <td class="td2" colspan="3"><input id="txtMech"  type="text"  class="txt c1"/></td>
-                            <td class="td6"></td>
+                            <td class="td6"> </td>
                         </tr>
                         <tr>
-                            <td class="td1"><span> </span><a id="lblStore" class="lbl btn"></a></td>
+                            <td class="td1"><span> </span><a id="lblStore" class="lbl btn"> </a></td>
                             <td class="td2"><input id="txtStoreno"  type="text"  class="txt c1"/></td>
                             <td class="td3" colspan="2" ><input id="txtStore"  type="text"  class="txt c1"/></td>
-                            <td class="td5"></td>
-                            <td class="td6"></td>
+                            <td class="td5"> </td>
+                            <td class="td6"> </td>
                         </tr>
-                        <tr>
-                            <td class="td1"><span> </span><a id="lblGen" class="lbl"></a></td>
+                        <tr class="nosf">
+                            <td class="td1"><span> </span><a id="lblGen" class="lbl"> </a></td>
                             <td class="td2"><input id="txtGen"  type="text"  class="txt c1 num"/></td>
                             <td align="left">Hr/日</td>
-                            <td class="td4"></td>
-                            <td class="td5"></td>
-                            <td class="td6"></td>
+                            <td class="td4"> </td>
+                            <td class="td5"> </td>
+                            <td class="td6"> </td>
                         </tr>
-                        <tr>
-                            <td class="td1"><span> </span><a id="lblPrice" class="lbl"></a></td>
+                        <tr class="nosf">
+                            <td class="td1"><span> </span><a id="lblPrice" class="lbl"> </a></td>
                             <td class="td2"><input id="txtPrice"  type="text"  class="txt c1 num"/></td>
                             <td align="left">NT/噸</td>
-                            <td class="td4"></td>
-                            <td class="td5"></td>
-                            <td class="td6"></td>
+                            <td class="td4"> </td>
+                            <td class="td5"> </td>
+                            <td class="td6"> </td>
                         </tr>
                 </table>
             </div>
