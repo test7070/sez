@@ -72,7 +72,8 @@
 				q_tr('txtMount', t_mount);
 				q_tr('txtWeight',t_weight);
 				q_tr('txtTotal', t_total);
-				q_tr('txtTotalus', q_mul(q_float('txtTotal'), q_float('txtFloata')));
+				//105/06/20 典盈的單價和金額全部都用外幣 故totalus不處理 
+				//q_tr('txtTotalus', q_mul(q_float('txtTotal'), q_float('txtFloata')));
 				t_cost=q_add(t_cost,q_float('txtBankfee'));
 				t_cost=q_add(t_cost,q_float('txtCustomsfee'));
 				t_cost=q_add(t_cost,q_float('txtPortfee'));
@@ -113,9 +114,9 @@
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd], ['txtOdate', r_picd]];
 				q_mask(bbmMask);
-				bbmNum = [['txtTotal', 15, 0, 1],['txtTotalus', 15, 2, 1], ['txtFloata', 11, 5, 1],['txtMount', 15, q_getPara('vcc.mountPrecision'), 1],['txtWeight', 15, q_getPara('vcc.weightPrecision'), 1]
+				bbmNum = [['txtTotal', 15, 0, 1], ['txtFloata', 11, 5, 1],['txtMount', 15, q_getPara('vcc.mountPrecision'), 1],['txtWeight', 15, q_getPara('vcc.weightPrecision'), 1]
 				,['txtCost', 15, 0, 1],['txtBenifit', 15, 0, 1],['txtBankfee', 15, 0, 1],['txtCustomsfee', 15, 0, 1],['txtPortfee', 15, 0, 1],['txtTranfee', 15, 0, 1],['txtVisafee', 15, 0, 1],['txtBillfee', 15, 0, 1],['txtCertfee', 15, 0, 1],['txtOthfee', 15, 0, 1]
-				];//,['txtProfit', 10, 2, 1],['txtInsurance', 10, 2, 1],['txtCommission', 10, 2, 1]
+				];//,['txtProfit', 10, 2, 1],['txtInsurance', 10, 2, 1],['txtCommission', 10, 2, 1],['txtTotalus', 15, 2, 1]
 				bbsNum = [['txtMount', 10, q_getPara('vcc.mountPrecision'), 1],['txtWeight', 10, q_getPara('vcc.weightPrecision'), 1]
 				, ['txtPrice', 10, q_getPara('vcc.pricePrecision'), 1]	, ['txtPrice2', 10, q_getPara('vcc.pricePrecision'), 1]	
 				, ['txtCost', 10, q_getPara('vcc.pricePrecision'), 1]	, ['txtTotal', 15, 0, 1], ['txtBenifit', 15, 0, 1], ['txtBenifit2', 15, 0, 1]
@@ -1708,8 +1709,8 @@
 						<td><input id="txtWeight" type="text" class="txt c1 num"/></td>
 						<td><span> </span><a id='lblTotal' class="lbl"> </a></td>
 						<td><input id="txtTotal" type="text" class="txt c1 num"/></td>
-						<td><span> </span><a id='lblTotalus' class="lbl"> </a></td>
-						<td><input id="txtTotalus"	type="text" class="txt c1 num"/></td>
+						<!--<td><span> </span><a id='lblTotalus' class="lbl"> </a></td>
+						<td><input id="txtTotalus"	type="text" class="txt c1 num"/></td>-->
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblCasetype' class="lbl"> </a></td>
