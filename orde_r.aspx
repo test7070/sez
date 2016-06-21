@@ -24,7 +24,7 @@
 			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtSales', 'txtOrdbno', 'txtOrdcno','txtUmmno','txtCuft','txtCasemount','txtCuftnotv','txtAgent','txtGtime'];
 			var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtC1', 'txtNotv','txtPackwayno','txtPackway','txtSprice','txtBenifit','txtPayterms'
 										,'txtSize','txtProfit','txtDime'];
-			var bbmNum = [['txtTotal', 10, 0, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1],['txtFloata', 10, 5, 1], ['txtDeposit', 15, 0, 1],['txtCuft', 15, 2, 1],['txtDate3', 2, 0, 1]];//, ['txtTotalus', 15, 2, 1]
+			var bbmNum = [['txtTotal', 10, 0, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1],['txtFloata', 10, 5, 1], ['txtDeposit', 15, 0, 1],['txtCuft', 15, 2, 1],['txtDate3', 2, 0, 1], ['txtTotalus', 15, 2, 1]];//
 			var bbsNum = [['txtCuft', 15, 2, 1]];
 			var bbmMask = [];
 			var bbsMask = [];
@@ -97,8 +97,10 @@
 						$('#txtTranmoney').val(round(q_mul(t_weight, dec($('#txtPrice').val())), 0));
 					// $('#txtWeight').val(round(t_weight, 0));
 					q_tr('txtTotal', q_add(t1, dec($('#txtTax').val())));
-					//105/06/20 典盈的單價和金額全部都用外幣 故totalus不處理 
-					//q_tr('txtTotalus', q_mul(q_float('txtMoney'), q_float('txtFloata')));
+					//105/06/20 典盈的單價和金額全部都用外幣 故totalus不處理
+					if(q_getPara('sys.project').toUpperCase()!='JO'){ 
+						q_tr('txtTotalus', q_mul(q_float('txtMoney'), q_float('txtFloata')));
+					}
 					calTax();
 					cufttotal();
 				}
@@ -146,6 +148,10 @@
                 	$.datepicker.r_len=4;
 					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
                 }
+                
+                if(q_getPara('sys.project').toUpperCase()=='JO'){
+					$('.totalus').hide();
+				}
                 
 				var t_where = "where=^^ 1=0 ^^";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
@@ -2268,8 +2274,8 @@
 						<td><span> </span><a id='lblFloata' class="lbl"> </a></td>
 						<td><select id="cmbCoin" class="txt c1" onchange='coin_chg()'> </select></td>
 						<td><input id="txtFloata" type="text" class="txt num c1" /></td>
-						<!--<td><span> </span><a id='lblTotalus_r' class="lbl">外匯總計</a></td>
-						<td colspan='2'><input id="txtTotalus" type="text" class="txt num c1"/></td>-->
+						<td class="totalus"><span> </span><a id='lblTotalus_r' class="lbl">外匯總計</a></td>
+						<td class="totalus"><input id="txtTotalus" type="text" class="txt num c1"/></td>
 						<!--<td><span> </span><a id="lblApv" class="lbl"> </a></td>
 						<td><input id="txtApv" type="text" class="txt c1" disabled="disabled"/></td>-->
 					</tr>
