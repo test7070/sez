@@ -10,11 +10,11 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            q_desc = 1
+            q_desc = 1;
             q_tables = 's';
             var q_name = "umm";
             var q_readonly = ['txtNoa','txtWorker', 'txtCno', 'txtAcomp', 'txtSale', 'txtTotal', 'txtPaysale', 'txtUnpay', 'txtOpay', 'textOpay','txtAccno','txtWorker2'];
-            var q_readonlys = ['txtUnpay', 'txtUnpayorg', 'txtAcc2', 'txtPart2','txtMemo2','txtCno','txtCoin'];
+            var q_readonlys = ['txtUnpay', 'txtUnpayorg', 'txtAcc2', 'txtPart2','txtCoin'];
             var bbmNum = new Array(['txtSale', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtOpay', 10, 0, 1], ['txtUnopay', 10, 0, 1], ['textOpay', 10, 0, 1]);
             var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtUnpayorg', 10, 0, 1]];
             var bbmMask = [];
@@ -623,7 +623,10 @@
 	                    		$('#txtPaysale_'+n).val('');
 	                    		$('#txtUnpayorg_'+n).val(t_unpay);
 	                    		$('#txtUnpay_'+n).val(t_unpay);
-                    		}else{
+                    		}else if($('#txtVccno_'+n).val().indexOf('/')>-0){
+                    			//月結  
+                    			
+                			}else{
                     			//資料清空
 	                    		$('#txtMemo2_'+n).val('');
 	                    		$('#txtCno_'+n).val('');
@@ -1108,7 +1111,6 @@
             function q_popPost(s1) {
 			   	switch (s1) {
 			        case 'txtVccno_':
-			   			
 			   			break;
 			   		case 'txtCustno':
                     	getOpay();
@@ -1475,11 +1477,11 @@
 						<input type="text" id="txtMemo2.*" style="width:60%;float:left;"/>
 						<input type="text" id="txtCno.*" style="width:30%;float:left;"/>
 						<input type="text" id="txtVccno.*" style="width:95%;" title="點擊滑鼠右鍵，瀏覽單據內容。" />
+						<input type="text" id="txtCustno.*" style="width:45%;float:left;"/>
+						<input type="text" id="txtPaymon.*" style="width:45%;float:left;" />
 						<input type="text" id="txtAccy.*" style="display:none;" />
 						<input type="text" id="txtTablea.*" style="display:none;" />
 						<input type="text" id="textTypea.*" style="display:none;" />
-						<input type="text" id="txtCustno.*" style="display:none;" />
-						<input type="text" id="txtPaymon.*" style="display:none;" />
 					</td>
 					<td>
 					<input type="text" id="txtPaysale.*" style="text-align:right;width:95%;"/>
