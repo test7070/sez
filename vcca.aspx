@@ -584,7 +584,7 @@
 					return;
 					
 				$('#txtTax').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
-				var t_mounts, t_prices, t_moneys=0, t_mount = 0, t_money = 0, t_taxrate, t_tax, t_total;
+				var t_mounts, t_prices, t_moneys=0, t_mount = 0, t_money = 0, t_taxrate=0.5, t_tax=0, t_total=0;
 				//銷貨客戶
 				$('#txtCustno').attr('readonly', false);
 				$('#txtComp').attr('readonly', false);
@@ -601,6 +601,9 @@
 				//買受人
 				$('#txtBuyerno').attr('readonly', false);
 				$('#txtBuyer').attr('readonly', false);
+				for (var k = 0; k < q_bbsCount; k++) {
+					$('#txtMount_'+k).attr('readonly', false);
+				}
 				
 				for (var k = 0; k < q_bbsCount; k++) {
 					if(!$('#chkAprice_'+k).prop('checked')){
