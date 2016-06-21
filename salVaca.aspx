@@ -200,6 +200,12 @@
             function bbsAssign() {
                 for (var j = 0; j < q_bbsCount; j++) {
                     if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+                    	$('#txtInday_' + j).change(function() {
+                            t_IdSeq = -1;
+                            q_bodyId($(this).attr('id'));
+                            b_seq = t_IdSeq;
+                            q_tr('txtTotal_' + b_seq, q_float('txtInday_' + b_seq) - q_float('txtOutday_' + b_seq) - q_float('txtBoutday_' + b_seq));
+                        });
                         $('#txtOutday_' + j).change(function() {
                             t_IdSeq = -1;
                             q_bodyId($(this).attr('id'));
