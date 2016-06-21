@@ -24,7 +24,7 @@
 			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtSales', 'txtOrdbno', 'txtOrdcno','txtUmmno','txtCuft','txtCasemount','txtCuftnotv','txtAgent','txtGtime'];
 			var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtC1', 'txtNotv','txtPackwayno','txtPackway','txtSprice','txtBenifit','txtPayterms'
 										,'txtSize','txtProfit','txtDime'];
-			var bbmNum = [['txtTotal', 10, 0, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1],['txtFloata', 10, 5, 1], ['txtTotalus', 15, 2, 1], ['txtDeposit', 15, 0, 1],['txtCuft', 15, 2, 1],['txtDate3', 2, 0, 1]];
+			var bbmNum = [['txtTotal', 10, 0, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1],['txtFloata', 10, 5, 1], ['txtDeposit', 15, 0, 1],['txtCuft', 15, 2, 1],['txtDate3', 2, 0, 1]];//, ['txtTotalus', 15, 2, 1]
 			var bbsNum = [['txtCuft', 15, 2, 1]];
 			var bbmMask = [];
 			var bbsMask = [];
@@ -97,7 +97,8 @@
 						$('#txtTranmoney').val(round(q_mul(t_weight, dec($('#txtPrice').val())), 0));
 					// $('#txtWeight').val(round(t_weight, 0));
 					q_tr('txtTotal', q_add(t1, dec($('#txtTax').val())));
-					q_tr('txtTotalus', q_mul(q_float('txtMoney'), q_float('txtFloata')));
+					//105/06/20 典盈的單價和金額全部都用外幣 故totalus不處理 
+					//q_tr('txtTotalus', q_mul(q_float('txtMoney'), q_float('txtFloata')));
 					calTax();
 					cufttotal();
 				}
@@ -2256,21 +2257,19 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
-						<td colspan='2'>
-							<input id="txtMoney" type="text" class="txt c1" style="text-align: center;"/>
-						</td>
+						<td colspan='2'><input id="txtMoney" type="text" class="txt c1" style="text-align: center;"/></td>
 						<td><span> </span><a id='lblTax' class="lbl"> </a></td>
 						<td><input id="txtTax" type="text" class="txt num c1"/></td>
 						<td><select id="cmbTaxtype" class="txt c1" onchange='sum()' > </select></td>
-						<td><span> </span><a id='lblTotal' class="lbl"> </a></td>
-						<td><input id="txtTotal" type="text" class="txt num c1"/></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id='lblTotal' class="lbl"> </a></td>
+						<td colspan='2'><input id="txtTotal" type="text" class="txt num c1"/></td>
 						<td><span> </span><a id='lblFloata' class="lbl"> </a></td>
 						<td><select id="cmbCoin" class="txt c1" onchange='coin_chg()'> </select></td>
 						<td><input id="txtFloata" type="text" class="txt num c1" /></td>
-						<td><span> </span><a id='lblTotalus_r' class="lbl">外匯總計</a></td>
-						<td colspan='2'><input id="txtTotalus" type="text" class="txt num c1"/></td>
+						<!--<td><span> </span><a id='lblTotalus_r' class="lbl">外匯總計</a></td>
+						<td colspan='2'><input id="txtTotalus" type="text" class="txt num c1"/></td>-->
 						<!--<td><span> </span><a id="lblApv" class="lbl"> </a></td>
 						<td><input id="txtApv" type="text" class="txt c1" disabled="disabled"/></td>-->
 					</tr>
