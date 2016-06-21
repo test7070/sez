@@ -14,7 +14,7 @@
             q_tables = 's';
             var q_name = "umm";
             var q_readonly = ['txtNoa','txtWorker', 'txtCno', 'txtAcomp', 'txtSale', 'txtTotal', 'txtPaysale', 'txtUnpay', 'txtOpay', 'textOpay','txtAccno','txtWorker2'];
-            var q_readonlys = ['txtUnpay', 'txtUnpayorg', 'txtAcc2', 'txtPart2','txtCoin'];
+            var q_readonlys = ['txtUnpay', 'txtUnpayorg', 'txtAcc2', 'txtPart2','txtCoin','txtCustno','txtPaymon'];
             var bbmNum = new Array(['txtSale', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtOpay', 10, 0, 1], ['txtUnopay', 10, 0, 1], ['textOpay', 10, 0, 1]);
             var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtUnpayorg', 10, 0, 1]];
             var bbmMask = [];
@@ -609,6 +609,7 @@
                     	if(t_name.substring(0,11)=='vccnocheck_'){
                     		var n = t_name.split('_')[1];
                     		var as = _q_appendData("view_vcc", "", true);
+                    		var patten = /^(.+)-([0-9]{3,4}\/[0-9]{2})$/;
                     		if(as[0]!=undefined){
                     			var t_unpay=q_mul((as[0].typea=='2'?-1:1),dec(as[0].unpay));
                     			
@@ -623,9 +624,10 @@
 	                    		$('#txtPaysale_'+n).val('');
 	                    		$('#txtUnpayorg_'+n).val(t_unpay);
 	                    		$('#txtUnpay_'+n).val(t_unpay);
-                    		}else if($('#txtVccno_'+n).val().indexOf('/')>-0){
+                    		}else if(patten.test($('#txtVccno_'+n).val())){
                     			//月結  
-                    			
+                    			$('#txtCustno_'+n).val($('#txtVccno_'+n).val().replace(patten,'$1'));
+                    			$('#txtPaymon_'+n).val($('#txtVccno_'+n).val().replace(patten,'$2'));
                 			}else{
                     			//資料清空
 	                    		$('#txtMemo2_'+n).val('');
@@ -854,14 +856,14 @@
                     $('#txtBankno_' + i).bind('contextmenu', function(e) {
                         /*滑鼠右鍵*/
                         e.preventDefault();
-                        var n = $(this).attr('id').replace('txtBankno_', '');
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
                         $('#btnBank_'+n).click();
                     });
                     
                     $('#txtVccno_'+i).bind('contextmenu',function(e) {
                     	/*滑鼠右鍵*/
                     	e.preventDefault();
-                    	var n = $(this).attr('id').replace('txtVccno_','');
+                    	var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
                     	var t_accy = $('#txtAccy_'+n).val();
                     	var t_tablea = $('#txtTablea_'+n).val();
                     	if(t_tablea.length>0 && $(this).val().indexOf('TAX')==-1 && !($(this).val().indexOf('-')>-1 && $(this).val().indexOf('/')>-1)){//稅額和月結排除
@@ -870,7 +872,7 @@
                     		q_box(t_tablea+".aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $(this).val() + "';" + t_accy, t_tablea, "95%", "95%", q_getMsg("pop"+t_tablea));
                     	}
                     }).change(function() {
-                    	var n = $(this).attr('id').replace('txtVccno_','');
+                    	var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
                     	if(emp($('#txtVccno_'+n).val())){
                     		//資料清空
                     		$('#txtMemo2_'+n).val('');
@@ -898,8 +900,7 @@
                     });
                     $('#txtCheckno_'+i).change(function(){
         				Lock(1,{opacity:0});
-        				
-        				var n = $(this).attr('id').replace('txtCheckno_','');
+        				var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
         				var t_noa = $('#txtNoa').val();
         				var t_checkno = $('#txtCheckno_'+n).val() ;
             			var t_where = "where=^^ checkno = '" + t_checkno + "' ^^";
@@ -914,20 +915,16 @@
             		}).bind('contextmenu', function(e) {
                         /*滑鼠右鍵*/
                         e.preventDefault();
-                        var n = $(this).attr('id').replace('txtCheckno_', '');
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
                         var t_checkno = $.trim($(this).val());
                         if (t_checkno.length > 0) {
                             q_box("gqb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";gqbno='" + t_checkno + "';" + r_accy, 'gqb', "95%", "95%", q_getMsg("popGqb"));
                         }
                     });
             		$('#txtPaysale_' + i).change(function(e) {
-                        t_IdSeq = -1;
-                        /// 要先給  才能使用 q_bodyId()
-                        q_bodyId($(this).attr('id'));
-                        b_seq = t_IdSeq;
-                        
-                        var t_unpay = dec($('#txtUnpayorg_' + b_seq).val()) - dec($('#txtPaysale_' + b_seq).val());
-                        q_tr('txtUnpay_' + b_seq, t_unpay);
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        var t_unpay = dec($('#txtUnpayorg_' + n).val()) - dec($('#txtPaysale_' + n).val());
+                        q_tr('txtUnpay_' + n, t_unpay);
                         sum();
                     });
                 }
@@ -1477,11 +1474,11 @@
 						<input type="text" id="txtMemo2.*" style="width:60%;float:left;"/>
 						<input type="text" id="txtCno.*" style="width:30%;float:left;"/>
 						<input type="text" id="txtVccno.*" style="width:95%;" title="點擊滑鼠右鍵，瀏覽單據內容。" />
-						<input type="text" id="txtCustno.*" style="width:45%;float:left;"/>
-						<input type="text" id="txtPaymon.*" style="width:45%;float:left;" />
 						<input type="text" id="txtAccy.*" style="display:none;" />
 						<input type="text" id="txtTablea.*" style="display:none;" />
 						<input type="text" id="textTypea.*" style="display:none;" />
+						<input type="text" id="txtCustno.*" style="display:none;"/>
+						<input type="text" id="txtPaymon.*" style="display:none;" />
 					</td>
 					<td>
 					<input type="text" id="txtPaysale.*" style="text-align:right;width:95%;"/>
