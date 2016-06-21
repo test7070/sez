@@ -41,6 +41,10 @@
                 if (q_getPara('sys.project').toUpperCase()!='YC'){
                 	$('.yc').hide();
                 }
+                
+                if (q_getPara('sys.project').toUpperCase()!='XY'){
+                	aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,invoicetitle,serial', 'txtCustno', 'cust_b.aspx']);
+                }
             }
 
             function q_gtPost(t_name) {
