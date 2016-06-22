@@ -511,8 +511,10 @@
 				});
 				
 				$('#btnClose_div_ucagroup').click(function() {
+					ucagroupdivmove = false;
 					$('#div_ucagroup').hide();
 				});
+				
 			}
 			
 			function divtrantypechange(){
@@ -1410,8 +1412,9 @@
 											$('.hard.memo2').text(ass[0].memo2);
 										}
 									}
-									$('#div_ucagroup').css('top', e.pageY- $('#div_ucagroup').height());
+									$('#div_ucagroup').css('top', e.pageY- $('#div_ucagroup').height()-80);
 									$('#div_ucagroup').css('left', e.pageX +10);
+									ucagroupdivmove = false;
 									$('#div_ucagroup').show();
 								}
 							}
@@ -1779,6 +1782,27 @@
 				}
 			}
 			
+			var ucagroupdivmove = false;
+			function move(event){
+ 				if(ucagroupdivmove){
+					var x = event.clientX-sx;
+					var y = event.clientY-sy;
+					sx = event.clientX;
+					sy = event.clientY;
+					$('#div_ucagroup').css('top', $('#div_ucagroup').offset().top+y);
+					$('#div_ucagroup').css('left', $('#div_ucagroup').offset().left+x);
+				}
+			}
+
+			function ucadivmove(event){
+				if(!ucagroupdivmove){
+					ucagroupdivmove = true; 
+					sx = event.clientX;
+					sy = event.clientY;
+				}
+				else if(ucagroupdivmove)
+					ucagroupdivmove = false;
+			}
 		</script>
 		<style type="text/css">
 			#dmain {
@@ -1893,7 +1917,7 @@
 			}
 		</style>
 	</head>
-	<body>
+	<body onmousemove="move(event);">
 		<div id="div_getprice" style="position:absolute; top:300px; left:500px; display:none; width:600px; background-color: #FFE7CD; ">
 			<table id="table_getprice" class="table_row" style="width:100%;" cellpadding='1' cellspacing='0' border='1' >
 				<tr style="display: none;">
@@ -2012,7 +2036,7 @@
 				</tr>
 			</table>
 		</div>
-		<div id="div_ucagroup" style="position:absolute; top:300px; left:500px; display:none; width:680px; background-color: #FFE7CD; ">
+		<div id="div_ucagroup" style="position:absolute; top:300px; left:500px; display:none; width:680px; background-color: #FFE7CD; " onmousedown="ucadivmove(event);">
 			<table id="table_ucagroup" class="table_row" style="width:100%;" cellpadding='1' cellspacing='0' border='1' >
 				<tr>
 					<td align="center"><a class="lbl">Item No.</a></td>
