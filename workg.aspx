@@ -331,6 +331,14 @@
 				$('#cmbStype').change(function() {
 					change_field();
 				});
+				
+				if(q_getPara('sys.project').toUpperCase()=='JO'){
+					$('#btnWorkg_jo').show();
+				}
+				
+				$('#btnWorkg_jo').click(function() {
+					q_box('z_workg_jo.aspx' + "?;;;noa='" + $('#txtNoa').val() + "';" + r_accy + ";", '', "95%", "95%", $('#btnWorkg_jo').val());
+				});
 			}
 			
 			var ordedate=false;
@@ -1302,7 +1310,10 @@
 							<input id="txtOrdbno" type="text" class="txt c1"/>
 							<input id="txtOrdano" type="text" class="txt c1" style="display: none;"/>
 						</td>
-						<td><input id="btnWorkPrint" type="button" /></td>
+						<td>
+							<input id="btnWorkPrint" type="button" />
+							<input id="btnWorkg_jo" type="button" value="流程卡" style="display: none;"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
