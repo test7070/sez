@@ -1283,8 +1283,8 @@
                 	var n=replaceAll(t_name,'cug_work_','');
                 	var as = _q_appendData("view_cugu", "", true);
                 	if(as[0]!=undefined){
-                		if(!emp($('#txtStationno').val()) && as[0].a.stationno!=$('#txtStationno').val()){
-                			alert("【"+$('#txtWorkno_' + n).val()+"】工作線別為"+as[0].a.stationno+"!!");
+                		if(!emp($('#txtStationno').val()) && as[0].stationno!=$('#txtStationno').val()){
+                			alert("【"+$('#txtWorkno_' + n).val()+"】工作線別為"+as[0].stationno+"!!");
 							$('#btnMinus_'+n).click();
                 		}else{
                 			if(emp($('#txtStationno').val())){

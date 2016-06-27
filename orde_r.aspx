@@ -515,6 +515,100 @@
 					$('#div_ucagroup').hide();
 				});
 				
+				$('#btnClose_div_vccdate').click(function() {
+					$('#div_vccdate').hide();
+				});
+				$('#btnvccdate').click(function(e) {
+					var monhoilday=q_getPara('sys.saturday')=='1'?4:8;
+					var monday=0;//當月天數
+					var mongen=0,daygen=0;//當月產能
+					var t_date='',t_mon='';//計算日期
+					var factnotv=0;//排程量	
+					if(!emp($('#txtOdate').val()) && !emp($('#txtGdate').val())){
+						var t_where = "where=^^ mon='" + q_cdn($('#txtOdate').val(),1).substr(0,r_lenm) + "' and factno='"+$('#txtGdate').val()+"' ^^";
+						q_gt('supforecasts', t_where, 0, 0, 0, "",r_accy,1);
+						var ass = _q_appendData("supforecasts", "", true);
+						for ( i = 0; i < ass.length; i++) {
+							mongen=q_add(mongen,dec(ass[i].mount)); //當月總產能
+						}
+						$('.mongen').text(mongen);
+						
+						if(mongen>0){ //當有產能才計算
+							t_date=q_cdn($('#txtOdate').val(),1);
+							t_mon=q_cdn($('#txtOdate').val(),1).substr(0,r_lenm);
+							monday=dec(q_cdn(q_cdn(t_date.substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1).slice(-2));
+							daygen=q_div(mongen,q_sub(monday,monhoilday));
+							$('.daygen').text(round(daygen,4));
+							//取未完工量
+							var t_where = "where=^^ a.enda!=1 and a.cancel!=1 and b.enda!=1 and b.cancel!=1 and a.gdate='"+$('#txtGdate').val()+"' and a.noa!='"+$('#txtNoa').val()+"' and isnull(b.mount,0)-isnull(c.c1,0)>0 group by a.gdate ^^";
+							q_gt('orde_r_factnotv', t_where, 0, 0, 0, "",r_accy,1);
+							var as = _q_appendData("view_orde", "", true);
+							if (as[0] != undefined) {
+								factnotv=dec(as[0].mount);
+							}
+							$('.factnotv').text(factnotv);
+							//取得目前訂單的數量
+							var t_bbsmount=0;
+							for (var j = 0; j <= q_bbsCount; j++) {
+								t_bbsmount=q_add(t_bbsmount,dec($('#txtMount_'+j).val()));
+							}
+							$('.ordemount').text(t_bbsmount);
+							factnotv=q_add(factnotv,t_bbsmount);
+							
+							var t_mongen=mongen;
+							var t_daygen=daygen;
+							
+							while(factnotv>0){
+								
+								if(t_date.substr(0,r_lenm) != t_mon){//取得新的產能
+									t_mon=t_date.substr(0,r_lenm);
+									var t_where = "where=^^ mon='" + t_mon + "' and factno='"+$('#txtGdate').val()+"' ^^";
+									q_gt('supforecasts', t_where, 0, 0, 0, "",r_accy,1);
+									var ast = _q_appendData("supforecasts", "", true);
+									if (ast[0] != undefined) {
+										mongen=0;
+										for ( i = 0; i < ast.length; i++) {
+											mongen=q_add(mongen,dec(ast[i].mount)); //當月總產能
+										}
+										monday=dec(q_cdn(q_cdn(t_date.substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1).slice(-2));
+										daygen=q_div(mongen,q_sub(monday,monhoilday));
+									}//如果沒有就沿用產能
+								}
+								
+								if(t_mongen!=mongen){
+									$('.mongen').text($('.mongen').text()+'>'+mongen);
+									$('.daygen').text($('.daygen').text()+'>'+daygen);
+									t_mongen=mongen;
+									t_daygen=daygen;
+								}
+								
+								factnotv=q_sub(factnotv,daygen);
+								if(factnotv>0){
+									t_date=q_cdn(t_date,1);
+									
+									var week='';
+									if(t_date.length==10){
+										week=new Date(dec(t_date.substr(0,4)),dec(t_date.substr(5,2)),dec(t_date.substr(8,2))).getDay()
+									}else{
+										week=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay();
+									}
+									if(q_getPara('sys.saturday')!='1' && week==6)
+										t_date=q_cdn(t_date,1);
+									if(week==0)
+										t_date=q_cdn(t_date,1);
+								}
+							}
+							$('.vccdate').text(t_date);
+							$('#div_vccdate').css('top', e.pageY- $('#div_vccdate').height());
+							$('#div_vccdate').css('left', e.pageX - $('#div_vccdate').width());
+							$('#div_vccdate').show();
+						}else{
+							alert(q_cdn($('#txtOdate').val(),1).substr(0,r_lenm)+'無產能預測，無法試算預交日!!')
+						}
+					}else{
+						alert('訂單日期與Factory禁止空白!!')
+					}
+				});
 			}
 			
 			function divtrantypechange(){
@@ -1248,6 +1342,10 @@
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
+							$('#table_ucagroup .no').text('');
+							$('#table_ucagroup .mon').text('');
+							$('#table_ucagroup .memo1').text('');
+							$('#table_ucagroup .memo2').text('');
 							if(!emp($('#txtProductno_'+b_seq).val())){
 								$('.ucano').text($('#txtProductno_'+b_seq).val());
 								var t_where = "where=^^ noa='"+$('#txtProductno_'+b_seq).val()+"' ^^";
@@ -1593,6 +1691,7 @@
 				cufttotal();
 				$('#div_getprice').hide();
 				$('#div_ucagroup').hide();
+				$('#div_vccdate').hide();
 			}
 
 			function readonly(t_para, empty) {
@@ -1772,9 +1871,20 @@
 									}//如果沒有就沿用產能
 								}
 								
-								factnotv=q_sub(factnotv,mongen);
-								if(factnotv>0)
+								factnotv=q_sub(factnotv,daygen);
+								if(factnotv>0){
 									t_date=q_cdn(t_date,1);
+									var week='';
+									if(t_date.length==10){
+										week=new Date(dec(t_date.substr(0,4)),dec(t_date.substr(5,2)),dec(t_date.substr(8,2))).getDay()
+									}else{
+										week=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay();
+									}
+									if(q_getPara('sys.saturday')!='1' && week==6)
+										t_date=q_cdn(t_date,1);
+									if(week==0)
+										t_date=q_cdn(t_date,1);
+								}
 							}
 							$('#txtDatea_'+x).val(t_date);
 						}
@@ -2155,6 +2265,35 @@
 				</tr>
 			</table>
 		</div>
+		<div id="div_vccdate" style="position:absolute; top:300px; left:500px; display:none; width:200px; background-color: #FFE7CD; " onmousedown="ucadivmove(event);">
+			<table id="table_vccdate" class="table_row" style="width:100%;" cellpadding='1' cellspacing='0' border='1' >
+				<tr>
+					<td align="center" width="100px"><a class="lbl">月產能</a></td>
+					<td align="right"  width="100px" class="mongen"> </td>
+				</tr>
+				<tr>
+					<td align="center"><a class="lbl">日產能</a></td>
+					<td align="right" class="daygen"> </td>
+				</tr>
+				<tr>
+					<td align="center"><a class="lbl">未完工量</a></td>
+					<td align="right" class="factnotv"> </td>
+				</tr>
+				<tr>
+					<td align="center"><a class="lbl">訂單量</a></td>
+					<td align="right" class="ordemount"> </td>
+				</tr>
+				<tr>
+					<td align="center"><a class="lbl">預交日試算</a></td>
+					<td align="left" class="vccdate"> </td>
+				</tr>
+				<tr>
+					<td align="center" colspan='2'>
+						<input id="btnClose_div_vccdate" type="button" value="關閉視窗">
+					</td>
+				</tr>
+			</table>
+		</div>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id="div_addr2" style="position:absolute; top:244px; left:500px; display:none; width:530px; background-color: #CDFFCE; border: 5px solid gray;">
 			<table id="table_addr2" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
@@ -2332,6 +2471,7 @@
 							<span> </span><a id='lblEnda_r'>Closed</a>
 							<input id="chkCancel" type="checkbox"/>
 							<span> </span><a id='lblCancel_r'>Cancel</a>
+							<input id="btnvccdate" type="button" value="預交日試算">
 						</td>
 					</tr>
 					<tr>
