@@ -131,17 +131,34 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'rbcheckbdate':
+                		var as = _q_appendData("uccag", "", true);
+						if (as[0] != undefined) {
+							alert('立帳日期與類別已存在【'+as[0].noa+'】!!');
+						}else{
+							rbcheck=true;
+							btnOk();
+						}
+                		break;
                     case q_name:
                         if (q_cur == 4)// 查詢
                             q_Seek_gtPost();
                         break;
                 }
             }
-						
+			
+			var rbcheck=false;
             function btnOk() {
             	if($('#txtMon').val().length>0){
             		$('#txtBdate').val('');        
             	}
+            	
+            	if(!rbcheck && q_getPara('sys.project').toUpperCase()=='RB'){
+            		q_gt('uccag', "where=^^ bdate='"+$('#txtBdate').val()+"' and noa!='"+$('#txtNoa').val()+"' and typea='"+$('#cmbTypea').val()+"' ^^", 0, 0, 0, "rbcheckbdate");
+            		return;
+            	}
+            	
+            	rbcheck=false;
             	
                 $('#txtWorker').val(r_name);
                 if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())) {
