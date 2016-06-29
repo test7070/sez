@@ -86,7 +86,7 @@
 		       		$('.tgg').hide();
 		       	}
 		       	
-		       	if(q_getPara('sys.project').toUpperCase()=='PK'){
+		       	if(q_getPara('sys.project').toUpperCase()=='PK' || q_getPara('sys.project').toUpperCase()=='RK'){
 		       	   $('.edate').show();
 		       	}else{
 		       		$('.edate').hide();
