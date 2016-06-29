@@ -96,7 +96,7 @@
         }
 
         function btnPrint() {
- 
+ 				q_box('z_salexrw.aspx' + "?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
         }
         function btnOk() {
             var t_err = '';
