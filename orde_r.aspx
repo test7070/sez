@@ -524,7 +524,111 @@
 					var mongen=0,daygen=0;//當月產能
 					var t_date='',t_mon='';//計算日期
 					var factnotv=0;//排程量	
-					if(!emp($('#txtOdate').val()) && !emp($('#txtGdate').val())){
+					if(!emp($('#txtOdate').val()) && !emp($('#txtDate3').val()) && !emp($('#txtGdate').val())){ //排產週
+						var t_odate=new Date(dec($('#txtOdate').val().substr(0,r_len))
+						,dec($('#txtOdate').val().substr(r_len+1,r_lenm-r_len-1))-1
+						,dec($('#txtOdate').val().substr(r_lenm+1,r_lend-r_lenm-1)));
+						
+						var t_week=getISOYearWeek(t_odate);
+						if(t_week>=52 && $('#txtOdate').val().substr(r_len+1,r_lenm-r_len-1)=='01'){
+							t_week=1;
+						}
+						var tt_date; //當年第一週
+						if(t_week<=dec($('#txtDate3').val())){ //正常排程
+							tt_date=getYearFirstWeekDate(dec($('#txtOdate').val().substr(0,r_len)));
+						}else{ //隔年
+							tt_date=getYearFirstWeekDate(dec($('#txtOdate').val().substr(0,r_len))+1);
+						}
+						t_date=tt_date.getFullYear()+'/'+('00'+(tt_date.getMonth()+1).toString()).slice(-2)+'/'+('00'+(tt_date.getDate()).toString()).slice(-2);
+						
+						var t_day=(dec($('#txtDate3').val())-1)*7;
+						if(t_day>0) 
+							t_date=q_cdn(t_date,t_day);//當週第一天
+							
+						var t_where = "where=^^ mon='" + t_date.substr(0,r_lenm) + "' and factno='"+$('#txtGdate').val()+"' ^^";
+						q_gt('supforecasts', t_where, 0, 0, 0, "",r_accy,1);
+						var ass = _q_appendData("supforecasts", "", true);
+						for ( i = 0; i < ass.length; i++) {
+							mongen=q_add(mongen,dec(ass[i].mount)); //當月總產能
+						}
+						$('.mongen').text(mongen);
+						
+						if(mongen>0){ //當有產能才計算
+							t_mon=t_date.substr(0,r_lenm);
+							monday=dec(q_cdn(q_cdn(t_date.substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1).slice(-2));
+							daygen=q_div(mongen,q_sub(monday,monhoilday));
+							$('.daygen').text(round(daygen,4));
+							//取排產週的量
+							var t_where = "where=^^ a.enda!=1 and a.cancel!=1 and b.enda!=1 and b.cancel!=1 and a.gdate='"+$('#txtGdate').val()+"' and a.noa!='"+$('#txtNoa').val()
+							+"' and isnull(b.mount,0)-isnull(c.c1,0)>0 and a.date3='"+$('#txtDate3').val()+"' group by a.gdate ^^";
+							
+							q_gt('orde_r_factnotv', t_where, 0, 0, 0, "",r_accy,1);
+							var as = _q_appendData("view_orde", "", true);
+							if (as[0] != undefined) {
+								factnotv=dec(as[0].mount);
+							}
+							$('.date3orde').text(factnotv);
+							//取得目前訂單的數量
+							var t_bbsmount=0;
+							for (var j = 0; j <= q_bbsCount; j++) {
+								t_bbsmount=q_add(t_bbsmount,dec($('#txtMount_'+j).val()));
+							}
+							$('.ordemount').text(t_bbsmount);
+							factnotv=q_add(factnotv,t_bbsmount);
+							
+							var t_mongen=mongen;
+							var t_daygen=daygen;
+							
+							while(factnotv>0){
+								
+								if(t_date.substr(0,r_lenm) != t_mon){//取得新的產能
+									t_mon=t_date.substr(0,r_lenm);
+									var t_where = "where=^^ mon='" + t_mon + "' and factno='"+$('#txtGdate').val()+"' ^^";
+									q_gt('supforecasts', t_where, 0, 0, 0, "",r_accy,1);
+									var ast = _q_appendData("supforecasts", "", true);
+									if (ast[0] != undefined) {
+										mongen=0;
+										for ( i = 0; i < ast.length; i++) {
+											mongen=q_add(mongen,dec(ast[i].mount)); //當月總產能
+										}
+										monday=dec(q_cdn(q_cdn(t_date.substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1).slice(-2));
+										daygen=q_div(mongen,q_sub(monday,monhoilday));
+									}//如果沒有就沿用產能
+								}
+								
+								if(t_mongen!=mongen){
+									$('.mongen').text($('.mongen').text()+'>'+mongen);
+									$('.daygen').text($('.daygen').text()+'>'+daygen);
+									t_mongen=mongen;
+									t_daygen=daygen;
+								}
+								
+								factnotv=q_sub(factnotv,daygen);
+								if(factnotv>0){
+									t_date=q_cdn(t_date,1);
+									
+									var week='';
+									if(t_date.length==10){
+										week=new Date(dec(t_date.substr(0,4)),dec(t_date.substr(5,2))-1,dec(t_date.substr(8,2))).getDay()
+									}else{
+										week=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay();
+									}
+									if(q_getPara('sys.saturday')!='1' && week==6)
+										t_date=q_cdn(t_date,1);
+									if(week==0)
+										t_date=q_cdn(t_date,1);
+								}
+							}
+							$('.vccdate').text(t_date);
+							$('#table_vccdate .date3').show();
+							$('#table_vccdate .odate').hide();
+							$('#div_vccdate').css('top', e.pageY- $('#div_vccdate').height());
+							$('#div_vccdate').css('left', e.pageX - $('#div_vccdate').width());
+							$('#div_vccdate').show();
+						}else{
+							alert(t_date.substr(0,r_lenm)+'無產能預測，無法試算預交日!!')
+						}
+					}else if(!emp($('#txtOdate').val()) && !emp($('#txtGdate').val())){
 						var t_where = "where=^^ mon='" + q_cdn($('#txtOdate').val(),1).substr(0,r_lenm) + "' and factno='"+$('#txtGdate').val()+"' ^^";
 						q_gt('supforecasts', t_where, 0, 0, 0, "",r_accy,1);
 						var ass = _q_appendData("supforecasts", "", true);
@@ -588,7 +692,7 @@
 									
 									var week='';
 									if(t_date.length==10){
-										week=new Date(dec(t_date.substr(0,4)),dec(t_date.substr(5,2)),dec(t_date.substr(8,2))).getDay()
+										week=new Date(dec(t_date.substr(0,4)),dec(t_date.substr(5,2))-1,dec(t_date.substr(8,2))).getDay()
 									}else{
 										week=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay();
 									}
@@ -599,6 +703,8 @@
 								}
 							}
 							$('.vccdate').text(t_date);
+							$('#table_vccdate .date3').hide();
+							$('#table_vccdate .odate').show();
 							$('#div_vccdate').css('top', e.pageY- $('#div_vccdate').height());
 							$('#div_vccdate').css('left', e.pageX - $('#div_vccdate').width());
 							$('#div_vccdate').show();
@@ -606,7 +712,7 @@
 							alert(q_cdn($('#txtOdate').val(),1).substr(0,r_lenm)+'無產能預測，無法試算預交日!!')
 						}
 					}else{
-						alert('訂單日期與Factory禁止空白!!')
+						alert('【訂單日期/排產週】和【Factory】禁止空白!!')
 					}
 				});
 			}
@@ -1092,7 +1198,8 @@
 			
 			function btnOk() {
 				t_err = '';
-				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCustno', q_getMsg('lblCustno')], ['txtCno', q_getMsg('btnAcomp')]]);
+				t_err = q_chkEmpField([ ['txtNoa', q_getMsg('lblNoa')], ['txtCustno', q_getMsg('lblCustno')], ['txtCno', q_getMsg('btnAcomp')]
+				, ['txtGdate', q_getMsg('lblFactory_r')], ['txtDate3', q_getMsg('lblWeek')] ]);
 				if (t_err.length > 0) {
 					alert(t_err);
 					return;
@@ -1825,7 +1932,90 @@
 				var t_date='',t_mon='';//計算日期
 				var factnotv=0;//排程量
 				if((q_cur==1 || q_cur==2)){
-					if(!emp($('#txtOdate').val()) && !emp($('#txtGdate').val()) && dec($('#txtMount_'+x).val())>0 ){
+					if(!emp($('#txtOdate').val()) && !emp($('#txtDate3').val()) && !emp($('#txtGdate').val())){ //排產週
+						var t_odate=new Date(dec($('#txtOdate').val().substr(0,r_len))
+						,dec($('#txtOdate').val().substr(r_len+1,r_lenm-r_len-1))-1
+						,dec($('#txtOdate').val().substr(r_lenm+1,r_lend-r_lenm-1)));
+						
+						var t_week=getISOYearWeek(t_odate);
+						if(t_week>=52 && $('#txtOdate').val().substr(r_len+1,r_lenm-r_len-1)=='01'){
+							t_week=1;
+						}
+						var tt_date; //當年第一週
+						if(t_week<=dec($('#txtDate3').val())){ //正常排程
+							tt_date=getYearFirstWeekDate(dec($('#txtOdate').val().substr(0,r_len)));
+						}else{ //隔年
+							tt_date=getYearFirstWeekDate(dec($('#txtOdate').val().substr(0,r_len))+1);
+						}
+						t_date=tt_date.getFullYear()+'/'+('00'+(tt_date.getMonth()+1).toString()).slice(-2)+'/'+('00'+(tt_date.getDate()).toString()).slice(-2);
+						
+						var t_day=(dec($('#txtDate3').val())-1)*7;
+						if(t_day>0) 
+							t_date=q_cdn(t_date,t_day);//當週第一天
+							
+						var t_where = "where=^^ mon='" + t_date.substr(0,r_lenm) + "' and factno='"+$('#txtGdate').val()+"' ^^";
+						q_gt('supforecasts', t_where, 0, 0, 0, "",r_accy,1);
+						var ass = _q_appendData("supforecasts", "", true);
+						for ( i = 0; i < ass.length; i++) {
+							mongen=q_add(mongen,dec(ass[i].mount)); //當月總產能
+						}
+						
+						if(mongen>0){ //當有產能才計算
+							t_mon=t_date.substr(0,r_lenm);
+							monday=dec(q_cdn(q_cdn(t_date.substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1).slice(-2));
+							daygen=q_div(mongen,q_sub(monday,monhoilday));
+							//取排產週的量
+							var t_where = "where=^^ a.enda!=1 and a.cancel!=1 and b.enda!=1 and b.cancel!=1 and a.gdate='"+$('#txtGdate').val()+"' and a.noa!='"+$('#txtNoa').val()
+							+"' and isnull(b.mount,0)-isnull(c.c1,0)>0 and a.date3='"+$('#txtDate3').val()+"' group by a.gdate ^^";
+							
+							q_gt('orde_r_factnotv', t_where, 0, 0, 0, "",r_accy,1);
+							var as = _q_appendData("view_orde", "", true);
+							if (as[0] != undefined) {
+								factnotv=dec(as[0].mount);
+							}
+							//取得目前訂單的數量
+							var t_bbsmount=0;
+							for (var j = 0; j <= x; j++) {
+								t_bbsmount=q_add(t_bbsmount,dec($('#txtMount_'+j).val()));
+							}
+							factnotv=q_add(factnotv,t_bbsmount);
+							
+							while(factnotv>0){
+								
+								if(t_date.substr(0,r_lenm) != t_mon){//取得新的產能
+									t_mon=t_date.substr(0,r_lenm);
+									var t_where = "where=^^ mon='" + t_mon + "' and factno='"+$('#txtGdate').val()+"' ^^";
+									q_gt('supforecasts', t_where, 0, 0, 0, "",r_accy,1);
+									var ast = _q_appendData("supforecasts", "", true);
+									if (ast[0] != undefined) {
+										mongen=0;
+										for ( i = 0; i < ast.length; i++) {
+											mongen=q_add(mongen,dec(ast[i].mount)); //當月總產能
+										}
+										monday=dec(q_cdn(q_cdn(t_date.substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1).slice(-2));
+										daygen=q_div(mongen,q_sub(monday,monhoilday));
+									}//如果沒有就沿用產能
+								}
+								
+								factnotv=q_sub(factnotv,daygen);
+								if(factnotv>0){
+									t_date=q_cdn(t_date,1);
+									
+									var week='';
+									if(t_date.length==10){
+										week=new Date(dec(t_date.substr(0,4)),dec(t_date.substr(5,2))-1,dec(t_date.substr(8,2))).getDay()
+									}else{
+										week=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay();
+									}
+									if(q_getPara('sys.saturday')!='1' && week==6)
+										t_date=q_cdn(t_date,1);
+									if(week==0)
+										t_date=q_cdn(t_date,1);
+								}
+							}
+							$('#txtDatea_'+x).val(t_date);
+						}
+					}else if(!emp($('#txtOdate').val()) && !emp($('#txtGdate').val()) && dec($('#txtMount_'+x).val())>0 ){
 						var t_where = "where=^^ mon='" + q_cdn($('#txtOdate').val(),1).substr(0,r_lenm) + "' and factno='"+$('#txtGdate').val()+"' ^^";
 						q_gt('supforecasts', t_where, 0, 0, 0, "",r_accy,1);
 						var ass = _q_appendData("supforecasts", "", true);
@@ -1913,6 +2103,37 @@
 				else if(ucagroupdivmove)
 					ucagroupdivmove = false;
 			}
+			
+			function getISOYearWeek(date){  
+		        var commericalyear=getCommerialYear(date);  
+		        var date2=getYearFirstWeekDate(commericalyear);     
+		        var day1=date.getDay();     
+		        if(day1==0) day1=7;     
+		        var day2=date2.getDay();     
+		        if(day2==0) day2=7;     
+		        var d = Math.round((date.getTime() - date2.getTime()+(day2-day1)*(24*60*60*1000)) / 86400000);       
+		        return Math.ceil(d / 7)+1;   
+		    }
+			
+			function getYearFirstWeekDate(commericalyear){  
+		        var yearfirstdaydate=new Date(commericalyear, 0, 1);     
+		        var daynum=yearfirstdaydate.getDay();   
+		        var monthday=yearfirstdaydate.getDate();  
+		        if(daynum==0) daynum=7;  
+		        if(daynum<=4){  
+		            return new Date(yearfirstdaydate.getFullYear(),yearfirstdaydate.getMonth(),monthday+1-daynum);  
+		        }else{  
+		            return new Date(yearfirstdaydate.getFullYear(),yearfirstdaydate.getMonth(),monthday+8-daynum)  
+		        }   
+		    }
+		    
+		    function getCommerialYear(date){  
+		        var daynum=date.getDay();   
+		        var monthday=date.getDate();  
+		        if(daynum==0) daynum=7;  
+		        var thisthurdaydate=new Date(date.getFullYear(),date.getMonth(),monthday+4-daynum);  
+		        return thisthurdaydate.getFullYear();  
+		    }
 		</script>
 		<style type="text/css">
 			#dmain {
@@ -2265,19 +2486,23 @@
 				</tr>
 			</table>
 		</div>
-		<div id="div_vccdate" style="position:absolute; top:300px; left:500px; display:none; width:200px; background-color: #FFE7CD; " onmousedown="ucadivmove(event);">
+		<div id="div_vccdate" style="position:absolute; top:300px; left:500px; display:none; width:300px; background-color: #FFE7CD; " onmousedown="ucadivmove(event);">
 			<table id="table_vccdate" class="table_row" style="width:100%;" cellpadding='1' cellspacing='0' border='1' >
 				<tr>
-					<td align="center" width="100px"><a class="lbl">月產能</a></td>
-					<td align="right"  width="100px" class="mongen"> </td>
+					<td align="center" width="150px"><a class="lbl">月產能</a></td>
+					<td align="right"  width="150px" class="mongen"> </td>
 				</tr>
 				<tr>
 					<td align="center"><a class="lbl">日產能</a></td>
 					<td align="right" class="daygen"> </td>
 				</tr>
-				<tr>
+				<tr class="odate">
 					<td align="center"><a class="lbl">未完工量</a></td>
 					<td align="right" class="factnotv"> </td>
+				</tr>
+				<tr class="date3">
+					<td align="center"><a class="lbl">排產週已排量</a></td>
+					<td align="right" class="date3orde"> </td>
 				</tr>
 				<tr>
 					<td align="center"><a class="lbl">訂單量</a></td>

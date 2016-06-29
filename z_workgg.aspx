@@ -23,6 +23,16 @@
 			$(document).ready(function() {
 				q_getId();
 				q_gt('uccga', '', 0, 0, 0, "");
+				
+				$('#q_report').click(function(e) {
+					var n=$('#q_report').data().info.radioIndex;
+					if($('#q_report').data().info.reportData[n].report=='z_workgg6'){
+						$('#lblXdate').text('預交日');
+					}else{
+						$('#lblXdate').text(q_getMsg('lblXdate'));
+					}
+				});
+				
 			});
 			var xgroupanoStr = '';
 			var clickIndex = -1;
@@ -81,6 +91,12 @@
 						src : 'stationg_b.aspx'
 					}]
 				});
+				
+				if(r_len==4){                	
+                	$.datepicker.r_len=4;
+					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+                }
+                
 				$('#q_report').click(function(){
 					var ChartShowIndex = [0,1,4,5];
 					var parent=document.getElementById("chart");
