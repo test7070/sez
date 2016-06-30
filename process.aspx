@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -32,14 +32,15 @@
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
-                brwCount2 = 8
+                brwCount2 = 9
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1);
             });
 			aPop = new Array(['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
-							 ['txtStationgno', 'lblStationgno', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx'],
-							 ['txtTggno_', 'btnTggno_', 'tgg', 'noa,comp', 'txtTggno_,txtTgg_', 'tgg_b.aspx']
-							 );
+							['txtStationno', 'lblStationno', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
+							['txtStationgno', 'lblStationgno', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx'],
+							['txtTggno_', 'btnTggno_', 'tgg', 'noa,comp', 'txtTggno_,txtTgg_', 'tgg_b.aspx']
+			);
 							 
             function main() {
                 if (dataErr) {
@@ -392,14 +393,23 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblTggno' class="lbl btn"> </a></td>
-						<td colspan="2"><input id="txtTggno"  type="text" class="txt c2" />
-										<input id="txtTgg"  type="text" class="txt c3" />
+						<td colspan="2">
+							<input id="txtTggno"  type="text" class="txt c2" />
+							<input id="txtTgg"  type="text" class="txt c3" />
+						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblStationno' class="lbl btn"> </a></td>
+						<td colspan="2">
+							<input id="txtStationno"  type="text" class="txt c2" />
+							<input id="txtStation"  type="text" class="txt c3" />
 						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblStationgno' class="lbl btn"> </a></td>
-						<td colspan="2"><input id="txtStationgno"  type="text" class="txt c2" />
-										<input id="txtStationg"  type="text" class="txt c3" />
+						<td colspan="2">
+							<input id="txtStationgno"  type="text" class="txt c2" />
+							<input id="txtStationg"  type="text" class="txt c3" />
 						</td>
 					</tr>
 					<tr>
