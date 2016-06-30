@@ -80,7 +80,8 @@
 					}
 					
 					if($('#txtWorkno').val().substr(1,1).replace(/[^\d]/g,'')!=''){
-						
+						var t_timea=padL(new Date().getHours(), '0', 2)+':'+padL(new Date().getMinutes(),'0',2);
+						q_func('qtxt.query.workg_jo_put', 'z_workg_jo.txt,workg_jo_put,' + encodeURI($('#txtWorkno').val()) + ';'+ encodeURI(t_mount) + ';' + encodeURI(q_date()) + ';' + encodeURI(t_timea) + ';'+ encodeURI(r_accy) + ';' + encodeURI(r_userno) + ';' + encodeURI(r_name));
 						$('#div_in').hide();	
 					}else{
 						alert("【"+$('#txtWorkno').val()+"】是模擬製令不得入庫!!");
@@ -105,12 +106,42 @@
 						if (as[0] != undefined) {
 							$('#txtProductno').val(as[0].productno);
 							$('#txtProduct').val(as[0].product);
-							$('#div_in').show();
+							$('#txtWorkmount').val(as[0].mount);
+							$('#txtUnmount').val(dec(as[0].mount)-dec(as[0].inmount));
+							
+							if(dec(as[0].mount)-dec(as[0].inmount)>0){
+								$('#div_in').show();
+							}else{
+								alert('製令已完工!!');
+							}
+							
 						}else{
 							alert('製令不存在!!');
 						}
 						break;
 				} /// end switch
+			}
+			
+			function q_funcPost(t_func, result) {
+				switch(t_func) {
+					case 'qtxt.query.workg_jo_put':
+						var as = _q_appendData("tmp0", "", true, true);
+						if (as[0] != undefined) {
+							if(as[0].err.length>0){
+								alert(as[0].err);
+							}else{
+								q_func('worka_post.post', r_accy + ',' + as[0].workano + ',1');
+								q_func('workb_post.post', r_accy + ',' + as[0].workbno + ',1');
+								
+								alert('入庫完畢，產生入庫單【'+as[0].workbno+'】!!');
+							}
+						}else{
+							alert('入庫失敗!!');	
+						}
+						break
+					default:
+						break;
+				}
 			}
 			
 			function workin(workno) {
@@ -143,8 +174,16 @@
 					<td style="background-color: #f8d463;"><input id="txtProduct" style="font-size: medium;width: 98%;" disabled="disabled"></td>
 				</tr>
 				<tr>
+					<td style="background-color: #f8d463;" align="center">排程數量</td>
+					<td style="background-color: #f8d463;"><input id="txtWorkmount" style="font-size: medium;width: 60%;text-align: right;" disabled="disabled"></td>
+				</tr>
+				<tr>
+					<td style="background-color: #f8d463;" align="center">未入庫量</td>
+					<td style="background-color: #f8d463;"><input id="txtUnmount" style="font-size: medium;width: 60%;text-align: right;" disabled="disabled"></td>
+				</tr>
+				<tr>
 					<td style="background-color: #f8d463;" align="center">入庫數量</td>
-					<td style="background-color: #f8d463;"><input id="txtMount" style="font-size: medium;text-align: right;"></td>
+					<td style="background-color: #f8d463;"><input id="txtMount" style="font-size: medium;width: 60%;text-align: right;"></td>
 				</tr>
 				<tr>
 					<td align="center" colspan='3'>
