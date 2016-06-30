@@ -46,6 +46,10 @@
 					}, {
 						type : '6', //[6]
 						name : 'xcuanoq'
+					}, {
+						type : '8', //[7]
+						name : 'xunenda',
+						value : '1@未完工'.split(',')
 					}]
 				});
 				q_popAssign();
@@ -93,6 +97,19 @@
 				
 				$('#btnOk').click(function() {
 					$('#div_in').hide();
+				});
+				
+				$("#chkXunenda [type='checkbox']").click(function() {
+					if($(this).prop('checked')){
+						$('#txtXcuanoa').val('');
+						$('#txtXcuanoq').val('');
+					}else{
+						var t_key = q_getHref();
+						if (t_key[1] != undefined) {
+							$('#txtXcuanoa').val(t_key[1]);
+						}
+					}
+					
 				});
 			}
 
