@@ -209,6 +209,14 @@
 						q_gt('ucaucc', t_where, 0, 0, 0, "XY_newucc_checkNoa", r_accy);
 					}
 				});*/
+				
+				if (q_getPara('sys.project').toUpperCase()=='XY'){
+					$('.unit2').show();
+				}
+				$('#btnPack2').click(function() {
+					t_where = "noa='" + $('#txtNoa').val() + "'";
+					q_box("pack2_xy.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pack2', "300px", "650px", $('#btnPack2').val());
+				});
 			}
 			
 			var xy_newnoa=''; 
@@ -914,6 +922,7 @@
 					<td><input	type="text" id="txtUweight"	class="txt num c1"/></td>
 					<td><a id='lblStdmount' class="lbl"> </a></td>
 					<td><input	type="text" id="txtStdmount" class="txt num c1"/></td>
+					<td class="unit2" style="display: none;"><input id="btnPack2" type="button" value="單位換算" style='font-size: medium;'/></td>
 				</tr>
 				<tr>
 					<td><a id='lblType' class="lbl"> </a></td>
