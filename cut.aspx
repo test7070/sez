@@ -20,7 +20,7 @@
 			}
 			q_tables = 's';
 			var q_name = "cut";
-			var q_readonly = ['txtNoa', 'txtProductno', 'txtProduct', 'txtSpec', 'txtDime', 'txtWidth', 'txtLengthb', 'txtRadius', 'txtOweight', 'txtEweight', 'txtTotalout', 'txtTheyout', 'txtWorker', 'txtWorker2'];
+			var q_readonly = ['txtNoa', 'txtProductno', 'txtProduct', 'txtSpec', 'txtDime', 'txtWidth', 'txtLengthb', 'txtRadius', 'txtOweight', 'txtEweight', 'txtTotalout', 'txtTheyout', 'txtWorker', 'txtWorker2','txtClass'];
 			var q_readonlys = ['txtSprice'];
 			var bbmNum = [['txtPrice', 10, 2, 1],['txtTranmoney',10,0,1],['txtGweight',10,3,1]];
 			var bbsNum = [['textSize1', 10, 3, 1], ['textSize2', 10, 2, 1], ['textSize3', 10, 3, 1], ['textSize4', 10, 2, 1]
@@ -34,7 +34,7 @@
 			brwNowPage = 0;
 			brwKey = 'noa';
 			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'],
-				['txtUno', 'lblUno', 'view_uccc', 'uno,productno,product,spec,dime,width,lengthb,radius,weight,eweight,itype,custno,source,uno2,memo', 'txtUno,txtProductno,txtProduct,txtSpec,txtDime,txtWidth,txtLengthb,txtRadius,txtOweight,txtEweight,cmbItype,txtCustno,txtSource,txtUno2,txtMemo', 'uccc_seek_b.aspx?;;;1=0', '95%', '95%'], 
+				['txtUno', 'lblUno', 'view_uccc', 'uno,productno,product,spec,dime,width,lengthb,radius,weight,eweight,itype,custno,source,uno2,memo,class', 'txtUno,txtProductno,txtProduct,txtSpec,txtDime,txtWidth,txtLengthb,txtRadius,txtOweight,txtEweight,cmbItype,txtCustno,txtSource,txtUno2,txtMemo,txtClass', 'uccc_seek_b.aspx?;;;1=0', '95%', '95%'], 
 				['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'], 
 				['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtCust_', 'cust_b.aspx'], 
 				['txtMechno', 'lblMech', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'], 
@@ -564,7 +564,7 @@
 				if($('#combType2A').is(":visible")){
 					$('#txtType2').val($('#combType2A').val());
 				}
-				//鋼廠、原批號   傑期需要寫入
+				//鋼廠、原批號、等級   傑期需要寫入
 				if($('#txtSource').val().length>0)
 					for(var i=0;i<q_bbsCount;i++){
 						$('#txtSource_'+i).val($('#txtSource').val());
@@ -572,6 +572,11 @@
 				for(var i=0;i<q_bbsCount;i++){
 					$('#txtUno2_'+i).val($('#txtUno2').val());
 				}
+				if($('#txtClass').val().length>0)
+					for(var i=0;i<q_bbsCount;i++){
+						if($('#txtClass_'+i).val().length==0)
+							$('#txtClass_'+i).val($('#txtClass').val());
+					}
 					
 				//裕承隆 暫時先不檢查
 				/*var t_err = CheckInputError();
@@ -1442,6 +1447,8 @@
 						<td><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
 						<td><input id="txtTggno" type="text" class="txt c1"/></td>
 						<td colspan="2"><input id="txtTgg" type="text"  class="txt c1"/></td>
+						<td><span> </span><a class="lbl">等級</a></td>
+						<td><input id="txtClass" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td class="pe_hide"><span> </span><a id="lblLoss" class="lbl"> </a></td>
