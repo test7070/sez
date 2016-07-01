@@ -165,12 +165,12 @@
             }
             
 	        function bbsSave(as) {
-	        	/*
-	            if (!as['custno'] ) {  
+	        	
+	            if (!as['custno'] && !as['comp'] && !as['bdate'] && !as['edate'] ) {  
 	                as[bbsKey[1]] = '';   
 	                return;
 	            }
-	            */
+	            
 	            q_nowf();
 	            return true;
 	        }

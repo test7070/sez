@@ -123,7 +123,10 @@
 						if (as[0] != undefined) {
 							$('#txtProductno').val(as[0].productno);
 							$('#txtProduct').val(as[0].product);
+							$('#txtStationno').val(as[0].stationno);
+							$('#txtStation').val(as[0].station);
 							$('#txtWorkmount').val(as[0].mount);
+							$('#txtInmount').val(as[0].inmount);
 							$('#txtUnmount').val(dec(as[0].mount)-dec(as[0].inmount));
 							
 							if(dec(as[0].mount)-dec(as[0].inmount)>0){
@@ -162,12 +165,12 @@
 			}
 			
 			function workin(workno) {
-				if(workno.value.length>0){
-					$('#txtWorkno').val(workno.value);
+				if(workno.id.length>0){
+					$('#txtWorkno').val(workno.id);
 					$('#div_in').css('top', $(workno).offset().top+20);
 					$('#div_in').css('left', $(workno).offset().left);
 					
-					q_gt('view_work', "where=^^noa='"+workno.value+"'^^", 0, 0, 0, "");
+					q_gt('view_work', "where=^^noa='"+workno.id+"'^^", 0, 0, 0, "");
 				}
 			}
 		</script>
@@ -191,15 +194,27 @@
 					<td style="background-color: #f8d463;"><input id="txtProduct" style="font-size: medium;width: 98%;" disabled="disabled"></td>
 				</tr>
 				<tr>
+					<td style="background-color: #f8d463;" align="center">工作線號</td>
+					<td style="background-color: #f8d463;"><input id="txtStationno" style="font-size: medium;width: 98%;" disabled="disabled"></td>
+				</tr>
+				<tr>
+					<td style="background-color: #f8d463;" align="center">工作線名</td>
+					<td style="background-color: #f8d463;"><input id="txtStation" style="font-size: medium;width: 98%;" disabled="disabled"></td>
+				</tr>
+				<tr>
 					<td style="background-color: #f8d463;" align="center">排程數量</td>
 					<td style="background-color: #f8d463;"><input id="txtWorkmount" style="font-size: medium;width: 60%;text-align: right;" disabled="disabled"></td>
+				</tr>
+				<tr>
+					<td style="background-color: #f8d463;" align="center">已入庫量</td>
+					<td style="background-color: #f8d463;"><input id="txtInmount" style="font-size: medium;width: 60%;text-align: right;" disabled="disabled"></td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">未入庫量</td>
 					<td style="background-color: #f8d463;"><input id="txtUnmount" style="font-size: medium;width: 60%;text-align: right;" disabled="disabled"></td>
 				</tr>
 				<tr>
-					<td style="background-color: #f8d463;" align="center">入庫數量</td>
+					<td style="background-color: #f8d463;" align="center">本次入庫數量</td>
 					<td style="background-color: #f8d463;"><input id="txtMount" style="font-size: medium;width: 60%;text-align: right;"></td>
 				</tr>
 				<tr>

@@ -232,6 +232,68 @@
 				$('#btnWorkg_jo').click(function() {
 					q_box('z_workg_jo.aspx' + "?;;;noa='" + $('#txtNoa').val() + "';" + r_accy + ";", '', "95%", "95%", $('#btnWorkg_jo').val());
 				});
+				
+				$('#btnUindate').click(function() {
+					if((q_cur==1 || q_cur==2) && dec($('#txtMon').val())>0){
+						var auindate=[];
+						for (var i = 0; i < q_bbsCount; i++) {
+							if($.trim($('#txtRworkdate_'+i).val()).length>0 && dec($('#txtMount_'+i).val())>0 && q_cd($('#txtRworkdate_'+i).val())){
+								var smount=dec($('#txtMount_'+i).val());
+								var t_datea=$.trim($('#txtRworkdate_'+i).val());
+								while(smount>0){
+									var isexists=false;
+									for (var j = 0; j < auindate.length; j++) {
+										if(auindate[j].datea==t_datea){
+											isexists=true;
+											if(auindate[j].mount>=smount){
+												auindate[j].mount=q_sub(dec(auindate[j].mount),smount);
+												smount=0;
+											}else{
+												smount=q_sub(smount,dec(auindate[j].mount));
+												auindate[j].mount=0;
+											}
+											break;
+										}
+									}
+									
+									if(!isexists){
+										if(dec($('#txtMon').val())>=smount){
+											auindate.push({
+												datea:t_datea,
+												mount:q_sub(dec($('#txtMon').val()),smount)
+											});
+											smount=0;
+										}else{
+											smount=q_sub(smount,dec($('#txtMon').val()));
+											auindate.push({
+												datea:t_datea,
+												mount:0
+											});
+										}
+									}
+									if(smount==0){
+										break;
+									}
+									
+									//日期變動
+									t_datea=q_cdn(t_datea,1);
+									var week='';
+									if(t_datea.length==10){
+										week=new Date(dec(t_datea.substr(0,4)),dec(t_datea.substr(5,2))-1,dec(t_datea.substr(8,2))).getDay()
+									}else{
+										week=new Date(dec(t_datea.substr(0,3))+1911,dec(t_datea.substr(4,2))-1,dec(t_datea.substr(7,2))).getDay();
+									}
+									
+									if(q_getPara('sys.saturday')!='1' && week==6)
+										t_datea=q_cdn(t_datea,1);
+									if(week==0)
+										t_datea=q_cdn(t_datea,1);
+								}
+								$('#txtUindate_'+i).val(t_datea);
+							}
+						}
+					}
+				});
 			}
 			
 			var ordedate=false;
@@ -1116,12 +1178,12 @@
 			<div class='dbbm'>
 				<table class="tbbm" id="tbbm">
 					<tr style="height: 1px;">
-						<td style="width: 116px;"> </td>
+						<td style="width: 146px;"> </td>
 						<td style="width: 111px;"> </td>
 						<td style="width: 126px;"> </td>
 						<td style="width: 111px;"> </td>
 						<td style="width: 111px;"> </td>
-						<td style="width: 210px;"> </td>
+						<td style="width: 180px;"> </td>
 					</tr>
 					<tr>
 						<td style="display:none;">
@@ -1215,6 +1277,11 @@
 						<td> </td>
 						<td><input id="btnWork" type="button"/></td>
 					</tr>
+					<tr>
+						<td><span> </span><a class="lbl">每日製品入庫數</a></td>
+						<td><input id="txtMon" type="text" class="txt num c1"/></td>
+						<td colspan="2" align="center"><input id="btnUindate" type="button" value="寫入預估入庫日"/></td>
+					</tr>
 				</table>
 			</div>
 			<div class='dbbs'>
@@ -1250,8 +1317,8 @@
 						<td style="width:130px;"><a id='lblStation_s'> </a></td>
 						<!--<td style="width:100px;"><a id='lblDayborn_s'> </a></td>-->
 						<td style="width:180px;"><a id='lblWorkno_s'> </a></td>
-						<!--<td style="width:180px;"><a id='lblWorkhno_s'> </a></td>-->
-						<td style="width:50px;"><a id='lblRank_s'> </a></td>
+						<!--<td style="width:180px;"><a id='lblWorkhno_s'> </a></td>
+						<td style="width:50px;"><a id='lblRank_s'> </a></td>-->
 						<td style="width:90px;">
 							<a id='lblUindate_s'> </a>/<a id='lblIndate_s'> </a>
 						</td>
@@ -1259,6 +1326,7 @@
 						<td style="width:100px;"><a id='lblWmount_s'> </a></td>
 						<td><a id='lblMemo_s'> </a></td>
 						<td style="width:150px;"><a id='lblOrdeno_s'> </a></td>
+						<td style="width:50px;"><a id='lblEnda_s'> </a></td>
 						<td style="width:50px;"><a id='lblIsfreeze_s'> </a></td>
 						<td style="width:40px;"><a id='lblBorn_s'> </a></td>
 					</tr>
@@ -1304,8 +1372,8 @@
 						</td>
 						<!--<td><input id="txtDayborn.*" type="text" class="txt c1 num"/></td>-->
 						<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
-						<!--<td><input id="txtWorkhno.*" type="text" class="txt c1"/></td>-->
-						<td><input id="txtRank.*" type="text" class="txt c1" style="text-align: center;"/></td>
+						<!--<td><input id="txtWorkhno.*" type="text" class="txt c1"/></td>
+						<td><input id="txtRank.*" type="text" class="txt c1" style="text-align: center;"/></td>-->
 						<td>
 							<input id="txtUindate.*" type="text" class="txt c1 orde odm"/>
 							<input id="txtIndate.*" type="text" class="txt c1"/>
@@ -1314,6 +1382,7 @@
 						<td><input id="txtWmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
 						<td><input id="txtOrdeno.*" type="text" class="txt c1 orde odm"/></td>
+						<td><input id="chkEnda.*" type="checkbox"/></td>
 						<td><input id="chkIsfreeze.*" type="checkbox"/></td>
 						<td align="center"><input class="btn" id="btnBorn.*" type="button" value='.' style=" font-weight: bold;" /></td>
 					</tr>

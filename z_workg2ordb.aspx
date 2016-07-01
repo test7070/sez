@@ -422,7 +422,7 @@
 		                	var workgall=!emp($('#q_report').data('info').sqlCondition[13].getValue())?$('#q_report').data('info').sqlCondition[13].getValue():'#non';
 		                	
 							var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno
-											+';'+otherworkgall+';'+benddate+';'+eenddate+ ';' + ordc+';' + safe+';'+ store+';' + workgall+';'+r_userno+';'+q_getPara('sys.key_ordb');
+											+';'+otherworkgall+';'+benddate+';'+eenddate+ ';' + ordc+';' + safe+';'+ store+';' + workgall+';'+r_userno+';'+q_getPara('sys.key_ordb')+';'+r_len;
 							var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 							q_gtx("z_workg2ordb1", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 							
@@ -442,7 +442,7 @@
 		                	var workgall=!emp($('#q_report').data('info').sqlCondition[13].getValue())?$('#q_report').data('info').sqlCondition[13].getValue():'#non';
 		                	
 							var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno
-											+';'+otherworkgall+';'+benddate+';'+eenddate+ ';' + ordc+';' + safe+';' + store+';' + workgall+';'+r_userno+';'+q_getPara('sys.key_ordb');
+											+';'+otherworkgall+';'+benddate+';'+eenddate+ ';' + ordc+';' + safe+';' + store+';' + workgall+';'+r_userno+';'+q_getPara('sys.key_ordb')+';'+r_len;
 							var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 							q_gtx("z_workg2ordb3", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 						}
@@ -467,7 +467,7 @@
 			                	var workgall=!emp($('#q_report').data('info').sqlCondition[13].getValue())?$('#q_report').data('info').sqlCondition[13].getValue():'#non';
 		                		
 								var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno
-											+';'+otherworkgall+';'+benddate+';'+eenddate+ ';' + ordc+';' + safe+';'+ store+';' + workgall+';'+r_userno+';'+q_getPara('sys.key_ordb');
+											+';'+otherworkgall+';'+benddate+';'+eenddate+ ';' + ordc+';' + safe+';'+ store+';' + workgall+';'+r_userno+';'+q_getPara('sys.key_ordb')+';'+r_len;
 								var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 				                //q_gtx("z_workg2ordb2", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 				                q_func('qtxt.query.sign3', 'orda.txt,sign3,' + t_where);
@@ -496,7 +496,7 @@
 			                	var workgall=!emp($('#q_report').data('info').sqlCondition[13].getValue())?$('#q_report').data('info').sqlCondition[13].getValue():'#non';
 		                		
 								var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno
-											+';'+otherworkgall+';'+benddate+';'+eenddate+ ';' + ordc+';' + safe+';' + store+';' + workgall+';'+r_userno+';'+q_getPara('sys.key_orda');
+											+';'+otherworkgall+';'+benddate+';'+eenddate+ ';' + ordc+';' + safe+';' + store+';' + workgall+';'+r_userno+';'+q_getPara('sys.key_orda')+';'+r_len;
 								var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 				                //q_gtx("z_workg2ordb4", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 				                q_func('qtxt.query.sign1', 'orda.txt,sign1,' + t_where);
@@ -525,7 +525,7 @@
 			                	var workgall=!emp($('#q_report').data('info').sqlCondition[13].getValue())?$('#q_report').data('info').sqlCondition[13].getValue():'#non';
 		                		
 								var t_where =r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno
-											+';'+otherworkgall+';'+benddate+';'+eenddate+ ';' + ordc+';' + safe+';' + store+';' + workgall+';'+r_userno+';'+q_getPara('sys.key_ordb');
+											+';'+otherworkgall+';'+benddate+';'+eenddate+ ';' + ordc+';' + safe+';' + store+';' + workgall+';'+r_userno+';'+q_getPara('sys.key_ordb')+';'+r_len;
 								var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 				                //q_gtx("z_workg2ordb5", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 				                q_func('qtxt.query.sign2', 'orda.txt,sign2,' + t_where);
