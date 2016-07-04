@@ -94,6 +94,10 @@
                         type : '8', //[8]>>[13]>>[14]
                         name : 'workgall',
                         value : ("1@全部未請購的排產計畫").split(',')
+                    },{
+						type : '0', //[15]
+						name : 'rlen',
+                        value : r_len
                     }]
                 });
                 q_popAssign();

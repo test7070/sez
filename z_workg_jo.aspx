@@ -50,7 +50,13 @@
 						type : '8', //[7]
 						name : 'xunenda',
 						value : '1@未完工'.split(',')
-					}]
+					},{
+                        type : '2',//[8][9]
+                        name : 'xstation',
+                        dbf : 'station',
+                        index : 'noa,station',
+                        src : 'station_b.aspx'
+                     }]
 				});
 				q_popAssign();
 				q_getFormat();
@@ -64,6 +70,11 @@
 				if (t_key[1] != undefined) {
 					$('#txtXcuanoa').val(t_key[1]);
 				}
+				
+				if(r_rank<"8"){
+					q_gt('sss', "where=^^noa='"+r_userno+"'^^", 0, 0, 0, "getSalesgroup");
+				}
+				
 				
 				$('#txtMount').change(function() {
 					var t_mount=dec($('#txtMount').val());
@@ -118,6 +129,29 @@
 
 			function q_gtPost(s2) {
 				switch (s2) {
+					case 'getSalesgroup':
+						var as = _q_appendData("sss", "", true);
+						if (as[0] != undefined) {
+							if(as[0].isclerk=="true"){
+								$('#txtXstation1a').attr('disabled', 'disabled');
+								$('#txtXstation2a').attr('disabled', 'disabled');
+								$('#btnXstation1').hide();
+								$('#btnXstation2').hide();
+								$('#txtXstation1a').val(as[0].salesgroup);
+								$('#txtXstation1b').val('');
+								$('#txtXstation2a').val(as[0].salesgroup);
+								$('#txtXstation2b').val('');
+								q_gt('station', "where=^^noa='"+as[0].salesgroup+"'^^", 0, 0, 0, "getSation");
+							}
+						}
+						break;
+					case 'getSation':
+						var as = _q_appendData("station", "", true);
+						if (as[0] != undefined) {
+							$('#txtXstation1b').val(as[0].station);
+							$('#txtXstation2b').val(as[0].station);
+						}
+						break;
 					case 'view_work':
 						var as = _q_appendData("view_work", "", true);
 						if (as[0] != undefined) {
