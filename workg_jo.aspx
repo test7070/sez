@@ -294,12 +294,37 @@
 						}
 					}
 				});
+				
+				$('#btnWorkReal').click(function() {
+					if($.trim($('#txtNoa').val()).length==0 && $('#txtNoa').val()!='AUTO'){
+						return;
+					}
+					if (!confirm("確定要轉換嗎?")){
+						return;
+					}
+					//檢查是否需要轉換
+					q_gt('view_work', "where=^^ cuano='"+$.trim($('#txtNoa').val())+"' and noa not like 'W[0-9]%' ^^" , 0, 0, 0, "getworknoreal", r_accy);
+				});
 			}
 			
 			var ordedate=false;
 			var t_work, t_inmount = 0;
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'getworknoreal':
+						var as = _q_appendData("view_work", "", true);
+						if (as[0] != undefined) {
+							
+							var t_bcuano=$.trim($('#txtNoa').val());
+							var t_ecuano=$.trim($('#txtNoa').val());
+											
+							$('#btnWorkReal').attr('disabled', 'disabled');
+							q_func('qtxt.query.workrealall', 'workg.txt,workrealall,'
+							+r_bcuano+';'+r_ecuano+';'+r_name);
+						}else{
+							alert('【'+$.trim($('#txtNoa').val())+'】排產單無可轉換的模擬製令!!');
+						}
+						break;
 					case 'view_work':
 						t_inmount = 0;
 						t_work = _q_appendData("view_work", "", true);
@@ -696,6 +721,7 @@
 					$('#txtSfbdate').datepicker( 'destroy' );
 					$('#txtSfbdate').datepicker( 'destroy' );
 					$('#copyunprepare').attr('disabled', 'disabled');
+					$('#btnWorkReal').removeAttr('disabled');
 				} else {
 					$('#btnOrde').removeAttr('disabled');
 					$('#btnWorkg').removeAttr('disabled');
@@ -709,9 +735,11 @@
 					$('#txtSfbdate').datepicker();
 					$('#txtSfedate').datepicker();
 					$('#copyunprepare').removeAttr('disabled').prop('checked',false);
+					$('#btnWorkReal').attr('disabled', 'disabled');
 				}
 				var hasStyle = q_getPara('sys.isstyle');
 				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
+				$('#chkIscugu').attr('disabled', 'disabled');
 			}
 
 			function btnMinus(id) {
@@ -968,6 +996,13 @@
 				}
 			}
 			function q_funcPost(t_func, result) {
+				if (t_func == 'qtxt.query.workrealall') {
+					$('#btnWorkReal').removeAttr('disabled');
+					var as = _q_appendData('tmp0','',true,true);
+                	alert("模擬製令成功轉成正式製令!!\n共轉換"+as.length+"張");
+                	var s2=new Array('workg_s',"where=^^noa<='"+$('#txtNoa').val()+"' ^^ ");
+					q_boxClose2(s2);
+				}
 				if (t_func == 'workg.genWork') {
 					var workno = result.split(';')
 					for (var j = 0; j < q_bbsCount; j++) {
@@ -1280,7 +1315,12 @@
 					<tr>
 						<td><span> </span><a class="lbl">每日製品入庫數</a></td>
 						<td><input id="txtMon" type="text" class="txt num c1"/></td>
-						<td colspan="2" align="center"><input id="btnUindate" type="button" value="寫入預估入庫日"/></td>
+						<td colspan="3" align="center">
+							<input id="btnUindate" type="button" value="寫入預估入庫日"/>
+							<span> </span><a class="lbl">正式製令</a>
+							<input id="chkIscugu" type="checkbox" style="float: right;"/>
+						</td>
+						<td colspan="2"><input id="btnWorkReal" type="button"/></td>
 					</tr>
 				</table>
 			</div>
