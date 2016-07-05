@@ -390,6 +390,7 @@
 									}
 								}
 							}
+							
 							OutHtml += '<tr>';
 							OutHtml += "<td class='tTitle' style='width:240px;' colspan='2' rowspan='2'>工作線別</td>" +
 									   "<td class='tTitle' style='width:60px;' rowspan='2'>日產能</td>" +
@@ -425,6 +426,23 @@
 								ATotal = q_add(ATotal,tTotal);
 								OutHtml += "<td class='num'>" + tTotal + "</td>";
 								OutHtml += '</tr>';
+								
+								if(k%20==0 && k!=0){
+									OutHtml += '<tr>';
+									OutHtml += "<td class='tTitle' style='width:240px;' colspan='2' rowspan='2'>工作線別</td>" +
+											   "<td class='tTitle' style='width:60px;' rowspan='2'>日產能</td>" +
+											   "<td class='tTitle' style='width:80px;' rowspan='2'>稼動率</td>";
+									tmpTd = '<tr>';
+									for(var j=0;j<DateList.length;j++){
+										var thisDay = DateList[j];
+										var thisADday = r_len==3?dec(thisDay.substring(0,3))+1911+thisDay.substr(3):thisDay;
+										OutHtml += "<td class='tTitle tWidth'>" + thisDay.substr(r_len+1) + "</td>";
+										tmpTd += "<td class='tTitle tWidth'>" + DayName[(new Date(thisADday).getDay())] + "</td>";
+									}
+									OutHtml += "<td class='tTitle tWidth' rowspan='2'>小計</td>";
+									tmpTd += "</tr>"
+									OutHtml += '</tr>' + tmpTd;
+								}
 							}
 							OutHtml += "<tr><td colspan='4' class='tTotal num'>總計：</td>";
 							for(var k=0;k<DateObj.length;k++){
@@ -538,6 +556,7 @@
 							var ATotal = 0,wtotal=0;
 							var t_stationno='#non';
 							var t_station='#non';
+							var rowline=0;
 							for(var k=0;k<TL.length;k++){
 								//插入工作線別小計
 								if(t_stationno!='#non' && t_stationno!=TL[k].stationno){
@@ -553,6 +572,29 @@
 										DateObj[c].stotal=0;
 									}
 									OutHtml += "<td class='sTotal num'>" + round(stotla,3) + "</td></tr>";
+									rowline++;
+								}
+								
+								if(rowline/20>1){
+									OutHtml += '<tr>';
+									OutHtml += "<td class='tTitle' style='width:370px;' colspan='2' rowspan='2'>物品</td>" +
+											   "<td class='tTitle' style='width:210px;' colspan='2' rowspan='2'>工作線別</td>" +
+											   "<td class='tTitle' style='width:80px;' rowspan='2'>需工時</td>";
+									tmpTd = '<tr>';
+									for(var j=0;j<DateList.length;j++){
+										var thisDay = DateList[j];
+										if(thisDay=='週小計'){
+											OutHtml += "<td class='tTitle' style='width:80px;' rowspan='2'>"+thisDay+"</td>";
+										}else{
+											var thisADday = r_len==3?dec(thisDay.substring(0,3))+1911+thisDay.substr(3):thisDay;
+											OutHtml += "<td class='tTitle tWidth'>" + thisDay.substr(r_len+1) + "</td>";
+											tmpTd += "<td class='tTitle tWidth'>" + DayName[(new Date(thisADday).getDay())] + "</td>";
+										}
+									}
+									OutHtml += "<td class='tTitle tWidth' rowspan='2'>小計</td>";
+									tmpTd += "</tr>"
+									OutHtml += '</tr>' + tmpTd;
+									rowline=0;
 								}
 								
 								OutHtml += '<tr>';
@@ -581,6 +623,7 @@
 								
 								t_stationno=TL[k].stationno;
 								t_station=TL[k].station;
+								rowline++;
 							}
 							//插入最後一筆工作線別小計
 							if(t_stationno!='#non'){
