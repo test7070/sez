@@ -39,7 +39,7 @@
 			var t_xbdate='#non',t_xedate='#non',t_xbstationno='#non',
 				t_xestationno='#non',t_xbproductno='#non',t_xeproductno='#non',
 				t_xgroupano='#non',t_xshowover='#non',t_xshowfinished='#non',t_xonlyrealwork='#non',
-				t_xbstationgno='#non',t_xestationgno='#non'	;
+				t_xbstationgno='#non',t_xestationgno='#non'	,t_xcuanoa='#non',t_xcuanoq='#non';
 
 			function q_gfPost() {
 				$('#q_report').q_report({//0511
@@ -89,6 +89,12 @@
 						dbf : 'stationg',
 						index : 'noa,namea',
 						src : 'stationg_b.aspx'
+					},{
+						type : '6', //[15]
+						name : 'xcuanoa'
+					},{
+						type : '6', //[16]
+						name : 'xcuanoq'
 					}]
 				});
 				
@@ -214,6 +220,16 @@
 					else{
 						t_xonlyrealwork='#non'
 					}
+					if(!emp($('#txtXcuanoa').val()))
+						t_xcuanoa=encodeURI($('#txtXcuanoa').val());
+					else
+						t_xcuanoa='#non';
+						
+					if(!emp($('#txtXcuanoq').val()))
+						t_xcuanoq=encodeURI($('#txtXcuanoq').val());
+					else
+						t_xcuanoq='#non';
+						
 					Lock();
 					q_func('qtxt.query.'+txtreport,'z_workgg.txt,'+txtreport+','+
 							t_xbdate + ';' +
@@ -227,7 +243,8 @@
 							t_xshowover + ';' +
 							t_xshowfinished + ';'+
 							t_xonlyrealwork + ';'+
-							t_xbstationgno+';'+t_xestationgno+';'
+							t_xbstationgno+';'+t_xestationgno+';'+
+							t_xcuanoa+';'+t_xcuanoq
 					);
 				});
 
@@ -259,7 +276,7 @@
 
                 	if(wadate!=''){
                 		$('#txtXdate1').val(wadate);
-                		$('#txtXdate2').val(wadate);
+                		$('#txtXdate2').val(wedate);
                 	}else if (wbdate!=''){
                 		$('#txtXdate1').val(wbdate);
                 		$('#txtXdate2').val(wedate);
@@ -373,6 +390,7 @@
 									}
 								}
 							}
+							
 							OutHtml += '<tr>';
 							OutHtml += "<td class='tTitle' style='width:240px;' colspan='2' rowspan='2'>工作線別</td>" +
 									   "<td class='tTitle' style='width:60px;' rowspan='2'>日產能</td>" +
@@ -408,6 +426,23 @@
 								ATotal = q_add(ATotal,tTotal);
 								OutHtml += "<td class='num'>" + tTotal + "</td>";
 								OutHtml += '</tr>';
+								
+								if(k%20==0 && k!=0){
+									OutHtml += '<tr>';
+									OutHtml += "<td class='tTitle' style='width:240px;' colspan='2' rowspan='2'>工作線別</td>" +
+											   "<td class='tTitle' style='width:60px;' rowspan='2'>日產能</td>" +
+											   "<td class='tTitle' style='width:80px;' rowspan='2'>稼動率</td>";
+									tmpTd = '<tr>';
+									for(var j=0;j<DateList.length;j++){
+										var thisDay = DateList[j];
+										var thisADday = r_len==3?dec(thisDay.substring(0,3))+1911+thisDay.substr(3):thisDay;
+										OutHtml += "<td class='tTitle tWidth'>" + thisDay.substr(r_len+1) + "</td>";
+										tmpTd += "<td class='tTitle tWidth'>" + DayName[(new Date(thisADday).getDay())] + "</td>";
+									}
+									OutHtml += "<td class='tTitle tWidth' rowspan='2'>小計</td>";
+									tmpTd += "</tr>"
+									OutHtml += '</tr>' + tmpTd;
+								}
 							}
 							OutHtml += "<tr><td colspan='4' class='tTotal num'>總計：</td>";
 							for(var k=0;k<DateObj.length;k++){
@@ -444,8 +479,19 @@
 									DateList.push(thisDay);
 									DateObj.push({
 										datea:thisDay,
-										value:0
+										value:0,
+										stotal:0
 									});
+								}else{
+									//小計欄
+									if(j!=0){
+										DateList.push('週小計');
+										DateObj.push({
+											datea:'週小計',
+											value:0,
+											stotal:0
+										});
+									}
 								}
 							}
 							var TL = [];
@@ -492,19 +538,65 @@
 							OutHtml += '<tr>';
 							OutHtml += "<td class='tTitle' style='width:370px;' colspan='2' rowspan='2'>物品</td>" +
 									   "<td class='tTitle' style='width:210px;' colspan='2' rowspan='2'>工作線別</td>" +
-									   "<td class='tTitle' style='width:80px;' rowspan='2'>需工時</td>";
+									   "<td class='tTitle' style='width:100px;' rowspan='2'>需工時</td>";
 							var tmpTd = '<tr>';
 							for(var j=0;j<DateList.length;j++){
 								var thisDay = DateList[j];
-								var thisADday = r_len==3?dec(thisDay.substring(0,3))+1911+thisDay.substr(3):thisDay;
-								OutHtml += "<td class='tTitle tWidth'>" + thisDay.substr(r_len+1) + "</td>";
-								tmpTd += "<td class='tTitle tWidth'>" + DayName[(new Date(thisADday).getDay())] + "</td>";
+								if(thisDay=='週小計'){
+									OutHtml += "<td class='tTitle' style='width:80px;' rowspan='2'>"+thisDay+"</td>";
+								}else{
+									var thisADday = r_len==3?dec(thisDay.substring(0,3))+1911+thisDay.substr(3):thisDay;
+									OutHtml += "<td class='tTitle tWidth'>" + thisDay.substr(r_len+1) + "</td>";
+									tmpTd += "<td class='tTitle tWidth'>" + DayName[(new Date(thisADday).getDay())] + "</td>";
+								}
 							}
 							OutHtml += "<td class='tTitle tWidth' rowspan='2'>小計</td>";
 							tmpTd += "</tr>"
 							OutHtml += '</tr>' + tmpTd;
-							var ATotal = 0;
+							var ATotal = 0,wtotal=0;
+							var t_stationno='#non';
+							var t_station='#non';
+							var rowline=0;
 							for(var k=0;k<TL.length;k++){
+								//插入工作線別小計
+								if(t_stationno!='#non' && t_stationno!=TL[k].stationno){
+									OutHtml += "<tr><td colspan='2' class='sTotal num'></td>";
+									OutHtml += "<td class='sTotal stationno'>" + t_stationno + "</td><td class='sTotal station'>" + t_station + "</td>" ;
+									OutHtml += "<td class='sTotal num'>小計：</td>";
+									var stotla=0
+									for(var c=0;c<DateObj.length;c++){
+										OutHtml += "<td class='sTotal num'>" + round(DateObj[c].stotal,3) + "</td>";
+										if(DateObj[c].datea!='週小計'){
+											stotla=q_add(stotla,round(DateObj[c].stotal,3));
+										}
+										DateObj[c].stotal=0;
+									}
+									OutHtml += "<td class='sTotal num'>" + round(stotla,3) + "</td></tr>";
+									rowline++;
+								}
+								
+								if(rowline/20>1){
+									OutHtml += '<tr>';
+									OutHtml += "<td class='tTitle' style='width:370px;' colspan='2' rowspan='2'>物品</td>" +
+											   "<td class='tTitle' style='width:210px;' colspan='2' rowspan='2'>工作線別</td>" +
+											   "<td class='tTitle' style='width:100px;' rowspan='2'>需工時</td>";
+									tmpTd = '<tr>';
+									for(var j=0;j<DateList.length;j++){
+										var thisDay = DateList[j];
+										if(thisDay=='週小計'){
+											OutHtml += "<td class='tTitle' style='width:80px;' rowspan='2'>"+thisDay+"</td>";
+										}else{
+											var thisADday = r_len==3?dec(thisDay.substring(0,3))+1911+thisDay.substr(3):thisDay;
+											OutHtml += "<td class='tTitle tWidth'>" + thisDay.substr(r_len+1) + "</td>";
+											tmpTd += "<td class='tTitle tWidth'>" + DayName[(new Date(thisADday).getDay())] + "</td>";
+										}
+									}
+									OutHtml += "<td class='tTitle tWidth' rowspan='2'>小計</td>";
+									tmpTd += "</tr>"
+									OutHtml += '</tr>' + tmpTd;
+									rowline=0;
+								}
+								
 								OutHtml += '<tr>';
 								OutHtml += "<td class='Lproduct' style='width:150px;'>" + TL[k].productno + "</td><td class='Lproduct' style='width:220px;'>" + TL[k].product + "</td>" +
 										   "<td class='Lproduct' style='width:120px;'>" + TL[k].stationno + "</td><td class='Lproduct' style='width:120px;'>" + TL[k].station + "</td>" +
@@ -512,14 +604,43 @@
 								var TTD = TL[k].datea;
 								var tTotal = 0;
 								for(var j=0;j<TTD.length;j++){
-									tTotal = q_add(tTotal,round(TTD[j][1],3));
-									DateObj[j].value = q_add(dec(DateObj[j].value),round(TTD[j][1],3));
-									OutHtml += "<td class='num'>" + round(TTD[j][1],3) + "</td>";
+									if(TTD[j][0]=='週小計'){
+										OutHtml += "<td class='num'>" + round(wtotal,3) + "</td>";
+										DateObj[j].value = q_add(dec(DateObj[j].value),wtotal);
+										DateObj[j].stotal = q_add(dec(DateObj[j].stotal),wtotal);
+										wtotal=0;
+									}else{
+										wtotal= q_add(wtotal,round(TTD[j][1],3));
+										tTotal = q_add(tTotal,round(TTD[j][1],3));
+										DateObj[j].value = q_add(dec(DateObj[j].value),round(TTD[j][1],3));
+										DateObj[j].stotal = q_add(dec(DateObj[j].stotal),round(TTD[j][1],3));
+										OutHtml += "<td class='num'>" + round(TTD[j][1],3) + "</td>";
+									}
 								}
 								ATotal = q_add(ATotal,tTotal);
 								OutHtml += "<td class='num'>" + tTotal + "</td>";
 								OutHtml += '</tr>';
+								
+								t_stationno=TL[k].stationno;
+								t_station=TL[k].station;
+								rowline++;
 							}
+							//插入最後一筆工作線別小計
+							if(t_stationno!='#non'){
+								OutHtml += "<tr><td colspan='2' class='sTotal num'></td>";
+								OutHtml += "<td class='sTotal stationno'>" + t_stationno + "</td><td class='sTotal station'>" + t_station + "</td>" ;
+								OutHtml += "<td class='sTotal num'>小計：</td>";
+								var stotla=0
+								for(var c=0;c<DateObj.length;c++){
+									OutHtml += "<td class='sTotal num'>" + round(DateObj[c].stotal,3) + "</td>";
+									if(DateObj[c].datea!='週小計'){
+										stotla=q_add(stotla,round(DateObj[c].stotal,3));
+									}
+									DateObj[c].stotal=0;
+								}
+								OutHtml += "<td class='sTotal num'>" + round(stotla,3) + "</td></tr>";
+							}
+							
 							OutHtml += "<tr><td colspan='5' class='tTotal num'>總計：</td>";
 							for(var k=0;k<DateObj.length;k++){
 								OutHtml += "<td class='tTotal num'>" + round(DateObj[k].value,3) + "</td>";
@@ -781,6 +902,9 @@
 			.tTotal{
 				text-align:right;
 				background: #CFF;
+			}
+			.sTotal{
+				background: #DFD;
 			}
 			.center{
 				text-align:center;

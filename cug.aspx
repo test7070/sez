@@ -401,7 +401,7 @@
 						$('#btn_div_real').attr('disabled', 'disabled');
 						$('#btn_div_real').val('轉換中....');
 						q_func('qtxt.query.workrealall', 'cug.txt,workrealall,'+r_bdate+';'+r_edate+';'+r_bcuano+';'+r_ecuano+';'+r_bworkno+';'+r_eworkno
-						+';'+r_bstationno+';'+r_estationno+';'+r_bstationgno+';'+r_estationgno+';'+r_btggno+';'+r_etggno+';'+r_sigtngg+';'+r_name);
+						+';'+r_bstationno+';'+r_estationno+';'+r_bstationgno+';'+r_estationgno+';'+r_btggno+';'+r_etggno+';'+r_sigtngg+';'+r_name+';'+r_len);
 					}else
 						alert("填寫資料有問題!!");
 						

@@ -50,7 +50,13 @@
 						type : '8', //[7]
 						name : 'xunenda',
 						value : '1@未完工'.split(',')
-					}]
+					},{
+                        type : '2',//[8][9]
+                        name : 'xstation',
+                        dbf : 'station',
+                        index : 'noa,station',
+                        src : 'station_b.aspx'
+                     }]
 				});
 				q_popAssign();
 				q_getFormat();
@@ -64,6 +70,11 @@
 				if (t_key[1] != undefined) {
 					$('#txtXcuanoa').val(t_key[1]);
 				}
+				
+				if(r_rank<"8"){
+					q_gt('sss', "where=^^noa='"+r_userno+"'^^", 0, 0, 0, "getSalesgroup");
+				}
+				
 				
 				$('#txtMount').change(function() {
 					var t_mount=dec($('#txtMount').val());
@@ -118,12 +129,38 @@
 
 			function q_gtPost(s2) {
 				switch (s2) {
+					case 'getSalesgroup':
+						var as = _q_appendData("sss", "", true);
+						if (as[0] != undefined) {
+							if(as[0].isclerk=="true"){
+								$('#txtXstation1a').attr('disabled', 'disabled');
+								$('#txtXstation2a').attr('disabled', 'disabled');
+								$('#btnXstation1').hide();
+								$('#btnXstation2').hide();
+								$('#txtXstation1a').val(as[0].salesgroup);
+								$('#txtXstation1b').val('');
+								$('#txtXstation2a').val(as[0].salesgroup);
+								$('#txtXstation2b').val('');
+								q_gt('station', "where=^^noa='"+as[0].salesgroup+"'^^", 0, 0, 0, "getSation");
+							}
+						}
+						break;
+					case 'getSation':
+						var as = _q_appendData("station", "", true);
+						if (as[0] != undefined) {
+							$('#txtXstation1b').val(as[0].station);
+							$('#txtXstation2b').val(as[0].station);
+						}
+						break;
 					case 'view_work':
 						var as = _q_appendData("view_work", "", true);
 						if (as[0] != undefined) {
 							$('#txtProductno').val(as[0].productno);
 							$('#txtProduct').val(as[0].product);
+							$('#txtStationno').val(as[0].stationno);
+							$('#txtStation').val(as[0].station);
 							$('#txtWorkmount').val(as[0].mount);
+							$('#txtInmount').val(as[0].inmount);
 							$('#txtUnmount').val(dec(as[0].mount)-dec(as[0].inmount));
 							
 							if(dec(as[0].mount)-dec(as[0].inmount)>0){
@@ -162,12 +199,12 @@
 			}
 			
 			function workin(workno) {
-				if(workno.value.length>0){
-					$('#txtWorkno').val(workno.value);
+				if(workno.id.length>0){
+					$('#txtWorkno').val(workno.id);
 					$('#div_in').css('top', $(workno).offset().top+20);
 					$('#div_in').css('left', $(workno).offset().left);
 					
-					q_gt('view_work', "where=^^noa='"+workno.value+"'^^", 0, 0, 0, "");
+					q_gt('view_work', "where=^^noa='"+workno.id+"'^^", 0, 0, 0, "");
 				}
 			}
 		</script>
@@ -191,15 +228,27 @@
 					<td style="background-color: #f8d463;"><input id="txtProduct" style="font-size: medium;width: 98%;" disabled="disabled"></td>
 				</tr>
 				<tr>
+					<td style="background-color: #f8d463;" align="center">工作線號</td>
+					<td style="background-color: #f8d463;"><input id="txtStationno" style="font-size: medium;width: 98%;" disabled="disabled"></td>
+				</tr>
+				<tr>
+					<td style="background-color: #f8d463;" align="center">工作線名</td>
+					<td style="background-color: #f8d463;"><input id="txtStation" style="font-size: medium;width: 98%;" disabled="disabled"></td>
+				</tr>
+				<tr>
 					<td style="background-color: #f8d463;" align="center">排程數量</td>
 					<td style="background-color: #f8d463;"><input id="txtWorkmount" style="font-size: medium;width: 60%;text-align: right;" disabled="disabled"></td>
+				</tr>
+				<tr>
+					<td style="background-color: #f8d463;" align="center">已入庫量</td>
+					<td style="background-color: #f8d463;"><input id="txtInmount" style="font-size: medium;width: 60%;text-align: right;" disabled="disabled"></td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">未入庫量</td>
 					<td style="background-color: #f8d463;"><input id="txtUnmount" style="font-size: medium;width: 60%;text-align: right;" disabled="disabled"></td>
 				</tr>
 				<tr>
-					<td style="background-color: #f8d463;" align="center">入庫數量</td>
+					<td style="background-color: #f8d463;" align="center">本次入庫數量</td>
 					<td style="background-color: #f8d463;"><input id="txtMount" style="font-size: medium;width: 60%;text-align: right;"></td>
 				</tr>
 				<tr>
