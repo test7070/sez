@@ -276,7 +276,7 @@
 
                 	if(wadate!=''){
                 		$('#txtXdate1').val(wadate);
-                		$('#txtXdate2').val(wadate);
+                		$('#txtXdate2').val(wedate);
                 	}else if (wbdate!=''){
                 		$('#txtXdate1').val(wbdate);
                 		$('#txtXdate2').val(wedate);
