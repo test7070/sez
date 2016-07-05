@@ -24,7 +24,7 @@
 			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtSales', 'txtOrdbno', 'txtOrdcno','txtUmmno','txtCuft','txtCasemount','txtCuftnotv','txtAgent','txtGtime'];
 			var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtC1', 'txtNotv','txtPackwayno','txtPackway','txtSprice','txtBenifit','txtPayterms'
 										,'txtSize','txtProfit','txtDime'];
-			var bbmNum = [['txtTotal', 10, 0, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1],['txtFloata', 10, 5, 1], ['txtDeposit', 15, 0, 1],['txtCuft', 15, 2, 1],['txtDate3', 2, 0, 1], ['txtTotalus', 15, 2, 1]];//
+			var bbmNum = [['txtTotal', 10, 0, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1],['txtFloata', 10, 5, 1], ['txtDeposit', 15, 0, 1],['txtCuft', 15, 2, 1], ['txtTotalus', 15, 2, 1]];//,['txtDate3', 2, 0, 1]
 			var bbsNum = [['txtCuft', 15, 2, 1]];
 			var bbmMask = [];
 			var bbsMask = [];
@@ -518,13 +518,14 @@
 				$('#btnClose_div_vccdate').click(function() {
 					$('#div_vccdate').hide();
 				});
-				$('#btnvccdate').click(function(e) {
+				$('#btnVccdate').click(function(e) {
 					var monhoilday=q_getPara('sys.saturday')=='1'?4:8;
 					var monday=0;//當月天數
 					var mongen=0,daygen=0;//當月產能
 					var t_date='',t_mon='';//計算日期
 					var factnotv=0;//排程量	
-					if(!emp($('#txtOdate').val()) && !emp($('#txtDate3').val()) && !emp($('#txtGdate').val())){ //排產週
+					
+					/*if(!emp($('#txtOdate').val()) && !emp($('#txtDate3').val()) && !emp($('#txtGdate').val())){ //排產週
 						var t_odate=new Date(dec($('#txtOdate').val().substr(0,r_len))
 						,dec($('#txtOdate').val().substr(r_len+1,r_lenm-r_len-1))-1
 						,dec($('#txtOdate').val().substr(r_lenm+1,r_lend-r_lenm-1)));
@@ -557,7 +558,7 @@
 							t_mon=t_date.substr(0,r_lenm);
 							monday=dec(q_cdn(q_cdn(t_date.substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1).slice(-2));
 							daygen=q_div(mongen,q_sub(monday,monhoilday));
-							$('.daygen').text(round(daygen,4));
+							$('.daygen').text(round(daygen,0));
 							//取排產週的量
 							var t_where = "where=^^ a.enda!=1 and a.cancel!=1 and b.enda!=1 and b.cancel!=1 and a.gdate='"+$('#txtGdate').val()+"' and a.noa!='"+$('#txtNoa').val()
 							+"' and isnull(b.mount,0)-isnull(c.c1,0)>0 and a.date3='"+$('#txtDate3').val()+"' group by a.gdate ^^";
@@ -565,7 +566,7 @@
 							q_gt('orde_r_factnotv', t_where, 0, 0, 0, "",r_accy,1);
 							var as = _q_appendData("view_orde", "", true);
 							if (as[0] != undefined) {
-								factnotv=dec(as[0].mount);
+								factnotv=dec(as[0].notv);
 							}
 							$('.date3orde').text(factnotv);
 							//取得目前訂單的數量
@@ -628,7 +629,8 @@
 						}else{
 							alert(t_date.substr(0,r_lenm)+'無產能預測，無法試算預交日!!')
 						}
-					}else if(!emp($('#txtOdate').val()) && !emp($('#txtGdate').val())){
+					}else */
+					if(!emp($('#txtOdate').val()) && !emp($('#txtGdate').val())){
 						var t_where = "where=^^ mon='" + q_cdn($('#txtOdate').val(),1).substr(0,r_lenm) + "' and factno='"+$('#txtGdate').val()+"' ^^";
 						q_gt('supforecasts', t_where, 0, 0, 0, "",r_accy,1);
 						var ass = _q_appendData("supforecasts", "", true);
@@ -636,19 +638,26 @@
 							mongen=q_add(mongen,dec(ass[i].mount)); //當月總產能
 						}
 						$('.mongen').text(mongen);
+						//取得本月訂單量
+						var t_where = "where=^^ a.cancel!=1 and b.cancel!=1 and a.gdate='"+$('#txtGdate').val()+"' and left(a.odate,"+r_lenm+")='"+$('#txtOdate').val().substr(0,r_lenm)+"' and isnull(b.mount,0)>0 group by a.gdate ^^";
+						q_gt('orde_r_factnotv', t_where, 0, 0, 0, "",r_accy,1);
+						var as = _q_appendData("view_orde", "", true);
+						if (as[0] != undefined) {
+							$('.monmount').text(as[0].mount);
+						}
 						
 						if(mongen>0){ //當有產能才計算
 							t_date=q_cdn($('#txtOdate').val(),1);
 							t_mon=q_cdn($('#txtOdate').val(),1).substr(0,r_lenm);
 							monday=dec(q_cdn(q_cdn(t_date.substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1).slice(-2));
 							daygen=q_div(mongen,q_sub(monday,monhoilday));
-							$('.daygen').text(round(daygen,4));
+							$('.daygen').text(round(daygen,0));
 							//取未完工量
 							var t_where = "where=^^ a.enda!=1 and a.cancel!=1 and b.enda!=1 and b.cancel!=1 and a.gdate='"+$('#txtGdate').val()+"' and a.noa!='"+$('#txtNoa').val()+"' and isnull(b.mount,0)-isnull(c.c1,0)>0 group by a.gdate ^^";
 							q_gt('orde_r_factnotv', t_where, 0, 0, 0, "",r_accy,1);
 							var as = _q_appendData("view_orde", "", true);
 							if (as[0] != undefined) {
-								factnotv=dec(as[0].mount);
+								factnotv=dec(as[0].notv);
 							}
 							$('.factnotv').text(factnotv);
 							//取得目前訂單的數量
@@ -702,7 +711,10 @@
 										t_date=q_cdn(t_date,1);
 								}
 							}
-							$('.vccdate').text(t_date);
+							var t_week=getISOYearWeek(new Date(dec(t_date.substr(0,r_len))
+							,dec(t_date.substr(r_len+1,r_lenm-r_len-1))-1
+							,dec(t_date.substr(r_lenm+1,r_lend-r_lenm-1))));
+							$('.vccdate').text(t_date+'    W'+t_week);
 							$('#table_vccdate .date3').hide();
 							$('#table_vccdate .odate').show();
 							$('#div_vccdate').css('top', e.pageY- $('#div_vccdate').height());
@@ -712,7 +724,8 @@
 							alert(q_cdn($('#txtOdate').val(),1).substr(0,r_lenm)+'無產能預測，無法試算預交日!!')
 						}
 					}else{
-						alert('【訂單日期/排產週】和【Factory】禁止空白!!')
+						//alert('【訂單日期/排產週】和【Factory】禁止空白!!')
+						alert('【訂單日期】和【Factory】禁止空白!!')
 					}
 				});
 			}
@@ -1199,7 +1212,7 @@
 			function btnOk() {
 				t_err = '';
 				t_err = q_chkEmpField([ ['txtNoa', q_getMsg('lblNoa')], ['txtCustno', q_getMsg('lblCustno')], ['txtCno', q_getMsg('btnAcomp')]
-				, ['txtGdate', q_getMsg('lblFactory_r')], ['txtDate3', q_getMsg('lblWeek')] ]);
+				, ['txtGdate', q_getMsg('lblFactory_r')] ]);/*['txtDate3', q_getMsg('lblWeek')]*/
 				if (t_err.length > 0) {
 					alert(t_err);
 					return;
@@ -1932,7 +1945,7 @@
 				var t_date='',t_mon='';//計算日期
 				var factnotv=0;//排程量
 				if((q_cur==1 || q_cur==2)){
-					if(!emp($('#txtOdate').val()) && !emp($('#txtDate3').val()) && !emp($('#txtGdate').val())){ //排產週
+					/*if(!emp($('#txtOdate').val()) && !emp($('#txtDate3').val()) && !emp($('#txtGdate').val())){ //排產週
 						var t_odate=new Date(dec($('#txtOdate').val().substr(0,r_len))
 						,dec($('#txtOdate').val().substr(r_len+1,r_lenm-r_len-1))-1
 						,dec($('#txtOdate').val().substr(r_lenm+1,r_lend-r_lenm-1)));
@@ -1971,7 +1984,7 @@
 							q_gt('orde_r_factnotv', t_where, 0, 0, 0, "",r_accy,1);
 							var as = _q_appendData("view_orde", "", true);
 							if (as[0] != undefined) {
-								factnotv=dec(as[0].mount);
+								factnotv=dec(as[0].notv);
 							}
 							//取得目前訂單的數量
 							var t_bbsmount=0;
@@ -2015,7 +2028,7 @@
 							}
 							$('#txtDatea_'+x).val(t_date);
 						}
-					}else if(!emp($('#txtOdate').val()) && !emp($('#txtGdate').val()) && dec($('#txtMount_'+x).val())>0 ){
+					}else*/ if(!emp($('#txtOdate').val()) && !emp($('#txtGdate').val()) && dec($('#txtMount_'+x).val())>0 ){
 						var t_where = "where=^^ mon='" + q_cdn($('#txtOdate').val(),1).substr(0,r_lenm) + "' and factno='"+$('#txtGdate').val()+"' ^^";
 						q_gt('supforecasts', t_where, 0, 0, 0, "",r_accy,1);
 						var ass = _q_appendData("supforecasts", "", true);
@@ -2034,7 +2047,7 @@
 							q_gt('orde_r_factnotv', t_where, 0, 0, 0, "",r_accy,1);
 							var as = _q_appendData("view_orde", "", true);
 							if (as[0] != undefined) {
-								factnotv=dec(as[0].mount);
+								factnotv=dec(as[0].notv);
 							}
 							
 							//取得目前訂單的數量
@@ -2505,7 +2518,11 @@
 					<td align="right" class="date3orde"> </td>
 				</tr>
 				<tr>
-					<td align="center"><a class="lbl">訂單量</a></td>
+					<td align="center"><a class="lbl">本月訂單量</a></td>
+					<td align="right" class="monmount"> </td>
+				</tr>
+				<tr>
+					<td align="center"><a class="lbl">本次訂單量</a></td>
 					<td align="right" class="ordemount"> </td>
 				</tr>
 				<tr>
@@ -2696,7 +2713,7 @@
 							<span> </span><a id='lblEnda_r'>Closed</a>
 							<input id="chkCancel" type="checkbox"/>
 							<span> </span><a id='lblCancel_r'>Cancel</a>
-							<input id="btnvccdate" type="button" value="預交日試算">
+							<input id="btnVccdate" type="button" value="預交日試算">
 						</td>
 					</tr>
 					<tr>
@@ -2710,8 +2727,8 @@
 						<td><input id="txtDate1" type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblIssuedate' class="lbl"> </a></td>
 						<td><input id="txtDate2" type="text" class="txt c1" /></td>
-						<td><span> </span><a id='lblWeek' class="lbl"> </a></td>
-						<td><input id="txtDate3" type="text" class="txt c1" /></td>
+						<!--<td><span> </span><a id='lblWeek' class="lbl"> </a></td>
+						<td><input id="txtDate3" type="text" class="txt c1" /></td>-->
 						<td><span> </span><a id='lblSoadate' class="lbl"> </a></td>
 						<td><input id="txtDate4" type="text" class="txt c1" /></td>
 					</tr>

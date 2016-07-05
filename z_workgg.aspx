@@ -538,7 +538,7 @@
 							OutHtml += '<tr>';
 							OutHtml += "<td class='tTitle' style='width:370px;' colspan='2' rowspan='2'>物品</td>" +
 									   "<td class='tTitle' style='width:210px;' colspan='2' rowspan='2'>工作線別</td>" +
-									   "<td class='tTitle' style='width:80px;' rowspan='2'>需工時</td>";
+									   "<td class='tTitle' style='width:100px;' rowspan='2'>需工時</td>";
 							var tmpTd = '<tr>';
 							for(var j=0;j<DateList.length;j++){
 								var thisDay = DateList[j];
@@ -579,7 +579,7 @@
 									OutHtml += '<tr>';
 									OutHtml += "<td class='tTitle' style='width:370px;' colspan='2' rowspan='2'>物品</td>" +
 											   "<td class='tTitle' style='width:210px;' colspan='2' rowspan='2'>工作線別</td>" +
-											   "<td class='tTitle' style='width:80px;' rowspan='2'>需工時</td>";
+											   "<td class='tTitle' style='width:100px;' rowspan='2'>需工時</td>";
 									tmpTd = '<tr>';
 									for(var j=0;j<DateList.length;j++){
 										var thisDay = DateList[j];
