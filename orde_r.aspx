@@ -2727,8 +2727,8 @@
 						<td><input id="txtDate1" type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblIssuedate' class="lbl"> </a></td>
 						<td><input id="txtDate2" type="text" class="txt c1" /></td>
-						<!--<td><span> </span><a id='lblWeek' class="lbl"> </a></td>
-						<td><input id="txtDate3" type="text" class="txt c1" /></td>-->
+						<td><span> </span><a id='lblWeek' class="lbl"> </a></td>
+						<td><input id="txtDate3" type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblSoadate' class="lbl"> </a></td>
 						<td><input id="txtDate4" type="text" class="txt c1" /></td>
 					</tr>

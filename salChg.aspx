@@ -121,7 +121,7 @@
 				switch (t_name) {
 					case 'authority':
 						var as = _q_appendData('authority', '', true);
-						if (as.length > 0 && as[0]["pr_dele"] == "true")
+						if ((as.length > 0 && as[0]["pr_dele"] == "true") || r_rank >= '8')
 							q_content = "";
 						else
 							q_content = "where=^^sssno='" + r_userno + "'^^";
