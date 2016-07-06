@@ -50,6 +50,11 @@
 			function sum() {
 				if (!(q_cur == 1 || q_cur == 2))
 					return;
+				var t_moneys = 0;
+				for(var i=0;i<q_bbsCount;i++){
+					t_moneys += q_float('txtMoney_'+i);
+				}
+				$('#txtMoney').val(t_moneys);
 			}
 
 			function mainPost() {// 載入資料完，未 refresh 前
@@ -65,6 +70,11 @@
                 	var patt = /^(\d{4})([^\.,.]*)$/g;
                     $(this).val($(this).val().replace(patt,"$1.$2"));
 				});
+				
+				$('#lblAccno2').click(function() {
+                	var t_accy=$('#txtAccy').val();
+                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno2').val() + "';" + t_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('btnAccc'), true);
+                });
 			}
 
 			function q_boxClose(s2) {
@@ -90,6 +100,8 @@
 			function q_stPost() {
 				if (!(q_cur == 1 || q_cur == 2))
 					return false;
+				var t_noa = $.trim($('#txtNoa').val());
+                q_func('qtxt.query.acshare2accc', 'acshare.txt,acshare2accc,' + r_name + ';' + t_noa);
 			}
 			function btnOk() {
 				/*var t_money = q_float('txtMoney');
@@ -101,11 +113,7 @@
 					alert('借貸金額不平，請檢查!');
 					return;
 				}*/
-				var t_moneys = 0;
-				for(var i=0;i<q_bbsCount;i++){
-					t_moneys += q_float('txtMoney_'+i);
-				}
-				$('#txtMoney').val(t_moneys);
+				
 				if (q_cur == 1)
 					$('#txtWorker').val(r_name);
 				else
@@ -121,9 +129,21 @@
 
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
-					default:
-						break;
-				}
+                	case 'qtxt.query.acshare2accc':
+                		var as = _q_appendData("tmp0", "", true, true);
+                		if (as[0] != undefined) {
+                			if(as[0].status == '1')
+                				$('#txtAccno2').val(as[0].msg);
+                			else
+                        		alert(as[0].msg);
+                        } else {
+                            alert('異常!');
+                        }
+                		break;
+                
+                    default:
+                        break;
+                }
 			}
 
 			function _btnSeek() {
@@ -151,6 +171,9 @@
                         e.preventDefault();
                         var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
                         $('#btnPart_'+n).click();
+                    });
+                    $('#txtMoney_'+i).change(function(e){
+                    	sum();
                     });
 				}
 				_bbsAssign();
