@@ -57,6 +57,10 @@
 						dbf : 'store',
 						index : 'noa,store',
 						src : 'store_b.aspx'
+					},{
+						type : '0',
+						name : 'r_len',
+						value : r_len
 					}]
 				});
 				q_popAssign();

@@ -337,7 +337,7 @@
 											
 							$('#btnWorkReal').attr('disabled', 'disabled');
 							q_func('qtxt.query.workrealall', 'workg.txt,workrealall,'
-							+r_bcuano+';'+r_ecuano+';'+r_name);
+							+t_bcuano+';'+t_ecuano+';'+r_name);
 						}else{
 							alert('【'+$.trim($('#txtNoa').val())+'】排產單無可轉換的模擬製令!!');
 						}
