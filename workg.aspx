@@ -625,10 +625,11 @@
 					return;
 				_btnModi();
 				$('#txtProductno').focus();
-				for (var i = 0; i < q_bbsCount; i++) {
+				//07/06 暫時不鎖
+				/*for (var i = 0; i < q_bbsCount; i++) {
 					var t_where = "where=^^ cuano ='" + $('#txtNoa').val() + "' and cuanoq='" + $('#txtNoq_' + i).val() + "'^^";
 					q_gt('work', t_where, 0, 0, 0, "modiwork_" + i, r_accy);
-				}
+				}*/
 			}
 
 			function btnPrint() {

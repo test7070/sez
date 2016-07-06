@@ -170,6 +170,16 @@
                     }
                 });
                 
+                $('#btnSsschg').click(function(e) {
+					if (q_cur == 1) {
+						return;
+					}
+					q_box("ssschg.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'ssschg', "95%", "95%", q_getMsg("popSsschg"));
+				});
+				
+                if (q_getPara('sys.project').toUpperCase()=='PY' || q_getPara('sys.project').toUpperCase()=='DC'){
+                	$('#btnSsschg').show();	
+                }
             }
             
             function q_boxClose(s2) {
@@ -693,6 +703,7 @@
 						<td><input id='btnSsspart' type="button"/></td>
 						<td><input id='btnSaladjust' type="button"/></td>
 						<td><input id='btnLabases' type="button" /></td>
+						<td><input id='btnSsschg' type="button" style="display: none;"/></td>
 					</tr>
 				</table>
 			</div>
