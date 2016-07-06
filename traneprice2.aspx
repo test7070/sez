@@ -55,7 +55,7 @@
                 		if (as[0] != undefined) {
                         	alert(as[0].msg);
                         } else {
-                            alert('單價修改錯誤!');
+                            alert('修改異常!');
                         }
                 		break;
                 
