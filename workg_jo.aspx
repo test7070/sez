@@ -337,7 +337,7 @@
 											
 							$('#btnWorkReal').attr('disabled', 'disabled');
 							q_func('qtxt.query.workrealall', 'workg.txt,workrealall,'
-							+r_bcuano+';'+r_ecuano+';'+r_name);
+							+t_bcuano+';'+t_ecuano+';'+r_name);
 						}else{
 							alert('【'+$.trim($('#txtNoa').val())+'】排產單無可轉換的模擬製令!!');
 						}
@@ -630,10 +630,11 @@
 					if (!emp($('#txtWorkno_' + i).val()))
 						worked = true;
 				}
-				if (worked && t_inmount > 0){
+				//07/06 暫時不鎖
+				/*if (worked && t_inmount > 0){
 					alert('製令單已入庫-禁止修改排程單!!');
 					return;
-				}
+				}*/
 				
 				_btnModi();
 				$('#txtProductno').focus();
