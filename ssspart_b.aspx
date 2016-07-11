@@ -22,7 +22,7 @@
             var q_readonly = [];
             var q_readonlys = [];
             var bbmNum = [];
-            var bbsNum = [['txtRate',5,2,0]];
+            var bbsNum = [['txtRate',5,2,0],['txtRank',1,0,0]];
             var bbmMask = [];
             var bbsMask = [];
 
@@ -183,7 +183,7 @@
 						<input class="txt num" id="txtRate.*" type="text" maxlength='90' style="width:98%;text-align: right;"   />
 					</td>
 					<td style="width:6%;">
-						<input class="txt" id="txtRank.*" type="text" maxlength='90' style="width:98%;"   />
+						<input class="txt" id="txtRank.*" type="text" maxlength='90' style="width:98%;text-align: center;"   />
 					</td>
 				</tr>
 			</table>
