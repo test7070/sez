@@ -51,13 +51,11 @@
                 mainForm(1);
             }
             function mainPost() {
-            	bbmMask = [['txtDatea', r_picd], ['txtIndate', r_picd], ['txtTdate', r_picd]];
+            	bbmMask = [['txtDatea', r_picd], ['txtIndate', r_picd], ['txtTdate', r_picd], ['txtIndate2', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('gqb.typea'));
                 q_cmbParse("cmbRem1", ' ,'+q_getPara('gqb.rem1'));
 				
-				
-                
                 $("#cmbTypea").focus(function() {
                     var len = $(this).children().length > 0 ? $(this).children().length : 1;
                     $(this).attr('size', len + "");
@@ -91,6 +89,11 @@
 		            );
 		            
                 }
+                
+                if (q_getPara('sys.project').toUpperCase()=='YP'){
+					$('#lblIndate').text('預估兌現日');
+					$('.indate2').show();
+				}
             }
             function q_boxClose(s2) {
                 var ret;
@@ -369,7 +372,11 @@
             function btnOk() {
             	Lock();
                 if ($('#txtIndate').val().length == 0 || !q_cd($('#txtIndate').val())) {
-                    alert(q_getMsg('lblIndate') + '錯誤。');
+                	if (q_getPara('sys.project').toUpperCase()=='YP'){
+                		alert('預估兌現日錯誤。');
+					}else{
+                    	alert(q_getMsg('lblIndate') + '錯誤。');
+					}
                     Unlock();
                     return;
                 }
@@ -460,11 +467,13 @@
 					$('#txtDatea').datepicker('destroy');
 					$('#txtIndate').datepicker('destroy');
 					$('#txtTdate').datepicker('destroy');
+					$('#txtIndate2').datepicker('destroy');
 				} else {
 					$('#checkCopy').attr('disabled', 'disabled');
 					$('#txtDatea').datepicker();
 					$('#txtIndate').datepicker();
 					$('#txtTdate').datepicker();
+					$('#txtIndate2').datepicker();
 				}
             }
 
@@ -695,6 +704,8 @@
 							<input id="txtBankno" type="text" style="float:left; width:40%;"/>
 							<input id="txtBank" type="text" style="float:left; width:60%;"/>
 						</td>
+						<td class="indate2" style="display: none;"><span> </span><a id='lblIndate2' class="lbl"> </a></td>
+						<td class="indate2" style="display: none;"><input id="txtIndate2"  type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>

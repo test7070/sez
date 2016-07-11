@@ -57,7 +57,7 @@
 
 				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
 				q_mask(bbmMask);
-				bbsMask = [['txtIndate', r_picd], ['txtMon', r_picm]];
+				bbsMask = [['txtIndate', r_picd], ['txtMon', r_picm],['txtUdate', r_picd]];
 				q_gt('part', '', 0, 0, 0, "");
 				q_gt('acomp', '', 0, 0, 0, "");
 
@@ -749,6 +749,8 @@
 					});
 				}
 				_bbsAssign();
+				
+				refreshFbbs();
 			}
 
 			function btnIns() {
@@ -759,6 +761,7 @@
 				if (q_getPara('sys.project').toUpperCase()!='DC'){
 					$("#cmbCno").get(0).selectedIndex=1;
 				}
+				refreshFbbs();
 			}
 
 			function btnModi() {
@@ -832,6 +835,7 @@
 					$("#btnAuto").attr("disabled", "disabled");
 				}
 				getOpay();
+				refreshFbbs();
 			}
 
 			function readonly(t_para, empty) {
@@ -843,6 +847,7 @@
 					$("#btnVcc").attr("disabled", "disabled");
 					$("#btnAuto").attr("disabled", "disabled");
 				}
+				refreshFbbs();
 			}
 
 			function btnMinus(id) {
@@ -901,6 +906,12 @@
 
 			function btnCancel() {
 				_btnCancel();
+			}
+			
+			function refreshFbbs() {
+				if (q_getPara('sys.project').toUpperCase()=='YP'){
+					$('.udate').show();
+				}
 			}
 		</script>
 		<style type="text/css">
@@ -1157,20 +1168,18 @@
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
-					<td align="center" style="width:1%;">
-						<input class="btn" id="btnPlus" type="button" value='+' style="font-weight: bold;" />
-					</td>
-					<td align="center" style="width:1%;"></td>
-					<td align="center" style="width:7%;"><a id='lblAcc1'></a></td>
-					<td align="center" style="width:8%;"><a id='lblMoney'></a></td>
-					<td align="center" style="width:9%;"><a id='lblCheckno'></a></td>
-					<td align="center" style="width:8%;"><a id='lblAccount'></a></td>
-					<td align="center" style="width:7%;"><a id='lblBank'></a></td>
-					<td align="center" style="width:5%;"><a id='lblIndate'></a></td>
-					<td align="center" style="width:5%;"><a id='lblChgsTran'></a></td>
-					<td align="center" style="width:7%;"><a id='lblMemos'></a></td>
-					<td align="center" style="width:5%;"><a id='lblPaysales'></a></td>
-					<td align="center" style="width:5%;"><a id='lblUnpay_s'></a></td>
+					<td align="center" style="width:1%;"><input class="btn" id="btnPlus" type="button" value='+' style="font-weight: bold;" /></td>
+					<td align="center" style="width:1%;"> </td>
+					<td align="center" style="width:7%;"><a id='lblAcc1'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblMoney'> </a></td>
+					<td align="center" style="width:9%;"><a id='lblCheckno'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblAccount'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblBank'> </a></td>
+					<td align="center" style="width:5%;"><a id='lblUdate' class="udate" style="display: none;"> </a><a id='lblIndate'> </a></td>
+					<td align="center" style="width:5%;"><a id='lblChgsTran'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblMemos'> </a></td>
+					<td align="center" style="width:5%;"><a id='lblPaysales'> </a></td>
+					<td align="center" style="width:5%;"><a id='lblUnpay_s'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td align="center">
@@ -1195,14 +1204,17 @@
 					<td><input type="text" id="txtAccount.*" style="width:95%;" /></td>
 					<td>
 						<input class="btn" id="btnBankno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-						<input type="text" id="txtBankno.*" style="width:85%; float:left;"/>
+						<input type="text" id="txtBankno.*" style="width:80%; float:left;"/>
 						<span style="display:block; width:1%;float:left;"> </span>
 						<input type="text" id="txtBank.*" style="width:97%; float:left;"/>
 					</td>
-					<td><input type="text" id="txtIndate.*" style="width:95%;" /></td>
+					<td>
+						<input type="text" id="txtUdate.*" style="width:95%;display: none;" class="udate" />
+						<input type="text" id="txtIndate.*" style="width:95%;" />
+					</td>
 					<td>
 						<input type="text" id="txtChgs.*" style="text-align:right;width:95%;"/>
-						<select id="cmbPartno.*" style="float:left;width:95%;" ></select>
+						<select id="cmbPartno.*" style="float:left;width:95%;" > </select>
 						<input type="text" id="txtPart.*" style="display:none;"/>
 					</td>
 					<td>
