@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -18,7 +18,7 @@
 
             var q_name = "bcc";
             var q_readonly = [];
-            var bbmNum = [['txtPrice', 12, 2, 1], ['txtTax', 12, 2, 1], ['txtTotal', 12, 0, 1]];
+            var bbmNum = [['txtPrice', 12, 2, 1], ['txtTax', 12, 2, 1], ['txtTotal', 12, 0, 1],['txtSafemount', 12, 0, 1]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -27,7 +27,11 @@
             brwKey = 'noa';
             brwCount2 = 15;
             
-            aPop = new Array( ['txtAcc1', 'lblAcc', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
+            aPop = new Array(
+            	['txtAcc1', 'lblAcc', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
+            	,['txtDeplacc', 'lblDeplacc', 'acc', 'acc1,acc2', 'txtDeplacc,txtDeplname', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
+            	,['txtAcczno', 'lblAcczno', 'accz', 'acc1,namea', 'txtAcczno,txtAcczname', "accz_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
+            );
        
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -47,7 +51,11 @@
             function mainPost() {
                 bbmMask = [['txtExpirationdate', r_picd]];
                 q_mask(bbmMask);
-                q_cmbParse("cmbTypea", q_getPara('bcc.type'));
+                if(q_getPara('sys.project').toUpperCase()=='DC' || q_db=='dc'){ //105/07/11 DC 和 ST 共用同一ASPX
+                	q_cmbParse("cmbTypea", q_getPara('bcc.type'));
+                }else{
+                	q_gt('bcctype', '', 0, 0, 0, "bcctype");
+                }
 				q_cmbParse("cmbTaxtype", '含稅,自訂');
 				//q_gt('store', '', 0, 0, 0, "");
                 $("#cmbTypea").focus(function() {
@@ -90,6 +98,16 @@
 						}*/
 					}
                 });
+                
+                if(q_getPara('sys.project').toUpperCase()=='DC'){
+                	$('.safe').hide();
+                	$('.acc').hide();
+                }
+                
+                if(q_getPara('sys.project').toUpperCase()=='YP'){
+                	$('.accz').show();
+                }
+                
             }
             function sum(){
             	if(!(q_cur==1 || q_cur==2))
@@ -138,6 +156,18 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'bcctype':
+						var as = _q_appendData("bcctype", "", true);
+						if (as[0] != undefined) {
+							var t_item = "@";
+							for (i = 0; i < as.length; i++) {
+								t_item = t_item + (t_item.length > 0 ? ',' : '') + $.trim(as[i].noa) + '@' + $.trim(as[i].namea);
+							}
+							q_cmbParse("cmbTypea", t_item);
+							if(abbm[q_recno])
+								$("#cmbTypea").val(abbm[q_recno].typea);
+						}
+						break;
                 	case 'checkBccno_change':
                 		var as = _q_appendData("bcc", "", true);
                         if (as[0] != undefined){
@@ -195,7 +225,11 @@
             }
 
             function btnPrint() {
-				q_box('z_bcc5.aspx', '', "95%", "95%", q_getMsg("popPrint"));
+            	if(q_getPara('sys.comp').indexOf('祥興')>-1){
+                	q_box('z_bcc5_rs.aspx', '', "95%", "95%", q_getMsg("popPrint"));
+				}else{
+                	q_box('z_bcc5.aspx', '', "95%", "95%", q_getMsg("popPrint"));
+               }
             }
 			function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
@@ -423,9 +457,9 @@
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:20px; color:black;"><a id='vewChk'></a></td>
-						<td align="center" style="width:60px; color:black;"><a id='vewNoa'></a></td>
-						<td align="center" style="width:250px; color:black;"><a id='vewProduct'></a></td>
+						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
+						<td align="center" style="width:60px; color:black;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:250px; color:black;"><a id='vewProduct'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
@@ -483,6 +517,25 @@
 						<td><span> </span><a id='lblStoreno' class="lbl"> </a></td>
 						<td><select id="cmbStoreno" class="txt c1"></td>
 					</tr>-->
+					<tr class="safe">
+						<td><span> </span><a id='lblSafemount' class="lbl"> </a></td>
+						<td><input id="txtSafemount"  type="text" class="txt num c1"/></td>
+					</tr>
+					<tr class="acc">
+						<td><span> </span><a id='lblAcc' class="lbl btn"> </a></td>
+						<td><input id="txtAcc1" type="text" class="txt c1" /></td>
+						<td><input id="txtAcc2" type="text" class="txt c1" /></td>
+					</tr>
+					<tr class="accz" style="display: none;">
+						<td><span> </span><a id='lblAcczno' class="lbl btn"> </a></td>
+						<td><input id="txtAcczno" type="text" class="txt c1" /></td>
+						<td><input id="txtAcczname" type="text" class="txt c1" /></td>
+					</tr>
+					<tr class="accz" style="display: none;">
+						<td><span> </span><a id='lblDeplacc' class="lbl btn"> </a></td>
+						<td><input id="txtDeplacc" type="text" class="txt c1" /></td>
+						<td><input id="txtDeplname" type="text" class="txt c1" /></td>
+					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td colspan="3"><input id="txtMemo" type="text"  class="txt c1"/></td>

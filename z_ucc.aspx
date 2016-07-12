@@ -122,6 +122,10 @@
                         type : '0',
                         name : 'isspec',
                         value : q_getPara('sys.isspec')
+                    },{/* [28]*/
+                        type : '0',
+                        name : 'r_len',
+                        value : r_len
                     }]
 				});
 				q_popAssign();
@@ -129,15 +133,20 @@
 				q_langShow();
 				if(r_rank <8)
 					$('#btnCostbcc').attr('disabled', 'disabled')
-				$('#txtDate1').mask('999/99/99');
+				if(r_len==4){                	
+                	$.datepicker.r_len=4;
+					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+                }
+                
+				$('#txtDate1').mask(r_picd);
 				$('#txtDate1').datepicker();
-				$('#txtDate2').mask('999/99/99');
+				$('#txtDate2').mask(r_picd);
 				$('#txtDate2').datepicker();
 				
-				$('#txtDate1').val(q_date().substr(0,6)+'/01');
-				$('#txtDate2').val(q_cdn(q_cdn(q_date().substr(0,6)+'/01',45).substr(0,6)+'/01',-1));
+				$('#txtDate1').val(q_date().substr(0,r_lenm)+'/01');
+				$('#txtDate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1));
 
-				$('#txtEdate').mask('999/99/99');
+				$('#txtEdate').mask(r_picd);
 				$('#txtEdate').val(q_date());
 				
 				$('#Allucc').css('width','300px').css('height','30px');
@@ -162,7 +171,7 @@
                 });
                 
                 $('#txtExportDate').val(q_date());
-				$('#txtExportDate').mask('999/99/99'); //2015/10/20轉點單加日期
+				$('#txtExportDate').mask(r_picd); //2015/10/20轉點單加日期
 				$('#txtExportDate').datepicker();
                 
                 $('#btnExport').click(function(e) {

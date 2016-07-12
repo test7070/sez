@@ -130,8 +130,9 @@
 					var t_edate=!emp($('#textEdate').val())?trim($('#textEdate').val()):'#non';
 					var t_vcca=$('#checkVcca').prop('checked')?'1':'#non';
 					var t_rc2a=$('#checkRc2a').prop('checked')?'1':'#non';
+					var t_proj=q_getPara('sys.project').toUpperCase();
 					
-					q_func('qtxt.query.vcct', 'vcct.txt,vcct,'+t_mon+';'+t_bdate+';'+t_edate+';'+t_vcca+';'+t_rc2a);
+					q_func('qtxt.query.vcct', 'vcct.txt,vcct,'+t_mon+';'+t_bdate+';'+t_edate+';'+t_vcca+';'+t_rc2a+';'+t_proj);
 				});
 				
 				$('#btnClose_div_vcca').click(function() {

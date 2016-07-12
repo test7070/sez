@@ -22,7 +22,7 @@
             var q_readonly = [];
             var q_readonlys = [];
             var bbmNum = [];
-            var bbsNum = [];
+            var bbsNum = [['txtRate',5,2,0],['txtRank',1,0,0]];
             var bbmMask = [];
             var bbsMask = [];
 
@@ -62,6 +62,10 @@
         			});
         		}
                 _bbsAssign();
+                
+                if (q_getPara('sys.project').toUpperCase()=='DC'){
+                	$('.rate').hide();
+                }
             }
 
             function btnOk() {
@@ -71,7 +75,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['rank'] || as['partno'] == '') {
+                if (!as['rank'] && !as['partno'] && !as['rate']) {
                     as[bbsKey[0]] = '';
                     return;
                 }
@@ -164,8 +168,9 @@
 					<td align="center">
 						<input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  />
 					</td>
-					<td align="center"><a id='lblPart'></a></td>
-					<td align="center"><a id='lblRank'></a></td>
+					<td align="center"><a id='lblPart'> </a></td>
+					<td align="center"><a id='lblRate'> </a></td>
+					<td align="center" class="rate"><a id='lblRank'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center" style="width:1%;">
@@ -174,8 +179,11 @@
 					<td style="width:6%;">
 						<select id="cmbPartno.*"  style="float:left;width:95%;" > </select>
 					</td>
+					<td style="width:6%;"  class="rate">
+						<input class="txt num" id="txtRate.*" type="text" maxlength='90' style="width:98%;text-align: right;"   />
+					</td>
 					<td style="width:6%;">
-						<input class="txt" id="txtRank.*" type="text" maxlength='90' style="width:98%;"   />
+						<input class="txt" id="txtRank.*" type="text" maxlength='90' style="width:98%;text-align: center;"   />
 					</td>
 				</tr>
 			</table>
