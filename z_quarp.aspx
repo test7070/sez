@@ -41,6 +41,24 @@
                         type : '5',//[6]
                         name : 'xtarget',
                         value : new Array('cust@Customer', 'agent@Agent')
+                    },{
+                        type : '1',//[7][8]
+                        name : 'xqdate'
+                    },{
+                        type : '1',//[9][10]
+                        name : 'xqnoa'
+                    },{
+  						type : '2',//[11][12]
+                        name : 'xsss',
+                        dbf : 'sss',
+                        index : 'noa,namea',
+                        src : 'sss_b.aspx'
+                    },{
+  						type : '2',//[13][14]
+                        name : 'xcust',
+                        dbf : 'cust',
+                        index : 'noa,comp',
+                        src : 'cust_b.aspx'
                     }]
                 });
                 q_popAssign();
@@ -50,6 +68,11 @@
                 $('#txtXdate1').datepicker();
                 $('#txtXdate2').mask(r_picd);
                 $('#txtXdate2').datepicker();
+                $('#txtXqdate1').mask(r_picd);
+                $('#txtXqdate1').datepicker();
+                $('#txtXqdate2').mask(r_picd);
+                $('#txtXqdate2').datepicker();
+
                 var t_key = q_getHref();
                 if(t_key[1] != undefined)
                 	$('#txtXnoa').val(t_key[1]);
