@@ -20,7 +20,7 @@
 			var decbbs = ['money', 'total', 'mount', 'price', 'sprice', 'dime', 'width', 'lengthb', 'weight2'];
 			var decbbm = ['payed', 'unpay', 'usunpay', 'uspayed', 'ustotal', 'discount', 'money', 'tax', 'total', 'weight', 'floata', 'mount', 'price', 'tranmoney', 'totalus'];
 			var q_readonly = ['txtNoa', 'txtAcomp', 'txtTgg', 'txtWorker', 'txtWorker2','txtTranstart','txtMoney','txtTotal'];
-			var q_readonlys = ['txtNoq'];
+			var q_readonlys = ['txtNoq','txtOrdeno','txtNo2'];
 			var bbmNum = [];
 			var bbsNum = [];
 			var bbmMask = [];
@@ -752,6 +752,16 @@
 							var n = replaceAll($(this).attr('id'), 'btnRecord_', '');
 							q_box("z_rc2record.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";tgg=" + $('#txtTggno').val() + "&product=" + $('#txtProductno_' + n).val() + ";" + r_accy, 'z_vccstp', "95%", "95%", q_getMsg('popPrint'));
 						});
+						
+						$('#txtOrdeno_'+j).bind('contextmenu',function(e) {
+	                    	/*滑鼠右鍵*/
+	                    	e.preventDefault();
+	                    	t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							
+	                    	q_box("ordc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $(this).val() + "';" + r_accy, 'ordb', "95%", "95%", '採購作業');
+	                   });
 					}
 				}
 				_bbsAssign();
