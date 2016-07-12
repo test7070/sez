@@ -64,7 +64,7 @@
 				q_cmbParse("cmbDc", "1@借,2@貸");
 				aPop = new Array(['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy+ '_' + r_cno]
 					,['txtAcc1_', 'btnAcc1_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy+ '_' + r_cno]
-					,['txtPart_', 'btnPart_', 'acpart', 'noa,part', 'txtPart_,,txtAcc1_', "acpart_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
+					,['txtPartno_', 'btnPart_', 'acpart', 'noa,part', 'txtPartno_,txtPart_,txtAcc1_', "acpart_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
 			
 				$('#txtAcc1').change(function(e){
                 	var patt = /^(\d{4})([^\.,.]*)$/g;
@@ -166,7 +166,7 @@
 	                	var patt = /^(\d{4})([^\.,.]*)$/g;
 	                    $(this).val($(this).val().replace(patt,"$1.$2"));
 					});
-                    $('#txtPart_' + i).bind('contextmenu', function(e) {
+                    $('#txtPartno_' + i).bind('contextmenu', function(e) {
                         /*滑鼠右鍵*/
                         e.preventDefault();
                         var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
@@ -515,7 +515,8 @@
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
-						<input id="txtPart.*" type="text" style="float:left;width:95%;" />
+						<input id="txtPartno.*" type="text" style="float:left;width:40%;" />
+						<input id="txtPart.*" type="text" style="float:left;width:55%;" />
 						<input class="btn" id="btnPart.*" type="button" style="display:none;"/>
 					</td>
 					<td><input id="txtProj.*" type="text" style="float:left;width:95%;" /></td>
