@@ -30,7 +30,7 @@
             aPop = new Array(
             	['txtAcc1', 'lblAcc', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
             	,['txtDeplacc', 'lblDeplacc', 'acc', 'acc1,acc2', 'txtDeplacc,txtDeplname', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
-            	,['txtAcczno', 'lblAcczno', 'accz', 'acc1,namea', 'txtAcczno,txtAcczname', "accz_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
+            	//,['txtAcczno', 'lblAcczno', 'accz', 'acc1,namea', 'txtAcczno,txtAcczname', "accz_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
             );
        
             $(document).ready(function() {
@@ -88,20 +88,21 @@
                $('#txtNoa').change(function(e){
                 	$(this).val($.trim($(this).val()).toUpperCase());    	
 					if($(this).val().length>0){
-						//if((/^(\w+|\w+\u002D\w+)$/g).test($(this).val())){
-							t_where="where=^^ noa='"+$(this).val()+"'^^";
-                    		q_gt('bcc', t_where, 0, 0, 0, "checkBccno_change", r_accy);
-						/*}else{
-							Lock();
-							alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
-							Unlock();
-						}*/
+						t_where="where=^^ noa='"+$(this).val()+"'^^";
+                    	q_gt('bcc', t_where, 0, 0, 0, "checkBccno_change", r_accy);
 					}
                 });
                 
+                $('#txtAcczno').change(function() {
+                	var patt = /^(\d{4})([^\.,.]*)$/g;
+                    $(this).val($(this).val().replace(patt,"$1.$2"));
+                	if($(this).val().length>0 && $(this).val().length<=5){
+                		alert('資產科目需子科目!!');
+                	}
+				});
+                
                 if(q_getPara('sys.project').toUpperCase()=='DC'){
                 	$('.safe').hide();
-                	$('.acc').hide();
                 }
                 
                 if(q_getPara('sys.project').toUpperCase()=='YP'){
@@ -245,12 +246,13 @@
                     return;
                 }
                $('#txtNoa').val($.trim($('#txtNoa').val()));   	
-            	/*if((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())){
-				}else{
-					alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
-					Unlock();
-					return;
-				}*/
+            	
+				if($('#txtAcczno').val().length>0 && $('#txtAcczno').val().val().length<=5){
+                	alert('資產科目需子科目!!');
+                	Unlock();
+                    return;
+                }
+				
 				if(q_cur==1){
                 	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
                     q_gt('bcc', t_where, 0, 0, 0, "checkBccno_btnOk", r_accy);
@@ -521,13 +523,13 @@
 						<td><span> </span><a id='lblSafemount' class="lbl"> </a></td>
 						<td><input id="txtSafemount"  type="text" class="txt num c1"/></td>
 					</tr>
-					<tr class="acc">
+					<tr class="acc" style="display: none;"><!--0712之後不顯示 -->
 						<td><span> </span><a id='lblAcc' class="lbl btn"> </a></td>
 						<td><input id="txtAcc1" type="text" class="txt c1" /></td>
 						<td><input id="txtAcc2" type="text" class="txt c1" /></td>
 					</tr>
 					<tr class="accz" style="display: none;">
-						<td><span> </span><a id='lblAcczno' class="lbl btn"> </a></td>
+						<td><span> </span><a id='lblAcczno' class="lbl"> </a></td>
 						<td><input id="txtAcczno" type="text" class="txt c1" /></td>
 						<td><input id="txtAcczname" type="text" class="txt c1" /></td>
 					</tr>

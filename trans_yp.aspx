@@ -19,7 +19,7 @@
 			var q_name = "tran";
 			var q_readonly = ['txtNoa','textTotal','textTotal2','txtWeight','txtWorker', 'txtWorker2'];
 			var q_readonlys = ['txtTotal','txtTotal2'];
-			var bbmNum = [['txtMount',10,3,1],['txtWeight',10,3,1],['txtTotal',10,0,1]];
+			var bbmNum = [];//['txtMount',10,3,1],['txtWeight',10,3,1],['txtTotal',10,0,1]
 			var bbsNum = [['txtInmount',10,3,1],['txtPton',10,3,1],['txtPrice',10,3,1],['txtTotal',10,0,1],['txtOutmount',10,3,1],['txtPton2',10,3,1],['txtPrice2',10,3,1],['txtPrice3',10,3,1],['txtDiscount',10,3,1],['txtTotal2',10,0,1]
 			,['txtBmiles',15,2,1],['txtEmiles',15,2,1],['txtMiles',15,2,1],['txtGps',15,2,1]];
 			var bbmMask = [];
@@ -73,6 +73,10 @@
 				
 				q_cmbParse("cmbCstype",' ,領,交,送','s');
 				q_cmbParse("cmbCasetype", "20'',40''",'s');
+				
+				$('#cmbCalctype').change(function() {
+					refreshbbs();
+				});
 			}
 
 			function q_boxClose(s2) {
@@ -121,9 +125,77 @@
 							q_Seek_gtPost();
 						break;
 				}
+				if(t_name.substr(0,14)=='getPrice_cust_'){
+					var n=replaceAll(t_name,'getPrice_cust_','');
+					var t_price = 0;
+					var as = _q_appendData("addrs", "", true);
+					if(as[0]!=undefined){
+						t_price = as[0].custprice;
+					}
+					$('#txtPrice_'+n).val(t_price);
+							
+					var t_straddrno = $.trim($('#txtStraddrno_'+n).val());
+					var t_endaddrno = $.trim($('#txtEndaddrno_'+n).val());
+					var t_productno = $.trim($('#txtUccno_'+n).val());
+					var t_date = $.trim($('#txtDatea').val());
+					var t_unit = $.trim($('#txtUnit2_'+n).val());
+					
+					var t_calctype=$('#cmbCalctype').val();
+					var isoutside="false";
+					for ( i = 0; i < calctypes.length; i++) {
+						if(t_calctype==calctypes[i].noa + calctypes[i].noq){
+							isoutside=calctypes[i].isoutside;
+						}
+					}
+										
+					if(isoutside!="false"){//外車
+						t_where = "b.straddrno='"+t_straddrno+"' and b.endaddrno='"+t_endaddrno+"' and b.productno='"+t_productno+"' and a.datea<='"+t_date+"' and a.driverunit2='"+t_unit+"'";
+						q_gt('addr_tb', "where=^^"+t_where+"^^", 0, 0, 0, 'getPrice_driver2_'+n);
+					}else{
+						t_where = "b.straddrno='"+t_straddrno+"' and b.endaddrno='"+t_endaddrno+"' and b.productno='"+t_productno+"' and a.datea<='"+t_date+"' and a.driverunit='"+t_unit+"'";
+						q_gt('addr_tb', "where=^^"+t_where+"^^", 0, 0, 0, 'getPrice_driver_'+n);
+					}
+				}else if (t_name.substr(0,17)=='getPrice_driver2_'){
+					var n=replaceAll(t_name,'getPrice_driver2_','');
+					var t_price = 0;
+					var as = _q_appendData("addrs", "", true);
+					if(as[0]!=undefined){
+						t_price = as[0].driverprice2;
+					}
+					$('#txtPrice2_'+n).val(0);
+					$('#txtPrice3_'+n).val(t_price);
+					sum();
+				}else if (t_name.substr(0,16)=='getPrice_driver_'){
+					var n=replaceAll(t_name,'getPrice_driver_','');
+					var t_price = 0;
+					var as = _q_appendData("addrs", "", true);
+					if(as[0]!=undefined){
+						t_price = as[0].driverprice;
+					}
+					$('#txtPrice2_'+n).val(t_price);
+					$('#txtPrice3_'+n).val(0);
+                        
+					sum();
+				}
 			}
 
 			function q_popPost(s1) {
+				switch(s1) {
+                    case 'txtStraddrno_':
+                        priceChange(b_seq);
+                        break;
+                    case 'txtEndaddrno_':
+                        priceChange(b_seq);
+                        break;
+                    case 'txtUccno_':
+                        priceChange(b_seq);
+                        break;
+					case 'txtCustno_':
+                        priceChange(b_seq);
+                        break;
+                    default:
+                        break;
+                }
 			}
 
 			function btnOk() {
@@ -158,6 +230,27 @@
 			function bbsAssign() {
 				for (var j = 0; j < q_bbsCount; j++) {
 					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+						$('#txtStraddrno_'+j).change(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+						});
+						$('#txtEndaddrno_'+j).change(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+						});
+						$('#txtUccno_'+j).change(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+						});
+						$('#txtCustno_'+j).change(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+						});
+						
 						$('#txtPrice_'+j).change(function() {
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
@@ -304,7 +397,7 @@
 			}
 
 			function bbsSave(as) {
-				if (!as['straddr']) {
+				if (!as['custno'] && !as['comp'] && !as['straddrno'] && !as['straddr'] && !as['endaddrno'] && !as['endaddr'] && !as['uccno'] && !as['product']) {
 					as[bbsKey[1]] = '';
 					return;
 				}
@@ -390,6 +483,20 @@
 					$('.price2').show();
 					$('.price3').hide();
 				}
+				sum();
+			}
+			
+			function priceChange(n) {
+				var t_custno = $.trim($('#txtCustno_'+n).val());
+				var t_straddrno = $.trim($('#txtStraddrno_'+n).val());
+				var t_endaddrno = $.trim($('#txtEndaddrno_'+n).val());
+				var t_productno = $.trim($('#txtUccno_'+n).val());
+				var t_date = $.trim($('#txtDatea').val());
+				var t_unit = $.trim($('#txtUnit_'+n).val());
+                    
+				var t_where = "a.custno='"+t_custno+"' and b.straddrno='"+t_straddrno+"' and b.endaddrno='"+t_endaddrno+"' and b.productno='"+t_productno+"' and a.datea<='"+t_date+"' and a.custunit='"+t_unit+"'";
+				q_gt('addr_tb', "where=^^"+t_where+"^^", 0, 0, 0, 'getPrice_cust_'+n);
+				
 				sum();
 			}
 		</script>
@@ -590,7 +697,7 @@
 				</table>
 			</div>
 
-			<div class="dbbs" style="width: 3300px;">
+			<div class="dbbs" style="width: 3100px;">
 				<table id="tbbs" class="tbbs" border="1" cellpadding="2" cellspacing="1" >
 					<tr style="color:White; background:#003366;" >
 						<td align="center" style="width: 1%;"><input class="btn" id="btnPlus" type="button" value="+" style="font-weight: bold;" /></td>
@@ -599,8 +706,8 @@
 						<td align="center" style="width: 110px;"><a id='lblStraddr_s_yp'> </a></td>
 						<td align="center" style="width: 110px;"><a id='lblEndaddr_s_yp'> </a></td>
 						<td align="center" style="width: 120px;"><a id='lblUcc_s'> </a></td>
-						<td align="center" style="width: 100px;"><a id='lblFill_s'> </a></td>
-						<td align="center" style="width: 100px;"><a id='lblIo_s'> </a></td>
+						<td align="center" style="width: 40px;"><a id='lblFill_s'> </a></td>
+						<td align="center" style="width: 40px;"><a id='lblIo_s'> </a></td>
 						
 						<td align="center" style="width: 100px;"><a id='lblInmount_s'> </a></td>
 						<td align="center" style="width: 70px;"><a id='lblUnit_s'> </a></td>

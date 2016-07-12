@@ -1175,7 +1175,7 @@
 					<td align="center" style="width:9%;"><a id='lblCheckno'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblAccount'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblBank'> </a></td>
-					<td align="center" style="width:5%;"><a id='lblUdate' class="udate" style="display: none;"> </a><a id='lblIndate'> </a></td>
+					<td align="center" style="width:5%;"><a id='lblUdate' class="udate" style="display: none;"> </a><BR class="udate"><a id='lblIndate'> </a></td>
 					<td align="center" style="width:5%;"><a id='lblChgsTran'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblMemos'> </a></td>
 					<td align="center" style="width:5%;"><a id='lblPaysales'> </a></td>
