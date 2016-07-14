@@ -71,7 +71,8 @@
 				bbmMask = [];
                 q_mask(bbmMask);
 				
-				q_cmbParse("cmbCstype",' ,領,交,送','s');
+				document.title='出車單';
+				q_cmbParse("cmbCstype",' ,領,送,收,交','s');
 				q_cmbParse("cmbCasetype", "20'',40''",'s');
 				
 				$('#cmbCalctype').change(function() {
@@ -763,8 +764,8 @@
 							<input type="text" class="txt c5" id="txtUccno.*" />
 							<input type="text" class="txt c1" id="txtProduct.*" />
 						</td>
-						<td><input type="text" class="txt c1" id="txtFill.*" /></td>
-						<td><input type="text" class="txt c1" id="txtIo.*" /></td>
+						<td><input type="text" class="txt c1" id="txtFill.*" style="text-align: center;" /></td>
+						<td><input type="text" class="txt c1" id="txtIo.*" style="text-align: center;" /></td>
 						<td>
 							<input type="text" class="txt num c1" id="txtInmount.*" />
 							<input type="text" class="txt num c1" id="txtMount.*" style="display: none;" />
@@ -779,9 +780,9 @@
 							<input type="text" class="txt num c1" id="txtMount2.*" style="display: none;" />
 						</td>
 						<td><input type="text" class="txt c1" id="txtUnit2.*" /></td>
-						<td class="price2"><input type="text" class="txt num c1" id="txtPton2.*" /></td>
-						<td class="price3"><input type="text" class="txt num c1" id="txtPrice2.*" /></td>
-						<td><input type="text" class="txt num c1" id="txtPrice3.*" /></td>
+						<td><input type="text" class="txt num c1" id="txtPton2.*" /></td>
+						<td class="price2"><input type="text" class="txt num c1" id="txtPrice2.*" /></td>
+						<td class="price3"><input type="text" class="txt num c1" id="txtPrice3.*" /></td>
 						<td><input type="text" class="txt num c1" id="txtDiscount.*" /></td>
 						<td><input type="text" class="txt num c1" id="txtTotal2.*" /></td>
 						
