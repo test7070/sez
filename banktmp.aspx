@@ -94,8 +94,8 @@
                                 var t_array = new Array();
                                 for (var i = 0; i < as.length; i++) {
                                     t_array.push({type: 'checkUf',noa:as[i].noa});
-                                    q_func('uf_post.post', r_accy + ',' + as[i].noa + ',0');// post 0
-                                    q_func('uf_post.post', r_accy + ',' + as[i].noa + ',1');// post 1
+                                    q_func('uf_post.post0', r_accy + ',' + as[i].noa + ',0',1);// post 0
+                                	q_func('uf_post.post1', r_accy + ',' + as[i].noa + ',1',1);
                                 }
                                 //檢查傳票是否產生
                                 if(t_array.length>0){

@@ -14,14 +14,17 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-			q_tables = 's';
+			q_tables = 't';
 			var q_name = "acshare";
 			var q_readonly = ['txtNoa','txtAccy','txtWorker','txtWorker2','txtAccno2','txtMoney'];
 			var q_readonlys = [];
+			var q_readonlyt = [];
 			var bbmNum = [['txtMoney', 15, 0, 1]];
 			var bbsNum = [['txtMoney', 15, 0, 1]];
+			var bbtNum = [];
 			var bbmMask = [];
 			var bbsMask = [];
+			var bbtMask = [];
 			q_desc = 1;
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -34,6 +37,7 @@
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
+				bbtKey = ['noa', 'noq'];
 				q_brwCount();
 				q_content = "where=^^ accy='"+r_accy+"'^^";
 				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
@@ -392,7 +396,7 @@
 				font-size: medium;
 			}
 			#dbbt {
-				width: 1600px;
+				width: 400px;
 			}
 			#tbbt {
 				margin: 0;
@@ -530,6 +534,25 @@
 				</tr>
 			</table>
 		</div>
+		<div id="dbbt">
+            <table id="tbbt" class='tbbt'>
+                <tr style='color:white; background:#003366;' >
+                    <td align="center" style="width:50px; max-width:50px;"><input class="btn"  id="btnPlut" type="button" value='+' style="font-weight: bold;"/></td>
+                    <td align="center" style="width:20px;"> </td>
+                    <td align="center" style="width:100px;"><a id='lblDatea_t'>傳票日期</a></td>
+                    <td align="center" style="width:150px;"><a id='lblAccno_t'>傳票編號</a></td>
+                </tr>
+                <tr>
+                    <td align="center"><input class="btn"  id="btnMinut..*" type="button" value='-' style="font-weight: bold; "/></td>
+                    <td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+                    <td><input id="txtDatea..*" type="text" class="txt" style="width:95%;"/></td>
+                    <td>
+                    	<input id="txtAccno..*" type="text" class="txt" style="width:95%;"/>
+                    	<input id="txtAccy..*" type="text" style="display:none;"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
 		<input id="q_sys" type="hidden" />
 	</body>
 </html>
