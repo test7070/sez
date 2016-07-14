@@ -56,7 +56,10 @@
                         dbf : 'station',
                         index : 'noa,station',
                         src : 'station_b.aspx'
-                     }]
+                     }, {
+						type : '6', //[10]
+						name : 'xmount'
+					}]
 				});
 				q_popAssign();
 				q_getFormat();
@@ -65,6 +68,19 @@
                 	$.datepicker.r_len=4;
 					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
                 }
+                
+                $('#Xunenda').css('width','300px');
+                $('#Xunenda').css('height','30px');
+                $('#chkXunenda').css('margin-top','5px');
+                $('#Xunenda .label').css('width','0px');
+                
+                //預設值
+                $('#txtXmount').val('600');
+                $('#txtXmount').keyup(function() {
+                	$(this).val(dec($(this).val()));
+                	if(isNaN($(this).val()))
+                		$(this).val(0);
+				});
                 
 				var t_key = q_getHref();
 				if (t_key[1] != undefined) {
