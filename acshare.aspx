@@ -14,14 +14,17 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-			q_tables = 's';
+			q_tables = 't';
 			var q_name = "acshare";
 			var q_readonly = ['txtNoa','txtAccy','txtWorker','txtWorker2','txtAccno2','txtMoney'];
-			var q_readonlys = [];
+			var q_readonlys = ['txtPart'];
+			var q_readonlyt = ['txtAccno'];
 			var bbmNum = [['txtMoney', 15, 0, 1]];
 			var bbsNum = [['txtMoney', 15, 0, 1]];
+			var bbtNum = [];
 			var bbmMask = [];
 			var bbsMask = [];
+			var bbtMask = [];
 			q_desc = 1;
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -34,6 +37,7 @@
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
+				bbtKey = ['noa', 'noq'];
 				q_brwCount();
 				q_content = "where=^^ accy='"+r_accy+"'^^";
 				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
@@ -60,6 +64,7 @@
 			function mainPost() {// 載入資料完，未 refresh 前
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd]];
+				bbtMask = [['txtDatea', r_picd]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbDc", "1@借,2@貸");
 				aPop = new Array(['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy+ '_' + r_cno]
@@ -178,7 +183,17 @@
 				}
 				_bbsAssign();
 			}
-
+			function bbtAssign() {
+                for (var i = 0; i < q_bbtCount; i++) {
+                    $('#lblNo__' + i).text(i+ 1);
+                    if(q_cur==1 || q_cur==2){
+                    	$('#txtDatea__'+i).datepicker();
+                    }else{
+                    	$('#txtDatea__'+i).datepicker('destroy');
+                    }
+                }
+                _bbtAssign();
+            }
 			function btnIns() {
 				_btnIns();
 				$('#txtNoa').val('AUTO');
@@ -205,6 +220,14 @@
 
 			function bbsSave(as) {/// 表身 寫入資料庫前，寫入需要欄位
 				if (!as['acc1']) {//不存檔條件
+					as[bbsKey[1]] = '';
+					return;
+				}
+				q_nowf();
+				return true;
+			}
+			function bbtSave(as) {
+				if (!as['datea'] && !as['accno']) {
 					as[bbsKey[1]] = '';
 					return;
 				}
@@ -392,7 +415,7 @@
 				font-size: medium;
 			}
 			#dbbt {
-				width: 1600px;
+				width: 400px;
 			}
 			#tbbt {
 				margin: 0;
@@ -499,8 +522,8 @@
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs' style=' text-align:center'>
 				<tr style='color:white; background:#003366;' >
-					<td  align="center" style="width:30px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
-					<td align="center" style="width:20px;"> </td>
+					<td  align="center" style="width:30px;max-width:30px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
+					<td align="center" style="width:30px;max-width:30px;"> </td>
 					<td align="center" style="width:80px;"><a>部門</a></td>
 					<td align="center" style="width:80px;"><a>專案</a></td>
 					<td align="center" style="width:250px;"><a>會計科目</a></td>
@@ -530,6 +553,26 @@
 				</tr>
 			</table>
 		</div>
+		<div id="dbbt">
+            <table id="tbbt" class='tbbt'>
+                <tr style='color:white; background:#003366;' >
+                    <td align="center" style="width:30px; max-width:30px;"><input class="btn"  id="btnPlut" type="button" value='+' style="font-weight: bold;"/></td>
+                    <td align="center" style="width:30px; max-width:30px;"> </td>
+                    <td align="center" style="width:100px;"><a id='lblDatea_t'>傳票日期</a></td>
+                    <td align="center" style="width:150px;"><a id='lblAccno_t'>轉出傳票</a></td>
+                </tr>
+                <tr>
+                    <td align="center"><input class="btn"  id="btnMinut..*" type="button" value='-' style="font-weight: bold; "/></td>
+                    <td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+                    <td><input id="txtDatea..*" type="text" class="txt" style="width:95%;"/></td>
+                    <td>
+                    	<input id="txtAccno..*" type="text" class="txt" style="width:95%;"/>
+                    	<input id="txtAccy..*" type="text" style="display:none;"/>
+                    	<input id="txtNoq..*" type="text" style="display: none;" />
+                    </td>
+                </tr>
+            </table>
+        </div>
 		<input id="q_sys" type="hidden" />
 	</body>
 </html>
