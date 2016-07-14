@@ -30,7 +30,8 @@
             aPop = new Array(
             	['txtAcc1', 'lblAcc', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
             	,['txtDeplacc', 'lblDeplacc', 'acc', 'acc1,acc2', 'txtDeplacc,txtDeplname', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
-            	,['txtAcczno', 'lblAcczno', 'accz', 'acc1,namea', '0txtAcczno,txtAcczname', "accz_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
+            	,['txtAcczno', 'lblAcczno', 'acc', 'acc1,acc2', '0txtAcczno,txtAcczname', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
+            	//,['txtAcczno', 'lblAcczno', 'accz', 'acc1,namea', '0txtAcczno,txtAcczname', "accz_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
             );
        
             $(document).ready(function() {
