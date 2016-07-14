@@ -18,7 +18,7 @@
 
             var q_name = "bcc";
             var q_readonly = [];
-            var bbmNum = [['txtPrice', 12, 2, 1], ['txtTax', 12, 2, 1], ['txtTotal', 12, 0, 1],['txtSafemount', 12, 0, 1]];
+            var bbmNum = [['txtPrice', 12, 2, 1], ['txtTax', 12, 2, 1], ['txtTotal', 12, 0, 1],['txtSafemount', 12, 0, 1],['txtYears', 2, 0, 1]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -30,7 +30,7 @@
             aPop = new Array(
             	['txtAcc1', 'lblAcc', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
             	,['txtDeplacc', 'lblDeplacc', 'acc', 'acc1,acc2', 'txtDeplacc,txtDeplname', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
-            	//,['txtAcczno', 'lblAcczno', 'accz', 'acc1,namea', 'txtAcczno,txtAcczname', "accz_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
+            	,['txtAcczno', 'lblAcczno', 'accz', 'acc1,namea', '0txtAcczno,txtAcczname', "accz_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
             );
        
             $(document).ready(function() {
@@ -96,13 +96,18 @@
                 $('#txtAcczno').change(function() {
                 	var patt = /^(\d{4})([^\.,.]*)$/g;
                     $(this).val($(this).val().replace(patt,"$1.$2"));
-                	if($(this).val().length>0 && $(this).val().length<=5){
-                		alert('資產科目需子科目!!');
-                	}
+				});
+				
+				$('#txtDeplacc').change(function() {
+                	var patt = /^(\d{4})([^\.,.]*)$/g;
+                    $(this).val($(this).val().replace(patt,"$1.$2"));
 				});
                 
                 if(q_getPara('sys.project').toUpperCase()=='DC'){
                 	$('.safe').hide();
+                	$('.year').hide();
+                }else{
+                	$('.exp').hide();
                 }
                 
                 if(q_getPara('sys.project').toUpperCase()=='YP'){
@@ -245,14 +250,18 @@
                     Unlock();
                     return;
                 }
-               $('#txtNoa').val($.trim($('#txtNoa').val()));   	
-            	
-				if($('#txtAcczno').val().length>0 && $('#txtAcczno').val().val().length<=5){
-                	alert('資產科目需子科目!!');
+                
+                var patt = /^(\d{4})([^\.,.]*)$/g;
+				$('#txtAcczno').val($('#txtAcczno').val().replace(patt,"$1.$2"));
+                
+                if($('#txtAcczno').val().length>0 && $('#txtAcczno').val().length<5){
+                	alert(q_getMsg('lblAcczno')+'長度錯誤!!');
                 	Unlock();
                     return;
                 }
-				
+                
+               $('#txtNoa').val($.trim($('#txtNoa').val()));
+            	
 				if(q_cur==1){
                 	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
                     q_gt('bcc', t_where, 0, 0, 0, "checkBccno_btnOk", r_accy);
@@ -338,6 +347,12 @@
             function btnCancel() {
                 _btnCancel();
             }
+            
+            function q_popPost(s1) {
+				switch(s1) {
+					
+                }
+			}
 		</script>
 		<style type="text/css">
             #dmain {
@@ -512,8 +527,10 @@
 						<td><input id="txtTotal"  type="text" class="txt num c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblExpirationdate' class="lbl"> </a></td>
-						<td><input id="txtExpirationdate" type="text" class="txt c1" /></td>
+						<td class="exp"><span> </span><a id='lblExpirationdate' class="lbl"> </a></td>
+						<td class="exp"><input id="txtExpirationdate" type="text" class="txt c1" /></td>
+						<td class="year"><span> </span><a id='lblYears' class="lbl"> </a></td>
+						<td class="year"><input id="txtYears" type="text" class="txt num c1" /></td>
 					</tr>
 					<!--<tr>
 						<td><span> </span><a id='lblStoreno' class="lbl"> </a></td>
@@ -529,7 +546,7 @@
 						<td><input id="txtAcc2" type="text" class="txt c1" /></td>
 					</tr>
 					<tr class="accz" style="display: none;">
-						<td><span> </span><a id='lblAcczno' class="lbl"> </a></td>
+						<td><span> </span><a id='lblAcczno' class="lbl btn"> </a></td>
 						<td><input id="txtAcczno" type="text" class="txt c1" /></td>
 						<td><input id="txtAcczname" type="text" class="txt c1" /></td>
 					</tr>
