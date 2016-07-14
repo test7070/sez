@@ -33,7 +33,8 @@
 			brwKey = 'noa';
 
 			aPop = new Array();
-			brwCount2 = 6;
+			brwCount2 = 5;
+			currentNoa = '';//記錄刪除的單號
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
@@ -91,10 +92,10 @@
 				}
 				b_pop = '';
 			}
-			function q_gtPost(t_name) {/// 資料下載後 ...
+			function q_gtPost(t_name) {
 				switch (t_name) {
 					case q_name:
-						if (q_cur == 4)// 查詢
+						if (q_cur == 4)
 							q_Seek_gtPost();
 						break;
 					default:
@@ -103,22 +104,23 @@
 			}
 
 			function q_stPost() {
-				if (!(q_cur == 1 || q_cur == 2))
-					return false;
-				var t_noa = $.trim($('#txtNoa').val());
+				var t_noa = '';
+				if (q_cur == 1 || q_cur == 2){
+					var t_noa = $.trim($('#txtNoa').val());
+				}else if(q_cur==3){
+					t_noa = currentNoa;
+				}else{
+					return;
+				}
                 q_func('qtxt.query.acshare2accc', 'acshare.txt,acshare2accc,' + r_name + ';' + t_noa);
 			}
 			function btnOk() {
-				/*var t_money = q_float('txtMoney');
-				var t_moneys = 0;
-				for(var i=0;i<q_bbsCount;i++){
-					t_moneys += q_float('txtMoney_'+i);
+				for(var i=0;i<q_bbtCount;i++){
+					if($('#txtAccno__'+i).val().length>0 && $('#txtDatea__'+i).val().length==0){
+						alert('請輸入傳票日期');
+						return;
+					}
 				}
-				if(t_money!=t_moneys){
-					alert('借貸金額不平，請檢查!');
-					return;
-				}*/
-				
 				if (q_cur == 1)
 					$('#txtWorker').val(r_name);
 				else
@@ -137,8 +139,16 @@
                 	case 'qtxt.query.acshare2accc':
                 		var as = _q_appendData("tmp0", "", true, true);
                 		if (as[0] != undefined) {
-                			if(as[0].status == '1')
-                				$('#txtAccno2').val(as[0].msg);
+                			if(as[0].status == '1'){
+                				for(var i=0;i<as.length;i++){
+                					for(var j=0;j<q_bbtCount;j++){
+                						if($('#txtNoq__'+j).val()==as[i].noq){
+                							$('#txtAccy__'+j).val(as[i].accy);
+                							$('#txtAccno__'+j).val(as[i].accno);
+                						}
+                					}
+                				}
+                			}
                 			else
                         		alert(as[0].msg);
                         } else {
@@ -191,6 +201,16 @@
                     }else{
                     	$('#txtDatea__'+i).datepicker('destroy');
                     }
+                    if ($('#btnMinut__' + i).hasClass('isAssign'))
+						continue;
+					$('#txtAccno__' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        var t_accy=$('#txtAccy__'+n).val();
+                        if($(this).val().length>0)
+                    		q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $(this).val() + "';" + t_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('btnAccc'), true);
+                    });
                 }
                 _bbtAssign();
             }
@@ -302,6 +322,7 @@
 			}
 
 			function btnDele() {
+				currentNoa = $('#txtNoa').val();
 				_btnDele();
 			}
 
@@ -494,14 +515,6 @@
 						</td>
 					</tr>
 					<tr>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td><span> </span><a id='lblMoney' class="lbl">金額</a></td>
-						<td><input id="txtMoney" type="text" class="txt c1 num"/></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl">備註</a></td>
 						<td colspan="5"><textarea id="txtMemo" rows="5" class="txt c1"> </textarea></td>
 					</tr>
@@ -510,11 +523,8 @@
 						<td><input id="txtWorker"  type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblWorker2' class="lbl">修改人</a></td>
 						<td><input id="txtWorker2"  type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblAccno2" class="lbl btn">轉出傳票</a></td>
-						<td>
-							<input id="txtAccy2" type="text" style="display:none;"/>
-							<input id="txtAccno2" type="text" class="txt c1"/>
-						</td>
+						<td><span> </span><a id='lblMoney' class="lbl">金額</a></td>
+						<td><input id="txtMoney" type="text" class="txt c1 num"/></td>
 					</tr>
 				</table>
 			</div>
