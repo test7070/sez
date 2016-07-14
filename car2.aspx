@@ -72,6 +72,9 @@
                 if(q_getPara('sys.project').toUpperCase()!="DC"){
                 	$(".btns").hide();
                 }
+                if(q_getPara('sys.project').toUpperCase()=="YP"){
+                	$(".btns").show();
+                }
                 if(q_getPara('sys.project').toUpperCase() == 'BS'){
                 	$(".btns").show();
                 	$(".btns").find('input[type="button"]').hide();
