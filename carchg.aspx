@@ -71,8 +71,8 @@
 			var curData = new currentData();
 			$(document).ready(function() {
 				bbmKey = ['noa'];
-				q_brwCount();
-				q_gt(q_name, q_content, q_sqlCount, 1)
+                q_brwCount();
+                q_gt(q_name, q_content, q_sqlCount, 1);
 			});			
 			//////////////////   end Ready
 			function main() {
@@ -165,15 +165,15 @@
 						}
 						if(abbm[q_recno]!=undefined)
 					       $("#cmbCarteamno").val(abbm[q_recno].carteamno);
-						q_gridv('tview', browHtm, fbrow, abbm, aindex, brwNowPage, brwCount);
+						q_gridv('tview', browHtm, fbrow, abbm, brwNowPage, brwCount);
 						break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
 
-						if (q_cur == 1 || q_cur == 2)
+						/*if (q_cur == 1 || q_cur == 2)
 							q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
+*/
 						break;
 				}  /// end switch
 			}
@@ -508,8 +508,9 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewCarteam'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewDatea'> </a></td>
+						<td align="center" style="display:none;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewCarteam'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewCarno'> </a></td>
 						<td align="center" style="width:140px; color:black;"><a id='vewDriver'> </a></td>
 						<td align="center" style="width:250px; color:black;"><a id='vewItem'> </a></td>
@@ -519,8 +520,9 @@
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
-						<td id="carteamno=cmbCarteamno" style="text-align: center;">~carteamno=cmbCarteamno</td>
 						<td id="datea" style="text-align: center;">~datea</td>
+						<td id="noa" style="display:none;">~noa</td>
+						<td id="carteamno=cmbCarteamno" style="text-align: center;">~carteamno=cmbCarteamno</td>
 						<td id="carno" style="text-align: center;">~carno</td>
 						<td id="driver" style="text-align: left;">~driver</td>
 						<td id="minusitem plusitem" style="text-align: left;">~minusitem ~plusitem</td>
