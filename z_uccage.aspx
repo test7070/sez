@@ -103,6 +103,24 @@
 						type : '8',//[19]
 						name : 'showcost',
 						value : '1@顯示成本金額'.split(',')
+					}, {//3-1
+						type : '6',//[20]
+						name : 'xdatea'
+					}, {//3-2
+						type : '1',//[21][22]
+						name : 'xdateb'
+					}, {//3-3
+						type : '1',//[23][24]
+						name : 'xdatec'
+					}, {//3-4
+						type : '1',//[25][26]
+						name : 'xdated'
+					}, {//4-1
+						type : '1',//[27][28]
+						name : 'xdatee'
+					}, {//4-2
+						type : '6',//[29]
+						name : 'xdatef'
 					}]
 				});
 				q_popAssign();
@@ -120,7 +138,132 @@
 				$('#Showcost').css('width','300px').css('height','30px');
 				$('#Showcost .label').css('width','0px');
 				
-				
+				var tmp = document.getElementById("txtXdatea");
+                var tdiv = document.createElement("div");
+                tdiv.className = "label c6";
+                tdiv.id="lblDiv1";
+                tmp.parentNode.appendChild(tdiv,tmp);
+                var tmp = document.getElementById("lblDiv1");
+                var tspan = document.createElement("span");
+                tspan.id="lblD1";
+                tspan.innerText="天以內";
+                tmp.appendChild(tspan,tmp);
+                
+                var tmp = document.getElementById("txtXdateb2");
+                var tdiv = document.createElement("div");
+                tdiv.className = "label c6";
+                tdiv.id="lblDiv2";
+                tdiv.style.cssText="width: 30px;";
+                tmp.parentNode.appendChild(tdiv,tmp);
+                var tmp = document.getElementById("lblDiv2");
+                var tspan = document.createElement("span");
+                tspan.id="lblD2";
+                tspan.innerText="天";
+                tmp.appendChild(tspan,tmp);
+                
+                var tmp = document.getElementById("txtXdatec2");
+                var tdiv = document.createElement("div");
+                tdiv.className = "label c6";
+                tdiv.id="lblDiv3";
+                tdiv.style.cssText="width: 30px;";
+                tmp.parentNode.appendChild(tdiv,tmp);
+                var tmp = document.getElementById("lblDiv3");
+                var tspan = document.createElement("span");
+                tspan.id="lblD3";
+                tspan.innerText="天";
+                tmp.appendChild(tspan,tmp);
+                
+                var tmp = document.getElementById("txtXdated2");
+                var tdiv = document.createElement("div");
+                tdiv.className = "label c6";
+                tdiv.id="lblDiv4";
+                tdiv.style.cssText="width: 30px;";
+                tmp.parentNode.appendChild(tdiv,tmp);
+                var tmp = document.getElementById("lblDiv4");
+                var tspan = document.createElement("span");
+                tspan.id="lblD4";
+                tspan.innerText="天";
+                tmp.appendChild(tspan,tmp);
+                
+                var tmp = document.getElementById("txtXdatee2");
+                var tdiv = document.createElement("div");
+                tdiv.className = "label c6";
+                tdiv.id="lblDiv5";
+                tdiv.style.cssText="width: 30px;";
+                tmp.parentNode.appendChild(tdiv,tmp);
+                var tmp = document.getElementById("lblDiv5");
+                var tspan = document.createElement("span");
+                tspan.id="lblD5";
+                tspan.innerText="天";
+                tmp.appendChild(tspan,tmp);
+                
+                var tmp = document.getElementById("txtXdatef");
+                var tdiv = document.createElement("div");
+                tdiv.className = "label c6";
+                tdiv.id="lblDiv6";
+                tmp.parentNode.appendChild(tdiv,tmp);
+                var tmp = document.getElementById("lblDiv6");
+                var tspan = document.createElement("span");
+                tspan.id="lblD6";
+                tspan.innerText="天以上";
+                tmp.appendChild(tspan,tmp);
+                
+                $('#txtXdatea').css('width','110px');
+                $('#txtXdatef').css('width','110px');
+                $('#txtXdatea').css('text-align','right').val(60);
+                $('#txtXdateb1').css('text-align','right').val(61);
+                $('#txtXdateb2').css('text-align','right').val(120);
+                $('#txtXdatec1').css('text-align','right').val(121);
+                $('#txtXdatec2').css('text-align','right').val(180);
+                $('#txtXdated1').css('text-align','right').val(181);
+                $('#txtXdated2').css('text-align','right').val(360);
+                $('#txtXdatee1').css('text-align','right').val(361);
+                $('#txtXdatee2').css('text-align','right').val(720);
+                $('#txtXdatef').css('text-align','right').val(721);
+                $('#Xdateb').css('width','370px');
+                $('#Xdatec').css('width','370px');
+                $('#Xdated').css('width','370px');
+                $('#Xdatee').css('width','370px');
+				$('#txtXdatea').change(function() {
+					$(this).val(dec($(this).val()));
+					if(isNaN($(this).val())){$(this).val(9999);}
+				});
+				$('#txtXdateb1').change(function() {
+					$(this).val(dec($(this).val()));
+					if(isNaN($(this).val())){$(this).val(9999);}
+				});
+				$('#txtXdateb2').change(function() {
+					$(this).val(dec($(this).val()));
+					if(isNaN($(this).val())){$(this).val(9999);}
+				});
+				$('#txtXdatec1').change(function() {
+					$(this).val(dec($(this).val()));
+					if(isNaN($(this).val())){$(this).val(9999);}
+				});
+				$('#txtXdatec2').change(function() {
+					$(this).val(dec($(this).val()));
+					if(isNaN($(this).val())){$(this).val(9999);}
+				});
+				$('#txtXdated1').change(function() {
+					$(this).val(dec($(this).val()));
+					if(isNaN($(this).val())){$(this).val(9999);}
+				});
+				$('#txtXdated2').change(function() {
+					$(this).val(dec($(this).val()));
+					if(isNaN($(this).val())){$(this).val(9999);}
+				});
+				$('#txtXdatee1').change(function() {
+					$(this).val(dec($(this).val()));
+					if(isNaN($(this).val())){$(this).val(9999);}
+				});
+				$('#txtXdatee2').change(function() {
+					$(this).val(dec($(this).val()));
+					if(isNaN($(this).val())){$(this).val(9999);}
+				});
+				$('#txtXdatef').change(function() {
+					$(this).val(dec($(this).val()));
+					if(isNaN($(this).val())){$(this).val(9999);}
+				});
 			}
 
 			function q_boxClose(s2) {
