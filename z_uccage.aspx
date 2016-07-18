@@ -91,7 +91,7 @@
 					}, {//2-1
 						type : '5', //[16]
 						name : 'xgetdate',
-						value : '1@出庫日,2@入庫日,3@出入庫日'.split(',')
+						value : '3@出入庫日,1@出庫日,2@入庫日'.split(',')
 					}, {//2-2
 						type : '6',//[17]
 						name : 'xenddate'
