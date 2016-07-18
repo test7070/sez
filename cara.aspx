@@ -535,7 +535,7 @@
                 
                 //收款的資料禁止修改
                 if(q_cur==2){
-	                for(var j = 0; j < q_bbsCount; j++) {
+	                /*for(var j = 0; j < q_bbsCount; j++) {
 						if($('#txtUmmnoa_'+j).val()!=''){
 							$('#btnMinus_'+j).attr('disabled', 'disabled');
 							$('#txtNoq_'+j).attr('disabled', 'disabled');
@@ -544,6 +544,85 @@
 							$('#txtOutmoney_'+j).attr('disabled', 'disabled');
 							$('#txtInmoney_'+j).attr('disabled', 'disabled');
 							$('#txtUdate_'+j).attr('disabled', 'disabled');
+						}
+					}*/
+					
+					//禁止修改
+					$('#txtCarowner').attr('disabled', 'disabled');
+					$('#txtCarownerno').attr('disabled', 'disabled');
+					$('#txtCarno').attr('disabled', 'disabled');
+					$('#txtMon').attr('disabled', 'disabled');
+					//收款的資料禁止修改
+					
+					
+					//1020621 7月份開始資料3日後不能在處理
+					var x_day=q_getPara('sys.modiday'),t_day=1;
+					var t_date=q_date();
+					
+					while(r_rank<=7 && t_day<x_day){
+						var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
+						nextdate.setDate(nextdate.getDate() -1)
+						t_date=''+(nextdate.getFullYear()-1911)+'/';
+						//月份
+						t_date=t_date+((nextdate.getMonth()+1)<10?('0'+(nextdate.getMonth()+1)+'/'):((nextdate.getMonth()+1)+'/'));
+						//日期
+						t_date=t_date+(nextdate.getDate()<10?('0'+(nextdate.getDate())):(nextdate.getDate()));
+						
+						//六日跳過
+						if(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==0 //日
+						||new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==6 //六
+						){continue;}
+				               	
+						//假日跳過
+						if(holiday){
+							var isholiday=false;
+							for(var i=0;i<holiday.length;i++){
+								if(holiday[i].noa==t_date){
+									isholiday=true;
+									break;
+								}
+							}
+							if(isholiday) continue;
+						}
+						t_day++;
+					}
+					
+					
+					for(var j = 0; j < q_bbsCount; j++) {
+						if($('#txtUmmnoa_'+j).val()!='' || $('#txtCaritemno_'+j).val()=='001'|| $('#txtUdate_'+j).val()!=''){
+							$('#btnMinus_'+j).attr('disabled', 'disabled');
+							$('#txtNoq_'+j).attr('disabled', 'disabled');
+							$('#txtDatea_'+j).attr('disabled', 'disabled');
+							//$('#txtCaritemno_'+j).attr('disabled', 'disabled');
+							$('#txtOutmoney_'+j).attr('disabled', 'disabled');
+							$('#txtInmoney_'+j).attr('disabled', 'disabled');
+							$('#txtUdate_'+j).attr('disabled', 'disabled');
+							$('#txtCost_'+j).attr('disabled', 'disabled');
+							$('#txtAcc1_'+j).attr('disabled', 'disabled');
+							$('#btnAcc_'+j).attr('disabled', 'disabled');
+							$('#txtAcc2_'+j).attr('disabled', 'disabled');
+							if($('#txtCaritemno_'+j).val()=='001'){
+								$('#btnCaritem_'+j).attr('disabled', 'disabled');
+								$('#txtCaritemno_'+j).attr('disabled', 'disabled');
+							}
+						}
+							
+						if(r_rank<=7 && !emp($('#txtDatea_'+j).val()) && t_date>$('#txtDatea_'+j).val()) {
+							$('#btnMinus_'+j).attr('disabled', 'disabled');
+							$('#txtNoq_'+j).attr('disabled', 'disabled');
+							$('#txtDatea_'+j).attr('disabled', 'disabled');
+							$('#txtCaritemno_'+j).attr('disabled', 'disabled');
+							$('#btnCaritem_'+j).attr('disabled', 'disabled');
+							$('#txtOutmoney_'+j).attr('disabled', 'disabled');
+							$('#txtInmoney_'+j).attr('disabled', 'disabled');
+							//$('#txtMemo_'+j).attr('disabled', 'disabled');//1020703摘要要開放讓人員修改
+							$('#txtPaydate_'+j).attr('disabled', 'disabled');
+							$('#txtFareyn_'+j).attr('disabled', 'disabled');
+							$('#txtCost_'+j).attr('disabled', 'disabled');
+							$('#txtAcc1_'+j).attr('disabled', 'disabled');
+							$('#btnAcc_'+j).attr('disabled', 'disabled');
+							$('#txtAcc2_'+j).attr('disabled', 'disabled');
+							$('#txtPdate_'+j).attr('disabled', 'disabled');
 						}
 					}
                 }

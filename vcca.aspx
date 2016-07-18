@@ -578,10 +578,15 @@
 				q_nowf();
 				return true;
 			}
-
+			
+			//105/07/18 XY 表身可以改 表頭只開放 統編和買受人
 			function sum() {
 				if (!(q_cur == 1 || q_cur == 2))
 					return;
+				if (q_getPara('sys.project').toUpperCase()=='XY') {
+					sum_xy();
+					return;
+				}
 				if (!emp($('#txtVccno').val()))	//103/03/07 出貨單轉來發票金額一律不改
 					return;
 					
@@ -685,6 +690,120 @@
 				$('#txtTax').val(round(t_tax,0));
 				$('#txtTotal').val(round(t_total,0));
 			}
+			
+			function sum_xy() {
+				$('#txtTax').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
+				var t_mounts, t_prices, t_moneys=0, t_mount = 0, t_money = 0, t_taxrate=0.5, t_tax=0, t_total=0;
+				if (!emp($('#txtVccno').val())){
+					//統一編號
+					$('#txtSerial').attr('readonly', false);
+					//買受人
+					$('#txtBuyerno').attr('readonly', false);
+					$('#txtBuyer').attr('readonly', false);
+					$('#cmbTaxtype').attr('disabled','disabled');
+					$('#txtNoa').attr('disabled','disabled');
+					//銷貨客戶
+					$('#txtCustno').attr('readonly', true);
+					$('#txtComp').attr('readonly', true);
+					$('#txtMon').attr('readonly', true);
+					$('#txtDatea').attr('readonly', true);
+					$('#txtCno').attr('readonly', true);
+					$('#txtAcomp').attr('readonly', true);
+					$('#txtZip').attr('readonly', true);
+					$('#txtAddress').attr('readonly', true);
+					$('#txtMemo').attr('readonly', true);
+				}else{
+					if(q_cur!=1){
+						$('#txtNoa').attr('disabled','disabled');
+					}
+					//統一編號
+					$('#txtSerial').attr('readonly', false);
+					//買受人
+					$('#txtBuyerno').attr('readonly', false);
+					$('#txtBuyer').attr('readonly', false);
+					//銷貨客戶
+					$('#txtCustno').attr('readonly', false);
+					$('#txtComp').attr('readonly', false);
+					$('#txtMon').attr('readonly', false);
+					$('#txtDatea').attr('readonly', false);
+					$('#txtCno').attr('readonly', false);
+					$('#txtAcomp').attr('readonly', false);
+					$('#txtZip').attr('readonly', false);
+					$('#txtAddress').attr('readonly', false);
+					$('#txtMemo').attr('readonly', false);
+				}
+				
+				for (var k = 0; k < q_bbsCount; k++) {
+					if(!$('#chkAprice_'+k).prop('checked')){
+						$('#txtMoney_'+k).val(round(q_mul(q_float('txtMount_'+k),q_float('txtPrice_'+k)),0));
+					}
+					t_moneys = q_float('txtMoney_' + k);
+                    t_money = q_add(t_money,t_moneys);
+				}
+
+				t_taxrate = parseFloat(q_getPara('sys.taxrate')) / 100;
+				switch ($('#cmbTaxtype').val()) {
+					case '1':
+						// 應稅
+						if($('#chkAtax').prop('checked')){
+							t_tax=round(q_float('txtTax'), 0);
+							$('#txtTax').css('color', 'black').css('background', 'white').removeAttr('readonly');  
+						}else
+							t_tax = round(t_money * t_taxrate, 0);
+						t_total = t_money + t_tax;
+						break;
+					case '2':
+						//零稅率
+						t_tax = 0;
+						t_total = t_money + t_tax;
+						break;
+					case '3':
+						// 內含
+						t_tax = round(t_money / (1 + t_taxrate) * t_taxrate, 0);
+						t_total = t_money;
+						t_money = t_total - t_tax;
+						break;
+					case '4':
+						// 免稅
+						t_tax = 0;
+						t_total = t_money + t_tax;
+						break;
+					case '5':
+						// 自定
+						$('#txtTax').css('color', 'black').css('background', 'white').removeAttr('readonly');  
+						t_tax = round(q_float('txtTax'), 0);
+						t_total = t_money + t_tax;
+						break;
+					case '6':
+						// 作廢-清空資料
+						t_money = 0, t_tax = 0, t_total = 0;
+						//銷貨客戶
+						$('#txtCustno').val('').attr('readonly', true);
+						$('#txtComp').val('').attr('readonly', true);
+						//統一編號
+						$('#txtSerial').val('').attr('readonly', true);
+						//產品金額
+						$('#txtMoney').val(0).attr('readonly', true);
+						//帳款月份
+						$('#txtMon').val('').attr('readonly', true);
+						//營業稅
+						$('#txtTax').val(0).attr('readonly', true);
+						//總計
+						$('#txtTotal').val(0).attr('readonly', true);
+						//買受人
+						$('#txtBuyerno').val('').attr('readonly', true);
+						$('#txtBuyer').val('').attr('readonly', true);
+						for (var k = 0; k < q_bbsCount; k++) {
+							$('#txtMount_'+k).val(0).attr('readonly', true);
+							$('#txtMoney_'+k).val(0).attr('readonly', true);
+						}
+						break;
+					default:
+				}
+				$('#txtMoney').val(round(t_money,0));
+				$('#txtTax').val(round(t_tax,0));
+				$('#txtTotal').val(round(t_total,0));
+			}
 
 			function refresh(recno) {
 				_refresh(recno);
@@ -706,7 +825,7 @@
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
-				if (!emp($('#txtVccno').val())){
+				if (!emp($('#txtVccno').val()) && q_getPara('sys.project').toUpperCase()!='XY'){
 					$('#txtNoa').attr('disabled','disabled');
 					$('#cmbTaxtype').attr('disabled','disabled');
 					$('#btnPlus').attr('disabled','disabled');
