@@ -112,6 +112,10 @@
 				q_mask(bbmMask);
 				q_gt('custtype', '', 0, 0, 0, "custtype");
 				
+				if (q_getPara('sys.project').toUpperCase()=='RK'){
+					$('#lblType').text('業種');
+				}
+				
 				if (q_getPara('sys.comp').indexOf('裕承隆') > -1){
 					aPop = new Array(
 						['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
