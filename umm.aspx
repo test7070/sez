@@ -849,10 +849,10 @@
                     $('#txtAcc1_' + i).bind('contextmenu', function(e) {
                         /*滑鼠右鍵*/
                         e.preventDefault();
-                        var n = $(this).attr('id').replace('txtAcc1_', '');
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
                         $('#btnAcc_'+n).click();
                     }).change(function() {
-                    	var n = $(this).attr('id').replace('txtAcc1_','');
+                    	var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
                     	if($(this).val()=="=" && n>0){
                     		$('#txtAcc1_'+n).val($('#txtAcc1_'+(dec(n)-1)).val());
                     		$('#txtAcc2_'+n).val($('#txtAcc2_'+(dec(n)-1)).val());
