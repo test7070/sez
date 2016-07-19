@@ -114,6 +114,7 @@
 				
 				if (q_getPara('sys.project').toUpperCase()=='RK'){
 					$('#lblType').text('業種');
+					$('#lblHead').text('英文簡稱');
 				}
 				
 				if (q_getPara('sys.comp').indexOf('裕承隆') > -1){
