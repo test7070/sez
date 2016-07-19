@@ -31,10 +31,10 @@
                     q_popAssign();
                     q_langShow();
 					
-                    $('#textBdate').mask('999/99/99');
-                    $('#textEdate').mask('999/99/99');
+                    $('#textBdate').mask(r_picd);
+                    $('#textEdate').mask(r_picd);
                     
-                    $('#textBdate').val(q_date().substr(0,3)+'/01/01');
+                    $('#textBdate').val(q_date().substr(0,r_len)+'/01/01');
                     $('#textEdate').val(q_date());
                     
                     $('#btnCost').click(function(e) {
@@ -79,9 +79,9 @@
 				<div id="q_report"> </div>
 			</div>
 			<div id="ucf">
-				<table  border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;width:300px">
+				<table  border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;width:350px">
 					<tr>
-						<td align="center" style="width:35%"><a id="lblDatea" class="lbl" style="font-size: medium;"></a></td>
+						<td align="center" style="width:35%"><a id="lblDatea" class="lbl" style="font-size: medium;"> </a></td>
 						<td align="left" style="width:65%">
 							<input id="textBdate"  type="text"  class="txt" style="width: 40%; font-size: medium;"/>~
 							<input id="textEdate"  type="text"  class="txt" style="width: 40%; font-size: medium;"/>
