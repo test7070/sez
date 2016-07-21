@@ -1,9 +1,11 @@
 <%@ Page Language="C#" Debug="true"%>
     <script language="c#" runat="server">     
-    	//大昌合庫支票
+    	//大昌合庫支票  for 玉蓮 LQ690C
         public class ParaIn
         {
-            public string gqbno;
+            public string bgqbno;
+            public string egqbno;
+            public string fontsize = "14";
         }
         
         public class Para
@@ -31,12 +33,19 @@
         	connectionString = "Data Source=127.0.0.1,1799;Persist Security Info=True;User ID=sa;Password=artsql963;Database="+db;
 
 			var item = new ParaIn();
-            if (Request.QueryString["gqbno"] != null && Request.QueryString["gqbno"].Length > 0)
+            if (Request.QueryString["bno"] != null && Request.QueryString["bno"].Length > 0)
             {
-                item.gqbno = Request.QueryString["gqbno"];
+                item.bgqbno = Request.QueryString["bno"];
             }
-            //item.gqbno = "KA6332007";
-            
+            if (Request.QueryString["eno"] != null && Request.QueryString["eno"].Length > 0)
+            {
+                item.egqbno = Request.QueryString["eno"];
+            }
+            if (Request.QueryString["fontsize"] != null && Request.QueryString["fontsize"].Length > 0)
+            {
+                item.fontsize = Request.QueryString["fontsize"];
+            }
+
             //資料
             System.Data.DataTable dt = new System.Data.DataTable();
             using (System.Data.SqlClient.SqlConnection connSource = new System.Data.SqlClient.SqlConnection(connectionString))
@@ -182,8 +191,8 @@
 	left join tgg b on a.compno=b.noa
 	order  by  gqbno,gno;";
                 System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(queryString, connSource);
-                cmd.Parameters.AddWithValue("@t_bgqbno", item.gqbno);
-                cmd.Parameters.AddWithValue("@t_egqbno", item.gqbno);
+                cmd.Parameters.AddWithValue("@t_bgqbno", item.bgqbno);
+                cmd.Parameters.AddWithValue("@t_egqbno", item.egqbno);
                 adapter.SelectCommand = cmd;
                 adapter.Fill(dt);
                 connSource.Close();
@@ -206,8 +215,8 @@
             }
             //-----PDF--------------------------------------------------------------------------------------------------
             // W*H  28.3,28.133   21.59*8.5
-            int shiftX = -14,shiftY = 20;
-            var doc1 = new iTextSharp.text.Document(new iTextSharp.text.Rectangle(611,235), 0, 0, 0, 0);
+            int shiftX = -30,shiftY = -10;
+            var doc1 = new iTextSharp.text.Document(new iTextSharp.text.Rectangle(611,231), 0, 0, 0, 0);
             iTextSharp.text.pdf.PdfWriter pdfWriter = iTextSharp.text.pdf.PdfWriter.GetInstance(doc1, stream);
             //font
             iTextSharp.text.pdf.BaseFont bfChinese = iTextSharp.text.pdf.BaseFont.CreateFont(@"C:\windows\fonts\msjh.ttf", iTextSharp.text.pdf.BaseFont.IDENTITY_H, iTextSharp.text.pdf.BaseFont.NOT_EMBEDDED);
@@ -247,8 +256,9 @@
                     cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)gqbLabel[i]).b02, 490 + shiftX, 208 + shiftY, 0);
                     cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)gqbLabel[i]).b03, 520 + shiftX, 208 + shiftY, 0);
 
-                    cb.SetFontAndSize(bfChinese, 14);
+                    cb.SetFontAndSize(bfChinese, Int32.Parse(item.fontsize));
                     cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)gqbLabel[i]).b04, 272 + shiftX, 187 + shiftY, 0);
+                    cb.SetFontAndSize(bfChinese, 14);
                     cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)gqbLabel[i]).b05, 467 + shiftX, 187 + shiftY, 0);
 
                     cb.SetFontAndSize(bfChinese, 16);
@@ -260,7 +270,7 @@
             doc1.Close();
             Response.ContentType = "application/octec-stream;";
             Response.AddHeader("Content-transfer-encoding", "binary");
-            Response.AddHeader("Content-Disposition", "attachment;filename=label" + item.gqbno + ".pdf");
+            Response.AddHeader("Content-Disposition", "attachment;filename=check.pdf");
             Response.BinaryWrite(stream.ToArray());
             Response.End();
         }
