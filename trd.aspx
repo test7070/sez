@@ -719,6 +719,7 @@
 						<td align="center" style="width:20px; color:black;"><a id="vewChk"> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id="vewDatea"> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id="vewComp"> </a></td>
+						<td align="center" style="width:120px; color:black;"><a id="vewPo">P/O</a></td>
 						<td align="center" style="width:70px; color:black;"><a id="vewMoney"> </a></td>
 						<td align="center" style="width:70px; color:black;"><a id="vewPlusmoney"> </a></td>
 						<td align="center" style="width:70px; color:black;"><a id="vewMinusmoney"> </a></td>
@@ -732,6 +733,7 @@
 						<td ><input id="chkBrow.*" type="checkbox"/></td>
 						<td id="datea" style="text-align: center;">~datea</td>
 						<td id="nick" style="text-align: center;">~nick</td>
+						<td id="po" style="text-align: center;">~po</td>
 						<td id="money,0,1" style="text-align: right;">~money,0,1</td>
 						<td id="plusmoney,0,1" style="text-align: right;">~plusmoney,0,1</td>
 						<td id="minusmoney,0,1" style="text-align: right;">~minusmoney,0,1</td>
