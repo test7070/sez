@@ -85,6 +85,37 @@
 
 			function q_gtPost(t_name) {
 				switch(t_name){
+					case 'nhpe':
+						var as = _q_appendData('nhpe', "", true);
+						if (as[0] != undefined) {
+							//記錄 額度  以更新畫面資料(cust.aspx)
+							t_credit = 0;
+							for(var i=0;i<q_bbsCount;i++){
+								t_credit = q_add(t_credit,q_float('txtCredit_'+i));
+							}
+							x_credit = 0;
+							try{
+								x_credit = parseFloat(as[0].credit);
+							}catch(e){
+								x_credit = 0;
+							}
+							if(x_credit>=t_credit){
+								if (window.parent.q_name == 'cust') {
+				                    var wParent = window.parent.document;
+				                    wParent.getElementById("txtCredit").value = t_credit;
+				                    window.parent.abbm[window.parent.q_recno] = t_credit;
+				                }
+								t_key = q_getHref();
+								_btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
+							}else{
+								alert('額度不足，禁止修改。');
+								return;
+							}
+						}else{
+							alert('額度不足，禁止修改。');
+							return;
+						}
+						break;
 					case 'GetCredit':
 						var as = _q_appendData('credit', "", true);
 						//先清空BBS
@@ -139,19 +170,7 @@
 
 			function btnOk() {
 				sum();
-				//記錄 額度  以更新畫面資料(cust.aspx)
-				t_credit = 0;
-				for(var i=0;i<q_bbsCount;i++){
-					t_credit = q_add(t_credit,q_float('txtCredit_'+i));
-				}
-				if (window.parent.q_name == 'cust') {
-                    var wParent = window.parent.document;
-                    wParent.getElementById("txtCredit").value = t_credit;
-                    window.parent.abbm[window.parent.q_recno] = t_credit;
-                }
-				//------------------------------------------------------------------------
-				t_key = q_getHref();
-				_btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
+				q_gt('nhpe', "where=^^ noa='"+r_userno+"'^^", 0, 0, 0, "nhpe");
 			}
 
 			function bbsSave(as) {
