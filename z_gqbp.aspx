@@ -43,13 +43,30 @@
                          	type : '8',
                             name : 'xtitle',
                             value : q_getMsg('ttitle').split('&')
-                        }]
+                    }, {
+                        type : '6',
+                        name : 'xfontsize'
+                    }]
                 });
 				var t_noa=q_getHref()[1]=='undefined'?'':q_getHref()[1];
                 $('#txtGqbno1').val(t_noa);
                 $('#txtGqbno2').val(t_noa);
                 $('#txtGqbno1').width(120);
                 $('#txtGqbno2').width(120);
+                $('#txtXfontsize').val('14');
+                
+                $('<input id="btnOk2" type="button" value="查詢" style="font-size: 16px; font-weight: bold; color: blue; cursor: pointer;"/>').insertBefore('#btnOk');
+            	$('#btnOk').hide();
+            	$('#btnOk2').click(function(e){
+            		switch($('#q_report').data('info').radioIndex) {
+                        case 1:
+                        	window.open("./pdfgqb_dc01.aspx?bno="+$('#txtGqbno1').val()+"&eno="+$('#txtGqbno2').val()+"&fontsize="+$('#txtXfontsize').val()+"&db="+q_db);
+                            break;
+                        default:
+                           	$('#btnOk').click();
+                            break;
+                    }
+            	});
             }
 
             function q_boxClose(t_name) {
