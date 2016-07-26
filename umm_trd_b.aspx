@@ -68,10 +68,12 @@
                         if (!emp(x_custno2)) {
                             var t_custno2 = (x_custno2).split(",");
                             for (var i = 0; i < t_custno2.length; i++) {
-                                t_where += " or a.custno ='" + t_custno2[i] + "'"
-                                t_where6+=" or a.custno ='" + t_custno2[i] + "'"
-                                t_where3 += " or c.noa ='" + t_custno2[i] + "'"
-                                t_where5 += " or a.custno ='" + t_custno2[i] + "'"
+                            	if(t_custno2[i].length>0){
+	                                t_where += " or a.custno ='" + t_custno2[i] + "'"
+	                                t_where6+=" or a.custno ='" + t_custno2[i] + "'"
+	                                t_where3 += " or c.noa ='" + t_custno2[i] + "'"
+	                                t_where5 += " or a.custno ='" + t_custno2[i] + "'"
+                               }
                             }
                         }
                         t_where+=") and isnull(a.total,0)!=isnull(b.[money],0) ";
