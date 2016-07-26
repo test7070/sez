@@ -1759,7 +1759,9 @@
                     	var as = _q_appendData("tmp0", "", true, true);
                         if (as[0] != undefined) {
                         	abbm[q_recno]['ordcno'] = as[0].ordcno;
+                        	abbm[q_recno]['memo2'] = as[0].ordeno;
                             $('#txtOrdcno').val(as[0].ordcno);
+                            $('#txtMemo2').val(as[0].ordeno);
                             if(as[0].err.length>0)
 								alert(as[0].err);
                         }
@@ -2698,7 +2700,10 @@
 						<td><input id="txtGdate" type="text" class="txt c1" /></td>
 						<td><input id="txtGtime" type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblOrdcno_r' class="lbl">採購單號</a></td>
-						<td  colspan="2"><input id="txtOrdcno" type="text" class="txt c1" /></td>
+						<td  colspan="2">
+							<input id="txtOrdcno" type="text" class="txt c1" />
+							<input id="txtMemo2" type="hidden" class="txt c1" /><!--越南訂單號-->
+						</td>
 						<td><input id="btnOrdc" type="button" value="轉採購單" /></td>
 					</tr>
 					<tr>

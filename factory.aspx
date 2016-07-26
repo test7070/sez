@@ -339,9 +339,9 @@
         <div class="dview" id="dview" style="float: left;  width:35%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
-                <td align="center" style="width:5%"><a id='vewChk'></a></td>                
-                <td align="center" style="width:15%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:30%"><a id='vewFactory'></a></td>
+                <td align="center" style="width:5%"><a id='vewChk'> </a></td>                
+                <td align="center" style="width:15%"><a id='vewNoa'> </a></td>
+                <td align="center" style="width:30%"><a id='vewFactory'> </a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
@@ -353,16 +353,34 @@
         <div class='dbbm' style="width: 63%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>            
             <tr>
-               <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
+               <td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
                <td class="td2"><input id="txtNoa"  type="text" class="txt c1" /></td>
-               <td class="td3"></td>
-               <td class="td4"></td>
+               <td class="td3"> </td>
+               <td class="td4"> </td>
             </tr>
             <tr>
-               <td class="td1"><span> </span><a id='lblFactory' class="lbl"></a></td>
+               <td class="td1"><span> </span><a id='lblFactory' class="lbl"> </a></td>
                <td class="td2"><input id="txtFactory"  type="text" class="txt c1"/></td>
-               <td class="td3"></td>
-               <td class="td4"></td>
+               <td class="td3"> </td>
+               <td class="td4"> </td>
+            </tr>
+            <tr>
+               <td class="td1"><span> </span><a id='lblTggno' class="lbl"> </a></td>
+               <td class="td2"><input id="txtTggno"  type="text" class="txt c1"/></td>
+               <td class="td3"> </td>
+               <td class="td4"> </td>
+            </tr>
+            <tr>
+               <td class="td1"><span> </span><a id='lblIp' class="lbl"> </a></td>
+               <td class="td2"><input id="txtIp"  type="text" class="txt c1"/></td>
+               <td class="td3"> </td>
+               <td class="td4"> </td>
+            </tr>
+            <tr>
+               <td class="td1"><span> </span><a id='lblDb' class="lbl"> </a></td>
+               <td class="td2"><input id="txtDb"  type="text" class="txt c1"/></td>
+               <td class="td3"> </td>
+               <td class="td4"> </td>
             </tr>
         </table>
         </div>
