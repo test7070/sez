@@ -118,9 +118,9 @@
 								t_where1=t_where1+"b.custno='"+$('#txtCustno').val()+"' and ";
 							if(!emp($('#txtProductno').val()))
 								t_where1=t_where1+"a.productno='"+$('#txtProductno').val()+"' and ";	
-							t_where1=t_where1+"a.enda!='1' and (a.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and a.productno in (select noa from uca) and charindex(a.noa+'-'+a.no2,isnull((select ordeno+',' from view_workgs where noa!='"+$('#txtNoa').val()+"' FOR XML PATH('')),''))=0 group by a.productno,a.style ^^";
+							t_where1=t_where1+"a.enda!='1' and (a.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and exists (select noa from uca where noa=a.productno) and charindex(a.noa+'-'+a.no2,isnull((select ordeno+',' from view_workgs where noa!='"+$('#txtNoa').val()+"' FOR XML PATH('')),''))=0 group by a.productno,a.style ^^";
 
-							var t_where2 = "where[2]=^^e.enda!='1' and e.productno=a.productno and (e.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and e.productno in (select noa from uca) and charindex(e.noa+'-'+e.no2,isnull((select ordeno+',' from view_workgs where noa!='"+$('#txtNoa').val()+"' FOR XML PATH('')),''))=0 ^^";
+							var t_where2 = "where[2]=^^e.enda!='1' and e.productno=a.productno and (e.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and exists (select noa from uca where noa=e.productno) and charindex(e.noa+'-'+e.no2,isnull((select ordeno+',' from view_workgs where noa!='"+$('#txtNoa').val()+"' FOR XML PATH('')),''))=0 ^^";
 							var t_where3 = "where[3]=^^ (c.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and d.stype='5' and c.productno=a.productno and c.enda!='1' ^^"
 							
 							var t_where4 = "where[4]=^^ ";
@@ -371,9 +371,9 @@
 								as[i].rworkdate = '';
 								as[i].ordeno = as[i].ordeno.substr(0, as[i].ordeno.length - 1);
 							}
-							q_gridAddRow(bbsHtm, 'tbbs', 'txtRworkdate,txtProductno,txtProduct,txtStyle,txtUnmount,txtOrdemount,txtPlanmount,txtStkmount,txtIntmount,txtPurmount,txtAvailmount,txtMount,txtOrdeno,txtStationno,txtStation,txtSaleforecast,txtPrepare,txtUnprepare,txtStyle'
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtRworkdate,txtProductno,txtProduct,txtSpec,txtUnmount,txtOrdemount,txtPlanmount,txtStkmount,txtIntmount,txtPurmount,txtAvailmount,txtMount,txtOrdeno,txtStationno,txtStation,txtSaleforecast,txtPrepare,txtUnprepare,txtStyle'
 							, as.length, as
-							, 'rworkdate,productno,product,style,unmount,ordemount,planmount,stkmount,inmount,purmount,availmount,bornmount,ordeno,stationno,station,saleforecast,prepare,unprepare,style', 'txtProductno');
+							, 'rworkdate,productno,product,spec,unmount,ordemount,planmount,stkmount,inmount,purmount,availmount,bornmount,ordeno,stationno,station,saleforecast,prepare,unprepare,style', 'txtProductno');
 							change_field();
 						} else {
 							alert('無訂單資料!!。');
