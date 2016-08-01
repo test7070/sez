@@ -1107,6 +1107,8 @@
 						<td><select id="cmbTypea" class="txt c1"> </select></td>
 						<td><span> </span><a id='lblStatus' class="lbl"> </a></td>
 						<td><select id="cmbStatus" class="txt c1"> </select></td>
+						<td><span> </span><a id='lblUnit' class="lbl"> </a></td>
+						<td><input id="txtUnit" type="text" class="txt c7"/></td>
 						<td>
 							<span> </span><a id='lblProfit' class="lbl isFE"> </a>
 							<a id="lblCustno2" class="lbl isXY isRB btn" style="display: none;">收款客戶</a>
