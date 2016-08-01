@@ -753,6 +753,10 @@
 				}else{
 					$('.isFE').hide();
 				}
+				
+				if (q_getPara('sys.project').toUpperCase()=='RB'){
+					$('.isRB').show();
+				}
 			}
 
 			function refreshBbm() {
@@ -1107,8 +1111,6 @@
 						<td><select id="cmbTypea" class="txt c1"> </select></td>
 						<td><span> </span><a id='lblStatus' class="lbl"> </a></td>
 						<td><select id="cmbStatus" class="txt c1"> </select></td>
-						<td><span> </span><a id='lblUnit' class="lbl"> </a></td>
-						<td><input id="txtUnit" type="text" class="txt c7"/></td>
 						<td>
 							<span> </span><a id='lblProfit' class="lbl isFE"> </a>
 							<a id="lblCustno2" class="lbl isXY isRB btn" style="display: none;">收款客戶</a>
@@ -1131,8 +1133,14 @@
 						<td><input id="txtTeam" type="text" class="txt c1"/></td>-->
 						<!--<td><span> </span><a id='lblTeampaytype' class="lbl"> </a></td>
 						<td><input id="txtTeampaytype" type="text" class="txt c1"/></td>-->
-						<td><span> </span><a id='lblConn' class="lbl" style="display: none;"> </a></td>
-						<td><input id="txtConn" type="text" class="txt c1" style="display: none;"/></td>
+						<td>
+							<span> </span><a id='lblConn' class="lbl" style="display: none;"> </a>
+							<a id='lblUnit' class="lbl isRB"  style="display: none;"> </a>
+						</td>
+						<td>
+							<input id="txtConn" type="text" class="txt c1" style="display: none;"/>
+							<input id="txtUnit" type="text" class="txt c7"  style="display: none;"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblFax' class="lbl"> </a></td>
