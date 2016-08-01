@@ -726,7 +726,7 @@
             }
             .dview {
                 float: left;
-                width: 950px;
+                width: 1030px;
                 border-width: 0px;
             }
             .tview {
@@ -885,6 +885,7 @@
 						<td style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td style="width:100px; color:black;"><a id='vewDatea'> </a></td>
 						<td style="width:80px; color:black;"><a id='vewCust'> </a></td>
+						<td style="width:80px; color:black;"><a id='vewBegindate'>起始日期</a></td>
 						<td style="width:80px; color:black;"><a id='vewMoney'> </a></td>
 						<td style="width:80px; color:black;"><a id='vewInterest'> </a></td>
 						<td style="width:80px; color:black;"><a id='vewTotal'> </a></td>
@@ -893,11 +894,10 @@
 						<td style="width:300px; color:black;"><a id='vewMemo'> </a></td>
 					</tr>
 					<tr>
-						<td >
-						<input id="chkBrow.*" type="checkbox" style=''/>
-						</td>
+						<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
 						<td id='datea' style="text-align: center;">~datea</td>
 						<td id='custnick' style="text-align: center;">~custnick</td>
+						<td id='begindate' style="text-align: center;">~begindate</td>
 						<td id='money,0,1' style="text-align: right;">~money,0,1</td>
 						<td id='interest,0,1' style="text-align: right;">~interest,0,1</td>
 						<td id='total,0,1' style="text-align: right;">~total,0,1</td>
