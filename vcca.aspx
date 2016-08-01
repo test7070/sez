@@ -706,7 +706,7 @@
 					$('#txtCustno').attr('readonly', true);
 					$('#txtComp').attr('readonly', true);
 					$('#txtMon').attr('readonly', true);
-					$('#txtDatea').attr('readonly', true);
+					//$('#txtDatea').attr('readonly', true);
 					$('#txtCno').attr('readonly', true);
 					$('#txtAcomp').attr('readonly', true);
 					$('#txtZip').attr('readonly', true);
