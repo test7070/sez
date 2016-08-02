@@ -114,6 +114,10 @@
                         type : '0',
                         name : 'xrlen',
                         value : r_len
+                    },{/*0 [20]*/
+                        type : '0',
+                        name : 'xproject',
+                        value : q_getPara('sys.project').toUpperCase()
                     }]
                 });
                 
