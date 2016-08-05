@@ -485,12 +485,15 @@
                                 }
                             }
                             for(var i=0;i<tranorde.curCaddr.length;i++)
-                                t_str += '<option value="'+i+'">'+(tranorde.curCaddr[i].addrno+' '+tranorde.curCaddr[i].addr).replace('</','')+'</option>';
+                            	if(i==0 || tranorde.curCaddr[i].addrno.length>0 || tranorde.curCaddr[i].addr.length>0)
+                                	t_str += '<option value="'+i+'">'+(tranorde.curCaddr[i].addrno+' '+tranorde.curCaddr[i].addr).replace('</','')+'</option>';
                             for(var i=0;i<q_bbsCount;i++){
                                 $('#combCaddr_'+i).html(t_str).change(function(e){
                                     var n= parseInt($(this).attr('id').replace('combCaddr_',''));
                                     $('#txtAddrno_'+n).val(tranorde.curCaddr[parseInt($(this).val())].addrno);
                                     $('#txtAddr_'+n).val(tranorde.curCaddr[parseInt($(this).val())].addr);
+                                    if($(this).length == $(this)[0].selectedIndex)
+                                    	$('#combCaddr_'+(n+1)).focus();
                                 });                         
                             }
                         }
