@@ -30,7 +30,7 @@
             brwKey = 'Datea';
             q_desc=1;
 			//q_alias='a';
-			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,a.carownerno,b.carowner,a.sssno', 'txtCarno,txtCarownerno,txtCarowner,txtSssno', "car2_b.aspx"],
+			aPop = new Array(['txtCarno', '', 'car2', 'a.noa,a.carownerno,b.carowner,a.sssno', 'txtCarno,txtCarownerno,txtCarowner,txtSssno', "car2_b.aspx"],
 				['textBcarno', 'lblNextcarno', 'car2', 'a.noa,b.carowner', 'textBcarno', "car2_b.aspx?;;;a.carownerno!='' "],
 				['textEcarno', 'lblNextcarno', 'car2', 'a.noa,b.carowner', 'textEcarno', "car2_b.aspx?;;;a.carownerno!='' "],
 				['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],
@@ -393,7 +393,7 @@
 					return;
 				}         	
 	
-				t_err = q_chkEmpField([['txtCarno', q_getMsg('lblCarno')],['txtMon', q_getMsg('lblMon')]]);
+				t_err = q_chkEmpField([['txtCarno', q_getMsg('lblCarno')],['txtCarownerno', '車主編號'],['txtCarowner', '車主名稱'],['txtMon', q_getMsg('lblMon')]]);
 				if(t_err.length > 0) {
 					alert(t_err);
 					return;
@@ -1249,7 +1249,7 @@
 			<div class='dbbm' style="width: 73%;float: left;">
 				<table class="tbbm"  id="tbbm"  border="0" cellpadding='2'  cellspacing='5'>
 					<tr class="tr1">
-						<td class="td1" ><span> </span><a id="lblCarno" class="lbl btn"></a></td>
+						<td class="td1" ><span> </span><a id="lblCarno" class="lbl"></a></td>
 						<td class="td2" colspan="3">
 							<input id="txtCarno"  type="text"  class="txt" style="width:90px;"/>
 							<input id="txtCarownerno"  type="text" class="txt" style="width:50px;"/>
