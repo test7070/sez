@@ -221,6 +221,8 @@
             //font
             iTextSharp.text.pdf.BaseFont bfChinese = iTextSharp.text.pdf.BaseFont.CreateFont(@"C:\windows\fonts\msjh.ttf", iTextSharp.text.pdf.BaseFont.IDENTITY_H, iTextSharp.text.pdf.BaseFont.NOT_EMBEDDED);
             iTextSharp.text.pdf.BaseFont bfNumber = iTextSharp.text.pdf.BaseFont.CreateFont(@"C:\windows\fonts\ariblk.ttf", iTextSharp.text.pdf.BaseFont.IDENTITY_H, iTextSharp.text.pdf.BaseFont.NOT_EMBEDDED);
+            //iTextSharp.text.pdf.BaseFont bfChinese = iTextSharp.text.pdf.BaseFont.CreateFont(@"C:\windows\fonts\DFT_L7.ttf", iTextSharp.text.pdf.BaseFont.IDENTITY_H, iTextSharp.text.pdf.BaseFont.NOT_EMBEDDED);
+            //iTextSharp.text.pdf.BaseFont bfNumber = iTextSharp.text.pdf.BaseFont.CreateFont(@"C:\windows\fonts\DFT_L7.ttf", iTextSharp.text.pdf.BaseFont.IDENTITY_H, iTextSharp.text.pdf.BaseFont.NOT_EMBEDDED);
             
             doc1.Open();
             iTextSharp.text.pdf.PdfContentByte cb = pdfWriter.DirectContent;
@@ -259,7 +261,7 @@
 
                     cb.SetFontAndSize(bfChinese, Int32.Parse(item.fontsize));
                     cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)gqbLabel[i]).b04, 272 + shiftX, 187 + shiftY, 0);
-                    cb.SetFontAndSize(bfChinese, 14);
+                    cb.SetFontAndSize(bfChinese, 13);
                     cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)gqbLabel[i]).b05, 467 + shiftX, 187 + shiftY, 0);
 
                     cb.SetFontAndSize(bfChinese, 16);
