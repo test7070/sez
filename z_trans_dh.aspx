@@ -15,12 +15,6 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-            if (location.href.indexOf('?') < 0) {
-                location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
-            }
-            var t_carteam = null;
-            var t_calctypes = null;
-            
             aPop = new Array(['txtXtggno', 'lblXtggno', 'tgg', 'noa,comp', 'txtXtggno', 'tgg_b.aspx']
         	,['txtXcardealno', 'lblXcardealno', 'acomp', 'noa,acomp', 'txtXcardealno', 'acomp_b.aspx']);
             
@@ -31,26 +25,10 @@
             });
 			
             function q_gfPost() {
-                q_gt('carteam', '', 0, 0, 0, "load_1");
+                LoadFinish();
             }
             function q_gtPost(t_name) {
                 switch (t_name) {
-                    case 'load_1':
-                        t_carteam = '';
-                        var as = _q_appendData("carteam", "", true);
-                        for ( i = 0; i < as.length; i++) {
-                            t_carteam += (t_carteam.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
-                        }
-                        q_gt('calctype2', '', 0, 0, 0, "load_2");
-                        break;
-                    case 'load_2':
-                        t_calctypes = '';
-                        var as = _q_appendData("calctypes", "", true);
-                        for ( i = 0; i < as.length; i++) {
-                            t_calctypes += (t_calctypes.length > 0 ? ',' : '') + as[i].noa + as[i].noq + '@' + as[i].typea;
-                        }
-                        LoadFinish();
-                        break;
                     default:
                         break;
                 }
@@ -58,73 +36,42 @@
             function LoadFinish() {
             	$('#q_report').q_report({
                     fileName : 'z_trans_dh',
-                    options : [{/*[1]-年度*/
-                        type : '0',
-                        name : 'accy',
-                        value : q_getId()[4]
-                    }, {/*1  [2][3]*/
+                    options : [{
+						type : '0', //[1]
+						name : 'path',
+						value : location.protocol + '//' +location.hostname + location.pathname.toLowerCase().replace('z_orde_rkp.aspx','')
+					},{
+						type : '0', //[2]
+						name : 'db',
+						value : q_db
+					}, {/*1  [3][4]*/
                         type : '1',
                         name : 'xdate'
-                    }, {/*2  [4][5]*/
+                    }, {/*2  [5][6]*/
                         type : '1',
                         name : 'xtrandate'
-                    }, {/*3 [6]*/
-                        type : '6',
-                        name : 'xcarno'
-                    }, {/*4 [7]*/
-                        type : '6',
-                        name : 'xtggno'
-                    }, {/*5 [8]*/
-                        type : '6',
-                        name : 'xcardealno'
-                    }, {/*6-[9]-車隊*/
-                        type : '8',
-                        name : 'xcarteam',
-                        value : t_carteam.split(',')
-                    }, {/*7-[10]-計算類別*/
-                        type : '8',
-                        name : 'xcalctype',
-                        value : t_calctypes.split(',')
-                    }, {/*8 [11],[12]*/
+                    }, {/*3 [7],[8]*/
                         type : '2',
                         name : 'xcustno',
                         dbf : 'cust',
                         index : 'noa,comp',
                         src : 'cust_b.aspx'
-                    }, {/*9-[13],[14]-起迄地點*/
+                    }, {/*4 [9],[10]-起迄地點*/
                         type : '2',
                         name : 'xaddr',
                         dbf : 'addr',
                         index : 'noa,addr',
                         src : 'addr_b.aspx'
-                    }, {/*10 [15],[16]*/
+                    }, {/*5 [11],[12]*/
                         type : '2',
                         name : 'xdriver',
                         dbf : 'driver',
                         index : 'noa,namea',
                         src : 'driver_b.aspx'
-                    }, {/*11-[17]-pay*/
-                        type : '8',
-                        name : 'xpay',
-                        value : ('pay@已立帳,unpay@未立帳').split(',')
-                    }, {/*12-[18]-pay*/
-                        type : '8',
-                        name : 'xpay',
-                        value : ('pay@已付款,unpay@未付款').split(',')
-                    }, {/*13 [19][20]*/
-                        type : '1',
-                        name : 'mon'
-                    },{/*14 [21][22]*/
-                        type : '1',
-                        name : 'xadate'
-                    }, {/*15 [23]*/
-                        type : '8',
-                        name : 'xoption01',
-                        value : q_getMsg('toption01').split('&')
-                    }, {/*16 [24]*/
-						type : '6',
-						name : 'xnoa'
-					}]
+                    }, {/*3 [6]*/
+                        type : '6',
+                        name : 'xcarno'
+                    }]
                 });
                 $('#txtXdate1').mask('999/99/99');
                 $('#txtXdate1').datepicker();
@@ -135,8 +82,6 @@
                 $('#txtXtrandate2').mask('999/99/99');
                 $('#txtXtrandate2').datepicker();
                 
-                $('#chkXcarteam').children('input').attr('checked', 'checked');
-                $('#chkXcalctype').children('input').attr('checked', 'checked');
                 q_popAssign();
                 q_langShow();
                 
@@ -149,7 +94,6 @@
 				t_month = t_month > 9 ? t_month + '' : '0' + t_month;
 				t_day = t_date.getUTCDate();
 				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-				$('#txtMon1').val(t_year + '/' + t_month);
 				
 				t_date = new Date();
 				t_date.setDate(35);
@@ -160,9 +104,8 @@
 				t_month = t_month > 9 ? t_month + '' : '0' + t_month;
 				t_day = t_date.getUTCDate();
 				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-				$('#txtMon2').val(t_year + '/' + t_month);
 				
-								var t_date, t_year, t_month, t_day;
+				var t_date, t_year, t_month, t_day;
 				t_date = new Date();
 				t_date.setDate(1);
 				t_year = t_date.getUTCFullYear() - 1911;
@@ -183,14 +126,6 @@
 				t_day = t_date.getUTCDate();
 				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
 				$('#txtDate2').val(t_year + '/' + t_month + '/' + t_day );
-				
-				$('#txtDate1').mask('999/99/99');
-                $('#txtDate1').datepicker();
-                $('#txtDate2').mask('999/99/99');
-                $('#txtDate2').datepicker();
-				
-				$('#txtMon1').mask('999/99');
-				$('#txtMon2').mask('999/99');
             }
 		</script>
 	</head>
