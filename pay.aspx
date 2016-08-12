@@ -1150,8 +1150,8 @@
 						</td>
                         <td><span> </span><a id='lblTgg' class="lbl btn"> </a></td>
 						<td colspan='2'>
-	                        <input id="txtTggno" type="text" class="txt c4"/>
-	                        <input id="txtComp"  type="text" class="txt c5" />
+	                        <input id="txtTggno" type="text" class="txt" style="width:40%;"/>
+	                        <input id="txtComp"  type="text" class="txt" style="width:60%;" />
 						</td>
 						<td colspan="2">
 							<input type="button" id="btnVcc" class="txt c1 " style="width: 95px;"/>

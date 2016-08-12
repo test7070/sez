@@ -47,10 +47,8 @@
                     dataErr = false;
                     return;
                 }
-
                 mainForm(1);
             }
-
             function mainPost() {
                 bbmMask = [['txtDatea', r_picd],['txtBdate', r_picd]];
                 q_getFormat();
@@ -60,9 +58,7 @@
                 $('#txtBdate').focusout(function() {
                     q_cd($(this).val(), $(this));
                 });
-
             }
-
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
@@ -72,22 +68,18 @@
                 }
                 b_pop = '';
             }
-
             function q_gtPost(t_name) {
                 switch (t_name) {
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
-
                         break;
                 }  /// end switch
             }
-
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
             }
-
             function btnOk() {
                 var t_err = '';
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCustno', q_getMsg('lblCustno')]]);
@@ -97,7 +89,6 @@
                 }
                 sum();
                 $('#txtWorker').val(r_name);
-
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
@@ -105,44 +96,35 @@
                 else
                     wrServer(t_noa);
             }
-
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
                 q_box('custprice_s.aspx', q_name + '_s', "500px", "320px", q_getMsg("popSeek"));
             }
-
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtBdate').val(q_date());
                 $('#txtBdate').focus();
-
             }
-
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
                 $('#txtBdate').focus();
             }
-
             function btnPrint() {
                 q_box('z_custprice.aspx', '', "95%", "650px", q_getMsg("popPrint"));
             }
-
             function wrServer(key_value) {
                 var i;
-
                 xmlSql = '';
                 if (q_cur == 2)/// popSave
                     xmlSql = q_preXml();
-
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
                 _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
             }
-
             function bbsAssign() {
                 for (var i = 0; i < q_bbsCount; i++) {
                     if (!$('#btnMinus_' + i).hasClass('isAssign')) {
@@ -284,7 +266,6 @@
 				}
 				$('#txtPrice2_'+n).val(price);
 			}
-
             function bbsSave(as) {
                 t_err = '';
                 if (!as['productno'] && !as['product']) {
@@ -296,14 +277,12 @@
                 as['bdate'] = abbm2['bdate'];
                 return true;
             }
-
             function sum() {
                 var t1 = 0, t_unit, t_mount, t_income = 0, t_pay = 0;
                 for (var j = 0; j < q_bbsCount; j++) {
                  
                 }// j
             }
-
             function refresh(recno) {
                 _refresh(recno);
                 if(q_getPara('sys.isport')=='1'){ //外銷
@@ -312,7 +291,6 @@
                 	$('#lblCustno').text('客戶');
                 }
             }
-
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
                 if(q_getPara('sys.isport')=='1'){ //外銷
@@ -321,58 +299,45 @@
                 	$('#lblCustno').text('客戶');
                 }
             }
-
             function btnMinus(id) {
                 _btnMinus(id);
                 sum();
             }
-
             function btnPlus(org_htm, dest_tag, afield) {
                 _btnPlus(org_htm, dest_tag, afield);
             }
-
             function q_appendData(t_Table) {
                 return _q_appendData(t_Table);
             }
-
             function btnSeek() {
                 _btnSeek();
             }
-
             function btnTop() {
                 _btnTop();
             }
-
             function btnPrev() {
                 _btnPrev();
             }
-
             function btnPrevPage() {
                 _btnPrevPage();
             }
-
             function btnNext() {
                 _btnNext();
             }
-
             function btnNextPage() {
                 _btnNextPage();
             }
-
             function btnBott() {
                 _btnBott();
             }
-
             function q_brwAssign(s1) {
                 _q_brwAssign(s1);
             }
-
             function btnDele() {
                 if (q_chkClose())
                     return;
                 _btnDele();
             }
-
             function btnCancel() {
                 _btnCancel();
             }
@@ -523,7 +488,6 @@
             .tbbs a {
                 font-size: medium;
             }
-
             input[type="text"], input[type="button"] {
                 font-size: medium;
             }
