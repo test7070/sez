@@ -1209,7 +1209,7 @@
 				font-size: medium;
 			}
 			.dbbs {
-				width: 1900px;
+				width: 1800px;
 			}
 			.dbbs .tbbs {
 				margin: 0;
@@ -1437,7 +1437,7 @@
 							<a id='lblMount_s' style="color: red;font-weight: bold;"> </a>
 						</td>
 						<!--<td style="width:80px;"><a id='lblCuadate_s'> </a></td>-->
-						<td style="width:130px;"><a id='lblStation_s'> </a></td>
+						<!--<td style="width:130px;"><a id='lblStation_s'> </a></td>-->
 						<!--<td style="width:100px;"><a id='lblDayborn_s'> </a></td>-->
 						<td style="width:180px;"><a id='lblWorkno_s'> </a></td>
 						<!--<td style="width:180px;"><a id='lblWorkhno_s'> </a></td>
@@ -1488,11 +1488,11 @@
 						<td style="display: none;"><input id="txtPlanmount.*" type="text" class="txt c1 num orde"/></td>-->
 						<td><input id="txtMount.*" type="text" class="txt c1 num orde odm"/></td>
 						<!--<td><input id="txtCuadate.*" type="text" class="txt c1"/></td>-->
-						<td>
+						<!--<td>
 							<input id="txtStationno.*" type="text" class="txt c1" style="width: 70%"/>
 							<input id="btnStation.*" type="button" style="float:left;font-size: medium; font-weight: bold;" value="."/>
 							<input id="txtStation.*" type="text" class="txt c1"/>
-						</td>
+						</td>-->
 						<!--<td><input id="txtDayborn.*" type="text" class="txt c1 num"/></td>-->
 						<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
 						<!--<td><input id="txtWorkhno.*" type="text" class="txt c1"/></td>

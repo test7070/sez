@@ -1212,7 +1212,7 @@
 			function btnOk() {
 				t_err = '';
 				t_err = q_chkEmpField([ ['txtNoa', q_getMsg('lblNoa')], ['txtCustno', q_getMsg('lblCustno')], ['txtCno', q_getMsg('btnAcomp')]
-				, ['txtGdate', q_getMsg('lblFactory_r')] ]);/*['txtDate3', q_getMsg('lblWeek')]*/
+				, ['txtGdate', 'Factory'] ]);/*['txtDate3', q_getMsg('lblWeek')]*/
 				if (t_err.length > 0) {
 					alert(t_err);
 					return;
@@ -2740,7 +2740,7 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 2385px;">
+		<div class='dbbs' style="width: 2400px;">
 			<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1'>
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:45px;"><input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" /></td>
@@ -2764,7 +2764,7 @@
 					<td align="center" style="width:150px;display: none;" class="isimg"><a id='lblImg_s'> </a></td>
 					<td align="center" style="width:85px;"><a id='lblGemounts'> </a></td>
 					<td align="center" style="width:175px;"><a id='lblMemos_r'>Remark</a></td>
-					<td align="center" style="width:85px;"><a id='lblDateas'> </a></td>
+					<td align="center" style="width:95px;"><a id='lblDateas'> </a></td>
 					<td align="center" style="width:43px;"><a id='lblEndas_r'>Closed</a></td>
 					<td align="center" style="width:43px;"><a id='lblCancels_r'>Cancel</a></td>
 					<td align="center" style="width:43px;"><a id='lblBorn'> </a></td>
