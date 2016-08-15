@@ -182,6 +182,7 @@
                 	t_where=t_where+"(a.datea between '"+t_bdate+"' and '"+t_edate+"' ) and ";
                 	t_where=t_where+"a.stationno='"+$('#txtStationno').val()+"' ";
                 	
+                	 
                 	t_where=t_where+"and a.workno not like 'W[0-9]%' ";
                 	
                 	//排序

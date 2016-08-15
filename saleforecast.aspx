@@ -132,7 +132,7 @@
 				_btnIns();
 				$('#txtNoa').val('AUTO');
 				$('#txtDatea').val(q_date());
-				$('#txtMon').val(q_date().substr(0,6));
+				$('#txtMon').val(q_date().substr(0,r_lenm));
 				$('#txtMon').focus();
 			}
 
