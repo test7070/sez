@@ -22,7 +22,7 @@
 			q_tables = 's';
 			var q_name = "orde";
 			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtSales', 'txtOrdbno', 'txtOrdcno','txtUmmno','txtCuft','txtCasemount','txtCuftnotv','txtAgent','txtGtime'];
-			var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtC1', 'txtNotv','txtPackwayno','txtPackway','txtSprice','txtBenifit','txtPayterms'
+			var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtC1', 'txtNotv','txtPackway','txtSprice','txtBenifit','txtPayterms'
 										,'txtSize','txtProfit','txtDime'];
 			var bbmNum = [['txtTotal', 10, 0, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1],['txtFloata', 10, 5, 1], ['txtDeposit', 15, 0, 1],['txtCuft', 15, 2, 1], ['txtTotalus', 15, 2, 1]];//,['txtDate3', 2, 0, 1]
 			var bbsNum = [['txtCuft', 15, 2, 1]];

@@ -18,7 +18,7 @@
 			q_tables = 't';
 			var q_name = "workg";
 			var q_readonly = ['txtNoa','txtFact', 'txtDatea', 'txtWorker', 'txtWorker2', 'txtOrdbno'];//105/03/30 開放 'txtWadate' 
-			var q_readonlys = ['txtWorkno','txtWorkhno', 'txtIndate', 'txtInmount', 'txtWmount', 'txtOrdeno','txtUindate'];
+			var q_readonlys = ['txtWorkno','txtWorkhno', 'txtIndate', 'txtInmount', 'txtWmount', 'txtUindate'];
 			var q_readonlyt = [];
 			var bbmNum = [];
 			var bbsNum = [
