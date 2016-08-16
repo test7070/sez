@@ -800,7 +800,7 @@
                 for (var i = 0; i < q_bbsCount; i++) {
                 	t_gen=t_genorg;//目前產能
                 	total_hours=q_add( total_hours,dec($('#txtHours_'+i).val()));
-                	if($('#txtCuadate_'+i).val()!='' && $('#txtCuadate_'+i).val().length==9){
+                	if($('#txtCuadate_'+i).val()!='' && $('#txtCuadate_'+i).val().length==r_lend){
 		                //取得當天gen
 		                for (var k = 0; k < t_cugt.length; k++) {
 		                	if(t_cugt[k].datea==$('#txtCuadate_'+i).val()){
@@ -977,7 +977,7 @@
                 for (var i = 0; i < q_bbsCount; i++) {
                 	t_gen=t_genorg;//目前產能
                 	total_hours=q_add( total_hours,dec($('#txtHours_'+i).val()));
-                	if($('#txtCuadate_'+i).val()!='' && $('#txtCuadate_'+i).val().length==9){
+                	if($('#txtCuadate_'+i).val()!='' && $('#txtCuadate_'+i).val().length==r_lend){
 		                //取得當天gen
 		                for (var k = 0; k < t_cugt.length; k++) {
 		                	if(t_cugt[k].datea==$('#txtCuadate_'+i).val()){
