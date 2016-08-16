@@ -692,6 +692,15 @@
 			}
 			
 			function sum_xy() {
+				//讀取發票聯式
+				var t_where = " where=^^ '" + $('#txtNoa').val() + "' between binvono and einvono ^^";
+				q_gt('vccar', t_where, 0, 0, 0, 'getcust', r_accy,1);
+				var as = _q_appendData("vccar", "", true);
+				var tp23='';
+				if (as[0] != undefined) {
+					tp23=as[0].rev;
+				}
+				
 				$('#txtTax').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
 				var t_mounts, t_prices, t_moneys=0, t_mount = 0, t_money = 0, t_taxrate=0.5, t_tax=0, t_total=0;
 				if (!emp($('#txtVccno').val())){
@@ -748,8 +757,12 @@
 						if($('#chkAtax').prop('checked')){
 							t_tax=round(q_float('txtTax'), 0);
 							$('#txtTax').css('color', 'black').css('background', 'white').removeAttr('readonly');  
-						}else
-							t_tax = round(t_money * t_taxrate, 0);
+						}else{
+							if(tp23=='2') //二聯式發票
+								t_tax = 0;
+							else
+								t_tax = round(t_money * t_taxrate, 0);
+						}
 						t_total = t_money + t_tax;
 						break;
 					case '2':
