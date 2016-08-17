@@ -709,7 +709,8 @@
 					//買受人
 					$('#txtBuyerno').attr('readonly', false);
 					$('#txtBuyer').attr('readonly', false);
-					$('#cmbTaxtype').attr('disabled','disabled');
+					if(r_rank<5)
+						$('#cmbTaxtype').attr('disabled','disabled');
 					$('#txtNoa').attr('disabled','disabled');
 					//銷貨客戶
 					$('#txtCustno').attr('readonly', true);
