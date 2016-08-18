@@ -56,8 +56,15 @@
                 
                 if(q_getPara('sys.project').toUpperCase()=='BV')
         			document.title='7.2使用紀錄查詢'
+        			
+        		if (r_rank < 7) {
+	                $('#txtDate1').attr('disabled', 'disabled');
+	                $('#txtDate2').attr('disabled', 'disabled');
+	                $('#txtSssno1a').attr('disabled', 'disabled');
+	                $('#txtSssno2a').attr('disabled', 'disabled');
+	            }
             }
-
+           
             function q_boxClose(s2) {
             }
 

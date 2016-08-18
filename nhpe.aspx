@@ -17,7 +17,7 @@
         }
         var decbbm = ['rank', 'credit'];
         var q_name = "nhpe";
-        var q_readonly = [];
+        var q_readonly = ['txtNoa','txtNamea'];
         var bbmNum = [];
         var bbmMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
@@ -171,6 +171,7 @@
                 q_gtnoa(q_name, t_noa);
             else
                 wrServer(t_noa);
+
         }
 
         function wrServer(key_value) {
@@ -421,13 +422,13 @@
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
             <tr>
                <td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
-               <td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
+               <td class="td2"><input id="txtNoa"  type="text"  class="txt c1" /></td>
                <td class="td3"> </td>
                <td class="td4"> </td>
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblNamea' class="lbl"> </a></td>
-               <td class="td2"><input id="txtNamea"  type="text"  class="txt c1"/></td>
+               <td class="td2"><input id="txtNamea"  type="text"  class="txt c1" /></td>
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblPasswd' class="lbl"> </a></td>
