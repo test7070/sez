@@ -701,6 +701,10 @@
 					tp23=as[0].rev;
 				}
 				
+				if(r_rank>=9 && (q_cur==1 || q_cur==2)){ //105/08/19 開放可修改
+					$('#txtVccno').attr('readonly', false);
+				}
+				
 				$('#txtTax').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
 				var t_mounts, t_prices, t_moneys=0, t_mount = 0, t_money = 0, t_taxrate=0.5, t_tax=0, t_total=0;
 				if (!emp($('#txtVccno').val())){
