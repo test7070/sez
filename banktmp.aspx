@@ -90,7 +90,7 @@
                                 for (var i = 0; i < as.length; i++) {
                                     alert(as[i].errmsg);
                                 }
-                            } else {
+                            }/* else {
                                 var t_array = new Array();
                                 for (var i = 0; i < as.length; i++) {
                                     t_array.push({type: 'checkUf',noa:as[i].noa});
@@ -103,7 +103,8 @@
                                     q_func('qtxt.query.'+JSON.stringify(t_array), 'banktmp.txt,checkuf,' + t_noa );
                                 }
                                 alert('共兌現 '+as[0].mount+' 筆支票');
-                            }
+                            }*/
+                            alert('done!');
                         } else {
                             alert('無資料!');
 

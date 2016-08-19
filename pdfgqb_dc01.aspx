@@ -66,7 +66,7 @@
 		indate nvarchar(20)
 	)
 	insert into @tmps 
-	select '0',noa,gqbno,tcompno,tcomp,datea,isnull([money],0),'','',case when LEN(comp)>0 then comp else memo end,indate 
+	select '0',noa,gqbno,tcompno,tcomp,indate,isnull([money],0),'','',case when LEN(comp)>0 then comp else memo end,indate 
 	from gqb where (gqbno between @t_bgqbno and @t_egqbno) order by gqbno
 	------------------------------------------------------------------------------
 	declare @string nvarchar(max)
@@ -264,7 +264,7 @@
                     cb.SetFontAndSize(bfChinese, 13);
                     cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)gqbLabel[i]).b05, 467 + shiftX, 187 + shiftY, 0);
 
-                    cb.SetFontAndSize(bfChinese, 16);
+                    cb.SetFontAndSize(bfChinese, 13);
                     cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)gqbLabel[i]).b06, 274 + shiftX, 158 + shiftY, 0);
                    
                     cb.EndText();
