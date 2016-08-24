@@ -461,7 +461,7 @@
 			<table id="tbbs" class='tbbs' >
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:30px;">
-						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;display: none;"  />
+						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:400px;"><a id='lblItem_s'> </a></td>
@@ -472,7 +472,7 @@
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td align="center">
-						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;display: none;" />
+						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 						<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>		
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>	
