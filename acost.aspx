@@ -203,6 +203,13 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                if(t_para){
+                	$('#txtDatea').datepicker('destroy');
+                	$('#btnImport').attr('disabled','disabled');
+                }else{
+                	$('#txtDatea').datepicker();
+                	$('#btnImport').removeAttr('disabled');
+                }
             }
 
             function btnMinus(id) {
@@ -428,6 +435,7 @@
 						<td> </td>
 						<td> </td>
 						<td> </td>
+						<td> </td>
 						<td class="tdZ"> </td>
 					</tr>
 					<tr>
@@ -453,6 +461,7 @@
 						<td><input id="txtWorker" type="text"  class="txt c1"/></td>
 						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
 						<td><input id="txtWorker2" type="text"  class="txt c1"/></td>
+						<td><input type="button" id="btnImport" class="txt c1" value="匯入"></td>
 					</tr>
 				</table>
 			</div>
