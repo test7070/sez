@@ -21,7 +21,7 @@
             var bbmNum = [];
             var bbsNum = [['txtMoney1',10,0,1],['txtMoney2',10,0,1],['txtMoney3',10,0,1]];
             var bbtNum = [];
-            var bbmMask = [['txtDatea','999/99/99']];
+            var bbmMask = [['txtDatea','999/99/99'],['txtMon','999/99']];
             var bbsMask = [];
             var bbtMask = [];
             q_sqlCount = 6;
@@ -62,7 +62,7 @@
                 
                 $('#btnImport').click(function(e){
                 	var t_mon = $('#txtMon').val();
-                	var t_typea = $('#cmdTypea').val();
+                	var t_typea = $('#cmbTypea').val();
                 	if(t_mon.length==0){
                 		alert('請輸入月份!');
                 		return;
@@ -112,7 +112,7 @@
                         	}
                         	for(var i=0;i<as.length;i++){
                         		$('#txtNoq_'+i).val(as[i].noq);
-                        		$('#txtItme_'+i).val(as[i].item);
+                        		$('#txtItem_'+i).val(as[i].item);
                         		$('#txtAcc1_'+i).val(as[i].acc1);
                         		$('#txtMoney1_'+i).val(as[i].money1);
                         		$('#txtMoney2_'+i).val(as[i].money2);
@@ -488,6 +488,8 @@
 					<tr>
 						<td><span> </span><a id="lblTypea" class="lbl">類別</a></td>
 						<td><select id="cmbTypea" class="txt c1"> </select></td>
+						<td><span> </span><a id="lblMon" class="lbl"> </a></td>
+						<td><input id="txtMon" type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
