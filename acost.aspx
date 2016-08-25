@@ -69,34 +69,6 @@
                 	}
                 	q_func('qtxt.query.import', 'acost.txt,import,'+ encodeURI(t_mon) + ';' + encodeURI(t_typea));	
                 });
-                
-                      
-                $('#cmbTypea').change(function(e){
-                	var tmp = new Array();
-                	switch($(this).val()){
-                		case '1':
-                			
-                		/*	tmp.plus({}'54})
-                		
-                		
-                			直接人工     54
-        					製造費用	  55    		
-                			勞務成本     5701','5799
-                			修理成本     5801','5899
-                			其他營業成本  '5901','5999' 
-                			
-                			進銷成本減項  5205','5206*/
-                			break;
-                		case '2':
-                			break;
-                		case '3':
-                			break;
-                		case '4':
-                			break;
-                		default:
-                			break;
-                	}
-                });               
             }
             function q_funcPost(t_func, result) {
                 switch(t_func) {
