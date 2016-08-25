@@ -47,8 +47,8 @@
             
                                   
             function main() {
-                if (dataErr) {
-                    dataErr = false;
+                if (dataErr) { 
+                	dataErr = false;
                     return;
                 }
                 mainForm(0);
@@ -58,7 +58,19 @@
                 q_getFormat();
                 q_mask(bbmMask);      
                 
-                q_cmbParse("cmbTypea", "@,1@查帳,2@書審,3@工程業,4@建設業");       
+                q_cmbParse("cmbTypea", "1@查帳,2@書審,3@工程業,4@建設業"); 
+                
+                $('#btnImport').click(function(e){
+                	var t_mon = $('#txtMon').val();
+                	var t_typea = $('#cmdTypea').val();
+                	if(t_mon.length==0){
+                		alert('請輸入月份!');
+                		return;
+                	}
+                	q_func('qtxt.query.import', 'acost.txt,import,'+ encodeURI(t_mon) + ';' + encodeURI(t_typea));	
+                });
+                
+                      
                 $('#cmbTypea').change(function(e){
                 	var tmp = new Array();
                 	switch($(this).val()){
@@ -86,7 +98,32 @@
                 	}
                 });               
             }
-            
+            function q_funcPost(t_func, result) {
+                switch(t_func) {
+                	case 'qtxt.query.import':
+                		var t_msg = '';
+                		var as = _q_appendData("tmp0", "", true, true);
+                        if(as[0]!=undefined){
+                        	for(var i=0;i<q_bbsCount;i++){
+                        		$('#btnMinus_'+i).click();
+                        	}
+                        	while(q_bbsCount<as.length){
+                        		$('#btnPlus').click();
+                        	}
+                        	for(var i=0;i<as.length;i++){
+                        		$('#txtNoq_'+i).val(as[i].noq);
+                        		$('#txtItme_'+i).val(as[i].item);
+                        		$('#txtAcc1_'+i).val(as[i].acc1);
+                        		$('#txtMoney1_'+i).val(as[i].money1);
+                        		$('#txtMoney2_'+i).val(as[i].money2);
+                        		$('#txtMoney3_'+i).val(as[i].money3);
+                        	}
+                        }
+                		break;
+                    default:
+                    	break;  
+                }
+            }
             function q_gtPost(t_name) {
                 switch (t_name) { 
                     case q_name:
