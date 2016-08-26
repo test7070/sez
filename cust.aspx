@@ -41,8 +41,7 @@
 				q_popSave(xmlTable);
 				// for conn_b.aspx
 				q_brwCount();
-				var t_where = "where=^^ noa='" + r_userno + "' ^^";
-				q_gt('sss', t_where, 0, 0, 0, "", r_accy);
+				q_gt('acomp', "where=^^ 1=1 ^^", 0, 0, 0, "", r_accy);
 				$('#txtNoa').focus();
 			});
 			function currentData() {
@@ -323,7 +322,8 @@
 				}
 				b_pop = '';
 			}
-
+			
+			var r_acomp='';
 			function q_gtPost(t_name) {
 				switch (t_name) {
 					case 'getMaxNoa':
@@ -370,10 +370,22 @@
 							wrServer($('#txtNoa').val());
 						}
 						break;
+					case 'acomp':
+						r_acomp = _q_appendData("acomp", "", true);
+						var t_where = "where=^^ noa='" + r_userno + "' ^^";
+						q_gt('sss', t_where, 0, 0, 0, "", r_accy);
+						break;
 					case 'sss':
 						var as = _q_appendData("sss", "", true);
-						if (as[0] == undefined || (as[0].issales == 'false') || (as[0].issales == false) 
-						|| q_getPara('sys.project').toUpperCase()=='VU' ) {
+						var nowhere=false;
+						for (var i=0;i<r_acomp.length;i++){
+							if(r_acomp[i].acomp.indexOf('智勝')>-1 || r_acomp[i].acomp.indexOf('三泰')>-1){
+								nowhere=true;
+								break;
+							}
+						}
+						
+						if (as[0] == undefined || (as[0].issales == 'false') || (as[0].issales == false) || nowhere ) {
 							q_gt(q_name, q_content, q_sqlCount, 1);
 						} else {
 							q_content = "where=^^ salesno='" + r_userno + "'^^";
