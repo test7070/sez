@@ -17,7 +17,7 @@
         }
         var decbbm = ['rank', 'credit'];
         var q_name = "nhpe";
-        var q_readonly = ['txtNoa','txtNamea'];
+        var q_readonly = [];
         var bbmNum = [];
         var bbmMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
@@ -71,6 +71,7 @@
 			    $('#textPassword').val( $('#txtPasswd').val());
 
 			});
+			
 			$('#btnCopy').click(function () {
 			    if (r_rank >= 8) {
 			        t_noa = $.trim($('#txtNoa').val());
@@ -132,9 +133,11 @@
         function btnIns() {
             _btnIns();
             $('#txtNoa').focus();
+            
         }
 
         function btnModi() {
+			$('#txtNoa').attr('disabled', 'disabled');
             if (emp($('#txtNoa').val()))
                 return;
             
@@ -142,10 +145,8 @@
                 alert(mess_auth1[r_lang]);
                 return;
             }
-
             _btnModi(1);
             $('#txtNamea').focus();
-
             $('#textPassword').val($('#txtPasswd').val());
         }
 
@@ -191,13 +192,23 @@
 
         function readonly(t_para, empty) {
             if (r_rank < 8)
-                q_readonly = ['txtPartno', 'txtPart', 'txtQ_id', 'txtRank', 'txtCredit', 'combCopy','chkOuts'];
+                q_readonly = ['txtNoa','txtNamea','txtPartno', 'txtPart', 'txtQ_id', 'txtRank', 'txtCredit', 'combCopy','chkOuts'];
             _readonly(t_para, empty);
 
             if (r_rank < 8) {
                 $('#btnCopy').attr('disabled', 'disabled');
                 $('#combCopy').attr('disabled', 'disabled');
                 //$('#btnAdd').attr('disabled', 'disabled');
+                $('#btnIns').hide();
+                $('#btnSeek').hide();
+                $('#btnPrint').hide();
+                $('#btnDele').hide();
+            }
+            if (r_rank < 7) {
+                $('#btnCopy').attr('disabled', 'disabled');
+                $('#combCopy').attr('disabled', 'disabled');
+                //$('#btnAdd').attr('disabled', 'disabled');
+
                 $('#btnIns').hide();
                 $('#btnSeek').hide();
                 $('#btnPrint').hide();

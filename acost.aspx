@@ -14,11 +14,6 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-            this.errorHandler = null;
-            function onPageError(error) {
-                alert("An error occurred:\r\n" + error.Message);
-            }
-
             q_tables = 't';
             var q_name = "acost";
             var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
@@ -26,7 +21,7 @@
             var bbmNum = [];
             var bbsNum = [['txtMoney1',10,0,1],['txtMoney2',10,0,1],['txtMoney3',10,0,1]];
             var bbtNum = [];
-            var bbmMask = [['txtDeadline','999/99/99'],['txtDatea','999/99/99']];
+            var bbmMask = [['txtDatea','999/99/99'],['txtMon','999/99']];
             var bbsMask = [];
             var bbtMask = [];
             q_sqlCount = 6;
@@ -36,8 +31,12 @@
             brwKey = 'accy';
             q_desc = 1;
             brwCount2 = 4;
-            aPop = new Array(['txtAcc1__', '', 'acc', 'acc1,acc2', 'txtAcc1__,txtGtitle__', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
+            aPop = new Array();
+			
+			function sum(){       
 
+            }
+            
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -46,49 +45,10 @@
                 q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
             });        
             
-            var list = new Array();
-            list.push({indexs:"12",item:"01.期初商品",acc1:"1131"});
-            list.push({indexs:"12",item:"02.本期進貨",acc1:"5200~5299"});    
-            list.push({indexs:"12",item:"03.期末存貨",acc1:"1131"});
-            list.push({indexs:"02",item:"04.加:其他",acc1:""});
-            list.push({indexs:"02",item:"05.減:其他",acc1:""});
-            list.push({indexs:"03",item:"進銷成本",acc1:""});                          
-            list.push({indexs:"11",item:"06.期初存料",acc1:"1137"});
-            list.push({indexs:"11",item:"07.本期進料",acc1:"5311,5313,5314"});    
-            list.push({indexs:"11",item:"08.期末存料",acc1:"1137"});
-            list.push({indexs:"01",item:"09.加:其他",acc1:""});
-            list.push({indexs:"01",item:"10.減:其他",acc1:""});
-            list.push({indexs:"02",item:"直接原料",acc1:""});
-            list.push({indexs:"11",item:"11.期初存料",acc1:"1140"});
-            list.push({indexs:"11",item:"12.本期進料",acc1:"6315,6317,6318"});    
-            list.push({indexs:"11",item:"13.期末存料",acc1:"1140"});
-            list.push({indexs:"01",item:"14.加:其他",acc1:""});
-            list.push({indexs:"01",item:"15.減:其他",acc1:""});
-            list.push({indexs:"02",item:"間接原料",acc1:""});
-            list.push({indexs:"12",item:"16.直接人工",acc1:"5400~5499"});
-            list.push({indexs:"12",item:"17.製造費用",acc1:"5500~5599"});
-            list.push({indexs:"02",item:"製造成本",acc1:""});
-            list.push({indexs:"11",item:"18.期初再製品",acc1:"1136,1139"});
-            list.push({indexs:"11",item:"19.期末再製品",acc1:"1136,1139"});    
-            list.push({indexs:"01",item:"20.加:其他",acc1:""});
-            list.push({indexs:"01",item:"21.減:其他",acc1:""});
-            list.push({indexs:"02",item:"製成品成本",acc1:""});
-            list.push({indexs:"11",item:"22.期初製成品",acc1:"1133"});
-            list.push({indexs:"11",item:"23.期末製成品",acc1:"1133"});    
-            list.push({indexs:"01",item:"24.加:其他",acc1:""});
-            list.push({indexs:"01",item:"25.減:其他",acc1:""});
-            list.push({indexs:"01",item:"26.外銷估列應收退稅或已收退稅款",acc1:""});
-            list.push({indexs:"01",item:"27.產銷成本減項",acc1:""});  
-            list.push({indexs:"03",item:"產銷成本",acc1:""});
-            list.push({indexs:"13",item:"28.勞務成本",acc1:"5700~5799"});
-            list.push({indexs:"13",item:"29.修理成本",acc1:"5800~5899"});
-            list.push({indexs:"13",item:"30.加工成本",acc1:"5600~5699"});
-            list.push({indexs:"13",item:"31.其他營業成本",acc1:"5900~5999"});
-            list.push({indexs:"03",item:"營業成本",acc1:""});
                                   
             function main() {
-                if (dataErr) {
-                    dataErr = false;
+                if (dataErr) { 
+                	dataErr = false;
                     return;
                 }
                 mainForm(0);
@@ -96,44 +56,48 @@
             
             function mainPost() {
                 q_getFormat();
-                q_mask(bbmMask);                             
+                q_mask(bbmMask);      
+                
+                q_cmbParse("cmbTypea", "1@查帳,2@書審,3@工程業,4@建設業"); 
+                
+                $('#btnImport').click(function(e){
+                	var t_mon = $('#txtMon').val();
+                	var t_typea = $('#cmbTypea').val();
+                	if(t_mon.length==0){
+                		alert('請輸入月份!');
+                		return;
+                	}
+                	q_func('qtxt.query.import', 'acost.txt,import,'+ encodeURI(t_mon) + ';' + encodeURI(t_typea));	
+                });
             }
-            
-            function btnImport_click(){
-            	if($.trim($('#txtDeadline').val()).length>0){
-            		t_accy = $.trim($('#txtDeadline').val()).substring(0,3);
-            		Lock(1,{opacity:0});
-            		getData();            		
-            	}else{
-            		alert('請輸入截止日期‧');
-            	}
+            function q_funcPost(t_func, result) {
+                switch(t_func) {
+                	case 'qtxt.query.import':
+                		var t_msg = '';
+                		var as = _q_appendData("tmp0", "", true, true);
+                        if(as[0]!=undefined){
+                        	for(var i=0;i<q_bbsCount;i++){
+                        		$('#btnMinus_'+i).click();
+                        	}
+                        	while(q_bbsCount<as.length){
+                        		$('#btnPlus').click();
+                        	}
+                        	for(var i=0;i<as.length;i++){
+                        		$('#txtNoq_'+i).val(as[i].noq);
+                        		$('#txtItem_'+i).val(as[i].item);
+                        		$('#txtAcc1_'+i).val(as[i].acc1);
+                        		$('#txtMoney1_'+i).val(as[i].money1);
+                        		$('#txtMoney2_'+i).val(as[i].money2);
+                        		$('#txtMoney3_'+i).val(as[i].money3);
+                        	}
+                        }
+                		break;
+                    default:
+                    	break;  
+                }
             }
-            
-            var t_data1 = new Array();
-            var t_data2 = new Array();
             function q_gtPost(t_name) {
                 switch (t_name) { 
-                	case 'btnOk':
-                		var as = _q_appendData("acost", "", true);
-                		if(as[0]!=undefined){
-                			alert('截止日期重覆。');
-                			Unlock(1);
-                		}else{
-                			var t_noa = trim($('#txtNoa').val());
-			                var t_date = trim($('#txtDatea').val());
-			                if (t_noa.length == 0 || t_noa == "AUTO")
-			                    q_gtnoa(q_name, replaceAll((t_date.length == 0 ? q_date() : t_date), '/', ''));
-			                else
-			                    wrServer(t_noa);
-                		}
-                		break;
-                	case  'acccs':
-                		var as = _q_appendData("acccs", "", true);
-                		if(as[0]!=undefined){
-                			t_data1 = as;
-                		}
-                		btnImport();
-                		break;	
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -150,73 +114,10 @@
 				}
 			}
 			
-			function getData(){
-				var t_where = "where=^^ accc2<='"+$('#txtDeadline').val().substr(4,5)+"' ^^";
-				q_gt('acccs', t_where, 0, 0, 0, "", $('#txtDeadline').val().substr(0,3)+'_1');					
-			}
-
-			function btnImport(){
-				var accc5;
-				var t_money = 0;
 				
-				for(var i=0; i<q_bbsCount; i++){
-					if($('#txtAcc1_'+i).val().length==0){
-						if(i<list.length)
-							$('#txtMoney'+list[i].indexs.substr(1,1)+'_'+i).val(t_money);
-						continue;
-					}						
-					accc5 = $('#txtAcc1_'+i).val()+',';
-					t_money = 0;				
-					while(accc5.length>0){						
-						if(accc5.substr(0,accc5.indexOf(',')).length==4){
-							if(list[i].item.indexOf('期初')>0){
-								t_money=calMoney('01/01','01/01',accc5.substr(0,4),accc5.substr(0,4));
-							}else if(list[i].item.indexOf('期末')>0){
-								t_money=calMoney($('#txtDeadline').val().substr(4,5),$('#txtDeadline').val().substr(4,5),accc5.substr(0,4),accc5.substr(0,4));
-							}else{
-								t_money=calMoney('01/01',$('#txtDeadline').val().substr(4,5),accc5.substr(0,4),accc5.substr(0,4));
-							}
-						}else{	
-							if(list[i].item.indexOf('期初')>0){
-								t_money=calMoney('01/01','01/01',accc5.substr(0,4),accc5.substr(5,4));
-							}else if(list[i].item.indexOf('期末')>0){
-								t_money=calMoney($('#txtDeadline').val().substr(4,5),$('#txtDeadline').val().substr(4,5),accc5.substr(0,4),accc5.substr(5,4));
-							}else{
-								t_money=calMoney('01/01',$('#txtDeadline').val().substr(4,5),accc5.substr(0,4),accc5.substr(5,4));
-							}												
-						}						
-						accc5 = accc5.substr(accc5.indexOf(',')+1,accc5.length);
-					}//while-loop
-					$('#txtMoney'+list[i].indexs.substr(1,1)+'_'+i).val(t_money);					
-				}//i-loop		
-				Unlock(1);
-			}//btnImport	
-			
-			function calMoney(bdate,edate,baccc5,eaccc5){				
-				var money = 0;
-				for(var j=0; j<t_data1.length; j++){
-					if((t_data1[j].accc2>=bdate && t_data1[j].accc2<=edate) && 
-					   (t_data1[j].accc5.substr(0,4)>=baccc5 && t_data1[j].accc5.substr(0,4)<=eaccc5)){
-					   	if(t_data1[j].accc5.substr(0,1)=='1' || t_data1[j].accc5.substr(0,1)=='5' || t_data1[j].accc5.substr(0,1)=='6' ||
-						   t_data1[j].accc5.substr(0,1)=='8' || t_data1[j].accc5.substr(0,1)=='9'){						   	
-							money = money + (parseFloat(t_data1[j].dmoney)-parseFloat(t_data1[j].cmoney));   	
-						}else{
-							money = money + (parseFloat(t_data1[j].cmoney)-parseFloat(t_data1[j].dmoney));	
-						}						
-					}
-				}//j-loop
-				return money;
-			}//calMoney
-			
-			function sum(){       
-
-            }	
 			
             function btnOk() {
             	Lock(1,{opacity:0});
-            	for (var i = 0; i < q_bbsCount; i++) {
-            		$('#txtSel_'+i).val(i);
-            	}
             	sum();
             	if(q_cur ==1){
 	            	$('#txtWorker').val(r_name);
@@ -231,104 +132,43 @@
 					Unlock(1);
             		return;
 				}
-	            if($('#txtDeadline').val().length == 0 || !q_cd($('#txtDeadline').val())){
-					alert(q_getMsg('lblDeadline')+'錯誤。');
-					Unlock(1);
-            		return;
-				}	
-	            q_gt('acost', "where=^^ deadline='"+$.trim($('#txtDeadline').val())+"' and noa!='"+$.trim($('#txtNoa').val())+"' ^^", 0, 0, 0, "btnOk");
+	            var t_noa = trim($('#txtNoa').val());
+                var t_date = trim($('#txtDatea').val());
+                if (t_noa.length == 0 || t_noa == "AUTO")
+                    q_gtnoa(q_name, replaceAll((t_date.length == 0 ? q_date() : t_date), '/', ''));
+                else
+                    wrServer(t_noa);
             }
 
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)
                     return;
-                q_box('accashf_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
+                q_box('acost_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
             }
-
-            function bbsAssign() {
-                for (var i = 0; i < q_bbsCount; i++) {
-                    $('#lblNo_' + i).text(i + 1);
-                    if (!$('#btnMinus_' + i).hasClass('isAssign')) {
-                    	
-                		
-                    }
-                }
-                _bbsAssign();
-            }
-                   
-            function refreshBbs(){
-            	//indexs: 00(x),01(小計),02(合計),03(總計)
-            	for (var i = 0; i < q_bbsCount; i++) {            
-            		$('#txtItem_'+i).css("display","").attr("readonly","readonly").css("color","green").css("background","rgb(237, 237, 238)");
-            		
-            		switch($('#txtIndexs_'+i).val()){           			
-            			case '01':
-            				$('#txtAcc1_'+i).css("display","none")       			
-            				$('#txtMoney2_'+i).css("display","none").val(0);
-            				$('#txtMoney3_'+i).css("display","none").val(0);
-            				break;
-            			case '02':
-            				$('#txtAcc1_'+i).css("display","none")
-            				$('#txtMoney1_'+i).css("display","none").val(0);   
-            				$('#txtMoney3_'+i).css("display","none").val(0);       				
-            				break;
-            			case '03':
-            				$('#txtAcc1_'+i).css("display","none")          				
-            				$('#txtMoney1_'+i).css("display","none").val(0);
-            				$('#txtMoney2_'+i).css("display","none").val(0);           			
-            				break;
-            			case '11':
-            				$('#txtMoney2_'+i).css("display","none").val(0);
-            				$('#txtMoney3_'+i).css("display","none").val(0);
-            				break;
-            			case '12':
-            				$('#txtMoney1_'+i).css("display","none").val(0);   
-            				$('#txtMoney3_'+i).css("display","none").val(0);       				
-            				break;
-            			case '13':
-            				$('#txtMoney1_'+i).css("display","none").val(0);
-            				$('#txtMoney2_'+i).css("display","none").val(0);           			
-            				break;	
-            			default:            				
-            				$('#txtItem_'+i).css("display","none")
-            				$('#txtAcc1_'+i).css("display","none")            				     				
-            				$('#txtMoney1_'+i).css("display","none").val(0);
-            				$('#txtMoney2_'+i).css("display","none").val(0);
-            				$('#txtMoney3_'+i).css("display","none").val(0);
-            				break;	       			
-            		}            		
-            	}
-            }                                       
-            
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
                 Unlock(1);
             }
-            
             function q_popPost(id) {
 				switch(id) {
 					default:
 						break;
 				}
 			}
+			function bbsAssign() {
+                for (var i = 0; i < q_bbsCount; i++) {
+                    $('#lblNo_' + i).text(i + 1);
+                    if ($('#btnMinus_' + i).hasClass('isAssign'))
+                    	continue;
+                }
+                _bbsAssign();
+            }
 			
             function btnIns() {
                 _btnIns();
-                while(q_bbsCount<list.length)
-                	$('#btnPlus').click();
-                for(var i=0;i<list.length;i++){
-                	$('#txtIndexs_'+i).val(list[i].indexs);
-                	$('#txtItem_'+i).val(list[i].item);
-                	$('#txtBacc1_'+i).val(list[i].bacc1);
-                	$('#txtEacc1_'+i).val(list[i].eacc1);
-                	$('#txtAcc1_'+i).val(list[i].acc1);
-                }
-                refreshBbs();              
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
-                $('#txtDeadline').val('104/12/31');
-                $('#txtDeadline').focus();
             }
             
             function btnModi() {
@@ -336,13 +176,11 @@
                     return;
                 _btnModi();
                 $('#txtDatea').focus();
-                refreshBbs();               
                 sum();
             }
 
             function btnPrint() {
-                //q_box("z_accc3.aspx?;;;;"+r_accy, 'z_accc3', "95%", "95%", q_getMsg("popAccc3"));
-                q_box("z_accashf.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy, 'accashf', "95%", "95%", m_print);
+                q_box("z_acost.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy, 'accashf', "95%", "95%", m_print);
             }
 
             function wrServer(key_value) {
@@ -370,16 +208,17 @@
 
             function refresh(recno) {
                 _refresh(recno);
-                refreshBbs();             
             }
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
-                if(q_cur=='1' || q_cur=='2'){
-                	$('#btnImport').removeAttr('disabled');
-                }else{
+                if(t_para){
+                	$('#txtDatea').datepicker('destroy');
                 	$('#btnImport').attr('disabled','disabled');
-                }             
+                }else{
+                	$('#txtDatea').datepicker();
+                	$('#btnImport').removeAttr('disabled');
+                }
             }
 
             function btnMinus(id) {
@@ -593,9 +432,7 @@
 						<td align="center" style="width:100px; color:black;"><a id='vewNoa'> </a></td>
 					</tr>
 					<tr>
-						<td >
-						<input id="chkBrow.*" type="checkbox" style=' '/>
-						</td>
+						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td id='noa' style="text-align: center;">~noa</td>
 					</tr>
 				</table>
@@ -603,6 +440,7 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr class="tr0" style="height:1px;">
+						<td> </td>
 						<td> </td>
 						<td> </td>
 						<td> </td>
@@ -620,8 +458,10 @@
 						<td><input id="txtAccy" type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblDeadline" class="lbl"> </a></td>
-						<td><input id="txtDeadline" type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblTypea" class="lbl">類別</a></td>
+						<td><select id="cmbTypea" class="txt c1"> </select></td>
+						<td><span> </span><a id="lblMon" class="lbl"> </a></td>
+						<td><input id="txtMon" type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
@@ -632,6 +472,7 @@
 						<td><input id="txtWorker" type="text"  class="txt c1"/></td>
 						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
 						<td><input id="txtWorker2" type="text"  class="txt c1"/></td>
+						<td><input type="button" id="btnImport" class="txt c1" value="匯入"></td>
 					</tr>
 				</table>
 			</div>
@@ -640,8 +481,7 @@
 			<table id="tbbs" class='tbbs' >
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:30px;">
-						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;display: none;"  />
-						<input id="btnImport" value="匯入" type="button" onclick="btnImport_click()" style="font-size: medium; font-weight: bold; width:95%;"/>
+						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:400px;"><a id='lblItem_s'> </a></td>
@@ -652,10 +492,8 @@
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td align="center">
-						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;display: none;" />
-						<input class="btn"  id="btnPlusX.*" type="button" value='+' style="font-weight: bold;display: none;"  />
+						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 						<input id="txtNoq.*" type="text" style="display: none;" />
-						<input id="txtIndexs.*" type="text" style="display: none;" />
 					</td>		
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>	
 					<td><input type="text" id="txtItem.*" style="width:98%;" /></td>
