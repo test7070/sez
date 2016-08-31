@@ -65,9 +65,9 @@
 				
 				var t_where = " 1=1 " + q_sqlPara2("cno", t_cno)+ q_sqlPara2("mon", t_mon)+ q_sqlPara2("noa", t_noa)+ q_sqlPara2("serial", t_serial) + q_sqlPara2("custno", t_custno) + q_sqlPara2("datea", t_bdate, t_edate);
 				if (t_cust.length > 0)
-                    t_where += " and patindex('%" + t_cust + "%',comp)>0";
+                    t_where += " and charindex('" + t_cust + "',comp)>0";
                 if (t_buyer.length > 0)
-                    t_where += " and patindex('%" + t_buyer + "%',buyer)>0";    
+                    t_where += " and charindex('" + t_buyer + "',buyer)>0";    
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
