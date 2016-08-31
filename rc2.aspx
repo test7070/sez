@@ -659,6 +659,16 @@
 				}
 				check_startdate=false;
 				check_ordc_overrate=false;
+				
+				if(q_getPara('sys.project').toUpperCase()=='XY'){
+					for (var i = 0; i < q_bbsCount; i++) {
+						if(!emp($('#txtProductno_'+i).val()) && emp($('#txtStoreno_'+i).val())){
+							$('#txtStoreno_'+i).val('A');
+							$('#txtStore_'+i).val('總倉庫');
+						}
+					}
+				}
+				
 				sum();
 				
 				if (q_cur == 1)
