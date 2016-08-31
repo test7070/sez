@@ -2,19 +2,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
 		<title> </title>
-		<script src="../script/jquery.min.js" type="text/javascript"> </script>
-		<script src='../script/qj2.js' type="text/javascript"> </script>
-		<script src='qset.js' type="text/javascript"> </script>
-		<script src='../script/qj_mess.js' type="text/javascript"> </script>
-		<script src="../script/qbox.js" type="text/javascript"> </script>
-		<script src='../script/mask.js' type="text/javascript"> </script>
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
+		<script src='../script/qj2.js' type="text/javascript"></script>
+		<script src='qset.js' type="text/javascript"></script>
+		<script src='../script/qj_mess.js' type="text/javascript"></script>
+		<script src="../script/qbox.js" type="text/javascript"></script>
+		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-			this.errorHandler = null;
-			function onPageError(error) {
-				alert("An error occurred:\r\n" + error.Message);
-			}
-
 			var q_name = "vcca";
 			var q_readonly = ['txtMoney','txtTotal', 'txtChkno', 'txtTax', 'txtAccno', 'txtWorker','txtTrdno'];
 			var bbmNum = [['txtMoney', 10, 0], ['txtTax', 10, 0], ['txtTotal', 10, 0], ['txtMount', 10, 3], ['txtPrice', 10, 1]];
@@ -344,40 +343,44 @@
 						t_total = t_money + t_tax;
 						break;
 					case '6':  // 作廢-清空資料
-						t_money = 0,t_tax = 0, t_total = 0;
-						$('#txtCustno').val('');//銷貨客戶
-						$('#txtCustno').attr('readonly', true);
-						$('#txtComp').val('');
-						$('#txtComp').attr('readonly', true);
-						$('#txtSerial').val('');//統一編號
-						$('#txtSerial').attr('readonly', true);
-						$('#txtMoney').val(0);//產品金額
-						$('#txtMoney').attr('readonly', true);
-						$('#txtMon').val('');//帳款月份
-						$('#txtMon').attr('readonly', true);
-						$('#txtProductno').val('');//產品編號	
-						$('#txtProductno').attr('readonly', true);
-						$('#txtProduct').val('');//品名規格	
-						$('#txtProduct').attr('readonly', true);
-						$('#txtUnit').val('');//單位
-						$('#txtUnit').attr('readonly', true);
-						$('#txtMount').val(0);//數量
-						$('#txtMount').attr('readonly', true);
-						$('#txtPrice').val(0);//price
-						$('#txtPrice').attr('readonly', true);
-						$('#txtTax').val(0);//營業稅
-						$('#txtTax').attr('readonly', true);
-						$('#txtTotal').val(0);//總計
-						$('#txtTotal').attr('readonly', true);
-						$('#txtChkno').val('');//檢查號碼
-						$('#txtChkno').attr('readonly', true);
-						$('#txtAccno').val('');//轉會計傳票編號
-						$('#txtAccno').attr('readonly', true);
-						$('#txtBuyerno').val('');//買受人
-						$('#txtBuyerno').attr('readonly', true);
-						$('#txtBuyer').val('');//
-						$('#txtBuyer').attr('readonly', true);
-						$('#txtMemo').val('');//發票備註
+						if(q_getPara('sys.project').toUpperCase()=='ES'){
+							//再興  發票作廢 ,金額不必歸0,  另外修正報表
+						}else{
+							t_money = 0,t_tax = 0, t_total = 0;
+							$('#txtCustno').val('');//銷貨客戶
+							$('#txtCustno').attr('readonly', true);
+							$('#txtComp').val('');
+							$('#txtComp').attr('readonly', true);
+							$('#txtSerial').val('');//統一編號
+							$('#txtSerial').attr('readonly', true);
+							$('#txtMoney').val(0);//產品金額
+							$('#txtMoney').attr('readonly', true);
+							$('#txtMon').val('');//帳款月份
+							$('#txtMon').attr('readonly', true);
+							$('#txtProductno').val('');//產品編號	
+							$('#txtProductno').attr('readonly', true);
+							$('#txtProduct').val('');//品名規格	
+							$('#txtProduct').attr('readonly', true);
+							$('#txtUnit').val('');//單位
+							$('#txtUnit').attr('readonly', true);
+							$('#txtMount').val(0);//數量
+							$('#txtMount').attr('readonly', true);
+							$('#txtPrice').val(0);//price
+							$('#txtPrice').attr('readonly', true);
+							$('#txtTax').val(0);//營業稅
+							$('#txtTax').attr('readonly', true);
+							$('#txtTotal').val(0);//總計
+							$('#txtTotal').attr('readonly', true);
+							$('#txtChkno').val('');//檢查號碼
+							$('#txtChkno').attr('readonly', true);
+							$('#txtAccno').val('');//轉會計傳票編號
+							$('#txtAccno').attr('readonly', true);
+							$('#txtBuyerno').val('');//買受人
+							$('#txtBuyerno').attr('readonly', true);
+							$('#txtBuyer').val('');//
+							$('#txtBuyer').attr('readonly', true);
+							$('#txtMemo').val('');//發票備註
+						}
 						break;		
 					default:		
 				}
