@@ -28,6 +28,12 @@
                 	|| $('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report=='z_gqb14'){
                 		$('#txtIndate1').val(q_date());
                 		$('#txtIndate2').val(q_cdn(q_date(),90));
+                		
+                		if(q_getPara('sys.project').toUpperCase()=='VU'){
+                			$('#txtIndate1').val(q_date());
+                			$('#txtIndate2').val(q_cdn(q_date(),365));
+                		}
+                		
                 		$('#txtYdate1').attr('disabled', 'disabled');
                 		$('#txtIndate1').attr('disabled', 'disabled');
                 	}else if($('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report=='z_gqb5'
@@ -37,11 +43,19 @@
                 		$('#txtIndate2').val('');
                 		$('#txtDate1').val(q_date().substr(0,r_lenm)+'/01');
                 		$('#txtDate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1));
+                		if(q_getPara('sys.project').toUpperCase()=='VU'){
+                			$('#txtDate1').val(q_date());
+                			$('#txtDate2').val(q_cdn(q_date(),365));
+                		}
                 		$('#txtYdate1').removeAttr('disabled');
                 		$('#txtIndate1').removeAttr('disabled');
                 	}else{
                 		$('#txtIndate1').val(q_date().substr(0,r_lenm)+'/01');
                 		$('#txtIndate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',130).substr(0,r_lenm)+'/01',-1));
+                		if(q_getPara('sys.project').toUpperCase()=='VU'){
+                			$('#txtIndate1').val(q_date());
+                			$('#txtIndate2').val(q_cdn(q_date(),365));
+                		}
                 		$('#txtYdate1').removeAttr('disabled');
                 		$('#txtIndate1').removeAttr('disabled');
                 		$('#txtDate1').val('');
@@ -200,6 +214,13 @@
 				$('#txtIndate1').val(q_date().substr(0,r_lenm)+'/01');
                 $('#txtYdate2').val(q_cdn(q_date(),90));
                 $('#txtIndate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',130).substr(0,r_lenm)+'/01',-1));
+                
+                if(q_getPara('sys.project').toUpperCase()=='VU'){
+                	$('#txtIndate1').val(q_date());
+                	$('#txtIndate2').val(q_cdn(q_date(),365));
+                	$('#txtYdate1').val(q_date());
+                	$('#txtYdate2').val(q_cdn(q_date(),365));
+                }
 
                 $('#txtYacc1').change(function() {
                     var s1 = trim($(this).val());
