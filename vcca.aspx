@@ -167,6 +167,9 @@
 								t_where +="and b.datea<='"+t_date+"'";
 							q_box("vccavcc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+";"+JSON.stringify({vccano:t_vccano,custno:t_custno}), "vccavcc", "95%", "95%", '');
 						}else{
+							if(q_getPara('sys.project').toUpperCase() == 'VU'){
+								return;
+							}
 							var t_noa = '';
 							for(var i=0;i<q_bbtCount;i++){
 								if($('#txtVccno__'+i).val().length>0)

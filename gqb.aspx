@@ -55,6 +55,11 @@
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('gqb.typea'));
                 q_cmbParse("cmbRem1", ' ,'+q_getPara('gqb.rem1'));
+                
+                if(r_len==4){                	
+                	$.datepicker.r_len=4;
+					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+                }
 				
                 $("#cmbTypea").focus(function() {
                     var len = $(this).children().length > 0 ? $(this).children().length : 1;
@@ -82,10 +87,10 @@
                 	$('#lblTacc1').removeClass('lbl').addClass('lbl btn');
                 	
                 	aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
-		            , ['txtTcompno', 'lblTcomp', 'view_cust_tgg', 'noa,comp', '0txtTcompno,txtTcomp', 'view_cust_tgg_b.aspx']
-		            , ['txtCompno', 'lblComp', 'view_cust_tgg', 'noa,comp', '0txtCompno,txtComp', 'view_cust_tgg_b.aspx']
-		            , ['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx']
-		            , ['txtTacc1', 'lblTacc1', 'bank', 'acc1,noa,bank', 'txtTacc1,txtTbankno,txtTbank', 'bank_b.aspx']		         
+			            , ['txtTcompno', 'lblTcomp', 'view_cust_tgg', 'noa,comp', '0txtTcompno,txtTcomp', 'view_cust_tgg_b.aspx']
+			            , ['txtCompno', 'lblComp', 'view_cust_tgg', 'noa,comp', '0txtCompno,txtComp', 'view_cust_tgg_b.aspx']
+			            , ['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx']
+			            , ['txtTacc1', 'lblTacc1', 'bank', 'acc1,noa,bank', 'txtTacc1,txtTbankno,txtTbank', 'bank_b.aspx']		         
 		            );
 		            
                 }

@@ -1,7 +1,9 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
+
 	<head>
-		<title> </title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title></title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -9,12 +11,11 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
-
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-            this.errorHandler = null;
-            function onPageError(error) {
-                alert("An error occurred:\r\n" + error.Message);
-            }
 
             var q_name = "crmservice";
             var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
@@ -38,7 +39,6 @@
                 bbmKey = ['noa'];
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1);
-                $('#txtNoa').focus
             });
 
             function main() {
@@ -49,18 +49,14 @@
                 mainForm(0);
             }
 			
-			var z_cno='';
-			var z_acomp='';
             function mainPost() {
                 bbmMask = [['txtDatea', r_picd],['txtTimea', '99:99'],['txtDaten', r_picd],['txtTimen', '99:99']
                 ,['txtRepdate', r_picd],['txtReptime', '99:99']];
                 q_mask(bbmMask);
-				q_cmbParse("cmbReason", ",抱怨,客訴賠償,咨詢,溝通,售後服務,其他");
-				
-				q_gt('acomp', '', 0, 0, 0, "");
-				
-				$('#cmbReason').change(function() {
-					ReasonChange();
+				q_cmbParse("combReason", ",拜訪,客訴,咨詢,售後服務,其他");
+				$('#combReason').change(function() {
+					$('#txtReason').val($(this).val());
+					$(this).val('');
 				});
 				
 				$('#lblRepdate').click(function() {
@@ -80,21 +76,25 @@
                 switch (b_pop) {
                     case q_name + '_s':
                         q_boxClose2(s2);
-                        ///   q_boxClose 3/4
                         break;
-                }   /// end Switch
+                }   
+                b_pop = '';
             }
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case q_name:
+						if (q_cur == 4)
+							q_Seek_gtPost();
+						break;
                 	case 'acomp':
                 		var as = _q_appendData("acomp", "", true);
                 		if(as[0]!=undefined){
-                			z_cno=as[0].noa;
-							z_acomp=as[0].acomp;
+                			$('#txtCno').val(as[0].noa);
+	            			$('#txtAcomp').val(as[0].acomp);
                 		}
                 		break;
-                }  /// end switch
+                } 
             }
 
             function _btnSeek() {
@@ -105,11 +105,9 @@
 
             function btnIns() {
                 _btnIns();
+                q_gt('acomp', '', 0, 0, 0, "");
                 $('#txtNoa').val('AUTO');
 	            $('#txtDatea').val(q_date());
-	            $('#txtCno').val(z_cno);
-	            $('#txtAcomp').val(z_acomp);
-	            
 	            var timeDate= new Date();
 				var tHours = timeDate.getHours();
 				var tMinutes = timeDate.getMinutes();
@@ -172,11 +170,19 @@
 
             function refresh(recno) {
                 _refresh(recno);
-                ReasonChange();
             }
 			
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                if(t_para){
+                	$('#combReason').attr('disabled','disabled');
+                	$('#txtDatea').datepicker('destroy');
+                	$('#txtRepdate').datepicker('destroy');
+                }else{
+                	$('#combReason').removeAttr('disabled','disabled');
+                	$('#txtDatea').datepicker();
+                	$('#txtRepdate').datepicker();
+                }
             }
 
             function btnMinus(id) {
@@ -231,13 +237,6 @@
                 _btnCancel();
             }
             
-            function ReasonChange() {
-            	if($('#cmbReason').val()=='客訴賠償'){
-            		$('.reparation').show();
-            	}else{
-            		$('.reparation').hide();
-            	}
-            }
 		</script>
 		<style type="text/css">
             #dmain {
@@ -403,9 +402,12 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblReason' class="lbl"> </a></td>
-						<td><select id="cmbReason" class="txt c1"> </select></td>
-						<td class="reparation"><span> </span><a id='lblMoney' class="lbl"> </a></td>
-						<td class="reparation"><input id="txtMoney" type="text" class="txt num c1" /></td>
+						<td>
+							<input id="txtReason" type="text" class="txt" style="float:left;width:80%;"\>
+							<select id="combReason" style="float:left;width:20%;"> </select>
+						</td>
+						<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
+						<td><input id="txtMoney" type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblSss' class="lbl btn"> </a></td>
@@ -419,7 +421,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
-						<td colspan="3"><textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea></td>
+						<td colspan="3"><textarea id="txtMemo" cols="10" rows="10" style="width: 100%;height: 100px;"> </textarea></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblRepdate' class="lbl btn"> </a></td>
@@ -428,10 +430,10 @@
 						<td><input id="txtReptime"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblMemo2" class="lbl"> </a></td>
-						<td colspan="3"><textarea id="txtMemo2" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea></td>
+						<td><span> </span><a class="lbl">重點備註</a></td>
+						<td colspan="3"><textarea id="txtMemo2" cols="10" rows="5" style="width: 100%;height: 50px;"> </textarea></td>
 					</tr>
-					<tr>
+					<!--<tr>
 						<td><span> </span><a id='lblDaten' class="lbl"> </a></td>
 						<td><input id="txtDaten"  type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblTimen' class="lbl"> </a></td>
@@ -440,7 +442,7 @@
 					<tr>
 						<td><span> </span><a id="lblMemon" class="lbl"> </a></td>
 						<td colspan="3"><textarea id="txtMemon" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea></td>
-					</tr>
+					</tr>-->
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker"  type="text" class="txt c1" /></td>

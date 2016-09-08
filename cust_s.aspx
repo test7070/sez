@@ -26,6 +26,7 @@
 				mainSeek();
 				q_gf('', q_name);
 				q_gt('custtype', '', 0, 0, 0, "custtype");
+				q_gt('acomp', "where=^^ 1=1 ^^", 0, 0, 0, "", r_accy);
 			}
 			
 			function q_gfPost() {
@@ -35,8 +36,31 @@
 				$('#txtNoa').focus();
 			}
 			var custtype = '';
+			var r_acomp='';
+			var r_where='';
 			function q_gtPost (t_name) {
 			 switch (t_name) {
+			 	case 'acomp':
+					r_acomp = _q_appendData("acomp", "", true);
+					var t_where = "where=^^ noa='" + r_userno + "' ^^";
+					q_gt('sss', t_where, 0, 0, 0, "", r_accy);
+					break;
+				case 'sss':
+					var as = _q_appendData("sss", "", true);
+					var nowhere=false;
+					for (var i=0;i<r_acomp.length;i++){
+						if(r_acomp[i].acomp.indexOf('智勝')>-1 || r_acomp[i].acomp.indexOf('三泰')>-1){
+							nowhere=true;
+							break;
+						}
+					}
+					
+					if (as[0] == undefined || (as[0].issales == 'false') || (as[0].issales == false) || nowhere ) {
+						r_where='';
+					} else {
+						r_where=" and salesno='" + r_userno + "' ";
+					}
+					break;
 				case 'custtype':
 					var as = _q_appendData("custtype", "", true);
 					if (as[0] != undefined) {
@@ -85,7 +109,7 @@
 				if (t_typea.length > 0)
 					t_where += " and charindex('" + t_typea + "',typea)>0";	
                     
-				t_where = ' where=^^' + t_where + '^^ ';
+				t_where = ' where=^^' + t_where +r_where+ '^^ ';
 				return t_where;
 			}
 		</script>
