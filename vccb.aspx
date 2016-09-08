@@ -72,6 +72,7 @@
                 });
                 
                 $('#cmbTypea').change(function() {
+                	typea_chg();
                     if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1) {
 	                	if($('#cmbTypea').val()=='1' || $('#cmbTypea').val()=='3'){
 		                	for (var j = 0; j < q_bbsCount; j++) {
@@ -84,7 +85,6 @@
 	                	}
 	                }
                 });
-                
                 $('#txtDatea').change(function() {
                     $('#txtMon').val($('#txtDatea').val().substr(0,r_lenm));
                 });
@@ -262,6 +262,22 @@
 					$('#txtComp').val('');
 					$('#Tgg').show();
 				}
+				if($('#cmbTypea').val()=='1'){
+                	aPop = new Array(
+			             ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,serial,addr_invo', 'txtCustno,txtComp,txtNick,txtSerial,txtAddr', 'cust_b.aspx']
+						, ['txtSerial', 'lblSerial', 'vccabuyer', 'serial,buyer', '0txtSerial,txtComp', 'vccabuyer_b.aspx']
+			            , ['txtInvono_', '', 'vcca', 'noa,datea,serial,custno,comp,cno,acomp,productno,product,price,mount,money,tax,taxtype', '0txtInvono_,txtIdate_,txtSerial_,txtCustno_,txtComp_,txtCno_,txtAcomp_,txtProductno_,txtProduct_,txtPrice_,txtMount_,txtTotal_,txtTax_,cmbTaxtype_', 'vcca_b.aspx']
+			       		, ['txtTggno', 'lblTgg', 'tgg', 'noa,comp,serial,addr_invo', 'txtTggno,txtTgg,txtSerial,txtAddr', 'tgg_b.aspx']
+			            , ['txtProductno_', 'btnProductno_', 'ucca', 'noa,product', 'txtProductno_,txtProduct_', 'ucca_b.aspx']);
+			               
+                }else if($('#cmbTypea').val()=='3'){
+                	aPop = new Array(
+			             ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,serial,addr_invo', 'txtCustno,txtComp,txtNick,txtSerial,txtAddr', 'cust_b.aspx']
+						, ['txtSerial', 'lblSerial', 'vccabuyer', 'serial,buyer', '0txtSerial,txtComp', 'vccabuyer_b.aspx']
+			            , ['txtInvono_', '', 'rc2a', 'noa,datea,serial,tggno,comp,cno,acomp,money,tax,taxtype', '0txtInvono_,txtIdate_,txtSerial_,txtTggno_,txtTgg_,txtCno_,txtAcomp_,txtTotal_,txtTax_,cmbTaxtype_', 'rc2a_b.aspx']
+			       		, ['txtTggno', 'lblTgg', 'tgg', 'noa,comp,serial,addr_invo', 'txtTggno,txtTgg,txtSerial,txtAddr', 'tgg_b.aspx']
+			            , ['txtProductno_', 'btnProductno_', 'ucca', 'noa,product', 'txtProductno_,txtProduct_', 'ucca_b.aspx']);
+                }
 			}
             function wrServer(key_value) {
                 var i;
