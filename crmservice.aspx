@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
 		<title> </title>
@@ -31,6 +31,7 @@
             	['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
             	,['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']
             	,['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx']
+	,['txtQnoa', 'lblFaq', 'crmFaq', 'noa,question', 'txtQnoa,txtQuestion', 'crmFaq_b.aspx']
             );
        
             $(document).ready(function() {
@@ -410,6 +411,11 @@
 						<td><span> </span><a id='lblSss' class="lbl btn"> </a></td>
 						<td ><input id="txtSssno" type="text" class="txt c1" /></td>
 						<td><input id="txtNamea" type="text" class="txt c1" /></td>
+					</tr>
+ 					<tr>
+						<td><span> </span><a id='lblFaq' class="lbl btn"> </a></td>
+						<td ><input id="txtQnoa" type="text" class="txt c1" /></td>
+						<td colspan="2"><input id="txtQuestion" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
