@@ -671,7 +671,7 @@
 				
 				if (q_cur==1 && q_getPara('sys.project').toUpperCase()=='RB' && q_db.toUpperCase()=="ST3" && $('#txtNoa').val().length==5){
 					//彩虹後面四碼由電腦產生
-					t_where = "where=^^ noa=(select MAX(noa) from cust where charindex('" + $('#txtNoa').val() + "',noa)=1 and len(noa)=8 ) ^^";
+					t_where = "where=^^ noa=(select MAX(noa) from cust where charindex('" + $('#txtNoa').val() + "',noa)=1 and len(noa)=9 ) ^^";
 					q_gt('cust', t_where, 0, 0, 0, "RB_AutoCustno", r_accy);
 					return;
 				}
