@@ -268,6 +268,7 @@
 				}
             	
                 $('#txtNoa').val($.trim($('#txtNoa').val()));
+                $('#txtTotal').val(dec($('#txtTax').val())+dec($('#txtMoney').val()));
                 
                 if ($('#txtNoa').val().length > 0 && !(/^[a-z,A-Z]{2}[0-9]{8}$/g).test($('#txtNoa').val())) {
 					alert(q_getMsg('lblNoa') + '錯誤。');
