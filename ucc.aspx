@@ -216,7 +216,7 @@
 				}
 				$('#btnPack2').click(function() {
 					t_where = "noa='" + $('#txtNoa').val() + "'";
-					q_box("pack2_xy.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pack2', "300px", "650px", $('#btnPack2').val());
+					q_box("pack2_xy.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pack2', "390px", "650px", $('#btnPack2').val());
 				});
 			}
 			
