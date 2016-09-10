@@ -86,6 +86,7 @@
 				
 				if(q_getPara('sys.project').toUpperCase()=='XY'){ //105/05/23 拿來做 採購/製令
 					bbmMask = [];
+					$('.vewstyle').show();
 				}
 				
 				q_mask(bbmMask);
@@ -868,13 +869,15 @@
 			<table class="tview" id="tview"	border="1" cellpadding='2'	cellspacing='0' style="background-color: #FFFF66;">
 				<tr>
 					<td align="center" style="width:2%"><a id='vewChk'> </a></td>
-					<td align="center" style="width:15%"><a id='vewNoa'> </a></td>
-					<td align="center" style="width:25%"><a id='vewProduct'> </a></td>
+					<td align="center" style="width:25%"><a id='vewNoa'> </a></td>
+					<td align="center" style="width:35%"><a id='vewProduct'> </a></td>
+					<td align="center" style="width:10%;display: none;" class="vewstyle"><a id='vewStyle'> </a></td>
 				</tr>
 				<tr>
 					<td><input id="chkBrow.*" type="checkbox" style=''/></td>
 					<td align="left" id='noa'>~noa</td>
 					<td align="left" id='product spec'>~product ~spec</td>
+					<td align="left" id='style' style="display: none;" class="vewstyle">~style</td>
 				</tr>
 			</table>
 		</div>
