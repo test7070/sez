@@ -86,6 +86,7 @@
 				t_tel = $('#txtTel').val();
 				t_fax = $('#txtFax').val();
 				t_typea = document.getElementById('cmbTypea').value;
+				t_fax = $('#txtMemo').val();
 				
 				var t_where = " 1=1 " 
 					+ q_sqlPara2("serial", t_serial)
@@ -108,7 +109,6 @@
 					t_where += " and charindex('" + t_fax + "',fax)>0";
 				if (t_typea.length > 0)
 					t_where += " and charindex('" + t_typea + "',typea)>0";	
-                    
 				t_where = ' where=^^' + t_where +r_where+ '^^ ';
 				return t_where;
 			}
