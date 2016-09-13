@@ -1,5 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
+
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title></title>
@@ -31,6 +32,8 @@
             	['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
             	,['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']
             	,['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx']
+	,['txtQnoa', 'lblFaq', 'crmFaq', 'noa,question', 'txtQnoa,txtQuestion', 'crmFaq_b.aspx']
+	,['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx']
             );
        
             $(document).ready(function() {
@@ -52,6 +55,9 @@
                 ,['txtRepdate', r_picd],['txtReptime', '99:99']];
                 q_mask(bbmMask);
 				q_cmbParse("combReason", ",拜訪,客訴,咨詢,售後服務,其他");
+                				q_cmbParse("cmbSource", ",電話,電子郵件,Web,Facebook,Twitter,其他");
+				q_cmbParse("cmbEffort", ",低,中,高");
+				q_cmbParse("cmbPriority", ",低,高,一般,重大");
 				$('#combReason').change(function() {
 					$('#txtReason').val($(this).val());
 					$(this).val('');
@@ -381,7 +387,19 @@
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td><input id="txtNoa"  type="text" class="txt c1" /></td>
+						<td></td>
+						<td><input id="chkEnda" type="checkbox"/><span> </span><a id='lblEnda'> </a></td>
 					</tr>
+					<tr>
+					    	<td><span> </span><a id='lblSource' class="lbl"> </a></td>
+						<td><select id="cmbSource" class="txt c1"> </select></td>
+               					</tr>
+					<tr>
+					    	<td><span> </span><a id='lblEffort' class="lbl"> </a></td>
+						<td><select id="cmbEffort" class="txt c1"> </select></td>
+					    	<td><span> </span><a id='lblPriority' class="lbl"> </a></td>
+						<td><select id="cmbPriority" class="txt c1"> </select></td>
+               					</tr>
 					<tr>
 						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td><input id="txtDatea"  type="text" class="txt c1" /></td>
@@ -412,6 +430,16 @@
 						<td ><input id="txtSssno" type="text" class="txt c1" /></td>
 						<td><input id="txtNamea" type="text" class="txt c1" /></td>
 					</tr>
+ 					<tr>
+						<td><span> </span><a id='lblProductno' class="lbl btn"> </a></td>
+						<td ><input id="txtProductno" type="text" class="txt c1" /></td>
+						<td colspan="2"><input id="txtProduct" type="text" class="txt c1" /></td>
+					</tr>
+ 					<tr>
+						<td><span> </span><a id='lblFaq' class="lbl btn"> </a></td>
+						<td ><input id="txtQnoa" type="text" class="txt c1" /></td>
+						<td colspan="2"><input id="txtQuestion" type="text" class="txt c1" /></td>
+					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td colspan="3"><textarea id="txtMemo" cols="10" rows="10" style="width: 100%;height: 100px;"> </textarea></td>
@@ -435,7 +463,7 @@
 					<tr>
 						<td><span> </span><a id="lblMemon" class="lbl"> </a></td>
 						<td colspan="3"><textarea id="txtMemon" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea></td>
-					</tr>-->
+					</tr>--!>
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker"  type="text" class="txt c1" /></td>

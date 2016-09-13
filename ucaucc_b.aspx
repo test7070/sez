@@ -41,6 +41,9 @@
 					if(!emp($('#txtSpec').val())){
 						t_where+=" and charindex('"+$('#txtSpec').val()+"',spec)>0";
 					}
+					if(!emp($('#txtStyle').val())){
+						t_where+=" and charindex('"+$('#txtStyle').val()+"',style)>0";
+					}
 					for(var i=0; i<abbs.length; i++){
 						if(abbs[i].sel==true || abbs[i].sel=="true"){
 							t_noa=t_noa+(t_noa.length>0?',':'')+"'"+abbs[i].noa+"'"; 
@@ -60,6 +63,13 @@
 				if (q_getPara('sys.project').toUpperCase()=='RB'){
 					$('.isspec').hide();
 				}
+				if (q_getPara('sys.project').toUpperCase()=='XY'){
+					$('.isstyle').show();
+				}
+				$('#lblNoa_s').text(q_getMsg('lblNoa'));
+				$('#lblProduct_s').text(q_getMsg('lblProduct'));
+				$('#lblSpec_s').text(q_getMsg('lblSpec'));
+				$('#lblStyle_s').text(q_getMsg('lblStyle'));
 			}
 
 			function bbsAssign() {
@@ -67,6 +77,9 @@
 				
 				if (q_getPara('sys.project').toUpperCase()=='RB'){
 					$('.isspec').hide();
+				}
+				if (q_getPara('sys.project').toUpperCase()=='XY'){
+					$('.isstyle').show();
 				}
 			}
 		</script>
@@ -81,6 +94,7 @@
 					<th align="center" style='color:Blue;' ><a id='lblNoa'> </a></th>
 					<th align="center" style='color:Blue;' ><a id='lblProduct'> </a></th>
 					<th class="isspec" align="center" style='color:Blue;' ><a id='lblSpec'> </a></th>
+					<th class="isstyle" align="center" style='color:Blue;display: none;' ><a id='lblStyle'> </a></th>
 				</tr>
 				<tr>
 					<td style="width:2%;">
@@ -95,16 +109,22 @@
 					<td style="width:40%;" class="isspec">
 						<input class="txt" id="txtSpec.*" type="text" style="width:98%;" readonly="readonly" />
 					</td>
+					<td style="width:10%;display: none;" class="isstyle">
+						<input class="txt" id="txtStyle.*" type="text" style="width:98%;" readonly="readonly" />
+					</td>
 				</tr>
 			</table>
 			<div>
-				<a>產品編號</a>
+				<a id='lblNoa_s'> </a>
 				<input class="txt" id="txtNoa" type="text" style="width:130px;" />
-				<a>產品名稱 </a>
+				<a id='lblProduct_s'> </a>
 				 <input class="txt" id="txtProductno" type="text" style="width:200px;" />
 				 <BR class="isspec">
-				 <a class="isspec">產品規格</a>
+				 <a class="isspec" id='lblSpec_s'> </a>
 				 <input class="txt isspec" id="txtSpec" type="text" style="width:200px;" />
+				 <BR class="isstyle" style="display: none;">
+				 <a class="isstyle" id='lblStyle_s'  style="display: none;"> </a>
+				 <input class="txt isstyle" id="txtStyle" type="text" style="width:50px;display: none;" />
 				 <input type="button" id="btnSearch" style="border-style: none; width: 26px; height: 26px; cursor: pointer; background: url(../image/search_32.png) 0px 0px no-repeat;background-size: 100%;">
 			 </div>
 			<!--#include file="../inc/brow_ctrl.inc"-->
