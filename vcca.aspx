@@ -447,6 +447,11 @@
 				}
 				_bbsAssign();
 				refreshBbs();
+				for (var j = 0; j < q_bbsCount; j++) {
+					if (j>=7 && q_getPara('sys.project').toUpperCase()=='VU'){
+						$('#tr_'+j).hide();
+					}
+				}
 			}
 			function bbtAssign() {
                 for (var i = 0; i < q_bbtCount; i++) {
@@ -1278,7 +1283,7 @@
 					<td align="center" style="width:80px;display: none;" class="ordeno"><a id='lblOrdeno'> </a></td>
 					<td align="center" style="width:180px;"><a id='lblMemos'> </a></td>
 				</tr>
-				<tr style='background:#cad3ff;'>
+				<tr id="tr.*" style='background:#cad3ff;'>
 					<td align="center">
 						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 						<input id="txtNoq.*" type="text" style="display: none;" />

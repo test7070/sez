@@ -63,10 +63,7 @@
 				$('#checkAllCheckbox').click(function() {
 					$('input[type=checkbox][id^=chkSel]').each(function() {
 						var t_id = $(this).attr('id').split('_')[1];
-						if(q_getPara('sys.project').toUpperCase()=='XY'){
-							if (!emp($('#txtProductno_' + t_id).val()))
-								$(this).attr('checked', $('#checkAllCheckbox').is(':checked'));
-						}else if(q_getPara('sys.project').toUpperCase()=='YC'){
+						if(q_getPara('sys.project').toUpperCase()=='YC'){
 							if (!emp($('#txtProductno_' + t_id).val()))
 								$(this).attr('checked', $('#checkAllCheckbox').is(':checked'));
 						}else{
@@ -75,18 +72,6 @@
 						}
 					});
 				});
-				
-				$('#checkZero').click(function() {
-					$('input[type=text][id^=txtMount]').each(function() {
-						var t_id = $(this).attr('id').split('_')[1];
-						if($('#checkZero').prop('checked')){
-							$('#txtMount_'+t_id).val(0);
-						}else{
-							$('#txtMount_'+t_id).val($('#textMount_'+t_id).val());
-						}
-					});
-				});
-				
 				
 				/*//資料多會掛掉
 				 $('#btnTop').hide();
@@ -98,13 +83,6 @@
 				
 				if (q_getPara('sys.project').toUpperCase()!='RA' && q_getPara('sys.project').toUpperCase()!='ST') {
 					$('.ra').hide();
-				}
-				if(q_getPara('sys.project').toUpperCase()=='XY'){
-					$('.weight').hide();
-					$('#checkZero').show();
-					$('#Zero').show();
-					$('.isClassa').show();
-					$('.isSpec').css('width','75%');
 				}
 				if(q_getPara('sys.project').toUpperCase()=='RB'){
 					$('.weight').hide();
@@ -130,7 +108,6 @@
 	</head>
 	<body>
 		<div  id="dbbs"  >
-			 <input type="checkbox" id="checkZero" style="display: none;"/><a id='Zero' style="display: none;">數量不帶入 </a>
 			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
 				<tr style='color:White; background:#003366;' >
 					<td align="center"><input type="checkbox" id="checkAllCheckbox"/></td>
@@ -152,7 +129,6 @@
 					<td style="width:15%;"><input class="txt"  id="txtProductno.*" type="text" style="width:98%;" /></td>
 					<td style="width:15%;">
 						<input class="txt" id="txtProduct.*" type="text" style="width:98%;" />
-						<input class="txt isClassa" id="txtClassa.*" type="text" style="width:20%;display: none;" />
 						<input class="txt isSpec" id="txtSpec.*" type="text" style="width:98%;" />
 					</td>
 					<!--<td style="width:18%;"><input class="txt" id="txtSpec.*" type="text"  style="width:98%;" />

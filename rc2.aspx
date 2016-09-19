@@ -105,7 +105,18 @@
 				bbmNum = [['txtMoney', 15, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 15, 0, 1],['txtPrice', 10, q_getPara('rc2.pricePrecision'), 1], ['txtTotalus', 15, 0, 1], ['txtFloata', 10, 2, 1],['txtTranmoney',15,0,1],['txtTranadd',15,q_getPara('rc2.pricePrecision'),1]];
 				bbsNum = [['txtMount', 15, q_getPara('rc2.mountPrecision'), 1], ['txtPrice', 15, q_getPara('rc2.pricePrecision'), 1], ['txtTotal', 15, 0, 1]];
 				if(q_getPara('sys.project').toUpperCase()=='XY'){
-					q_readonlys = ['txtNoq','txtProduct','txtSpec'];//'txtUnit'
+					q_readonlys = ['txtNoq','txtProduct','txtSpec','txtUnit','txtOrdeno','txtNo2'];
+					aPop = new Array(
+						['txtTggno', 'lblTgg', 'tgg', 'noa,nick,tel,zip_invo,addr_comp,paytype', 'txtTggno,txtTgg,txtTel,txtPost,txtAddr,txtPaytype', 'tgg_b.aspx'],
+						['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
+						//['txtPost', 'lblAddr', 'addr', 'post,addr', 'txtPost,txtAddr', 'addr_b.aspx'],
+						//['txtPost2', 'lblAddr2', 'addr', 'post,addr', 'txtPost2,txtAddr2', 'addr_b.aspx'],
+						['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
+						['txtCno', 'lblAcomp', 'acomp', 'noa,acomp,addr', 'txtCno,txtAcomp,txtAddr2', 'acomp_b.aspx'],
+						['txtProductno_', 'btnProductno_', 'ucc_xy', 'noa,product,uunit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc_b.aspx'],
+						['txtCarno', 'lblCar', 'cardeal', 'noa,comp', 'txtCarno,txtCar', 'cardeal_b.aspx'],
+						['txtCustno_', 'btnCustno_', 'cust', 'noa,comp', 'txtCustno_,txtComp_', 'cust_b.aspx']
+					);
 				}
 				
 				q_cmbParse("cmbTranstyle", q_getPara('sys.transtyle'));
@@ -306,9 +317,10 @@
 								for (var i = 0; i < b_ret.length; i++) {
 									if (!emp(b_ret[i].productno)){
 										var t_where =" noa='"+b_ret[i].productno+"' ";
-										q_gt('ucc', "where=^^ "+t_where+" ^^", 0, 0, 0, "getuccspec",r_accy,1);
+										q_gt('ucc_xy', "where=^^ "+t_where+" ^^", 0, 0, 0, "getuccspec",r_accy,1);
 										var as = _q_appendData("ucc", "", true, true);
 										if (as[0] != undefined) {
+											b_ret[i].unit=as[0].uunit;
 											b_ret[i].spec=b_ret[i].style+' '+b_ret[i].spec;
 										}
 									}
@@ -971,9 +983,10 @@
 						if(q_getPara('sys.project').toUpperCase()=='XY'){
 							if (!emp($('#txtProductno_'+b_seq).val())){
 								var t_where =" noa='"+$('#txtProductno_'+b_seq).val()+"' ";
-								q_gt('ucc', "where=^^ "+t_where+" ^^", 0, 0, 0, "getuccspec",r_accy,1);
+								q_gt('ucc_xy', "where=^^ "+t_where+" ^^", 0, 0, 0, "getuccspec",r_accy,1);
 								var as = _q_appendData("ucc", "", true, true);
 								if (as[0] != undefined) {
+									$('#txtUnit_'+b_seq).val(as[0].uunit);
 									$('#txtSpec_'+b_seq).val(as[0].style+' '+as[0].spec);
 								}
 							}
@@ -1179,10 +1192,10 @@
 						<td class="td1"><span> </span><a id='lblType' class="lbl"> </a></td>
 						<td class="td2">
 							<input id="txtType" type="text" style='display:none;'/>
-							<select id="cmbTypea" class="txt c1"></select>
+							<select id="cmbTypea" class="txt c1"> </select>
 						</td>
 						<td class="td3"><span> </span><a id='lblStype' class="lbl"> </a></td>
-						<td class="td4"><select id="cmbStype" class="txt c1"></select></td>
+						<td class="td4"><select id="cmbStype" class="txt c1"> </select></td>
 						<td class="td5"><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td class="td6"><input id="txtDatea" type="text" class="txt c1 ime"/></td>
 						<td class="td7"><span> </span><a id='lblNoa' class="lbl"> </a></td>
@@ -1230,7 +1243,7 @@
 							<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select>
 						</td>
 						<td class="td4"><span> </span><a id='lblTrantype' class="lbl"> </a></td>
-						<td class="td5"><select id="cmbTrantype" class="txt c1"></select></td>
+						<td class="td5"><select id="cmbTrantype" class="txt c1"> </select></td>
 					</tr>
 					<tr class="tr6">
 						<td class="td4"><span> </span><a id='lblPaytype' class="lbl"> </a></td>
