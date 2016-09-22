@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -15,11 +15,25 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
-            $(document).ready(function() {
+             $(document).ready(function() {
             	q_getId();
                 q_gf('', 'z_crm');
+                
+                
+                $('#q_report').click(function(e) {
+					if(q_getPara('sys.project').toUpperCase()!='RK'){
+							var delete_report=999;
+							for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+							if($('#q_report').data().info.reportData[i].report=='z_crm')
+								delete_report=i;
+							}
+							if($('#q_report div div').text().indexOf('問題統計表')>-1){
+								$('#q_report div div').eq(delete_report).hide();
+							}
+							delete_report=999;
+					 }
+				});
             });
-            
             function q_gfPost() {
 				$('#q_report').q_report({
 					fileName : 'z_crm',
