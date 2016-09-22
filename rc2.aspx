@@ -113,7 +113,7 @@
 						//['txtPost2', 'lblAddr2', 'addr', 'post,addr', 'txtPost2,txtAddr2', 'addr_b.aspx'],
 						['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
 						['txtCno', 'lblAcomp', 'acomp', 'noa,acomp,addr', 'txtCno,txtAcomp,txtAddr2', 'acomp_b.aspx'],
-						['txtProductno_', 'btnProductno_', 'ucc_xy', 'noa,product,uunit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc_b.aspx'],
+						['txtProductno_', 'btnProductno_', 'ucc_xy', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc_b.aspx'],
 						['txtCarno', 'lblCar', 'cardeal', 'noa,comp', 'txtCarno,txtCar', 'cardeal_b.aspx'],
 						['txtCustno_', 'btnCustno_', 'cust', 'noa,comp', 'txtCustno_,txtComp_', 'cust_b.aspx']
 					);
@@ -320,7 +320,7 @@
 										q_gt('ucc_xy', "where=^^ "+t_where+" ^^", 0, 0, 0, "getuccspec",r_accy,1);
 										var as = _q_appendData("ucc", "", true, true);
 										if (as[0] != undefined) {
-											b_ret[i].unit=as[0].uunit;
+											//b_ret[i].unit=as[0].uunit;
 											b_ret[i].spec=b_ret[i].style+' '+b_ret[i].spec;
 										}
 									}
@@ -986,7 +986,7 @@
 								q_gt('ucc_xy', "where=^^ "+t_where+" ^^", 0, 0, 0, "getuccspec",r_accy,1);
 								var as = _q_appendData("ucc", "", true, true);
 								if (as[0] != undefined) {
-									$('#txtUnit_'+b_seq).val(as[0].uunit);
+									//$('#txtUnit_'+b_seq).val(as[0].uunit);
 									$('#txtSpec_'+b_seq).val(as[0].style+' '+as[0].spec);
 								}
 							}

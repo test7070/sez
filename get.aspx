@@ -69,6 +69,23 @@
 				q_cmbParse("cmbTranstyle", q_getPara('sys.transtyle'));
 				q_cmbParse("cmbTypea", q_getPara('get.typea'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
+				
+				if (q_getPara('sys.project').toUpperCase()=='XY'){
+					aPop = new Array(
+						//['txtPost', 'lblPost', 'addr', 'post,addr', 'txtPost', 'addr_b.aspx'],
+						['txtPost', 'lblPost', 'addr2', 'noa,post', 'txtPost,txtAddr', 'addr2_b.aspx'],
+						['txtTranstartno', 'lblTranstart', 'addr2', 'noa,post','txtTranstartno,txtTranstart', 'addr2_b.aspx'],
+						['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
+						['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
+						['txtUno_', 'btnUno_', 'view_uccc', 'noa', 'txtUno_', 'uccc_seek_b.aspx?;;;1=0', '95%', '60%'],
+						['txtProductno_', 'btnProductno_', 'ucc_xy', 'noa,product,spec,uunit', 'txtProductno_,txtProduct_,txtSpec_,txtUnit_', 'ucaucc_b.aspx'],
+						['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
+						['txtRackno', 'lblRackno', 'rack', 'noa,rack,storeno,store', 'txtRackno', 'rack_b.aspx'],
+						['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']
+					);
+					q_readonlys.push('txtUnit');
+				}
+				
 				$('#txtPost').change(function(){
 					GetTranPrice();
 				});
@@ -631,7 +648,10 @@
 						<input id="txtProductno.*" type="text" style="width:80%;" />
 						<input class="btn" id="btnProductno.*" type="button" value='.' style="width:1%;" />
 					</td>
-					<td><input class="txt c1" id="txtProduct.*" type="text" /></td>
+					<td>
+						<input class="txt c1" id="txtProduct.*" type="text" />
+						<input class="txt c1 isSpec" id="txtSpec.*" type="text"/>
+					</td>
 					<td><input class="txt c1" id="txtUnit.*" type="text"/></td>
 					<td><input class="txt num c1" id="txtMount.*" type="text"/></td>
 					<td>

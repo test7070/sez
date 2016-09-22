@@ -71,6 +71,25 @@
 				q_cmbParse("cmbTranstyle", q_getPara('sys.transtyle'));
 				q_cmbParse("cmbTypea", q_getPara('cng.typea'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
+				
+				if (q_getPara('sys.project').toUpperCase()=='XY'){
+					aPop = new Array(
+						//['txtPost', 'lblPost', 'addr', 'post,addr', 'txtPost', 'addr_b.aspx'],
+						['txtPost', 'lblPost', 'addr', 'noa,post', 'txtPost,txtAddr', 'addr2_b.aspx'],
+						['txtTranstartno', 'lblTranstart', 'addr2', 'noa,post','txtTranstartno,txtTranstart', 'addr2_b.aspx'],
+						['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
+						['txtRackno', 'lblRackno', 'rack', 'noa,rack,storeno,store', 'txtRackno', 'rack_b.aspx'],
+						['txtStoreinno', 'lblStorein', 'store', 'noa,store', 'txtStoreinno,txtStorein', 'store_b.aspx'],
+						['txtRackinno', 'lblRackinno', 'rack', 'noa,rack,storeno,store', 'txtRackinno', 'rack_b.aspx'],
+						['txtTggno', 'lblTgg', 'tgg', 'noa,nick', 'txtTggno,txtTgg', 'tgg_b.aspx'],
+						['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
+						['txtProductno_', 'btnProductno_', 'ucc_xy', 'noa,product,uunit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc_b.aspx'],
+						['txtMemo', '', 'qphr', 'noa,phr', '0,txtMemo', ''],
+						['txtSssno', 'lblSssno', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx']
+					);
+					q_readonlys.push('txtUnit');
+				}
+				
 				$('#txtPrice').change(function() {
 					sum();
 				});
