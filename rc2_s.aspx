@@ -11,7 +11,9 @@
     <link href="../qbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     var q_name = "rc2_s";
-	var aPop = new Array(['txtCno', '', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],['txtTggno', '', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']);
+	var aPop = new Array(
+		['txtCno', '', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
+		,['txtTggno', '', 'tgg', 'noa,comp,nick', 'txtTggno,txtTgg', 'tgg_b.aspx']);
     $(document).ready(function () {
         main();
     });         /// end ready
