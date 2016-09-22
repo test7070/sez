@@ -100,6 +100,15 @@
 					bbsNum = [['txtMount', 15, 2, 1], ['txtGmount', 15, 2, 1], ['txtEmount', 15, 2, 1], ['txtPrice', 15, 4, 1], ['txtMoney', 15, 0, 1]];
 				}
 				
+				if (q_getPara('sys.project').toUpperCase()=='XY'){
+					aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
+					, ['txtAddress', '', 'view_road', 'memo,zipcode', '0txtAddress,txtZip', 'road_b.aspx']
+					, ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,serial,zip_invo,addr_invo,invoicetitle', 'txtCustno,txtComp,txtNick,txtSerial,txtZip,txtAddress,txtBuyer', 'cust_b.aspx']
+					, ['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp,serial', '0txtBuyerno,txtBuyer,txtSerial,txtMemo', 'cust_b.aspx']
+					, ['txtSerial', 'lblSerial', 'vccabuyer', 'serial,noa,buyer', '0txtSerial,txtBuyerno,txtBuyer', 'vccabuyer_b.aspx']
+					, ['txtProductno_', 'btnProductno_', 'ucca', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucca_b.aspx']);
+				}
+				
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
 				q_mask(bbmMask);
@@ -509,6 +518,9 @@
 					$('#txtAddress').val('');
 					$('#txtBuyerno').val('');
 					$('#txtBuyer').val('');
+				}
+				if (q_getPara('sys.project').toUpperCase()=='XY'){//1050118
+					$('#txtMon').val(q_date().substr(0,r_lenm))
 				}
 				
 				$('#txtNoa').data('key_buyer','');//檢查發票抬頭用
