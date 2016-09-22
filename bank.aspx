@@ -32,7 +32,6 @@
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
-                brwCount2 = 20
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1);
             });
@@ -56,7 +55,7 @@
                     $(this).val($.trim($(this).val()).toUpperCase());
                     if ($(this).val().length > 0) {
                        // if ((/^(\w+|\w+\u002d\w+)$/g).test($(this).val())) {
-                            t_where = "where=^^ noa='" + $(this).val() + "'^^";
+                            t_where = "where=^^ noa=N'" + $(this).val() + "'^^";
                             q_gt('bank', t_where, 0, 0, 0, "checkBankno_change", r_accy);
                        /* } else {
                             Lock();
@@ -151,7 +150,7 @@
                     return;
                 }
                 if (q_cur == 1) {
-                    t_where = "where=^^ noa='" + $('#txtNoa').val() + "'^^";
+                    t_where = "where=^^ noa=N'" + $('#txtNoa').val() + "'^^";
                     q_gt('bank', t_where, 0, 0, 0, "checkBankno_btnOk", r_accy);
                 } else {
                     wrServer($('#txtNoa').val());
