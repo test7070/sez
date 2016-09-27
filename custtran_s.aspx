@@ -15,11 +15,13 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             var q_name = "custtran_s";
-
+			aPop = new Array(
+				['txtNoa', 'lblNoa', 'cust', 'noa,comp,nick', 'txtNoa', '']
+			);
+			
             $(document).ready(function() {
                 main();
             });
-            /// end ready
 
             function main() {
                 mainSeek();
@@ -30,15 +32,21 @@
                 q_getFormat();
                 q_langShow();
 
-                bbmMask = [['txtBkeyin', r_picd], ['txtEkeyin', r_picd]];
-                q_mask(bbmMask);
+                //q_mask(bbmMask);
 
                 $('#txtNoa').focus();
+                
+                if(q_getPara('sys.project').toUpperCase()=='ES'){
+                	q_cmbParse("cmbPaytype", "月結,現金,回收");
+                }else{
+                	q_cmbParse("cmbPaytype", q_getPara('vcc.paytype'));
+                }
             }
 
             function q_seekStr() {
                 t_noa = $('#txtNoa').val();
                 t_comp = $('#txtComp').val();
+                t_nick = $('#txtNick').val();
                 t_paytype = $('#cmbPaytype').val();
 				t_memo=$('#txtMemo').val();
 
@@ -46,7 +54,7 @@
                 + q_sqlPara2("noa", t_noa);
 				
 				if(t_comp.length>0)
-					t_where += " and (charindex(N'"+t_comp+"',comp)>0 or charindex('"+t_nick+"',comp)>0)";
+					t_where += " and (charindex(N'"+t_comp+"',comp)>0 or charindex('"+t_comp+"',nick)>0)";
                 if(t_paytype.length>0)
                 	t_where += " and paytype='"+t_paytype+"'";
                 if(t_memo.length>0)
@@ -69,20 +77,20 @@
 		<div style='width:400px; text-align:center;padding:15px;' >
 			<table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
-					<td>
-					<input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" />
-					</td>
+					<td class='seek'  style="width:20%;"><a id='lblNoa'> </a></td>
+					<td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblComp'></a></td>
-					<td>
-					<input class="txt" id="txtComp" type="text" style="width:215px; font-size:medium;" />
-					</td>
+					<td class='seek'  style="width:20%;"><a id='lblComp'> </a></td>
+					<td><input class="txt" id="txtComp" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblMemo'></a></td>
+					<td class='seek'  style="width:20%;"><a id='lblMemo'>備註</a></td>
 					<td><input id="txtMemo" type="text" class="txt" style="width:215px; font-size:medium;" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblPaytype'>收款方式</a></td>
+					<td><select id="cmbPaytype" style="width:215px; font-size:medium;"> </select></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
