@@ -237,7 +237,7 @@
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('cust_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
+                q_box('custtran_s.aspx', q_name + '_s', "550px", "600px", q_getMsg("popSeek"));
             }
             function btnIns() {
 				if($('#Copy').is(':checked')){
@@ -727,8 +727,10 @@
 						<td colspan="5"><input id="txtBillmemo" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id='lblOption01' class="lbl">開發票</a></td>
+						<td><input id="chkOptuin01"  type="checkbox"/></td>
 						<td><span> </span><a id='lblInvomemo' class="lbl"> </a></td>
-						<td colspan="5"><input id="txtInvomemo" type="text" class="txt c1"/></td>
+						<td colspan="3"><input id="txtInvomemo" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblIntroducer' class="lbl"> </a></td>
