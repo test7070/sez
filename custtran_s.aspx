@@ -33,23 +33,25 @@
                 bbmMask = [['txtBkeyin', r_picd], ['txtEkeyin', r_picd]];
                 q_mask(bbmMask);
 
-                $('#txtBkeyin').focus();
+                $('#txtNoa').focus();
             }
 
             function q_seekStr() {
                 t_noa = $('#txtNoa').val();
-                t_bkeyin = $('#txtBkeyin').val();
-                t_ekeyin = $('#txtEkeyin').val();
                 t_comp = $('#txtComp').val();
-                t_boss = $('#txtBoss').val();
+                t_paytype = $('#cmbPaytype').val();
+				t_memo=$('#txtMemo').val();
 
-                t_bkeyin = t_bkeyin.length > 0 && t_bkeyin.indexOf("_") > -1 ? t_bkeyin.substr(0, t_bkeyin.indexOf("_")) : t_bkeyin;
-                /// 100.  .
-                t_ekeyin = t_ekeyin.length > 0 && t_ekeyin.indexOf("_") > -1 ? t_ekeyin.substr(0, t_ekeyin.indexOf("_")) : t_ekeyin;
-                /// 100.  .
-
-                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("comp", t_comp) + q_sqlPara2("keyin", t_bkeyin, t_ekeyin) + q_sqlPara2("boss", t_boss);
-
+                var t_where = " 1=1 " 
+                + q_sqlPara2("noa", t_noa);
+				
+				if(t_comp.length>0)
+					t_where += " and (charindex(N'"+t_comp+"',comp)>0 or charindex('"+t_nick+"',comp)>0)";
+                if(t_paytype.length>0)
+                	t_where += " and paytype='"+t_paytype+"'";
+                if(t_memo.length>0)
+                	t_where += " and charindex(N'"+t_memo+"',memo)>0";
+                
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
             }
@@ -59,21 +61,13 @@
                 color: white;
                 text-align: center;
                 font-weight: bold;
-                BACKGROUND-COLOR: #76a2fe
+                background-color: #76a2fe
             }
 		</style>
 	</head>
 	<body>
 		<div style='width:400px; text-align:center;padding:15px;' >
 			<table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
-				<tr class='seek_tr'>
-					<td   style="width:35%;" ><a id='lblKeyin'></a></td>
-					<td style="width:65%;  ">
-					<input class="txt" id="txtBkeyin" type="text" style="width:90px; font-size:medium;" />
-					<span style="display:inline-block; vertical-align:middle">&sim;</span>
-					<input class="txt" id="txtEkeyin" type="text" style="width:93px; font-size:medium;" />
-					</td>
-				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
 					<td>
@@ -87,10 +81,8 @@
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblBoss'></a></td>
-					<td>
-					<input class="txt" id="txtBoss" type="text" style="width:215px; font-size:medium;" />
-					</td>
+					<td class='seek'  style="width:20%;"><a id='lblMemo'></a></td>
+					<td><input id="txtMemo" type="text" class="txt" style="width:215px; font-size:medium;" /></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
