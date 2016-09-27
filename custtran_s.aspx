@@ -45,20 +45,25 @@
 
             function q_seekStr() {
                 t_noa = $('#txtNoa').val();
+                t_serial = $('#txtSerial').val();
                 t_comp = $('#txtComp').val();
                 t_nick = $('#txtNick').val();
                 t_paytype = $('#cmbPaytype').val();
 				t_memo=$('#txtMemo').val();
+				t_tel = $('#txtTel').val();
 
                 var t_where = " 1=1 " 
-                + q_sqlPara2("noa", t_noa);
+                + q_sqlPara2("noa", t_noa)
+                + q_sqlPara2("serial", t_serial);
 				
 				if(t_comp.length>0)
 					t_where += " and (charindex(N'"+t_comp+"',comp)>0 or charindex('"+t_comp+"',nick)>0)";
                 if(t_paytype.length>0)
-                	t_where += " and paytype='"+t_paytype+"'";
+                	t_where += " and charindex('"+t_paytype+"',paytype)>0";
                 if(t_memo.length>0)
                 	t_where += " and charindex(N'"+t_memo+"',memo)>0";
+            	if(t_tel.length>0)
+					t_where += " and (charindex(N'"+t_tel+"',tel)>0 or charindex('"+t_tel+"',mobile)>0 or charindex('"+t_tel+"',fax)>0)";
                 
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
@@ -77,6 +82,10 @@
 		<div style='width:400px; text-align:center;padding:15px;' >
 			<table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
 				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblSerial'>統編</a></td>
+					<td><input class="txt" id="txtSerial" type="text" style="width:215px; font-size:medium;" /></td>
+				</tr>
+				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblNoa'> </a></td>
 					<td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
@@ -91,6 +100,10 @@
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblPaytype'>收款方式</a></td>
 					<td><select id="cmbPaytype" style="width:215px; font-size:medium;"> </select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblTel'>電話</a></td>
+					<td><input id="txtTel" type="text" class="txt" style="width:215px; font-size:medium;" /></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
