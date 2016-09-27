@@ -614,7 +614,7 @@
 					</tr>
 					<tr class="tr15">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
-						<td class="td2" colspan='7'><input id="txtMemo" type="text" class="txt c1"/></td>
+						<td class="td2" colspan='7'><textarea id="txtMemo" class="txt c1" rows="3" style="height:75px;"> </textarea></td>
 					</tr>
 				</table>
 			</div>
