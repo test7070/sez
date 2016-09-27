@@ -37,7 +37,7 @@
                 $('#txtNoa').focus();
                 
                 if(q_getPara('sys.project').toUpperCase()=='ES'){
-                	q_cmbParse("cmbPaytype", "月結,現金,回收");
+                	q_cmbParse("cmbPaytype", "@全部,月結,現金,回收");
                 }else{
                 	q_cmbParse("cmbPaytype", q_getPara('vcc.paytype'));
                 }
@@ -59,7 +59,7 @@
 				if(t_comp.length>0)
 					t_where += " and (charindex(N'"+t_comp+"',comp)>0 or charindex('"+t_comp+"',nick)>0)";
                 if(t_paytype.length>0)
-                	t_where += " and charindex('"+t_paytype+"',paytype)>0";
+                	t_where += " and charindex(N'"+t_paytype+"',paytype)>0";
                 if(t_memo.length>0)
                 	t_where += " and charindex(N'"+t_memo+"',memo)>0";
             	if(t_tel.length>0)
