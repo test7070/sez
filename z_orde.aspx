@@ -25,7 +25,7 @@
 					if(window.parent.q_name=="orde" && q_getPara('sys.project').toUpperCase()=='XY' ){
 						var delete_report=999;
 						for(var i=0;i<$('#qReport').data().info.reportData.length;i++){
-							if($('#qReport').data().info.reportData[i].report!='z_orde5')
+							if($('#qReport').data().info.reportData[i].report!='z_orde5_xy')
 								$('#qReport div div').eq(i).hide();
 						}
 												
