@@ -48,7 +48,7 @@
 					}
 					
 					//t_where="where=^^"+t_where+"^^"
-					location.href = "http://"+location.host +location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";"+t_where+";"+r_accy;
+					location.href = "http://"+location.host +location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";"+t_where+";"+r_accy+"_"+r_cno;
 				});
             }
 
@@ -68,9 +68,9 @@
 		<div  id="dbbs" >
 			<table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style='width:98%' >
 				<tr>
-					<th align="center" ></th>
-					<th align="center" style='color:Blue;' ><a id='lblAcc1'></a></th>
-					<th align="center" style='color:Blue;' ><a id='lblAcc2'></a></th>
+					<th align="center" style='width:5%;'></th>
+					<th align="center" style='color:blue;width:35%;' ><a id='lblAcc1'></a></th>
+					<th align="center" style='color:blue;width:60%;' ><a id='lblAcc2'></a></th>
 				</tr>
 				<tr>
 					<td style="width:2%;">
@@ -86,9 +86,9 @@
 			</table>
 			<div>
 				<a>會計科目</a>
-				<input class="txt" id="textAcc1" type="text" style="width:130px;" />
+				<input class="txt" id="textAcc1" type="text" style="width:150px;" />
 				<a>科目名稱 </a>
-				 <input class="txt" id="textAcc2" type="text" style="width:200px;" />
+				 <input class="txt" id="textAcc2" type="text" style="width:150px;" />
 				 <input type="button" id="btnSearch" style="border-style: none; width: 36px; height: 36px; cursor: pointer; background: url(../image/search_32.png) 0px 0px no-repeat;">
 			 </div>
 			<!--#include file="../inc/brow_ctrl.inc"-->
