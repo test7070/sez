@@ -79,8 +79,7 @@
             }
 
             function q_boxClose(s2) {///   q_boxClose 2/4
-                var
-                ret;
+                var ret;
                 switch (b_pop) {
                 	case 'sss':
                         ret = getb_ret();
@@ -132,20 +131,13 @@
                 	case 'authority':
                         var as = _q_appendData('authority', '', true);
                         if (as[0] != undefined) {
-                        	if(q_getPara('sys.comp').indexOf('大昌')>-1){
+                        	if(q_getPara('sys.project').toUpperCase()=='DC'){
 	                            if (r_rank >= 7)
 	                                q_content = "";
 	                            else if (as.length > 0 && as[0]["pr_modi"] == "true")
 	                                q_content = "where=^^partno='" + ssspartno + "'^^";
 	                            else
 	                                q_content = "where=^^sssno='" + r_userno + "'^^";
-							}else if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
-								if (r_rank >= 8)
-	                                q_content = "";
-	                             else if (as.length > 0 && as[0]["pr_ins"] == "true"&&sssjob.indexOf('經理')>-1)
-	                             	q_content = "where=^^ charindex(sssno,'"+sssgroup+"')>0^^";
-	                             else
-	                             	q_content = "where=^^sssno='" + r_userno + "'^^";
 							}else{
 								if (r_rank >= 8)
 	                                q_content = "";
@@ -160,19 +152,8 @@
                         if (as[0] != undefined) {
                             ssspartno = as[0].partno;
                             sssjob=as[0].job;
-                            if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
-    	                        q_gt('sss', "where=^^ salesgroup='" + as[0].salesgroup + "'^^", 0, 0, 0, "sss_salesgroup");
-                            }else{
-	                            q_gt('authority', "where=^^a.noa='trip' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1);
-                            }
+							q_gt('authority', "where=^^a.noa='trip' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1);
                         }
-                        break;
-					case 'sss_salesgroup':
-                        var as = _q_appendData('sss', '', true);
-                        for ( i = 0; i < as.length; i++) {
-                            sssgroup = sssgroup + as[i].noa;
-                        }
-                        q_gt('authority', "where=^^a.noa='trip' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1);
                         break;
                 	case 'apop_sss':
                 		var as = _q_appendData("sss", "", true);
@@ -246,44 +227,12 @@
                     return;
                 }
                 
-                //104/10/02 限制2天後不能修改
-                //104/10/08 新增可以輸入兩天前的資料
-				/*var t_date=q_date();
-				var x_day=2,t_day=1;
-				
-				while(t_day<x_day){
-					var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
-					nextdate.setDate(nextdate.getDate() -1)
-					t_date=''+(nextdate.getFullYear()-1911)+'/';
-					//月份
-					t_date=t_date+((nextdate.getMonth()+1)<10?('0'+(nextdate.getMonth()+1)+'/'):((nextdate.getMonth()+1)+'/'));
-					//日期
-					t_date=t_date+(nextdate.getDate()<10?('0'+(nextdate.getDate())):(nextdate.getDate()));
-					
-					//六日跳過
-					if(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==0 //日
-					||new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==6 //六
-					){continue;}
-			               	
-					//假日跳過
-					if(holiday){
-						var isholiday=false;
-						for(var i=0;i<holiday.length;i++){
-							if(holiday[i].noa==t_date){
-								isholiday=true;
-								break;
-							}
-						}
-						if(isholiday) continue;
-					}
-					t_day++;
-				}
-				
-				if(r_rank<9 && t_date>$('#txtDatea').val()){
-					alert('外勤日期已超過兩天禁止新增!!');
-					Unlock();
-					return;
-				}*/
+                //105/10/03 只能改當天之後的外勤
+                if(q_date()>$('#txtDatea').val() && r_rank<9){
+                	alert('禁止修改'+q_date()+'之前的外勤資料!!');
+                    Unlock();
+                    return;
+                }
                 
                 for (var i = 0; i < q_bbsCount; i++) {
                     for (var j = 0; j < q_bbsCount; j++) {
@@ -371,42 +320,13 @@
                 if (emp($('#txtNoa').val()))
                     return;
                     
-				//104/10/02 限制2天後不能修改
-				var t_date=q_date();
-				var x_day=2,t_day=1;
+				//105/10/03 只能改當天之後的外勤
+                if(q_date()>$('#txtDatea').val() && r_rank<9){
+                	alert('禁止修改'+q_date()+'之前的外勤資料!!');
+                    Unlock();
+                    return;
+                }
 				
-				while(t_day<x_day){
-					var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
-					nextdate.setDate(nextdate.getDate() -1)
-					t_date=''+(nextdate.getFullYear()-1911)+'/';
-					//月份
-					t_date=t_date+((nextdate.getMonth()+1)<10?('0'+(nextdate.getMonth()+1)+'/'):((nextdate.getMonth()+1)+'/'));
-					//日期
-					t_date=t_date+(nextdate.getDate()<10?('0'+(nextdate.getDate())):(nextdate.getDate()));
-					
-					//六日跳過
-					if(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==0 //日
-					||new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==6 //六
-					){continue;}
-			               	
-					//假日跳過
-					if(holiday){
-						var isholiday=false;
-						for(var i=0;i<holiday.length;i++){
-							if(holiday[i].noa==t_date){
-								isholiday=true;
-								break;
-							}
-						}
-						if(isholiday) continue;
-					}
-					t_day++;
-				}
-				
-				if(r_rank<9 && t_date>$('#txtDatea').val()){
-					alert('外勤日期已超過兩天禁止修改!!');
-					return;
-				}
                 _btnModi();
                 $('#txtMemo').focus();
             }
@@ -699,11 +619,11 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold; width:90%;"  />
 					</td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:150px;"><a id='lblTimes'></a></td>
-					<td align="center" style="width:120px;"><a id='lblCnos'></a></td>
-					<td align="center" style="width:200px;"><a id='lblAcomps'></a></td>
-					<td align="center" style="width:300px;"><a id='lblMemos'></a></td>
-					<td align="center" style="width:60px;"><a id='lblTele_pollings'></a></td>
+					<td align="center" style="width:150px;"><a id='lblTimes'> </a></td>
+					<td align="center" style="width:120px;"><a id='lblCnos'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblAcomps'> </a></td>
+					<td align="center" style="width:300px;"><a id='lblMemos'> </a></td>
+					<td align="center" style="width:60px;"><a id='lblTele_pollings'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td align="center">

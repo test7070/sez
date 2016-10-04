@@ -1239,6 +1239,8 @@
 						<td><input id="txtWeight1" type="text" class="txt c1"/> </td>
 						<td><span> </span><a id="lblWeight2" class="lbl"> </a></td>
 						<td><input id="txtWeight2" type="text" class="txt c1"/> </td>
+						<td><span> </span><a id="lblVolumn" class="lbl">材積</a></td>
+						<td><input id="txtVolumn" type="text" class="txt c1"/> </td>
 					</tr>
 					<tr class="other">
 						<td><span> </span><a id="lblTon" class="lbl"> </a></td>

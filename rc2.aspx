@@ -105,7 +105,7 @@
 				bbmNum = [['txtMoney', 15, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 15, 0, 1],['txtPrice', 10, q_getPara('rc2.pricePrecision'), 1], ['txtTotalus', 15, 0, 1], ['txtFloata', 10, 2, 1],['txtTranmoney',15,0,1],['txtTranadd',15,q_getPara('rc2.pricePrecision'),1]];
 				bbsNum = [['txtMount', 15, q_getPara('rc2.mountPrecision'), 1], ['txtPrice', 15, q_getPara('rc2.pricePrecision'), 1], ['txtTotal', 15, 0, 1]];
 				if(q_getPara('sys.project').toUpperCase()=='XY'){
-					q_readonlys = ['txtNoq','txtProduct','txtSpec','txtUnit','txtOrdeno','txtNo2'];
+					q_readonlys = ['txtNoq','txtProduct','txtSpec','txtOrdeno','txtNo2'];
 					aPop = new Array(
 						['txtTggno', 'lblTgg', 'tgg', 'noa,nick,tel,zip_invo,addr_comp,paytype', 'txtTggno,txtTgg,txtTel,txtPost,txtAddr,txtPaytype', 'tgg_b.aspx'],
 						['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
@@ -113,7 +113,7 @@
 						//['txtPost2', 'lblAddr2', 'addr', 'post,addr', 'txtPost2,txtAddr2', 'addr_b.aspx'],
 						['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
 						['txtCno', 'lblAcomp', 'acomp', 'noa,acomp,addr', 'txtCno,txtAcomp,txtAddr2', 'acomp_b.aspx'],
-						['txtProductno_', 'btnProductno_', 'ucc_xy', 'noa,product,uunit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc_b.aspx'],
+						['txtProductno_', 'btnProductno_', 'ucc_xy', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc_b.aspx'],
 						['txtCarno', 'lblCar', 'cardeal', 'noa,comp', 'txtCarno,txtCar', 'cardeal_b.aspx'],
 						['txtCustno_', 'btnCustno_', 'cust', 'noa,comp', 'txtCustno_,txtComp_', 'cust_b.aspx']
 					);
@@ -320,7 +320,7 @@
 										q_gt('ucc_xy', "where=^^ "+t_where+" ^^", 0, 0, 0, "getuccspec",r_accy,1);
 										var as = _q_appendData("ucc", "", true, true);
 										if (as[0] != undefined) {
-											b_ret[i].unit=as[0].uunit;
+											//b_ret[i].unit=as[0].uunit;
 											b_ret[i].spec=b_ret[i].style+' '+b_ret[i].spec;
 										}
 									}
@@ -986,7 +986,7 @@
 								q_gt('ucc_xy', "where=^^ "+t_where+" ^^", 0, 0, 0, "getuccspec",r_accy,1);
 								var as = _q_appendData("ucc", "", true, true);
 								if (as[0] != undefined) {
-									$('#txtUnit_'+b_seq).val(as[0].uunit);
+									//$('#txtUnit_'+b_seq).val(as[0].uunit);
 									$('#txtSpec_'+b_seq).val(as[0].style+' '+as[0].spec);
 								}
 							}

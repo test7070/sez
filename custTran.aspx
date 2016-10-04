@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -9,7 +9,10 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
-
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             this.errorHandler = null;
             function onPageError(error) {
@@ -86,7 +89,12 @@
             function mainPost() {
                 q_cmbParse("cmbTypea", q_getPara('cust.typea'));
                 //q_cmbParse("cmbBillday", q_getPara('cust.billday'));
-                q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
+                if(q_getPara('sys.project').toUpperCase()=='ES'){
+                	q_cmbParse("combPaytype", "月結,現金,回收");
+                }else{
+                	q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
+                }
+                
                 q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				
 				$('#txtNoa').change(function(e){
@@ -229,7 +237,7 @@
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('cust_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
+                q_box('custtran_s.aspx', q_name + '_s', "550px", "600px", q_getMsg("popSeek"));
             }
             function btnIns() {
 				if($('#Copy').is(':checked')){
@@ -253,7 +261,10 @@
             }
 
             function btnPrint() {
-                q_box('z_custtran.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
+                //q_box('z_custtran.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
+           		q_box('z_cust.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({
+                    noa : trim($('#txtNoa').val())
+                }) + ";" + r_accy + "_" + r_cno, 'cust', "95%", "95%", m_print); 
             }
              function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
@@ -719,8 +730,16 @@
 						<td colspan="5"><input id="txtBillmemo" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id='lblOption01' class="lbl">開發票</a></td>
+						<td>
+							<input id="chkOptuin01"  type="checkbox" style="float:left;"/>
+							<span style="float:left;display:block;width:10px;"> </span>
+							<a class="lbl" style="float:left;">附回郵</a>
+							<span style="float:left;display:block;width:10px;"> </span>
+							<input id="chkIsship" type="checkbox" style="float:left;"/>
+						</td>
 						<td><span> </span><a id='lblInvomemo' class="lbl"> </a></td>
-						<td colspan="5"><input id="txtInvomemo" type="text" class="txt c1"/></td>
+						<td colspan="3"><input id="txtInvomemo" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblIntroducer' class="lbl"> </a></td>
