@@ -15,10 +15,44 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
+			
+			var t_uccga = '', t_uccgb = '', t_uccgc='';
 			$(document).ready(function() {
             	q_getId();
-            	q_gf('', 'z_ordbp');
+            	q_gt('uccga', "", 0, 0, 0, "");
+            	
             });
+            function q_gtPost(s2) {
+            	switch (t_name) {
+                	case 'uccga':
+                		var as = _q_appendData("uccga", "", true);
+                        if(as[0]!=undefined){
+                        	for(var i=0;i<as.length;i++)
+                        		t_uccga += (t_uccga.length>0?',':'')+as[i].noa+'@'+as[i].namea; 
+                        }
+                		q_gt('uccgb', "", 0, 0, 0, "");
+                		break;
+            		case 'uccgb':
+                		var as = _q_appendData("uccgb", "", true);
+                        if(as[0]!=undefined){
+                        	for(var i=0;i<as.length;i++)
+                        		t_uccgb += (t_uccgb.length>0?',':'')+as[i].noa+'@'+as[i].namea; 
+                        }
+                		q_gt('uccgc', "", 0, 0, 0, "");
+                		break;
+            		case 'uccgc':
+                		var as = _q_appendData("uccgc", "", true);
+                        if(as[0]!=undefined){
+                        	for(var i=0;i<as.length;i++)
+                        		t_uccgc += (t_uccgc.length>0?',':'')+as[i].noa+'@'+as[i].namea; 
+                        }
+                		q_gf('', 'z_ordbp');
+                		break;
+                    default:
+						break;
+                }
+            	
+            }
             function q_gfPost() {
                $('#q_report').q_report({
                         fileName : 'z_ordbp',
@@ -64,7 +98,19 @@
 	                        type : '5',
 	                        name : 'enda',
 	                        value : [q_getPara('report.all')].concat('1@結案,0@未結案'.split(','))
-                    	}]
+                    	},{
+	                        type : '5', //[16]      
+	                        name : 'xuccga',
+	                        value : [q_getPara('report.all')].concat(t_uccga.split(','))
+	                    },{
+	                        type : '5', //[17]      
+	                        name : 'xuccgb',
+	                        value : [q_getPara('report.all')].concat(t_uccgb.split(','))
+	                    },{
+	                        type : '5', //[18]      
+	                        name : 'xuccgc',
+	                        value : [q_getPara('report.all')].concat(t_uccgc.split(','))
+	                    }]
                     });
                 q_popAssign();
                 
@@ -107,8 +153,7 @@
             function q_boxClose(s2) {
             }
             
-            function q_gtPost(s2) {
-            }
+            
             
 		</script>
 	</head>
