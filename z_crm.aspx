@@ -21,10 +21,10 @@
                 
                 
                 $('#q_report').click(function(e) {
-					if(q_getPara('sys.project').toUpperCase()!='RK'){
+					if(q_getPara('sys.project').toUpperCase()=='RK'){
 							var delete_report=999;
 							for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
-							if($('#q_report').data().info.reportData[i].report=='z_crm')
+							if($('#q_report').data().info.reportData[i].report=='z_crm4')
 								delete_report=i;
 							}
 							if($('#q_report div div').text().indexOf('問題統計表')>-1){

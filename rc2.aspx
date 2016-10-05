@@ -32,6 +32,7 @@
 			brwKey = 'datea';
 			aPop = new Array(
 				['txtTggno', 'lblTgg', 'tgg', 'noa,nick,tel,zip_invo,addr_comp,paytype', 'txtTggno,txtTgg,txtTel,txtPost,txtAddr,txtPaytype', 'tgg_b.aspx'],
+				['txtStoreno', 'lblStoreno', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
 				['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
 				['txtRackno_', 'btnRackno_', 'rack', 'noa,rack,storeno,store', 'txtRackno_', 'rack_b.aspx'],
 				//['txtPost', 'lblAddr', 'addr', 'post,addr', 'txtPost,txtAddr', 'addr_b.aspx'],
@@ -646,6 +647,15 @@
 				if (emp($('#txtMon').val()))
 					$('#txtMon').val($('#txtDatea').val().substr(0, 6));*/
 					
+				if(q_getPara('sys.project').toUpperCase()=='UJ'){
+					for(var k=0;k<q_bbsCount;k++){
+						if(emp($('#txtStoreno_'+k).val())){
+							$('#txtStoreno_'+k).val($('#txtStoreno').val());
+							$('#txtStore_'+k).val($('#txtStore').val());
+						}
+					}
+				}		
+					
 				//檢查是否有超交	
 				if(!check_ordc_overrate){
 					var t_where ='';
@@ -853,8 +863,6 @@
 				as['datea'] = abbm2['datea'];
 				as['tggno'] = abbm2['tggno'];
 				as['kind'] = abbm2['kind'];
-				if (abbm2['storeno'])
-					as['storeno'] = abbm2['storeno'];
 				t_err = '';
 				if (as['price'] != null && (dec(as['price']) > 99999999 || dec(as['price']) < -99999999))
 					t_err = q_getMsg('msgPriceErr') + as['price'] + '\n';
@@ -872,6 +880,9 @@
 				HiddenTreat();
 				stype_chang();
 				refreshBbm();
+				if (q_getPara('sys.project').toUpperCase()=='UJ'){
+					$('.isUJ').show();
+				}
 			}
 
 			function HiddenTreat(returnType){
@@ -1106,7 +1117,7 @@
 				float: left;
 			}
 			.txt.c3 {
-				width: 60%;
+				width: 50%;
 				float: left;
 			}
 			.txt.c6 {
@@ -1166,7 +1177,32 @@
 		</style>
 	</head>
 	<body>
-		<!--#include file="../inc/toolbar.inc"-->
+		<div id="toolbar">
+  <div id="q_menu"></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <input id="btnXchg" type="button" style="display:none;background:url(../image/xchg_24.png) no-repeat;width:28px;height:26px"/>
+  <a id='lblQcopy' style="display:none;"></a>
+  <input id="chekQcopy" type="checkbox" style="display:none;"/>
+  <input id="btnIns" type="button"/>
+  <input id="btnModi" type="button"/>
+  <input id="btnDele" type="button"/>
+  <input id="btnSeek" type="button"/>
+  <input id="btnPrint" type="button"/>
+  <input id="btnPrevPage" type="button"/>
+  <input id="btnPrev" type="button"/>
+  <input id="btnNext" type="button"/>
+  <input id="btnNextPage" type="button"/>
+  <input id="btnOk" type="button" disabled="disabled" />&nbsp;&nbsp;&nbsp;
+  <input id="btnCancel" type="button" disabled="disabled"/>&nbsp;
+  <input id="btnAuthority" type="button" />&nbsp;&nbsp;
+  <span id="btnSign" style="text-decoration: underline;"></span>&nbsp;&nbsp;
+  <span id="btnAsign" style="text-decoration: underline;"></span>&nbsp;&nbsp;
+  <span id="btnLogout" style="text-decoration: underline;color:orange;"></span>&nbsp;&nbsp;
+  <input id="pageNow" type="text"  style="position: relative;text-align:center;"  size="2"/> /
+  <input id="pageAll" type="text"  style="position: relative;text-align:center;"  size="2"/>
+  </div>
+  <div id="q_acDiv"></div>
+</div>
 		<div id='dmain' style="overflow:hidden; width: 1270px;">
 			<div class="dview" id="dview">
 				<table class="tview" id="tview" >
@@ -1304,7 +1340,10 @@
 						<td class="td2"><input id="txtWorker" type="text" class="txt c1"/></td>
 						<td class="td3"><input id="txtWorker2" type="text" class="txt c1"/></td>
 						<td class="td4"><span> </span><a id='lblAccc' class="lbl btn"> </a></td>
-						<td class="td5" colspan="2"><input id="txtAccno" type="text" class="txt c1"/></td>
+						<td class="td5" colspan="2"><input id="txtAccno" type="text" class="txt c1" /></td>
+						<td class="td7"><span> </span><a id='lblStoreno' class="lbl btn isUJ" style="display: none;">倉庫</a></td>
+						<td class="td8"><input id="txtStoreno" type="text" class="txt c3 isUJ" style="display: none;"/>
+										<input id="txtStore" type="text" class="txt c3 isUJ" style="display: none;"/></td>
 					</tr>
 				</table>
 			</div>
