@@ -149,6 +149,7 @@
 				q_cmbParse("cmbTypea", q_getPara('uca.typea'));
 				q_cmbParse("cmbMtype", q_getPara('uca.mtype'), 's');
 				q_gt('uccga', '', 0, 0, 0, "");
+				q_gt('uccgb', '', 0, 0, 0, "");
 				
 				$('#btnUploadimg').click(function() {
 					t_where = "noa='" + $('#txtNoa').val() + "'";
@@ -340,11 +341,29 @@
 						if (as[0] != undefined) {
 							var t_item = " @ ";
 							for ( i = 0; i < as.length; i++) {
-								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].namea;
+								if(q_getPara('sys.project').toUpperCase()!='UJ'){
+									t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].namea;
+								}else{
+									t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@'+ as[i].noa + '.' + as[i].namea;
+								}
+								
 							}
 							q_cmbParse("cmbGroupano", t_item);
 							if (abbm[q_recno] != undefined) {
 								$("#cmbGroupano").val(abbm[q_recno].groupano);
+							}
+						}
+						break;
+					case 'uccgb':
+						var as = _q_appendData("uccgb", "", true);
+						if (as[0] != undefined) {
+							var t_item = " @ ";
+							for ( i = 0; i < as.length; i++) {
+								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].namea;
+							}
+							q_cmbParse("cmbGroupbno", t_item);
+							if (abbm[q_recno] != undefined) {
+								$("#cmbGroupbno").val(abbm[q_recno].groupbno);
 							}
 						}
 						break;
@@ -939,6 +958,9 @@
 						});
 					}
 				}
+				if (q_getPara('sys.project').toUpperCase()=='UJ'){
+					$('.isUJ').show();
+				}
 			}
 
 			function readonly(t_para, empty) {
@@ -1480,7 +1502,9 @@
 						<td class="td1"><span> </span><a id="lblStyle" class="lbl"> </a></td>
 						<td class="td2"><input id="txtStyle" type="text" class="txt c1"/></td>
 						<td class="td3"><span> </span><a id="lblGroupano" class="lbl"> </a></td>
-						<td class="td4"><select id="cmbGroupano" class="txt c1" style="font-size: medium;"> </select></td>
+						<td class="td4"><select id="cmbGroupano" class="txt" style="font-size: medium;width: 55%;"> </select>
+										<select id="cmbGroupbno" class="txt isUJ" style="font-size: medium;width: 45%;display: none;"> </select>
+						</td>
 						<td class="td5"><span> </span><a id="lblStdmount" class="lbl" > </a></td>
 						<td class="td6"><input id="txtStdmount" type="text" class="txt c1 num" style="width:30%;"/>
 							<span style="float: left;"> </span>
