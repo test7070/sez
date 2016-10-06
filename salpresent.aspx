@@ -377,6 +377,10 @@
             	$('.w100').show();
             	$('.rest').show();
             }
+            if(q_getPara('sys.project').toUpperCase()=='DC'){
+            	$('.cardno').hide();
+            	$('.special').hide();
+            }
             sum();
         }
 
@@ -608,8 +612,8 @@
             <td><input id="txtW300"  type="text" class="txt num c1"/></td>-->
         </tr>
         <tr class="tr4">
-            <td><span> </span><a id="lblHr_special" class="lbl" > </a></td>
-            <td><input id="txtHr_special"  type="text" class="txt num c1"/></td>
+            <td class="special"><span> </span><a id="lblHr_special" class="lbl" > </a></td>
+            <td class="special"><input id="txtHr_special"  type="text" class="txt num c1"/></td>
             <td><span> </span><a id="lblMount" class="lbl" > </a></td>
             <td><input id="txtMount"  type="text" class="txt num c1"/></td>
         </tr>                                                                                                    
@@ -626,13 +630,13 @@
                 <td align="center" class='rest' style="display: none;"><a id='lblRestin_s'> </a></td>
                 <td align="center" class='rest' style="display: none;"><a id='lblRestout_s'> </a></td>
                 <td align="center"><a id='lblClockout_s'> </a></td>
-                <td align="center"><a id='lblCardno_s'> </a></td>
+                <td align="center" class="cardno"><a id='lblCardno_s'> </a></td>
                 <td align="center" class='w133'><a id='lblW133_s'> </a></td>
                 <td align="center" class='w166'><a id='lblW166_s'> </a></td>
                 <td align="center" class='w100'><a id='lblW100_s'> </a></td>
                 <td align="center" class='w200' style="display: none;"><a id='lblW200_s'> </a></td>
                 <!--<td align="center"><a id='lblW300_s'> </a></td>-->
-                <td align="center"><a id='lblHr_special_s'> </a></td>
+                <td align="center" class='special'><a id='lblHr_special_s'> </a></td>
                 <td align="center"><a id='lblMemo_s'> </a></td>
                 <!--<td align="center"><a id='lblHour_s'> </a></td>
                 <td align="center"><a id='lblAddwork_s'> </a></td>-->
@@ -645,13 +649,13 @@
                 <td class='rest' style="display: none;"><input class="txt c1" id="txtRestin.*"type="text" /></td>
                 <td class='rest' style="display: none;"><input class="txt c1" id="txtRestout.*"type="text" /></td>
                 <td ><input class="txt c1" id="txtClockout.*"type="text" /></td>
-                <td ><input class="txt c1" id="txtCardno.*"type="text" /></td>
+                <td class="cardno"><input class="txt c1" id="txtCardno.*"type="text" /></td>
                 <td class='w133'><input class="txt num c1" id="txtW133.*"type="text" /></td>
                 <td class='w166'><input class="txt num c1" id="txtW166.*"type="text" /></td>
                 <td class='w100'><input class="txt num c1" id="txtW100.*"type="text" /></td>
                 <td class='w200' style="display: none;"><input class="txt num c1" id="txtW200.*"type="text" /></td>
                 <!--<td ><input class="txt num c1" id="txtW300.*"type="text" /></td>-->
-                <td ><input class="txt num c1" id="txtHr_special.*"type="text" /></td>
+                <td class='special'><input class="txt num c1" id="txtHr_special.*"type="text" /></td>
                 <td ><input class="txt c1" id="txtMemo.*"type="text" /></td>
                 <!--<td ><input class="txt num c1" id="txtHour.*"type="text" /></td>
                 <td ><input class="txt num c1" id="txtAddwork.*" type="text" /></td>-->
