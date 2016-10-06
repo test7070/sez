@@ -46,7 +46,20 @@
                 }
                 mainBrow(6, t_content, t_sqlname, t_postname);
             }
-
+            function mainPost() {
+				if (q_getPara('sys.project').toUpperCase()=='UJ'){
+					if(window.parent.q_name=="ucc"){
+						aPop = new Array(
+							['txtUccno_', 'btnUccno_', 'ucc', 'noa,product,spec', 'txtUccno_,txtProduct_,txtSpec_,', '']
+						);
+					}
+					else{
+						aPop = new Array(
+							['txtUccno_', 'btnUccno_', 'ucctd', 'uccno,product,spec', 'txtUccno_,txtProduct_,txtSpec_,', '']
+						);
+					}
+				}
+			}
             function bbsAssign() {
                 _bbsAssign();
             }
@@ -91,6 +104,9 @@
             function refresh() {
                 //        refresh2();
                 _refresh();
+                if (q_getPara('sys.project').toUpperCase()=='UJ'){
+					$('.isUJ').show();
+				}
             }
 
             function sum() {
@@ -135,6 +151,7 @@
 					</td>
 					<td align="center" style="width:6%;"><a id='lblUccno'></a></td>
 					<td align="center" style="width:12%;"><a id='lblProduct'></a></td>
+					<td align="center" style="width:6%;display: none;" class="isUJ"><a id='lblSpec'>規格</a></td>
 				</tr>
 				<tr  style='background:#cad3ff;font-size: 14px;'>
 					<td style="width:1%;">
@@ -145,6 +162,9 @@
 					</td>
 					<td>
 					<input class="txt" id="txtProduct.*" type="text" style="width:98%;"   />
+					</td>
+					<td class="isUJ" style="display: none;" >
+					<input class="txt" id="txtSpec.*" type="text" style="width:98%;"   />
 					</td>
 				</tr>
 			</table>
