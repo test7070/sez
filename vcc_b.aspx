@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'view_vcc', t_bbsTag = 'tbbs', t_content = " field=noa,typea,stype,datea,mon,cno,acomp,custno,comp,paytype,trantype,tel,fax,post,addr,post2,addr2,cardealno,cardeal,carno,salesno,sales,money,tax,total,memo,invono,invo,unpay,payed,weight", afilter = [], bbsKey = ['noa'], as;
+            var q_name = 'view_vcc', t_bbsTag = 'tbbs', t_content = " field=noa,typea,stype,datea,mon,cno,acomp,custno,comp,nick,paytype,trantype,tel,fax,post,addr,post2,addr2,cardealno,cardeal,carno,salesno,sales,money,tax,total,memo,invono,invo,unpay,payed,weight", afilter = [], bbsKey = ['noa'], as;
             //, t_where = '';
             var t_sqlname = 'view_vcc';
             t_postname = q_name;
