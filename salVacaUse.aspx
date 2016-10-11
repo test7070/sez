@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -85,9 +85,9 @@
                 });
 
                 $('#txtEdate').focus(function() {
-                    q_msg($(this), '請假日期跨月份，請申請兩張!!');
+                    q_msg($(this), '請假日期跨月份，請申請兩張!!'); //處理薪資
                 }).blur(function() {
-                    if ($('#txtBdate').val().substr(0, 6) != $('#txtEdate').val().substr(0, 6) || $('#txtBdate').val() > $('#txtEdate').val()) {
+                    if ($('#txtBdate').val().substr(0, r_lenm) != $('#txtEdate').val().substr(0, r_lenm) || $('#txtBdate').val() > $('#txtEdate').val()) {
                         alert('請假日期不正確!!');
                         $('#txtEdate').val($('#txtBdate').val());
                     }
@@ -96,10 +96,30 @@
                 });
 
                 $('#txtBtime').blur(function() {
+                	if(q_getPara('sys.project').toUpperCase()=='DC'){
+                    	//105/10/11 只能請XX:00 或XX:30
+                    	if(!emp($('#txtBtime').val()) && ($('#txtBtime').val().slice(-2)!='00' || $('#txtBtime').val().slice(-2)!='30')){
+                    		if($('#txtBtime').val().slice(-2)>'30'){
+                    			$('#txtBtime').val($('#txtBtime').val().substr(0,3)+'30');
+                    		}else{
+                    			$('#txtBtime').val($('#txtBtime').val().substr(0,3)+'00');
+                    		}
+                    	}
+                    }
                     change_hr_used();
                 });
 
                 $('#txtEtime').blur(function() {
+                	if(q_getPara('sys.project').toUpperCase()=='DC'){
+                    	//105/10/11 只能請XX:00 或XX:30
+                    	if(!emp($('#txtEtime').val()) && ($('#txtEtime').val().slice(-2)!='00' || $('#txtEtime').val().slice(-2)!='30')){
+                    		if($('#txtEtime').val().slice(-2)>'30'){
+                    			$('#txtEtime').val($('#txtEtime').val().substr(0,3)+'30');
+                    		}else{
+                    			$('#txtEtime').val($('#txtEtime').val().substr(0,3)+'00');
+                    		}
+                    	}
+                    }
                     change_hr_used();
                 });
 
@@ -156,7 +176,7 @@
                     case 'authority':
                         var as = _q_appendData('authority', '', true);
                         if (as[0] != undefined) {
-                        	if(q_getPara('sys.comp').indexOf('大昌')>-1){
+                        	if(q_getPara('sys.project').toUpperCase()=='DC'){
 	                            if (r_rank >= 7 || r_userno=='020110') //104/03/24 職務變動姮瑜可以看到全部的資料
 	                                q_content = "";
 	                            else if (as.length > 0 && as[0]["pr_modi"] == "true")
@@ -345,14 +365,30 @@
             }
             
             function change_hr_used() {
-                if (!emp($('#txtBtime').val()) && !emp($('#txtEtime').val())) {
+                if (!emp($('#txtBtime').val()) && !emp($('#txtEtime').val()) && (q_cur==1 || q_cur==2)) {
 					if ($('#txtBtime').val() > $('#txtEtime').val()) {
 						var time = $('#txtBtime').val()
 						$('#txtBtime').val($('#txtEtime').val());
 						$('#txtEtime').val(time);
 					}
                     var use_hr = 0;
-                    if (q_getPara('sys.comp').indexOf('大昌') > -1) {
+                    if(q_getPara('sys.project').toUpperCase()=='DC'){
+                    	//105/10/11 只能請XX:00 或XX:30
+                    	if($('#txtBtime').val().slice(-2)!='00' || $('#txtBtime').val().slice(-2)!='30'){
+                    		if($('#txtBtime').val().slice(-2)>'30'){
+                    			$('#txtBtime').val($('#txtBtime').val().substr(0,3)+'30');
+                    		}else{
+                    			$('#txtBtime').val($('#txtBtime').val().substr(0,3)+'00');
+                    		}
+                    	}
+                    	if($('#txtEtime').val().slice(-2)!='00' || $('#txtEtime').val().slice(-2)!='30'){
+                    		if($('#txtEtime').val().slice(-2)>'30'){
+                    			$('#txtEtime').val($('#txtEtime').val().substr(0,3)+'30');
+                    		}else{
+                    			$('#txtEtime').val($('#txtEtime').val().substr(0,3)+'00');
+                    		}
+                    	}
+                    		
                     	if ($('#txtEtime').val() >= '13:30' && $('#txtBtime').val() <= '12:00') {
                         	use_hr = round(((dec($('#txtEtime').val().substr(0, 2)) - dec($('#txtBtime').val().substr(0, 2))) * 60 + dec($('#txtEtime').val().substr(3, 2)) - dec($('#txtBtime').val().substr(3, 2))) / 60, 1);
                             use_hr = use_hr - 1.5;
