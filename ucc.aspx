@@ -86,7 +86,6 @@
 				
 				if(q_getPara('sys.project').toUpperCase()=='XY'){ //105/05/23 拿來做 採購/製令
 					bbmMask = [];
-					$('.vewstyle').show();
 				}
 				
 				q_mask(bbmMask);
@@ -591,7 +590,7 @@
 					return;
 
 				_btnModi();
-				refreshBbm
+				refreshBbm();
 				$('#txtProduct').focus();
 			}
 
@@ -692,6 +691,10 @@
 					$('#txtNoa').css('color', 'black').css('background', 'white').removeAttr('readonly');
 				} else {
 					$('#txtNoa').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
+				}
+				
+				if(q_getPara('sys.project').toUpperCase()=='XY'){ //105/05/23 拿來做 採購/製令
+					$('.vewstyle').show();
 				}
 			}
 
