@@ -118,7 +118,11 @@
                         type : '5', //[19]
                         name : 'xorder',
                         value : ('odate@訂單日,cust@客戶,orde@訂單,datea@預交日').split(',')
-                    }]
+                    },{
+                    	type : '8',//[20]
+						name : 'xshowenda',
+						value : "1@依單據排序,2@依訂單日期排序,3@依預交日期排序".split(',')
+					}]
                 });
                 q_popAssign();
                 q_getFormat();
@@ -128,6 +132,16 @@
                 	$.datepicker.r_len=4;
 					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
                 }
+                              
+                $('#chkXshowenda input').click(function(){ 
+						var tcheck=$(this).val(); 
+						$('#chkXshowenda input').each(function() {
+							if(tcheck!=$(this).val()){ 
+								$(this).prop('checked',false);
+							}
+						});  
+				});
+                
                 
                 $('#txtXdate1').mask(r_picd);
                 $('#txtXdate1').datepicker();
@@ -151,6 +165,7 @@
                 	$('#txtXcust2b').val(window.parent.$('#txtComp').val());
                 	$('#btnOk').click();
                 }
+                
             }
 
             function q_boxClose(s2) {
