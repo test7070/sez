@@ -607,8 +607,8 @@
 					<td class="isport" style="display: none;"><input id="txtInsurance.*" type="text" class="txt num c1"/></td>
 					<td class="isport" style="display: none;"><input id="txtPrice2.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtMemo.*" type="text"   class="txt c1"/></td>
-					<td class="isport" style="display: none;"><input id="txtMemo1.*" class="txt c1"/></td>
-					<td class="isport" style="display: none;"><input id="txtMemo2.*"  class="txt c1"/></td>
+					<td class="isport" style="display: none;"><input id="txtMemo1.*" type="text" class="txt c1"/></td>
+					<td class="isport" style="display: none;"><input id="txtMemo2.*" type="text" class="txt c1"/></td>
 					<td class="isport" style="display: none;"><input id="txtMemo3.*" type="text" class="txt c1"/></td>
 					<td class="isport" style="display: none;"><input id="txtMemo4.*" type="text" class="txt c1"/></td>
 				</tr>
