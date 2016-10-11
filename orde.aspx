@@ -21,7 +21,7 @@
 			q_desc = 1;
 			q_tables = 's';
 			var q_name = "orde";
-			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtSales', 'txtOrdbno', 'txtOrdcno'];
+			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtSales', 'txtOrdbno', 'txtOrdcno','txtApv'];
 			var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtC1', 'txtNotv'];
 			var bbmNum = [['txtTotal', 10, 0, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1],['txtFloata', 10, 5, 1], ['txtTotalus', 15, 2, 1]];
 			var bbsNum = [];
@@ -1141,7 +1141,7 @@
 						<td class="td4"><span> </span><a id='lblTotalus' class="lbl"> </a></td>
 						<td class="td5" colspan='2'><input id="txtTotalus" type="text" class="txt num c1"/></td>
 						<td class="td7"><span> </span><a id="lblApv" class="lbl"> </a></td>
-						<td class="td8"><input id="txtApv" type="text" class="txt c1" disabled="disabled"/></td>
+						<td class="td8"><input id="txtApv" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr10">
 						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
