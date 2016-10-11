@@ -177,11 +177,11 @@
                         e.preventDefault();
                         if($(this).find('.date').html().length>0){
                             var t_top = $(this).offset().top;
-                            if($(this).parent().offset().top + $(this).offset().top + $("#msg").height() > $('#calendar').height())
-                                t_top = $('#calendar').height() - $("#msg").height();
+                           // if($(this).parent().offset().top + $(this).offset().top + $("#msg").height() > $('#calendar').height())
+                             //   t_top = $('#calendar').height() - $("#msg").height() - $('#q_menu').height();
                             var t_left = $(this).offset().left;
-                            if($(this).parent().offset().left + $(this).offset().left + $("#msg").width() > $('#calendar').width())
-                                t_left = $('#calendar').width() - $("#msg").width();
+                           // if($(this).parent().offset().left + $(this).offset().left + $("#msg").width() > $('#calendar').width())
+                           //     t_left = $('#calendar').width() - $("#msg").width() ;
                             $("#msg").show().offset({top:t_top,left:t_left});
                             $("#txtDate_msg").html($(this).data("info").date);
                             $("#chkIsholiday_msg").prop('checked',$(this).data("info").isholiday);
@@ -288,9 +288,9 @@
                             }
                         }
                         //假日一律紅色
-                        if(t_holiday.length>0){
+                        /*if(t_holiday.length>0){
                             t_color = "#FF0000";
-                        }
+                        }*/
                         //休假日 淺灰
                         if(t_isholiday){
                             $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).css('background-color','gainsboro').addClass('holiday');
@@ -375,8 +375,29 @@
             var calendar = new Calendar();
             $(document).ready(function() {
                 q_getId();
-                calendar.init();
+                q_gf('', 'calendar'); 
             });
+            function q_gfPost() {
+				$('#q_report').q_report({
+					fileName : 'calendar',
+					options : [{
+						type : '0', 
+						name : 'db',
+						value : q_db
+					}]
+				});
+				//q_popAssign();
+				q_langShow();
+				
+				calendar.init();
+				$('#q_acDiv').parent().children().hide();
+				/*$('#btnAuthority').show()
+					.css('display','block')
+					.css('position','absolute')
+					.css('top','10px')
+					.css('left','50px');*/
+				$('#calendar').show();
+            }
         </script>
         <style type="text/css">
             #calendar{
@@ -435,6 +456,18 @@
     ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
     ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
     >
+    	<div style="display:block;height:50px;width:50px;">
+    		<div id="q_menu" style="display:block;height:50px;"> </div>	
+    		<!--#xxxinclude file="../inc/print_ctrl.inc"-->
+    		<div style="display:none;">
+			<div id="container">
+				<div id="q_report"> </div>
+			</div>
+			<div class="prt" style="margin-left: -40px;">
+			</div>
+		</div>
+    	</div>
+    	
         <div id="calendar" align="center" style="min-width: 800px;">
             <div style="width:100%;height:50px;">
                 <div id="btnPrevious" style="padding-top:10px; font-size: 35px;width:10%;height:100%;background-color:#A9E2F3;float:left;">◄</div>
@@ -458,14 +491,14 @@
             <table>
                 <tr>
                     <td style="width:35%;"><a id="lblDate">日　　期</a></td>
-                    <td style="width:65%;"><a id="txtDate_msg"></a></td>
+                    <td style="width:65%;"><a id="txtDate_msg"> </a></td>
                 </tr>
                 <tr> 
                     <td><a id="lblHoliday">休 假 日</a></td>
                     <td><input id="chkIsholiday_msg" type="checkbox" style="width:98%;"/></td>
                 </tr>
                 <tr> 
-                    <td><a id="lblHoliday">假日名稱</a></td>
+                    <td><a id="lblHoliday">工作名稱</a></td>
                     <td><input id="txtHoliday_msg" type="text" style="width:98%;"/></td>
                 </tr>
                 <tr> 
