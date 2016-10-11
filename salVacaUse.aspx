@@ -113,7 +113,7 @@
                 	if(q_getPara('sys.project').toUpperCase()=='DC'){
                     	//105/10/11 只能請XX:00 或XX:30
                     	if(!emp($('#txtEtime').val()) && ($('#txtEtime').val().slice(-2)!='00' || $('#txtEtime').val().slice(-2)!='30')){
-                    		if($('#txtEtime').val().slice(-2)>'30'){
+                    		if($('#txtEtime').val().slice(-2)>='30'){
                     			$('#txtEtime').val($('#txtEtime').val().substr(0,3)+'30');
                     		}else{
                     			$('#txtEtime').val($('#txtEtime').val().substr(0,3)+'00');
@@ -367,7 +367,7 @@
             function change_hr_used() {
                 if (!emp($('#txtBtime').val()) && !emp($('#txtEtime').val()) && (q_cur==1 || q_cur==2)) {
 					if ($('#txtBtime').val() > $('#txtEtime').val()) {
-						var time = $('#txtBtime').val()
+						var time = $('#txtBtime').val();
 						$('#txtBtime').val($('#txtEtime').val());
 						$('#txtEtime').val(time);
 					}
