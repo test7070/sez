@@ -99,7 +99,7 @@
                 	if(q_getPara('sys.project').toUpperCase()=='DC'){
                     	//105/10/11 只能請XX:00 或XX:30
                     	if(!emp($('#txtBtime').val()) && ($('#txtBtime').val().slice(-2)!='00' || $('#txtBtime').val().slice(-2)!='30')){
-                    		if($('#txtBtime').val().slice(-2)>'30'){
+                    		if($('#txtBtime').val().slice(-2)>='30'){
                     			$('#txtBtime').val($('#txtBtime').val().substr(0,3)+'30');
                     		}else{
                     			$('#txtBtime').val($('#txtBtime').val().substr(0,3)+'00');
