@@ -367,7 +367,7 @@
             function change_hr_used() {
                 if (!emp($('#txtBtime').val()) && !emp($('#txtEtime').val()) && (q_cur==1 || q_cur==2)) {
 					if ($('#txtBtime').val() > $('#txtEtime').val()) {
-						var time = $('#txtBtime').val()
+						var time = $('#txtBtime').val();
 						$('#txtBtime').val($('#txtEtime').val());
 						$('#txtEtime').val(time);
 					}
