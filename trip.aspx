@@ -42,7 +42,7 @@
                 q_desc = 1;
                 q_brwCount();
                 //q_gt(q_name, q_content, q_sqlCount, 1)
-                if (r_rank < 8 && q_content==''){
+                if (r_rank < 9 && q_content==''){
 					q_gt('sss', "where=^^noa='" + r_userno + "'^^", 0, 1);
                 }else{
                     q_gt(q_name, q_content, q_sqlCount, 1);
@@ -121,7 +121,7 @@
                 }
             }
 			
-			var ssspartno = '',sssgroup='',sssjob='';
+			var ssspartno = '',sssgroup='',sssjob='',sssjobno='';
 			var holiday;//存放holiday的資料
             function q_gtPost(t_name) {
                 switch (t_name) {
@@ -132,12 +132,18 @@
                         var as = _q_appendData('authority', '', true);
                         if (as[0] != undefined) {
                         	if(q_getPara('sys.project').toUpperCase()=='DC'){
-	                            if (r_rank >= 7)
+                        		//105/10/13 限制部門主管(職稱達4經理以上)可查看同部門外勤內容,一般員工不可互相查看外勤內容
+                        		if(sssjobno<='04'){
+                        			q_content = "where=^^partno='" + ssspartno + "'^^";
+                        		}else{
+                        			q_content = "where=^^sssno='" + r_userno + "'^^";
+                        		}
+	                            /*if (r_rank >= 7)
 	                                q_content = "";
 	                            else if (as.length > 0 && as[0]["pr_modi"] == "true")
 	                                q_content = "where=^^partno='" + ssspartno + "'^^";
 	                            else
-	                                q_content = "where=^^sssno='" + r_userno + "'^^";
+	                                q_content = "where=^^sssno='" + r_userno + "'^^";*/
 							}else{
 								if (r_rank >= 8)
 	                                q_content = "";
@@ -152,6 +158,7 @@
                         if (as[0] != undefined) {
                             ssspartno = as[0].partno;
                             sssjob=as[0].job;
+                            sssjobno=as[0].jobno;
 							q_gt('authority', "where=^^a.noa='trip' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1);
                         }
                         break;
@@ -251,7 +258,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('trip_s.aspx', q_name + '_s', "600px", "500px", q_getMsg("popSeek"));
+                q_box('trip_s.aspx', q_name + '_s', "500px", "460px", q_getMsg("popSeek"));
             }
 
             function bbsAssign() {
