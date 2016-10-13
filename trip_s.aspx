@@ -37,22 +37,33 @@
                 q_gt('sss', "where=^^noa='" + q_getId()[0] + "'^^", 0, 0,0,"");
             }
             
-            var ssspartno='';
+            var ssspartno='',sssjob='',sssjobno='';
 			function q_gtPost(t_name) {
 				switch (t_name) {
                 	case 'authority':
 						var as = _q_appendData('authority', '', true);
-						if(r_rank >=7)
-							seekwhere = " ";
-						else if (as.length > 0 && as[0]["pr_modi"] == "true")
-							seekwhere = " and partno='"+ssspartno+"' ";
-						else
-							seekwhere = " and sssno='" + r_userno + "' ";
+						if(q_getPara('sys.project').toUpperCase()=='DC'){
+							//105/10/13 限制部門主管(職稱達4經理以上)可查看同部門外勤內容,一般員工不可互相查看外勤內容
+							if(r_rank >=9)
+								seekwhere = " ";
+							else if(sssjobno<='04'){
+                        		seekwhere = " and partno='" + ssspartno + "' ";
+                        	}else{
+                        		seekwhere = " and sssno='" + r_userno + "' ";
+                        	}
+						}else{
+							if(r_rank >=8)
+								seekwhere = " ";
+							else
+								seekwhere = " and sssno='" + r_userno + "' ";
+						}
 						break;
 					case 'sss':
 						var as = _q_appendData('sss', '', true);
 						if(as[0]){
 							ssspartno=as[0].partno;
+							sssjob=as[0].job;
+                            sssjobno=as[0].jobno;
 							q_gt('authority', "where=^^a.noa='trip' and a.sssno='" + r_userno + "'^^", 0, 0,0,"");
 						}
 						break;
