@@ -204,7 +204,7 @@
 			}
 			function btnOk() {	
 				Lock(1,{opacity:0});
-				if($('#cmbTaxtype').val() !=6 && emp($('#txtProductno').val())){
+				if(q_getPara('sys.project').toUpperCase()!='ES' && $('#cmbTaxtype').val() !=6 && emp($('#txtProductno').val())){
 					alert(q_getMsg('lblProduct')+'未填寫。');
 					Unlock(1);
 					return;
@@ -253,6 +253,9 @@
 				curData.copy();
 				_btnIns();
 				curData.paste();
+				if(q_getPara('sys.project').toUpperCase()=='ES')
+					$('#txtMount').val(1);
+				
 				if(curData.origin=='TRD'){
 					$('#txtCustno').val(curData.custno);
 					$('#txtComp').val(curData.cust);
