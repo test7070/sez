@@ -164,7 +164,7 @@
 				for (var i = 0; i < q_bbsCount; i++) {
 				}
 				_bbsAssign();
-				if(q_getPara('sys.comp').substring(0,2)=='集鑫'){
+				if(q_getPara('sys.project').toUpperCase()=='VA'){
 					$('.va').show();
 				}
 			}
