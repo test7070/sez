@@ -133,7 +133,8 @@
                         if (as[0] != undefined) {
                         	if(q_getPara('sys.project').toUpperCase()=='DC'){
                         		//105/10/13 限制部門主管(職稱達4經理以上)可查看同部門外勤內容,一般員工不可互相查看外勤內容
-                        		if(sssjobno<='04'){
+                        		//105/10/14 特別助理 不限制
+                        		if(sssjobno<='04' || sssjobno=='09' ){
                         			q_content = "where=^^partno='" + ssspartno + "'^^";
                         		}else{
                         			q_content = "where=^^sssno='" + r_userno + "'^^";

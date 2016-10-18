@@ -46,7 +46,7 @@
 							//105/10/13 限制部門主管(職稱達4經理以上)可查看同部門外勤內容,一般員工不可互相查看外勤內容
 							if(r_rank >=9)
 								seekwhere = " ";
-							else if(sssjobno<='04'){
+							else if(sssjobno<='04' || sssjobno=='09'){
                         		seekwhere = " and partno='" + ssspartno + "' ";
                         	}else{
                         		seekwhere = " and sssno='" + r_userno + "' ";
