@@ -45,11 +45,21 @@
 					},{
 						type :'6',//[8]
 						name :'xnoa'
+					},{
+						type : '0',//[9]
+						name : 'isspec',
+						value : q_getPara('sys.isspec')
 					}]
 				});
 				q_popAssign();
 				q_getFormat();
 				q_langShow();
+				
+				if(r_len==4){                	
+                	$.datepicker.r_len=4;
+					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+                }
+				
 
 				$('#txtXdate1').mask(r_picd);
 				$('#txtXdate1').datepicker();
