@@ -30,7 +30,7 @@
             
             aPop = new Array(
             	['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
-            	,['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']
+            	,['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']
             	,['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx']
 	,['txtQnoa', 'lblFaq', 'crmFaq', 'noa,question', 'txtQnoa,txtQuestion', 'crmFaq_b.aspx']
 	,['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx']
@@ -370,7 +370,7 @@
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td id='datea' style="text-align: center;">~datea</td>
-						<td id='comp,4' style="text-align: left;">~comp,4</td>
+						<td id='nick' style="text-align: left;">~nick</td>
 						<td id='reason' style="text-align: left;">~reason</td>
 					</tr>
 				</table>
@@ -414,7 +414,10 @@
 					<tr>
 						<td><span> </span><a id='lblCust' class="lbl btn"> </a></td>
 						<td ><input id="txtCustno" type="text" class="txt c1" /></td>
-						<td colspan="2"><input id="txtComp" type="text" class="txt c1" /></td>
+						<td colspan="2">
+							<input id="txtComp" type="text" class="txt c1" />
+							<input id="txtNick" type="text" style="display:none;" />
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblReason' class="lbl"> </a></td>
