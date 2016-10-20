@@ -371,7 +371,12 @@
             	}
             }
             function btnPrint() {
-                q_box('z_gqbp.aspx' + "?;;;noa=" + trim($('#txtGqbno').val()) + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+            	var t_gqbno=trim($('#txtGqbno').val());
+            	if(t_gqbno.length==0){
+            		t_gqbno=trim(abbm[q_recno].gqbno);
+            	}
+            	
+                q_box('z_gqbp.aspx' + "?;;;noa=" + t_gqbno + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function btnOk() {

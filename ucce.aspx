@@ -31,7 +31,7 @@
 			aPop = new Array(
 				['txtStoreno', 'lblStoreno', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
 				['txtStoreno2', 'lblStore2', 'store', 'noa,store', 'txtStoreno2,txtStore2', 'store_b.aspx'],
-				['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
+				['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,spec,unit', 'txtProductno_,txtProduct_,txtSpec_,txtUnit_', 'ucaucc_b.aspx'],
 				['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx']
 			);
 
@@ -58,7 +58,7 @@
 					aPop = new Array(
 						['txtStoreno', 'lblStoreno', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
 						['txtStoreno2', 'lblStore2', 'store', 'noa,store', 'txtStoreno2,txtStore2', 'store_b.aspx'],
-						['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b2.aspx'],
+						['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,spec,unit', 'txtProductno_,txtProduct_,txtSpec_,txtUnit_', 'ucaucc_b2.aspx'],
 						['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx']
 					);
 				}
@@ -66,7 +66,7 @@
 					aPop = new Array(
 						['txtStoreno', 'lblStoreno', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
 						['txtStoreno2', 'lblStore2', 'store', 'noa,store', 'txtStoreno2,txtStore2', 'store_b.aspx'],
-						['txtProductno_', 'btnProduct_', 'ucc_xy', 'noa,product,uunit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
+						['txtProductno_', 'btnProduct_', 'ucc_xy', 'noa,product,spec,uunit', 'txtProductno_,txtProduct_,txtSpec_,txtUnit_', 'ucaucc_b.aspx'],
 						['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx']
 					);
 				}
@@ -168,6 +168,7 @@
 					}
 				}
 				_bbsAssign();
+				HiddenTreat();
 				product_change();
 			}
 
@@ -222,14 +223,16 @@
 			function refresh(recno) {
 				_refresh(recno);
 				product_change();
+				HiddenTreat();
 			}
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
 				//暫定全部只能用原料要開放其他再額外設定
-				if (q_getPara('sys.comp').indexOf('大昌') == -1) {
+				if (q_getPara('sys.project').toUpperCase()!='DC') {
 					$('#cmbKind').attr('disabled', 'disabled');
 				}
+				HiddenTreat();
 			}
 
 			function btnMinus(id) {
@@ -291,21 +294,21 @@
 						aPop = new Array(
 							['txtStoreno', 'lblStoreno', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
 							['txtStoreno2', 'lblStore2', 'store', 'noa,store', 'txtStoreno2,txtStore2', 'store_b.aspx'],
-							['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b2.aspx'],
+							['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,spec,unit', 'txtProductno_,txtProduct_,txtSpec_,txtUnit_', 'ucaucc_b2.aspx'],
 							['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx']
 						);
 					}else if (q_getPara('sys.project').toUpperCase()=='XY'){
 						aPop = new Array(
 							['txtStoreno', 'lblStoreno', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
 							['txtStoreno2', 'lblStore2', 'store', 'noa,store', 'txtStoreno2,txtStore2', 'store_b.aspx'],
-							['txtProductno_', 'btnProduct_', 'ucc_xy', 'noa,product,uunit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
+							['txtProductno_', 'btnProduct_', 'ucc_xy', 'noa,product,spec,unit', 'txtProductno_,txtProduct_,txtSpec_,txtUnit_', 'ucaucc_b.aspx'],
 							['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx']
 						);
 					}else{
 						aPop = new Array(
 							['txtStoreno', 'lblStoreno', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
 							['txtStoreno2', 'lblStore2', 'store', 'noa,store', 'txtStoreno2,txtStore2', 'store_b.aspx'],
-							['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
+							['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,spec,unit', 'txtProductno_,txtProduct_,txtSpec_,txtUnit_', 'ucaucc_b.aspx'],
 							['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx']
 						);
 					}
@@ -324,6 +327,13 @@
 						['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx']
 					);
 				}
+			}
+			
+			function HiddenTreat() {
+				var hasStyle = q_getPara('sys.isstyle');
+				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
+				var hasSpec = q_getPara('sys.isspec');
+				var isSpec = (hasSpec.toString()=='1'?$('.isSpec').show():$('.isSpec').hide());
 			}
 		</script>
 		<style type="text/css">
@@ -474,7 +484,7 @@
 						<td class='td3'><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td class='td4'><input id="txtDatea" type="text" class="txt c1"/></td>
 						<td class='td5'><span> </span><a id="lblKind" class="lbl"> </a></td>
-						<td class='td6'><select id="cmbKind" class="txt c1"></select></td>
+						<td class='td6'><select id="cmbKind" class="txt c1"> </select></td>
 					</tr>
 					<tr>
 						<td class='td1'><span> </span><a id="lblStoreno" class="lbl btn"> </a></td>
@@ -491,8 +501,10 @@
 						<td align="center" style="width:1%;">
 							<input class="btn" id="btnPlus" type="button" value='+' style="font-weight: bold;" />
 						</td>
-						<td align="center" style="width:15%;"><a id='lblStoreno_s'> </a></td>
-						<td align="center" style="width:20%;"><a id='lblProductno_s'> </a></td>
+						<td align="center" style="width:13%;"><a id='lblStoreno_s'> </a></td>
+						<td align="center" style="width:10%;"><a id='lblProductno_s'> </a></td>
+						<td align="center" style="width:20%;"><a id='lblProduct_s'> </a></td>
+						<td align="center" style="width:95px;" class="isStyle"><a id='lblStyle'> </a></td>
 						<td align="center" style="width:5%;"><a id='lblUnit_s'> </a></td>
 						<td align="center" style="width:9%;"><a id='lblMount_s'> </a></td>
 						<td align="center" style="width:9%;"><a id='lblEmount2_s'> </a></td>
@@ -513,9 +525,12 @@
 						<td>
 							<input id="btnProduct.*" type="button" value='.' style="float:left;width:1%;" />
 							<input id="txtProductno.*" type="text" style="float:left;width:80%;"/>
-							<BR>
-							<input class="txt c1" id="txtProduct.*" type="text" />
 						</td>
+						<td>
+							<input class="txt c1" id="txtProduct.*" type="text" />
+							<input class="txt c1 isSpec" id="txtSpec.*" type="text" />
+						</td>
+						<td class="isStyle"><input id="txtStyle.*" type="text" class="txt c1 isStyle"/></td>
 						<td><input class="txt c1" id="txtUnit.*" type="text"/></td>
 						<td><input class="txt num c1" id="txtMount.*" type="text"/></td>
 						<td><input class="txt num c1" id="txtEmount2.*" type="text"/></td>
