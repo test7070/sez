@@ -28,18 +28,19 @@
             brwKey = 'noa';
             //brwCount2 = 15;
             
+            var t_crmsource = '';
             aPop = new Array(
             	['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
-            	,['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']
+            	,['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']
             	,['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx']
-	,['txtQnoa', 'lblFaq', 'crmFaq', 'noa,question', 'txtQnoa,txtQuestion', 'crmFaq_b.aspx']
-	,['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx']
+				,['txtQnoa', 'lblFaq', 'crmFaq', 'noa,question', 'txtQnoa,txtQuestion', 'crmFaq_b.aspx']
+				,['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx']
             );
        
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1);
+                q_gt('crmsource', '', 0, 0, 0, "getCrmsource");
             });
 
             function main() {
@@ -54,8 +55,9 @@
                 bbmMask = [['txtDatea', r_picd],['txtTimea', '99:99'],['txtDaten', r_picd],['txtTimen', '99:99']
                 ,['txtRepdate', r_picd],['txtReptime', '99:99']];
                 q_mask(bbmMask);
+                q_cmbParse("cmbSource", t_crmsource);
+                
 				q_cmbParse("combReason", ",拜訪,客訴,咨詢,售後服務,其他");
-                				q_cmbParse("cmbSource", ",電話,電子郵件,Web,Facebook,Twitter,其他");
 				q_cmbParse("cmbEffort", ",低,中,高");
 				q_cmbParse("cmbPriority", ",低,高,一般,重大");
 				$('#combReason').change(function() {
@@ -73,6 +75,10 @@
 			            $('#txtReptime').val(padL(tHours, '0', 2)+':'+padL(tMinutes, '0', 2));
 					}
 				});
+				
+				$('#lblSource').click(function(e){
+					q_box("crmsource.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy, 'cont', "95%", "95%", q_getMsg("popCont"));
+				});
             }
             
             function q_boxClose(s2) {
@@ -87,6 +93,15 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'getCrmsource':
+                		var as = _q_appendData("crmsource", "", true);
+						t_crmsource='';
+						for ( i = 0; i < as.length; i++) {
+							t_crmsource+=','+as[i].noa+'@'+as[i].namea;
+						}
+						if(t_crmsource.length==0) t_crmsource=' ';
+                		q_gt(q_name, q_content, q_sqlCount, 1);
+                		break;
                 	case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
@@ -129,7 +144,7 @@
             }
 
             function btnPrint() {
-				//q_box('z_crmservicep.aspx', '', "95%", "95%", q_getMsg("popPrint"));
+				q_box("z_crm.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({noa:trim($('#txtNoa').val())}) + ";" + r_accy + "_" + r_cno, 'crmservice', "95%", "95%", m_print);
             }
             
 			function q_stPost() {
@@ -370,7 +385,7 @@
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td id='datea' style="text-align: center;">~datea</td>
-						<td id='comp,4' style="text-align: left;">~comp,4</td>
+						<td id='nick' style="text-align: left;">~nick</td>
 						<td id='reason' style="text-align: left;">~reason</td>
 					</tr>
 				</table>
@@ -391,7 +406,7 @@
 						<td><input id="chkEnda" type="checkbox"/><span> </span><a id='lblEnda'> </a></td>
 					</tr>
 					<tr>
-					    	<td><span> </span><a id='lblSource' class="lbl"> </a></td>
+					    	<td><span> </span><a id='lblSource' class="lbl btn"> </a></td>
 						<td><select id="cmbSource" class="txt c1"> </select></td>
                					</tr>
 					<tr>
@@ -414,7 +429,10 @@
 					<tr>
 						<td><span> </span><a id='lblCust' class="lbl btn"> </a></td>
 						<td ><input id="txtCustno" type="text" class="txt c1" /></td>
-						<td colspan="2"><input id="txtComp" type="text" class="txt c1" /></td>
+						<td colspan="2">
+							<input id="txtComp" type="text" class="txt c1" />
+							<input id="txtNick" type="text" style="display:none;" />
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblReason' class="lbl"> </a></td>

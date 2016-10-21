@@ -89,7 +89,7 @@
 
 			function mainPost() {
 				if(q_getPara('sys.comp').substring(0,2)=="傑期"){
-					$('.pk').show();
+					
 				}
 				
 				if (q_getPara('sys.project').toUpperCase()=='FE'){
@@ -111,10 +111,23 @@
 				q_mask(bbmMask);
 				q_gt('custtype', '', 0, 0, 0, "custtype");
 				
-				if (q_getPara('sys.project').toUpperCase()=='RK'){
-					$('#lblType').text('業種');
-					$('#lblHead').text('英文簡稱');
+				switch(q_getPara('sys.project').toUpperCase()){
+					case 'RK':
+						$('#lblType').text('業種');
+						$('#lblHead').text('英文簡稱');
+						var paytype_rk = ",出貨前T/T,出貨時收現金或當日現金票,合約簽訂後3天內T/T50%訂金，尾款於出貨前T/T,月結30天,月結40天";
+						q_cmbParse("combPaytype", paytype_rk);
+						break;
+					case 'PK':
+						$('.pk').show();
+						q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
+						break;
+					default:
+						q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
+						break;
+					
 				}
+				
 				
 				if (q_getPara('sys.comp').indexOf('裕承隆') > -1){
 					aPop = new Array(
@@ -157,7 +170,6 @@
 					);
 				}
 				
-				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				q_cmbParse("cmbStatus", q_getPara('cust.status'));
 
