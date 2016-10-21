@@ -86,6 +86,9 @@
 				
 				if(q_getPara('sys.project').toUpperCase()=='XY'){ //105/05/23 拿來做 採購/製令
 					bbmMask = [];
+					q_cmbParse("combStyle_xy",' ,便品,空白,公版,加工,印刷,私-空白,新版,改版,新版數位樣,新版正式樣,改版數位樣,改版正式樣');
+					$('#combStyle_xy').show();
+					$('#txtStyle').hide();
 				}
 				
 				q_mask(bbmMask);
@@ -178,8 +181,19 @@
 						return;
 					}
 				});
+								
 				$('#txtStyle').change(function(){
 					if (q_cur==1 && q_getPara('sys.project').toUpperCase()=='XY' && !$('#xy_isprint').prop('checked')){
+						//讀羅馬拼音
+						var t_where = "where=^^ ['"+$('#txtProduct').val() +"')  ^^";
+						q_gt('cust_xy', t_where, 0, 0, 0, "XY_getpy", r_accy);	
+						return;
+					}
+				});
+				
+				$('#combStyle_xy').change(function(){
+					if (q_cur==1 && q_getPara('sys.project').toUpperCase()=='XY' && !$('#xy_isprint').prop('checked')){
+						$('#txtStyle').val($('#combStyle_xy').val());
 						//讀羅馬拼音
 						var t_where = "where=^^ ['"+$('#txtProduct').val() +"')  ^^";
 						q_gt('cust_xy', t_where, 0, 0, 0, "XY_getpy", r_accy);	
@@ -194,9 +208,9 @@
 				
 				$('#xy_isprint').click(function() {
 					if($('#xy_isprint').prop('checked')){
-						$('#txtStyle').val('印');
+						$('#txtStyle').val('印刷');
 					}else{
-						$('#txtStyle').val('便');
+						$('#txtStyle').val('便品');
 					}
 				});
 				
@@ -576,7 +590,7 @@
 				
 				if (q_getPara('sys.project').toUpperCase()=='XY'){
 					$('.isXY').show();
-					if($('#txtStyle').val().indexOf('印')>-1 || $('#txtStyle').val().indexOf('客')>-1)
+					if($('#txtStyle').val().indexOf('印刷')>-1 || $('#txtStyle').val().indexOf('私-空白')>-1)
 						$('#xy_isprint').prop('checked',true);
 					else
 						$('#xy_isprint').prop('checked',false);
@@ -607,6 +621,10 @@
 				
 				$('#txtDate2').val(q_date());
 				$('#txtWorker').val(r_name);
+				
+				if (q_getPara('sys.project').toUpperCase()=='XY'){
+					$('#txtStyle').val($('#combStyle_xy').val());
+				}
 				
 				if (q_cur==1 && q_getPara('sys.project').toUpperCase()=='XY'){
 					if($('#xy_isprint').prop('checked')){ //印刷
@@ -676,6 +694,10 @@
 					}
 				}
 				
+				if (q_getPara('sys.project').toUpperCase()=='XY'){
+					$('#combStyle_xy').val($('#txtStyle').val());
+				}
+				
 				$('.isXY').hide();
 				/*if (q_getPara('sys.project').toUpperCase()=='XY'){
 					if($('#txtNoa').val().substr(0,2)=='##'){
@@ -700,6 +722,11 @@
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
+				if(t_para){
+					$('#combStyle_xy').attr('disabled', 'disabled').css('background','rgb(237, 237, 238)');
+				}else{
+					$('#combStyle_xy').removeAttr('disabled').css('background','');
+				}
 				refreshBbm();
 			}
 
@@ -940,7 +967,10 @@
 				</tr>
 				<tr>
 					<td><a id='lblStyle' class="lbl"> </a></td>
-					<td><input	type="text" id="txtStyle" class="txt c1"/></td>
+					<td>
+						<input	type="text" id="txtStyle" class="txt c1"/>
+						<select id="combStyle_xy" style="display: none;font-size: medium;"> </select>
+					</td>
 					<td><a id='lblInprice' class="lbl"> </a></td>
 					<td><input	type="text" id="txtInprice" class="txt num c1"/></td>
 					<td><a id='lblSaleprice' class="lbl"> </a></td>
