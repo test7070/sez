@@ -568,12 +568,14 @@
 					</tr>
 					<tr class="isXY" style="display: none;">
 						<td class="td1"><span> </span><a id="lblBsno" class="lbl" > </a></td>
-						<td class="td2"><input id="txtBsno" type="text" class="txt c1"/></td>
-						<td class="td3"><span> </span><a id="lblBdate" class="lbl" > </a></td>
-						<td class="td4">
-							<input id="txtBdate" type="text" class="txt c1" style="width: 35%;"/>
+						<td class="td2" colspan="3">
+							<input id="txtBsno" type="text" class="txt c1" style="width: 160px;"/>
+							<span style="float: left;"> </span>
+							<a id="lblBdate" class="lbl" style="float: left;"> </a>
+							<span style="float: left;"> </span>
+							<input id="txtBdate" type="text" class="txt c1" style="width: 50px;"/>
 							<a class="lbl" style="float: left;">~</a>
-							<input id="txtEdate" type="text" class="txt c1" style="width: 35%;"/>
+							<input id="txtEdate" type="text" class="txt c1" style="width: 50px;"/>
 						</td>
 						<td class="td5"><span> </span><a id="lblSales" class="lbl btn" > </a></td>
 						<td class="td6"><input id="txtSalesno" type="text" class="txt c1"/></td>
