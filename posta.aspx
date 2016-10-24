@@ -49,7 +49,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
+                bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtBdate', '99'], ['txtEdate', '99']];
                 q_mask(bbmMask);
                 $("#lblMon").text('帳款月份');
                 q_cmbParse("cmbTypea", q_getPara('posta.typea'));
@@ -61,18 +61,31 @@
                         var t_where1 = "where[1]=^^a.noa=noa and isnull(bill,0)=1 ^^";
                         q_gt('tgg_conn', t_where + t_where1, 0, 0, 0, "", r_accy);
                     } else {
-                        var t_where = "EXISTS ( select c.noa from cust_2s c where c.noa = a.noa and c.mon <= '" + $('#txtMon').val() + "'and c.unpay>0) ";
-                        if (q_getPara('sys.project').toUpperCase() == 'XY') {
-                            t_where = t_where + " and EXISTS (select * from custm where noa=a.noa and charindex('郵寄',postmemo)>0 )";
+                    	var t_where = "";
+                    	if (q_getPara('sys.project').toUpperCase() == 'XY') {
+                    		t_where = "EXISTS (select case when xb.vcccustno!='' then xb.vcccustno else xa.custno end custno from view_vcc xa left join custm xb on xa.custno=xb.noa";
+                    		t_where = t_where + " where xa.unpay!=0  and xa.mon<='"+$('#txtMon').val()+"'";
+                    		t_where = t_where + " and xb.postmemo!='不寄單' and xb.postmemo!='扺貨款' and xb.postmemo!='僅回郵' and xb.postmemo!='親送單'";
+                    		t_where = t_where + " group by case when xb.vcccustno!='' then xb.vcccustno else xa.custno end having case when xb.vcccustno!='' then xb.vcccustno else xa.custno end=a.noa )";
+                            if(!emp($('#txtBdate').val()) || !emp($('#txtEdate').val())){
+                            	var t_bate=$('#txtBdate').val();
+                            	var t_eate=$('#txtEdate').val();
+                            	if(t_eate.length==0){
+                            		t_eate='31';
+                            	}
+                            	t_where = t_where + " and isnull(a.startdate,'') between '" + t_bate + "' and '" + t_eate + "'";
+                            }
                             if (!emp($('#txtSalesno').val()))
-                                t_where = t_where + " and salesno='" + $('#txtSalesno').val() + "'";
+								t_where = t_where + " and salesno='" + $('#txtSalesno').val() + "'";
+                        }else{
+                        	t_where = "EXISTS ( select c.noa from cust_2s c where c.noa = a.noa and c.mon <= '" + $('#txtMon').val() + "'and c.unpay>0) ";
                         }
                         t_where = "where=^^ " + t_where + " ^^";
                         var t_where1 = "where[1]=^^a.noa=noa and isnull(bill,0)=1 ^^";
                         q_gt('cust_conn', t_where + t_where1, 0, 0, 0, "", r_accy);
                     }
                 });
-
+                
                 $('#cmbKind').change(function() {
                     if ($('#cmbKind').val() == '廠商') {
                         if (q_getPara('sys.project').toUpperCase() == 'XY')
@@ -140,10 +153,11 @@
                             as[i].memo = '';
                             if (as[i].addr_invo != '' && q_getPara('sys.project').toUpperCase() == 'XY')
                                 as[i].addr_comp = as[i].addr_invo;
-                            if (q_getPara('sys.project').toUpperCase() == 'XY') {
+							//105/10/17 條件不適用
+                            /*if (q_getPara('sys.project').toUpperCase() == 'XY') {
                                 if (as[i].postmemo.indexOf('附回郵') > -1)
                                     as[i].memo = as[i].memo.substring(2, as[i].memo.length);
-                            }
+                            }*/
                         }
                         q_gridAddRow(bbsHtm, 'tbbs', 'txtUseno,txtComp,txtZipcode,txtAddr,txtPart,txtConn,txtMemo', as.length, as, 'noa,comp,zip_comp,addr_comp,cpart,cname,memo', '');
 
@@ -202,11 +216,29 @@
                     });*/
                 }
                 _bbsAssign();
+                
+                $('#btnRenumber_xy').bind('click', function(event) {
+                  if(q_cur==1 || q_cur==2){
+                    	//產生掛號編號
+	                	var counts=0;
+	                	for (var j = 0; j < q_bbsCount; j++) {
+	                		$('#txtSno_'+j).val('');
+	                		if((!emp($('#txtUseno_'+j).val()) || !emp($('#txtComp_'+j).val()) || !emp($('#txtZipcode_'+j).val()) || !emp($('#txtAddr_'+j).val()))){
+	                			var t_no=$('#txtBsno').val().substr(0,6);
+	                			t_no=dec(t_no)+counts;
+	                			t_no=('000000'+t_no).slice(-6);
+	                			$('#txtSno_'+j).val(t_no);
+	                			counts++;
+	                		}
+	                	}
+                    }
+                });
 
                 if (q_getPara('sys.project').toUpperCase() == 'XY') {
                     $('#lblBsno').text('條碼起始號');
                     $('#lblSales').text('業務');
                     $('#lblSno_s').text('條碼編號');
+                    $('#lblBdate').text('起算日起迄');
                     $('.isXY').show();
                 } else
                     $('.isXY').hide();
@@ -261,6 +293,7 @@
                     $('#lblBsno').text('條碼起始號');
                     $('#lblSales').text('業務');
                     $('#lblSno_s').text('條碼編號');
+                    $('#lblBdate').text('起算日起迄');
                     $('.isXY').show();
                 } else
                     $('.isXY').hide();
@@ -270,8 +303,10 @@
                 _readonly(t_para, empty);
                 if (t_para) {
                     $('#btnInput').attr('disabled', 'disabled');
+                    $('#btnRenumber_xy').attr('disabled', 'disabled');
                 } else {
                     $('#btnInput').removeAttr('disabled', 'disabled');
+                    $('#btnRenumber_xy').removeAttr('disabled', 'disabled');
                 }
             }
 
@@ -371,7 +406,7 @@
             }
             .dbbm {
                 float: left;
-                width: 750px;
+                width: 850px;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -454,7 +489,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 1260px;
+                width: 1250px;
             }
             .tbbs a {
                 font-size: medium;
@@ -494,12 +529,12 @@
 	<body>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
-			<div class="dview" id="dview" style="float: left;  width:32%;"  >
+			<div class="dview" id="dview" style="float: left;">
 				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
-						<td align="center" style="width:20%"><a id='vewNoa'> </a></td>
-						<td align="center" style="width:25%"><a id='vewTypea'> </a></td>
+						<td align="center" style="width:50%"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:30%"><a id='vewTypea'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
@@ -531,12 +566,20 @@
 						<td class="td4"><input id="txtMon" type="text" class="txt c1"/></td>
 						<td class="td7"><input id="btnInput" type="button" value="帳款匯入" /></td>
 					</tr>
-					<tr class="isXY">
+					<tr class="isXY" style="display: none;">
 						<td class="td1"><span> </span><a id="lblBsno" class="lbl" > </a></td>
-						<td class="td2" colspan="3"><input id="txtBsno" type="text" class="txt c1"/></td>
-						<td class="td3"><span> </span><a id="lblSales" class="lbl btn" > </a></td>
-						<td class="td4"><input id="txtSalesno" type="text" class="txt c1"/></td>
-						<td class="td4"><input id="txtSales" type="text" class="txt c1"/></td>
+						<td class="td2" colspan="3">
+							<input id="txtBsno" type="text" class="txt c1" style="width: 160px;"/>
+							<span style="float: left;"> </span>
+							<a id="lblBdate" class="lbl" style="float: left;"> </a>
+							<span style="float: left;"> </span>
+							<input id="txtBdate" type="text" class="txt c1" style="width: 50px;"/>
+							<a class="lbl" style="float: left;">~</a>
+							<input id="txtEdate" type="text" class="txt c1" style="width: 50px;"/>
+						</td>
+						<td class="td5"><span> </span><a id="lblSales" class="lbl btn" > </a></td>
+						<td class="td6"><input id="txtSalesno" type="text" class="txt c1"/></td>
+						<td class="td7"><input id="txtSales" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr4">
 						<td class="td1"><span> </span><a id='lblAddr' class="lbl"> </a></td>
@@ -550,7 +593,10 @@
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width: 1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td style="width:20px;"> </td>
-					<td align="center" style="width: 10%;"><a id='lblSno_s'>掛號號碼</a></td>
+					<td align="center" style="width: 10%;">
+						<a id='lblSno_s'>掛號號碼</a>
+						<input id="btnRenumber_xy" type="button" class="isXY" value="重新編號" style="display: none;" />
+					</td>
 					<td align="center" style="width: 13%;"><a id='lblUseno_s'> </a></td>
 					<td align="center" style="width: 15%;"><a id='lblComp_s'> </a></td>
 					<td align="center" style="width: 65px;"><a id='lblZipcode_s'> </a></td>
@@ -560,7 +606,7 @@
 					<td align="center" style="width: 8%;"><a id='lblConn_s'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
-					<td>
+					<td align="center">
 						<input class="btn" id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 						<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
@@ -582,4 +628,3 @@
 		<input id="q_sys" type="hidden" />
 	</body>
 </html>
-
