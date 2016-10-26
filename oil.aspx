@@ -231,8 +231,8 @@
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
-          		if (q_chkClose())
-             		    return;
+          		//if (q_chkClose())
+             		//    return;
                 _btnModi();
                 $('#txtDatea').focus();
                 $('#txtOrgmount').val($('#txtMount').val());

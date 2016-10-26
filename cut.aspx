@@ -1460,8 +1460,9 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl" > </a></td>
-						<td colspan='7'><input id="txtMemo" type="text" class="txt c1" /></td>
-					</tr>
+						<td colspan='7'>
+							<textarea id='txtMemo' row=4 class="txt c1" style="height:100px;"></textarea>
+						</tr>
 					<tr class="pe_hide">
 						<td><span> </span><a id="lblCarno"  class="lbl"> </a></td>
 						<td><input id="txtCarno" type="text" class="txt c1"/></td>
