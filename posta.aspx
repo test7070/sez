@@ -49,7 +49,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtBdate', '99'], ['txtEdate', '99']];
+                bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtBdate', '99'], ['txtEdate', '99'],['txtBvccdate',r_picd],['txtEvccdate',r_picd]];
                 q_mask(bbmMask);
                 $("#lblMon").text('帳款月份');
                 q_cmbParse("cmbTypea", q_getPara('posta.typea'));
@@ -65,8 +65,16 @@
                     	if (q_getPara('sys.project').toUpperCase() == 'XY') {
                     		t_where = "EXISTS (select case when xb.vcccustno!='' then xb.vcccustno else xa.custno end custno from view_vcc xa left join custm xb on xa.custno=xb.noa";
                     		t_where = t_where + " where xa.unpay!=0  and xa.mon<='"+$('#txtMon').val()+"'";
-                    		t_where = t_where + " and xb.postmemo!='不寄單' and xb.postmemo!='扺貨款' and xb.postmemo!='僅回郵' and xb.postmemo!='親送單'";
+                    		if(!emp($('#txtBvccdate').val()) || !emp($('#txtEvccdate').val())){
+                    			var t_evdate=$.trim($('#txtEvccdate').val());
+                    			if(t_evdate.length==0){
+                    				t_where = t_where + "and xa.datea between '"+$('#txtBvccdate').val()+"' and char(255) ";
+                    			}else{
+                    				t_where = t_where + "and xa.datea between '"+$('#txtBvccdate').val()+"' and '"+t_evdate+"' ";
+                    			}
+                    		}
                     		t_where = t_where + " group by case when xb.vcccustno!='' then xb.vcccustno else xa.custno end having case when xb.vcccustno!='' then xb.vcccustno else xa.custno end=a.noa )";
+                    		t_where = t_where + " and c.postmemo!='不寄單' and c.postmemo!='抵貨款' and c.postmemo!='親送單' ";
                             if(!emp($('#txtBdate').val()) || !emp($('#txtEdate').val())){
                             	var t_bate=$('#txtBdate').val();
                             	var t_eate=$('#txtEdate').val();
@@ -76,7 +84,7 @@
                             	t_where = t_where + " and isnull(a.startdate,'') between '" + t_bate + "' and '" + t_eate + "'";
                             }
                             if (!emp($('#txtSalesno').val()))
-								t_where = t_where + " and salesno='" + $('#txtSalesno').val() + "'";
+								t_where = t_where + " and salesno='" + $('#txtSalesno').val() + "' order by c.postmemo,a.noa";
                         }else{
                         	t_where = "EXISTS ( select c.noa from cust_2s c where c.noa = a.noa and c.mon <= '" + $('#txtMon').val() + "'and c.unpay>0) ";
                         }
@@ -568,18 +576,25 @@
 					</tr>
 					<tr class="isXY" style="display: none;">
 						<td class="td1"><span> </span><a id="lblBsno" class="lbl" > </a></td>
-						<td class="td2" colspan="3">
-							<input id="txtBsno" type="text" class="txt c1" style="width: 160px;"/>
-							<span style="float: left;"> </span>
-							<a id="lblBdate" class="lbl" style="float: left;"> </a>
-							<span style="float: left;"> </span>
+						<td class="td2" colspan="3"><input id="txtBsno" type="text" class="txt c1"/></td>
+						<td class="td5"><span> </span><a id="lblBdate" class="lbl" > </a></td>
+						<td class="td6" colspan="3">
 							<input id="txtBdate" type="text" class="txt c1" style="width: 50px;"/>
 							<a class="lbl" style="float: left;">~</a>
 							<input id="txtEdate" type="text" class="txt c1" style="width: 50px;"/>
 						</td>
-						<td class="td5"><span> </span><a id="lblSales" class="lbl btn" > </a></td>
-						<td class="td6"><input id="txtSalesno" type="text" class="txt c1"/></td>
-						<td class="td7"><input id="txtSales" type="text" class="txt c1"/></td>
+					</tr>
+					<tr class="isXY" style="display: none;">
+						<td class="td1"><span> </span><a id="lblSales" class="lbl btn" > </a></td>
+						<td class="td2"><input id="txtSalesno" type="text" class="txt c1"/></td>
+						<td class="td3"><input id="txtSales" type="text" class="txt c1"/></td>
+						<td class="td4"> </td>
+						<td class="td5"><span> </span><a id="lblVccdate" class="lbl" > </a></td>
+						<td class="td6" colspan="3">
+							<input id="txtBvccdate" type="text" class="txt c1" style="width:85px;"/>
+							<a class="lbl" style="float: left;">~</a>
+							<input id="txtEvccdate" type="text" class="txt c1" style="width:85px;"/>
+						</td>
 					</tr>
 					<tr class="tr4">
 						<td class="td1"><span> </span><a id='lblAddr' class="lbl"> </a></td>
