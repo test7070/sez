@@ -247,6 +247,7 @@
                     $('#lblSales').text('業務');
                     $('#lblSno_s').text('條碼編號');
                     $('#lblBdate').text('起算日起迄');
+                    $('#lblVccdate').text('出貨日起迄');
                     $('.isXY').show();
                 } else
                     $('.isXY').hide();
