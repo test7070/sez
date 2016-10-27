@@ -45,6 +45,10 @@
 							type : '8', //[7]            3
 							name : 'xoption',
 							value : "detail@明細".split(',')
+						}, {
+							type : '8', //[8]            4
+							name : 'xkind',
+							value : q_getPara('sys.stktype').split(',')
 						}
                     ]
                 });
