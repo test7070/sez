@@ -167,8 +167,14 @@
                                     as[i].memo = as[i].memo.substring(2, as[i].memo.length);
                             }*/
                         }
-                        q_gridAddRow(bbsHtm, 'tbbs', 'txtUseno,txtComp,txtZipcode,txtAddr,txtPart,txtConn,txtMemo', as.length, as, 'noa,comp,zip_comp,addr_comp,cpart,cname,memo', '');
-
+                        
+                        if (q_getPara('sys.project').toUpperCase() == 'XY') {
+                        	q_gridAddRow(bbsHtm, 'tbbs', 'txtUseno,txtComp,txtZipcode,txtAddr,txtPart,txtConn,txtMemo', as.length, as, 'noa,nick,zip_comp,addr_comp,cpart,cname,memo', '');
+						}else{
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtUseno,txtComp,txtZipcode,txtAddr,txtPart,txtConn,txtMemo', as.length, as, 'noa,comp,zip_comp,addr_comp,cpart,cname,memo', '');
+						}
+						
+						
                         break;
                 }  /// end switch
             }
