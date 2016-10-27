@@ -171,10 +171,16 @@
                         type : '8',
                         name : 'xnocollection',
                         value : new Array('1@未託收' )
-                    }, {/*[38]*/
+                    }, {/*20 [38]*/
                         type : '5',
                         name : 'sort02',
                         value : 'tbank@託收銀行,indate@到期日,datea@收開日'.split(',')
+                    }, {/*21 [39][40]*/
+                        type : '2',
+                        name : 'xacomp',
+                        dbf : 'acomp',
+                        index : 'noa,acomp',
+                        src : 'acomp_b.aspx'
                     }]
                 });
                 q_popAssign();
