@@ -37,7 +37,7 @@
                 switch (t_name) {
                     case 'authority':
                         var as = _q_appendData('authority', '', true);
-                        if (r_rank >= 7)
+                        if (r_rank >= 7 || r_userno=='040136') //105/10/28 040136 調整
                             seekwhere = "";
                         else if (as.length > 0 && as[0]["pr_modi"] == "true")
                             seekwhere = "and partno='" + ssspartno + "' ";

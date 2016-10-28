@@ -44,7 +44,7 @@
 						var as = _q_appendData('authority', '', true);
 						if(q_getPara('sys.project').toUpperCase()=='DC'){
 							//105/10/13 限制部門主管(職稱達4經理以上)可查看同部門外勤內容,一般員工不可互相查看外勤內容
-							if(r_rank >=9)
+							if(r_rank >=9 || r_userno=='040136')
 								seekwhere = " ";
 							else if(sssjobno<='04' || sssjobno=='09'){
                         		seekwhere = " and partno='" + ssspartno + "' ";

@@ -46,35 +46,20 @@
 
                 q_popAssign();
                 q_langShow();
-                $('#txtDate1').mask('999/99/99');
+                $('#txtDate1').mask(r_picd);
                 $('#txtDate1').datepicker();
-                $('#txtDate2').mask('999/99/99');
+                $('#txtDate2').mask(r_picd);
                 $('#txtDate2').datepicker();
 
-                var t_date, t_year, t_month, t_day;
-                t_date = new Date();
-                t_date.setDate(1);
-                t_year = t_date.getUTCFullYear() - 1911;
-                t_year = t_year > 99 ? t_year + '' : '0' + t_year;
-                t_month = t_date.getUTCMonth() + 1;
-                t_month = t_month > 9 ? t_month + '' : '0' + t_month;
-                t_day = t_date.getUTCDate();
-                t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-                $('#txtDate1').val(t_year + '/' + t_month + '/' + t_day);
-
-                t_date = new Date();
-                t_date.setDate(35);
-                t_date.setDate(0);
-                t_year = t_date.getUTCFullYear() - 1911;
-                t_year = t_year > 99 ? t_year + '' : '0' + t_year;
-                t_month = t_date.getUTCMonth() + 1;
-                t_month = t_month > 9 ? t_month + '' : '0' + t_month;
-                t_day = t_date.getUTCDate();
-                t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-                $('#txtDate2').val(t_year + '/' + t_month + '/' + t_day);
+                $('#txtDate1').val(q_date().substr(0,r_lenm)+'/01');
+                $('#txtDate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',35).substr(0,r_lenm)+'/01',-1));
                 
-                if(r_rank <7){
-                	q_gt('sss', "where=^^noa='" + r_userno + "'^^", 0, 0,0,"");
+                if(q_getPara('sys.project').toUpperCase()=='DC' && r_userno=='040136'){ //105/10/28 調整
+                	//不限制
+                }else{ 
+	                if(r_rank <7){
+	                	q_gt('sss', "where=^^noa='" + r_userno + "'^^", 0, 0,0,"");
+	                }
                 }
                 
             }
@@ -98,14 +83,18 @@
                         if (as[0] != undefined) {
 							if (as.length > 0 && as[0]["pr_modi"] == "true"){
 								$('#txtPartno1a').val(ssspartno).attr('disabled', 'disabled');
+								$('#btnPartno1').hide();
 								$('#txtPartno1b').val(ssspart);
 								$('#txtPartno2a').val(ssspartno).attr('disabled', 'disabled');
+								$('#btnPartno2').hide();
 								$('#txtPartno2b').val(ssspart);
 							}else{
 								$('#txtSssno1a').val(r_userno).attr('disabled', 'disabled');
 								$('#txtSssno1b').val(r_name);
 								$('#txtSssno2a').val(r_userno).attr('disabled', 'disabled');
 								$('#txtSssno2b').val(r_name);
+								$('#btnSssno1').hide();
+								$('#btnSssno2').hide();
 							}
 						}
                 		break;

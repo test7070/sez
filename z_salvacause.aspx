@@ -53,16 +53,17 @@
                 t_noa  =  t_noa.replace('noa=','');
                 $('#txtXnoa').val(t_noa).width(100);
                 
-                $('#txtXdate1').mask('999/99/99');
+                $('#txtXdate1').mask(r_picd);
                 $('#txtXdate1').datepicker();
-                $('#txtXdate2').mask('999/99/99');
+                $('#txtXdate2').mask(r_picd);
                 $('#txtXdate2').datepicker();
-                $('#txtYdate1').mask('999/99/99');
+                $('#txtYdate1').mask(r_picd);
                 $('#txtYdate1').datepicker();
-                $('#txtYdate2').mask('999/99/99');
+                $('#txtYdate2').mask(r_picd);
                 $('#txtYdate2').datepicker();
                 
-                 if (r_rank < 8 && q_content==''){
+                //105/10/28 040136 調整
+                 if (r_rank < 8 && q_content=='' && r_userno!='040136'){
 					q_gt('sss', "where=^^noa='" + r_userno + "'^^", 0, 1);
                 }
             }
