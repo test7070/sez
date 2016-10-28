@@ -59,6 +59,9 @@
             	$('#btnOk').hide();
             	$('#btnOk2').click(function(e){
             		switch($('#q_report').data('info').radioIndex) {
+                        case 0:
+                        	window.open("./pdfgqb_dc02.aspx?bno="+$('#txtGqbno1').val()+"&eno="+$('#txtGqbno2').val()+"&fontsize="+$('#txtXfontsize').val()+"&db="+q_db);
+                            break;
                         case 1:
                         	window.open("./pdfgqb_dc01.aspx?bno="+$('#txtGqbno1').val()+"&eno="+$('#txtGqbno2').val()+"&fontsize="+$('#txtXfontsize').val()+"&db="+q_db);
                             break;
