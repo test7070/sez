@@ -121,10 +121,17 @@
 				switch (t_name) {
 					case 'authority':
 						var as = _q_appendData('authority', '', true);
-						if ((as.length > 0 && as[0]["pr_dele"] == "true") || r_rank >= '8')
-							q_content = "";
-						else
-							q_content = "where=^^sssno='" + r_userno + "'^^";
+						if(q_getPara('sys.project').toUpperCase()=='DC'){
+							if ((as.length > 0 && as[0]["pr_dele"] == "true") || r_rank >= '8' || r_userno=='040136')//105/10/28 040136 調整
+								q_content = "";
+							else
+								q_content = "where=^^sssno='" + r_userno + "'^^";
+						}else{
+							if ((as.length > 0 && as[0]["pr_dele"] == "true") || r_rank >= '8')
+								q_content = "";
+							else
+								q_content = "where=^^sssno='" + r_userno + "'^^";
+						}
 						
 						q_gt(q_name, q_content, q_sqlCount, 1);
 						break;

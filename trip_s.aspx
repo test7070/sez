@@ -2,7 +2,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -44,7 +44,7 @@
 						var as = _q_appendData('authority', '', true);
 						if(q_getPara('sys.project').toUpperCase()=='DC'){
 							//105/10/13 限制部門主管(職稱達4經理以上)可查看同部門外勤內容,一般員工不可互相查看外勤內容
-							if(r_rank >=9 || r_userno=='040136')
+							if(r_rank >=9 || r_userno=='040136')//105/10/28 040136 調整
 								seekwhere = " ";
 							else if(sssjobno<='04' || sssjobno=='09'){
                         		seekwhere = " and partno='" + ssspartno + "' ";

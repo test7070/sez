@@ -63,7 +63,9 @@
 
                 var t_where = " 1=1 " + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("mon", t_mon) + q_sqlPara2("namea", t_namea) + q_sqlPara2("sssno", t_sssno) + q_sqlPara2("noa", t_noa) + q_sqlPara2("minusitem", $('#cmbMinusitem').val()) + q_sqlPara2("plusitem", $('#cmbPlusitem').val());
                 
-                if(!r_dele && r_rank < '8'){
+                if(q_getPara('sys.project').toUpperCase()=='DC' && r_userno=='040136'){
+                	//105/10/28 040136 調整
+                }else if(!r_dele && r_rank < '8'){
                 	t_where=t_where+" and sssno='" + r_userno + "'";
                 }
 
