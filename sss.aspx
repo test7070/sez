@@ -40,7 +40,7 @@
                 
                 //105/10/28 大昌調整
                 t_where = "where=^^ a.noa='" + q_name + "' and a.sssno='"+r_userno+"' ^^";
-				q_gt('authority', t_where, 0, 0, 0, "", r_accy);
+				q_gt('authority', t_where, 0, 1);
                 
                 /*if (r_rank>=7)
 					q_content = "";
@@ -242,7 +242,7 @@
                         	wrServer($('#txtNoa').val());
                         }
                 		break;
-                    case 'authority':
+                    /*case 'authority':
                         var as = _q_appendData('authority', '', true);
                         if (as.length > 0 && as[0]["pr_run"] == "true")
                             q_content = "";
@@ -250,7 +250,7 @@
                             q_content = "where=^^noa='" + r_userno + "'^^";
 
                         q_gt(q_name, q_content, q_sqlCount, 1)
-                        break;
+                        break;*/
                     case 'part':
                         var as = _q_appendData("part", "", true);
                         if (as[0] != undefined) {

@@ -21,6 +21,12 @@
                 q_getId();
                 q_gf('', 'z_gqb');
                 
+                $('#q_report').click(function(e) {
+                	if(q_getPara('sys.project').toUpperCase()!='YC'){
+						$('#Xacomp').hide();
+					}
+                });
+                
                 $('#q_report .report ').click(function(e) {
                 	if($('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report=='z_gqb4'
                 	|| $('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report=='z_gqb11'
@@ -62,6 +68,7 @@
                 		$('#txtDate2').val('');
                 	}
                 });
+                
             });
             function q_gfPost() {
                 $('#q_report').q_report({
