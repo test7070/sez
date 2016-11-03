@@ -23,7 +23,7 @@
             var q_readonly = ['txtNoa', 'txtBank', 'txtWorker', 'txtWorker2'];
             var q_readonlys = [];
             var bbmNum = [];
-            var bbsNum = [['txtMoney1', 10, 0, 1], ['txtMoney2', 10, 0, 1], ['txtMoney3', 10, 0, 1], ['txtMoney4', 10, 0, 1]];
+            var bbsNum = [['txtMoney1', 10, 2, 1], ['txtMoney2', 10, 2, 1], ['txtMoney3', 10, 2, 1], ['txtMoney4', 10, 2, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;

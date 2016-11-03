@@ -20,7 +20,7 @@
             $(document).ready(function() {
                 q_getId();
                 q_gf('', 'z_gqb');
-                
+
                 $('#q_report .report ').click(function(e) {
                 	if($('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report=='z_gqb4'
                 	|| $('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report=='z_gqb11'
@@ -62,6 +62,7 @@
                 		$('#txtDate2').val('');
                 	}
                 });
+                
             });
             function q_gfPost() {
                 $('#q_report').q_report({
@@ -74,55 +75,55 @@
                         type : '0',
                         name : 'ctypea',
                         value : q_getPara('gqb.typea')
-                    }, {/*1*/
+                    }, {//1
                         type : '5',
                         name : 'stype',
                         value : [q_getPara('report.all')].concat(q_getPara('gqb.typea').split(','))
-                    }, {/*2*/
+                    }, {//2
                         type : '5',
                         name : 'status',
                         value : [q_getPara('report.all')].concat(new Array('Y', 'N'))
-                    }, {/*3*/
+                    }, {//3
                         type : '1',
                         name : 'date'
-                    }, {/*4*/
+                    }, {//4
                         type : '1',
                         name : 'indate'
-                    }, {/*5*/
+                    }, {//5
                         type : '2',
                         name : 'bank',
                         dbf : 'bank',
                         index : 'noa,bank',
                         src : 'bank_b.aspx'
-                    }, {/*6*/
+                    }, {//6
                         type : '1',
                         name : 'gqbno'
-                    }, {/*7*/
+                    }, {//7
                         type : '5',
                         name : 'sort01',
                         value : q_getMsg('sort01').split('&')
-                    }, {/*8*/
+                    }, {//8
                         type : '1',
                         name : 'ydate'
-                    }, {/*9 [16]*/
+                    }, {//9
                         type : '6',
                         name : 'yacc1'
-                    }, {/*10 [17][18]*/
+                    }, {//10
                         type : '1',
                         name : 'xchkdate'
-                    }, {/*11 [19][20]*/
+                    }, {//11
                         type : '2',
                         name : 'xtcompno',
                         dbf : 'view_cust_tgg',
                         index : 'noa,comp',
                         src : 'view_cust_tgg_b.aspx'
-                    }, {/*12 [21][22]*/
+                    }, {//12
                         type : '2',
                         name : 'xcompno',
                         dbf : 'view_cust_tgg',
                         index : 'noa,comp',
                         src : 'view_cust_tgg_b.aspx'
-                    }, {/*13 [23][24]*/
+                    }, {//13
                         type : '1',
                         name : 'udate'
                     },{
@@ -133,49 +134,49 @@
 	                    type : '0',
 	                    name : 'r_addr',
 	                    value : q_getPara('sys.addr')
-					}, {/*14 [27][28]*/
+					}, {//14
                         type : '2',
                         name : 'xacc',
                         dbf : 'acc',
                         index : 'acc1,acc2',
                         src : "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno
-                    }, {/*[29]*/
+                    }, {
                         type : '0', 
                         name : 'acomp',
                         value : q_getPara('sys.comp')
-                    }, {/*5*/
+                    }, {//15
                         type : '2',
                         name : 'xtbank',
                         dbf : 'bank',
                         index : 'noa,bank',
                         src : 'bank_b.aspx'
-                    }, {/*[32]*/
+                    }, {//16
                         type : '5',
                         name : 'xchk',
                         value : [q_getPara('report.all')].concat(new Array('Y', 'N'))
-                    }, {/*[33]*/
+                    }, {
                         type : '0', 
                         name : 'proj',
                         value : q_getPara('sys.project')
-                    }, {/*[34][35]*/
+                    }, {//17
                         type : '2',
                         name : 'xtacc',
                         dbf : 'acc',
                         index : 'acc1,acc2',
                         src : "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno
-                    }, {/*[36]*/
+                    }, {//18
                         type : '5',
                         name : 'xmerge',
                         value : new Array('整合', '區分')
-                    }, {/*[37]*/
+                    }, {//19
                         type : '8',
                         name : 'xnocollection',
                         value : new Array('1@未託收' )
-                    }, {/*20 [38]*/
+                    }, {//20
                         type : '5',
                         name : 'sort02',
                         value : 'tbank@託收銀行,indate@到期日,datea@收開日'.split(',')
-                    }, {/*21 [39][40]*/
+                    }, {//21
                         type : '2',
                         name : 'xacomp',
                         dbf : 'acomp',
