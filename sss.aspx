@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -38,12 +38,16 @@
                 bbmKey = ['noa'];
                 q_brwCount();
                 
-                if (r_rank>=7)
+                //105/10/28 大昌調整
+                t_where = "where=^^ a.noa='" + q_name + "' and a.sssno='"+r_userno+"' ^^";
+				q_gt('authority', t_where, 0, 1);
+                
+                /*if (r_rank>=7)
 					q_content = "";
 				else
 					q_content = "where=^^noa='" + r_userno + "'^^";
 
-				q_gt(q_name, q_content, q_sqlCount, 1);
+				q_gt(q_name, q_content, q_sqlCount, 1);*/
                 
                 //q_gt('authority', "where=^^a.noa='sss' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1)
             });
@@ -72,6 +76,14 @@
                 q_cmbParse("cmbPerson", q_getPara('person.typea'));
                 //q_cmbParse("cmbRecord", ('').concat(new Array('國小', '國中', '高中', '高職', '大專', '大學', '碩士', '博士')));
                 q_cmbParse("cmbBlood", ('').concat(new Array('A', 'B', 'AB', 'O')));
+                
+                if(q_getPara('sys.project').toUpperCase()=='DC'){
+                	//105/10/28 只開放部分使用者
+                	if(r_userno=='040136' || r_rank>='9')
+                		$('#btnSaladjust').show();
+                }else{
+                	$('#btnSaladjust').show();
+                }
                 
                 $('#txtNoa').change(function(e){
                 	$(this).val($.trim($(this).val()).toUpperCase());    	
@@ -177,9 +189,10 @@
 					q_box("ssschg.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'ssschg', "95%", "95%", q_getMsg("popSsschg"));
 				});
 				
-                if (q_getPara('sys.project').toUpperCase()=='PY' || q_getPara('sys.project').toUpperCase()=='DC'){
+                if (q_getPara('sys.project').toUpperCase()=='PY'){
                 	$('#btnSsschg').show();	
                 }
+                
             }
             
             function q_boxClose(s2) {
@@ -194,6 +207,25 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'authority':
+                		var as = _q_appendData('authority', '', true);
+						if (as[0] != undefined) {}
+						//要q_gt後才能讀到SYS
+						if(q_getPara('sys.project').toUpperCase()=='DC'){
+							if (r_rank>=9 || r_userno=='040136'|| r_userno=='020129')
+								q_content = "";
+							else
+								q_content = "where=^^noa='" + r_userno + "'^^";
+						}else{
+							if (r_rank>=7)
+								q_content = "";
+							else
+								q_content = "where=^^noa='" + r_userno + "'^^";
+						}
+		
+						q_gt(q_name, q_content, q_sqlCount, 1);
+						
+                		break;
                 	case 'checkSssno_change':
                 		var as = _q_appendData("sss", "", true);
                         if (as[0] != undefined){
@@ -210,7 +242,7 @@
                         	wrServer($('#txtNoa').val());
                         }
                 		break;
-                    case 'authority':
+                    /*case 'authority':
                         var as = _q_appendData('authority', '', true);
                         if (as.length > 0 && as[0]["pr_run"] == "true")
                             q_content = "";
@@ -218,7 +250,7 @@
                             q_content = "where=^^noa='" + r_userno + "'^^";
 
                         q_gt(q_name, q_content, q_sqlCount, 1)
-                        break;
+                        break;*/
                     case 'part':
                         var as = _q_appendData("part", "", true);
                         if (as[0] != undefined) {
@@ -568,8 +600,8 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:70px; color:black;"><a id='vewNoa'></a></td>
-						<td align="center" style="width:150px; color:black;"><a id='vewNamea'></a></td>
+						<td align="center" style="width:70px; color:black;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:150px; color:black;"><a id='vewNamea'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
@@ -701,7 +733,7 @@
 					<tr>
 						<td> </td>
 						<td><input id='btnSsspart' type="button"/></td>
-						<td><input id='btnSaladjust' type="button"/></td>
+						<td><input id='btnSaladjust' type="button" style="display: none;"/></td>
 						<td><input id='btnLabases' type="button" /></td>
 						<td><input id='btnSsschg' type="button" style="display: none;"/></td>
 					</tr>

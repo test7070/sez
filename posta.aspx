@@ -17,7 +17,7 @@
 
             q_tables = 's';
             var q_name = "posta";
-            var q_readonly = ['txtNoa'];
+            var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
             var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [];
@@ -167,8 +167,14 @@
                                     as[i].memo = as[i].memo.substring(2, as[i].memo.length);
                             }*/
                         }
-                        q_gridAddRow(bbsHtm, 'tbbs', 'txtUseno,txtComp,txtZipcode,txtAddr,txtPart,txtConn,txtMemo', as.length, as, 'noa,comp,zip_comp,addr_comp,cpart,cname,memo', '');
-
+                        
+                        if (q_getPara('sys.project').toUpperCase() == 'XY') {
+                        	q_gridAddRow(bbsHtm, 'tbbs', 'txtUseno,txtComp,txtZipcode,txtAddr,txtPart,txtConn,txtMemo', as.length, as, 'noa,nick,zip_comp,addr_comp,cpart,cname,memo', '');
+						}else{
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtUseno,txtComp,txtZipcode,txtAddr,txtPart,txtConn,txtMemo', as.length, as, 'noa,comp,zip_comp,addr_comp,cpart,cname,memo', '');
+						}
+						
+						
                         break;
                 }  /// end switch
             }
@@ -195,8 +201,11 @@
                 		}
                 	}
                 }
-
-                $('#txtWorker').val(r_name);
+				
+				if(q_cur==1)
+                	$('#txtWorker').val(r_name);
+                else
+                	$('#txtWorker2').val(r_name);
 
                 var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
                 if (s1.length == 0 || s1 == "AUTO")
@@ -600,6 +609,12 @@
 					<tr class="tr4">
 						<td class="td1"><span> </span><a id='lblAddr' class="lbl"> </a></td>
 						<td class="td2" colspan="5"><input id="txtAddr" type="text" class="txt c1"/></td>
+					</tr>
+					<tr class="tr2">
+						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
+						<td class="td2"><input id="txtWorker" type="text" class="txt c1"/></td>
+						<td class="td3"><span> </span><a id="lblWorker2" class="lbl" > </a></td>
+						<td class="td4"><input id="txtWorker2" type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>

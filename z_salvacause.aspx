@@ -53,16 +53,17 @@
                 t_noa  =  t_noa.replace('noa=','');
                 $('#txtXnoa').val(t_noa).width(100);
                 
-                $('#txtXdate1').mask('999/99/99');
+                $('#txtXdate1').mask(r_picd);
                 $('#txtXdate1').datepicker();
-                $('#txtXdate2').mask('999/99/99');
+                $('#txtXdate2').mask(r_picd);
                 $('#txtXdate2').datepicker();
-                $('#txtYdate1').mask('999/99/99');
+                $('#txtYdate1').mask(r_picd);
                 $('#txtYdate1').datepicker();
-                $('#txtYdate2').mask('999/99/99');
+                $('#txtYdate2').mask(r_picd);
                 $('#txtYdate2').datepicker();
                 
-                 if (r_rank < 8 && q_content==''){
+                //105/10/28 040136 調整
+                 if (r_rank < 8 && q_content=='' && r_userno!='040136'){
 					q_gt('sss', "where=^^noa='" + r_userno + "'^^", 0, 1);
                 }
             }
@@ -76,7 +77,7 @@
             		case 'authority':
                         var as = _q_appendData('authority', '', true);
                         if (as[0] != undefined) {
-                        	if(q_getPara('sys.comp').indexOf('大昌')>-1){
+                        	if(q_getPara('sys.project').toUpperCase()=='DC'){
 	                            if (r_rank >= 7 || r_userno=='020110'){//104/03/24 職務變動姮瑜可以看到全部的資料
 	                                
 	                            }else if (as.length > 0 && as[0]["pr_modi"] == "true"){

@@ -101,9 +101,16 @@
 				if (t_end=='N')
 					t_where +="and isnull(outdate,'')!='' ";
 				
-				if(r_rank <7)
-					t_where+="and noa = '"+q_getId()[0]+"' ";
-			
+				if(q_getPara('sys.project').toUpperCase()=='DC'){
+					if (r_rank>=9 || r_userno=='040136'|| r_userno=='020129'){
+						
+					}else{
+						t_where+="and noa = '"+r_userno+"' ";
+					}
+				}else{
+					if(r_rank <7)
+						t_where+="and noa = '"+r_userno+"' ";
+				}
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
