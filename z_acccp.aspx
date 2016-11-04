@@ -73,7 +73,7 @@
                 q_popAssign();
                 q_langShow();
                 
-                if(q_getPara('acc.lockPart')=='1' && r_rank<8){
+                if(q_getPara('acc.lockPart')=='1' && r_rank<=8){
 		        	$("#chkXpart").children('input').attr('Disabled','Disabled');
 		        	$('#chkXpart').children('input').prop('checked',false);
 		        	for(var i=0;i<$('#chkXpart').children('input').length;i++){
