@@ -269,7 +269,7 @@
 
             }
             function checkPart(){
-            	if (q_getPara('acc.lockPart') == '1' && r_rank < 8) {
+            	if (q_getPara('acc.lockPart') == '1' && r_rank <= 8) {
                     $("#chkXpart").children('input').attr('Disabled', 'Disabled');
                     $("#chkXpart").children('input')[0].disabled = false;
                     $("#chkXpart").children('input')[1].disabled = false;

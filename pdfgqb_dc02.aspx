@@ -215,7 +215,7 @@
             }
             //-----PDF--------------------------------------------------------------------------------------------------
             // W*H  28.3,28.133   21.59*8.5
-            int shiftX = 0,shiftY = 0;
+            int shiftX = -17,shiftY = -8;
             var doc1 = new iTextSharp.text.Document(new iTextSharp.text.Rectangle(611,226), 0, 0, 0, 0);
             iTextSharp.text.pdf.PdfWriter pdfWriter = iTextSharp.text.pdf.PdfWriter.GetInstance(doc1, stream);
             //font
@@ -238,7 +238,7 @@
             {
                 for (int i = 0; i < gqbLabel.Count; i++)
                 {
-                	shiftY += 1;
+                	//shiftY += 1;
                     if (i != 0)
                     {
                         //Insert page
