@@ -49,15 +49,15 @@
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
-                $('#txtDate1').mask('999/99/99');
+                $('#txtDate1').mask(r_picd);
                 $('#txtDate1').datepicker();
-                $('#txtDate2').mask('999/99/99');
+                $('#txtDate2').mask(r_picd);
                 $('#txtDate2').datepicker();
                 
                 if(q_getPara('sys.project').toUpperCase()=='BV')
         			document.title='7.2使用紀錄查詢'
         			
-        		if (r_rank < 7) {
+        		if (r_rank < 7 && q_getPara('sys.project').toUpperCase()!='XY'){
 	                $('#txtDate1').attr('disabled', 'disabled');
 	                $('#txtDate2').attr('disabled', 'disabled');
 	                $('#txtSssno1a').attr('disabled', 'disabled');
