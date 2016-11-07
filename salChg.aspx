@@ -258,6 +258,12 @@
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 				_btnOk(key_value, bbmKey[0], '', '', 2);
 			}
+			
+			function q_stPost() {
+				if ((q_cur == 1 || q_cur == 2) && q_getPara('sys.project').toUpperCase()=='DJ' && $('#txtMon').val().length>0) {
+					q_func('qtxt.query.changedata', 'salary.txt,changedata_dj,' + encodeURI($('#txtMon').val()) + ';' + encodeURI(q_date()+'變動'+$('#txtNoa').val()+'加減項')+ ';1');
+				}
+			}
 
 			function refresh(recno) {
 				_refresh(recno);

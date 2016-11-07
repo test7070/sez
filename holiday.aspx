@@ -97,8 +97,12 @@
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
+                
+                if (q_getPara('sys.project').toUpperCase()=='DJ' && $('#txtNoa').val().length>0) {
+					q_func('qtxt.query.changedata', 'salary.txt,changedata_dj,' + encodeURI($('#txtNoa').val().substr(0,r_lenm)) + ';' + encodeURI(q_date()+'變動'+$('#txtNoa').val()+'假日作業')+ ';1');
+				}
+                
                 Unlock();
-
             }
 
             function btnOk() {
