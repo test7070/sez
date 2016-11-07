@@ -62,7 +62,7 @@
 	                	var t_tggno = trim($('#txtTggno').val());
 	                	var t_where='';
 	                	if (t_tggno.length > 0) {
-							t_where = "enda=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "");  ////  sql AND 語法，請用 &&
+							t_where = "view_ordcs.enda=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "");  ////  sql AND 語法，請用 &&
 							t_where = t_where;
 						}else {
 							alert('請填入【'+q_getMsg('lblTgg')+'】!!!');
