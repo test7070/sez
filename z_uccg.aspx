@@ -25,68 +25,38 @@
                 $('#q_report').q_report({
                     fileName : 'z_uccg',
                     options : [{
-							type : '0', //[1]
-							name : 'path',
-							value : location.protocol + '//' +location.hostname + location.pathname.toLowerCase().replace('z_uccpkk.aspx','')
-						},{
-							type : '0', //[2]
-							name : 'db',
-							value : q_db
-						},{
+							type : '0',
+							name : 'accy',
+							value : q_getId()[4]
+	                    },{
 	                        type : '1',
-	                        name : 'date' //[3][4]       1
+	                        name : 'date' //[2][3]
 	                    }, {
 	                        type : '2',
-	                        name : 'product', //[5][6]   2
+	                        name : 'product', //[4][5]
 	                        dbf : 'ucaucc',
 	                        index : 'noa,product',
 	                        src : 'ucaucc_b.aspx'
 	                    }, {
-							type : '8', //[7]            3
-							name : 'xoption',
-							value : "detail@明細".split(',')
-						}, {
-							type : '8', //[8]            4
-							name : 'xkind',
-							value : q_getPara('sys.stktype').split(',')
-						}
+							type : '5',
+							name : 'ucctype', //[6]
+							value : [q_getPara('report.all')].concat(q_getPara('ucc.typea').split(',')) //[q_getPara('report.all')].concat((q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1)?q_getPara('ucc.typea_it').split(','):q_getPara('ucc.typea').split(','))
+	                    }
                     ]
                 });
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
-
                 $('#txtDate1').mask('999/99/99');
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');
                 $('#txtDate2').datepicker();
                 
-                var t_date, t_year, t_month, t_day;
-				t_date = new Date();
-				t_date.setDate(1);
-				t_year = t_date.getUTCFullYear() - 1911;
-				t_year = t_year > 99 ? t_year + '' : '0' + t_year;
-				t_month = t_date.getUTCMonth() + 1;
-				t_month = t_month > 9 ? t_month + '' : '0' + t_month;
-				t_day = t_date.getUTCDate();
-				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-				$('#txtDate1').val(t_year + '/' + t_month + '/' + t_day);
-
-				t_date = new Date();
-				t_date.setDate(35);
-				t_date.setDate(0);
-				t_year = t_date.getUTCFullYear() - 1911;
-				t_year = t_year > 99 ? t_year + '' : '0' + t_year;
-				t_month = t_date.getUTCMonth() + 1;
-				t_month = t_month > 9 ? t_month + '' : '0' + t_month;
-				t_day = t_date.getUTCDate();
-				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-				$('#txtDate2').val(t_year + '/' + t_month + '/' + t_day);
+                $('#txtEdate').mask('999/99/99');
+                $('#txtEdate').val(q_date());
             }
-
             function q_boxClose(s2) {
             }
-
             function q_gtPost(t_name) {
 				
 			}
