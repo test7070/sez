@@ -1521,11 +1521,15 @@
 						<td><span> </span><a id="lblWdate" class="lbl"> </a></td>
 						<td><input id="txtWdate" type="text" class="txt"/></td>
 					</tr>
+					<tr style="display: none;">
+						<td><span> </span><a id="lblProduct" class="lbl"> </a></td>
+						<td><input id="txtProduct" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblEngpro" class="lbl"> </a></td>
+						<td><input id="txtEngpro" type="text" class="txt c1"/></td>
+					</tr>
 					<tr>
 						<td><span> </span><a id="lblType" class="lbl"> </a></td>
 						<td><select id="cmbTypea" class="txt c1" style="font-size: medium;"> </select></td>
-						<td><span> </span><a id="lblProduct" class="lbl"> </a></td>
-						<td colspan='2'><input id="txtProduct" type="text" class="txt c1"/></td>
 						<td>
 							<input id="btnUcctd" type="button" />
 							<input id="btnCustproduct" type="button" />
@@ -1534,8 +1538,7 @@
 					<tr>
 						<!--<td><span> </span><a id="lblEngprono" class="lbl"> </a></td>
 						<td><input id="txtEngprono" type="text" class="txt"/></td>-->
-						<td><span> </span><a id="lblEngpro" class="lbl"> </a></td>
-						<td colspan='5'><input id="txtEngpro" type="text" class="txt c1"/></td>
+						
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblSpec" class="lbl">型號</a></td>
