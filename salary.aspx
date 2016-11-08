@@ -524,7 +524,7 @@
 			                    	}
 			                    	
 			                    	//離職員工
-			                    	if(as[i].indate<date_1&&!emp(as[i].outdate)){
+			                    	if(as[i].indate<date_1 && !emp(as[i].outdate) && as[i].outdate <= date_2){
 			                    		var t_date=as[i].outdate,inday=0;
 			                    		inday=dec(t_date.substr((r_lenm+1),2))-dec(date_1.substr((r_lenm+1),2))+1
 			                    		

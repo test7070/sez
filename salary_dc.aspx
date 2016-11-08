@@ -505,7 +505,7 @@
 								//新進員工薪資(不滿一個月)=本俸+主管津貼+交通津貼+工作津貼+其他津貼/30*工作天數(且福利金=0全勤=0) 5/3含六日
 								if (as[i].indate > date_1) {//計算工作天數
 									var t_date = as[i].indate, inday = 0;
-									if (!emp(as[i].outdate))//當月離職
+									if (!emp(as[i].outdate) && as[i].outdate <= date_2)//當月離職
 										inday = dec(as[i].outdate.substr(7, 2)) - dec(t_date.substr(7, 2)) + 1;
 									else
 										inday = dec(date_2.substr(7, 2)) - dec(t_date.substr(7, 2)) + 1;
@@ -521,7 +521,7 @@
 								}
 
 								//離職員工
-								if (as[i].indate < date_1 && !emp(as[i].outdate)) {
+								if (as[i].indate < date_1 && !emp(as[i].outdate) && as[i].outdate <= date_2) {
 									var t_date = as[i].outdate, inday = 0;
 									inday = dec(t_date.substr(7, 2)) - dec(date_1.substr(7, 2)) + 1;
 									as[i].memo = "離職員工(工作日:" + inday + ")";
