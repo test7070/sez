@@ -33,6 +33,12 @@
                 q_gt('uccga', '', 0, 0, 0, "");
 
                 $('#txtBdate').focus();
+                
+                if (q_getPara('sys.project').toUpperCase()=='XY'){
+                	$('#txtStyle').hide();
+                	$('#cmbStyle').show();
+                	q_cmbParse("cmbStyle",'@全部,便品,空白,公版,加工,印刷,私-空白,新版,改版,新版數位樣,新版正式樣,改版數位樣,改版正式樣');
+                }
             }
 
             function q_seekStr() {
@@ -46,6 +52,10 @@
                     t_where = t_where + " and charindex('" + t_product + "',product)>0 ";
                 if (t_spec.length > 0)
                     t_where = t_where + " and charindex('" + t_spec + "',spec)>0 ";
+                
+                if (q_getPara('sys.project').toUpperCase()=='XY' && $('#cmbStyle').val().length>0){
+                	t_where = t_where + " and style='"+$('#cmbStyle').val()+"' ";
+                }
 
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
@@ -95,7 +105,10 @@
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblStyle'> </a></td>
-					<td><input class="txt" id="txtStyle" type="text" style="width:215px; font-size:medium;" /></td>
+					<td>
+						<input class="txt" id="txtStyle" type="text" style="width:215px; font-size:medium;" />
+						<select id="cmbStyle" style="width:215px; font-size:medium;display: none;"> </select>
+					</td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblTypea'> </a></td>
