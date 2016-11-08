@@ -985,6 +985,7 @@
 				t_Divide = dec($('#txtDivide_' + b_seq).val());
 				t_Productno = $('#txtProductno_' + b_seq).val();
 				var theory_setting={
+					productno:t_Productno,
 					calc:StyleList,
 					ucc:t_uccArray,
 					radius:t_Radius,
