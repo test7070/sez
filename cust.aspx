@@ -187,7 +187,7 @@
 				if (q_getPara('sys.project').toUpperCase()=='XY' || q_getPara('sys.project').toUpperCase()=='YC'){
 					$('#btnCustm').show();
 				}
-				if (q_getPara('sys.project').toUpperCase()=='VU'){
+				if (q_getPara('sys.project').toUpperCase()=='VU' || q_getPara('sys.project').toUpperCase()=='SF'){
 					$('#btnCustm').val('工地名稱');
 					$('#btnCustm').show();
 				}
