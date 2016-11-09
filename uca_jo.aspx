@@ -56,11 +56,11 @@
 				['txtProcessno_', 'btnProcessno_', 'process', 'noa,process', 'txtProcessno_,txtProcess_', 'process_b.aspx'],
 				['txtTggno__', 'btnTggno__', 'tgg', 'noa,nick', 'txtTggno__,txtNick__', 'tgg_b.aspx'],
 				['txtProcessno__', 'btnProcessno__', 'process', 'noa,process', 'txtProcessno__,txtProcess__', 'process_b.aspx'],
-				['txtGroupeno', 'lblGroupeno', 'adsize', 'noa,mon,memo1,memo2', '0txtGroupeno,textGroupemon,textGroupememo1,textGroupememo2', 'adsize_b.aspx'],
-				['txtGroupfno', 'lblGroupfno', 'adsss', 'noa,mon,memo1,memo2', '0txtGroupfno,textGroupfmon,textGroupfmemo1,textGroupfmemo2', 'adsss_b.aspx'],
-				['txtGroupgno', 'lblGroupgno', 'adknife', 'noa,mon,memo1,memo2', '0txtGroupgno,textGroupgmon,textGroupgmemo1,textGroupgmemo2', 'adknife_b.aspx'],
-				['txtGrouphno', 'lblGrouphno', 'adpipe', 'noa,mon,memo1,memo2', '0txtGrouphno,textGrouphmon,textGrouphmemo1,textGrouphmemo2', 'adpipe_b.aspx'],
-				['txtGroupino', 'lblGroupino', 'adtran', 'noa,mon,memo1,memo2', '0txtGroupino,textGroupimon,textGroupemimo1,textGroupimemo2', 'adtran_b.aspx']
+				['txtGroupeno', 'lblGroupeno', 'adsize', 'noa,mon,memo1,memo2', '0txtGroupeno,textGroupemon,textGroupememo1,textGroupememo2', ''],
+				['txtGroupfno', 'lblGroupfno', 'adsss', 'noa,mon,memo1,memo2', '0txtGroupfno,textGroupfmon,textGroupfmemo1,textGroupfmemo2', ''],
+				['txtGroupgno', 'lblGroupgno', 'adknife', 'noa,mon,memo1,memo2', '0txtGroupgno,textGroupgmon,textGroupgmemo1,textGroupgmemo2', ''],
+				['txtGrouphno', 'lblGrouphno', 'adpipe', 'noa,mon,memo1,memo2', '0txtGrouphno,textGrouphmon,textGrouphmemo1,textGrouphmemo2', ''],
+				['txtGroupino', 'lblGroupino', 'adtran', 'noa,mon,memo1,memo2', '0txtGroupino,textGroupimon,textGroupemimo1,textGroupimemo2', '']
 			);	
 			
 			$(document).ready(function() {
@@ -529,48 +529,52 @@
 			}
 
 			function btnOk() {
-				var t_noa='';
+				var t_noa=$('#txtSpec').val();
 				if(!emp($('#txtGroupeno').val()))
-					t_noa=t_noa+(t_noa.length>0?' ':'')+$('#txtGroupeno').val();
+					t_noa=t_noa+(t_noa.length>0?',':'')+$('#txtGroupeno').val();
 				if(!emp($('#txtGroupfno').val()))
-					t_noa=t_noa+(t_noa.length>0?' ':'')+$('#txtGroupfno').val();
+					t_noa=t_noa+(t_noa.length>0?',':'')+$('#txtGroupfno').val();
 				if(!emp($('#txtGroupgno').val()))
-					t_noa=t_noa+(t_noa.length>0?' ':'')+$('#txtGroupgno').val();
+					t_noa=t_noa+(t_noa.length>0?',':'')+$('#txtGroupgno').val();
 				if(!emp($('#txtGrouphno').val()))
-					t_noa=t_noa+(t_noa.length>0?' ':'')+$('#txtGrouphno').val();
+					t_noa=t_noa+(t_noa.length>0?',':'')+$('#txtGrouphno').val();
 				if(!emp($('#txtGroupino').val()))
-					t_noa=t_noa+(t_noa.length>0?' ':'')+$('#txtGroupino').val();
+					t_noa=t_noa+(t_noa.length>0?',':'')+$('#txtGroupino').val();
 				
 				var t_prdouct='';
+				if(!emp($('#txtSpec').val()))
+					t_prdouct=t_prdouct+(t_prdouct.length>0?',':'')+'型號:'+$('#txtSpec').val();
 				if(!emp($('#txtGroupeno').val()))
-					t_prdouct=t_prdouct+(t_prdouct.length>0?' ':'')+$('#textGroupemon').val();
+					t_prdouct=t_prdouct+(t_prdouct.length>0?',':'')+'車縫:'+$('#textGroupemon').val();
 				if(!emp($('#txtGroupfno').val()))
-					t_prdouct=t_prdouct+(t_prdouct.length>0?' ':'')+$('#textGroupfmon').val();
+					t_prdouct=t_prdouct+(t_prdouct.length>0?',':'')+'護片:'+$('#textGroupfmon').val();
 				if(!emp($('#txtGroupgno').val()))
-					t_prdouct=t_prdouct+(t_prdouct.length>0?' ':'')+$('#textGroupgmon').val();
+					t_prdouct=t_prdouct+(t_prdouct.length>0?',':'')+'大弓:'+$('#textGroupgmon').val();
 				if(!emp($('#txtGrouphno').val()))
-					t_prdouct=t_prdouct+(t_prdouct.length>0?' ':'')+$('#textGrouphmon').val();
+					t_prdouct=t_prdouct+(t_prdouct.length>0?',':'')+'中束:'+$('#textGrouphmon').val();
 				if(!emp($('#txtGroupino').val()))
-					t_prdouct=t_prdouct+(t_prdouct.length>0?' ':'')+$('#textGroupimon').val();
+					t_prdouct=t_prdouct+(t_prdouct.length>0?',':'')+'座管:'+$('#textGroupimon').val();
 					
 				var t_engpro='';
+				if(!emp($('#txtSpec').val()))
+					t_engpro=t_engpro+(t_engpro.length>0?',':'')+'型號:'+$('#txtSpec').val();
 				if(!emp($('#txtGroupeno').val()))
-					t_engpro=t_engpro+(t_engpro.length>0?' ':'')+$('#textGroupemon').val();
+					t_engpro=t_engpro+(t_engpro.length>0?',':'')+'車縫:'+$('#textGroupemon').val();
 				if(!emp($('#txtGroupfno').val()))
-					t_engpro=t_engpro+(t_engpro.length>0?' ':'')+$('#textGroupfmon').val();
+					t_engpro=t_engpro+(t_engpro.length>0?',':'')+'護片:'+$('#textGroupfmon').val();
 				if(!emp($('#txtGroupgno').val()))
-					t_engpro=t_engpro+(t_engpro.length>0?' ':'')+$('#textGroupgmon').val();
+					t_engpro=t_engpro+(t_engpro.length>0?',':'')+'大弓:'+$('#textGroupgmon').val();
 				if(!emp($('#txtGrouphno').val()))
-					t_engpro=t_engpro+(t_engpro.length>0?' ':'')+$('#textGrouphmon').val();
+					t_engpro=t_engpro+(t_engpro.length>0?',':'')+'中束:'+$('#textGrouphmon').val();
 				if(!emp($('#txtGroupino').val()))
-					t_engpro=t_engpro+(t_engpro.length>0?' ':'')+$('#textGroupimon').val();
+					t_engpro=t_engpro+(t_engpro.length>0?',':'')+'座管:'+$('#textGroupimon').val();
 				
 				$('#txtProduct').val(t_prdouct);
 				$('#txtEngpro').val(t_engpro);
 				
 				// 檢查空白
 				if (t_noa.length == 0) {
-					alert('五大要件禁止空白!!');
+					alert('型號或五大要件禁止空白!!');
 					return;
 				}
 								
@@ -744,6 +748,11 @@
 				$('#lblStyle').text('車種');
 				$('#lblSize').text('尺寸');
 				$('#lblUweight').text('重量');
+				$('#lblGroupeno').unbind('click');
+				$('#lblGroupfno').unbind('click');
+				$('#lblGroupgno').unbind('click');
+				$('#lblGrouphno').unbind('click');
+				$('#lblGroupino').unbind('click');
 			}
 
 			var assm_row = 0;
@@ -1097,6 +1106,12 @@
 					$('#cmbGroupbno').attr('disabled', 'disabled');
 					//$('#cmbGroupcno').attr('disabled', 'disabled');
 				}
+				
+				$('#lblGroupeno').unbind('click');
+				$('#lblGroupfno').unbind('click');
+				$('#lblGroupgno').unbind('click');
+				$('#lblGrouphno').unbind('click');
+				$('#lblGroupino').unbind('click');
 			}
 
 			function btnMinus(id) {
@@ -1530,7 +1545,7 @@
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
 						<td align="center" id='noa'>~noa</td>
-						<td align="center" id='product spec'>~product ~spec</td>
+						<td align="center" id='product'>~product</td>
 					</tr>
 				</table>
 			</div>
@@ -1765,7 +1780,7 @@
 					</td>
 					<td style="width:20px;"> </td>
 					<td align="center" style="width:200px;"><a id='lblProductno'> </a></td>
-					<td align="center" style="width:260px;"><a id='lblProducts'> </a></td>
+					<td align="center" style="width:260px;"><a id='lblProducts_ad'>品名</a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMount'> </a></td>
 					<!--<td align="center" style="width:8%;"><a id='lblWeights'></a></td>-->
@@ -1786,7 +1801,7 @@
 					</td>
 					<td>
 						<input id="txtProduct.*" type="text" class="txt c1"/>
-						<input id="txtSpec.*" type="text" class="txt c1"/>
+						<input id="txtSpec.*" type="text" class="txt c1" style="display: none;"/>
 					</td>
 					<td><input id="txtUnit.*" type="text" class="txt c1" style="text-align:center;"/></td>
 					<td><input id="txtMount.*" type="text" class="txt num c1"/></td>
