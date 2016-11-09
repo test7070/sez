@@ -30,8 +30,10 @@
                 $('#txtBdate').focus();
 
                 q_gt('salchgitem', '', 0, 0, 0, "");
+                q_gt('authority', "where=^^a.noa='salchg' and a.sssno='" + r_userno + "'^^", 0, 0, 0,"");
             }
-
+			
+			var t_dele='false';
             function q_gtPost(t_name) {
                 switch (t_name) {
                     case 'salchgitem':
@@ -43,6 +45,12 @@
                         q_cmbParse("cmbPlusitem", t_item);
                         q_cmbParse("cmbMinusitem", t_item);
                         break;
+					case 'authority':
+						var as = _q_appendData('authority', '', true);
+						if(as[0]!=undefined){
+							t_dele=as[0]["pr_dele"]
+						}
+						break;
                 }  /// end switch
             }
 
@@ -65,7 +73,7 @@
                 
                 if(q_getPara('sys.project').toUpperCase()=='DC' && r_userno=='040136'){
                 	//105/10/28 040136 調整
-                }else if(!r_dele && r_rank < '8'){
+                }else if(t_dele=='false' && r_rank < '8'){
                 	t_where=t_where+" and sssno='" + r_userno + "'";
                 }
 
