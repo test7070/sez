@@ -56,11 +56,11 @@
 				['txtProcessno_', 'btnProcessno_', 'process', 'noa,process', 'txtProcessno_,txtProcess_', 'process_b.aspx'],
 				['txtTggno__', 'btnTggno__', 'tgg', 'noa,nick', 'txtTggno__,txtNick__', 'tgg_b.aspx'],
 				['txtProcessno__', 'btnProcessno__', 'process', 'noa,process', 'txtProcessno__,txtProcess__', 'process_b.aspx'],
-				['txtGroupeno', 'lblGroupeno', 'adsize', 'noa,mon,memo1,memo2', '0txtGroupeno,textGroupemon,textGroupememo1,textGroupememo2', 'adsize_b.aspx'],
-				['txtGroupfno', 'lblGroupfno', 'adsss', 'noa,mon,memo1,memo2', '0txtGroupfno,textGroupfmon,textGroupfmemo1,textGroupfmemo2', 'adsss_b.aspx'],
-				['txtGroupgno', 'lblGroupgno', 'adknife', 'noa,mon,memo1,memo2', '0txtGroupgno,textGroupgmon,textGroupgmemo1,textGroupgmemo2', 'adknife_b.aspx'],
-				['txtGrouphno', 'lblGrouphno', 'adpipe', 'noa,mon,memo1,memo2', '0txtGrouphno,textGrouphmon,textGrouphmemo1,textGrouphmemo2', 'adpipe_b.aspx'],
-				['txtGroupino', 'lblGroupino', 'adtran', 'noa,mon,memo1,memo2', '0txtGroupino,textGroupimon,textGroupemimo1,textGroupimemo2', 'adtran_b.aspx']
+				['txtGroupeno', 'lblGroupeno', 'adsize', 'noa,mon,memo1,memo2', '0txtGroupeno,textGroupemon,textGroupememo1,textGroupememo2', ''],
+				['txtGroupfno', 'lblGroupfno', 'adsss', 'noa,mon,memo1,memo2', '0txtGroupfno,textGroupfmon,textGroupfmemo1,textGroupfmemo2', ''],
+				['txtGroupgno', 'lblGroupgno', 'adknife', 'noa,mon,memo1,memo2', '0txtGroupgno,textGroupgmon,textGroupgmemo1,textGroupgmemo2', ''],
+				['txtGrouphno', 'lblGrouphno', 'adpipe', 'noa,mon,memo1,memo2', '0txtGrouphno,textGrouphmon,textGrouphmemo1,textGrouphmemo2', ''],
+				['txtGroupino', 'lblGroupino', 'adtran', 'noa,mon,memo1,memo2', '0txtGroupino,textGroupimon,textGroupemimo1,textGroupimemo2', '']
 			);	
 			
 			$(document).ready(function() {
@@ -529,11 +529,52 @@
 			}
 
 			function btnOk() {
-				t_err = '';
-				t_err = q_chkEmpField([['txtProduct', q_getMsg('lblProduct')]]);
+				var t_noa=$('#txtSpec').val();
+				if(!emp($('#txtGroupeno').val()))
+					t_noa=t_noa+(t_noa.length>0?',':'')+$('#txtGroupeno').val();
+				if(!emp($('#txtGroupfno').val()))
+					t_noa=t_noa+(t_noa.length>0?',':'')+$('#txtGroupfno').val();
+				if(!emp($('#txtGroupgno').val()))
+					t_noa=t_noa+(t_noa.length>0?',':'')+$('#txtGroupgno').val();
+				if(!emp($('#txtGrouphno').val()))
+					t_noa=t_noa+(t_noa.length>0?',':'')+$('#txtGrouphno').val();
+				if(!emp($('#txtGroupino').val()))
+					t_noa=t_noa+(t_noa.length>0?',':'')+$('#txtGroupino').val();
+				
+				var t_prdouct='';
+				if(!emp($('#txtSpec').val()))
+					t_prdouct=t_prdouct+(t_prdouct.length>0?',':'')+'型號:'+$('#txtSpec').val();
+				if(!emp($('#txtGroupeno').val()))
+					t_prdouct=t_prdouct+(t_prdouct.length>0?',':'')+'車縫:'+$('#textGroupemon').val();
+				if(!emp($('#txtGroupfno').val()))
+					t_prdouct=t_prdouct+(t_prdouct.length>0?',':'')+'護片:'+$('#textGroupfmon').val();
+				if(!emp($('#txtGroupgno').val()))
+					t_prdouct=t_prdouct+(t_prdouct.length>0?',':'')+'大弓:'+$('#textGroupgmon').val();
+				if(!emp($('#txtGrouphno').val()))
+					t_prdouct=t_prdouct+(t_prdouct.length>0?',':'')+'中束:'+$('#textGrouphmon').val();
+				if(!emp($('#txtGroupino').val()))
+					t_prdouct=t_prdouct+(t_prdouct.length>0?',':'')+'座管:'+$('#textGroupimon').val();
+					
+				var t_engpro='';
+				if(!emp($('#txtSpec').val()))
+					t_engpro=t_engpro+(t_engpro.length>0?',':'')+'型號:'+$('#txtSpec').val();
+				if(!emp($('#txtGroupeno').val()))
+					t_engpro=t_engpro+(t_engpro.length>0?',':'')+'車縫:'+$('#textGroupemon').val();
+				if(!emp($('#txtGroupfno').val()))
+					t_engpro=t_engpro+(t_engpro.length>0?',':'')+'護片:'+$('#textGroupfmon').val();
+				if(!emp($('#txtGroupgno').val()))
+					t_engpro=t_engpro+(t_engpro.length>0?',':'')+'大弓:'+$('#textGroupgmon').val();
+				if(!emp($('#txtGrouphno').val()))
+					t_engpro=t_engpro+(t_engpro.length>0?',':'')+'中束:'+$('#textGrouphmon').val();
+				if(!emp($('#txtGroupino').val()))
+					t_engpro=t_engpro+(t_engpro.length>0?',':'')+'座管:'+$('#textGroupimon').val();
+				
+				$('#txtProduct').val(t_prdouct);
+				$('#txtEngpro').val(t_engpro);
+				
 				// 檢查空白
-				if (t_err.length > 0) {
-					alert(t_err);
+				if (t_noa.length == 0) {
+					alert('型號或五大要件禁止空白!!');
 					return;
 				}
 								
@@ -580,8 +621,8 @@
 				}
 				
 				if(q_cur==1){
-					if($.trim($('#cmbGroupbno').val()).length==0 || $.trim($('#cmbGroupcno').val()).length==0){
-						alert('產線/次產線禁止空白!!');
+					if($.trim($('#cmbGroupbno').val()).length==0){// || $.trim($('#cmbGroupcno').val()).length==0
+						alert('次產線禁止空白!!');
 						return;
 					}else{
 						var t_noa='D'+$('#cmbGroupbno').val().substr(0,2)+$('#cmbGroupbno').val().substr(2,2);
@@ -639,10 +680,10 @@
 								}
 							}
 							*/
-							if (emp($('#txtNoa').val())) {
+							/*if (emp($('#txtNoa').val())) {
 								alert('請先輸入【' + q_getMsg('lblNoa') + '】');
 								$('#txtNoa').focus();
-							}
+							}*/
 							if (!emp($('#txtProductno_' + b_seq).val()) && !emp($('#txtNoa').val()))
 								q_func('qtxt.query', 'bom.txt,bom,' + encodeURI($('#txtProductno_' + b_seq).val()) + ';' + encodeURI($('#txtNoa').val()));
 						});
@@ -707,6 +748,11 @@
 				$('#lblStyle').text('車種');
 				$('#lblSize').text('尺寸');
 				$('#lblUweight').text('重量');
+				$('#lblGroupeno').unbind('click');
+				$('#lblGroupfno').unbind('click');
+				$('#lblGroupgno').unbind('click');
+				$('#lblGrouphno').unbind('click');
+				$('#lblGroupino').unbind('click');
 			}
 
 			var assm_row = 0;
@@ -1005,7 +1051,7 @@
 					q_gt('adsss', t_where, 0, 0, 0, "",r_accy,1);
 					var as = _q_appendData("adsss", "", true);
 					if (as[0] != undefined) {
-						$('#textGroupfname').val(as[0].mon);
+						$('#textGroupfmon').val(as[0].mon);
 						$('#textGroupfmemo1').val(as[0].memo1);
 						$('#textGroupfmemo2').val(as[0].memo2);
 					}
@@ -1016,7 +1062,7 @@
 					q_gt('adknife', t_where, 0, 0, 0, "",r_accy,1);
 					var as = _q_appendData("adknife", "", true);
 					if (as[0] != undefined) {
-						$('#textGroupgname').val(as[0].mon);
+						$('#textGroupgmon').val(as[0].mon);
 						$('#textGroupgmemo1').val(as[0].memo1);
 						$('#textGroupgmemo2').val(as[0].memo2);
 					}
@@ -1027,7 +1073,7 @@
 					q_gt('adpipe', t_where, 0, 0, 0, "",r_accy,1);
 					var as = _q_appendData("adpipe", "", true);
 					if (as[0] != undefined) {
-						$('#textGrouphname').val(as[0].mon);
+						$('#textGrouphmon').val(as[0].mon);
 						$('#textGrouphmemo1').val(as[0].memo1);
 						$('#textGrouphmemo2').val(as[0].memo2);
 					}
@@ -1038,7 +1084,7 @@
 					q_gt('adtran', t_where, 0, 0, 0, "",r_accy,1);
 					var as = _q_appendData("adtran", "", true);
 					if (as[0] != undefined) {
-						$('#textGroupiname').val(as[0].mon);
+						$('#textGroupimon').val(as[0].mon);
 						$('#textGroupimemo1').val(as[0].memo1);
 						$('#textGroupimemo2').val(as[0].memo2);
 					}
@@ -1060,6 +1106,12 @@
 					$('#cmbGroupbno').attr('disabled', 'disabled');
 					//$('#cmbGroupcno').attr('disabled', 'disabled');
 				}
+				
+				$('#lblGroupeno').unbind('click');
+				$('#lblGroupfno').unbind('click');
+				$('#lblGroupgno').unbind('click');
+				$('#lblGrouphno').unbind('click');
+				$('#lblGroupino').unbind('click');
 			}
 
 			function btnMinus(id) {
@@ -1493,7 +1545,7 @@
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
 						<td align="center" id='noa'>~noa</td>
-						<td align="center" id='product spec'>~product ~spec</td>
+						<td align="center" id='product'>~product</td>
 					</tr>
 				</table>
 			</div>
@@ -1501,48 +1553,45 @@
 				<table class="tbbm" id="tbbm" border="0" cellpadding='2' cellspacing='0' >
 					<tr style="height:1px;">
 						<td style="width:100px;"> </td>
-						<td style="width:200px;"> </td>
+						<td style="width:180px;"> </td>
 						<td style="width:100px;"> </td>
-						<td style="width:220px;"> </td>
+						<td style="width:180px;"> </td>
 						<td style="width:100px;"> </td>
-						<td style="width:130px;"> </td>
+						<td style="width:190px;"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td><input id="txtNoa" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblKdate" class="lbl"> </a></td>
 						<td>
-							<input id="txtKdate" type="text" class="txt" style="width:65%;"/>
+							<input id="txtKdate" type="text" class="txt c1" style="width:65%;"/>
 							<div style="float:left;">
 								<input id="Copy" type="checkbox" />
 								<span> </span><a id="lblCopy"> </a>
 							</div>
 						</td>
 						<td><span> </span><a id="lblWdate" class="lbl"> </a></td>
-						<td><input id="txtWdate" type="text" class="txt"/></td>
+						<td><input id="txtWdate" type="text" class="txt c1" style="width:90%;"/></td>
 					</tr>
 					<tr style="display: none;">
 						<td><span> </span><a id="lblProduct" class="lbl"> </a></td>
 						<td><input id="txtProduct" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblEngpro" class="lbl"> </a></td>
 						<td><input id="txtEngpro" type="text" class="txt c1"/></td>
+						<!--<td><span> </span><a id="lblEngprono" class="lbl"> </a></td>
+						<td><input id="txtEngprono" type="text" class="txt c1"/></td>-->
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblType" class="lbl"> </a></td>
 						<td><select id="cmbTypea" class="txt c1" style="font-size: medium;"> </select></td>
-						<td>
+						<td><span> </span><a id="lblSpec" class="lbl">型號</a></td>
+						<td><input id="txtSpec" type="text" class="txt c1"/></td>
+						<td colspan="2">
 							<input id="btnUcctd" type="button" />
 							<input id="btnCustproduct" type="button" />
 						</td>
 					</tr>
 					<tr>
-						<!--<td><span> </span><a id="lblEngprono" class="lbl"> </a></td>
-						<td><input id="txtEngprono" type="text" class="txt"/></td>-->
-						
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblSpec" class="lbl">型號</a></td>
-						<td><input id="txtSpec" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblGroupano" class="lbl">產品屬性</a></td>
 						<td><select id="cmbGroupano" class="txt c1" style="font-size: medium;"> </select></td>
 						<td><span> </span><a id="lblGroupbno" class="lbl">次產線代碼</a></td>
@@ -1585,7 +1634,7 @@
 						<td><span> </span><a id="lblGrouphno" class="lbl" style="text-align: right;">中束<br>Bông</a></td>
 						<td>
 							<input id="txtGrouphno" type="text" class="txt c1" style="width: 45%;"/>
-							<input id="textGrouphmno" type="text" class="txt c1" style="width: 53%;"/>
+							<input id="textGrouphmon" type="text" class="txt c1" style="width: 53%;"/>
 						</td>
 						<td colspan="2"><input id="textGrouphmemo1" type="text" class="txt c1"/></td>
 						<td colspan="2"><input id="textGrouphmemo2" type="text" class="txt c1"/></td>
@@ -1731,7 +1780,7 @@
 					</td>
 					<td style="width:20px;"> </td>
 					<td align="center" style="width:200px;"><a id='lblProductno'> </a></td>
-					<td align="center" style="width:260px;"><a id='lblProducts'> </a></td>
+					<td align="center" style="width:260px;"><a id='lblProducts_ad'>品名</a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMount'> </a></td>
 					<!--<td align="center" style="width:8%;"><a id='lblWeights'></a></td>-->
@@ -1752,7 +1801,7 @@
 					</td>
 					<td>
 						<input id="txtProduct.*" type="text" class="txt c1"/>
-						<input id="txtSpec.*" type="text" class="txt c1"/>
+						<input id="txtSpec.*" type="text" class="txt c1" style="display: none;"/>
 					</td>
 					<td><input id="txtUnit.*" type="text" class="txt c1" style="text-align:center;"/></td>
 					<td><input id="txtMount.*" type="text" class="txt num c1"/></td>

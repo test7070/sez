@@ -187,7 +187,7 @@
 				if (q_getPara('sys.project').toUpperCase()=='XY' || q_getPara('sys.project').toUpperCase()=='YC'){
 					$('#btnCustm').show();
 				}
-				if (q_getPara('sys.project').toUpperCase()=='VU'){
+				if (q_getPara('sys.project').toUpperCase()=='VU' || q_getPara('sys.project').toUpperCase()=='SF'){
 					$('#btnCustm').val('工地名稱');
 					$('#btnCustm').show();
 				}
@@ -217,7 +217,7 @@
 						t_where = "noa='" + $('#txtNoa').val() + "'";
 						if (q_getPara('sys.project').toUpperCase()=='XY'){
 							q_box("custm_xy.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'custm', "600px", "700px", $('#btnCustm').val());
-						}else if (q_getPara('sys.project').toUpperCase()=='VU'){
+						}else if (q_getPara('sys.project').toUpperCase()=='VU' || q_getPara('sys.project').toUpperCase()=='SF'){
 							q_box("custm_vu.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'custm', "600px", "700px", $('#btnCustm').val());
 						}else{
 							q_box("custm_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'custm', "700px", "700px", $('#btnCustm').val());
