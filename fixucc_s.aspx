@@ -14,7 +14,7 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
             var q_name = "fixucc_s";
-            aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']);
+            aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,nick', 'txtTggno', 'tgg_b.aspx']);
             $(document).ready(function() {
                 main();
             });
@@ -43,9 +43,9 @@
 
                 var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("tggno", t_tggno);
 				if (t_namea.length>0)
-                    t_where += " and patindex('%" + t_namea + "%',namea)>0";
+                    t_where += " and charindex('" + t_namea + "',namea)>0";
                 if (t_tgg.length>0)
-                    t_where += " and patindex('%" + t_tgg + "%',tgg)>0";
+                    t_where += " and charindex('" + t_tgg + "',tgg)>0";
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
             }
@@ -77,9 +77,13 @@
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblTggno'></a></td>
 					<td>
-					<input class="txt" id="txtTggno" type="text" style="width:90px; font-size:medium;" />
-					&nbsp;
-					<input class="txt" id="txtTgg" type="text" style="width:115px;font-size:medium;" />
+					<input class="txt" id="txtTggno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblTgg'>廠商名稱</a></td>
+					<td>
+					<input class="txt" id="txtTgg" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>
