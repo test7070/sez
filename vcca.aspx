@@ -169,7 +169,7 @@
 							t_vccano = $('#txtNoa').val();
 							t_custno = $('#txtCustno').val();
 							t_date = $('#txtDatea').val();
-							t_where = "b.custno='"+t_custno+"' and (c.noa='"+t_vccano+"' or c.noa is null) ";
+							t_where = "b.typea!='2' and b.custno='"+t_custno+"' and (c.noa='"+t_vccano+"' or c.noa is null) ";
 							if(q_getPara('sys.project').toUpperCase() == 'VU')
 								t_where +="and b.datea>'2016/02/22' and (ISNULL(b.atax,0)=1 or isnull(b.tax,0)>0)";
 							if(q_getPara('sys.project').toUpperCase() != 'VU')
