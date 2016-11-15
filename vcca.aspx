@@ -1270,6 +1270,12 @@
 							<input id="txtBuyer" type="text"  style="float:left; width:70%;"/>
 						</td>
 					</tr>
+					<tr style="display:none;">
+						<td><span> </span><a id='lblCanceldate' class="lbl">作廢日期</a></td>
+						<td><input id="txtCanceldate" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblCanceltime' class="lbl">作廢時間</a></td>
+						<td><input id="txtCanceltime" type="text" class="txt c1"/></td>
+					</tr>
 					<tr>
 						<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
 						<td><input id="txtMoney"  type="text"  class="txt num c1"/></td>
