@@ -110,13 +110,13 @@
 				}
 				
 				q_getFormat();
-				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
+				bbmMask = [['txtCanceldate', r_picd],['txtCanceltime', '99:99:99'], ['txtDatea', r_picd], ['txtMon', r_picm]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbTaxtype", q_getPara('vcca.taxtype'));
 				
 				if(q_getPara('sys.project').toUpperCase()=='VU')
 					$('#chkAtax').show();
-					
+				
 				$('#cmbTaxtype').focus(function() {
 					var len = $("#cmbTaxtype").children().length > 0 ? $("#cmbTaxtype").children().length : 1;
 					$("#cmbTaxtype").attr('size', len + "");
@@ -124,8 +124,10 @@
 					$("#cmbTaxtype").attr('size', '1');
 				}).change(function(e) {
 					sum();
+					refreshBbs();
 				}).click(function(e) {
 					sum();
+					refreshBbs();
 				});
 				
 				$('#txtNoa').change(function(e) {
@@ -963,6 +965,13 @@
 			}
 			
 			function refreshBbs() {
+				//作廢時顯示作廢日期和時間
+				if($('#cmbTaxtype').val()=='6'){
+					$('.cancelInvoice').show();
+				}else{
+					$('.cancelInvoice').hide();
+				}
+				
                 //金額小計自訂
 				for(var i=0;i<q_bbsCount;i++){
 					$('#txtMoney_'+i).attr('readonly','readonly');
@@ -1269,6 +1278,12 @@
 							<input id="txtBuyerno"  type="text"  style="float:left; width:30%;"/>
 							<input id="txtBuyer" type="text"  style="float:left; width:70%;"/>
 						</td>
+					</tr>
+					<tr class="cancelInvoice" style="display:none;">
+						<td><span> </span><a id='lblCanceldate' class="lbl">作廢日期</a></td>
+						<td><input id="txtCanceldate" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblCanceltime' class="lbl">作廢時間</a></td>
+						<td><input id="txtCanceltime" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
