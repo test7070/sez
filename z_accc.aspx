@@ -106,6 +106,9 @@
                     }, {/* [14]*/
                         type : '6',
                         name : 'yproject'
+                    }, {/* [15]*/
+                        type : '6',
+                        name : 'xaccc7'
                     }]
                 });
 				
