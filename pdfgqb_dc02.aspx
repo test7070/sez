@@ -264,18 +264,18 @@
                     //月
                     cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)gqbLabel[i]).b02, 393 + shiftX, 186 + shiftY, 0);
                     //日
-                    cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)gqbLabel[i]).b03, 413 + shiftX, 186 + shiftY, 0);
+                    cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)gqbLabel[i]).b03, 425 + shiftX, 186 + shiftY, 0);
 
                     cb.SetFontAndSize(bfChinese, Int32.Parse(item.fontsize));
                     //公司全名
-                    cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)gqbLabel[i]).b04, 254 + shiftX, 164 + shiftY, 0);
+                    cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)gqbLabel[i]).b04, 260 + shiftX, 164 + shiftY, 0);
                     cb.SetFontAndSize(bfChinese, 13);
                     //金額
-                    cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)gqbLabel[i]).b05, 254 + shiftX, 120 + shiftY, 0);
+                    cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)gqbLabel[i]).b05, 255 + shiftX, 120 + shiftY, 0);
 
                     cb.SetFontAndSize(bfChinese, 13);
                     //金額(大寫)
-                    cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)gqbLabel[i]).b06, 254 + shiftX, 140 + shiftY, 0);
+                    cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)gqbLabel[i]).b06, 260 + shiftX, 140 + shiftY, 0);
                    
                     cb.EndText();
                 }
