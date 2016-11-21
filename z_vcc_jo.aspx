@@ -369,7 +369,7 @@
                 }
                 if (isinvosystem.length > 0 && uccgaItem.length > 0 &&uccgbItem.length > 0 &&uccgcItem.length > 0 && partItem.length > 0 && sss_state && !gfrun) {
                     gfrun = true;
-                    q_gf('', 'z_vcc');
+                    q_gf('', 'z_vcc_jo'); //抓取網頁權限
                 }
             }
 		</script>
