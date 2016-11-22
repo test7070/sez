@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'cust', t_content = ' field=noa,comp,tel,zip_fact,addr_fact,trantype,zip_invo,addr_invo,paytype,nick,conn,conntel', bbsKey = ['noa'], as;
+            var q_name = 'cust', t_content = ' field=noa,comp,tel,zip_fact,addr_fact,trantype,zip_invo,addr_invo,paytype,nick,conn,conntel,isvccmon', bbsKey = ['noa'], as;
             var t_sqlname = 'cust_load';
             t_postname = q_name;
             brwCount2 = 20;
