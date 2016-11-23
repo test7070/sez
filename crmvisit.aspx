@@ -27,7 +27,7 @@
             brwKey = 'noa';
             //brwCount2 = 15;
             
-            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,addr_home', '0txtCustno,txtComp,txtAddr', 'cust_b.aspx']
+            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,addr_home', 'txtCustno,txtComp,txtAddr', 'cust_b.aspx']
             ,['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx']
             );
        
