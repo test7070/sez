@@ -61,6 +61,7 @@
 						['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,spec,unit', 'txtProductno_,txtProduct_,txtSpec_,txtUnit_', 'ucaucc_b2.aspx'],
 						['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx']
 					);
+					q_readonlys = ['txtStore','txtEmount2'];
 				}
 				if (q_getPara('sys.project').toUpperCase()=='XY'){
 					aPop = new Array(
