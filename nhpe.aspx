@@ -71,6 +71,10 @@
 			    $('#textPassword').val( $('#txtPasswd').val());
 
 			});
+			$('#btnPasswordhide').click(function () {
+			    $('#textPassword').val('');
+
+			});
 			
 			$('#btnCopy').click(function () {
 			    if (r_rank >= 8) {
@@ -444,7 +448,8 @@
             <tr>
                <td class="td1"><span> </span><a id='lblPasswd' class="lbl"> </a></td>
                <td class="td2"><input id="textPassword"  type="text" class="txt c1"/><input id="txtPasswd" maxlength="20" type="hidden" class="txt c1"/></td>
-               <td> <input id="btnPassword" type="button" style="width: auto;font-size: medium;" /></td>
+               <td> <input id="btnPassword" type="button" style="width: auto;font-size: medium;" />
+               		<input id="btnPasswordhide" type="button" style="width: auto;font-size: medium;" /></td>
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblRank' class="lbl"> </a></td>
