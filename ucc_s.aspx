@@ -46,8 +46,10 @@
                 var t_product = $('#txtProduct').val();
                 var t_style = $('#txtStyle').val();
                 var t_spec = $('#txtSpec').val();
+                var t_typea = $('#cmbTypea').val();
+                var t_groupano = $('#cmbGroupano').val();
 
-                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("style", t_style);
+                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("style", t_style) + q_sqlPara2("typea", t_typea) + q_sqlPara2("groupano", t_groupano);
                 if (t_product.length > 0)
                     t_where = t_where + " and charindex('" + t_product + "',product)>0 ";
                 if (t_spec.length > 0)
