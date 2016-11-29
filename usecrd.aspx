@@ -229,6 +229,7 @@
 					<td align="center" style="width:80px;"><a id='lblWorker'></a></td>
 					<td align="center" style="width:100px;"><a id='lblBasev'></a></td>
 					<td align="center" style="width:100px;"><a id='lblMul'></a></td>
+					<td align="center" style="width:100px;"><a id='lblMemo'>歷史記錄</a></td>
 				</tr>
 			</table>
 		</div>
@@ -245,6 +246,7 @@
 					<td align="center" style="width:80px;"><a id='lblWorker'></a></td>
 					<td align="center" style="width:100px;"><a id='lblBasev'></a></td>
 					<td align="center" style="width:100px;"><a id='lblMul'></a></td>
+					<td align="center" style="width:100px;"><a id='lblMemo'></a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td align="center" style="display:none;width:36px;">
@@ -259,6 +261,7 @@
 					<td style="width:80px;"><input id="txtWorker.*" type="text" class="c1" /></td>
 					<td style="width:100px;"><input id="txtBasev.*" type="text" class="c1 num" /></td>
 					<td style="width:100px;"><input id="txtMul.*" type="text" class="c1 num" /></td>
+					<td style="width:100px;"><input id="txtMemo.*" type="text" class="c1 num" /></td>
 				</tr>
 			</table>
 		</div>
