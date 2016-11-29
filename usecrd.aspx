@@ -53,7 +53,11 @@
 				
 				if (window.parent.q_name == 'cust') {
                     var wParent = window.parent.document;
-                    q_func('qtxt.query.credit', 'credit.txt,fe,'+ encodeURI(wParent.getElementById("txtNoa").value) + ';non');
+                    if(wParent.getElementById("txtNoa").value.length>0){
+                    	console.log('credit.txt,fe,'+ encodeURI(wParent.getElementById("txtNoa").value) + ';non');
+                    	q_func('qtxt.query.credit', 'credit.txt,fe,'+ encodeURI(wParent.getElementById("txtNoa").value) + ';non');
+               		}else 
+               			alert('編號異常!');
                 }
 			}
 			function q_funcPost(t_func, result) {
@@ -261,7 +265,7 @@
 					<td style="width:80px;"><input id="txtWorker.*" type="text" class="c1" /></td>
 					<td style="width:100px;"><input id="txtBasev.*" type="text" class="c1 num" /></td>
 					<td style="width:100px;"><input id="txtMul.*" type="text" class="c1 num" /></td>
-					<td style="width:100px;"><input id="txtMemo.*" type="text" class="c1 num" /></td>
+					<td style="width:100px;"><input id="txtMemo.*" type="text" class="c1" /></td>
 				</tr>
 			</table>
 		</div>
