@@ -11,7 +11,7 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
 			
-			var q_name = 'usecrd', t_bbsTag = 'tbbs', t_content = " field=noa,noq,creditno,namea,basev,mul,refv,credit,worker", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 10;
+			var q_name = 'usecrd', t_bbsTag = 'tbbs', t_content = " field=noa,noq,creditno,namea,basev,mul,refv,credit,worker,memo", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 10;
 			var t_sqlname = 'usecrd_load';
 			t_postname = q_name;
 			var isBott = false;
