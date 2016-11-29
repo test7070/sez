@@ -11,7 +11,7 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
 			
-			var q_name = 'usecrd', t_bbsTag = 'tbbs', t_content = " field=noa,noq,creditno,namea,basev,mul,refv,credit,worker", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 10;
+			var q_name = 'usecrd', t_bbsTag = 'tbbs', t_content = " field=noa,noq,creditno,namea,basev,mul,refv,credit,worker,memo", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 10;
 			var t_sqlname = 'usecrd_load';
 			t_postname = q_name;
 			var isBott = false;
@@ -53,7 +53,11 @@
 				
 				if (window.parent.q_name == 'cust') {
                     var wParent = window.parent.document;
-                    q_func('qtxt.query.credit', 'credit.txt,fe,'+ encodeURI(wParent.getElementById("txtNoa").value) + ';non');
+                    if(wParent.getElementById("txtNoa").value.length>0){
+                    	console.log('credit.txt,fe,'+ encodeURI(wParent.getElementById("txtNoa").value) + ';non');
+                    	q_func('qtxt.query.credit', 'credit.txt,fe,'+ encodeURI(wParent.getElementById("txtNoa").value) + ';non');
+               		}else 
+               			alert('編號異常!');
                 }
 			}
 			function q_funcPost(t_func, result) {
@@ -229,6 +233,7 @@
 					<td align="center" style="width:80px;"><a id='lblWorker'></a></td>
 					<td align="center" style="width:100px;"><a id='lblBasev'></a></td>
 					<td align="center" style="width:100px;"><a id='lblMul'></a></td>
+					<td align="center" style="width:100px;"><a id='lblMemo'>歷史記錄</a></td>
 				</tr>
 			</table>
 		</div>
@@ -245,6 +250,7 @@
 					<td align="center" style="width:80px;"><a id='lblWorker'></a></td>
 					<td align="center" style="width:100px;"><a id='lblBasev'></a></td>
 					<td align="center" style="width:100px;"><a id='lblMul'></a></td>
+					<td align="center" style="width:100px;"><a id='lblMemo'></a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td align="center" style="display:none;width:36px;">
@@ -259,6 +265,7 @@
 					<td style="width:80px;"><input id="txtWorker.*" type="text" class="c1" /></td>
 					<td style="width:100px;"><input id="txtBasev.*" type="text" class="c1 num" /></td>
 					<td style="width:100px;"><input id="txtMul.*" type="text" class="c1 num" /></td>
+					<td style="width:100px;"><input id="txtMemo.*" type="text" class="c1" /></td>
 				</tr>
 			</table>
 		</div>
