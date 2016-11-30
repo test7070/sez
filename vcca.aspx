@@ -423,7 +423,7 @@
 				//檢查發票抬頭
 				if(q_getPara('sys.project').toUpperCase()=='FE'){
 					//鉅昕印發票是印 COMP 那格,而不是買受人
-					q_func('qtxt.query.vcca_apv', 'vcca.txt,vcca_apv,'+r_userno+';vcca;' + $('#btnOk').data('guid')+';'+$('#txtNoa').val()+';'+$('#txtCustno').val()+';'+$('#txtComp').val()); 
+					q_func('qtxt.query.vcca_apv', 'vcca.txt,vcca_apv,'+r_userno+';vcca;' + $('#btnOk').data('guid')+';'+$('#txtNoa').val()+';'+$('#txtCustno').val()+';'+$('#txtComp').val()+';'+$('#txtBuyer').val()+';'); 
 				}else{
 					q_func('qtxt.query.checkdata_btnOk', 'vcca.txt,checkdata,' +q_cur+';'+$('#txtNoa').val()+';'+$('#txtCno').val()+';'+$('#txtDatea').val());	
 				}
