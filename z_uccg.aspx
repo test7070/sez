@@ -55,10 +55,10 @@
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
-                $('#txtDate1').mask(r_picd);
-                $('#txtDate1').datepicker();
-                $('#txtDate2').mask(r_picd);
-                $('#txtDate2').datepicker();
+                $('#txtDate1').mask(r_picm);
+                //$('#txtDate1').datepicker();
+                $('#txtDate2').mask(r_picm);
+                //$('#txtDate2').datepicker();
             }
             function q_boxClose(s2) {
             }
