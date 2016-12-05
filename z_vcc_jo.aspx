@@ -94,6 +94,16 @@
 	                		$('#Xgroupcno').hide();
 	                		$('#Xpartno').hide();
 	                		$('#Xshowinvono').hide();
+	                	}
+	                	if(report_name=='21'){
+	                		$('#Mon').hide();
+	                		$('#Xgroupbno').hide();
+	                		$('#Xgroupcno').hide();
+	                		$('#Xshowinvono').hide();
+	                		$('#Tggno').hide();
+	                		$('#Xstype').hide();
+	                		$('#Vcctypea').hide();
+	                		$('#Xpartno').hide();
 	                	}	
 	                }
 				});
@@ -261,6 +271,9 @@
 						}
 						if(report_namea=='16'){
 							q_gtx("z_vcc16", t_where + ";;" + t_para + ";;z_vcc;;出貨統計-產品 業務 客戶");
+						}
+						if(report_namea=='21'){
+							q_gtx("z_vcc21", t_where + ";;" + t_para + ";;z_vcc;;出貨產品統計表");
 						}
 					}
 				});
@@ -584,6 +597,10 @@
 						<div class="rptext">
 							<input  type="radio" value="16" class="radio">
 							<span class="text">出貨統計-產品 業務 客戶</span>
+						</div>
+						<div class="rptext">
+							<input  type="radio" value="21" class="radio">
+							<span class="text">出貨產品統計表</span>
 						</div>
 					</div>	
 					<div class="option">
