@@ -1000,6 +1000,8 @@
 									//$('#txtUnit_'+b_seq).val(as[0].uunit);
 									$('#txtSpec_'+b_seq).val(as[0].style+' '+as[0].spec);
 								}
+								$('#txtStoreno_'+b_seq).val('A');
+								$('#txtStore_'+b_seq).val('總倉庫');
 							}
 						}
 						break;
