@@ -759,6 +759,38 @@
 							var t_mount = $('#txtMount_' + b_seq).val();
 							$('#txtTotal_' + b_seq).val(round(q_mul(dec($('#txtPrice_' + b_seq).val()), dec(t_mount)), 0));
 							sum();
+							
+							if(q_getPara('sys.project').toUpperCase()=='XY'){
+								var t_max_unit='';
+								var t_max_inmout=0;
+								var t_unit=$('#txtUnit_'+b_seq).val();
+								var t_inmount=0;
+								var t_mount=dec($('#txtMount_'+b_seq).val());
+	                            var t_where = "where=^^noa='"+$('#txtProductno_'+b_seq).val()+"'^^";
+								q_gt('pack2s', t_where, 0, 0, 0, "getpack2s", r_accy, 1);
+								var as = _q_appendData("pack2s", "", true);
+	                            for(var i=0 ; i<as.length;i++){
+									if(t_max_inmout<dec(as[i].inmount)){
+										t_max_unit=as[i].pack;
+										t_max_inmout=dec(as[i].inmount);
+									}
+									if(t_unit==as[i].pack){
+										t_inmount=dec(as[i].inmount);
+									}
+								}
+								if(t_max_inmout==0){
+									t_max_inmout=1;
+									t_max_unit=t_unit;
+								}
+								
+								if(t_max_unit!=t_unit && Math.floor(t_mount/t_max_inmout)>0){
+									var t_m1=Math.floor(q_div(t_mount,t_max_inmout));
+									var t_m2=q_sub(t_mount,(q_mul(Math.floor(q_div(t_mount,t_max_inmout)),t_max_inmout)));
+									$('#txtMemo_'+b_seq).val(t_m1+t_max_unit+(t_m2>0?('+'+t_m2+t_unit):''));
+								}else{
+									$('#txtMemo_'+b_seq).val('');
+								}
+							}
 						});
 						$('#txtPrice_' + j).change(function() {
 							t_IdSeq = -1;
@@ -1000,6 +1032,8 @@
 									//$('#txtUnit_'+b_seq).val(as[0].uunit);
 									$('#txtSpec_'+b_seq).val(as[0].style+' '+as[0].spec);
 								}
+								$('#txtStoreno_'+b_seq).val('A');
+								$('#txtStore_'+b_seq).val('總倉庫');
 							}
 						}
 						break;

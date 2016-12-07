@@ -84,7 +84,7 @@
                 		var as  = _q_appendData("rc2s", "", true);
 						if(as[0]!=undefined){
 							for ( var i = 0; i < as.length; i++) {
-								if(as[0].productno==$('#txtProductno').val()){
+								if(as[i].productno==$('#txtProductno').val()){
 									$('#txtPredate').val(as[i].datea);
 									$('#txtMount').val(dec(as[i].mount));
 									$('#txtPrice').val(dec(as[i].price));
