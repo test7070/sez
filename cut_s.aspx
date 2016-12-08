@@ -14,7 +14,8 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
             var q_name = "cut_s";
-			aPop = new Array(['txtMechno', 'lblMechno', 'mech', 'noa,mech', 'txtMechno', 'mech_b.aspx']);
+			aPop = new Array(['txtMechno', 'lblMechno', 'mech', 'noa,mech', 'txtMechno', 'mech_b.aspx']
+				,['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno', 'tgg_b.aspx']);
             $(document).ready(function() {
                 main();
             });
@@ -49,6 +50,8 @@
 		        t_bno = replaceAll($.trim($('#txtBno').val()),"'","~#$");
 		        t_bdate = $('#txtBdate').val();
 		        t_edate = $('#txtEdate').val();
+		        t_tggno = $.trim($('#txtTggno').val());
+		        t_tgg = $.trim($('#txtTgg').val());
 
 		        var t_where = " 1=1 " 
 		        + q_sqlPara2("typea", t_typea)
@@ -57,9 +60,12 @@
 		        + q_sqlPara2("noa", t_noa) 
 		        + q_sqlPara2("datea", t_bdate, t_edate) 		     
 		        + q_sqlPara2("mechno", t_mechno)
+		        + q_sqlPara2("tggno", t_tggno)
 		        + q_sqlPara2("uno", t_uno) ;
 		        if (t_mech.length>0)
                     t_where += " and charindex('" + t_mech + "',mech)>0";
+				if (t_tgg.length>0)
+                    t_where += " and charindex('" + t_tgg + "',tgg)>0";
 		       	if(t_ordeno.length>0)
 		       		t_where += " and exists(select view_cuts"+r_accy+".noa from view_cuts"+r_accy+" where view_cuts"+r_accy+".noa=view_cut"+r_accy+".noa and view_cuts"+r_accy+".ordeno='"+t_ordeno+"')";
 		       	if(t_bno.length>0)
@@ -138,6 +144,18 @@
 					<td class='seek'  style="width:20%;"><a id='lblBno'></a></td>
 					<td>
 					<input class="txt" id="txtBno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblTggno'>廠商編號</a></td>
+					<td>
+					<input class="txt" id="txtTggno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblTgg'>廠商名稱</a></td>
+					<td>
+					<input class="txt" id="txtTgg" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>
