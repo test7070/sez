@@ -51,7 +51,7 @@
 					+ q_sqlPara2("noa", t_noa) 
 					+ q_sqlPara2("datea", t_bdate, t_edate) 
 					+ q_sqlPara2("storeno", t_storeno)
-					+ q_sqlPara2("storein", t_storeinno);
+					+ q_sqlPara2("storeinno", t_storeinno);
 				if(t_uno.length>0)
 		       		t_where += " and exists(select noa from view_cngs"+r_accy+" where view_cngs"+r_accy+".noa=view_cng"+r_accy+".noa and view_cngs"+r_accy+".uno='"+t_uno+"')";
 		       		
