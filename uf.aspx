@@ -224,6 +224,18 @@
                 _bbsAssign();
                 ChecknoReadonly();
                 compshow();
+                
+                $('#checkAll').unbind('click');
+                $('#checkAll').click(function() {
+                	if(q_cur==1 || q_cur==2){
+                		for (var i = 0; i < q_bbsCount; i++) {
+                			if($('#checkAll').prop('checked'))
+                				$('#chkSel_'+i).prop('checked',true);
+                			else
+                				$('#chkSel_'+i).prop('checked',false);
+                		}
+                	}
+                });
             }
 
             function btnIns() {
@@ -542,7 +554,7 @@
 				</table>
 			</div>
 			<div class='dbbm'>
-				<table class="tbbm"  id="tbbm">
+				<table class="tbbm" id="tbbm">
 					<tr class="tr0" style="height:1px;">
 						<td><input id="txtCheckno"type="text" style="display:none;"/></td>
 						<td><input id="txtCmoney"type="text" style="display:none;"/></td>
@@ -602,25 +614,25 @@
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs' style=' text-align:center'>
 				<tr style='color:white; background:#003366;' >
-					<td  align="center" style="width:30px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
-					<td align="center" class="td0"><a id='vewChks'> </a></td>
-					<td align="center" class="td1"> </td>
-					<td align="center" class="td1"><a id='lblCheckno'> </a></td>
-					<td align="center" class="td1" style="width:18%"><a id='lblBanknos'> </a></td>
+					<td align="center" style="width:30px;"><input class="btn" id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
+					<td align="center"> </td>
+					<td align="center"><div><input id="checkAll" type="checkbox"/></div></td>
+					<td align="center"><a id='lblCheckno'> </a></td>
+					<td align="center" style="width:18%"><a id='lblBanknos'> </a></td>
 					<td align="center" style="width:15%"><a id='lblBanks'> </a></td>
 					<td align="center" style="width:115px;" class="ccomp"><a id='lblComps'> </a></td>
 					<td align="center" style="width:115px;" class="tcomp"><a id='lblTcomps'> </a></td>
-					<td align="center" class="td1" style="width:10%"><a id='lblDateas'> </a></td>
-					<td align="center" class="td1"><a id='lblMoneys'> </a></td>
-					<td align="center" class="td1" style="width:15%"><a id='lblTaccl'> </a></td>
+					<td align="center" style="width:10%"><a id='lblDateas'> </a></td>
+					<td align="center"><a id='lblMoneys'> </a></td>
+					<td align="center" style="width:15%"><a id='lblTaccl'> </a></td>
 				</tr>
 				<tr id="trSel.*" style='background:#cad3ff;'>
 					<td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-					<td ><input id="chkSel.*" type="checkbox"/></td>
-					<td ><input id="txtCheckno.*" onclick="browGqb(this)" type="text" style="width: 95%"/></td>
-					<td ><input id="txtBankno.*" type="text" style="width: 95%"/></td>
-					<td ><input id="txtBank.*" type="text" style="width: 95%"/></td>
+					<td><input id="chkSel.*" type="checkbox"/></td>
+					<td><input id="txtCheckno.*" onclick="browGqb(this)" type="text" style="width: 95%"/></td>
+					<td><input id="txtBankno.*" type="text" style="width: 95%"/></td>
+					<td><input id="txtBank.*" type="text" style="width: 95%"/></td>
 					<td class="ccomp">
 						<input class="txt c1" id="txtCompno.*" type="hidden"/>
 						<input class="txt c1 ccomp" id="txtComp.*" type="text"  style="width: 95%"/>
@@ -629,9 +641,9 @@
 						<input class="txt c1" id="txtTcompno.*" type="hidden"/>
 						<input class="txt c1 tcomp" id="txtTcomp.*" type="text"  style="width: 95%"/>
 					</td>
-					<td ><input id="txtDatea.*" type="text" style="width: 95%"/></td>
-					<td ><input class="txt num c1" id="txtMoney.*" type="text" style="width: 95%"/></td>
-					<td >
+					<td><input id="txtDatea.*" type="text" style="width: 95%"/></td>
+					<td><input class="txt num c1" id="txtMoney.*" type="text" style="width: 95%"/></td>
+					<td>
 						<input class="txt c1" id="txtTaccl.*" type="text" style="width: 95%"/>
 						<input id="txtNoq.*" type="hidden" />
 					</td>
