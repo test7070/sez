@@ -278,6 +278,9 @@
 
             function btnIns() {
                 var t_curgqbno = $('#txtGqbno').val();
+                if(t_curgqbno.length==0)
+                	t_curgqbno = abbm[q_recno].gqbno;
+                
                 var t_data;
                 if($("#checkCopy").prop("checked")){
                 	t_data = {
@@ -300,14 +303,23 @@
                 }        
                 _btnIns();
                 refreshBbm();
-                var patt = new RegExp(/[A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/);
+                /*var patt = new RegExp(/[A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/);
                 var n = 0;
                 if (t_curgqbno.length = 9 && patt.test(t_curgqbno)) {
                     n = "" + (parseInt(t_curgqbno.substring(2, 9)) + 1);
                     for (var i = 7 - n.length; i > 0; i--)
                         n = "0" + n;
                     $('#txtGqbno').val(t_curgqbno.substring(0, 2) + n);
+                }*/
+                var patt = new RegExp(/([A-Z,a-z]+)(\d+)/);
+                var t_key = t_curgqbno.replace(patt,'$1');
+                var t_number = t_curgqbno.replace(patt,'$2');
+                if(patt.test(t_curgqbno)){
+                	string = '0000000000'+(parseInt(t_number) + 1);
+                	string = string.substring(string.length-t_number.length,string.length);
+                	$('#txtGqbno').val(t_key+string);
                 }
+                
                 if($("#checkCopy").prop("checked")){
                 	$('#cmbTypea').val(t_data.typea);
                 	$('#txtAccount').val(t_data.account);

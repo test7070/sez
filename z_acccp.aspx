@@ -97,10 +97,20 @@
                 $('#txtXaccc31').val(t_accc3);
                 $('#txtXaccc32').val(t_accc3);
                 
-                $('#btnOk').hide();
+                /*$('#btnOk').hide();
                 $('#btnOk2').click(function(e) {
                     $('#btnOk').click();
-                });
+                });*/
+                
+                $('#btnOk').before($('#btnOk').clone().attr('id', 'btnOk2').show()).hide();
+				$('#btnOk2').click(function() {
+					$('#btnOk').click();
+				});
+				$('#btnWebPrint').before($('#btnWebPrint').clone().attr('id', 'btnWebPrint2').show()).hide();
+				$('#btnWebPrint2').click(function() {
+					q_func( 'accc_post.prt',$.trim($('txtXaccc31').val())+','+$.trim($('txtXaccc32').val()));
+					$('#btnWebPrint').click();
+				});
             }
 		</script>
 	</head>
@@ -114,7 +124,6 @@
 				<div id="q_report"> </div>
 			</div>
 			<div class="prt" style="margin-left: -40px;">
-                <input type="button" id="btnOk2" style="float:left;font-size:16px;font-weight: bold;color: blue;cursor: pointer;width:50px;height:30px;" value="查詢"/>
                 <!--#include file="../inc/print_ctrl.inc"-->
             </div>
 		</div>
