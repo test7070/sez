@@ -27,6 +27,16 @@
 			q_brwCount();
 			q_gt(q_name, q_content, q_sqlCount, 1);
 			$('#txtNoa').focus();
+			
+			if (r_rank >= 8){
+				q_content = "";
+				q_gt(q_name, q_content, q_sqlCount, 1);
+			}else{
+				//q_content = "where=^^noa='" + r_userno + "'^^";
+				t_where = "where=^^ a.noa='" + q_name + "' and a.sssno='"+r_userno+"' ^^";
+				q_gt('authority', t_where, 0, 0, 0, "", r_accy);
+			}
+		
 		});
 
 		//////////////////   end Ready
