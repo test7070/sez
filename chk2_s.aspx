@@ -45,7 +45,7 @@
 				
                 var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("bank", t_bank) + q_sqlPara2("bankno", t_bankno) + q_sqlPara2("worker", t_worker) + q_sqlPara2("datea", t_bdate, t_edate);
 				if(t_checkno.length>0)
-					t_where += " and exists(select noa from chk2s where chk2s.noa=chk2.noa and patindex('%" + t_checkno + "%',chk2s.checkno)>0)";
+					t_where += " and exists(select noa from chk2s where chk2s.noa=chk2.noa and charindex('" + t_checkno + "',chk2s.checkno)>0)";
 				if(t_money!=0)
 					t_where += " and exists(select noa from chk2s where chk2s.noa=chk2.noa and chk2s.money="+t_money+")";
 				//alert(t_where);
