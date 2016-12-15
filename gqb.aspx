@@ -51,7 +51,7 @@
                 mainForm(1);
             }
             function mainPost() {
-            	bbmMask = [['txtDatea', r_picd], ['txtIndate', r_picd], ['txtTdate', r_picd], ['txtIndate2', r_picd]];
+            	bbmMask = [['txtDatea', r_picd], ['txtBkdate', r_picd], ['txtIndate', r_picd], ['txtTdate', r_picd], ['txtIndate2', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('gqb.typea'));
                 q_cmbParse("cmbRem1", ' ,'+q_getPara('gqb.rem1'));
@@ -278,6 +278,9 @@
 
             function btnIns() {
                 var t_curgqbno = $('#txtGqbno').val();
+                if(t_curgqbno.length==0)
+                	t_curgqbno = abbm[q_recno].gqbno;
+                
                 var t_data;
                 if($("#checkCopy").prop("checked")){
                 	t_data = {
@@ -300,14 +303,23 @@
                 }        
                 _btnIns();
                 refreshBbm();
-                var patt = new RegExp(/[A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/);
+                /*var patt = new RegExp(/[A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/);
                 var n = 0;
                 if (t_curgqbno.length = 9 && patt.test(t_curgqbno)) {
                     n = "" + (parseInt(t_curgqbno.substring(2, 9)) + 1);
                     for (var i = 7 - n.length; i > 0; i--)
                         n = "0" + n;
                     $('#txtGqbno').val(t_curgqbno.substring(0, 2) + n);
+                }*/
+                var patt = new RegExp(/([A-Z,a-z]+)(\d+)/);
+                var t_key = t_curgqbno.replace(patt,'$1');
+                var t_number = t_curgqbno.replace(patt,'$2');
+                if(patt.test(t_curgqbno)){
+                	string = '0000000000'+(parseInt(t_number) + 1);
+                	string = string.substring(string.length-t_number.length,string.length);
+                	$('#txtGqbno').val(t_key+string);
                 }
+                
                 if($("#checkCopy").prop("checked")){
                 	$('#cmbTypea').val(t_data.typea);
                 	$('#txtAccount').val(t_data.account);
@@ -352,7 +364,7 @@
             			var t_where = " where=^^ checkno='"+t_checkno+"'^^";
             			q_gt('chk2s', t_where, 0, 0, 0, "gqb_status1_"+n+"_"+t_checkno, r_accy);
             		}else{
-            			checkGqbStatus_btnModi(n-1)
+            			checkGqbStatus_btnModi(n-1);
             		}
             	}
             }
@@ -770,6 +782,8 @@
 							<input id="txtTbankno"  type="text" style="float:left; width:30%;" />
 							<input id="txtTbank"  type="text" style="float:left; width:70%;" />
 						</td>
+						<td><span> </span><a id='lblBkdate' class="lbl">退票日期</a></td>
+						<td><input id="txtBkdate"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblUsage" class="lbl"> </a></td>
