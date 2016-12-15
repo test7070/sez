@@ -36,8 +36,14 @@
 				t_store = $('#txtStore').val();
 				t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
 				t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
-				var t_where = " 1=1 " + q_sqlPara_between("storeno","storeno2",t_storeno) + q_sqlPara_between("store","store2",t_store)+ q_sqlPara2("datea", t_bdate,t_edate)
+				var t_where = " 1=1 " 
+				+ q_sqlPara2("datea", t_bdate,t_edate)
 				+ q_sqlPara2("noa", t_noa);
+				
+				if(t_storeno.length>0){
+					t_where=t_where+"and (storeno='"+t_storeno+"' or exists(select * from view_ucces where storeno='"+t_storeno+"' and noa=view_ucce"+r_accy+".noa))"
+				}
+				
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
@@ -70,7 +76,7 @@
 					<td class='seek'  style="width:20%;"><a id='lblStoreno'> </a></td>
 					<td>
 						<input class="txt" id="txtStoreno" type="text" style="width:90px; font-size:medium;" />&nbsp;
-						<input class="txt" id="txtStore" type="text" style="width:115px; font-size:medium;" />
+						<input class="txt" id="txtStore" type="text" style="width:115px; font-size:medium;" disabled="disabled" />
 					</td>
 				</tr>
 			</table>
