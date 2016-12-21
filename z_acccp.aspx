@@ -108,8 +108,13 @@
 				});
 				$('#btnWebPrint').before($('#btnWebPrint').clone().attr('id', 'btnWebPrint2').show()).hide();
 				$('#btnWebPrint2').click(function() {
-					q_func( 'accc_post.prt',r_accy+'_1,'+$.trim($('txtXaccc31').val())+','+$.trim($('txtXaccc32').val()));
+					q_func( 'accc_post.prt',r_accy+'_1,'+$.trim($('#txtXaccc31').val())+','+$.trim($('#txtXaccc32').val()));
 					$('#btnWebPrint').click();
+				});
+				$('#btnPrint').before($('#btnPrint').clone().attr('id', 'btnPrint2').show()).hide();
+				$('#btnPrint2').click(function() {
+					q_func( 'accc_post.prt',r_accy+'_1,'+$.trim($('#txtXaccc31').val())+','+$.trim($('#txtXaccc32').val()));
+					$('#btnPrint').click();
 				});
             }
 		</script>
