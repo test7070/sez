@@ -1,8 +1,8 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title></title>
+		<title> </title>
 		<script src="/../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -120,7 +120,25 @@
 	                		$('#Xstype').hide();
 	                		$('#Vcctypea').hide();
 	                		$('#Xpartno').hide();
-	                	}	
+	                	}
+	                	if(report_name=='22'){
+	                		$('#Mon').hide();
+	                		$('#Sales').hide();
+	                		$('#Product').hide();
+	                		$('#Xgroupbno').hide();
+	                		$('#Xgroupcno').hide();
+	                		$('#Xshowinvono').hide();
+	                		$('#Tggno').hide();
+	                		$('#Xstype').hide();
+	                		$('#Vcctypea').hide();
+	                		$('#Xpartno').hide();
+	                		$('#product').hide();
+	                		$('#Xtype').hide();
+	                		$('#Xgroupano').hide();
+	                		$('#Salesgroup').hide();
+	                		$('#Multcust').hide();
+	                		$('#Multucc').hide();
+	                	}		
 	                }
 				});
 			
@@ -160,8 +178,7 @@
                 $('#Xgroupano select').css('width', '150px');
                 $('.q_report .report').css('width', '420px');
                 $('.q_report .report div').css('width', '200px');
-
-                
+               
                 $('#Xshowinvono').css('width', '300px').css('height', '30px');
                 $('#Xshowinvono .label').css('width','0px');
                 $('#chkXshowinvono').css('width', '220px').css('margin-top', '5px');
@@ -293,6 +310,9 @@
 						}
 						if(report_namea=='21'){
 							q_gtx("z_vcc21", t_where + ";;" + t_para + ";;z_vcc;;出貨產品統計表");
+						}
+						if(report_namea=='22'){
+							q_gtx("z_vcc22", t_where + ";;" + t_para + ";;z_vcc;;應收帳款對帳單");
 						}
 					}
 				});
@@ -624,6 +644,10 @@
 						<div class="rptext">
 							<input  type="radio" value="21" class="radio">
 							<span class="text">出貨產品統計表</span>
+						</div>
+						<div class="rptext">
+							<input  type="radio" value="22" class="radio">
+							<span class="text">應收帳款對帳單</span>
 						</div>
 					</div>	
 					<div class="option">
