@@ -17,10 +17,12 @@
 		}
 		var q_name="carcha";
 		var q_readonly = ['txtWorker'];
-		var bbmNum = []; 
-		var bbmMask = []; 
+		var bbmNum = [['txtMiles',10,0,1],['txtCarmile',10,0,1]]; 
+		var bbmMask = [['txtDatea', r_picd],['txtStime','99:99']]; 
+		aPop = new Array(
+			['txtDriverno', '', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
+		);
 		q_sqlCount = 6; brwCount = 6; brwCount2=20; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
-		//ajaxPath = ""; //  execute in Root
 		
 		$(document).ready(function () {
 			bbmKey = ['noa'];
@@ -41,7 +43,9 @@
 		}  ///  end Main()
 
 
-		function mainPost() { 
+		function mainPost() {
+			var bbmMask = [['txtDatea', r_picd],['txtStime','99:99']];
+			q_mask(bbmMask); 
 			$('#txtNoa').change(function(e){
 			   	$(this).val($.trim($(this).val()).toUpperCase());		
 				if($(this).val().length>0){
@@ -103,6 +107,8 @@
 			_btnIns();
 			refreshBbm();
 			$('#txtNoa').focus();
+			$('#txtDatea').val(q_date());
+			$('#txtDatea').focus();
 		}
 
 		function btnModi() {
@@ -110,6 +116,7 @@
 				return;
 			_btnModi();
 			refreshBbm();
+			$('#txtDatea').focus();
 		}
 
 		function btnPrint() {
@@ -128,12 +135,15 @@
 				Unlock();
 				return;
 			}
+
 			if(q_cur==1){
                 	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
                     q_gt('carcha', t_where, 0, 0, 0, "checkNoa_btnOk", r_accy);
-                }else{
+            }else{
                 	wrServer($('#txtNoa').val());
             }
+            if (q_cur == 1)
+				$('#txtWorker').val(r_name);
 		 }
 
 		function wrServer( key_value) {
@@ -218,7 +228,7 @@
 			}
 			.dview {
 				float: left;
-				width: 300px;
+				width: 350px;
 			}
 			.tview {
 				margin: 0;
@@ -236,7 +246,7 @@
 			}
 			.dbbm {
 				float: left;
-				width: 600px;
+				width: 750px;
 				margin: -1px;
 				border: 1px black solid;
 				border-radius: 5px;
@@ -254,9 +264,7 @@
 			.tbbm tr {
 				height: 35px;
 			}
-			.tbbm tr td {
-				width: 9%;
-			}
+
 			.tbbm .tdZ {
 				width: 2%;
 			}
@@ -315,14 +323,14 @@
 		<div class="dview" id="dview" style="float: left;"  >
 		   <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 			<tr>
-				<td align="center" style="width:5%"><a id='vewChk'> </a></td>				
-				<td align="center" style="width:20%"><a id='vewNoa'> </a></td>
-				<td align="center" style="width:70%"><a id='vewNamea'> </a></td>								
+				<td align="center" style="width:5%"><a id='vewChk'> </a>選</td>				
+				<td align="center" style="width:40%"><a id='vewNoa'> </a>單據編號</td>
+				<td align="center" style="width:50%"><a id='vewDriver'>駕駛員(檢查人)</a></td>								
 			</tr>
 			 <tr>
 				   <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
 				   <td align="center" id='noa'>~noa</td>
-				   <td align="center" id='namea'>~namea</td>
+				   <td align="center" id='driver'>~driver</td>
 			</tr>
 		</table>
 		</div>
@@ -330,40 +338,40 @@
 		<table class="tbbm"  id="tbbm" border="1">
 			<tr align="center">
 				<td colspan="2">單據編號</td>
-				<td><input id="txtNoa"  type="text" class="txt c1"/></td>
-				<td>駕駛員(檢查人)</td>
-				<td >
+				<td><input id="txtNoa"  type="text" class="txt c2"/></td>
+				<td width="20%">駕駛員(檢查人)</td>
+				<td width="20%">
 					<input id="txtDriverno"  type="text" class="txt c2" />
 					<input id="txtDriver"  type="text" class="txt c2" />
 				</td>
 			</tr>
 			<tr align="center">
 				<td colspan="2">檢查日期 </td>
-				<td><input id="txtDatea"  type="text" class="txt c1"/></td>
+				<td><input id="txtDatea"  type="text" class="txt c2"/></td>
 				<td>檢查時間 </td>
-				<td><input id="txtTimea"  type="text" class="txt c1" /></td>
+				<td><input id="txtStime"  type="text" class="txt c1" /></td>
 			</tr>
 			<tr align="center">
 				<td colspan="2">車　號</td>
-				<td><input id="txtCarno"  type="text" class="txt c1" /></td>
+				<td><input id="txtCarno"  type="text" class="txt c2" /></td>
 				<td>里程數</td>
 				<td><input id="txtMiles"  type="text" class="txt c1" /></td>
 			</tr>
 			<tr align="center">
 				<td colspan="2">工　號</td>
-				<td><input id="txtAddrno"  type="text" class="txt c1" /></td>
+				<td><input id="txtAddrno"  type="text" class="txt c2" /></td>
 				<td>里程數</td>
 				<td><input id="txtCarmile"  type="text" class="txt c1" /></td>
 			</tr>		
 			<tr align="center">
-				<td width="1%"> 類別 </td>
+				<td width="10%"> 類別 </td>
 				<td colspan="2">　　檢　查　項　目　　</td>
 				<td>正常打ｖ</td>
 				<td>　異　常　註　記　</td>
 			</tr>
 			<tr align="center">
 	          <td rowspan="6">一<BR>檢<BR>查<BR>並<BR>加<BR>足</td>
-	          <td width="10px">A</td>
+	          <td width="10%">A</td>
 	          <td>引擎機油是否足夠</td>
 			  <td><input id="chkIaa" type="checkbox"/></td>
 			  <td><input id="txtIaamemo"  type="text" class="txt c1" /></td>
@@ -418,25 +426,25 @@
 	          <td>A</td>
 	          <td>燈光作用是否正常</td>
 			  <td><input id="chkIva" type="checkbox"/></td>
-			  <td><input id="txtIvaamemo"  type="text" class="txt c1" /></td>
+			  <td><input id="txtIvamemo"  type="text" class="txt c1" /></td>
 	        </tr>
 	        <tr align="center">
 	          <td>B</td>
 	          <td>反光板是否清潔並作用正常</td>
 			  <td><input id="chkIvb" type="checkbox"/></td>
-			  <td><input id="txtIvbamemo"  type="text" class="txt c1" /></td>
+			  <td><input id="txtIvbmemo"  type="text" class="txt c1" /></td>
 	        </tr>
 			<tr align="center">
 	          <td>C</td>
 	          <td>鏡片是否清潔並作用正常</td>
 			  <td><input id="chkIvc" type="checkbox"/></td>
-			  <td><input id="txtIvcamemo"  type="text" class="txt c1" /></td>
+			  <td><input id="txtIvcmemo"  type="text" class="txt c1" /></td>
 	        </tr>
 			<tr align="center">
 	          <td>D</td>
 	          <td>車體外觀是否清潔</td>
 			  <td><input id="chkIvd" type="checkbox"/></td>
-			  <td><input id="txtIvdamemo"  type="text" class="txt c1" /></td>
+			  <td><input id="txtIvdmemo"  type="text" class="txt c1" /></td>
 	        </tr>
 	<!--------------------------------------------------->
 			<tr align="center">
@@ -444,31 +452,31 @@
 	          <td>A</td>
 	          <td>氣管接頭是否有鬆脫或外漏情形</td>
 			  <td><input id="chkVaa" type="checkbox"/></td>
-			  <td><input id="txtVaaamemo"  type="text" class="txt c1" /></td>
+			  <td><input id="txtVaamemo"  type="text" class="txt c1" /></td>
 	        </tr>
 	        <tr align="center">
 	          <td>B</td>
 	          <td>電線接頭是否有鬆脫或外露情形</td>
 			  <td><input id="chkVbb" type="checkbox"/></td>
-			  <td><input id="txtVbbamemo"  type="text" class="txt c1" /></td>
+			  <td><input id="txtVbbmemo"  type="text" class="txt c1" /></td>
 	        </tr>
 			<tr align="center">
 	          <td>C</td>
 	          <td>燈光是否清潔並作用良好</td>
 			  <td><input id="chkVcc" type="checkbox"/></td>
-			  <td><input id="txtVccamemo"  type="text" class="txt c1" /></td>
+			  <td><input id="txtVccmemo"  type="text" class="txt c1" /></td>
 	        </tr>
 			<tr align="center">
 	          <td>D</td>
 	          <td>輪胎胎壓是否足夠</td>
 			  <td><input id="chkVdd" type="checkbox"/></td>
-			  <td><input id="txtVddamemo"  type="text" class="txt c1" /></td>
+			  <td><input id="txtVddmemo"  type="text" class="txt c1" /></td>
 	        </tr>
 			<tr align="center">
 	          <td>E</td>
 	          <td>底盤各部位是否有無變形或滲漏現象</td>
 			  <td><input id="chkVee" type="checkbox"/></td>
-			  <td><input id="txtVeeamemo"  type="text" class="txt c1" /></td>
+			  <td><input id="txtVeememo"  type="text" class="txt c1" /></td>
 	        </tr>
 	<!--------------------------------------------------->
 			<tr align="center">
@@ -476,53 +484,53 @@
 	          <td>A</td>
 	          <td>油槽貨櫃表面是否有破損</td>
 			  <td><input id="chkVia" type="checkbox"/></td>
-			  <td><input id="txtViaamemo"  type="text" class="txt c1" /></td>
+			  <td><input id="txtViamemo"  type="text" class="txt c1" /></td>
 	        </tr>
 	        <tr align="center">
 	          <td>B</td>
 	          <td>油槽貨櫃各閥是否有異常</td>
 			  <td><input id="chkVib" type="checkbox"/></td>
-			  <td><input id="txtVibamemo"  type="text" class="txt c1" /></td>
+			  <td><input id="txtVibmemo"  type="text" class="txt c1" /></td>
 	        </tr>
 			<tr align="center">
 	          <td>C</td>
 	          <td>檢視安全閥是否有鬆脫或有無洩漏現象</td>
 			  <td><input id="chkVic" type="checkbox"/></td>
-			  <td><input id="txtVicamemo"  type="text" class="txt c1" /></td>
+			  <td><input id="txtVicmemo"  type="text" class="txt c1" /></td>
 	        </tr>
 	<!--------------------------------------------------->
 			<tr align="center">
-	          <td rowspan="3">七<BR>安<BR>制<BR> <BR>動<BR>全<BR>閥</td>
+	          <td rowspan="3">七<BR>安制<BR>　動<BR>全閥</td>
 	          <td>A</td>
 	          <td>固定卡榫及鏈條、勾環有無鬆脫</td>
 			  <td><input id="chkViia" type="checkbox"/></td>
-			  <td><input id="txtViiaamemo"  type="text" class="txt c1" /></td>
+			  <td><input id="txtViiamemo"  type="text" class="txt c1" /></td>
 	        </tr>
 	        <tr align="center">
 	          <td>B</td>
 	          <td>煞車作用是否正常</td>
 			  <td><input id="chkViib" type="checkbox"/></td>
-			  <td><input id="txtViibamemo"  type="text" class="txt c1" /></td>
+			  <td><input id="txtViibmemo"  type="text" class="txt c1" /></td>
 	        </tr>
 			<tr align="center">
 	          <td>C</td>
 	          <td>氣管接頭是否有鬆脫或破裂情形</td>
 			  <td><input id="chkViic" type="checkbox"/></td>
-			  <td><input id="txtViicamemo"  type="text" class="txt c1" /></td>
+			  <td><input id="txtViicmemo"  type="text" class="txt c1" /></td>
 	        </tr>
 	<!--------------------------------------------------->
 			<tr align="center">
-	          <td rowspan="4">八<BR>安<BR>全<BR>裝<BR>備</td>
+	          <td rowspan="3">八<BR>安<BR>全<BR>裝<BR>備</td>
 	          <td>A.共通性</td>
 	          <td colspan="3" align="left">
-		          <input id="chkViiiaa" type="checkbox"/>乾粉滅火器　　　
-		          <input id="chkViiiab" type="checkbox"/>危險物品標示牌　
-		          <input id="chkViiiac" type="checkbox"/>裝卸料檢點表　　<BR>
-				  <input id="chkViiiad" type="checkbox"/>水桶　　　　　　
-				  <input id="chkViiiae" type="checkbox"/>工具箱　　　　　
-				  <input id="chkViiiaf" type="checkbox"/>緊急應變手冊　　<BR>
-				  <input id="chkViiiag" type="checkbox"/>輪檔　　　　　　
-				  <input id="chkViiiah" type="checkbox"/>橡膠槌　　　　　
+		        <input id="chkViiiaa" type="checkbox"/>乾粉滅火器　　　
+		        <input id="chkViiiab" type="checkbox"/>危險物品標示牌　
+		        <input id="chkViiiac" type="checkbox"/>裝卸料檢點表　　<BR>
+				<input id="chkViiiad" type="checkbox"/>水桶　　　　　　
+				<input id="chkViiiae" type="checkbox"/>工具箱　　　　　
+			 	<input id="chkViiiaf" type="checkbox"/>緊急應變手冊　　<BR>
+				<input id="chkViiiag" type="checkbox"/>輪檔　　　　　　
+				<input id="chkViiiah" type="checkbox"/>橡膠槌　　　　　
 	          </td>
 	        </tr>
 	        <tr align="center">
@@ -538,27 +546,30 @@
 			  </td>
 	        </tr>
 			<tr align="center">
-	          <td  rowspan="2">C.急救箱</td>
-	          <td colspan="3">雙氧水、碘酒、消炎粉、黃黴素軟膏、胺水、生理食鹽水、藥用棉花、繃帶捲<br>
+	          <td >C.急救箱</td>
+	          <td colspan="3">雙氧水、碘酒、消炎粉、黃黴素軟膏、胺水、生理食鹽水、藥用棉花、繃帶捲<BR>
+				(缺項請註明：<input id="txtViiicmemo"  type="text" class="txt　C2" style="float: none;width: 400px;"/>)
 			  </td>
-	        </tr>
-	        <tr align="center">
-	          <td>缺項請註明：</td>
-	          <td colspan="3"><input id="txtViiicmemo"  type="text" class="txt c1" /></td>
 	        </tr>
 	<!--------------------------------------------------->
 			<tr align="center">
 	          <td>九</td>
 	          <td colspan="2">駕駛員服裝儀容是否整齊、精神是否良好</td>
-			  <td>ｖ</td>
-			  <td></td>
+			  <td><input id="chkIxa" type="checkbox"/></td>
+			  <td><input id="txtIxamemo"  type="text" class="txt c1" /></td>
 	        </tr>
 	        <tr align="center">
-	          <td colspan="6">
-					<p>說明：檢驗人應確實執行並勾選，若填寫不完整或未經核准均為無效，不得出車。
-					<p>核檢人每周至少要抽檢2天。
-					<p>核准(調派人員)：__________________　　　　　　　　　　　　　核檢人：__________________
+	          <td  colspan="6">
+					說明：檢驗人應確實執行並勾選，若填寫不完整或未經核准均為無效，不得出車。<BR>
+					核檢人每周至少要抽檢2天。
+
 			  </td>
+	        </tr>
+	       	<tr align="center">
+	       	  <td  colspan="2">核准(調派人員)</td>
+			  <td><input id="txtApv"  type="text" class="txt c2" /></td>
+			  <td>核檢人</td>
+			  <td><input id="txtWorker"  type="text" class="txt c1" /></td>
 	        </tr>
 		</table>
 		</div>
