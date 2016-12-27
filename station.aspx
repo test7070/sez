@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -26,7 +26,7 @@
 			var bbsMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
-			brwCount2 = 7;
+			brwCount2 = 14;
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'noa';
@@ -40,6 +40,7 @@
 				['txtFactoryno', 'lblFactory', 'factory', 'noa,factory', 'txtFactoryno,txtFactory', 'factory_b.aspx'],
 				['txtMechno_', 'btnMechno_', 'mech', 'noa,mech,gen', 'txtMechno_,txtMech_,txtGen_', 'mech_b.aspx'],
 				['txtStoreno', 'lblStoreno', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
+				['txtStoreinno', 'lblStoreinno', 'store', 'noa,store', 'txtStoreinno,txtStorein', 'store_b.aspx'],
 				['txtStationgno', 'lblStationgno', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx']
 			);
 			function main() {
@@ -267,7 +268,7 @@
 			}
 			.dview {
 				float: left;
-				width: 300px;
+				width: 400px;
 				border-width: 0px;
 			}
 			.tview {
@@ -305,7 +306,7 @@
 				height: 35px;
 			}
 			.tbbm tr td {
-				width: 10%;
+				width: 25%;
 			}
 			.tbbm .tdZ {
 				width: 1%;
@@ -391,9 +392,9 @@
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
-						<td align="center" style="width:15%"><a id='vewNoa'> </a></td>
-						<td align="center" style="width:30%"><a id='vewStation'> </a></td>
+						<td align="center" style="width:1%"><a id='vewChk'> </a></td>
+						<td align="center" style="width:25%"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:74%"><a id='vewStation'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
@@ -451,6 +452,15 @@
 						<td class="td4"> </td>
 					</tr>
 					<tr>
+						<td class="td1"><span> </span><a id='lblStoreinno' class="lbl btn"> </a></td>
+						<td class="td2" colspan="2">
+							<input id="txtStoreinno" type="text" class="txt c2"/>
+							<input id="txtStorein" type="text" class="txt c3"/>
+						</td>
+						<td class="td3"> </td>
+						<td class="td4"> </td>
+					</tr>
+					<tr>
 						<td class="td1"><span> </span><a id='lblHours' class="lbl"> </a></td>
 						<td class="td2"><input id="txtHours" type="text" class="txt c1 num"/></td>
 						<td class="td3"> </td>
@@ -474,6 +484,30 @@
 						<td class="td3">機時</td>
 						<td class="td4"> </td>
 						
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblMaxgen' class="lbl"> </a></td>
+						<td class="td2"><input id="txtMaxgen" type="text" class="txt c1 num"/></td>
+						<td class="td3">Pcs</td>
+						<td class="td4"> </td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblMovmount' class="lbl"> </a></td>
+						<td class="td2"><input id="txtMovmount" type="text" class="txt c1 num"/></td>
+						<td class="td3"> </td>
+						<td class="td4"> </td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblMovtime' class="lbl"> </a></td>
+						<td class="td2"><input id="txtMovtime" type="text" class="txt c1 num"/></td>
+						<td class="td3">Hr</td>
+						<td class="td4"> </td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblMovmin' class="lbl"> </a></td>
+						<td class="td2"><input id="txtMovmin" type="text" class="txt c1 num"/></td>
+						<td class="td3">Min.</td>
+						<td class="td4"> </td>
 					</tr>
 				</table>
 			</div>
