@@ -475,6 +475,7 @@
                 color: #FF8F19;
             }
             .txt.c1 {
+            	text-align: center;
                 width: 98%;
                 float: left;
             }
