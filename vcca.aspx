@@ -1284,6 +1284,8 @@
 						<td><input id="txtCanceldate" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblCanceltime' class="lbl">作廢時間</a></td>
 						<td><input id="txtCanceltime" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblRtdn' class="lbl">專案作廢核准文號</a></td>
+						<td><input id="txtRtdn" type="text" class="txt c1" title="若發票的作廢時間超過申報期間，則此欄位為必填欄位。"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
