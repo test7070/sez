@@ -175,16 +175,24 @@
             	case 'sss':
             		var as = _q_appendData("sss", "", true);
             		for (var j = 0; j < as.length; j++) {
-            			if(!t_workday){
-            				if(t_sumday || (t_holiday && t_restday)){//例假 或當國定假日在休息日或例假 給予補休
-            					as[j].special=8;
-            				}
-            				if(t_sumday || t_holiday){ //例假與國定假 加班費*2
-            					as[j].w100=8;
-            				}
-            				if (t_restday && !t_holiday){	//休息日 非國定假日 依新制加班費計算
-            					as[j].w133=2;
-            					as[j].w166=6;
+            			if((r_len==3 && $('#txtNoa').val()>='105/12/23') || (r_len==4 && $('#txtNoa').val()>='2016/12/23')){
+	            			if(!t_workday){
+	            				if(t_sumday || (t_holiday && t_restday)){//例假 或當國定假日在休息日或例假 給予補休
+	            					as[j].special=8;
+	            				}
+	            				if(t_sumday || t_holiday){ //例假與國定假 加班費*2
+	            					as[j].w100=8;
+	            				}
+	            				if (t_restday && !t_holiday){ //休息日 非國定假日 依新制加班費計算
+	            					as[j].w133=2;
+	            					as[j].w166=6;
+	            				}
+	            			}
+            			}else{
+            				if(!t_workday){
+            					if(t_sumday || t_restday || t_holiday){
+            						as[j].w100=8;
+            					}
             				}
             			}
             			
