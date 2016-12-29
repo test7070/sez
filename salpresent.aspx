@@ -16,10 +16,10 @@
         }
         q_tables = 's';
         var q_name = "salpresent";
-        var q_readonly = ['txtMount'];
+        var q_readonly = ['txtW100','txtW133','txtW166','txtW200','txtW266','txtHr_special','txtMount'];
         var q_readonlys = [];
-        var bbmNum = [['txtW100', 10, 1, 1],['txtW133', 10, 1, 1],['txtW166', 10, 1, 1],['txtW200', 10, 1, 1],['txtHr_special', 10, 1, 1],['txtMount', 10, 0, 1]];  
-        var bbsNum = [['txtW100', 10, 1, 1],['txtW133', 10, 1, 1],['txtW166', 10, 1, 1],['txtW200', 10, 1, 1],['txtHr_special', 10, 1, 1]];
+        var bbmNum = [['txtW100', 10, 1, 1],['txtW133', 10, 1, 1],['txtW166', 10, 1, 1],['txtW200', 10, 1, 1],['txtW266', 10, 1, 1],['txtHr_special', 10, 1, 1],['txtMount', 10, 0, 1]];  
+        var bbsNum = [['txtW100', 10, 1, 1],['txtW133', 10, 1, 1],['txtW166', 10, 1, 1],['txtW200', 10, 1, 1],['txtW266', 10, 1, 1],['txtHr_special', 10, 1, 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
@@ -46,7 +46,13 @@
             mainForm(1); 
         }  
 
-       
+		//105/12/27 因調整新制 不再區分假日與正常日 //周六=休息日 計算方式=上班加班時數
+		//W200 為當天工作超過12小時 之後薪水為*2 目前只有聯琦RK使用 
+		
+		var t_restday=false;//休息日 預設禮拜六
+		var t_sumday=false;//例假日 預設禮拜日
+		var t_holiday=false;//國定假日
+		var t_workday=false;//工作天
         function mainPost() { 
             q_getFormat();
             bbmMask = [['txtNoa', r_picd]];
@@ -68,7 +74,7 @@
 					$('#txtRein').val('Y');
 			});
             
-             $('#chkHoliday').click(function () {
+			/*$('#chkHoliday').click(function () {
              	if(q_getPara('sys.project').toUpperCase()=='VU'){
              		table_change();
 	        		return;
@@ -98,16 +104,37 @@
 				    }
              	}
             	table_change();
-            });
+            });*/
             
             $('#btnInput').click(function () {
-            	var t_where=''
-            	if(q_getPara('sys.project').toUpperCase()=='DC'){
-            		t_where = "where=^^ (isnull(outdate,'')='' or outdate >'"+$('#txtNoa').val()+"') and noa not in (select sssno from salvacause where ('"+$('#txtNoa').val()+"' between bdate and edate) and hr_used>=8 and hname not like '遲到' and hname not like '早退' ) and noa!='Z001' and noa!='010132' and (jobno not between '97' and '99')^^";
-            	}else{
-            		t_where = "where=^^ (isnull(outdate,'')='' or outdate >'"+$('#txtNoa').val()+"') and noa!='Z001' ^^";
+            	if(!emp($('#txtNoa').val())){
+            		var t_date=$('#txtNoa').val();
+            		if(r_len==3){
+            			if(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==0){
+            				t_sumday=true;
+            			}else{
+            				t_sumday=false;
+            			}
+            			if(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==6){
+            				t_restday=true;
+            			}else{
+            				t_restday=false;
+            			}
+            		}else{
+            			if(new Date(dec(t_date.substr(0,4)),dec(t_date.substr(5,2))-1,dec(t_date.substr(8,2))).getDay()==0){
+            				t_sumday=true;
+            			}else{
+            				t_sumday=false;
+            			}
+            			if(new Date(dec(t_date.substr(0,4)),dec(t_date.substr(5,2))-1,dec(t_date.substr(8,2))).getDay()==6){
+            				t_restday=true;
+            			}else{
+            				t_restday=false;
+            			}
+            		}
+	            	q_gt('holiday',"where=^^noa='"+$('#txtNoa')+"' ^^", 0, 0, 0, "", r_accy);
+	            	
             	}
-            	q_gt('sss', t_where, 0, 0, 0, "", r_accy);
             });
             
             $('#txtNoa').blur(function () {
@@ -129,9 +156,38 @@
 
         function q_gtPost(t_name) { 
             switch (t_name) {
+            	case 'holiday':
+            		t_workday=false;
+            		var as = _q_appendData("holiday", "", true);
+            		if(as[0]!=undefined){
+            			if(as[0].iswork=='true'){
+            				t_workday=true;
+            			}else{
+            				t_holiday=true;
+            			}
+            		}
+            		
+            		var t_where=''
+	            	t_where = "where=^^ (isnull(outdate,'')='' or outdate >'"+$('#txtNoa').val()+"') and noa!='Z001' ^^";
+	            	q_gt('sss', t_where, 0, 0, 0, "", r_accy);
+	            	
+            		break;
             	case 'sss':
             		var as = _q_appendData("sss", "", true);
             		for (var j = 0; j < as.length; j++) {
+            			if(!t_workday){
+            				if(t_sumday || (t_holiday && t_restday)){//例假 或當國定假日在休息日或例假 給予補休
+            					as[j].special=8;
+            				}
+            				if(t_sumday || t_holiday){ //例假與國定假 加班費*2
+            					as[j].w100=8;
+            				}
+            				if (t_restday && !t_holiday){	//休息日 非國定假日 依新制加班費計算
+            					as[j].w133=2;
+            					as[j].w166=6;
+            				}
+            			}
+            			
             			if(q_getPara('sys.project').toUpperCase()=='IT'){
             				if(as[j].typea.indexOf('中班')>-1){
             					as[j].clockin='16:00';
@@ -164,7 +220,8 @@
             				as[j].clockout='17:00';
             			}
             		}
-            		q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtClockin,txtClockout', as.length, as, 'noa,namea,clockin,clockout', '');
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtClockin,txtClockout,txtW100,txtW133,txtW166,txtHr_special'
+            		, as.length, as, 'noa,namea,clockin,clockout,w100,w133,w166,special', '');
             		sum()
             		table_change();
             	break;
@@ -225,6 +282,17 @@
             	$('#lblW100').text('值班時數');
             	$('#lblW100_s').text('值班時數');
             }
+            
+            //105/12/27 新制調整
+            $('#lblW200').text('例假日加班HR>8');
+            $('#lblW200_s').text('例假日HR>8');
+            $('#lblW266').text('休息日加班HR>8');
+            $('#lblW266_s').text('休息日HR>8');
+            
+            if(q_getPara('sys.project').toUpperCase()=='RK'){
+            	$('#lblW200').text('HR>4加班時數');
+            	$('#lblW200_s').text('加班 HR>4');
+            }
         }
 		
 		var insed=false;
@@ -269,7 +337,7 @@
 
         function sum() {
             var t1 = 0, t_unit, t_mount=0, t_weight = 0;
-            var t_w100=0,t_w133=0,t_w166=0,t_w200=0,t_hr_special=0;
+            var t_w100=0,t_w133=0,t_w166=0,t_w200=0,t_w266=0,t_hr_special=0;
             for (var j = 0; j < q_bbsCount; j++) {
             	if(!emp($('#txtSssno_'+j).val()))
             		t_mount++;
@@ -277,6 +345,7 @@
 				t_w133=q_add(t_w133,dec($('#txtW133_'+j).val()));
 				t_w166=q_add(t_w166,dec($('#txtW166_'+j).val()));
 				t_w200=q_add(t_w200,dec($('#txtW200_'+j).val()));
+				t_w266=q_add(t_w200,dec($('#txtW266_'+j).val()));
 				t_hr_special=q_add(t_hr_special,dec($('#txtHr_special_'+j).val()));
             }  // j
             
@@ -284,6 +353,7 @@
             $('#txtW133').val(t_w133);
             $('#txtW166').val(t_w166);
             $('#txtW200').val(t_w200);
+            $('#txtW266').val(t_w266);
             $('#txtHr_special').val(t_hr_special);
             
             $('#txtMount').val(t_mount);
@@ -349,32 +419,10 @@
         
         function table_change() {
         	if(q_getPara('sys.project').toUpperCase()=='VU'){
-        		$('.w133').show();
 	            $('.w166').hide();
-	            $('.w200').hide();
-				$('.w100').show();
 				$('.rein').show();
-            }else{
-            	if($('#chkHoliday').prop('checked')){
-	            	$('.w133').hide();
-	            	$('.w166').hide();
-	            	$('.w200').hide();
-				    $('.w100').show();
-	            }else{
-	            	$('.w133').show();
-	            	$('.w166').show();
-	            	if(q_getPara('sys.project').toUpperCase()=='RK'){
-	            		$('.w200').show();	
-	            	}else{
-	            		$('.w200').hide();
-	            	}
-				    $('.w100').hide();
-	            }
             }
             if(q_getPara('sys.project').toUpperCase()=='FE'){
-            	$('.w133').show();
-            	$('.w166').show();
-            	$('.w100').show();
             	$('.rest').show();
             }
             if(q_getPara('sys.project').toUpperCase()=='DC'){
@@ -384,35 +432,35 @@
             sum();
         }
 
-			function checkId(str) {
-                if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
-                    var key = 'ABCDEFGHJKLMNPQRSTUVXYWZIO';
-                    var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
-                    var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
-                    if ((n % 10) == 0)
-                        return 1;
-                } else if ((/^[0-9]{8}$/g).test(str)) {//統一編號
-                    var key = '12121241';
-                    var n = 0;
-                    var m = 0;
-                    for (var i = 0; i < 8; i++) {
-                        n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
-                        m += Math.floor(n / 10) + n % 10;
-                    }
-                    if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
-                        return 2;
-                }else if((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//西元年
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 3;
-                }else if((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//民國年
-                	str = (parseInt(str.substring(0,3))+1911)+str.substring(3);
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 4
-               	}
-               	return 0;//錯誤
-            }
+		function checkId(str) {
+			if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
+				var key = 'ABCDEFGHJKLMNPQRSTUVXYWZIO';
+                var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
+				var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
+				if ((n % 10) == 0)
+						return 1;
+			}else if ((/^[0-9]{8}$/g).test(str)) {//統一編號
+				var key = '12121241';
+				var n = 0;
+				var m = 0;
+				for (var i = 0; i < 8; i++) {
+					n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
+					m += Math.floor(n / 10) + n % 10;
+				}
+				if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
+					return 2;
+			}else if((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//西元年
+				var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
+				if(regex.test(str))
+					return 3;
+			}else if((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//民國年
+				str = (parseInt(str.substring(0,3))+1911)+str.substring(3);
+				var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
+				if(regex.test(str))
+					return 4
+			}
+			return 0;//錯誤
+		}
 
     </script>
     <style type="text/css">
@@ -586,7 +634,7 @@
             <td ><input id="txtNoa"  type="text" class="txt c1"/></td>
             <!--<td><input id="txtDay" type="text" class="txt c1" /></td> 
             <td><span> </span><a id="lblHours" class="lbl" > </a></td>--> 
-            <td class='td6'><input id="chkHoliday" type="checkbox" style=' '/><span> </span><a id="lblHoliday" > </a></td>
+            <td class='td6'><input id="chkHoliday" type="checkbox" style='display: none;'/><span> </span><a id="lblHoliday" style='display: none;'> </a></td>
             <td class="td7"><input id="btnInput" type="button" />
             	<input id="txtRein" type="text" class="txt c1 rein" style="width: 50px;float: right;display: none;" />
             	<span style="float: right;"> </span><a id="lblRein" class="lbl btn rein" style="float: right;display: none;"> </a>
@@ -605,9 +653,11 @@
             <td class='w100'><span> </span><a id="lblW100" class="lbl" > </a></td>
             <td class='w100'><input id="txtW100"  type="text" class="txt num c1"/></td>
         </tr>
-        <tr class="w200">
+        <tr>
             <td class='w200'><span> </span><a id="lblW200" class="lbl" > </a></td>
             <td class='w200'><input id="txtW200"  type="text" class="txt num c1"/></td>
+            <td class='w266'><span> </span><a id="lblW266" class="lbl" > </a></td>
+            <td class='w266'><input id="txtW266"  type="text" class="txt num c1"/></td>
             <!--<td><span> </span><a id="lblW300" class="lbl" > </a></td>
             <td><input id="txtW300"  type="text" class="txt num c1"/></td>-->
         </tr>
@@ -634,7 +684,8 @@
                 <td align="center" class='w133'><a id='lblW133_s'> </a></td>
                 <td align="center" class='w166'><a id='lblW166_s'> </a></td>
                 <td align="center" class='w100'><a id='lblW100_s'> </a></td>
-                <td align="center" class='w200' style="display: none;"><a id='lblW200_s'> </a></td>
+                <td align="center" class='w200'><a id='lblW200_s'> </a></td>
+                <td align="center" class='w200'><a id='lblW266_s'> </a></td>
                 <!--<td align="center"><a id='lblW300_s'> </a></td>-->
                 <td align="center" class='special'><a id='lblHr_special_s'> </a></td>
                 <td align="center"><a id='lblMemo_s'> </a></td>
@@ -653,7 +704,8 @@
                 <td class='w133'><input class="txt num c1" id="txtW133.*"type="text" /></td>
                 <td class='w166'><input class="txt num c1" id="txtW166.*"type="text" /></td>
                 <td class='w100'><input class="txt num c1" id="txtW100.*"type="text" /></td>
-                <td class='w200' style="display: none;"><input class="txt num c1" id="txtW200.*"type="text" /></td>
+                <td class='w200'><input class="txt num c1" id="txtW200.*"type="text" /></td>
+                <td class='w266'><input class="txt num c1" id="txtW266.*"type="text" /></td>
                 <!--<td ><input class="txt num c1" id="txtW300.*"type="text" /></td>-->
                 <td class='special'><input class="txt num c1" id="txtHr_special.*"type="text" /></td>
                 <td ><input class="txt c1" id="txtMemo.*"type="text" /></td>
