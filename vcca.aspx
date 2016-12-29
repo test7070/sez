@@ -382,7 +382,11 @@
 				Lock(1, {
 					opacity : 0
 				});
-
+				if($('#cmbTaxtype').val()=='6' && $.trim($('#txtMemo').val()).length==0){
+					alert('作廢需在"備註"填寫作廢原因。');
+					Unlock(1);
+					return;
+				}
 				var t_err = '';
 				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtDatea', q_getMsg('lblDatea')], ['txtCno', q_getMsg('lblAcomp')]]);
 				if (t_err.length > 0) {
@@ -692,22 +696,22 @@
 					case '6':
 						// 作廢-清空資料
 						t_money = 0, t_tax = 0, t_total = 0;
-						//銷貨客戶
+						/*//銷貨客戶
 						$('#txtCustno').val('').attr('readonly', true);
 						$('#txtComp').val('').attr('readonly', true);
 						//統一編號
 						$('#txtSerial').val('').attr('readonly', true);
+						//買受人
+						$('#txtBuyerno').val('').attr('readonly', true);
+						$('#txtBuyer').val('').attr('readonly', true);
+						//帳款月份
+						$('#txtMon').val('').attr('readonly', true);*/
 						//產品金額
 						$('#txtMoney').val(0).attr('readonly', true);
-						//帳款月份
-						$('#txtMon').val('').attr('readonly', true);
 						//營業稅
 						$('#txtTax').val(0).attr('readonly', true);
 						//總計
 						$('#txtTotal').val(0).attr('readonly', true);
-						//買受人
-						$('#txtBuyerno').val('').attr('readonly', true);
-						$('#txtBuyer').val('').attr('readonly', true);
 						for (var k = 0; k < q_bbsCount; k++) {
 							$('#txtMount_'+k).val(0).attr('readonly', true);
 							$('#txtMoney_'+k).val(0).attr('readonly', true);
@@ -1284,6 +1288,8 @@
 						<td><input id="txtCanceldate" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblCanceltime' class="lbl">作廢時間</a></td>
 						<td><input id="txtCanceltime" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblRtdn' class="lbl">專案作廢核准文號</a></td>
+						<td><input id="txtRtdn" type="text" class="txt c1" title="若發票的作廢時間超過申報期間，則此欄位為必填欄位。"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
