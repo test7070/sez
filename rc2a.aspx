@@ -6,9 +6,13 @@
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
-		<script src="../script/qbox.js" type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
+		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
 			//1030929 進貨發票沒有買受人>>拿掉
             this.errorHandler = null;
@@ -104,7 +108,7 @@
                     case '6':
                         // 作廢-清空資料
                         t_money = 0,t_tax = 0, t_total = 0;
-                        //銷貨客戶
+                        /*//銷貨客戶
                         $('#txtTggno').val('');
                         $('#txtTggno').attr('readonly', true);
                         $('#txtComp').val('');
@@ -112,18 +116,11 @@
                         //統一編號
                         $('#txtSerial').val('');
                         $('#txtSerial').attr('readonly', true);
-                        //產品金額
-                        $('#txtMoney').val(0);
-                        $('#txtMoney').attr('readonly', true);
+                        
                         //帳款月份
                         $('#txtMon').val('');
                         $('#txtMon').attr('readonly', true);
-                        //營業稅
-                        $('#txtTax').val(0);
-                        $('#txtTax').attr('readonly', true);
-                        //總計
-                        $('#txtTotal').val(0);
-                        $('#txtTotal').attr('readonly', true);
+                        
                         //檢查號碼
                         $('#txtChkno').val('');
                         $('#txtChkno').attr('readonly', true);
@@ -136,7 +133,17 @@
                         //$('#txtBuyer').val('');
                         //$('#txtBuyer').attr('readonly', true);
                         //發票備註
-                        $('#txtMemo').val('');
+                        $('#txtMemo').val('');*/
+                        
+                        //產品金額
+                        $('#txtMoney').val(0);
+                        $('#txtMoney').attr('readonly', true);
+                        //營業稅
+                        $('#txtTax').val(0);
+                        $('#txtTax').attr('readonly', true);
+                        //總計
+                        $('#txtTotal').val(0);
+                        $('#txtTotal').attr('readonly', true);
                         break;
                     default:
                 }
@@ -147,7 +154,7 @@
             
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
+                bbmMask = [['txtCanceldate', r_picd],['txtCanceltime', '99:99:99'],['txtDatea', r_picd], ['txtMon', r_picm]];
                 q_mask(bbmMask);
                 
                 if(q_getPara('sys.project')=='sh')
@@ -162,8 +169,10 @@
                     $("#cmbTaxtype").attr('size', '1');
                 }).change(function(e) {
                     sum();
+                    refreshBbs();
                 }).click(function(e) {
                     sum();
+                    refreshBbs();
                 });
                 $('#txtNoa').change(function(e) {
                     $('#txtNoa').val($('#txtNoa').val().toUpperCase());
@@ -362,10 +371,12 @@
                 if (q_getPara('sys.project').toUpperCase()!='SH'){
                 	$('.acc').hide();
                 }
+                refreshBbs();
             }
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                refreshBbs();
             }
 
             function btnMinus(id) {
@@ -422,6 +433,15 @@
 
             function btnCancel() {
                 _btnCancel();
+            }
+            
+            function refreshBbs() {
+				//作廢時顯示作廢日期和時間
+				if($('#cmbTaxtype').val()=='6'){
+					$('.cancelInvoice').show();
+				}else{
+					$('.cancelInvoice').hide();
+				}
             }
 		</script>
 		<style type="text/css">
@@ -599,6 +619,8 @@
 					<tr>
 						<td><span> </span><a id='lblMon' class="lbl"> </a></td>
 						<td><input id="txtMon" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblTaxtype' class="lbl"> </a></td>
+						<td><select id="cmbTaxtype" class="txt c1"> </select></td>
 						<td><span> </span><a id='lblCobtype' class="lbl"> </a></td>
 						<td><input id="txtCobtype"  type="text" style="float:left;width:50%;"/></td>
 						<!--<td><span> </span><a id='lblBuyer' class="lbl btn"> </a></td>
@@ -615,9 +637,15 @@
 						<td><span> </span><a id='lblTotal' class="lbl"> </a></td>
 						<td><input id="txtTotal" type="text" class="txt num c1" /></td>
 					</tr>
+					<tr class="cancelInvoice" style="display:none;">
+						<td><span> </span><a id='lblCanceldate' class="lbl">作廢日期</a></td>
+						<td><input id="txtCanceldate" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblCanceltime' class="lbl">作廢時間</a></td>
+						<td><input id="txtCanceltime" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblRtdn' class="lbl">專案作廢核准文號</a></td>
+						<td><input id="txtRtdn" type="text" class="txt c1" title="若發票的作廢時間超過申報期間，則此欄位為必填欄位。"/></td>
+					</tr>
 					<tr>
-						<td><span> </span><a id='lblTaxtype' class="lbl"> </a></td>
-						<td><select id="cmbTaxtype" class="txt c1"> </select></td>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker" type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblAccno' class="lbl"> </a></td>
