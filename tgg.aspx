@@ -387,6 +387,9 @@
 				refreshBbm();
 				if (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1)
 					$('.it').css('text-align', 'left');
+				
+				if (q_getPara('sys.project').toUpperCase()=='FE')
+					$('.isFE').hide();
 					
 				if (q_getPara('sys.project').toUpperCase()=='XY'){
 					$('.isXY').show();
@@ -731,16 +734,16 @@
 						<td><input id="txtChkdate" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblStartdate' class="lbl"> </a></td>
 						<td><input id="txtStartdate" type="text" class="txt c1" /></td>
-						<td><span> </span><a id='lblUacc1' class="lbl"> </a></td>
-						<td><input id="txtUacc1" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblUacc1' class="lbl isFE"> </a></td>
+						<td><input id="txtUacc1" type="text" class="txt c1 isFE"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblDueday' class="lbl"> </a></td>
 						<td><input id="txtDueday" type="text" class="txt num c1"/></td>
 						<td><span> </span><a id='lblGetdate' class="lbl"> </a></td>
 						<td><input id="txtGetdate" type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblUacc2' class="lbl"> </a></td>
-						<td><input id="txtUacc2" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblUacc2' class="lbl isFE"> </a></td>
+						<td><input id="txtUacc2" type="text" class="txt c1 isFE"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblPaytype' class="lbl"> </a></td>
@@ -750,8 +753,8 @@
 							<span> </span><a id='lblTrantype' class="lbl"> </a>
 						</td>
 						<td><select id="cmbTrantype" class="txt c1"> </select></td>
-						<td><span> </span><a id='lblUacc3' class="lbl"> </a></td>
-						<td><input id="txtUacc3" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblUacc3' class="lbl isFE"> </a></td>
+						<td><input id="txtUacc3" type="text" class="txt c1 isFE"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
