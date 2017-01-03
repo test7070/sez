@@ -16,7 +16,7 @@
             }
 
             var q_name = "salvacause";
-            var q_readonly = ['txtNoa', 'txtHr_special', 'txtTot_special', 'txtJob','txtNamea','txtHname','txtPart','txtId','txtPartno'];
+            var q_readonly = ['txtNoa', 'txtHr_special', 'txtTot_special', 'txtJob','txtNamea','txtHname','txtPart','txtId','txtPartno','txtDatea'];
             var bbmNum = [['txtHr_used', 10, 1, 1], ['txtHr_special', 10, 1, 1], ['txtTot_special', 10, 1, 1]];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -291,6 +291,15 @@
                 }
                	if(dec($('#txtHr_used').val())==0)
                 	change_hr_used();
+                	
+                if(q_getPara('sys.project').toUpperCase()=='DC'){
+                	if(r_rank<8 && r_userno!='040136'){
+                		if($('#txtDatea').val()>$('#txtBdate').val() || $('#txtDatea').val()>$('#txtEdate').val()){
+                			alert('請假日期不得在申請日期之前!!');
+                    		return;
+                		}
+                	}
+                }
                 	
                 var t_noa = trim($('#txtNoa').val());
 
