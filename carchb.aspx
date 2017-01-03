@@ -219,10 +219,44 @@
 	            } else {
 	                $('#txtNoa').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
 	            }
+	            
+	             $('#textCarno1').val($('#txtCarno1').val());
+	             $('#textCarno2').val($('#txtCarno2').val());
+	             $('#textCarno3').val($('#txtCarno1').val());
+	             $('#textCarno4').val($('#txtCarno2').val());
+	             $('#textCarno5').val($('#txtCarno1').val());
+	             $('#textCarno6').val($('#txtCarno2').val());
+	             $('#textCarno7').val($('#txtCarno1').val());
+	             $('#textCarno8').val($('#txtCarno2').val());
+	             $('#textCarno9').val($('#txtCarno1').val());
+	             $('#textCarno10').val($('#txtCarno2').val());
 	        }
 	
 	        function readonly(t_para, empty) {
 	            _readonly(t_para, empty);
+	            if(t_para){
+                	$('#textCarno1').attr('disabled', 'disabled');
+                	$('#textCarno2').attr('disabled', 'disabled');
+                	$('#textCarno3').attr('disabled', 'disabled');
+                	$('#textCarno4').attr('disabled', 'disabled');
+                	$('#textCarno5').attr('disabled', 'disabled');
+                	$('#textCarno6').attr('disabled', 'disabled');
+                	$('#textCarno7').attr('disabled', 'disabled');
+                	$('#textCarno8').attr('disabled', 'disabled');
+                	$('#textCarno9').attr('disabled', 'disabled');
+                	$('#textCarno10').attr('disabled', 'disabled');                	
+                }else{
+                	$('#textCarno1').removeAttr('disabled');
+                	$('#textCarno2').removeAttr('disabled');
+                	$('#textCarno3').removeAttr('disabled');
+                	$('#textCarno4').removeAttr('disabled');
+                	$('#textCarno5').removeAttr('disabled');
+                	$('#textCarno6').removeAttr('disabled');
+                	$('#textCarno7').removeAttr('disabled');
+                	$('#textCarno8').removeAttr('disabled');
+                	$('#textCarno9').removeAttr('disabled');
+                	$('#textCarno10').removeAttr('disabled');
+                }
 	        }
 	
 	        function btnMinus(id) {
@@ -441,10 +475,10 @@
 						<td rowspan="5" align="center" > 板<br> 櫃 </td>
 						<td >簾幕、雨棚</td>
 						<td >無破損漏水、束帶完整、操作順暢</td>
-						<td rowspan="5" align="center">尾<BR>車<BR>車<BR>尾<BR>號<BR>︵<BR><input id='textCarno1' type="text" class="txt c2" style="float: none;"><BR>︶</td>
+						<td rowspan="5" align="center">尾<BR>車<BR>車<BR>號<BR>︵<BR><input id='textCarno1' type="text" class="txt c2" style="float: none;"><BR>︶</td>
 						<td align="center"><input id="chkA01a" type="checkbox"></td>
 						<td align="center"><input id="chkA01b" type="checkbox"></td>
-						<td rowspan="5" align="center">尾<BR>車<BR>車<BR>尾<BR>號<BR>︵<BR><input id='textCarno2' type="text" class="txt c2" style="float: none;"><BR>︶</td>
+						<td rowspan="5" align="center">尾<BR>車<BR>車<BR>號<BR>︵<BR><input id='textCarno2' type="text" class="txt c2" style="float: none;"><BR>︶</td>
 						<td align="center"><input id="chkA01c" type="checkbox"></td>
 						<td align="center"><input id="chkA01d" type="checkbox"></td>
 					</tr>
@@ -485,10 +519,10 @@
 						<td rowspan="6" align="center"> 油<br> 罐 </td>
 						<td>人孔蓋</td>
 						<td>扣抱緊路良好、墊圈完整無洩漏、異味及油漬</td>
-						<td rowspan="5" align="center">尾<BR>車<BR>車<BR>尾<BR>號<BR>︵<BR><input id='textCarno3' type="text" class="txt c2" style="float: none;"><BR>︶</td>
+						<td rowspan="5" align="center">尾<BR>車<BR>車<BR>號<BR>︵<BR><input id='textCarno3' type="text" class="txt c2" style="float: none;"><BR>︶</td>
 						<td align="center"><input id="chkA06a" type="checkbox"></td>
 						<td align="center"><input id="chkA06b" type="checkbox"></td>
-						<td rowspan="5" align="center">尾<BR>車<BR>車<BR>尾<BR>號<BR>︵<BR><input id='textCarno4' type="text" class="txt c2" style="float: none;"><BR>︶</td>
+						<td rowspan="5" align="center">尾<BR>車<BR>車<BR>號<BR>︵<BR><input id='textCarno4' type="text" class="txt c2" style="float: none;"><BR>︶</td>
 						<td align="center"><input id="chkA06c" type="checkbox"></td>
 						<td align="center"><input id="chkA06d" type="checkbox"></td>
 					</tr>
@@ -537,10 +571,10 @@
 						<td rowspan="7" align="center"> 高<br> 壓 </td>
 						<td>槽體</td>
 						<td>外觀無變形、龜裂、銹蝕等</td>
-						<td rowspan="7" align="center">尾<BR>車<BR>車<BR>尾<BR>號<BR>︵<BR><input id='textCarno5' type="text" class="txt c2" style="float: none;"><BR>︶</td>
+						<td rowspan="7" align="center">尾<BR>車<BR>車<BR>號<BR>︵<BR><input id='textCarno5' type="text" class="txt c2" style="float: none;"><BR>︶</td>
 						<td align="center"><input id="chkA12a" type="checkbox"></td>
 						<td align="center"><input id="chkA12b" type="checkbox"></td>
-						<td rowspan="7" align="center">尾<BR>車<BR>車<BR>尾<BR>號<BR>︵<BR><input id='textCarno6' type="text" class="txt c2" style="float: none;"><BR>︶</td>
+						<td rowspan="7" align="center">尾<BR>車<BR>車<BR>號<BR>︵<BR><input id='textCarno6' type="text" class="txt c2" style="float: none;"><BR>︶</td>
 						<td align="center"><input id="chkA12c" type="checkbox"></td>
 						<td align="center"><input id="chkA12d" type="checkbox"></td>
 					</tr>
@@ -597,10 +631,10 @@
 						<td rowspan="7" align="center"> 粉<br> 粒<br> 槽 </td>
 						<td>蒸發器</td>
 						<td>固定座、螺絲完整無鬆脫、管路無洩漏龜裂</td>
-						<td rowspan="7" align="center">尾<BR>車<BR>車<BR>尾<BR>號<BR>︵<BR><input id='textCarno7' type="text" class="txt c2" style="float: none;"><BR>︶</td>
+						<td rowspan="7" align="center">尾<BR>車<BR>車<BR>號<BR>︵<BR><input id='textCarno7' type="text" class="txt c2" style="float: none;"><BR>︶</td>
 						<td align="center"><input id="chkA19a" type="checkbox"></td>
 						<td align="center"><input id="chkA19b" type="checkbox"></td>
-						<td rowspan="7" align="center">尾<BR>車<BR>車<BR>尾<BR>號<BR>︵<BR><input id='textCarno8' type="text" class="txt c2" style="float: none;"><BR>︶</td>
+						<td rowspan="7" align="center">尾<BR>車<BR>車<BR>號<BR>︵<BR><input id='textCarno8' type="text" class="txt c2" style="float: none;"><BR>︶</td>
 						<td align="center"><input id="chkA19c" type="checkbox"></td>
 						<td align="center"><input id="chkA19d" type="checkbox"></td>
 					</tr>
@@ -657,10 +691,10 @@
 						<td rowspan="3" align="center"> 傾<br> 卸<br> 車 </td>
 						<td>覆蓋網、馬達</td>
 						<td>不破損、作用正常</td>
-						<td rowspan="3" align="center">尾<BR>車<BR>車<BR>尾<BR>號<BR>︵<BR><input id='textCarno9' type="text" class="txt c2" style="float: none;"><BR>︶</td>
+						<td rowspan="3" align="center">尾<BR>車<BR>車<BR>號<BR>︵<BR><input id='textCarno9' type="text" class="txt c2" style="float: none;"><BR>︶</td>
 						<td align="center"><input id="chkA26a" type="checkbox"></td>
 						<td align="center"><input id="chkA26b" type="checkbox"></td>
-						<td rowspan="3" align="center">尾<BR>車<BR>車<BR>尾<BR>號<BR>︵<BR><input id='textCarno10' type="text" class="txt c2" style="float: none;"><BR>︶</td>
+						<td rowspan="3" align="center">尾<BR>車<BR>車<BR>號<BR>︵<BR><input id='textCarno10' type="text" class="txt c2" style="float: none;"><BR>︶</td>
 						<td align="center"><input id="chkA26c" type="checkbox"></td>
 						<td align="center"><input id="chkA26d" type="checkbox"></td>
 					</tr>

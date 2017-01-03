@@ -570,7 +570,9 @@
 	       	  <td  colspan="2">核准(調派人員)</td>
 			  <td><input id="txtApv"  type="text" class="txt c2" /></td>
 			  <td>核檢人</td>
-			  <td><input id="txtWorker"  type="text" class="txt c1" /></td>
+			  <td><input id="txtWorker"  type="text" class="txt c2" />
+			  	  <input id="chkEnda" type="checkbox"/>抽檢
+			  </td>
 	        </tr>
 		</table>
 		</div>
