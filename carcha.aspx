@@ -34,6 +34,7 @@
 
 		//////////////////   end Ready
 	   function main() {
+	   		document.title = '駕駛行車安全檢查表'
 		   if (dataErr)   
 		   {
 			   dataErr = false;

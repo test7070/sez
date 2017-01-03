@@ -47,7 +47,74 @@
 	            bbmMask = [['txtDatea', r_picd], ['txtChkdate', r_picd], ['txtChktime', '99:99']];
 	            q_getFormat();
 	            q_mask(bbmMask);
+	           	q_cmbParse("cmbTypea", '1@板櫃,2@油罐,3@高壓,4@粉粒槽,5@傾卸車');
+	            $('#cmbTypea').change(function(e){
+					cmbTypea_chg();
+				});
+				$('#textCarno1').change(function() {
+                	$('#txtCarno1').val($(this).val());
+				});
+				$('#textCarno2').change(function() {
+                	$('#txtCarno2').val($(this).val());
+				});
+				$('#textCarno3').change(function() {
+                	$('#txtCarno1').val($(this).val());
+				});
+				$('#textCarno4').change(function() {
+                	$('#txtCarno2').val($(this).val());
+				});
+				$('#textCarno5').change(function() {
+                	$('#txtCarno1').val($(this).val());
+				});
+				$('#textCarno6').change(function() {
+                	$('#txtCarno2').val($(this).val());
+				});
+				$('#textCarno7').change(function() {
+                	$('#txtCarno1').val($(this).val());
+				});
+				$('#textCarno8').change(function() {
+                	$('#txtCarno2').val($(this).val());
+				});
+				$('#textCarno9').change(function() {
+                	$('#txtCarno1').val($(this).val());
+				});
+				$('#textCarno10').change(function() {
+                	$('#txtCarno2').val($(this).val());
+				});
 	        }
+	        function cmbTypea_chg(){
+		         if($('#cmbTypea').val()== 1){
+	                $('.istya').show();
+	                $('.istyb').hide();
+	                $('.istyc').hide();
+	                $('.istyd').hide();
+	                $('.istye').hide();			          		
+	             }else if($('#cmbTypea').val() == 2){
+      	            $('.istya').hide();         		
+               		$('.istyb').show();
+	                $('.istyc').hide();
+	                $('.istyd').hide();
+	                $('.istye').hide();          		
+	             }else if($('#cmbTypea').val() == 3){
+	             	$('.istya').hide();
+	             	$('.istyb').hide(); 
+               		$('.istyc').show();	
+               		$('.istyd').hide();
+	                $('.istye').hide();          		
+	             }else if($('#cmbTypea').val()== 4){
+	             	$('.istya').hide();
+	             	$('.istyb').hide();
+	                $('.istyc').hide();	             		             	
+               		$('.istyd').show();
+               		$('.istye').hide();	          		
+	             }else{
+	             	$('.istya').hide();
+	             	$('.istyb').hide();
+	                $('.istyc').hide();
+               		$('.istyd').hide();	                		             	
+	                $('.istye').show();	 
+	             }
+	       }
 	
 	        function q_boxClose(s2) {
 	            var ret;
@@ -96,6 +163,7 @@
 	            $('#txtDatea').val(q_date());
 	            refreshBbm();
 	            $('#txtNoa').focus();
+	            cmbTypea_chg();
 	        }
 	
 	        function btnModi() {
@@ -103,6 +171,7 @@
 	                return;
 	            _btnModi();
 	            refreshBbm();
+	            cmbTypea_chg();
 	        }
 	
 	        function btnPrint() {
@@ -141,6 +210,7 @@
 	            refreshBbm();
 	            $('#vewNoa').text('單據編號');
 	            $('#vewDatea').text('日期');
+	            cmbTypea_chg();
 	        }
 	
 	        function refreshBbm() {
@@ -344,6 +414,12 @@
 							<a style="float: left;">日期</a>	
 							<span style="float: left;"> </span>
 							<input id='txtDatea' type="text" class="txt c1" style="width: 100px;">
+							<span style="width: 50px;float: left;"> </span>
+							<a style="float: left;">類型</a>	
+							<span style="float: left;"> </span>
+							<select id="cmbTypea" class="txt c1" style="width: 100px;"></select>
+							<input id='txtCarno1' type="hidden" class="txt c2" style="float: none;">
+							<input id='txtCarno2' type="hidden" class="txt c2" style="float: none;">
 						</td>
 					</tr>
 					<tr align="center">
@@ -361,18 +437,18 @@
 						<td>正常</td>
 						<td>異常</td>
 					</tr>
-					<tr>
-						<td rowspan="5" align="center"> 板<br> 櫃 </td>
-						<td>簾幕、雨棚</td>
-						<td>無破損漏水、束帶完整、操作順暢</td>
-						<td rowspan="28" align="center">尾<BR>車<BR>車<BR>尾<BR>號<BR>︵<BR><input id='txtCarno1' type="text" class="txt c2" style="float: none;"><BR>︶</td>
+					<tr class="istya" style="display: none;">
+						<td rowspan="5" align="center" > 板<br> 櫃 </td>
+						<td >簾幕、雨棚</td>
+						<td >無破損漏水、束帶完整、操作順暢</td>
+						<td rowspan="5" align="center">尾<BR>車<BR>車<BR>尾<BR>號<BR>︵<BR><input id='textCarno1' type="text" class="txt c2" style="float: none;"><BR>︶</td>
 						<td align="center"><input id="chkA01a" type="checkbox"></td>
 						<td align="center"><input id="chkA01b" type="checkbox"></td>
-						<td rowspan="28" align="center">尾<BR>車<BR>車<BR>尾<BR>號<BR>︵<BR><input id='txtCarno2' type="text" class="txt c2" style="float: none;"><BR>︶</td>
+						<td rowspan="5" align="center">尾<BR>車<BR>車<BR>尾<BR>號<BR>︵<BR><input id='textCarno2' type="text" class="txt c2" style="float: none;"><BR>︶</td>
 						<td align="center"><input id="chkA01c" type="checkbox"></td>
 						<td align="center"><input id="chkA01d" type="checkbox"></td>
 					</tr>
-					<tr>
+					<tr class="istya" style="display: none;">
 						<td>車柄及中性</td>
 						<td>完整無變形操作順暢</td>
 						<td align="center"><input id="chkA02a" type="checkbox"></td>
@@ -380,7 +456,7 @@
 						<td align="center"><input id="chkA02c" type="checkbox"></td>
 						<td align="center"><input id="chkA02d" type="checkbox"></td>
 					</tr>
-					<tr>
+					<tr class="istya" style="display: none;">
 						<td>簾幕櫃</td>
 						<td>櫃頂、尾門、防水條完整無變形</td>
 						<td align="center"><input id="chkA03a" type="checkbox"></td>
@@ -388,7 +464,7 @@
 						<td align="center"><input id="chkA03c" type="checkbox"></td>
 						<td align="center"><input id="chkA03d" type="checkbox"></td>
 					</tr>
-					<tr>
+					<tr class="istya" style="display: none;">
 						<td>綑綁器</td>
 						<td>完整無變形</td>
 						<td align="center"><input id="chkA04a" type="checkbox"></td>
@@ -396,7 +472,7 @@
 						<td align="center"><input id="chkA04c" type="checkbox"></td>
 						<td align="center"><input id="chkA04d" type="checkbox"></td>
 					</tr>
-					<tr>
+					<tr class="istya" style="display: none;">
 						<td>安全插銷</td>
 						<td>安全插銷處、插銷完整</td>
 						<td align="center"><input id="chkA05a" type="checkbox"></td>
@@ -405,16 +481,18 @@
 						<td align="center"><input id="chkA05d" type="checkbox"></td>
 					</tr>
 					<!--------------------------------------------------->
-					<tr>
+					<tr class="istyb" style="display: none;">
 						<td rowspan="6" align="center"> 油<br> 罐 </td>
 						<td>人孔蓋</td>
 						<td>扣抱緊路良好、墊圈完整無洩漏、異味及油漬</td>
+						<td rowspan="5" align="center">尾<BR>車<BR>車<BR>尾<BR>號<BR>︵<BR><input id='textCarno3' type="text" class="txt c2" style="float: none;"><BR>︶</td>
 						<td align="center"><input id="chkA06a" type="checkbox"></td>
 						<td align="center"><input id="chkA06b" type="checkbox"></td>
+						<td rowspan="5" align="center">尾<BR>車<BR>車<BR>尾<BR>號<BR>︵<BR><input id='textCarno4' type="text" class="txt c2" style="float: none;"><BR>︶</td>
 						<td align="center"><input id="chkA06c" type="checkbox"></td>
 						<td align="center"><input id="chkA06d" type="checkbox"></td>
 					</tr>
-					<tr>
+					<tr class="istyb" style="display: none;">
 						<td>槽體、爬梯、排水閥</td>
 						<td>外觀無變形、龜裂、銹蝕等，槽頂排水順暢閥門正常</td>
 						<td align="center"><input id="chkA07a" type="checkbox"></td>
@@ -422,7 +500,7 @@
 						<td align="center"><input id="chkA07c" type="checkbox"></td>
 						<td align="center"><input id="chkA07d" type="checkbox"></td>
 					</tr>
-					<tr>
+					<tr class="istyb" style="display: none;">
 						<td>洩料軟管</td>
 						<td>外觀無變破損二端接頭無變形墊圏、盲塞完整</td>
 						<td align="center"><input id="chkA08a" type="checkbox"></td>
@@ -430,7 +508,7 @@
 						<td align="center"><input id="chkA08c" type="checkbox"></td>
 						<td align="center"><input id="chkA08d" type="checkbox"></td>
 					</tr>
-					<tr>
+					<tr class="istyb" style="display: none;">
 						<td>管路、溫度表</td>
 						<td>支架固定穩固、管路無歸裂滲漏、溫度表作用正常</td>
 						<td align="center"><input id="chkA09a" type="checkbox"></td>
@@ -438,7 +516,7 @@
 						<td align="center"><input id="chkA09c" type="checkbox"></td>
 						<td align="center"><input id="chkA09d" type="checkbox"></td>
 					</tr>
-					<tr>
+					<tr class="istyb" style="display: none;">
 						<td>閥門、接地線</td>
 						<td>裝、卸料閥操作順暢無洩漏、緊急遮斷間、通氣閥、呼吸閥作用正常，盲蓋、墊圈、接地線等完整。</td>
 						<td align="center"><input id="chkA10a" type="checkbox"></td>
@@ -446,7 +524,7 @@
 						<td align="center"><input id="chkA10c" type="checkbox"></td>
 						<td align="center"><input id="chkA10d" type="checkbox"></td>
 					</tr>
-					<tr>
+					<tr class="istyb" style="display: none;">
 						<td>煞車反鎖</td>
 						<td>操作及作用正常、閥門及管路無漏氣</td>
 						<td align="center"><input id="chkA11a" type="checkbox"></td>
@@ -455,16 +533,18 @@
 						<td align="center"><input id="chkA11d" type="checkbox"></td>
 					</tr>
 				<!--------------------------------------------------->
-					<tr>
+					<tr class="istyc" style="display: none;">
 						<td rowspan="7" align="center"> 高<br> 壓 </td>
 						<td>槽體</td>
 						<td>外觀無變形、龜裂、銹蝕等</td>
+						<td rowspan="7" align="center">尾<BR>車<BR>車<BR>尾<BR>號<BR>︵<BR><input id='textCarno5' type="text" class="txt c2" style="float: none;"><BR>︶</td>
 						<td align="center"><input id="chkA12a" type="checkbox"></td>
 						<td align="center"><input id="chkA12b" type="checkbox"></td>
+						<td rowspan="7" align="center">尾<BR>車<BR>車<BR>尾<BR>號<BR>︵<BR><input id='textCarno6' type="text" class="txt c2" style="float: none;"><BR>︶</td>
 						<td align="center"><input id="chkA12c" type="checkbox"></td>
 						<td align="center"><input id="chkA12d" type="checkbox"></td>
 					</tr>
-					<tr>
+					<tr class="istyc" style="display: none;">
 						<td>管路、壓力（溫度）<br>表</td>
 						<td>支架固定穩固、管路無歸裂滲漏、壓力(溫度)表作用正常</td>
 						<td align="center"><input id="chkA13a" type="checkbox"></td>
@@ -472,7 +552,7 @@
 						<td align="center"><input id="chkA13c" type="checkbox"></td>
 						<td align="center"><input id="chkA13d" type="checkbox"></td>
 					</tr>
-					<tr>
+					<tr class="istyc" style="display: none;">
 						<td>洩料軟管</td>
 						<td>外表鋼絲及接頭處無破損</td>
 						<td align="center"><input id="chkA14a" type="checkbox"></td>
@@ -480,7 +560,7 @@
 						<td align="center"><input id="chkA14c" type="checkbox"></td>
 						<td align="center"><input id="chkA14d" type="checkbox"></td>
 					</tr>
-					<tr>
+					<tr class="istyc" style="display: none;">
 						<td>閥門、接地線</td>
 						<td>操作順暢無滲漏油漬異味、盲蓋、墊圈等完整</td>
 						<td align="center"><input id="chkA15a" type="checkbox"></td>
@@ -488,7 +568,7 @@
 						<td align="center"><input id="chkA15c" type="checkbox"></td>
 						<td align="center"><input id="chkA15d" type="checkbox"></td>
 					</tr>
-					<tr>
+					<tr class="istyc" style="display: none;">
 						<td>煞車反鎖</td>
 						<td>操作及作用正常、閥門及管路無溫度</td>
 						<td align="center"><input id="chkA16a" type="checkbox"></td>
@@ -496,7 +576,7 @@
 						<td align="center"><input id="chkA16c" type="checkbox"></td>
 						<td align="center"><input id="chkA16d" type="checkbox"></td>
 					</tr>
-					<tr>
+					<tr class="istyc" style="display: none;">
 						<td>安全閥</td>
 						<td>閥門在開位置、鉛封完整、作用正常</td>
 						<td align="center"><input id="chkA17a" type="checkbox"></td>
@@ -504,7 +584,7 @@
 						<td align="center"><input id="chkA17c" type="checkbox"></td>
 						<td align="center"><input id="chkA17d" type="checkbox"></td>
 					</tr>
-					<tr>
+					<tr class="istyc" style="display: none;">
 						<td>洩料馬達及幫浦</td>
 						<td>幫浦油面視窗一半以上，馬達線無破損，無熔絲開關及電磁開關完整</td>
 						<td align="center"><input id="chkA18a" type="checkbox"></td>
@@ -513,16 +593,18 @@
 						<td align="center"><input id="chkA18d" type="checkbox"></td>
 					</tr>
 				<!--------------------------------------------------->
-					<tr>
+					<tr class="istyd" style="display: none;">
 						<td rowspan="7" align="center"> 粉<br> 粒<br> 槽 </td>
 						<td>蒸發器</td>
 						<td>固定座、螺絲完整無鬆脫、管路無洩漏龜裂</td>
+						<td rowspan="7" align="center">尾<BR>車<BR>車<BR>尾<BR>號<BR>︵<BR><input id='textCarno7' type="text" class="txt c2" style="float: none;"><BR>︶</td>
 						<td align="center"><input id="chkA19a" type="checkbox"></td>
 						<td align="center"><input id="chkA19b" type="checkbox"></td>
+						<td rowspan="7" align="center">尾<BR>車<BR>車<BR>尾<BR>號<BR>︵<BR><input id='textCarno8' type="text" class="txt c2" style="float: none;"><BR>︶</td>
 						<td align="center"><input id="chkA19c" type="checkbox"></td>
 						<td align="center"><input id="chkA19d" type="checkbox"></td>
 					</tr>
-					<tr>
+					<tr class="istyd" style="display: none;">
 						<td>槽體、爬梯</td>
 						<td>外觀無變形、龜裂、銹蝕等，卸料等無漏氣</td>
 						<td align="center"><input id="chkA20a" type="checkbox"></td>
@@ -530,7 +612,7 @@
 						<td align="center"><input id="chkA20c" type="checkbox"></td>
 						<td align="center"><input id="chkA20d" type="checkbox"></td>
 					</tr>
-					<tr>
+					<tr class="istyd" style="display: none;">
 						<td>管路</td>
 						<td>支架、管束固定穩固、管路無龜裂滲漏</td>
 						<td align="center"><input id="chkA21a" type="checkbox"></td>
@@ -538,7 +620,7 @@
 						<td align="center"><input id="chkA21c" type="checkbox"></td>
 						<td align="center"><input id="chkA21d" type="checkbox"></td>
 					</tr>
-					<tr>
+					<tr class="istyd" style="display: none;">
 						<td>安全閥、壓力表</td>
 						<td>開啟壓力正常、管壓、桶壓壓力錶作用正常</td>
 						<td align="center"><input id="chkA22a" type="checkbox"></td>
@@ -546,7 +628,7 @@
 						<td align="center"><input id="chkA22c" type="checkbox"></td>
 						<td align="center"><input id="chkA22d" type="checkbox"></td>
 					</tr>
-					<tr>
+					<tr class="istyd" style="display: none;">
 						<td>閥門、接地線</td>
 						<td>卸料閥操作順暢無滲漏作用正常、盲蓋、墊圈、接地線等完整。</td>
 						<td align="center"><input id="chkA23a" type="checkbox"></td>
@@ -554,7 +636,7 @@
 						<td align="center"><input id="chkA23c" type="checkbox"></td>
 						<td align="center"><input id="chkA23d" type="checkbox"></td>
 					</tr>
-					<tr>
+					<tr class="istyd" style="display: none;">
 						<td>人孔蓋</td>
 						<td>扣把緊度良好完整、墊圈完整卸料時無洩漏</td>
 						<td align="center"><input id="chkA24a" type="checkbox"></td>
@@ -562,7 +644,7 @@
 						<td align="center"><input id="chkA24c" type="checkbox"></td>
 						<td align="center"><input id="chkA24d" type="checkbox"></td>
 					</tr>
-					<tr>
+					<tr class="istyd" style="display: none;">
 						<td>震動馬達</td>
 						<td>作用良好</td>
 						<td align="center"><input id="chkA25a" type="checkbox"></td>
@@ -571,16 +653,18 @@
 						<td align="center"><input id="chkA25d" type="checkbox"></td>
 					</tr>
 					<!--------------------------------------------------->
-					<tr>
+					<tr class="istye" style="display: none;">
 						<td rowspan="3" align="center"> 傾<br> 卸<br> 車 </td>
 						<td>覆蓋網、馬達</td>
 						<td>不破損、作用正常</td>
+						<td rowspan="3" align="center">尾<BR>車<BR>車<BR>尾<BR>號<BR>︵<BR><input id='textCarno9' type="text" class="txt c2" style="float: none;"><BR>︶</td>
 						<td align="center"><input id="chkA26a" type="checkbox"></td>
 						<td align="center"><input id="chkA26b" type="checkbox"></td>
+						<td rowspan="3" align="center">尾<BR>車<BR>車<BR>尾<BR>號<BR>︵<BR><input id='textCarno10' type="text" class="txt c2" style="float: none;"><BR>︶</td>
 						<td align="center"><input id="chkA26c" type="checkbox"></td>
 						<td align="center"><input id="chkA26d" type="checkbox"></td>
 					</tr>
-					<tr>
+					<tr class="istye" style="display: none;">
 						<td>攀昇油壓缸</td>
 						<td>支架固定穩固、油壓缸、軟管無破損滲漏</td>
 						<td align="center"><input id="chkA27a" type="checkbox"></td>
@@ -588,7 +672,7 @@
 						<td align="center"><input id="chkA27c" type="checkbox"></td>
 						<td align="center"><input id="chkA27d" type="checkbox"></td>
 					</tr>
-					<tr>
+					<tr class="istye" style="display: none;">
 						<td>車斗及尾門</td>
 						<td>無破損變形、尾門開啟及緊閉良好</td>
 						<td align="center"><input id="chkA28a" type="checkbox"></td>
