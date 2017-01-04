@@ -39,11 +39,11 @@
        
                 var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+ q_sqlPara2("acc1", t_acc1);
 				if (t_bank.length > 0)
-                	t_where += " and patindex('%" + t_bank + "%',bank)>0";
+                	t_where += " and charindex('" + t_bank + "',bank)>0";
                 if (t_conn.length > 0)
-                	t_where += " and patindex('%" + t_conn + "%',conn)>0";
+                	t_where += " and charindex('" + t_conn + "',conn)>0";
                 if (t_account.length > 0)
-                	t_where += " and patindex('%" + t_account + "%',account)>0";
+                	t_where += " and charindex('" + t_account + "',account)>0";
                 		    
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
