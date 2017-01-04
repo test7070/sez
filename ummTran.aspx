@@ -581,7 +581,9 @@
 				var checkno_repeat = false;
 				for (var i = 0; i < q_bbsCount; i++) {
 					for (var j = i + 1; j < q_bbsCount; j++) {
-						if ($('#txtCheckno_' + i).val() == $('#txtCheckno_' + j).val() && $('#txtAcc1_' + j).val().substring(0, 4) != '1121' && !emp($('#txtCheckno_' + i).val()) && !emp($('#txtCheckno_' + j).val())) {
+						if ($('#txtCheckno_' + i).val() == $('#txtCheckno_' + j).val() 
+							&& ($('#txtAcc1_' + j).val().substring(0, 4) != '1121' && $('#txtAcc2_'+n).val().indexOf('應收票據')<0)
+							&& !emp($('#txtCheckno_' + i).val()) && !emp($('#txtCheckno_' + j).val())) {
 							checkno_repeat = true;
 							alert('票據號碼：' + $('#txtCheckno_' + j).val() + '重複輸入!!');
 							break;
@@ -645,7 +647,9 @@
 					else
 						wrServer(t_noa);
 				} else {
-					if ($.trim($('#txtCheckno_' + n).val()).length > 0 && $('#txtAcc1_' + n).val().substring(0, 4) == '1121' && q_float('txtMoney_' + n) < 0) {
+					if ($.trim($('#txtCheckno_' + n).val()).length > 0 
+						&& ($('#txtAcc1_' + n).val().substring(0, 4) == '1121' || $('#txtAcc2_'+n).val().indexOf('應收票據')>=0)
+						&& q_float('txtMoney_' + n) < 0) {
 						//收退 ,1121 , 金額負
 						checkGqb_bbs(n - 1);
 					} else if ($.trim($('#txtCheckno_' + n).val()).length > 0) {
@@ -714,7 +718,9 @@
 						var t_noa = $('#txtNoa').val();
 						var t_checkno = $('#txtCheckno_' + n).val();
 						var t_where = "where=^^ checkno = '" + t_checkno + "' ^^";
-						if ($.trim($('#txtCheckno_' + n).val()).length > 0 && $('#txtAcc1_' + n).val().substring(0, 4) == '1121' && q_float('txtMoney_' + n) < 0) {
+						if ($.trim($('#txtCheckno_' + n).val()).length > 0 
+							&& ($('#txtAcc1_' + n).val().substring(0, 4) == '1121' || $('#txtAcc2_'+n).val().indexOf('應收票據')>=0)
+							&& q_float('txtMoney_' + n) < 0) {
 							//收退 ,1121 , 金額負
 							Unlock(1);
 						} else if ($.trim($('#txtCheckno_' + n).val()).length > 0) {

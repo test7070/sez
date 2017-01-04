@@ -617,7 +617,7 @@
 					} else if (q_cur == 2) {
 						$('#txtWorker2').val(r_name);
 					} else {
-						alert("error: btnok!")
+						alert("error: btnok!");
 					}
 					var t_noa = trim($('#txtNoa').val());
 					var t_date = trim($('#txtDatea').val());
@@ -626,7 +626,9 @@
 					else
 						wrServer(t_noa);
 				} else {
-					if ($.trim($('#txtCheckno_' + n).val()).length > 0 && $('#txtAcc1_' + n).val().substring(0, 4) == '2121' && q_float('txtMoney_' + n) < 0) {
+					if ($.trim($('#txtCheckno_' + n).val()).length > 0 
+						&& ($('#txtAcc1_' + n).val().substring(0, 4) == '2121' || $('#txtAcc2_'+n).val().indexOf('應付票據')>=0)
+						&& q_float('txtMoney_' + n) < 0) {
 						//開退  ,2121 , 金額負
 						checkGqb_bbs(n - 1);
 					} else if ($.trim($('#txtCheckno_' + n).val()).length > 0) {
@@ -698,7 +700,9 @@
 						var t_noa = $('#txtNoa').val();
 						var t_checkno = $('#txtCheckno_' + n).val();
 						var t_where = "where=^^ checkno = '" + t_checkno + "' ^^";
-						if ($.trim($('#txtCheckno_' + n).val()).length > 0 && $('#txtAcc1_' + n).val().substring(0, 4) == '2121' && q_float('txtMoney_' + n) < 0) {
+						if ($.trim($('#txtCheckno_' + n).val()).length > 0 
+							&& ($('#txtAcc1_' + n).val().substring(0, 4) == '2121' || $('#txtAcc2_'+n).val().indexOf('應付票據')>=0)
+							&& q_float('txtMoney_' + n) < 0) {
 							//開退  ,2121 , 金額負
 							Unlock(1);
 						} else if ($.trim($('#txtCheckno_' + n).val()).length > 0) {
