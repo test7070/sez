@@ -182,6 +182,10 @@
                         dbf : 'acomp',
                         index : 'noa,acomp',
                         src : 'acomp_b.aspx'
+                    },{//22
+                        type : '0',
+                        name : 'r_len',
+                        value : r_len
                     }]
                 });
                 q_popAssign();
