@@ -38,11 +38,7 @@
                         dbf : 'acc',
                         index : 'acc1,acc2',
                         src :  "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno
-                    }, {/*28*/
-                            type : '5',
-                            name : 'xsort1',//[11]
-                            value : q_getMsg('tsort1').split('&')
-                        }]
+                    }]
                 });
                 q_popAssign();
                 q_langShow();
@@ -54,9 +50,10 @@
                     var patt = /^(\d{4})([^\.,.]*)$/g;
                     $(this).val($(this).val().replace(patt,"$1.$2"));
         		});
-
-                $('#txtDate1').mask('99/99');
-                $('#txtDate2').mask('99/99');
+				$('#txtDate1').datepicker();
+				$('#txtDate2').datepicker();
+                $('#txtDate1').mask(r_picd);
+                $('#txtDate2').mask(r_picd);
                  var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
 	                t_date.setDate(1);
@@ -66,7 +63,7 @@
 	                t_month = t_month>9?t_month+'':'0'+t_month;
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtDate1').val(t_month+'/'+t_day);
+	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
 	                
 	                t_date = new Date();
 	                t_date.setDate(35);
@@ -77,7 +74,7 @@
 	                t_month = t_month>9?t_month+'':'0'+t_month;
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtDate2').val(t_month+'/'+t_day);
+	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
             }
 		</script>
 	</head>
