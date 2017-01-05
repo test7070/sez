@@ -582,7 +582,7 @@
 				for (var i = 0; i < q_bbsCount; i++) {
 					for (var j = i + 1; j < q_bbsCount; j++) {
 						if ($('#txtCheckno_' + i).val() == $('#txtCheckno_' + j).val() 
-							&& ($('#txtAcc1_' + j).val().substring(0, 4) != '1121' && $('#txtAcc2_'+n).val().indexOf('應收票據')<0)
+							&& ($('#txtAcc1_' + j).val().substring(0, 4) != '1121' && $('#txtAcc2_'+j).val().indexOf('應收票據')<0)
 							&& !emp($('#txtCheckno_' + i).val()) && !emp($('#txtCheckno_' + j).val())) {
 							checkno_repeat = true;
 							alert('票據號碼：' + $('#txtCheckno_' + j).val() + '重複輸入!!');
