@@ -15,31 +15,75 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+            var t_acomp = '';
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
-                q_gf('', 'z_bankw');
+                q_gt('acomp', '', 0, 0, 0, "");
+                
             });
+            function q_gtPost(t_name) {
+                switch (t_name) {
+                    case 'acomp':
+                        var as = _q_appendData("acomp", "", true);
+                        t_acomp = "";
+                        for ( i = 0; i < as.length; i++) {
+                            t_acomp = t_acomp + (t_acomp.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
+                        }
+                        q_gf('', 'z_bankw');
+                        break;
+                }
+            }
             function q_gfPost() {
                 $('#q_report').q_report({
                     fileName : 'z_bankw',
                     options : [{
-						type : '0',
-						name : 'accy',
-                        value : q_getId()[4] //[1]
-                    },{
-                        type : '1',
+						type : '0', //[1]
+						name : 'path',
+						value : location.protocol + '//' +location.hostname + location.pathname.toLowerCase().replace('z_bankw.aspx','')
+					},{
+						type : '0', //[2]
+						name : 'db',
+						value : q_db
+					},{
+                        type : '1', //[3][4]
                         name : 'xdate'
                     },{
-                        type : '6',
-                        name : 'xbankmoney'
-                    }]
+						type : '8', //[5]
+						name : 'xcno',
+						value : t_acomp.split(',')
+					}]
                 });
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
                 $('#txtXdate1').mask('999/99/99');
                 $('#txtXdate2').mask('999/99/99');
+                $('#txtXdate1').datepicker();
+                $('#txtXdate2').datepicker();
+                
+                var t_date, t_year, t_month, t_day;
+				t_date = new Date();
+				t_date.setDate(1);
+				t_year = t_date.getUTCFullYear() - 1911;
+				t_year = t_year > 99 ? t_year + '' : '0' + t_year;
+				t_month = t_date.getUTCMonth() + 1;
+				t_month = t_month > 9 ? t_month + '' : '0' + t_month;
+				t_day = t_date.getUTCDate();
+				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
+				$('#txtXdate1').val(t_year + '/' + t_month + '/' + t_day);
+
+				t_date = new Date();
+				t_date.setDate(35);
+				t_date.setDate(0);
+				t_year = t_date.getUTCFullYear() - 1911;
+				t_year = t_year > 99 ? t_year + '' : '0' + t_year;
+				t_month = t_date.getUTCMonth() + 1;
+				t_month = t_month > 9 ? t_month + '' : '0' + t_month;
+				t_day = t_date.getUTCDate();
+				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
+				$('#txtXdate2').val(t_year + '/' + t_month + '/' + t_day);
+				
                 $('.q_report .option div .label').css('width','100px');
                 $('#txtXbankmoney').val(0).css('text-align','right').keyup(function(e) {
                 	if(e.which>=37 && e.which<=40){return;}
@@ -51,9 +95,6 @@
             }
 
             function q_boxClose(s2) {
-            }
-
-            function q_gtPost(s2) {
             }
 		</script>
 	</head>
