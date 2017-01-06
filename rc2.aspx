@@ -266,6 +266,12 @@
 					$('#lblTranadd').hide()
 					$('#txtTranadd').hide()
 				}
+				
+				$('#btnQrcode').click(function() {
+					if(!emp($('#txtNoa').val()) && q_getPara('sys.project').toUpperCase()=='XY'){
+						window.open("./pdf_rc2qrcode_xy.aspx?noa="+$('#txtNoa').val()+"&tablea="+q_name+"&db="+q_db);
+					}
+				});
 			}
 			
 			function refreshBbm() {
@@ -915,6 +921,10 @@
 				if (q_getPara('sys.project').toUpperCase()=='UJ'){
 					$('.isUJ').show();
 				}
+				
+				if (q_getPara('sys.project').toUpperCase()=='XY'){
+					$('.isXY').show();
+				}
 			}
 
 			function HiddenTreat(returnType){
@@ -948,8 +958,10 @@
 				_readonly(t_para, empty);
 				if (t_para) {
 					$('#combAddr').attr('disabled', 'disabled');
+					$('#btnQrcode').removeAttr('disabled');
 				} else {
 					$('#combAddr').removeAttr('disabled');
+					$('#btnQrcode').attr('disabled', 'disabled');
 				}
 				HiddenTreat();
 				
@@ -1375,9 +1387,14 @@
 						<td class="td3"><input id="txtWorker2" type="text" class="txt c1"/></td>
 						<td class="td4"><span> </span><a id='lblAccc' class="lbl btn"> </a></td>
 						<td class="td5" colspan="2"><input id="txtAccno" type="text" class="txt c1" /></td>
-						<td class="td7"><span> </span><a id='lblStoreno' class="lbl btn isUJ" style="display: none;">倉庫</a></td>
-						<td class="td8"><input id="txtStoreno" type="text" class="txt c3 isUJ" style="display: none;"/>
-										<input id="txtStore" type="text" class="txt c3 isUJ" style="display: none;"/></td>
+						<td class="td7">
+							<input id="btnQrcode" type="button" value='條碼下載' class="isXY" style="float:right;display: none;"/>
+							<span> </span><a id='lblStoreno' class="lbl btn isUJ" style="display: none;">倉庫</a>
+						</td>
+						<td class="td8">
+							<input id="txtStoreno" type="text" class="txt c3 isUJ" style="display: none;"/>
+							<input id="txtStore" type="text" class="txt c3 isUJ" style="display: none;"/>
+						</td>
 					</tr>
 				</table>
 			</div>
