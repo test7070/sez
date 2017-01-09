@@ -19,7 +19,7 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
 			q_desc=1;
-            var q_name = "uccag";
+            var q_name = "uccah";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtAccno'];
             var bbmNum = [];
             var bbmMask = [];
@@ -49,35 +49,7 @@
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd],['txtMon', r_picm]];
                 q_mask(bbmMask);
-                if(q_getPara('sys.project').toUpperCase()=='VU2'){
-                	q_cmbParse("cmbTypea", '5@銷貨發票,6@進貨發票');
-                }else{
-                	q_cmbParse("cmbTypea", q_getPara('uccag.typea'));
-                }
                 
-                $('#lblAccno').click(function() {
-                	if(!emp($('#txtNoa').val())){
-                		var t_accy=r_accy;
-                		if(!emp($('#txtMon').val())){
-                			t_accy=$('#txtMon').val();
-                		}else if (!emp($('#txtBdate').val())){
-                			t_accy=$('#txtBdate').val();
-                		}else if (!emp($('#txtDatea').val())){
-                			t_accy=$('#txtDatea').val();
-                		}
-                		//20160217
-                		if($('#cmbTypea').val()=='4'){
-                			t_accy=$('#txtDatea').val();
-                		}
-                		
-                		if(r_len==4){
-                			q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";charindex('" + $('#txtNoa').val() + "',zno)>0;" + (t_accy.substr(0,4)-1911) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAcc'), true);
-                		}else{
-                			q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";charindex('" + $('#txtNoa').val() + "',zno)>0;" + t_accy.substr( 0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAcc'), true);
-                		}
-                	}
-                    
-                });
 				if(r_rank <= 8){
 					if ((/^.*(uccag,1,[0|1],1,[0|1],[0|1],[0|1],[0|1],[0|1]).*$/g).test(q_auth.toString())){
 		       			$('#btnGen').click(function() {show_confirm();});
@@ -85,19 +57,8 @@
 		       	}else{
 		       		$('#btnGen').click(function() {show_confirm();});
 		       	}
-		       	if(q_getPara('sys.comp').substring(0,3)=='裕承隆'){
-		       	   $('.tgg').show();
-		       	}else{
-		       		$('.tgg').hide();
-		       	}
-		       	
-		       	if(q_getPara('sys.project').toUpperCase()=='PK' || q_getPara('sys.project').toUpperCase()=='RK'){
-		       	   $('.edate').show();
-		       	}else{
-		       		$('.edate').hide();
-		       	}
-		       	
-		       	/*$('#txtMon').focusout(function(){
+		     
+		       	$('#txtMon').focusout(function(){
 		       		var t_Mon = trim($(this).val());
 		        	var myDate = new Date(dec(t_Mon.substr( 0,3))+1911,dec(t_Mon.substr( 4,5)),0);
 		        	var lastday=myDate.getDate();	//取當月最後一天
@@ -105,22 +66,28 @@
 		       			$('#txtBdate').val(t_Mon+'/01');
 		       			$('#txtEdate').val(t_Mon+'/'+lastday);
 		       		}
-		       	});*/
+		       	}); 
             }
             function show_confirm(){
-                if($.trim($('#txtBdate').val()).length>0 || $.trim($('#txtMon').val()).length>0){
-					var r=confirm("你確定要執行嗎?");
-					if (!r){
+               if(emp($('#txtMon').val()) || emp($('#txtSource').val())){
+						alert('資料月份與資料路徑禁止空白');
 						return;
-					}
-  					if(!emp($('#txtNoa').val()))
-						q_func('uccag.gen', $('#txtNoa').val());
-					}
+			   }
+			   	var t_mon=!emp($('#textMon').val())?trim($('#textMon').val()):'#non';
+				var t_vcca=$('#chkVcca').prop('checked')?'1':'#non';
+				var t_rc2a=$('#chkRc2a').prop('checked')?'1':'#non';
+			    var t_proj=q_getPara('sys.project').toUpperCase();
+			    q_func('qtxt.query.uccah', 'uccah.txt,gen,'+t_mon+';'+t_vcca+';'+t_rc2a+';'+t_proj+';'+r_accy);
 			}
-            function q_funcPost(t_func, result) {	//後端傳回
-				$('#txtAccno').val(result.split(';')[0]);
-				$('#txtMemo').val(result.split(';')[1]);
-				alert('作業完畢');
+            function q_funcPost(t_func, result) {
+            	switch(t_func) {
+                    case 'qtxt.query.cust':
+                    	alert('匯入完成');
+                        break;
+                    
+                    default:
+                    	break;
+                }
 		    }
 
             function q_boxClose(s2) {
@@ -136,15 +103,6 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                	case 'rbcheckbdate':
-                		var as = _q_appendData("uccag", "", true);
-						if (as[0] != undefined) {
-							alert('立帳日期與類別已存在【'+as[0].noa+'】!!');
-						}else{
-							rbcheck=true;
-							btnOk();
-						}
-                		break;
                     case q_name:
                         if (q_cur == 4)// 查詢
                             q_Seek_gtPost();
@@ -157,12 +115,10 @@
             	if($('#txtMon').val().length>0){
             		$('#txtBdate').val('');        
             	}
-            	
-            	if(!rbcheck && q_getPara('sys.project').toUpperCase()=='RB'){
-            		q_gt('uccag', "where=^^ bdate='"+$('#txtBdate').val()+"' and noa!='"+$('#txtNoa').val()+"' and typea='"+$('#cmbTypea').val()+"' ^^", 0, 0, 0, "rbcheckbdate");
-            		return;
-            	}
-            	
+            	if(emp($('#txtMon').val()) || emp($('#txtSource').val())){
+						alert('資料月份與資料路徑禁止空白');
+						return;
+			 	}
             	rbcheck=false;
             	
                 $('#txtWorker').val(r_name);
@@ -173,7 +129,7 @@
                 var t_noa = trim($('#txtNoa').val());
 				var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
-					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_uccag')+(t_date.length == 0 ? q_date() : t_date), '/', ''));
+					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_uccah')+(t_date.length == 0 ? q_date() : t_date), '/', ''));
 				else
 					wrServer(t_noa);
             }
@@ -181,7 +137,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-				q_box('uccag_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
+				q_box('uccah_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -306,7 +262,7 @@
 			}
             .dbbm {
                 float: left;
-                width: 700px;
+                width: 600px;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -390,18 +346,14 @@
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewTypea'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewMon'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewDate'> </a></td>
+						<td align="center" style="width:20px; color:black;"><a id='vewChk'>選</a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewMon'>月份</a></td>
 					</tr>
 					<tr>
 						<td>
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
-						<td align="center" id='typea=uccag.typea'>~typea=uccag.typea</td>
 						<td align="center" id='mon'>~mon</td>
-						<td align="center" id='bdate'>~bdate</td>
 					</tr>
 				</table>
 			</div>
@@ -412,48 +364,43 @@
 						<td> </td>
 						<td> </td>
 						<td> </td>
-						<td> </td>
-						<td> </td>
 						<td class="tdZ"> </td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
+						<td><span> </span><a id='lblNoa' class="lbl">單據編號</a></td>
 						<td>
 							<input id="txtNoa" type="text" class="txt c1" />
 						</td>
-						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
+						<td><span> </span><a id='lblDatea' class="lbl">製單日期</a></td>
 						<td>
 							<input id="txtDatea"  type="text" class="txt c1"/>
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblMon' class="lbl" style="font-size:13px;"> </a></td>
+						<td><span> </span><a id='lblMon' class="lbl">資料月份</a></td>
 						<td><input id="txtMon" type="text" class="txt c1" /></td>
-						<td><span> </span><a id='lblTypea' class="lbl"> </a></td>
-						<td><select id="cmbTypea" class="txt c1" > </select></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblDate' class="lbl" style="font-size:13px;"> </a></td>
-						<td colspan="2">
-							<input id="txtBdate" type="text" class="txt c1" style="width: 45%;" />
-							<a class="lbl edate" style="float: left;">~</a>
-							<input id="txtEdate" type="text" class="txt c1 edate" style="width: 45%;"/>
+						<td><span> </span><a id='lblSource' class="lbl">資料路徑</a></td>
+						<td colspan="3">
+							<input id="txtSource" type="text" class="txt c1"/>
 						</td>
 					</tr>
-					<tr class="tgg">
-						<td><span> </span><a id='lblTgg' class="lbl tgg"> </a></td>
-                        <td><input id="txtTggno" type="text" class="txt c1 tgg"/></td>
+					<tr>
+						<td></td>
+						<td colspan="2"><input id="chkVcca" type="checkbox">
+						<span> </span><a  id='lblVcca' style="color: blue;">銷項憑證　　　　</a>
+						<input id="chkRc2a" type="checkbox">
+						<span> </span ><a id='lblRc2a' style="color: blue;">進項憑證</a></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblAccno' class="lbl btn"> </a></td>
-						<td><input id="txtAccno"  type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
+						<td></td>
+						<td><input id="btnGen" type="button" value="資料匯入" style="width: 95%;" /></td>
+						<td><span> </span><a id='lblWorker' class="lbl">操作者</a></td>
 						<td><input id="txtWorker"  type="text" class="txt c1"/></td>
-						<td><input id="btnGen" type="button" /></td>
-						<td colspan="2" align="left"><a id="lblPunchline" style="color: #FF55A8;font-weight: bolder;font-size:medium;"> </a></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
+						<td><span> </span><a id='lblMemo' class="lbl">備註</a></td>
 						<td colspan="3">
 							<input id="txtMemo" type="text" class="txt c1" />
 						</td>
