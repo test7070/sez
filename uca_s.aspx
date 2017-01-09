@@ -26,9 +26,13 @@
 				$('#btnSearch').before($('#btnSearch').clone().attr('id', 'btnSearch2').show()).hide();
 				$('#btnSearch2').click(function(){
 					var t_noa = $.trim($('#txtNoa').val());
+					var t_product = $.trim($('#txtProduct').val());
 					if(t_noa.length > 0){
-						var t_where = "where=^^ left(noa,"+t_noa.length+")='" + t_noa + "' ^^ ";
+						var t_where = "where=^^ left(noa,"+t_noa.length+")='" + t_noa + "' ^^ stop=10 ";
 						q_gt('uca', t_where, 0, 0, 0, "SeekNoaInUca", r_accy);
+					}else if(t_product.length > 0){
+						var t_where = "where=^^ product like '%" + t_product + "%' ^^ stop=10 ";
+						q_gt('uca', t_where, 0, 0, 0, "SeekProductInUca", r_accy);
 					}else{
 						$('#btnSearch').click();
 					}
@@ -51,6 +55,16 @@
 							$('#btnSearch').click();
 						}else{
 							var t_where = "noa='" + $.trim($('#txtNoa').val()) + "'";
+							parent.b_window = false;
+							parent.q_box("ucc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucc', "95%", "95%", q_getMsg('popUcc'));
+						}
+						break;
+					case 'SeekProductInUca':
+						var as = _q_appendData("uca", "", true);
+						if (as[0] != undefined) {
+							$('#btnSearch').click();
+						}else{
+							var t_where = "product like '%" + $.trim($('#txtProduct').val()) + "%'";
 							parent.b_window = false;
 							parent.q_box("ucc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucc', "95%", "95%", q_getMsg('popUcc'));
 						}
@@ -83,12 +97,13 @@
 				t_style = $('#txtStyle').val();
 
 				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +
-										q_sqlPara2("product", t_product) +
 										q_sqlPara2("processno", t_processno) +
 										q_sqlPara2("typea", t_typea) +
 										q_sqlPara2("groupano", t_groupano) +
 										q_sqlPara2("tggno", t_tggno);
-										
+				
+				if (product.length > 0)
+					t_where += " and charindex('" + product + "',product)>0";
 				if (t_style.length > 0)
 					t_where += " and charindex('" + t_style + "',style)>0";
 				if (t_process.length > 0)
