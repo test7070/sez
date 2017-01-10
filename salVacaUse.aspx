@@ -292,14 +292,14 @@
                	if(dec($('#txtHr_used').val())==0)
                 	change_hr_used();
                 	
-                if(q_getPara('sys.project').toUpperCase()=='DC'){
+                /*if(q_getPara('sys.project').toUpperCase()=='DC'){ //1060110後面不適用
                 	if(r_rank<8 && r_userno!='040136'){
                 		if($('#txtDatea').val()>$('#txtBdate').val() || $('#txtDatea').val()>$('#txtEdate').val()){
                 			alert('請假日期不得在申請日期之前!!');
                     		return;
                 		}
                 	}
-                }
+                }*/
                 	
                 var t_noa = trim($('#txtNoa').val());
 
