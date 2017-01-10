@@ -15,13 +15,32 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-			if (location.href.indexOf('?') < 0) {
-				location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
-			}
+			var t_mech = '',t_ucc='';
 			$(document).ready(function() {
 				q_getId();
-				q_gf('', 'z_cutp');
+				q_gt('ucc', '', 0, 0, 0, "");
+				
 			});
+			function q_gtPost(t_name) {
+				switch (t_name) {
+					case 'ucc':
+						t_ucc = '';
+						var as = _q_appendData("ucc", "", true);
+						for ( i = 0; i < as.length; i++) {
+							t_ucc += (t_ucc.length > 0 ? '&' : '') + as[i].noa + '@' + as[i].noa;
+						}
+						q_gt('mech', '', 0, 0, 0, "");	
+						break;
+					case 'mech':
+						t_mech = '';
+						var as = _q_appendData("mech", "", true);
+						for ( i = 0; i < as.length; i++) {
+							t_mech += (t_mech.length > 0 ? '&' : '') + as[i].noa + '@' + as[i].mech;
+						}
+						q_gf('', 'z_cutp');
+						break;
+				}
+			}
 			function q_gfPost() {
 				$('#q_report').q_report({
 					fileName : 'z_cutp',
@@ -34,19 +53,19 @@
 						name : 'accy',
 						value : r_accy
 					}, {
-						type : '6', //[3]
+						type : '6', //[3]       1
 						name : 'xnoa'
 					}, {
-						type : '1', //[4][5]
+						type : '1', //[4][5]    2
 						name : 'date'
 					}, {
-						type : '2', //[6][7]
+						type : '2', //[6][7]    3
 						name : 'tggno',
 						dbf : 'tgg',
 						index : 'noa,comp',
 						src : 'tgg_b.aspx'
 					}, {
-						type : '2', //[8][9]
+						type : '2', //[8][9]     4
 						name : 'mechno',
 						dbf : 'mech',
 						index : 'noa,mech',
@@ -60,20 +79,34 @@
 						name : 's_typea2A',
 						value : q_getPara('cut.type2A')
 					}, {
-						type : '8', //[12]
+						type : '8', //[12]       5
 						name : 'xprintsize',
 						value : "1@".split(',')
 					}, {
-						type : '8', //[13]
+						type : '8', //[13]        6
 						name : 'xprintmemo',
 						value : "1@".split(',')						
 					}, {
 						type : '0', //[14]
 						name : 'proj',
 						value : q_getPara('sys.project')			
-					}]
+					}, {
+						type : '5', //[15]        7
+						name : 'xbproduct',
+						value : t_ucc.split('&')
+					}, {
+						type : '5', //[16]        8
+						name : 'xeproduct',
+						value : t_ucc.split('&')
+					},{
+                        type : '8',//[17]  9
+                        name : 'xmech',
+                        value : t_mech.split('&')
+                    }]
 				});
 				q_popAssign();
+				q_getFormat();
+				q_langShow();
 				
 				if(q_getPara('sys.project')=='pe'){					
 					$('#q_report div div').eq(1).hide();
@@ -92,6 +125,11 @@
 				$('#txtDate1').datepicker();
 				$('#txtDate2').mask('999/99/99');
 				$('#txtDate2').datepicker();
+				
+				$('#Xbproduct select').change(function(e){
+					$('#Xeproduct select').val($('#Xbproduct select').val());
+				});
+				
 				var t_date, t_year, t_month, t_day;
 				t_date = new Date();
 				t_date.setDate(1);
@@ -117,9 +155,6 @@
 			}
 
 			function q_boxClose(s2) {
-			}
-
-			function q_gtPost(s2) {
 			}
 		</script>
 	</head>
