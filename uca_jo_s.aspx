@@ -14,11 +14,20 @@
 			aPop = new Array(
 				['txtNoa', '', 'uca', 'noa,product', 'txtNoa,txtProduct', "uca_b.aspx"],
 				['txtTggno', 'lblTgg', 'tgg', 'noa,nick', 'txtTggno,txtComp', 'tgg_b.aspx'],
-				['txtGroupeno', 'lblGroupeno_jo', 'adsize', 'noa,mon,memo1,memo2', '0txtGroupeno', ''],
-				['txtGroupfno', 'lblGroupfno_jo', 'adsss', 'noa,mon,memo1,memo2', '0txtGroupfno', ''],
-				['txtGroupgno', 'lblGroupgno_jo', 'adknife', 'noa,mon,memo1,memo2', '0txtGroupgno', ''],
-				['txtGrouphno', 'lblGrouphno_jo', 'adpipe', 'noa,mon,memo1,memo2', '0txtGrouphno', ''],
-				['txtGroupino', 'lblGroupino_jo', 'adtran', 'noa,mon,memo1,memo2', '0txtGroupino', ''],
+				['txtGroupeno', '', 'adsize', 'noa,mon,memo1,memo2', '0txtGroupeno', ''],
+				['txtGroupfno', '', 'adsss', 'noa,mon,memo1,memo2', '0txtGroupfno', ''],
+				['txtGroupgno', '', 'adknife', 'noa,mon,memo1,memo2', '0txtGroupgno', ''],
+				['txtGrouphno', '', 'adpipe', 'noa,mon,memo1,memo2', '0txtGrouphno', ''],
+				['txtGroupino', '', 'adtran', 'noa,mon,memo1,memo2', '0txtGroupino', ''],
+				['txtUcolor','','adspec','noa,mon,memo1,memo2','0txtUcolor_',''],
+				['txtScolor','','adly','noa,mon,memo1,memo2','0txtScolor',''],
+				['txtClass','','adly','noa,mon,memo1,memo2','0txtClass',''],
+				['txtClassa','','adly','noa,mon,memo1,memo2','0txtClassa',''],
+				['txtZinc','','adly','noa,mon,memo1,memo2','0txtZinc',''],
+				['txtSizea','','adoth','noa,mon,memo1,memo2','0txtSizea',''],
+				['txtSource','','adpro','noa,mon,memo1,memo2','0txtSource',''],
+				['txtHard','','addime','noa,mon,memo1,memo2','0txtHard',''],
+				
 				['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx'],
 				['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx']
 			);
@@ -107,6 +116,15 @@
 				t_groupgno = $('#txtGroupgno').val();
 				t_grouphno = $('#txtGrouphno').val();
 				t_groupino = $('#txtGroupino').val();
+				t_ucolor = $('#txtUcolor').val();
+				t_scolor = $('#txtScolor').val();
+				t_class = $('#txtClass').val();
+				t_classa = $('#txtClassa').val();
+				t_zinc = $('#txtZinc').val();
+				t_sizea = $('#txtSizea').val();
+				t_sourcer = $('#txtSource').val();
+				t_hard = $('#txtHard').val();
+				
 				t_size = $('#txtSize').val();
 				t_groupdno = $('#cmbGroupdno').val();
 				
@@ -117,11 +135,6 @@
 				t_style = $('#txtStyle').val();
 
 				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +
-										q_sqlPara2("groupeno", t_groupeno) +
-										q_sqlPara2("groupfno", t_groupfno) +
-										q_sqlPara2("groupgno", t_groupgno) +
-										q_sqlPara2("grouphno", t_grouphno) +
-										q_sqlPara2("groupino", t_groupino) +
 										q_sqlPara2("groupdno", t_groupdno) +
 										q_sqlPara2("processno", t_processno) +
 										q_sqlPara2("station", t_stationno) +
@@ -130,9 +143,37 @@
 										q_sqlPara2("tggno", t_tggno);
 				
 				if (t_product.length > 0)
-					t_where += " and charindex('" + product + "',product)>0";
+					t_where += " and charindex('" + t_product + "',product)>0";
 				if (t_spec.length > 0)
-					t_where += " and charindex('" + t_spec + "',spec)>0";	
+					t_where += " and (charindex('" + t_spec + "',spec)>0 or charindex('" + t_spec + "',product)>0) ";
+				if (t_groupeno.length > 0)
+					t_where += " and (charindex('" + t_groupeno + "',groupeno)>0 or charindex('" + t_groupeno + "',product)>0) ";
+				if (t_groupfno.length > 0)
+					t_where += " and (charindex('" + t_groupfno + "',groupfno)>0 or charindex('" + t_groupfno + "',product)>0) ";
+				if (t_groupgno.length > 0)
+					t_where += " and (charindex('" + t_groupgno + "',groupgno)>0 or charindex('" + t_groupgno + "',product)>0) ";
+				if (t_grouphno.length > 0)
+					t_where += " and (charindex('" + t_grouphno + "',grouphno)>0 or charindex('" + t_grouphno + "',product)>0) ";
+				if (t_groupino.length > 0)
+					t_where += " and (charindex('" + t_groupino + "',groupino)>0 or charindex('" + t_groupino + "',product)>0) ";
+					
+				if (t_ucolor.length > 0)
+					t_where += " and charindex('" + t_ucolor + "',product)>0 ";
+				if (t_scolor.length > 0)
+					t_where += " and charindex('" + t_scolor + "',product)>0 ";
+				if (t_class.length > 0)
+					t_where += " and charindex('" + t_class + "',product)>0 ";
+				if (t_classa.length > 0)
+					t_where += " and charindex('" + t_classa + "',product)>0 ";
+				if (t_zinc.length > 0)
+					t_where += " and charindex('" + t_zinc + "',product)>0 ";
+				if (t_sizea.length > 0)
+					t_where += " and charindex('" + t_sizea + "',product)>0 ";
+				if (t_sourcer.length > 0)
+					t_where += " and charindex('" + t_sourcer + "',product)>0 ";
+				if (t_hard.length > 0)
+					t_where += " and charindex('" + t_hard + "',product)>0 ";				
+				
 				if (t_style.length > 0)
 					t_where += " and charindex('" + t_style + "',style)>0";
 				if (t_size.length > 0)
@@ -155,85 +196,95 @@
 				BACKGROUND-COLOR: #76a2fe
 			}
 			.c1{
-				width:215px;
+				width:200px;
 				font-size:medium;
 			}
 		</style>
 	</head>
 	<body>
-		<div style='width:400px; text-align:center;padding:15px;' >
+		<div style='width:700px; text-align:center;padding:15px;' >
 			<table id="seek" border="1" cellpadding='3' cellspacing='2' style='width:100%;' >
 				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblNoa'> </a></td>
+					<td class='seek' style="width:130px;"><a id='lblNoa'> </a></td>
 					<td><input class="txt c1" id="txtNoa" type="text"/></td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblProduct'> </a></td>
+					<td class='seek'  style="width:130px;"><a id='lblProduct'> </a></td>
 					<td><input class="txt c1" id="txtProduct" type="text" /></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblSpec_jo'>型號</a></td>
+					<td class='seek'><a id='lblSpec_jo'>型號</a></td>
 					<td><input class="txt c1" id="txtSpec" type="text" /></td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblGroupeno_jo'>車縫</a></td>
+					<td class='seek'><a id='lblGroupeno_jo'>車縫 Đường may</a></td>
 					<td><input class="txt c1" id="txtGroupeno" type="text" /></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblGroupfno_jo'>護片</a></td>
+					<td class='seek'><a id='lblGroupfno_jo'>護片Phụ kiện</a></td>
 					<td><input class="txt c1" id="txtGroupfno" type="text" /></td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblGroupgno_jo'>大弓</a></td>
+					<td class='seek'><a id='lblGroupgno_jo'>大弓 Gọng</a></td>
 					<td><input class="txt c1" id="txtGroupgno" type="text" /></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblGrouphno_jo'>中束</a></td>
+					<td class='seek'><a id='lblGrouphno_jo'>中束 Bông</a></td>
 					<td><input class="txt c1" id="txtGrouphno" type="text" /></td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblGroupino_jo'>座管</a></td>
+					<td class='seek'><a id='lblGroupino_jo'>座管 Ống yên</a></td>
 					<td><input class="txt c1" id="txtGroupino" type="text" /></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblSize_jo'>尺寸</a></td>
-					<td><input class="txt c1" id="txtSize" type="text" /></td>
+					<td class='seek'><a id='lblUcolor_jo'>車縫線顏色<br>Màu chỉ may</a></td>
+					<td><input class="txt c1" id="txtUcolor" type="text" /></td>
+					<td class='seek'><a id='lblScolor_jo'>皮料1 Da1</a></td>
+					<td><input class="txt c1" id="txtScolor" type="text" /></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblStyle_jo'>車種</a></td>
+					<td class='seek'><a id='lblClass_jo'>皮料2 Da2</a></td>
+					<td><input class="txt c1" id="txtClass" type="text" /></td>
+					<td class='seek'><a id='lblClassa_jo'>皮料3 Da3</a></td>
+					<td><input class="txt c1" id="txtClassa" type="text" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'><a id='lblZinc_jo'>皮料4 Da4</a></td>
+					<td><input class="txt c1" id="txtZinc" type="text" /></td>
+					<td class='seek'><a id='lblSizea_jo'>網烙印 In ép</a></td>
+					<td><input class="txt c1" id="txtSizea" type="text" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'><a id='lblSource_jo'>轉印 In ủi</a></td>
+					<td><input class="txt c1" id="txtSource" type="text" /></td>
+					<td class='seek'><a id='lblHard_jo'>電鍍 mạ</a></td>
+					<td><input class="txt c1" id="txtHard" type="text" /></td>
+				</tr>
+				
+				<tr class='seek_tr'>
+					<td class='seek'><a id='lblSize_jo'>尺寸</a></td>
+					<td><input class="txt c1" id="txtSize" type="text" /></td>
+					<td class='seek'><a id='lblStyle_jo'>車種</a></td>
 					<td><input class="txt c1" id="txtStyle" type="text" /></td>
 				</tr>
+				
 				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblTypea'> </a></td>
+					<td class='seek'><a id='lblTypea'> </a></td>
 					<td><select id="cmbTypea" class="c1" > </select></td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblGroupano'> </a></td>
+					<td class='seek'><a id='lblGroupano'> </a></td>
 					<td><select id="cmbGroupano" class="c1" > </select></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblGroupdno_jo'>銷售屬性</a></td>
+					<td class='seek'><a id='lblGroupdno_jo'>銷售屬性</a></td>
 					<td><select id="cmbGroupdno" class="c1" > </select></td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblProcessno'> </a></td>
+					<td class='seek'><a id='lblTggno'> </a></td>
 					<td>
-						<input class="txt" id="txtProcessno" type="text" style="width:90px; font-size:medium;" />
-						<input class="txt" id="txtProcess" type="text" style="width:115px; font-size:medium;" />
+						<input class="txt" id="txtTggno" type="text" style="width:80px; font-size:medium;" />
+						<input class="txt" id="txtComp" type="text" style="width:105px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblStation'>工作線別</a></td>
+					<td class='seek'><a id='lblProcessno'> </a></td>
 					<td>
-						<input class="txt" id="txtStationno" type="text" style="width:90px; font-size:medium;" />
-						<input class="txt" id="txtStation" type="text" style="width:115px; font-size:medium;" />
+						<input class="txt" id="txtProcessno" type="text" style="width:80px; font-size:medium;" />
+						<input class="txt" id="txtProcess" type="text" style="width:105px; font-size:medium;" />
 					</td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblTggno'> </a></td>
+					<td class='seek'><a id='lblStation'>工作線別</a></td>
 					<td>
-						<input class="txt" id="txtTggno" type="text" style="width:90px; font-size:medium;" />
-						<input class="txt" id="txtComp" type="text" style="width:115px; font-size:medium;" />
+						<input class="txt" id="txtStationno" type="text" style="width:80px; font-size:medium;" />
+						<input class="txt" id="txtStation" type="text" style="width:105px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>

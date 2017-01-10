@@ -27,6 +27,9 @@
 
                 bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
                 q_mask(bbmMask);
+                
+                q_cmbParse("cmbStype", '@全部,3@外銷,4@樣品');
+                q_cmbParse("cmbEnda", '@全部,Y@結案,N@未結案');
 
                 $('#txtBdate').focus();
             }
@@ -38,18 +41,25 @@
                 t_custno = $('#txtCustno').val();
                 t_salesno = $('#txtSalesno').val();
                 t_comp = $('#txtComp').val();
+                t_stype = $('#cmbStype').val();
                 t_quatno = $('#txtQuatno').val();
                 t_contract = $('#txtContract').val();
+                t_enda = $('#cmbEnda').val();
 
                 t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;
                 /// 100.  .
                 t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;
                 /// 100.  .
 
-                var t_where = " 1=1 " + q_sqlPara2("odate", t_bdate, t_edate) + q_sqlPara2("noa", t_noa) + q_sqlPara2("comp", t_comp) + q_sqlPara2("salesno", t_salesno) + q_sqlPara2("custno", t_custno)  + q_sqlPara2("contract", t_contract);
+                var t_where = " 1=1 " + q_sqlPara2("odate", t_bdate, t_edate) + q_sqlPara2("noa", t_noa) + q_sqlPara2("comp", t_comp) + q_sqlPara2("stype", t_stype) + q_sqlPara2("salesno", t_salesno) + q_sqlPara2("custno", t_custno)  + q_sqlPara2("contract", t_contract);
                 if (t_quatno.length > 0)
                     t_where += " and exists(select noa from ordes" + r_accy + " where ordes" + r_accy + ".noa=orde" + r_accy + ".noa and ordes" + r_accy + ".quatno='" + t_quatno + "')";
-
+				if(t_enda=='Y')
+                	t_where += " and isnull(enda,0)=1 ";
+                if(t_enda=='N')
+                	t_where += " and isnull(enda,0)=0 ";
+				
+				
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
             }
@@ -73,6 +83,10 @@
 						<span style="display:inline-block; vertical-align:middle">～</span>
 						<input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" />
 					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblStype'> </a></td>
+					<td><select id="cmbStype" class="txt c1" style="font-size:medium;"> </select></td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblCustno'> </a></td>
@@ -101,6 +115,10 @@
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblContract'> </a></td>
 					<td><input class="txt" id="txtContract" type="text" style="width:215px; font-size:medium;" /></td>
+				</tr>
+				<tr class='seek_tr pk'>
+					<td class='seek'  style="width:20%;"><a id='lblEnda'>結案</a></td>
+					<td><select id="cmbEnda" class="txt c1" style="font-size:medium;"> </select></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
