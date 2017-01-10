@@ -184,12 +184,12 @@
 						<td><input class="txt" id="txtGroupino" type="text" style="width:90px;" /></td>
 					</tr>
 					<tr>
-						<td>車縫線顏色<br>Màu chỉ may</td>
-						<td><input class="txt" id="txtUcolor" type="text" style="width:90px;" /></td>
 						<td>皮料1<br>Da1</td>
 						<td><input class="txt" id="txtScolor" type="text" style="width:90px;" /></td>
 						<td>皮料2<br>Da2</td>
 						<td><input class="txt" id="txtClass" type="text" style="width:90px;" /></td>
+						<td>車縫線顏色<br>Màu chỉ may</td>
+						<td><input class="txt" id="txtUcolor" type="text" style="width:90px;" /></td>
 					</tr>
 					<tr>
 						<td>皮料3<br>Da3</td>
