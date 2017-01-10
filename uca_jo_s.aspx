@@ -2,7 +2,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -14,7 +14,13 @@
 			aPop = new Array(
 				['txtNoa', '', 'uca', 'noa,product', 'txtNoa,txtProduct', "uca_b.aspx"],
 				['txtTggno', 'lblTgg', 'tgg', 'noa,nick', 'txtTggno,txtComp', 'tgg_b.aspx'],
-				['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx']
+				['txtGroupeno', 'lblGroupeno_jo', 'adsize', 'noa,mon,memo1,memo2', '0txtGroupeno', ''],
+				['txtGroupfno', 'lblGroupfno_jo', 'adsss', 'noa,mon,memo1,memo2', '0txtGroupfno', ''],
+				['txtGroupgno', 'lblGroupgno_jo', 'adknife', 'noa,mon,memo1,memo2', '0txtGroupgno', ''],
+				['txtGrouphno', 'lblGrouphno_jo', 'adpipe', 'noa,mon,memo1,memo2', '0txtGrouphno', ''],
+				['txtGroupino', 'lblGroupino_jo', 'adtran', 'noa,mon,memo1,memo2', '0txtGroupino', ''],
+				['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx'],
+				['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx']
 			);
 			$(document).ready(function() {
 				main();
@@ -44,6 +50,8 @@
 				q_getFormat();
 				q_langShow();
 				q_cmbParse("cmbTypea", '@全部,' + q_getPara('uca.typea'));
+				q_cmbParse("cmbGroupdno", ',ODM,OBM,OEM');
+				
 				$('#txtNoa').focus();
 			}
 
@@ -90,6 +98,18 @@
 				t_product = $('#txtProduct').val();
 				t_processno = $('#txtProcessno').val();
 				t_process = $('#txtProcess').val();
+				t_stationno = $('#txtStationno').val();
+				t_station = $('#txtStation').val();
+				
+				t_spec = $('#txtSpec').val();
+				t_groupeno = $('#txtGroupeno').val();
+				t_groupfno = $('#txtGroupfno').val();
+				t_groupgno = $('#txtGroupgno').val();
+				t_grouphno = $('#txtGrouphno').val();
+				t_groupino = $('#txtGroupino').val();
+				t_size = $('#txtSize').val();
+				t_groupdno = $('#cmbGroupdno').val();
+				
 				t_typea = $('#cmbTypea').val();
 				t_tggno = $('#txtTggno').val();
 				t_comp = $('#txtComp').val();
@@ -97,17 +117,30 @@
 				t_style = $('#txtStyle').val();
 
 				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +
+										q_sqlPara2("groupeno", t_groupeno) +
+										q_sqlPara2("groupfno", t_groupfno) +
+										q_sqlPara2("groupgno", t_groupgno) +
+										q_sqlPara2("grouphno", t_grouphno) +
+										q_sqlPara2("groupino", t_groupino) +
+										q_sqlPara2("groupdno", t_groupdno) +
 										q_sqlPara2("processno", t_processno) +
+										q_sqlPara2("station", t_stationno) +
 										q_sqlPara2("typea", t_typea) +
 										q_sqlPara2("groupano", t_groupano) +
 										q_sqlPara2("tggno", t_tggno);
 				
 				if (t_product.length > 0)
 					t_where += " and charindex('" + product + "',product)>0";
+				if (t_spec.length > 0)
+					t_where += " and charindex('" + t_spec + "',spec)>0";	
 				if (t_style.length > 0)
 					t_where += " and charindex('" + t_style + "',style)>0";
+				if (t_size.length > 0)
+					t_where += " and charindex('" + t_size + "',size)>0";	
 				if (t_process.length > 0)
 					t_where += " and charindex('" + t_process + "',process)>0";
+				if (t_station.length > 0)
+					t_where += " and charindex('" + t_station + "',station)>0";
 				if (t_comp.length > 0)
 					t_where += " and charindex('" + t_comp + "',comp)>0";
 				t_where = ' where=^^' + t_where + '^^ ';
@@ -139,22 +172,61 @@
 					<td><input class="txt c1" id="txtProduct" type="text" /></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblStyle'> </a></td>
+					<td class='seek' style="width:20%;"><a id='lblSpec_jo'>型號</a></td>
+					<td><input class="txt c1" id="txtSpec" type="text" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek' style="width:20%;"><a id='lblGroupeno_jo'>車縫</a></td>
+					<td><input class="txt c1" id="txtGroupeno" type="text" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek' style="width:20%;"><a id='lblGroupfno_jo'>護片</a></td>
+					<td><input class="txt c1" id="txtGroupfno" type="text" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek' style="width:20%;"><a id='lblGroupgno_jo'>大弓</a></td>
+					<td><input class="txt c1" id="txtGroupgno" type="text" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek' style="width:20%;"><a id='lblGrouphno_jo'>中束</a></td>
+					<td><input class="txt c1" id="txtGrouphno" type="text" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek' style="width:20%;"><a id='lblGroupino_jo'>座管</a></td>
+					<td><input class="txt c1" id="txtGroupino" type="text" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek' style="width:20%;"><a id='lblSize_jo'>尺寸</a></td>
+					<td><input class="txt c1" id="txtSize" type="text" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek' style="width:20%;"><a id='lblStyle_jo'>車種</a></td>
 					<td><input class="txt c1" id="txtStyle" type="text" /></td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek' style="width:20%;"><a id='lblTypea'> </a></td>
-					<td><select id="cmbTypea" class="c1" ></select></td>
+					<td><select id="cmbTypea" class="c1" > </select></td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek' style="width:20%;"><a id='lblGroupano'> </a></td>
-					<td><select id="cmbGroupano" class="c1" ></select></td>
+					<td><select id="cmbGroupano" class="c1" > </select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek' style="width:20%;"><a id='lblGroupdno_jo'>銷售屬性</a></td>
+					<td><select id="cmbGroupdno" class="c1" > </select></td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek' style="width:20%;"><a id='lblProcessno'> </a></td>
 					<td>
 						<input class="txt" id="txtProcessno" type="text" style="width:90px; font-size:medium;" />
 						<input class="txt" id="txtProcess" type="text" style="width:115px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek' style="width:20%;"><a id='lblStation'>工作線別</a></td>
+					<td>
+						<input class="txt" id="txtStationno" type="text" style="width:90px; font-size:medium;" />
+						<input class="txt" id="txtStation" type="text" style="width:115px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
