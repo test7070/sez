@@ -39,7 +39,8 @@
 				['txtProductno_', 'btnProduct_', 'ucx', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucx_b.aspx'],
 				['txtSalesno', 'lblSales_r', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 				['txtCno', 'lblAcomp_r', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
-				['txtCustno', 'lblCust_r', 'cust', 'noa,nick,paytype,trantype,tel,fax,zip_comp,addr_fact', 'txtCustno,txtComp,txtPaytype,cmbTrantype,txtTel,txtFax,txtPost,txtAddr', 'cust_b.aspx'],
+				['txtCustno', 'lblCust_r', 'cust', 'noa,nick,paytype,trantype,tel,fax,zip_comp,addr_fact,custno2,cust2', 'txtCustno,txtComp,txtPaytype,cmbTrantype,txtTel,txtFax,txtPost,txtAddr,txtCustno2,txtCust2', 'cust_b.aspx'],
+				['txtCustno2', 'lblCust2', 'cust', 'noa,nick', 'txtCustno2,txtCust2', 'cust_b.aspx'],
 				['ordb_txtTggno_', '', 'tgg', 'noa,comp', 'ordb_txtTggno_,ordb_txtTgg_', ''],
 				['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
 				['txtAgentno', 'lblAgent_r', 'cust', 'noa,nick','txtAgentno,txtAgent', 'cust_b.aspx'],
@@ -2696,6 +2697,9 @@
 						<td colspan='2'><input id="txtUmmno" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id="lblCust2_r" class="lbl btn">收款客戶</a></td>
+						<td><input id="txtCustno2" type="text" class="txt c1"/></td>
+						<td><input id="txtCust2" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblFactory_r' class="lbl btn">Factory</a></td>
 						<td><input id="txtGdate" type="text" class="txt c1" /></td>
 						<td><input id="txtGtime" type="text" class="txt c1" /></td>
@@ -2704,7 +2708,6 @@
 							<input id="txtOrdcno" type="text" class="txt c1" />
 							<input id="txtMemo2" type="hidden" class="txt c1" /><!--越南訂單號-->
 						</td>
-						<td><input id="btnOrdc" type="button" value="轉採購單" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblWorker_r' class="lbl">Operator</a></td>
@@ -2719,6 +2722,7 @@
 							<input id="chkCancel" type="checkbox"/>
 							<span> </span><a id='lblCancel_r'>Cancel</a>
 							<input id="btnVccdate" type="button" value="預交日試算">
+							<td><input id="btnOrdc" type="button" value="轉採購單" /></td>
 						</td>
 					</tr>
 					<tr>
