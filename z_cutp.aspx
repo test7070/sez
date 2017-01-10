@@ -102,6 +102,10 @@
                         type : '8',//[17]  9
                         name : 'xmech',
                         value : t_mech.split('&')
+                    },{
+                        type : '8',//[18]  10
+                        name : 'xoption',
+                        value : 'cut@裁剪作業&cubm@機台排程'.split('&')
                     }]
 				});
 				q_popAssign();
