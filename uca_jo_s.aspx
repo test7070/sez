@@ -27,6 +27,8 @@
 				['txtSizea','','adoth','noa,mon,memo1,memo2','0txtSizea',''],
 				['txtSource','','adpro','noa,mon,memo1,memo2','0txtSource',''],
 				['txtHard','','addime','noa,mon,memo1,memo2','0txtHard',''],
+				['txtSpec','','adsec','noa,memo','0txtSpec',''],
+				['txtStyle','','adpro2','memo','0txtStyle',''],
 				
 				['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx'],
 				['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx']
