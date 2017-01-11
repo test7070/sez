@@ -23,7 +23,7 @@
 			var q_readonlyt = [];
 			var bbmNum = [['txtTotal',15,3,1]];
 			var bbsNum = [['txtWeight',10,3,1]];
-			var bbtNum = [['textSize1', 10, 3, 1], ['textSize2', 10, 2, 1], ['textSize3', 10, 3, 1], ['textSize4', 10, 2, 1],['txtGweight',10,3,1],['txtWeight',10,3,1]];
+			var bbtNum = [['textSize1', 10, 3, 1], ['textSize2', 10, 2, 1], ['textSize3', 10, 3, 1], ['textSize4', 10, 2, 1],['txtGweight',10,0,1],['txtWeight',10,0,1]];
 			var bbmMask = [];
 			var bbsMask = [];
 			var bbtMask = [];
@@ -408,9 +408,9 @@
 				}
 				var t_gweight = 0;
 				for(var i=0;i<q_bbtCount;i++){
-					t_gweight +=dec($('#txtGweight__'+i).val());
+					t_gweight += q_float('txtGweight__'+i);
 				}
-				$('#txtTotal').val(t_gweight);
+				$('#txtTotal').val(round(t_gweight,0));
 			}
 
 			function _btnSeek() {
