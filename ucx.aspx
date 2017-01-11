@@ -1113,9 +1113,11 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblSpec" class="lbl"> </a></td>
-						<td colspan='3'><input id="txtSpec" type="text" class="txt c1"/></td>
+						<td><input id="txtSpec" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblUnit" class="lbl"> </a></td>
-						<td><input id="txtUnit" type="text" class="txt c1" style="width: 65%;"/></td>
+						<td><input id="txtUnit" type="text" class="txt c1" style="width: 50%;"/></td>
+						<td><span> </span><a id="lblUweight" class="lbl"> </a></td>
+						<td><input id="txtUweight" type="text" class="txt c1 num"/></td>
 					</tr>
 					<tr>
 						<td>
@@ -1128,14 +1130,6 @@
 						</td>
 						<td><span> </span><a id="lblPrice" class="lbl"> </a></td>
 						<td><input id="txtPrice" type="text" class="txt num c1"/></td>
-						<td><span> </span><a id="lblUweight" class="lbl"> </a></td>
-						<td><input id="txtUweight" type="text" class="txt c1 num"/></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblStyle" class="lbl"> </a></td>
-						<td><input id="txtStyle" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblGroupano" class="lbl"> </a></td>
-						<td><select id="cmbGroupano" class="txt c1" style="font-size: medium;"> </select></td>
 						<td><span> </span><a id="lblStdmount" class="lbl" > </a></td>
 						<td><input id="txtStdmount" type="text" class="txt c1 num" style="width:30%;"/>
 							<span style="float: left;"> </span>
@@ -1143,6 +1137,14 @@
 							<span style="float: left;"> </span>
 							<input id="txtSafemount" type="text" class="txt c1 num" style="width:30%;"/>
 						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblStyle" class="lbl"> </a></td>
+						<td><input id="txtStyle" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblGroupano" class="lbl"> </a></td>
+						<td><select id="cmbGroupano" class="txt c1" style="font-size: medium;"> </select></td>
+						<td><span> </span><a id="lblOrdeno" class="lbl"> </a></td>
+						<td><input id="txtOrdeno" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblProcess" class="lbl btn"> </a></td>
