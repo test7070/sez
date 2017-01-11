@@ -27,6 +27,8 @@
 				['txtSizea','','adoth','noa,mon,memo1,memo2','0txtSizea',''],
 				['txtSource','','adpro','noa,mon,memo1,memo2','0txtSource',''],
 				['txtHard','','addime','noa,mon,memo1,memo2','0txtHard',''],
+				['txtSpec','','adsec','noa,memo','0txtSpec',''],
+				['txtStyle','','adpro2','memo','0txtStyle',''],
 				
 				['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx'],
 				['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx']
@@ -231,20 +233,20 @@
 				<tr class='seek_tr'>
 					<td class='seek'><a id='lblUcolor_jo'>車縫線顏色<br>Màu chỉ may</a></td>
 					<td><input class="txt c1" id="txtUcolor" type="text" /></td>
-					<td class='seek'><a id='lblScolor_jo'>皮料1 Da1</a></td>
-					<td><input class="txt c1" id="txtScolor" type="text" /></td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'><a id='lblClass_jo'>皮料2 Da2</a></td>
-					<td><input class="txt c1" id="txtClass" type="text" /></td>
-					<td class='seek'><a id='lblClassa_jo'>皮料3 Da3</a></td>
-					<td><input class="txt c1" id="txtClassa" type="text" /></td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'><a id='lblZinc_jo'>皮料4 Da4</a></td>
-					<td><input class="txt c1" id="txtZinc" type="text" /></td>
 					<td class='seek'><a id='lblSizea_jo'>網烙印 In ép</a></td>
 					<td><input class="txt c1" id="txtSizea" type="text" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'><a id='lblScolor_jo'>皮料1 Da1</a></td>
+					<td><input class="txt c1" id="txtScolor" type="text" /></td>
+					<td class='seek'><a id='lblClass_jo'>皮料2 Da2</a></td>
+					<td><input class="txt c1" id="txtClass" type="text" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'><a id='lblClassa_jo'>皮料3 Da3</a></td>
+					<td><input class="txt c1" id="txtClassa" type="text" /></td>
+					<td class='seek'><a id='lblZinc_jo'>皮料4 Da4</a></td>
+					<td><input class="txt c1" id="txtZinc" type="text" /></td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'><a id='lblSource_jo'>轉印 In ủi</a></td>

@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -249,6 +249,10 @@
 				if (q_getPara('sys.menu').substr(0,3)!='qra'){
 					$('#lblTranadd').hide()
 					$('#txtTranadd').hide()
+				}
+				
+				if (q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO'){
+					$('.cust2').show();
 				}
 			}
 			
@@ -843,6 +847,7 @@
 				_bbsAssign();
 				HiddenTreat();
 				refreshBbm();
+				stype_chang();
 			}
 
 			function btnIns() {
@@ -854,6 +859,7 @@
 				$('#cmbTypea').val('1');
 				$('#txtDatea').focus();
 				//$('#cmbTaxtype').val('1');
+				stype_chang();
 				var t_where = "where=^^ 1=1  ^^";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
 			}
@@ -1337,6 +1343,9 @@
 						<td class="td8"><input id="txtTotal" type="text" class="txt num c1 istax"/></td>
 					</tr>
 					<tr>
+						<td class="cust2" style="display: none;"><span> </span><a id="lblCust2" class="lbl btn"> </a></td>
+						<td class="cust2" style="display: none;"><input id="txtCustno2" type="text" class="txt c1"/></td>
+						<td class="cust2" style="display: none;"><input id="txtComp2" type="text" class="txt c1"/></td>
 						<td class="td1"><span> </span><a id='lblFloata' class="lbl"> </a></td>
 						<td class="td2"><select id="cmbCoin" style="width: 100%;" onchange='coin_chg()'> </select></td>
 						<td class="td3"><input id="txtFloata" type="text" class="txt num c1"/></td>
