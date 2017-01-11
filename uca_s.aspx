@@ -103,7 +103,7 @@
 										q_sqlPara2("tggno", t_tggno);
 				
 				if (t_product.length > 0)
-					t_where += " and charindex('" + product + "',product)>0";
+					t_where += " and charindex('" + t_product + "',product)>0";
 				if (t_style.length > 0)
 					t_where += " and charindex('" + t_style + "',style)>0";
 				if (t_process.length > 0)
