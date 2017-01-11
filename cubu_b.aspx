@@ -253,6 +253,7 @@
 						getTheory(n);
 					});
 				}
+				bbsRefresh();
 			}
 
 			function btnOk() {
@@ -395,6 +396,7 @@
 					q_gt('uccy', t_where, 0, 0, 0, 'deleUccy', r_accy);
 				}
 				TotWeight();
+				bbsRefresh();
 			}
 			function TotWeight(){
 				var totWeight = 0;
@@ -501,8 +503,13 @@
 
 			function btnPlus(org_htm, dest_tag, afield) {
 				_btnPlus(org_htm, dest_tag, afield);
+				bbsRefresh();
 				if (q_tables == 's')
 					bbsAssign();
+			}
+			function bbsRefresh(){
+				if(q_getPara('sys.project').toUpperCase()=='RS')
+					$('.rs_hide').hide();
 			}
 		</script>
 		<style type="text/css">
@@ -564,7 +571,7 @@
 						<br>
 						<a id='lblSpec'></a>
 					</td>
-					<td align="center" style="width:180px;"><a id='lblSize'></a></td>
+					<td align="center" style="width:180px;" class="rs_hide"><a id='lblSize'></a></td>
 					<td align="center" style="width:80px;"><a id='lblMount'></a></td>
 					<td align="center" style="width:120px;"><a id='lblWeight'></a><br><a id='totWeight'></a></td>
 					<td align="center" style="width:120px;display:none;"><a id='lblInweight'></a></td>
@@ -614,7 +621,7 @@
 						<input type="text" id="txtLengthb.*" class="num" style="width:19%;"/>
 						<input type="text" id="txtSpec.*" class="txt c4"/>
 					</td>
-					<td><input type="text" id="txtSize.*" class="txt c4"/></td>
+					<td class="rs_hide"><input type="text" id="txtSize.*" class="txt c4"/></td>
 					<td><input type="text" id="txtMount.*" class="txt c1 num"/></td>
 					<td><input type="text" id="txtWeight.*" class="txt c1 num"/></td>
 					<td style="display:none;">
