@@ -114,6 +114,10 @@
 				q_mask(bbmMask);
 				q_cmbParse("cmbTaxtype", q_getPara('vcca.taxtype'));
 				
+				if(q_db.toUpperCase()=="ST2"){
+					$('.isST2').show();
+				}
+				
 				if(q_getPara('sys.project').toUpperCase()=='VU')
 					$('#chkAtax').show();
 				
@@ -1305,6 +1309,10 @@
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl" > </a></td>
 						<td colspan='5'><textarea id="txtMemo" rows="3" class="txt c1" style="height: 50px;" > </textarea></td>
+					</tr>
+					<tr class="isST2" style="display: none;">
+						<td></td>
+						<td colspan='4'><input id="txtProduct" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
