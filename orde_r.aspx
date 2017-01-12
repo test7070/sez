@@ -1227,6 +1227,15 @@
 						getpdate(k);
 				}
 				
+				//106/01/12 預交日空 抓期望交期 沒有寫入3個月後
+				for(var k=0;k<q_bbsCount;k++){
+					if(emp($('#txtDatea_'+k).val()) && !emp($('#txtDate1').val())){
+						$('#txtDatea_'+k).val($('#txtDate1').val());
+					}else{
+						$('#txtDatea_'+k).val(q_cdn($('#txtOdate').val(),90));
+					}
+				}
+				
 				//1030419 當專案沒有勾 BBM的取消和結案被打勾BBS也要寫入
 				if(!$('#chkIsproj').prop('checked')){
 					for (var j = 0; j < q_bbsCount; j++) {
