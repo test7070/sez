@@ -89,6 +89,7 @@
 					q_cmbParse("combStyle_xy",' ,便品,空白,公版,加工,印刷,私-空白,新版,改版,新版數位樣,新版正式樣,改版數位樣,改版正式樣');
 					$('#combStyle_xy').show();
 					$('#txtStyle').hide();
+					$('.isXY2').show();
 				}
 				
 				q_mask(bbmMask);
@@ -230,6 +231,12 @@
 				$('#btnPack2').click(function() {
 					t_where = "noa='" + $('#txtNoa').val() + "'";
 					q_box("pack2_xy.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pack2', "390px", "650px", $('#btnPack2').val());
+				});
+				
+				$('#btnQrcode').click(function() {
+					if(!emp($('#txtNoa').val())){
+						window.open("./pdf_rc2qrcode_xy.aspx?noa="+$('#txtNoa').val()+"&tablea="+q_name+"&db="+q_db);
+					}
 				});
 			}
 			
@@ -1009,6 +1016,7 @@
 					<td><input	type="text" id="txtVccacc" class="txt c1"/></td>
 					<td><a id='lblWorker' class="lbl"> </a></td>
 					<td><input id="txtWorker" type="text" class="txt c1" style='text-align:center;'/></td>
+					<td style="display: none;" class="isXY2"> <input id="btnQrcode" type="button" value='條碼下載'/></td>
 				</tr>
 				<tr>
 					<td><a id='lblMemo' class="lbl"> </a></td>
