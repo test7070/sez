@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
 		<title></title>
@@ -32,7 +32,7 @@
             $(document).ready(function() {
                 bbmKey = ['acc1'];
                 q_brwCount();
-                q_gt(q_name, q_content, brwCount2+1, 1, 0, '', r_accy + '_' + r_cno)
+                q_gt(q_name, q_content, brwCount2+1, 1, 0, '', r_accy + '_' + r_cno);
             });
 
             function main() {
@@ -81,7 +81,7 @@
                     				alert('【'+as[0].acc1+' '+as[0].acc2 +'】 已存在!');
                     			}
                     			Unlock(1);
-                    		}else{t_para.action=='save'
+                    		}else{t_para.action=='save';
                     			var t_acc1 = t_para.acc1;
                     			var as = _q_appendData('acc', "", true);
                     			if(as[0]!=undefined){
@@ -126,12 +126,16 @@
             function btnOk() {
             	Lock(1,{opacity:0});
             	
+            	//var patt = /^(\d{4})([^\.,.]*)$/g;
+                //$('#txtAcc1').val($('#txtAcc1').val().replace(patt,"$1.$2"));
+                $('#txtAcc1').change();
             	var t_acc1 = $.trim($('#txtAcc1').val());
             	if(t_acc1.length==0){
             		alert('請輸入'+q_getMsg('lblAcc1'));
             		Unlock(1);
             		return;
             	}
+            	
             	if(q_cur==1){
             		var t_where = "where=^^ acc1='" + t_acc1 + "' ^^";
                 	q_gt('acc', t_where, 0, 0, 0, JSON.stringify({action:'save',acc1:t_acc1}), r_accy + '_' + r_cno);
@@ -382,4 +386,5 @@
 		<input id="q_sys" type="hidden" />
 	</body>
 </html>
+
 
