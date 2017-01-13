@@ -24,7 +24,7 @@
             var q_name = "rc2a";
             var decbbs = ['mount', 'price', 'money', 'tax'];
             var decbbm = ['total', 'money', 'tax'];
-            var q_readonly = ['txtMoney', 'txtTotal', 'txtTax', 'txtWorker', 'txtAccno'];
+            var q_readonly = ['txtMoney', 'txtTotal', 'txtTax', 'txtWorker', 'txtAccno','txtProduct'];
             var q_readonlys = [];
             var bbmNum = [['txtMoney', 15, 0], ['txtTax', 15, 0], ['txtTotal', 15, 0]];
             var bbsNum = [['txtMount', 15, 3], ['txtPrice', 15, 3], ['txtMoney', 15, 0]];
@@ -157,6 +157,10 @@
                 bbmMask = [['txtCanceldate', r_picd],['txtCanceltime', '99:99:99'],['txtDatea', r_picd], ['txtMon', r_picm]];
                 q_mask(bbmMask);
                 
+                if(q_db.toUpperCase()=="ST2"){
+					$('.isST2').show();
+				}
+                
                 if(q_getPara('sys.project')=='sh')
                 	q_cmbParse("cmbTaxtype",q_getPara('sys.taxtype'));
                 else 
@@ -261,14 +265,27 @@
                 }
                 
                 if ($.trim($('#txtMon').val()).length == 0)
-                    $('#txtMon').val($('#txtDatea').val().substring(0, 6));
+                	if(r_lenm=='7'){
+                		$('#txtMon').val($('#txtDatea').val().substring(0, 7));
+                	}else{
+                		$('#txtMon').val($('#txtDatea').val().substring(0, 6));
+                	}
+                    
                     
                 $('#txtMon').val($.trim($('#txtMon').val()));
                 
-                if (!(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())) {
-                    alert(q_getMsg('lblMon') + '錯誤。');
-                    Unlock(1);
-                    return;
+                if(r_lenm=='7'){
+	                if (!(/^[0-9]{4}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())) {
+	                    alert(q_getMsg('lblMon') + '錯誤。');
+	                    Unlock(1);
+	                    return;
+	                }
+                }else{
+                	if (!(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())) {
+	                    alert(q_getMsg('lblMon') + '錯誤。');
+	                    Unlock(1);
+	                    return;
+	                }
                 }
                 
                 $('#txtWorker').val(r_name);
@@ -650,6 +667,8 @@
 						<td><input id="txtWorker" type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblAccno' class="lbl"> </a></td>
 						<td><input id="txtAccno"  type="text" class="txt c1" /></td>
+						<td></td>
+						<td><input id="txtProduct" type="text" class="txt c1 isST2" style="display: none;"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl" > </a></td>

@@ -36,7 +36,7 @@
 			brwCount2 = 17;
 			
 			aPop = new Array(
-				['txtProductno_', 'btnProduct_', 'ucx', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucx_b.aspx'],
+				['txtProductno_', 'btnProduct_', 'ucx', 'noa,product,unit,spec,cost', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_,txtSprice_', 'ucx_b.aspx'],
 				['txtSalesno', 'lblSales_r', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 				['txtCno', 'lblAcomp_r', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
 				['txtCustno', 'lblCust_r', 'cust', 'noa,nick,paytype,trantype,tel,fax,zip_comp,addr_fact,custno2,cust2', 'txtCustno,txtComp,txtPaytype,cmbTrantype,txtTel,txtFax,txtPost,txtAddr,txtCustno2,txtCust2', 'cust_b.aspx'],
@@ -796,6 +796,9 @@
 					case 'FOB＆C': //成本/(1-P)/(1-C)
 						cost3=round(q_div(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),q_sub(1,q_div(commission,100))),precision);
 						break;
+					case 'FCA'://成本/(1-P)
+						cost3=round(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),precision);
+						break;
 				}
 				$('#textCost3').val(cost3);
 			}
@@ -1222,6 +1225,15 @@
 				for(var k=0;k<q_bbsCount;k++){
 					if(emp($('#txtDatea_'+k).val()))
 						getpdate(k);
+				}
+				
+				//106/01/12 預交日空 抓期望交期 沒有寫入3個月後
+				for(var k=0;k<q_bbsCount;k++){
+					if(emp($('#txtDatea_'+k).val()) && !emp($('#txtDate1').val())){
+						$('#txtDatea_'+k).val($('#txtDate1').val());
+					}else{
+						$('#txtDatea_'+k).val(q_cdn($('#txtOdate').val(),90));
+					}
 				}
 				
 				//1030419 當專案沒有勾 BBM的取消和結案被打勾BBS也要寫入
