@@ -20,6 +20,21 @@
                 q_getId();
                 q_gf('', 'z_ordep');
             });
+            
+            $('#q_report').click(function(e) {
+					if(q_getPara('sys.project').toUpperCase()!='JO'){
+						var delete_report=999;
+						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+							if($('#q_report').data().info.reportData[i].report=='z_ordep2')
+								delete_report=i;
+						}
+						if($('#q_report div div').text().indexOf('製造通知單')>-1){
+							$('#q_report div div').eq(delete_report).hide();
+						}
+						delete_report=999;										
+					}
+				});
+            
             function q_gfPost() {
                 $('#q_report').q_report({
                     fileName : 'z_ordep',
