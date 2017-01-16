@@ -679,9 +679,9 @@
 					return false;
 				if(!emp($('#txtNoa').val())){
 					//變動ucctgg
-					q_func('qtxt.query.updateucctgg', 'ucx.txt,updateucctgg,'+encodeURI($('#txtNoa').val()) +  ';' + encodeURI(q_date()) + ';' + encodeURI(r_name));
-					//變動uca
-					q_func('qtxt.query.insuca', 'ucx.txt,insuca,'+encodeURI($('#txtNoa').val()) +  ';' + encodeURI(q_date()) + ';' + encodeURI(r_name));
+					//q_func('qtxt.query.updateucctgg', 'ucx.txt,updateucctgg,'+encodeURI($('#txtNoa').val()) +  ';' + encodeURI(q_date()) + ';' + encodeURI(r_name));
+					//變動uca 106/01/16 功能關閉 手動增加 會在uca上建立製造廠料號
+					//q_func('qtxt.query.insuca', 'ucx.txt,insuca,'+encodeURI($('#txtNoa').val()) +  ';' + encodeURI(q_date()) + ';' + encodeURI(r_name));
 				}
 			}
 
