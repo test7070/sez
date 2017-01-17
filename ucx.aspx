@@ -220,6 +220,10 @@
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {
+					/*case 'cub_r':
+						var t_where = "where=^^noa='" + $('#txtNoa').val() + "'^^";
+						q_gt('ucx', t_where, 0, 0, 0, "get_ordeno", r_accy);
+						break;*/
 					case 'td':
 						if (q_cur > 0 && q_cur < 3) {
 							ret = getb_ret();
@@ -252,6 +256,12 @@
 			var ucsa_cost = 0;
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					/*case 'get_ordeno':
+						var as = _q_appendData("ucx", "", true);
+						if (as[0] != undefined) {
+							$('#txtOrdeno').val(as[0].ordeno);
+						}
+						break;*/
 					case 'ucamodel_cost':
 						var as = _q_appendData("ucamodel_cost", "", true);
 						if (as[0] != undefined) {
@@ -669,9 +679,9 @@
 					return false;
 				if(!emp($('#txtNoa').val())){
 					//變動ucctgg
-					q_func('qtxt.query.updateucctgg', 'ucx.txt,updateucctgg,'+encodeURI($('#txtNoa').val()) +  ';' + encodeURI(q_date()) + ';' + encodeURI(r_name));
-					//變動uca
-					q_func('qtxt.query.insuca', 'ucx.txt,insuca,'+encodeURI($('#txtNoa').val()) +  ';' + encodeURI(q_date()) + ';' + encodeURI(r_name));
+					//q_func('qtxt.query.updateucctgg', 'ucx.txt,updateucctgg,'+encodeURI($('#txtNoa').val()) +  ';' + encodeURI(q_date()) + ';' + encodeURI(r_name));
+					//變動uca 106/01/16 功能關閉 手動增加 會在uca上建立製造廠料號
+					//q_func('qtxt.query.insuca', 'ucx.txt,insuca,'+encodeURI($('#txtNoa').val()) +  ';' + encodeURI(q_date()) + ';' + encodeURI(r_name));
 				}
 			}
 
@@ -1067,7 +1077,7 @@
 		<div id='dmain' style="overflow:hidden; width: 1260px;">
 			<!--#include file="../inc/toolbar.inc"-->
 			<div class="dview" id="dview" style="float: left; width:400px;" >
-				<table class="tview" id="tview" border="1" cellpadding='2' cellspacing='0' style="background-color: #FFFF66;">
+				<table class="tview" id="tview" border="1" cellpadding='2' cellspacing='0' style="word-break: break-all;background-color: #FFFF66;">
 					<tr>
 						<td align="center" style="width:40px"><a id='vewChk'> </a></td>
 						<td align="center" style="width:150px"><a id='vewNoa'> </a></td>

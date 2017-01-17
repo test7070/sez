@@ -457,7 +457,20 @@
                     alert(q_getMsg('lblMon') + '錯誤。');
                     Unlock(1);
                     return;
-                }       
+                }
+                
+                if(q_cur==2 && !emp(t_predate)){
+                	//106/01/16取修改前日期與修改後日期比對年度，不一樣不存檔避免年度傳票被覆蓋
+                	var t_ypdate=t_predate.substr(0,r_len);
+                	var t_ydate=$('#txtDatea').val().substr(0,r_len);
+                	
+                	if (t_ypdate!=t_ydate){
+                		alert(q_getMsg('lblDatea') + '日期禁止跨年度修正。');
+                		Unlock(1);
+                    	return;
+                	}
+                }
+                
                 sum();
                 
                 var yufu=false;
@@ -560,12 +573,14 @@
                 	$('#txtAcomp').val(z_acomp);
                 }
             }
-
+			
+			var t_predate='';
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
                 if (q_chkClose())
              		return;
+             	t_predate=$('#txtDatea').val();
                 Lock(1,{opacity:0});
                 var t_where =" where=^^ rc2no='"+ $('#txtNoa').val()+"'^^";
                 q_gt('pays', t_where, 0, 0, 0, 'btnModi',r_accy);

@@ -648,7 +648,7 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
 					return;
-				q_box('uca_jo_s.aspx', q_name + '_s', "800px", "600px", q_getMsg("popSeek"));
+				q_box('uca_jo_s.aspx', q_name + '_s', "800px", "630px", q_getMsg("popSeek"));
 			}
 			
 			function bbsAssign() {
@@ -1236,7 +1236,7 @@
 			}
 			.tview td {
 				padding: 2px;
-				text-align: center;
+				/*text-align: center;*/
 				border: 1px black solid;
 			}
 			.dbbm {
@@ -1536,7 +1536,7 @@
 		<div id='dmain' style="overflow:hidden; width: 1260px;">
 			<!--#include file="../inc/toolbar.inc"-->
 			<div class="dview" id="dview" style="float: left; width:400px;" >
-				<table class="tview" id="tview" border="1" cellpadding='2' cellspacing='0' style="background-color: #FFFF66;">
+				<table class="tview" id="tview" border="1" cellpadding='2' cellspacing='0' style="word-break: break-all;background-color: #FFFF66;">
 					<tr>
 						<td align="center" style="width:40px"><a id='vewChk'> </a></td>
 						<td align="center" style="width:150px"><a id='vewNoa'> </a></td>
@@ -1544,8 +1544,8 @@
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
-						<td align="center" id='noa'>~noa</td>
-						<td align="center" id='product'>~product</td>
+						<td id='noa'>~noa</td>
+						<td id='product'>~product</td>
 					</tr>
 				</table>
 			</div>

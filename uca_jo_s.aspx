@@ -127,7 +127,12 @@
 				t_sourcer = $('#txtSource').val();
 				t_hard = $('#txtHard').val();
 				
-				t_size = $('#txtSize').val();
+				//t_size = $('#txtSize').val();
+				t_size1 = $('#txtSize1').val();
+				t_size2 = $('#txtSize2').val();
+				t_size3 = $('#txtSize3').val();
+				t_size4 = $('#txtSize4').val();
+				
 				t_groupdno = $('#cmbGroupdno').val();
 				
 				t_typea = $('#cmbTypea').val();
@@ -178,8 +183,25 @@
 				
 				if (t_style.length > 0)
 					t_where += " and charindex('" + t_style + "',style)>0";
-				if (t_size.length > 0)
-					t_where += " and charindex('" + t_size + "',size)>0";	
+				/*if (t_size.length > 0)
+					t_where += " and charindex('" + t_size + "',size)>0";*/	
+				
+				if(t_size1.length>0 || t_size2.length>0){
+					if(t_size2.length==0){
+						t_where += " and (cast(dbo.get_num(substring(size,0,CHARINDEX('*',size))) as float) between "+t_size1+" and 9999999 ) ";
+					}else{
+						t_where += " and (cast(dbo.get_num(substring(size,0,CHARINDEX('*',size))) as float) between "+t_size1+" and "+t_size2+") ";
+					}
+				}
+				
+				if(t_size3.length>0 || t_size4.length>0){
+					if(t_size4.length==0){
+						t_where += " and (cast(dbo.get_num(substring(size,CHARINDEX('*',size)+1,len(size)))as float) between "+t_size3+" and 9999999 ) ";
+					}else{
+						t_where += " and (cast(dbo.get_num(substring(size,CHARINDEX('*',size)+1,len(size)))as float) between "+t_size3+" and "+t_size4+") ";
+					}
+				}
+					
 				if (t_process.length > 0)
 					t_where += " and charindex('" + t_process + "',process)>0";
 				if (t_station.length > 0)
@@ -256,12 +278,25 @@
 				</tr>
 				
 				<tr class='seek_tr'>
-					<td class='seek'><a id='lblSize_jo'>尺寸</a></td>
-					<td><input class="txt c1" id="txtSize" type="text" /></td>
+					<td class='seek'><a id='lblSize1_jo'>尺寸(長)</a></td>
+					<td>
+						<!--<input class="txt c1" id="txtSize" type="text" />-->
+						<input class="txt c1" id="txtSize1" type="text" style="width: 45%;text-align: right;" />~
+						<input class="txt c1" id="txtSize2" type="text" style="width: 45%;text-align: right;"/>
+						
+					</td>
+					<td class='seek'><a id='lblSize3_jo'>尺寸(寬)</a></td>
+					<td>
+						<input class="txt c1" id="txtSize3" type="text" style="width: 45%;text-align: right;"/>~
+						<input class="txt c1" id="txtSize4" type="text" style="width: 45%;text-align: right;"/>
+					</td>
+				</tr>
+				<tr class='seek_tr'>
 					<td class='seek'><a id='lblStyle_jo'>車種</a></td>
 					<td><input class="txt c1" id="txtStyle" type="text" /></td>
+					<td> </td>
+					<td> </td>
 				</tr>
-				
 				<tr class='seek_tr'>
 					<td class='seek'><a id='lblTypea'> </a></td>
 					<td><select id="cmbTypea" class="c1" > </select></td>

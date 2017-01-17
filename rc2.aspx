@@ -356,7 +356,10 @@
 					case 'xytggdata':
 						var as = _q_appendData("tgg", "", true);
 						if (as[0] != undefined) {
-							$('#cmbTaxtype').val(as[0].conn);
+							if(as[0].conn=='1' || as[0].conn=='5')
+								$('#chkAtax').prop('checked',true);
+							else
+								$('#chkAtax').prop('checked',false);
 						}
 						break;
 					case 'getCardealCarno' :
@@ -512,6 +515,11 @@
 							$('#cmbCoin').val(ordc[0].coin);
 							$('#txtPost2').val(ordc[0].post2);
 							$('#txtAddr2').val(ordc[0].addr2);
+							if(ordc[0].taxtype=='1' || ordc[0].taxtype=='5'){
+								$('#chkAtax').prop('checked',true);
+							}else{
+								$('#chkAtax').prop('checked',false);
+							}
 						}
 						break;
 					case 'startdate':
@@ -644,6 +652,12 @@
 					alert(t_err);
 					return;
 				}
+				
+				if(!q_cd($('#txtDatea').val())){
+					alert(q_getMsg('lblDatea') + '錯誤。');
+					return;
+				}
+				
 				/*$('#txtMon').val($.trim($('#txtMon').val()));
 				if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())) {
 					alert(q_getMsg('lblMon') + '錯誤。');
@@ -853,7 +867,8 @@
 				$('#txtAcomp').val(z_acomp);
 				$('#txtDatea').val(q_date());
 				$('#txtDatea').focus();
-				$('#cmbTaxtype').val(1);
+				//$('#cmbTaxtype').val(1);
+				$('#chkAtax').prop('checked',true);
 				if (!emp($('#txtTggno').val())) {
 					var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^";
 					q_gt('custaddr', t_where, 0, 0, 0, "");

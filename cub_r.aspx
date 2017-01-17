@@ -39,6 +39,11 @@
 				//,['txtProductno_', '', 'ucx', 'noa,product', 'txtProductno_,txtProduct_', 'ucx_b.aspx']
 				,['txtProductno', 'lblProduct', 'ucaucc', 'noa,product,spec,unit', 'txtProductno,txtProduct,txtSpec,txtUnit', 'ucaucc_b.aspx']
 				,['txtTggno_', 'btnTggno_', 'tgg', 'noa,comp', 'txtTggno_,txtTgg_', "tgg_b.aspx"]
+				,['txtM1', '', 'adsize', 'noa,mon,memo1,memo2', '0txtM1', '']
+				,['txtM4', '', 'adsss', 'noa,mon,memo1,memo2', '0txtM4', '']
+				,['txtM2','','adly','noa,mon,memo,memo1,memo2','0txtM2','']
+				,['txtM3','','adly','noa,mon,memo,memo1,memo2','0txtM3','']
+				,['txtM8','','addime','noa,mon,memo,memo1,memo2','0txtM8','']
 			);
 
 			$(document).ready(function() {
