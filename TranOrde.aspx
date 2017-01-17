@@ -1548,7 +1548,7 @@
 						<td style="width:20px;">
 						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 						</td>
-						<td style="width:20px;"></td>
+						<td style="width:20px;"> </td>
 						<td style="width:100px; text-align: center;">日期</td>
 						<td style="width:100px; text-align: center;">碼頭重</td>
 						<td style="width:100px; text-align: center;">車次</td>
@@ -1557,6 +1557,7 @@
 						<td>
 							<input id="btnMinut..*"  type="button" style="font-size: medium; font-weight: bold;" value="－"/>
 							<input class="txt" id="txtNoq..*" type="text" style="display:none;"/>
+						</td>
 						<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 						<td><input class="txt" id="txtDatea..*" type="text" style="width:95%;"/></td>
 						<td><input class="txt" id="txtWeight2..*" type="text" style="width:95%;text-align: right;"/></td>
