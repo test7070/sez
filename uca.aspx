@@ -1102,7 +1102,7 @@
 			}
 			.tview td {
 				padding: 2px;
-				text-align: center;
+				/*text-align: center;*/
 				border: 1px black solid;
 			}
 			.dbbm {
@@ -1410,8 +1410,8 @@
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
-						<td align="center" id='noa'>~noa</td>
-						<td align="center" id='product spec'>~product ~spec</td>
+						<td id='noa'>~noa</td>
+						<td id='product spec'>~product ~spec</td>
 					</tr>
 				</table>
 			</div>
