@@ -35,6 +35,8 @@
                     q_langShow();
 					
                     $('#txtMon').mask(r_picm);
+                    $('#txtDate1a').mask(r_picd);
+                    $('#txtDate1b').mask(r_picd);
                    
                     $('#btnGen').click(function(e) {
 		                if(emp($('#txtMon').val()) || emp($('#txtSource').val())){
@@ -45,7 +47,9 @@
 						var t_vcca=$('#chkVcca').prop('checked')?'1':'#non';
 						var t_rc2a=$('#chkRc2a').prop('checked')?'1':'#non';
 					    var t_proj=q_getPara('sys.project').toUpperCase();
-					    q_func('qtxt.query.uccah', 'uccah.txt,gen,'+encodeURI(t_mon)+';'+encodeURI(t_vcca)+';'+encodeURI(t_rc2a)+';'+encodeURI(t_proj));
+					    var t_bdate=!emp($('#txtDate1a').val())?trim($('#txtDate1a').val()):'#non';
+					    var t_edate=!emp($('#txtDate1b').val())?trim($('#txtDate1b').val()):'#non';
+					    q_func('qtxt.query.uccah', 'uccah.txt,gen,'+encodeURI(t_mon)+';'+encodeURI(t_vcca)+';'+encodeURI(t_rc2a)+';'+encodeURI(t_bdate)+';'+encodeURI(t_edate));
 					    $('#btnGen').attr('disabled','disabled').val('匯入中...');
                 	});
             }
@@ -88,6 +92,13 @@
 						<td align="center" style="width:35%"><a id="lblMon" class="lbl" style="font-size: medium;"> </a></td>
 						<td align="left" style="width:65%">
 							<input id="txtMon"  type="text"  class="txt"/>
+						</td>
+					</tr>
+					<tr>
+						<td align="center" style="width:35%"><a id="lblDatea" class="lbl" style="font-size: medium;"> </a></td>
+						<td align="left" style="width:65%">
+							<input id="txtDate1a"  type="text"  class="txt" style="width:40%"/> ~
+							<input id="txtDate1b"  type="text"  class="txt" style="width:40%"/>
 						</td>
 					</tr>
 					<tr>
