@@ -88,14 +88,14 @@
 						t_mount = $('#txtMount_' + j).val();
 						// 計價量
 						//t_weight = t_weight + dec( $('#txtWeight_' + j).val()) ; // 重量合計
-						$('#txtTotal_' + j).val(round(q_mul(dec($('#txtPrice_' + j).val()), dec(t_mount)), 0));
+						$('#txtTotal_' + j).val(round(q_mul(dec($('#txtPrice_' + j).val()), dec(t_mount)), q_getPara('vcc.pricePrecision')));
 	
 						q_tr('txtNotv_' + j, q_sub(q_float('txtMount_' + j), q_float('txtC1' + j)));
 						t1 = q_add(t1, dec($('#txtTotal_' + j).val()));
 					}
-					$('#txtMoney').val(round(t1, 0));
+					$('#txtMoney').val(round(t1, q_getPara('vcc.pricePrecision')));
 					if (!emp($('#txtPrice').val()))
-						$('#txtTranmoney').val(round(q_mul(t_weight, dec($('#txtPrice').val())), 0));
+						$('#txtTranmoney').val(round(q_mul(t_weight, dec($('#txtPrice').val())), q_getPara('vcc.pricePrecision')));
 					// $('#txtWeight').val(round(t_weight, 0));
 					q_tr('txtTotal', q_add(t1, dec($('#txtTax').val())));
 					//105/06/20 典盈的單價和金額全部都用外幣 故totalus不處理
@@ -320,7 +320,7 @@
 						$('#txtWeight_'+$('#textNoq').val()).val($('#textWeight').val());
 						$('#txtPackwayno_'+$('#textNoq').val()).val($('#textPackwayno').val());
 						$('#txtPackway_'+$('#textNoq').val()).val($('#textPackway').val());
-						$('#txtTotal_'+$('#textNoq').val()).val(round(q_mul(dec($('#txtMount_'+$('#textNoq').val()).val()),dec($('#txtPrice_'+$('#textNoq').val()).val())),0));
+						$('#txtTotal_'+$('#textNoq').val()).val(round(q_mul(dec($('#txtMount_'+$('#textNoq').val()).val()),dec($('#txtPrice_'+$('#textNoq').val()).val())),q_getPara('vcc.pricePrecision')));
 						$('#txtPayterms_'+$('#textNoq').val()).val($('#combPayterms').val());
 						
 						$('#txtProfit_'+$('#textNoq').val()).val($('#textProfit').val());
@@ -365,9 +365,9 @@
 					var profit=$('#textProfit').val();
 					var insurance=$('#textInsurance').val();
 					var commission=$('#textCommission').val();
-					$('#textProfitmoney').val(round(q_mul(cost2,q_div(profit,100)),3));
-					$('#textInsurmoney').val(round(q_mul(cost2,q_div(insurance,100)),3));
-					$('#textCommimoney').val(round(q_mul(cost2,q_div(commission,100)),3));
+					$('#textProfitmoney').val(round(q_mul(cost2,q_div(profit,100)),q_getPara('vcc.pricePrecision')));
+					$('#textInsurmoney').val(round(q_mul(cost2,q_div(insurance,100)),q_getPara('vcc.pricePrecision')));
+					$('#textCommimoney').val(round(q_mul(cost2,q_div(commission,100)),q_getPara('vcc.pricePrecision')));
 					divpaytermschange();
 				});
 				
@@ -406,21 +406,21 @@
 				$('#textProfit').change(function() {
 					var profit=$('#textProfit').val();
 					var cost2=dec($('#textCost2').val());
-					$('#textProfitmoney').val(round(q_mul(cost2,q_div(profit,100)),3));
+					$('#textProfitmoney').val(round(q_mul(cost2,q_div(profit,100)),q_getPara('vcc.pricePrecision')));
 					divpaytermschange();
 				});
 				
 				$('#textInsurance').change(function() {
 					var insurance=$('#textInsurance').val();
 					var cost2=dec($('#textCost2').val());
-					$('#textInsurmoney').val(round(q_mul(cost2,q_div(insurance,100)),3));
+					$('#textInsurmoney').val(round(q_mul(cost2,q_div(insurance,100)),q_getPara('vcc.pricePrecision')));
 					divpaytermschange();
 				});
 				
 				$('#textCommission').change(function() {
 					var commission=$('#textCommission').val();
 					var cost2=dec($('#textCost2').val());
-					$('#textCommimoney').val(round(q_mul(cost2,q_div(commission,100)),3));
+					$('#textCommimoney').val(round(q_mul(cost2,q_div(commission,100)),q_getPara('vcc.pricePrecision')));
 					divpaytermschange();
 				});
 				
@@ -739,7 +739,7 @@
 					var cbm=dec($('#textCbm').val());
 					var t_ctnmount=q_mul(dec($('#textInmount').val()),dec($('#textOutmount').val()));//一箱多少產品
 					var t_cbmmount=cbm==0?0:q_mul(Math.ceil(q_div(cycbm,cbm)),t_ctnmount); //一櫃可裝多少產品
-					var unitprice=t_cbmmount==0?0:round(q_div(cyprice,t_cbmmount),3); //平均一產品成本
+					var unitprice=t_cbmmount==0?0:round(q_div(cyprice,t_cbmmount),q_getPara('vcc.pricePrecision')); //平均一產品成本
 					$('#textTranprice').val(unitprice);
 				}else if ($('[name="trantype"]:checked').val()=='kg') {
 					var kgprice=dec($('#textKgprice').val());
@@ -752,7 +752,7 @@
 					if(t_ctnmount==0)
 						$('#textTranprice').val(0);
 					else
-						$('#textTranprice').val(round(q_div(q_mul(cuftprice,cuft),t_ctnmount),3));
+						$('#textTranprice').val(round(q_div(q_mul(cuftprice,cuft),t_ctnmount),q_getPara('vcc.pricePrecision')));
 				}
 				$('#textCost2').val(q_add(t_cost,q_add(dec($('#textFee').val()),dec($('#textTranprice').val()))));
 				divpaytermschange();
@@ -1100,7 +1100,7 @@
 							if (dec(as[0].mount) == 0) {
 								wcost_price = 0;
 							} else {
-								wcost_price = round(q_div(q_add(q_add(q_add(dec(as[0].costa), dec(as[0].costb)), dec(as[0].costc)), dec(as[0].costd)), dec(as[0].mount)), 0)
+								wcost_price = round(q_div(q_add(q_add(q_add(dec(as[0].costa), dec(as[0].costb)), dec(as[0].costc)), dec(as[0].costd)), dec(as[0].mount)), q_getPara('vcc.pricePrecision'))
 								//wcost_price=round((dec(as[0].costa)+dec(as[0].costb)+dec(as[0].costc)+dec(as[0].costd))/dec(as[0].mount),0);
 							}
 						}
