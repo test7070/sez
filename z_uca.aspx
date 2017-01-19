@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -96,6 +96,11 @@
 				q_getFormat();
 				q_langShow();
 				
+				if(r_len==4){                	
+                	$.datepicker.r_len=4;
+					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+                }
+				
 				$('#lblXuca').css("color","#0000ff");
 				
 				$('#lblXuca').click(function(e) {
@@ -106,18 +111,18 @@
 				if(r_rank <8)
 					$('#btnCostbcc').attr('disabled', 'disabled');
 					
-				$('#txtDate1').mask('999/99/99');
+				$('#txtDate1').mask(r_picd);
 				$('#txtDate1').datepicker();
-				$('#txtDate2').mask('999/99/99');
+				$('#txtDate2').mask(r_picd);
 				$('#txtDate2').datepicker();
-				$('#txtDate1').val(q_date().substr(0,6)+'/01');
-				$('#txtDate2').val(q_cdn(q_cdn(q_date().substr(0,6)+'/01',45).substr(0,6)+'/01',-1));
+				$('#txtDate1').val(q_date().substr(0,r_lenm)+'/01');
+				$('#txtDate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1));
 				$('#Xgroupano select').removeClass('c4');
 				$('#Xgroupano select').val('#non');
-				$('#txtEdate').mask('999/99/99');
-				$('#txtEdate').val(q_date().substr(0,3)+'/12/31');
+				$('#txtEdate').mask(r_picd);
+				$('#txtEdate').val(q_date().substr(0,r_len)+'/12/31');
 				$('#txtExportDate').val(q_date());
-				$('#txtExportDate').mask('999/99/99'); //2015/10/20轉點單加日期
+				$('#txtExportDate').mask(r_picd); //2015/10/20轉點單加日期
 				$('#txtExportDate').datepicker();
 				
 				$('#q_report .option ').css('width','800px');

@@ -37,10 +37,22 @@
                     $('#txtMon').mask(r_picm);
                     $('#txtDate1a').mask(r_picd);
                     $('#txtDate1b').mask(r_picd);
-                   
+                    
+                    var t_date, t_year, t_month, t_day;
+		            t_date = new Date();
+		            t_year = t_date.getUTCFullYear()
+		            t_year = t_year > 99 ? t_year + '' : '0' + t_year;
+		            t_month = t_date.getUTCMonth() + 1;
+		            t_month = t_month > 9 ? t_month + '' : '0' + t_month;
+		            t_day = t_date.getUTCDate();
+		            t_day = t_day > 9 ? t_day + '' : '0' + t_day;
+		            $('#txtDate1a').val(t_year + '/' + '01/01');
+		            $('#txtDate1b').val(t_year + '/' + t_month + '/' + t_day);
+
+
                     $('#btnGen').click(function(e) {
-		                if(emp($('#txtMon').val()) || emp($('#txtSource').val())){
-							alert('資料月份與資料路徑禁止空白');
+		                if(emp($('#txtSource').val())){
+							alert('資料路徑禁止空白');
 							return;
 					    }
 					   	var t_mon=!emp($('#txtMon').val())?trim($('#txtMon').val()):'#non';
@@ -88,12 +100,12 @@
 			</div>
 			<div id="ucf">
 				<table  border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;width:350px">
-					<tr>
+					<!--<tr>
 						<td align="center" style="width:35%"><a id="lblMon" class="lbl" style="font-size: medium;"> </a></td>
 						<td align="left" style="width:65%">
 							<input id="txtMon"  type="text"  class="txt"/>
 						</td>
-					</tr>
+					</tr>-->
 					<tr>
 						<td align="center" style="width:35%"><a id="lblDatea" class="lbl" style="font-size: medium;"> </a></td>
 						<td align="left" style="width:65%">
