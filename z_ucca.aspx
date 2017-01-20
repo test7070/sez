@@ -96,6 +96,11 @@
                 q_popAssign();
                 q_langShow();
                 
+                if(r_len==4){                	
+                	$.datepicker.r_len=4;
+					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+                }
+                
                 $('#txtEnddate').mask(r_picd);
                 $('#txtXdate1').mask(r_picd);
                 $('#txtXdate2').mask(r_picd);
@@ -106,7 +111,11 @@
                 var t_date, t_year, t_month, t_day;
                 t_date = new Date();
                 t_date.setDate(1);
-                t_year = t_date.getUTCFullYear() - 1911;
+				if(r_len==3){
+                	t_year = t_date.getUTCFullYear() - 1911;
+                }else{
+                	t_year = t_date.getUTCFullYear();
+                }
                 t_year = t_year > 99 ? t_year + '' : '0' + t_year;
                 t_month = t_date.getUTCMonth() + 1;
                 t_month = t_month > 9 ? t_month + '' : '0' + t_month;
@@ -117,7 +126,6 @@
                 t_date = new Date();
                 t_date.setDate(35);
                 t_date.setDate(0);
-                t_year = t_date.getUTCFullYear() - 1911;
                 t_year = t_year > 99 ? t_year + '' : '0' + t_year;
                 t_month = t_date.getUTCMonth() + 1;
                 t_month = t_month > 9 ? t_month + '' : '0' + t_month;
