@@ -688,6 +688,9 @@
             }
 
             function btnOk() {
+            	//材積需為數值
+            	$('#txtVolume').val(q_float('txtVolume'));
+            	
             	if(!emp($('#txtCarownerno').val())&&emp($('#txtSssno').val())){
             		alert(q_getMsg('lblSss')+'沒有輸入。');
             		return;
@@ -763,7 +766,7 @@
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
 
                 var t_noa = replaceAll($('#txtNoa').val(),' ','');
-                replaceAll($('#txtCarno').val(t_noa),' ','')
+                replaceAll($('#txtCarno').val(t_noa),' ','');
                 wrServer(t_noa);
                 if(q_cur=='1'&& q_getPara('sys.comp').substring(0,2)=="大昌")
                 	$("#btnCarinsurance").click();
@@ -1239,8 +1242,8 @@
 						<td><input id="txtWeight1" type="text" class="txt c1"/> </td>
 						<td><span> </span><a id="lblWeight2" class="lbl"> </a></td>
 						<td><input id="txtWeight2" type="text" class="txt c1"/> </td>
-						<td><span> </span><a id="lblVolumn" class="lbl">材積</a></td>
-						<td><input id="txtVolumn" type="text" class="txt c1"/> </td>
+						<td><span> </span><a id="lblVolume" class="lbl">材積</a></td>
+						<td><input id="txtVolume" type="text" class="txt c1"/> </td>
 					</tr>
 					<tr class="other">
 						<td><span> </span><a id="lblTon" class="lbl"> </a></td>
