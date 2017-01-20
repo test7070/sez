@@ -51,7 +51,7 @@
 			function mainPost() {
 				q_getFormat();
 				if (q_getPara('sys.project').toUpperCase()=='VU'){
-					bbsNum = [['txtMoney',10,0,1],['txtBo_admin',10,0,1],['txtBo_traffic',10,0,1],['txtBo_special',10,0,1],['txtBo_oth',10,0,1],['txtBo_full',10,0,1],['txtSalary',10,0,1],['txtMeals',10,0,1],['txtBo_money1',10,2,1]];
+					bbsNum = [['txtMoney',10,0,1],['txtBo_admin',10,0,1],['txtBo_traffic',10,0,1],['txtBo_special',10,0,1],['txtBo_oth',10,0,1],['txtBo_full',10,0,1],['txtSalary',10,0,1],['txtMeals',10,0,1],['txtBo_money1',10,3,1]];
 				}
 				
 				bbsMask = [['txtDatea', r_picd]];
