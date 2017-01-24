@@ -240,9 +240,28 @@
 								q_func('workb_post.post', r_accy + ',' + as[0].workbno + ',1');
 								
 								alert('入庫完畢，產生入庫單【'+as[0].workbno+'】!!');
+								$('#txtMount').val('');
+								$('#txtBmount').val('');
 							}
 						}else{
 							alert('入庫失敗!!');	
+						}
+						break
+					case 'qtxt.query.workg_jo_pul':
+						var as = _q_appendData("tmp0", "", true, true);
+						if (as[0] != undefined) {
+							if(as[0].err.length>0){
+								alert(as[0].err);
+							}else{
+								q_func('worka_post.post', r_accy + ',' + as[0].workano + ',1');
+								q_func('workb_post.post', r_accy + ',' + as[0].workbno + ',1');
+								
+								alert('退件完畢，產生退件單【'+as[0].workbno+'】!!');
+								$('#txtMount').val('');
+								$('#txtBmount').val('');
+							}
+						}else{
+							alert('退件失敗!!');	
 						}
 						break
 					default:
