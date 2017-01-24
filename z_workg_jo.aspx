@@ -99,8 +99,18 @@
 					$('#txtMount').val(t_mount);
 					
 				});
+				
+				$('#txtBmount').change(function() {
+					var t_mount=dec($('#txtBmount').val());
+					if(isNaN(t_mount))
+						t_mount=0;
+					$('#txtBmount').val(t_mount);
+					
+				});
+				
 				$('#btnOK_div_in').click(function() {
 					var t_mount=dec($('#txtMount').val());
+					var t_team=emp($('#txtTeam').val())?'#non':$('#txtTeam').val();
 					if(isNaN(t_mount))
 						t_mount=0;
 					if(t_mount>0){
@@ -112,12 +122,36 @@
 					
 					if($('#txtWorkno').val().substr(1,1).replace(/[^\d]/g,'')!=''){
 						var t_timea=padL(new Date().getHours(), '0', 2)+':'+padL(new Date().getMinutes(),'0',2);
-						q_func('qtxt.query.workg_jo_put', 'z_workg_jo.txt,workg_jo_put,' + encodeURI($('#txtWorkno').val()) + ';'+ encodeURI(t_mount) + ';' + encodeURI(q_date()) + ';' + encodeURI(t_timea) + ';'+ encodeURI(r_accy) + ';' + encodeURI(r_userno) + ';' + encodeURI(r_name));
+						q_func('qtxt.query.workg_jo_put', 'z_workg_jo.txt,workg_jo_put,' + encodeURI($('#txtWorkno').val()) + ';'+ encodeURI(t_mount) + ';' + encodeURI(q_date()) + ';' + encodeURI(t_timea) + ';'+ encodeURI(r_accy) + ';' + encodeURI(r_userno) + ';' + encodeURI(r_name) + ';' + encodeURI(t_team));
 						$('#div_in').hide();	
 					}else{
 						alert("【"+$('#txtWorkno').val()+"】是模擬製令不得入庫!!");
 					}
 				});
+				
+				$('#btnOK2_div_in').click(function() {
+					var t_mount=dec($('#txtBmount').val());
+					var t_team=emp($('#txtTeam').val())?'#non':$('#txtTeam').val();
+					if(isNaN(t_mount))
+						t_mount=0;
+					if(t_mount>0){
+						q_func('');
+					}else{
+						alert('請輸入退件數量!!')
+						return;
+					}
+					
+					if($('#txtWorkno').val().substr(1,1).replace(/[^\d]/g,'')!=''){
+						var t_timea=padL(new Date().getHours(), '0', 2)+':'+padL(new Date().getMinutes(),'0',2);
+						q_func('qtxt.query.workg_jo_pul', 'z_workg_jo.txt,workg_jo_pul,' + encodeURI($('#txtWorkno').val()) + ';'+ encodeURI(t_mount) + ';' + encodeURI(q_date()) + ';' + encodeURI(t_timea) + ';'+ encodeURI(r_accy) + ';' + encodeURI(r_userno) + ';' + encodeURI(r_name) + ';' + encodeURI(t_team));
+						$('#div_in').hide();	
+					}else if(dec($('#txtInmount').val())<=0){
+						alert("【"+$('#txtWorkno').val()+"】入庫量小於零不得退件!!");
+					}else{
+						alert("【"+$('#txtWorkno').val()+"】是模擬製令不得退件!!");
+					}
+				});
+				
 				$('#btnClose_div_in').click(function() {
 					$('#div_in').hide();
 				});
@@ -179,7 +213,9 @@
 							$('#txtInmount').val(as[0].inmount);
 							$('#txtUnmount').val(dec(as[0].mount)-dec(as[0].inmount));
 							
-							if(dec(as[0].mount)-dec(as[0].inmount)>0){
+							if(as[0].isfreeze=='true'){
+								alert('製令已被凍結!!');
+							}else if(dec(as[0].mount)-dec(as[0].inmount)>0){
 								$('#div_in').show();
 							}else{
 								alert('製令已完工!!');
@@ -233,43 +269,56 @@
 			<table id="table_in" style="width:100%;" border="1" cellpadding='2'  cellspacing='0'>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">製令編號</td>
-					<td style="background-color: #f8d463;"><input id="txtWorkno" style="font-size: medium;width: 98%;" disabled="disabled"></td>
+					<td style="background-color: #f8d463;" colspan="3"><input id="txtWorkno" style="font-size: medium;width: 98%;" disabled="disabled"></td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">製品編號</td>
-					<td style="background-color: #f8d463;"><input id="txtProductno" style="font-size: medium;width: 98%;" disabled="disabled"></td>
+					<td style="background-color: #f8d463;" colspan="3"><input id="txtProductno" style="font-size: medium;width: 98%;" disabled="disabled"></td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">製品名稱</td>
-					<td style="background-color: #f8d463;"><input id="txtProduct" style="font-size: medium;width: 98%;" disabled="disabled"></td>
+					<td style="background-color: #f8d463;" colspan="3"><input id="txtProduct" style="font-size: medium;width: 98%;" disabled="disabled"></td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">工作線號</td>
-					<td style="background-color: #f8d463;"><input id="txtStationno" style="font-size: medium;width: 98%;" disabled="disabled"></td>
+					<td style="background-color: #f8d463;" colspan="3"><input id="txtStationno" style="font-size: medium;width: 98%;" disabled="disabled"></td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">工作線名</td>
-					<td style="background-color: #f8d463;"><input id="txtStation" style="font-size: medium;width: 98%;" disabled="disabled"></td>
+					<td style="background-color: #f8d463;" colspan="3"><input id="txtStation" style="font-size: medium;width: 98%;" disabled="disabled"></td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">排程數量</td>
-					<td style="background-color: #f8d463;"><input id="txtWorkmount" style="font-size: medium;width: 60%;text-align: right;" disabled="disabled"></td>
+					<td style="background-color: #f8d463;" colspan="3"><input id="txtWorkmount" style="font-size: medium;width: 60%;text-align: right;" disabled="disabled"></td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">已入庫量</td>
-					<td style="background-color: #f8d463;"><input id="txtInmount" style="font-size: medium;width: 60%;text-align: right;" disabled="disabled"></td>
+					<td style="background-color: #f8d463;" colspan="3"><input id="txtInmount" style="font-size: medium;width: 60%;text-align: right;" disabled="disabled"></td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">未入庫量</td>
-					<td style="background-color: #f8d463;"><input id="txtUnmount" style="font-size: medium;width: 60%;text-align: right;" disabled="disabled"></td>
+					<td style="background-color: #f8d463;" colspan="3"><input id="txtUnmount" style="font-size: medium;width: 60%;text-align: right;" disabled="disabled"></td>
 				</tr>
 				<tr>
-					<td style="background-color: #f8d463;" align="center">本次入庫數量</td>
-					<td style="background-color: #f8d463;"><input id="txtMount" style="font-size: medium;width: 60%;text-align: right;"></td>
+					<td style="background-color: #f8d463;" align="center">完工組別</td>
+					<td style="background-color: #f8d463;" colspan="3"><input id="txtTeam" style="font-size: medium;width: 60%;text-align: left;"></td>
 				</tr>
 				<tr>
-					<td align="center" colspan='3'>
+					<td style="background-color: #f8d463;width: 105px;" align="center">本次入庫數量</td>
+					<td style="background-color: #f8d463;"><input id="txtMount" style="font-size: medium;width:95%;text-align: right;"></td>
+					<td style="background-color: #f8d463;width: 105px;" align="center">本次退件數量</td>
+					<td style="background-color: #f8d463;"><input id="txtBmount" style="font-size: medium;width:95%;text-align: right;"></td>
+				</tr>
+				<tr>
+					<td align="center" colspan='2'>
 						<input id="btnOK_div_in" type="button" value="入庫" style="font-size: medium;">
+					</td>
+					<td align="center" colspan='2'>
+						<input id="btnOK2_div_in" type="button" value="退件" style="font-size: medium;">
+					</td>
+				</tr>
+				<tr>
+					<td align="center" colspan='4'>
 						<input id="btnClose_div_in" type="button" value="關閉視窗" style="font-size: medium;">
 					</td>
 				</tr>
