@@ -21,6 +21,7 @@
             $(document).ready(function() {
             	q_getId();
                 q_gf('', 'z_vccp');
+                
             });
 			$('#q_report').click(function(e) {
 					if(q_getPara('sys.project').toUpperCase()!='JO'){
@@ -30,6 +31,7 @@
 								delete_report=i;
 					}}
 				});
+
 
             function q_gfPost() {
                $('#q_report').q_report({
