@@ -20,7 +20,7 @@
             }
             $(document).ready(function() {
             	q_getId();
-                q_gf('', 'z_vccp');
+                q_gf('', 'z_vccp'); //123
                 
             });
 			$('#q_report').click(function(e) {
