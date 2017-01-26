@@ -1199,7 +1199,10 @@
 	        		        		
 	        		if($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1 || $('#cmbPerson').find("option:selected").text().indexOf('時薪')>-1){
 	        			q_tr('txtTotal1_'+j,Math.round(dec($('#txtDaymoney_'+j).val())));
-	        			q_tr('txtMtotal_'+j,Math.round(dec($('#txtDaymoney_'+j).val())*dec($('#txtDay_'+j).val())));//給薪金額
+	        			
+	        			if(!$('#chkIsmanual_'+j).prop('checked')){
+	        				q_tr('txtMtotal_'+j,Math.round(dec($('#txtDaymoney_'+j).val())*dec($('#txtDay_'+j).val())));//給薪金額
+	        			}
 	        			
 	        			if($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1){
 	        				q_tr('txtMi_saliday_'+j,Math.round(dec($('#txtHr_sick_'+j).val())+dec($('#txtHr_person_'+j).val())+dec($('#txtHr_nosalary_'+j).val())+dec($('#txtHr_leave_'+j).val())));//扣薪時數=病假+事假+事假+曠工金額
