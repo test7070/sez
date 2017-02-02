@@ -70,7 +70,8 @@
 						}
 					}
                 });
-                
+                if(q_getPara('sys.project').toUpperCase()=='JS')
+					$('#btnLicence').show();
                 $('#btnLicence').click(function() {
 					if (q_cur == 1) {
 						return;
@@ -463,7 +464,7 @@
 						<select id="cmbRate" class="txt c6"></select>
 						</td>-->
 						<td> </td>
-						<td><input type="button" id="btnLicence" class="txt c1" value="證照"/></td>
+						<td><input type="button" id="btnLicence" class="txt c1" value="證照" style="display:none;"/></td>
 					</tr>
 					<tr class="tr2">
 						<td class="td1"><span> </span><a id="lblIdno" class="lbl"></a></td>

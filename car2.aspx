@@ -438,10 +438,12 @@
            				q_msg( $(this), $(this).val());
 				});
 				
+				if(q_getPara('sys.project').toUpperCase()=='JS')
+					$('#btnLicence').show();
 				$('#btnLicence').click(function() {
 					if (q_cur == 1) {
 						return;
-					} else {
+					} else {					
 						t_where = "noa='" + $('#txtNoa').val() + "' and typea='car_licence' ";
 						q_box("connlicence_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'conn', "95%", "650px", q_getMsg('btnConn'));
 					}
@@ -1149,7 +1151,7 @@
 						</td>
 						<td style="text-align: center;"><input id="btnCarowner" type="button" style="width:50%;"/></td>
 						<td style="text-align: center;"><input id="btnCarowneredit" type="button" /></td>
-						<td style="text-align: center;"><input type="button" id="btnLicence" value="證照"/></td>
+						<td style="text-align: center;"><input type="button" id="btnLicence" value="證照" style="display:none;"/></td>
 					</tr>
 					<tr class="carowner">
 						<td><span> </span><a id="lblSex" class="lbl"> </a></td>
