@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -183,6 +183,11 @@
 				$('#btnClose_div_stk').click(function() {
 					$('#div_stk').toggle();
 				});
+				
+				if (q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO'){
+					$('.team').show();
+				}
+				
 			}
 
 			function getInStr(HasNoaArray) {
@@ -887,9 +892,9 @@
 			<div class="dview" id="dview">
 				<table class="tview" id="tview" border="1" cellpadding='2' cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
-						<td align="center" style="width:5%"><a id='vewChk'></a></td>
-						<td align="center" style="width:20%"><a id='vewDatea'></a></td>
-						<td align="center" style="width:40%"><a id='vewNoa'></a></td>
+						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
+						<td align="center" style="width:20%"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:40%"><a id='vewNoa'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=' '/></td>
@@ -950,12 +955,16 @@
 							<input id="txtStoreno" type="text" class="txt c2"/>
 							<input id="txtStore" type="text" class="txt c3"/>
 						</td>
-						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
-						<td><input id="txtWorker" type="text" class="txt c1"/></td>
+						<td class="team" style="display: none;"><span> </span><a id='lblTeam' class="lbl"> </a></td>
+						<td class="team" style="display: none;"><input id="txtTeam" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td colspan='3'><input id="txtMemo" type="text" class="txt c1" style="width: 99%;"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
+						<td><input id="txtWorker" type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>

@@ -66,7 +66,7 @@
 				
 				$('#btnUcr2s').click(function() {
 					if((q_cur==1 || q_cur==2) && !emp($('#txtProductno').val())){
-						q_gt('ucr2', "where=^^noa='" + $('#txtProductno').val() + "'^^", 0, 0, 0, "getucr2s",1);
+						q_gt('ucr2', "where=^^noa='" + $('#txtProductno').val() + "'^^", 0, 0, 0, "getucr2s",r_accy,1);
 						var as = _q_appendData("ucr2", "", true);
                         if (as[0] != undefined) {
                         	var ass = _q_appendData("ucr2s", "", true);

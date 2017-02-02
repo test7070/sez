@@ -98,6 +98,10 @@
 						type : '0', //[15]
 						name : 'rlen',
                         value : r_len
+                    },{
+                        type : '8', //[16]
+                        name : 'isworkh',
+                        value : ("1@包含預測、訂單未轉製令").split(',')
                     }]
                 });
                 q_popAssign();
@@ -260,17 +264,11 @@
 			               	var safe=!emp($('#q_report').data('info').sqlCondition[11].getValue())?$('#q_report').data('info').sqlCondition[11].getValue():'#non';
 			               	var store=!emp($('#q_report').data('info').sqlCondition[12].getValue())?$('#q_report').data('info').sqlCondition[12].getValue():'#non';
 			               	var workgall=!emp($('#q_report').data('info').sqlCondition[13].getValue())?$('#q_report').data('info').sqlCondition[13].getValue():'#non';
-		               		
-		               		var t_issmount='1';//預設含預測需求
-		               		if(confirm("請購數量是否含預測需求?")){
-		               			t_issmount='1';
-							}else{
-								t_issmount='0';
-							}
+			               	var isworkh=!emp($('#q_report').data('info').sqlCondition[15].getValue())?$('#q_report').data('info').sqlCondition[15].getValue():'#non';
 										
 							var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno
 										+';'+otherworkgall+';'+benddate+';'+eenddate+ ';' + ordc+';' + safe+';'+ store+';' + workgall+';'+r_userno
-										+';'+q_getPara('sys.key_ordb')+';'+r_len+';'+t_issmount;
+										+';'+q_getPara('sys.key_ordb')+';'+r_len+';'+isworkh;
 										
 							var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 				               //q_gtx("z_workg2ordb2", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
@@ -304,17 +302,11 @@
 			               	var safe=!emp($('#q_report').data('info').sqlCondition[11].getValue())?$('#q_report').data('info').sqlCondition[11].getValue():'#non';
 			               	var store=!emp($('#q_report').data('info').sqlCondition[12].getValue())?$('#q_report').data('info').sqlCondition[12].getValue():'#non';
 			               	var workgall=!emp($('#q_report').data('info').sqlCondition[13].getValue())?$('#q_report').data('info').sqlCondition[13].getValue():'#non';
-		               		
-							var t_issmount='1';//預設含預測需求
-		               		if(confirm("請購數量是否含預測需求?")){
-		               			t_issmount='1';
-							}else{
-								t_issmount='0';
-							}
+			               	var isworkh=!emp($('#q_report').data('info').sqlCondition[15].getValue())?$('#q_report').data('info').sqlCondition[15].getValue():'#non';
 							
 							var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno
 										+';'+otherworkgall+';'+benddate+';'+eenddate+ ';' + ordc+';' + safe+';' + store+';' + workgall
-										+';'+r_userno+';'+q_getPara('sys.key_orda')+';'+r_len+';'+t_issmount;
+										+';'+r_userno+';'+q_getPara('sys.key_orda')+';'+r_len+';'+isworkh;
 										
 							var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 				               //q_gtx("z_workg2ordb4", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
@@ -349,9 +341,11 @@
 			               	var safe=!emp($('#q_report').data('info').sqlCondition[11].getValue())?$('#q_report').data('info').sqlCondition[11].getValue():'#non';
 			               	var store=!emp($('#q_report').data('info').sqlCondition[12].getValue())?$('#q_report').data('info').sqlCondition[12].getValue():'#non';
 			               	var workgall=!emp($('#q_report').data('info').sqlCondition[13].getValue())?$('#q_report').data('info').sqlCondition[13].getValue():'#non';
+			               	var isworkh=!emp($('#q_report').data('info').sqlCondition[15].getValue())?$('#q_report').data('info').sqlCondition[15].getValue():'#non';
 		                	
 							var t_where =r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno
-									+';'+otherworkgall+';'+benddate+';'+eenddate+ ';' + ordc+';' + safe+';' + store+';' + workgall+';'+r_userno+';'+q_getPara('sys.key_ordb')+';'+r_len;
+									+';'+otherworkgall+';'+benddate+';'+eenddate+ ';' + ordc+';' + safe+';' + store+';' + workgall+';'+r_userno
+									+';'+q_getPara('sys.key_ordb')+';'+r_len+';'+isworkh;
 							var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 				               //q_gtx("z_workg2ordb5", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 				               q_func('qtxt.query.sign2', 'orda.txt,sign2,' + t_where);
@@ -401,9 +395,11 @@
 		               	var safe=!emp($('#q_report').data('info').sqlCondition[11].getValue())?$('#q_report').data('info').sqlCondition[11].getValue():'#non';
 		               	var store=!emp($('#q_report').data('info').sqlCondition[12].getValue())?$('#q_report').data('info').sqlCondition[12].getValue():'#non';
 		               	var workgall=!emp($('#q_report').data('info').sqlCondition[13].getValue())?$('#q_report').data('info').sqlCondition[13].getValue():'#non';
+		               	var isworkh=!emp($('#q_report').data('info').sqlCondition[15].getValue())?$('#q_report').data('info').sqlCondition[15].getValue():'#non';
 		               	
 						var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno
-										+';'+otherworkgall+';'+benddate+';'+eenddate+ ';' + ordc+';' + safe+';'+ store+';' + workgall+';'+r_userno+';'+q_getPara('sys.key_ordb')+';'+r_len;
+										+';'+otherworkgall+';'+benddate+';'+eenddate+ ';' + ordc+';' + safe+';'+ store+';' + workgall+';'+r_userno
+										+';'+q_getPara('sys.key_ordb')+';'+r_len+';'+isworkh;
 						var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 						q_gtx("z_workg2ordb1", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 						
@@ -421,9 +417,11 @@
 		               	var safe=!emp($('#q_report').data('info').sqlCondition[11].getValue())?$('#q_report').data('info').sqlCondition[11].getValue():'#non';
 		               	var store=!emp($('#q_report').data('info').sqlCondition[12].getValue())?$('#q_report').data('info').sqlCondition[12].getValue():'#non';
 		               	var workgall=!emp($('#q_report').data('info').sqlCondition[13].getValue())?$('#q_report').data('info').sqlCondition[13].getValue():'#non';
+		               	var isworkh=!emp($('#q_report').data('info').sqlCondition[15].getValue())?$('#q_report').data('info').sqlCondition[15].getValue():'#non';
 		               	
 						var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno
-										+';'+otherworkgall+';'+benddate+';'+eenddate+ ';' + ordc+';' + safe+';' + store+';' + workgall+';'+r_userno+';'+q_getPara('sys.key_ordb')+';'+r_len;
+										+';'+otherworkgall+';'+benddate+';'+eenddate+ ';' + ordc+';' + safe+';' + store+';' + workgall+';'+r_userno
+										+';'+q_getPara('sys.key_ordb')+';'+r_len+';'+isworkh;
 						var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 						q_gtx("z_workg2ordb3", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 					}
@@ -453,6 +451,10 @@
 	            $('#chkWorkgall').css('width','290px');
 	            $('#Workgall').css('width','300px');
 	            
+	            $('#Isworkh .c6').css('width','0px');
+	            $('#chkIsworkh').css('width','290px');
+	            $('#Isworkh').css('width','300px');
+	            
 	            if (window.parent.q_name == 'workg') {
 					var wParent = window.parent.document;
 					q_gt('view_workg', "where=^^ noa = '"+wParent.getElementById("txtNoa").value+"' ^^ ", 0, 0, 0, "get_workg_memo2", r_accy,1);
@@ -474,6 +476,8 @@
 								$('#chkXstore [type]=checkbox').prop('checked','true');	
 							if(as[0].memo2.split('**')[8]=='1')
 								$('#chkWorkgall [type]=checkbox').prop('checked','true');
+							if(as[0].memo2.split('**')[9]=='1')
+								$('#chkIsworkh [type]=checkbox').prop('checked','true');
 							
 							$('#chkOtherworkg [type]=checkbox').attr('disabled', 'disabled');
 							$('#txtEnddate1').attr('disabled', 'disabled');
@@ -482,6 +486,7 @@
 							$('#chkXsafe [type]=checkbox').attr('disabled', 'disabled');
 							$('#chkXstore [type]=checkbox').attr('disabled', 'disabled');
 							$('#chkWorkgall [type]=checkbox').attr('disabled', 'disabled');	
+							$('#chkIsworkh [type]=checkbox').attr('disabled', 'disabled');	
 						}
 					}
 					

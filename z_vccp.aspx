@@ -20,8 +20,19 @@
             }
             $(document).ready(function() {
             	q_getId();
-                q_gf('', 'z_vccp');
+                q_gf('', 'z_vccp'); //123
+                
             });
+			$('#q_report').click(function(e) {
+					if(q_getPara('sys.project').toUpperCase()!='JO'){
+						var delete_report=999;
+						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+							if($('#q_report').data().info.reportData[i].report=='z_vccpjo')
+								delete_report=i;
+					}}
+				});
+
+
             function q_gfPost() {
                $('#q_report').q_report({
                         fileName : 'z_vccp',
