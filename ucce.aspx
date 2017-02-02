@@ -17,7 +17,7 @@
 
 			q_tables = 's';
 			var q_name = "ucce";
-			var q_readonly = ['txtNoa','txtStore'];
+			var q_readonly = ['txtNoa','txtStore','txtWorker','txtWorker2'];
 			var q_readonlys = ['txtStore'];
 			var bbmNum = [];
 			var bbsNum = [['txtMount', 10, 2, 1], ['txtPrice', 10, 2, 1], ['txtTotal', 10, 0, 1]];
@@ -38,7 +38,7 @@
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
-				brwCount2 = 2;
+				brwCount2 = 4;
 				q_bbsLen = 15;
 				q_brwCount();
 				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
@@ -131,7 +131,11 @@
 						$('#txtStore_'+k).val(t_store);
 					}
 				}
-				$('#txtWorker').val(r_name);
+				
+				if(q_cur==1)
+					$('#txtWorker').val(r_name);
+				else
+					$('#txtWorker2').val(r_name);
 				//sum();
 
 				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
@@ -493,6 +497,18 @@
 							<input id="txtStoreno" type="text" class="txt" style="width:30%"/>
 							<input id="txtStore" type="text" class="txt" style="width:65%"/>
 						</td>
+					</tr>
+					<tr>
+						<td class='td1'><span> </span><a id="lblMemo" class="lbl"> </a></td>
+						<td class='td2' colspan="5">
+							<input id="txtMemo" type="text" class="txt" style="width:98%"/>
+						</td>
+					</tr>
+					<tr>
+						<td class='td1'><span> </span><a id="lblWorker" class="lbl"> </a></td>
+						<td class='td2'><input id="txtWorker" type="text" class="txt c1"/></td>
+						<td class='td3'><span> </span><a id="lblWorker2" class="lbl"> </a></td>
+						<td class='td4'><input id="txtWorker2" type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
