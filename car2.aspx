@@ -437,6 +437,15 @@
 					if(q_cur==0 || q_cur==4)
            				q_msg( $(this), $(this).val());
 				});
+				
+				$('#btnLicence').click(function() {
+					if (q_cur == 1) {
+						return;
+					} else {
+						t_where = "noa='" + $('#txtNoa').val() + "' and typea='car_licence' ";
+						q_box("connlicence_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'conn', "95%", "650px", q_getMsg('btnConn'));
+					}
+				});
             }
             
             function q_popPost(s1) {
@@ -788,6 +797,11 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+               	if(t_para){
+               		$('#btnLicence').removeAttr('disabled');
+               	}else{
+               		$('#btnLicence').attr('disabled','disabled');
+               	}
             }
 
             function btnMinus(id) {
@@ -1135,6 +1149,7 @@
 						</td>
 						<td style="text-align: center;"><input id="btnCarowner" type="button" style="width:50%;"/></td>
 						<td style="text-align: center;"><input id="btnCarowneredit" type="button" /></td>
+						<td style="text-align: center;"><input type="button" id="btnLicence" value="證照"/></td>
 					</tr>
 					<tr class="carowner">
 						<td><span> </span><a id="lblSex" class="lbl"> </a></td>

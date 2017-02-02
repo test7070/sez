@@ -29,12 +29,12 @@
             aPop = new Array(['txtInsurerno', 'lblInsurer', 'insurer', 'noa,comp', 'txtInsurerno,txtInsurer', 'Insurer_b.aspx'],
             ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'Cardeal_b.aspx'],
             ['txtBankno2', 'lblBank2', 'bank', 'noa,bank', 'txtBankno2,txtBank2', 'Bank_b.aspx'],
-            ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp', 'acomp_b.aspx'])
+            ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp', 'acomp_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1)
+                q_gt(q_name, q_content, q_sqlCount, 1);
             });
            
             function main() {
@@ -49,7 +49,7 @@
             function mainPost() {
             	q_cmbParse("cmbSex",q_getPara('sys.sex'));
             	q_cmbParse("cmbCartype",q_getPara('driver.cartype'));
-            	q_cmbParse("cmbRate",q_getPara('driver.rate'));
+            	//q_cmbParse("cmbRate",q_getPara('driver.rate'));
                 q_mask(bbmMask);
                 $('#btnLabase').click(function (e) {
 		            q_box("labase.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'labase', "95%", "95%", q_getMsg("popLabase"));
@@ -70,6 +70,15 @@
 						}
 					}
                 });
+                
+                $('#btnLicence').click(function() {
+					if (q_cur == 1) {
+						return;
+					} else {
+						t_where = "noa='" + $('#txtNoa').val() + "' and typea='driver_licence' ";
+						q_box("connlicence_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'conn', "95%", "650px", q_getMsg('btnConn'));
+					}
+				});
             }
 
             function q_boxClose(s2) {
@@ -203,6 +212,11 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                if(t_para){
+               		$('#btnLicence').removeAttr('disabled');
+               	}else{
+               		$('#btnLicence').attr('disabled','disabled');
+               	}
             }
 
             function btnMinus(id) {
@@ -444,10 +458,12 @@
 						<td class="td6">
 						<select id="cmbSex" class="txt c6"></select>
 						</td>
-						<td class="td5"><span> </span><a id="lblRate" class="lbl"></a></td>
+						<!--<td class="td5"><span> </span><a id="lblRate" class="lbl"></a></td>
 						<td class="td6">
 						<select id="cmbRate" class="txt c6"></select>
-						</td>
+						</td>-->
+						<td> </td>
+						<td><input type="button" id="btnLicence" class="txt c1" value="證照"/></td>
 					</tr>
 					<tr class="tr2">
 						<td class="td1"><span> </span><a id="lblIdno" class="lbl"></a></td>
