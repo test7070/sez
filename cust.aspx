@@ -210,6 +210,15 @@
 					}
 				});
 				
+				$('#btnLicence').click(function() {
+					if (q_cur == 1) {
+						return;
+					} else {
+						t_where = "noa='" + $('#txtGrpno').val() + "'";
+						q_box("licence_js_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'conn', "95%", "650px", q_getMsg('btnConn'));
+					}
+				});
+				
 				$('#btnCustm').click(function() {
 					if (q_cur == 1) {
 						return;

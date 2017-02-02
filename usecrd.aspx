@@ -112,11 +112,11 @@
 								t_key = q_getHref();
 								_btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
 							}else{
-								alert('額度不足，禁止修改。');
+								alert('可核准額度不足，禁止修改。');
 								return;
 							}
 						}else{
-							alert('額度不足，禁止修改。');
+							alert('可核准額度不足，禁止修改。');
 							return;
 						}
 						break;
