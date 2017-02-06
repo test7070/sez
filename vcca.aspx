@@ -149,7 +149,7 @@
 				});
 				$('#lblAccno').click(function() {
 					var t_year
-					if(q_getPara('sys.project').toUpperCase()=='VU' && r_len=='4'){
+					if(q_getPara('sys.project').toUpperCase().substring(0,2)=='VU' && r_len=='4'){
 						t_year=$('#txtDatea').val().substring(0, 4)-1911
 					}else{
 						t_year=$('#txtDatea').val().substring(0, 3)
