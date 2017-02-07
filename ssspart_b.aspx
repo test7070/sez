@@ -2,7 +2,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta http-equiv="Content-Language" content="en-us" />
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src="../script/qj2.js" type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -50,6 +50,15 @@
 		    }
             function bbsAssign() {/// 表身運算式
         		for(var i = 0; i < q_bbsCount; i++) {
+        			$('#cmbPartno_' + i).change(function(){
+						t_IdSeq = -1; 
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						if(dec($('#txtRank_' + b_seq).val()) <1 || dec($('#txtRank_' + b_seq).val()) > 8){
+							$('#txtRank_' + b_seq).val('1');
+							return;
+						}
+        			});
         			$('#txtRank_' + i).change(function(){
 						t_IdSeq = -1; 
 						q_bodyId($(this).attr('id'));
