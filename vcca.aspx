@@ -90,6 +90,10 @@
 					return;
 				}
 				mainForm(1);
+								
+				if(q_getPara('sys.project').toUpperCase()!='VU2'){
+					$('.isVU2').hide();
+				}
 			}
 
 			function mainPost() {
@@ -1223,6 +1227,7 @@
 						<td align="center" style="width:80px; color:black;"><a id='vewTax'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTotal'> </a></td>
 						<td align="center" style="width:200px; color:black;"><a id='vewMemo'> </a></td>
+						<td class='isVU2' align="center" style="width:200px; color:black;"><a id='vewAccno'>傳票號碼</a></td>
 					</tr>
 					<tr>
 						<td>
@@ -1236,6 +1241,7 @@
 						<td id='tax,0,1' style="text-align: right;">~tax,0,1</td>
 						<td id='total,0,1' style="text-align: right;">~total,0,1</td>
 						<td id='memo' style="text-align: left;">~memo</td>
+						<td class='isVU2' id='accno' style="text-align: left;">~accno</td>
 					</tr>
 				</table>
 			</div>
