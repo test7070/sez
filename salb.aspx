@@ -92,7 +92,14 @@
 				$('#btnProduceMedia').click(function() {
 					if(!emp($('#textYear').val())){
 						$('#btnProduceMedia').attr('disabled', 'disabled');
-						var t_paras = $('#textYear').val()+ ';'+$('#textBserial').val()+ ';'+$('#textEserial').val();
+						var t_year=$('#textYear').val();
+						var t_bserial=$('#textBserial').val();
+						var t_eserial=$('#textEserial').val();
+						if(t_year.length==0){t_year=r_accy;}
+						if(t_bserial.length==0){t_bserial='#non';}
+						if(t_eserial.length==0){t_eserial='#non';}
+						
+						var t_paras = t_year+ ';'+t_bserial+ ';'+t_eserial;
 						q_func('qtxt.query.media', 'salb.txt,media,' + t_paras);
 					}else{
 						alert('年度不可空白!!');
