@@ -49,7 +49,7 @@
 						+case when b.chk1=1 and b.chk2=1 then ',' else '' end 
 						+case when b.chk2=1 then '卸貨' else '' end
 						+case when b.noa is null then '回廠' else '' end  task
-						,c.datea,a.cust,a.addr,a.product,a.mount,a.noa,a.noq,a.accy
+						,c.datea,a.cust,a.addr,a.product,a.address,a.mount,a.noa,a.noq,a.accy
 						from view_tranvccet a 
 						left join view_tranvcces b on a.noa=b.noa and a.ordeno=b.ordeno and a.no2=b.no2
 						left join view_tranvcce c on a.noa=c.noa
@@ -75,10 +75,11 @@
                     Response.Write(System.DBNull.Value.Equals(r.ItemArray[2]) ? "" : (System.String)r.ItemArray[2]+"###");
                     Response.Write(System.DBNull.Value.Equals(r.ItemArray[3]) ? "" : (System.String)r.ItemArray[3]+"###");
                     Response.Write(System.DBNull.Value.Equals(r.ItemArray[4]) ? "" : (System.String)r.ItemArray[4]+"###");
-                    Response.Write(System.DBNull.Value.Equals(r.ItemArray[5]) ? "" : r.ItemArray[5].ToString()+"###");
-                    Response.Write(System.DBNull.Value.Equals(r.ItemArray[6]) ? "" : (System.String)r.ItemArray[6]+"###");
+                    Response.Write(System.DBNull.Value.Equals(r.ItemArray[5]) ? "" : (System.String)r.ItemArray[5]+"###");
+                    Response.Write(System.DBNull.Value.Equals(r.ItemArray[6]) ? "" : r.ItemArray[6].ToString()+"###");
                     Response.Write(System.DBNull.Value.Equals(r.ItemArray[7]) ? "" : (System.String)r.ItemArray[7]+"###");
-                    Response.Write(System.DBNull.Value.Equals(r.ItemArray[8]) ? "" : (System.String)r.ItemArray[8]);
+                    Response.Write(System.DBNull.Value.Equals(r.ItemArray[8]) ? "" : (System.String)r.ItemArray[8]+"###");
+                    Response.Write(System.DBNull.Value.Equals(r.ItemArray[9]) ? "" : (System.String)r.ItemArray[9]);
                     
                     Response.Write("<BR>");
 	            }
