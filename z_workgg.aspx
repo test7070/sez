@@ -95,6 +95,10 @@
 					},{
 						type : '6', //[16]
 						name : 'xcuanoq'
+					}, {
+						type : '8', //[17]
+						name : 'xworkh',
+						value : ('1@包含預測、訂單未轉製令').split(',')
 					}]
 				});
 				
@@ -143,20 +147,28 @@
 				$('#Xgroupano select').css('width','200px');
 				
 				$('#Xshowdiff').css('width','300px');
-				$('#chkXshowdiff').css('width','200px');
-				$('#chkXshowdiff span').css('width','160px');
+				$('#chkXshowdiff').css('width','250px');
+				$('#chkXshowdiff span').css('width','200px');
+				$('#Xshowdiff .label').css('width','5px');
 				
 				$('#Xshowover').css('width','300px');
-				$('#chkXshowover').css('width','200px');
-				$('#chkXshowover span').css('width','160px');
+				$('#chkXshowover').css('width','250px');
+				$('#chkXshowover span').css('width','200px');
+				$('#Xshowover .label').css('width','5px');
 				
 				$('#Xshowfinished').css('width','300px');
-				$('#chkXshowfinished').css('width','200px');
-				$('#chkXshowfinished span').css('width','160px');
+				$('#chkXshowfinished').css('width','250px');
+				$('#chkXshowfinished span').css('width','200px');
+				$('#Xshowfinished .label').css('width','5px');
 				
 				$('#Xonlyrealwork').css('width','300px');
-				$('#chkXonlyrealwork').css('width','200px');
-				$('#chkXonlyrealwork span').css('width','160px');
+				$('#chkXonlyrealwork').css('width','250px');
+				$('#chkXonlyrealwork span').css('width','200px');
+				$('#Xonlyrealwork .label').css('width','5px');
+				
+				if(q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO'){
+					$('#txtXdate2').val(q_cdn(q_date(),31));
+				}
 				
 				$("#btnRun").click(function(){
 					var t_index = $('#q_report').data('info').radioIndex;
