@@ -99,6 +99,9 @@
 						type : '8', //[17]
 						name : 'xworkh',
 						value : ('1@包含預測、訂單未轉製令').split(',')
+					},{
+						type : '6', //[18]
+						name : 'xenddate'
 					}]
 				});
 				
@@ -139,8 +142,10 @@
 				isSaturday = (q_getPara('sys.saturday').toString()=='1'?'1':'0');
 				$('#txtXdate1').datepicker().mask(r_picd);
 				$('#txtXdate2').datepicker().mask(r_picd);
+				$('#txtXenddate').datepicker().mask(r_picd);
 				$('#txtXdate1').val(q_date());
 				$('#txtXdate2').val(q_cdn(q_date(),15));
+				$('#txtXenddate').val(q_date());
 				$('#btnXXX').click(function(e) {
 					btnAuthority(q_name);
 				});
@@ -166,8 +171,14 @@
 				$('#chkXonlyrealwork span').css('width','200px');
 				$('#Xonlyrealwork .label').css('width','5px');
 				
+				$('#Xworkh').css('width','300px');
+				$('#chkXworkh').css('width','250px');
+				$('#chkXworkh span').css('width','200px');
+				$('#Xworkh .label').css('width','5px');
+				
 				if(q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO'){
-					$('#txtXdate2').val(q_cdn(q_date(),31));
+					$('#txtXenddate').val(q_cdn(q_date(),31));
+					$('#chkXworkh [type=checkbox]').prop('checked',true)
 				}
 				
 				$("#btnRun").click(function(){
