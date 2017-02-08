@@ -29,7 +29,7 @@
             //ajaxPath = ""; //  execute in Root
             aPop = new Array(['txtBdriverno', 'lblBdriver', 'driver', 'noa,namea', 'txtBdriverno,txtBdriver', 'driver_b.aspx'], ['txtEdriverno', 'lblEdriver', 'driver', 'noa,namea', 'txtEdriverno,txtEdriver', 'driver_b.aspx'], ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
 
-			var t_item;
+			var t_item,t_part;
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -55,6 +55,7 @@
                 bbmMask2 = new Array(['txtBdate', r_picd], ['txtEdate', r_picd]);
                 q_mask(bbmMask2);
                 q_cmbParse("cmbCarteamno", t_item);
+                q_cmbParse("cmbPartno", t_part);
                 
                 $("#cmbCarteamno").focus(function() {
                     var len = $("#cmbCarteamno").children().length > 0 ? $("#cmbCarteamno").children().length : 1;
@@ -232,6 +233,14 @@
                         t_item = "";
                         for ( i = 0; i < as.length; i++) {
                             t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
+                        }
+                        q_gt('part', '', 0, 0, 0, "");
+                        break;
+                    case 'part':
+                        var as = _q_appendData("part", "", true);
+                        t_part = "@";
+                        for ( i = 0; i < as.length; i++) {
+                            t_part = t_part + (t_part.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
                         }
                         q_gt(q_name, q_content, q_sqlCount, 1);
                         break;
@@ -627,7 +636,9 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCarteam" class="lbl"> </a></td>
-						<td><select id="cmbCarteamno" class="txt c1"></select></td>
+						<td><select id="cmbCarteamno" class="txt c1"> </select></td>
+						<td><span> </span><a id="lblPartno" class="lbl">部門</a></td>
+						<td><select id="cmbPartno" class="txt c1"> </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblOpay' class="lbl"> </a></td>
