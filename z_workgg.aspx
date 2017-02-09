@@ -102,6 +102,14 @@
 					},{
 						type : '6', //[18]
 						name : 'xenddate'
+					},{
+						type : '0', //[19]
+						name : 'rlen',
+						value : r_len
+					},{
+						type : '0', //[20]
+						name : 'rsaturday',
+						value : q_getPara('sys.saturday')
 					}]
 				});
 				
@@ -993,6 +1001,6 @@
 				<!--#include file="../inc/print_ctrl.inc"-->
 			</div>
 		</div>
-		<div id="q_acDiv" style="display: none;"><div>
+		<div id="q_acDiv" style="display: none;"> </div>
 	</body>
 </html>
