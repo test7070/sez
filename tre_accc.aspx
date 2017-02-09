@@ -637,8 +637,9 @@
 					<tr>
 						<td><span> </span><a id="lblCarteam" class="lbl"> </a></td>
 						<td><select id="cmbCarteamno" class="txt c1"> </select></td>
-						<td><span> </span><a id="lblPartno" class="lbl">部門</a></td>
-						<td><select id="cmbPartno" class="txt c1"> </select></td>
+						<!-- 改由車隊主檔設定會計部門 -->
+						<td style="display:none;"><span> </span><a id="lblPartno" class="lbl">部門</a></td>
+						<td style="display:none;"><select id="cmbPartno" class="txt c1"> </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblOpay' class="lbl"> </a></td>
