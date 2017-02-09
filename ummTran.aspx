@@ -123,6 +123,11 @@
 				});
 				//0926改為開啟視窗
 				$('#btnVcc').click(function(e) {
+					if(q_cur==2 && t_iscara && q_getPara('sys.project').toUpperCase()=='DC'){//106/02/08 dc 只要有做cara的內容限制只能匯入一次 避免收款換月份導致上月欠款問題
+						alert('內含監理部"單據作業",禁止匯入重複匯入!!');
+						return;
+					}
+					
 					//umm_trd();
 					//201307/16因客戶2會輸入很多，所以將判斷條件移到開起qbox才查詢
 					var t_where = '', t_where1 = '', t_where2 = '', t_where3 = '', t_where4 = '', t_where5 = '', t_where6 = '', t_where7 = '';
@@ -182,7 +187,7 @@
 				});
 			}
 
-			function umm_trd() {
+			/*function umm_trd() {
 				var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
 				t_where = "where=^^ custno=" + t_custno + " and unpay!=0 ";
 				t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "'";
@@ -199,7 +204,7 @@
 				t_where = t_where + (s2.length > 0 ? " or (" + s2 + ")" : '') + "^^";
 				t_where1 = t_where1 + (s1.length > 0 ? " or (" + s2 + ")" : '') + "^^";
 				q_gt('umm_trd', t_where + t_where1, 0, 0, 0, "", r_accy);
-			}
+			}*/
 
 			function getOpay() {
 				Lock(1, {
@@ -254,6 +259,7 @@
 								$('#txtUnpayorg_' + i).val('');
 								$('#txtUnpay_' + i).val('');
 								$('#txtPart2_' + i).val('');
+								$('#txtTablea_' + i).val('');
 							}
 							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtAccy,txtTablea,txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,txtPartno,txtPart,txtMemo2,cmbPartno', b_ret.length, b_ret, 'accy,tablea,noa,paysale,_unpay,_unpay,part,partno,part,memo,partno', '');
 							/// 最後 aEmpField 不可以有【數字欄位】
@@ -783,11 +789,21 @@
 			}
 			
 			var t_predate='';
+			var t_iscara=false;
+			//106/02/08 dc 只要有做cara的內容限制只能匯入一次 避免收款換月份導致上月欠款問題
 			function btnModi() {
 				if (emp($('#txtNoa').val()))
 					return;
 				if (q_chkClose())
 					return;
+				t_iscara=false;
+				for (var i = 0; i < q_bbsCount; i++) {
+					if($('#txtTablea_'+i).val()=='cara'){
+						t_iscara=true;
+						break;
+					}
+				}
+					
 				t_predate=$('#txtDatea').val();
 				Lock(1, {
 					opacity : 0

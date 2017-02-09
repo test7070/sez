@@ -95,6 +95,21 @@
 					},{
 						type : '6', //[16]
 						name : 'xcuanoq'
+					}, {
+						type : '8', //[17]
+						name : 'xworkh',
+						value : ('1@包含預測、訂單未轉製令').split(',')
+					},{
+						type : '6', //[18]
+						name : 'xenddate'
+					},{
+						type : '0', //[19]
+						name : 'rlen',
+						value : r_len
+					},{
+						type : '0', //[20]
+						name : 'rsaturday',
+						value : q_getPara('sys.saturday')
 					}]
 				});
 				
@@ -135,28 +150,44 @@
 				isSaturday = (q_getPara('sys.saturday').toString()=='1'?'1':'0');
 				$('#txtXdate1').datepicker().mask(r_picd);
 				$('#txtXdate2').datepicker().mask(r_picd);
+				$('#txtXenddate').datepicker().mask(r_picd);
 				$('#txtXdate1').val(q_date());
 				$('#txtXdate2').val(q_cdn(q_date(),15));
+				$('#txtXenddate').val(q_date());
 				$('#btnXXX').click(function(e) {
 					btnAuthority(q_name);
 				});
 				$('#Xgroupano select').css('width','200px');
 				
 				$('#Xshowdiff').css('width','300px');
-				$('#chkXshowdiff').css('width','200px');
-				$('#chkXshowdiff span').css('width','160px');
+				$('#chkXshowdiff').css('width','250px');
+				$('#chkXshowdiff span').css('width','200px');
+				$('#Xshowdiff .label').css('width','5px');
 				
 				$('#Xshowover').css('width','300px');
-				$('#chkXshowover').css('width','200px');
-				$('#chkXshowover span').css('width','160px');
+				$('#chkXshowover').css('width','250px');
+				$('#chkXshowover span').css('width','200px');
+				$('#Xshowover .label').css('width','5px');
 				
 				$('#Xshowfinished').css('width','300px');
-				$('#chkXshowfinished').css('width','200px');
-				$('#chkXshowfinished span').css('width','160px');
+				$('#chkXshowfinished').css('width','250px');
+				$('#chkXshowfinished span').css('width','200px');
+				$('#Xshowfinished .label').css('width','5px');
 				
 				$('#Xonlyrealwork').css('width','300px');
-				$('#chkXonlyrealwork').css('width','200px');
-				$('#chkXonlyrealwork span').css('width','160px');
+				$('#chkXonlyrealwork').css('width','250px');
+				$('#chkXonlyrealwork span').css('width','200px');
+				$('#Xonlyrealwork .label').css('width','5px');
+				
+				$('#Xworkh').css('width','300px');
+				$('#chkXworkh').css('width','250px');
+				$('#chkXworkh span').css('width','200px');
+				$('#Xworkh .label').css('width','5px');
+				
+				if(q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO'){
+					$('#txtXenddate').val(q_cdn(q_date(),31));
+					$('#chkXworkh [type=checkbox]').prop('checked',true)
+				}
 				
 				$("#btnRun").click(function(){
 					var t_index = $('#q_report').data('info').radioIndex;
@@ -970,6 +1001,6 @@
 				<!--#include file="../inc/print_ctrl.inc"-->
 			</div>
 		</div>
-		<div id="q_acDiv" style="display: none;"><div>
+		<div id="q_acDiv" style="display: none;"> </div>
 	</body>
 </html>

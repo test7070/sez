@@ -23,6 +23,7 @@
                 q_gf('', 'z_ucca');
                 
                 
+                
                 $('#q_report').click(function(e) {
 					for(var i =0 ;i<$('#q_report').data().info.reportData.length;i++){
 						if($('.radio.select').next().text()==$('#q_report').data().info.reportData[i].reportName){
@@ -32,6 +33,17 @@
 							else
 								$('#lblXdate').text('發票日期');
 						}
+						if(q_getPara('sys.project').toUpperCase()!='VU2'){
+						var delete_report=999;
+						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+							if($('#q_report').data().info.reportData[i].report=='z_ucca_vu1')
+								delete_report=i;
+						}
+						if($('#q_report div div').text().indexOf('發票傳票異常表')>-1){
+							$('#q_report div div').eq(delete_report).hide();
+						}
+						delete_report=999;										
+					}
 					}
 				});
             });

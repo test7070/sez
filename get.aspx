@@ -288,6 +288,11 @@
 				$('#txtDatea').val(q_date());
 				$('#txtDatea').focus();
 				$('#cmbTypea').val('領料');
+				
+				if (q_getPara('sys.project').toUpperCase()=='XY'){
+					$('#txtStoreno').val('A');
+					$('#txtStore').val('總倉庫');
+				}
 			}
 
 			function btnModi() {
