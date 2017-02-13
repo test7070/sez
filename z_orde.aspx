@@ -156,6 +156,14 @@
                 $('#txtXodate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1));
                 
                 $('#qReport div div .radio.select').click();
+                
+                if(q_getPara('sys.project').toUpperCase()=='XY' ){
+                	$('#Xorder select').append($('<option>', {
+					    value: 'percent',
+					    text: '比例'
+					}));
+                }
+                
                 if(window.parent.q_name=="orde" && q_getPara('sys.project').toUpperCase()=='XY' ){
                 	$('#txtXodate1').val('');
                 	$('#txtXodate2').val('');
@@ -165,7 +173,6 @@
                 	$('#txtXcust2b').val(window.parent.$('#txtComp').val());
                 	$('#btnOk').click();
                 }
-                
             }
 
             function q_boxClose(s2) {
