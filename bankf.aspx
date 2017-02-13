@@ -1,15 +1,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
-		<script src="../script/qbox.js" type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
+		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
-
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             this.errorHandler = null;
             function onPageError(error) {
@@ -283,10 +286,11 @@
 		<style type="text/css">
             #dmain {
                 overflow: hidden;
+                width:1300px;
             }
             .dview {
                 float: left;
-                width: 550px;
+                width: 650px;
                 border-width: 0px;
             }
             .tview {
@@ -412,9 +416,10 @@
 						<td align="center" style="width:120px; color:black;"><a id='vewNick'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewIndate'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewType'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewEnddate'>到期日</a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewBank'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewMoney'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewMoneytype'> </a></td>
+						<td align="center" style="width:60px; color:black;"><a id='vewMoneytype'> </a></td>
 
 					</tr>
 					<tr>
@@ -424,6 +429,7 @@
 						<td id='nick' style="text-align: left;">~nick</td>
 						<td id='indate' style="text-align: center;">~indate</td>
 						<td id='typeyear type' style="text-align: left;">~typeyear ~type</td>
+						<td id='enddate' style="text-align: center;">~enddate</td>
 						<td id='bank' style="text-align: left;">~bank</td>
 						<td id='money,2,1' style="text-align: right;">~money,2,1</td>
 						<td id='moneytype' style="text-align: left;">~moneytype</td>
