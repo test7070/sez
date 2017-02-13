@@ -24,12 +24,12 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            aPop = new Array();
+            aPop = new Array(['txtPartno', 'lblPart', 'acpart', 'noa,part', 'txtPartno,txtPart', "acpart_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
             $(document).ready(function() {
                 bbmKey = ['noa'];
 
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1)
+                q_gt(q_name, q_content, q_sqlCount, 1);
             });
             function main() {
                 if(dataErr) {
@@ -371,25 +371,29 @@
 						<td class="td8"><span class="schema"> </span></td>
 						<td class="tdZ"><span class="schema"> </span></td>
 					</tr>
-					<tr class="tr1">
+					<tr>
 						<td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td class="td2">
 						<input id="txtNoa" type="text"  class="txt c1"/>
 						</td>
 					</tr>
-					<tr class="tr2">
+					<tr>
 						<td class="td1"><span> </span><a id="lblTeam" class="lbl"> </a></td>
 						<td class="td2">
 						<input id="txtTeam" type="text"  class="txt c1"/>
 						</td>
 					</tr>
-					<tr class="tr3">
+					<tr>
 						<td class="td1"><span> </span><a id="lblUnit" class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtUnit" type="text"  class="txt c1"/>
+						<td class="td2"><input id="txtUnit" type="text"  class="txt c1"/></td>
+					</tr>
+					<tr> 
+						<td><span> </span><a id="lblPart" class="lbl btn">會計部門</a></td>
+						<td colspan="2">
+							<input id="txtPartno" type="text"  class="txt" style="float:left;width:50%;"/>
+							<input id="txtPart" type="text"  class="txt" style="float:left;width:50%;"/>
 						</td>
 					</tr>
-					<tr> </tr>
 					<tr> </tr>
 					<tr> </tr>
 					<tr> </tr>
