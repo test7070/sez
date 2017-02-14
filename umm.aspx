@@ -15,8 +15,10 @@
             var q_name = "umm";
             var q_readonly = ['txtNoa','txtWorker', 'txtCno', 'txtAcomp', 'txtSale', 'txtTotal', 'txtPaysale', 'txtUnpay', 'txtOpay', 'textOpay','txtAccno','txtWorker2'];
             var q_readonlys = ['txtUnpay', 'txtUnpayorg', 'txtAcc2', 'txtPart2','txtCoin','txtCustno','txtPaymon'];
-            var bbmNum = new Array(['txtSale', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtOpay', 10, 0, 1], ['txtUnopay', 10, 0, 1], ['textOpay', 10, 0, 1]);
-            var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtUnpayorg', 10, 0, 1]];
+            var bbmNum = new Array(['txtSale', 15, 5, 1], ['txtTotal', 15, 5, 1], ['txtPaysale', 15, 5, 1], ['txtUnpay', 15, 5, 1], ['txtOpay', 15, 5, 1], ['txtUnopay', 15, 5, 1], ['textOpay', 15, 5, 1]
+            , ['txtFloata', 15, 5, 1, 1]);
+            var bbsNum = [['txtMoney', 15, 5, 1], ['txtChgs', 15, 5, 1], ['txtPaysale', 15, 5, 1], ['txtUnpay', 15, 5, 1], ['txtUnpayorg', 15, 5, 1]
+            , ['txtMoneyus', 15, 5, 1, 1]];
             var bbmMask = [];
             var bbsMask = [];
 
@@ -73,6 +75,7 @@
                 bbsMask = [['txtIndate', r_picd], ['txtMon', r_picm]];
 				q_gt('part', '', 0, 0, 0, "");
 		        q_gt('acomp', '', 0, 0, 0, "");
+		        q_gt('flors_coin', '', 0, 0, 0, "flors_coin");
 		        //q_cmbParse("combAcc1", '1111@現金,1121@應收票據');
 		        
 		         $('#txtDatea').blur(function() {
@@ -187,6 +190,28 @@
                 	}
                 	q_gt('umm_import',"where=^^['"+t_noa+"','"+t_custno+"','"+t_custno2+"','"+t_mon+"','mon')^^", 0, 0, 0, "umm_import");
                 });
+                
+                $('#cmbCoin').change(function() {
+					UsShow();
+					if(!emp($('#txtDatea').val()) && !emp($('#cmbCoin').val())){
+						q_gt('flors', "where=^^coin='"+$('#cmbCoin').val()+"' and '"+$('#txtDatea').val()+"' between bdate and edate ^^", 0, 0, 0, "flors",r_accy,1);
+						var as = _q_appendData("flors", "", true);
+						if (as[0] != undefined) {
+							$('#txtFloata').val(as[0].floata);
+						}else{
+							$('#txtFloata').val(0);
+						}
+					}else{
+						$('#txtFloata').val(0);
+						for(var i=0;i<q_bbsCount;i++){
+							$('#txtMoneyus_'+i).val(0);
+						}
+					}
+					sum();
+				});
+                
+                if(q_getPara('sys.isAcccUs')=='1')
+					$('.isAcccUs').show();
             }
 			
 			
@@ -275,7 +300,7 @@
                     /*if ( $('#txtAcc1_' + j).val().indexOf('7149') == 0 || $('#txtAcc1_' + j).val().indexOf('7044') == 0)
                         t_money -= q_float('txtMoney_' + j);
                     else*/
-                        t_money += q_float('txtMoney_' + j);
+                        t_money += emp($('#cmbCoin').val())?q_float('txtMoney_' + j):q_float('txtMoneyus_' + j);
 					//104/04/29費用不算在收款金額//0601恢復並改為-
                     t_money -= q_float('txtChgs_' + j);
                     t_sale += q_float('txtUnpayorg_' + j);
@@ -304,6 +329,21 @@
 			var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'flors_coin':
+						var as = _q_appendData("flors", "", true);
+						var z_coin='';
+						for ( i = 0; i < as.length; i++) {
+							z_coin+=','+as[i].coin;
+						}
+						if(z_coin.length==0) z_coin=' ';
+						
+						q_cmbParse("cmbCoin", z_coin);
+						if(abbm[q_recno]){
+							$('#cmbCoin').val(abbm[q_recno].coin);
+							UsShow();
+						}
+						
+						break;
                 	case 'umm_import':
                 		as = _q_appendData(t_name, "", true);
                 		for (var i = 0; i < as.length; i++) {
@@ -387,6 +427,9 @@
 		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
 		                    }
 		                    q_cmbParse("cmbCno", t_item);
+		                    if(abbm[q_recno]){
+								$('#cmbCno').val(abbm[q_recno].cno);
+							}
 		                }
 		                break;
                     case 'umm_opay':
@@ -731,7 +774,7 @@
                 for (var i = 0; i < q_bbsCount; i++) {
                 	$('#txtCheckno_'+i).val($.trim($('#txtCheckno_'+i).val()));
                 	
-                    t_money = q_float('txtMoney_' + i);
+                    t_money = emp($('#cmbCoin').val())?q_float('txtMoney_' + i):q_float('txtMoneyus_' + i);
                     //104/04/29費用不算在收款金額//0601恢復並改為-
                     t_chgs = q_float('txtChgs_' + i);
                     if ($.trim($('#txtAcc1_' + i).val()).length == 0 && t_money - t_chgs > 0) {
@@ -754,7 +797,7 @@
                 for (var i = 0; i < q_bbsCount; i++) {
                 	$('#txtCheckno_'+i).val($.trim($('#txtCheckno_'+i).val()));
                 	
-                    t_money += q_float('txtMoney_' + i);
+                    t_money += emp($('#cmbCoin').val())?q_float('txtMoney_' + i):q_float('txtMoneyus_' + i);
                     //104/04/29費用不算在收款金額//0601恢復並改為-
                    t_chgs += q_float('txtChgs_' + i);
                 }
@@ -916,7 +959,13 @@
 					});
 					
                     $('#txtMoney_' + i).change(function(e) {
+                    	var n = $(this).attr('id').split('_')[1];
                         sum();
+                        if(dec($('#txtFloata').val())!=0){
+		                	$('#txtMoneyus_'+n).val(q_mul(dec($(this).val()),dec($('#txtFloata').val())));
+		                }else{
+		                	$('#txtMoneyus_'+n).val(0);
+		                }
                     });
                     $('#txtChgs_' + i).change(function(e) {
                         sum();
@@ -959,6 +1008,7 @@
                  	else
                  		$('#txtVccno_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
                  }
+                 UsShow();
             }
 
             function btnIns() {
@@ -969,6 +1019,7 @@
                 
                 $('#cmbCno').val(z_cno);
                 $('#txtAcomp').val(z_acomp);
+                UsShow();
             }
 			
 			var t_predate='';
@@ -985,6 +1036,7 @@
             function checkGqbStatus_btnModi(n){
             	if(n<0){
             		 _btnModi();
+            		 UsShow();
                	     $('#textOpayOrg').val(q_float('textOpay') + q_float('txtUnopay') - q_float('txtOpay'));
             		Unlock(1);
             	}else{
@@ -1045,6 +1097,7 @@
 		        	$("#btnAuto").attr("disabled","disabled");
 		        }
                 getOpay();
+                UsShow();
             }
 
             function readonly(t_para, empty) {
@@ -1064,14 +1117,15 @@
 		        	$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 		        }*/
 		        
-		        if(q_cur==2){
-		        	for (var i = 0; i < q_bbsCount; i++) {
-                 	if(emp($('#txtVccno_'+i).val()))
-                 		$('#txtVccno_'+i).css('color','black').css('background','white').removeAttr('readonly');
-                 	else
-                 		$('#txtVccno_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
-                 }
+				if(q_cur==2){
+					for (var i = 0; i < q_bbsCount; i++) {
+						if(emp($('#txtVccno_'+i).val()))
+							$('#txtVccno_'+i).css('color','black').css('background','white').removeAttr('readonly');
+                 		else
+                 			$('#txtVccno_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+					}
 		        }
+		        UsShow();
             }
 
             function btnMinus(id) {
@@ -1139,6 +1193,14 @@
 			        	break;
 			   	}
 			}
+			
+			function UsShow(){
+		    	if(!emp($('#cmbCoin').val())){
+		    		$('.Usdata').show();
+		    	}else{
+		    		$('.Usdata').hide();
+		    	}
+		    }
 			
             function tipShow(){
 				Lock(1);
@@ -1327,10 +1389,10 @@
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:5%"><a id='vewChk'></a></td>
-						<td align="center" style="width:30%"><a id='vewDatea'></a></td>
-						<td align="center" style="width:30%"><a id='vewComp'></a></td>
-						<td align="center" style="width:30%"><a id='vewTotal'></a></td>
+						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
+						<td align="center" style="width:30%"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:30%"><a id='vewComp'> </a></td>
+						<td align="center" style="width:30%"><a id='vewTotal'> </a></td>
 					</tr>
 					<tr>
 						<td >
@@ -1376,7 +1438,7 @@
 							<select id="cmbCno" class="txt c1"> </select>
 							<input id="txtAcomp" type="text" style="display:none;"/>
 						</td>
-						<td class="td3"><span> </span><a id='lblCust' class="lbl btn"></a></td>
+						<td class="td3"><span> </span><a id='lblCust' class="lbl btn"> </a></td>
 						<td class="td4" colspan="2">
 						<input id="txtCustno" type="text" class="txt" style="float:left;width:40%;"/>
 						<input id="txtComp"  type="text" class="txt" style="float:left;width:60%;"/>
@@ -1388,43 +1450,33 @@
 						<td><input id="txtCustno2" type="text" class="txt c1" title='多客戶使用"逗號"分隔'/></td>
 					</tr>
 					<tr class="tr3">
-						<td class="td1"><span> </span><a id='lblSale' class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtSale"  type="text" class="txt num c1"/>
-						</td>
-						<td class="td3"><span> </span><a id='lblTotal' class="lbl"></a></td>
-						<td class="td4">
-						<input id="txtTotal" type="text" class="txt num c1"/>
-						</td>
-						<td class="td5"><span> </span><a id='lblPaysale' class="lbl"></a></td>
-						<td class="td6">
-						<input id="txtPaysale"  type="text" class="txt num c1"/>
-						</td>
-						<td class="td7"><span> </span><a id='lblUnpay' class="lbl"></a></td>
-						<td class="td8">
-						<input id="txtUnpay"  type="text" class="txt num c1"/>
-						</td>
-					</tr>
+						<td class="td1"><span> </span><a id='lblSale' class="lbl"> </a></td>
+						<td class="td2"><input id="txtSale"  type="text" class="txt num c1"/></td>
+						<td class="td3"><span> </span><a id='lblTotal' class="lbl"> </a></td>
+						<td class="td4"><input id="txtTotal" type="text" class="txt num c1"/></td>
+						<td class="td5"><span> </span><a id='lblPaysale' class="lbl"> </a></td>
+						<td class="td6"><input id="txtPaysale"  type="text" class="txt num c1"/></td>
+						<td class="td7"><span> </span><a id='lblUnpay' class="lbl"> </a></td>
+						<td class="td8"><input id="txtUnpay"  type="text" class="txt num c1"/></td>
+					</tr> 
 					<tr class="tr4">
-						<td class="td1"><span> </span><a id='lblOpay' class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtOpay"  type="text" class="txt num c1"/>
+						<td class="td1"><span> </span><a id='lblOpay' class="lbl"> </a></td>
+						<td class="td2"><input id="txtOpay"  type="text" class="txt num c1"/></td>
+							<td class="td3"><span> </span><a id='lblUnopay' class="lbl"> </a></td>
+							<td class="td4">
+							<input id="txtUnopay"  type="text" class="txt num c1"/>
 						</td>
-						<td class="td3"><span> </span><a id='lblUnopay' class="lbl"></a></td>
-						<td class="td4">
-						<input id="txtUnopay"  type="text" class="txt num c1"/>
-						</td>
-						<td class="td5"><span> </span><a id='lblTextopay' class="lbl"></a></td>
+						<td class="td5"><span> </span><a id='lblTextopay' class="lbl"> </a></td>
 						<td class="td6">
-						<input id="textOpay"  type="text" class="txt num c1"/>
-						<input type='hidden' id="textOpayOrg" />
+							<input id="textOpay"  type="text" class="txt num c1"/>
+							<input type='hidden' id="textOpayOrg" />
 						</td>
-						<td><span> </span><a id='lblAccc' class="lbl btn"></a></td>
+						<td><span> </span><a id='lblAccc' class="lbl btn"> </a></td>
 						<td><input id="txtAccno"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td colspan="3" rowspan="6" ><textarea id="txtMemo"  rows='3' cols='3' style="width: 100%; " > </textarea></td>
+						<td colspan="3" rowspan="2" ><textarea id="txtMemo"  rows='3' cols='3' style="width: 100%; " > </textarea></td>
 						<td> </td>
 						<td><input type="button" id="btnAuto" class="txt c1 "  style="color:red"/> </td>
 						<td> </td>
@@ -1437,6 +1489,12 @@
 						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
 						<td><input id="txtWorker2"  type="text" class="txt c1"/></td>
 					</tr>
+					<tr style="display: none;" class="isAcccUs">
+						<td><span> </span><a id='lblCoin' class="lbl"> </a></td>
+						<td><select id="cmbCoin" class="txt c1"> </select></td>
+						<td><span> </span><a id='lblFloata' class="lbl"> </a></td>
+						<td><input id="txtFloata" type="text" class="txt num c1"/></td>
+					</tr>
 				</table>
 			</div>
 		</div>
@@ -1447,17 +1505,17 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:1%;"> </td>
-					<td align="center" style="width:7%;"><a id='lblAcc1'></a><br><a id='lblAcc2'></a></td>
-					<td align="center" style="width:15%;"><a id='lblMoney'></a><br><a id='lblAccmemo'></a></td>
-					<td align="center" style="width:7%;"><a id='lblCheckno'></a><br><a id='lblGqbtitle'></a></td>
-					<td align="center" style="width:7%;"><a id='lblAccount'></a></td>
-					<td align="center" style="width:6%;"><a id='lblBankno'></a><br><a id='lblBank'></a></td>
-					<td align="center" style="width:4%;"><a id='lblIndate'></a></td>
-					<td align="center" style="width:5%;"><a id='lblChgsTran'></a><br><a id='lblParts'></a></td>
-					<td align="center" style="width:7%;"><a id='lblMemos'></a></td>
-					<td align="center" style="width:5%;"><a id='lblPaysales'></a></td>
-					<td align="center" style="width:5%;"><a id='lblUnpay_s'></a></td>
-					<td align="center" style="width:3%;"><a id='lblCoins'></a></td>
+					<td align="center" style="width:7%;"><a id='lblAcc1'> </a><br><a id='lblAcc2'> </a></td>
+					<td align="center" style="width:15%;"><a id='lblMoney'> </a><br><a id='lblAccmemo'> </a><br class="Usdata" style="display:none;"><a class="Usdata" id='lblMoneyuss' style="display:none;"> </a></td>
+					<td align="center" style="width:7%;"><a id='lblCheckno'> </a><br><a id='lblGqbtitle'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblAccount'> </a></td>
+					<td align="center" style="width:6%;"><a id='lblBankno'> </a><br><a id='lblBank'> </a></td>
+					<td align="center" style="width:4%;"><a id='lblIndate'> </a></td>
+					<td align="center" style="width:5%;"><a id='lblChgsTran'> </a><br><a id='lblParts'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblMemos'> </a></td>
+					<td align="center" style="width:5%;"><a id='lblPaysales'> </a></td>
+					<td align="center" style="width:5%;"><a id='lblUnpay_s'> </a></td>
+					<td align="center" style="width:3%;"><a id='lblCoins'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -1472,24 +1530,21 @@
 						<input type="button" id="btnAcc.*" style="display:none;" />
 					</td>
 					<td>
-					<input type="text" id="txtMoney.*" style="text-align:right;width:95%;"/>
-					<input type="text" id="txtMemo.*" style="width:95%;"/>
+						<input type="text" id="txtMoney.*" style="text-align:right;width:95%;"/>
+						<input type="text" id="txtMemo.*" style="width:95%;"/>
+						<input type="text" id="txtMoneyus.*" class="Usdata" style="display:none;text-align:right;width:95%;"/>
 					</td>
 					<td>
-					<input type="text" id="txtCheckno.*"  style="width:95%;" />
-					<input type="text" id="txtTitle.*" style="width:95%;" />
+						<input type="text" id="txtCheckno.*"  style="width:95%;" />
+						<input type="text" id="txtTitle.*" style="width:95%;" />
 					</td>
-					<td>
-					<input type="text" id="txtAccount.*"  style="width:95%;" />
-					</td>
+					<td><input type="text" id="txtAccount.*"  style="width:95%;" /></td>
 					<td>
                         <input type="text" id="txtBankno.*"  style="width:95%; float:left;" title="點擊滑鼠右鍵，列出明細。"/>
 						<input type="text" id="txtBank.*"  style="width:95%; float:left;"/>
 						<input type="button" id="btnBank.*"  style=" display:none;"/>
 					</td>
-					<td>
-					<input type="text" id="txtIndate.*" style="width:95%;" />
-					</td>
+					<td><input type="text" id="txtIndate.*" style="width:95%;" /></td>
 					<td>
 						<input type="text" id="txtChgs.*" style="text-align:right;width:95%;"/>
 						<select id="cmbPartno.*"  style="float:left;width:95%;" > </select>
@@ -1506,16 +1561,14 @@
 						<input type="text" id="txtPaymon.*" style="display:none;" />
 					</td>
 					<td>
-					<input type="text" id="txtPaysale.*" style="text-align:right;width:95%;"/>
-					<input type="text" id="txtUnpayorg.*" style="text-align:right;width:95%;"/>
+						<input type="text" id="txtPaysale.*" style="text-align:right;width:95%;"/>
+						<input type="text" id="txtUnpayorg.*" style="text-align:right;width:95%;"/>
 					</td>
 					<td>
-					<input type="text" id="txtUnpay.*"  style="width:95%; text-align: right;" />
-					<input type="text" id="txtPart2.*"  style="float:left;width: 95%;"/>
+						<input type="text" id="txtUnpay.*"  style="width:95%; text-align: right;" />
+						<input type="text" id="txtPart2.*"  style="float:left;width: 95%;"/>
 					</td>
-					<td>
-						<input type="text" id="txtCoin.*" style="width:95%;"/>
-					</td>
+					<td><input type="text" id="txtCoin.*" style="width:95%;"/></td>
 				</tr>
 			</table>
 		</div>

@@ -96,15 +96,15 @@
 				}
 				total = q_add(q_mul(addMoney,addMul),price);
 				q_tr('txtTranmoney', total);
-				q_tr('txtTotalus', q_mul(q_float('txtTotal'), q_float('txtFloata')));
+				q_tr('txtTotalus', round(q_mul(q_float('txtTotal'), q_float('txtFloata')),5));
 			}
 
 			function mainPost() {
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
 				q_mask(bbmMask);
-				bbmNum = [['txtMoney', 15, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 15, 0, 1],['txtPrice', 10, q_getPara('rc2.pricePrecision'), 1], ['txtTotalus', 15, 0, 1], ['txtFloata', 10, 2, 1],['txtTranmoney',15,0,1],['txtTranadd',15,q_getPara('rc2.pricePrecision'),1]];
-				bbsNum = [['txtMount', 15, q_getPara('rc2.mountPrecision'), 1], ['txtPrice', 15, q_getPara('rc2.pricePrecision'), 1], ['txtTotal', 15, 0, 1]];
+				bbmNum = [['txtMoney', 15, 5, 1, 1], ['txtTax', 15, 5, 1, 1], ['txtTotal', 15, 5, 1, 1],['txtPrice', 15, q_getPara('rc2.pricePrecision'), 1, 1], ['txtTotalus', 15, 5, 1, 1], ['txtFloata', 15, 5, 1, 1],['txtTranmoney',15,0,1, 1],['txtTranadd',15,q_getPara('rc2.pricePrecision'),1, 1]];
+				bbsNum = [['txtMount', 15, q_getPara('rc2.mountPrecision'), 1, 1], ['txtPrice', 15, q_getPara('rc2.pricePrecision'), 1, 1], ['txtTotal', 15, 5, 1, 1]];
 				if(q_getPara('sys.project').toUpperCase()=='XY'){
 					q_readonlys = ['txtNoq','txtProduct','txtSpec','txtOrdeno','txtNo2','txtUnit'];
 					aPop = new Array(

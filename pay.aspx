@@ -13,12 +13,12 @@
 		    q_desc = 1
 		    q_tables = 's';
 		    var q_name = "pay";
-		    var q_readonly = ['txtNoa','txtWorker', 'txtWorker2', 'txtAccno','txtSale','txtTotal','txtPaysale','txtUnpay','txtOpay','textOpay','txtWorker2','txtRc2no'
-		    ,'txtFloata','txtTotalus','txtPaysaleus','txtUnpayus'];
+		    var q_readonly = ['txtNoa','txtWorker', 'txtWorker2', 'txtAccno','txtSale','txtTotal','txtPaysale','txtUnpay','txtOpay','textOpay','txtWorker2','txtRc2no'];
 		    var q_readonlys = ['txtRc2no', 'txtUnpay', 'txtUnpayorg', 'txtAcc2', 'txtPart2','txtMemo2','txtCno','txtCoin'];
-		    var bbmNum = new Array(['txtSale', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtOpay', 10, 0, 1], ['txtUnopay', 10, 0, 1], ['textOpay', 10, 0, 1]
-		    , ['txtFloata', 10, 4, 1], ['txtTotalus', 10, 0, 1], ['txtPaysaleus', 10, 0, 1], ['txtUnpayus', 10, 0, 1]);
-		    var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtUnpayorg', 10, 0, 1]];
+		    var bbmNum = new Array(['txtSale', 15, 5, 1, 1], ['txtTotal', 15, 5, 1, 1], ['txtPaysale', 15, 5, 1, 1], ['txtUnpay', 15, 5, 1, 1], ['txtOpay', 15, 5, 1, 1], ['txtUnopay', 15, 5, 1, 1], ['textOpay', 15, 5, 1, 1]
+		    , ['txtFloata', 15, 5, 1, 1]);
+		    var bbsNum = [['txtMoney', 15, 5, 1, 1], ['txtChgs', 15, 5, 1, 1], ['txtPaysale', 15, 5, 1, 1], ['txtUnpay', 15, 5, 1, 1], ['txtUnpayorg', 15, 5, 1, 1]
+		    , ['txtMoneyus', 15, 5, 1, 1]];
 		    var bbmMask = [];
 		    var bbsMask = [];
 
@@ -155,9 +155,9 @@
 		               var t_money = 0+q_float('txtUnopay');
 		               for (var i = 0; i < q_bbsCount; i++) {
 		               		if($('#txtAcc1_'+i).val().indexOf('1121') == 0 || $('#txtAcc1_'+i).val().indexOf('7149') == 0 || $('#txtAcc1_'+i).val().indexOf('7044') == 0)
-		               			t_money -= q_float('txtMoney_' + i);
+		               			t_money -= emp($('#cmbCoin').val())?q_float('txtMoney_' + i):q_float('txtMoneyus_' + i);
 		               		else
-		               			t_money += q_float('txtMoney_' + i);
+		               			t_money += emp($('#cmbCoin').val())?q_float('txtMoney_' + i):q_float('txtMoneyus_' + i);
 		               			//104/04/29費用不算在付款金額//0601恢復並改為-
 		               			t_money-=q_float('txtChgs_' + i);
 		               }
@@ -183,9 +183,27 @@
 		                sum();
 		         });
 		         
-				$('cmbCoin').change(function() {
+				$('#cmbCoin').change(function() {
 					UsShow();
+					if(!emp($('#txtDatea').val()) && !emp($('#cmbCoin').val())){
+						q_gt('flors', "where=^^coin='"+$('#cmbCoin').val()+"' and '"+$('#txtDatea').val()+"' between bdate and edate ^^", 0, 0, 0, "flors",r_accy,1);
+						var as = _q_appendData("flors", "", true);
+						if (as[0] != undefined) {
+							$('#txtFloata').val(as[0].floata);
+						}else{
+							$('#txtFloata').val(0);
+						}
+					}else{
+						$('#txtFloata').val(0);
+						for(var i=0;i<q_bbsCount;i++){
+							$('#txtMoneyus_'+i).val(0);
+						}
+					}
+					sum();
 				});
+				
+				if(q_getPara('sys.isAcccUs')=='1')
+					$('.isAcccUs').show();
 		    }
 		
 		    function getOpay() {
@@ -247,8 +265,10 @@
 						if(z_coin.length==0) z_coin=' ';
 						
 						q_cmbParse("cmbCoin", z_coin);
-						if(abbm[q_recno])
+						if(abbm[q_recno]){
 							$('#cmbCoin').val(abbm[q_recno].coin);
+							UsShow();
+						}
 						
 						break;
 		        	case 'pay_import':
@@ -320,6 +340,9 @@
 		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
 		                    }
 		                    q_cmbParse("cmbCno", t_item);
+		                    if(abbm[q_recno]){
+								$('#cmbCno').val(abbm[q_recno].cno);
+							}
 		                }
 		                break;
 		        	case 'payb':
@@ -497,7 +520,7 @@
 		          /*  if($('#txtAcc1_'+j).val().indexOf('1121') == 0 || $('#txtAcc1_'+j).val().indexOf('7149') == 0 || $('#txtAcc1_'+j).val().indexOf('7044') == 0)
 		               	t_money -= q_float('txtMoney_' + j);
 		            else*/
-		               	t_money += q_float('txtMoney_' + j);
+		               	t_money += emp($('#cmbCoin').val())?q_float('txtMoney_' + j):q_float('txtMoneyus_' + j);
 						//104/04/29費用不算在付款金額//0601恢復並改為-
 		            	t_money-=q_float('txtChgs_' + j);
 		            t_sale += q_float('txtUnpayorg_' + j);
@@ -577,7 +600,7 @@
 		        var t_money = 0, t_chgs = 0, t_paysale,t_mon='';
 		        for (var i = 0; i < q_bbsCount; i++) {
 		        	$('#txtCheckno_'+i).val($.trim($('#txtCheckno_'+i).val()));
-		            t_money = q_float('txtMoney_' + i);
+		            t_money = emp($('#cmbCoin').val())?q_float('txtMoney_' + i):q_float('txtMoneyus_' + i);
 		            //104/04/29費用不算在付款金額//0601恢復並改為-
 		            t_chgs = q_float('txtChgs_' + i);
                     if ($.trim($('#txtAcc1_' + i).val()).length == 0 && t_money - t_chgs > 0) {
@@ -596,7 +619,7 @@
 		        
 		        t_money=0,t_chgs=0;
                 for (var i = 0; i < q_bbsCount; i++) {
-                    t_money += q_float('txtMoney_' + i);
+                    t_money += emp($('#cmbCoin').val())?q_float('txtMoney_' + i):q_float('txtMoneyus_' + i);
                     //104/04/29費用不算在收款金額//0601恢復並改為-
                    t_chgs += q_float('txtChgs_' + i);
                 }
@@ -717,7 +740,13 @@
 		            });
 		            
 		            $('#txtMoney_' + i).change(function (e) {
+		            	var n = $(this).attr('id').split('_')[1];
 		                sum();
+		                if(dec($('#txtFloata').val())!=0){
+		                	$('#txtMoneyus_'+n).val(q_mul(dec($(this).val()),dec($('#txtFloata').val())));
+		                }else{
+		                	$('#txtMoneyus_'+n).val(0);
+		                }
 		            });
 
 		            $('#txtChgs_' + i).change(function (e) {
@@ -773,6 +802,7 @@
 		        }
 
 		        _bbsAssign();
+		        UsShow();
 		    }
 
 		    function btnIns() {
@@ -782,6 +812,7 @@
 		        $('#txtDatea').val(q_date());
 		        $('#cmbCno').val(z_cno);
                 $('#txtAcomp').val(z_acomp);
+                UsShow();
 		    }
 			
 			var t_predate='';
@@ -796,8 +827,9 @@
 		    }
 			function checkGqbStatus_btnModi(n){
             	if(n<0){
-            		 _btnModi();
-		        	sum();
+					_btnModi();
+					UsShow();
+					sum();
 		        	$('#textOpayOrg').val(q_float('textOpay') + q_float('txtUnopay') - q_float('txtOpay'));
             		Unlock(1);
             	}else{
@@ -861,6 +893,7 @@
 		        	$("#btnAuto").attr("disabled","disabled");
 		        }
 		        getOpay();
+		        UsShow();
 		    }
 
 		    function readonly(t_para, empty) {
@@ -879,6 +912,7 @@
                     $('#txtNoa').removeAttr('disabled');
                 else
                     $('#txtNoa').attr('disabled', 'disabled');*/
+				UsShow();
 		    }
 
 		    function btnMinus(id) {
@@ -938,10 +972,10 @@
 		    }  
 		    
 		    function UsShow(){
-		    	if($('#cmbCoin').val()!=''){
-		    		$('#UsBbm').show();
+		    	if(!emp($('#cmbCoin').val())){
+		    		$('.Usdata').show();
 		    	}else{
-		    		$('#UsBbm').hide();
+		    		$('.Usdata').hide();
 		    	}
 		    }
 		    
@@ -1216,23 +1250,7 @@
 						<td class="td6"><input id="txtPaysale"  type="text" class="txt num c1"/></td>
 						<td class="td7"><span> </span><a id='lblUnpay' class="lbl"> </a></td>
 						<td class="td8"><input id="txtUnpay"  type="text" class="txt num c1"/></td>
-					</tr>  
-					<tr style="display: none;">
-						<td><span> </span><a id='lblCoin' class="lbl"> </a></td>
-						<td><select id="cmbCoin" class="txt c1"> </select></td>
-						<td><span> </span><a id='lblFloata' class="lbl"> </a></td>
-						<td><input id="txtFloata" type="text" class="txt num c1"/></td>
-					</tr> 
-					<tr id="UsBbm" style="display: none;">
-						<td> </td>
-						<td> </td>
-						<td><span> </span><a id='lblTotalus' class="lbl"> </a></td>
-						<td><input id="txtTotalus" type="text" class="txt num c1"/></td>
-						<td><span> </span><a id='lblPaysaleus' class="lbl"> </a></td>
-						<td><input id="txtPaysaleus"  type="text" class="txt num c1"/></td>
-						<td><span> </span><a id='lblUnpayus' class="lbl"> </a></td>
-						<td><input id="txtUnpayus"  type="text" class="txt num c1"/></td>
-					</tr> 
+					</tr>
 					<tr>
 						<td><span> </span><a id='lblOpay' class="lbl"> </a></td>
 						<td><input id="txtOpay"  type="text" class="txt num c1"/></td>
@@ -1248,7 +1266,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td colspan="3" rowspan="6" ><textarea id="txtMemo"  rows='3' cols='3' style="width: 100%; " > </textarea></td>
+						<td colspan="3" rowspan="2" ><textarea id="txtMemo"  rows='3' cols='3' style="width: 100%; " > </textarea></td>
 						<td><span> </span><a id='lblAccc' class="lbl btn"> </a></td>
 						<td><input id="txtAccno"  type="text" class="txt c1"/></td>
 						<td> </td>
@@ -1261,6 +1279,12 @@
 						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
 						<td><input id="txtWorker2"  type="text" class="txt c1"/></td>
 					</tr>
+					<tr style="display: none;" class="isAcccUs">
+						<td><span> </span><a id='lblCoin' class="lbl"> </a></td>
+						<td><select id="cmbCoin" class="txt c1"> </select></td>
+						<td><span> </span><a id='lblFloata' class="lbl"> </a></td>
+						<td><input id="txtFloata" type="text" class="txt num c1"/></td>
+					</tr>
 				</table>
 			</div>
 		</div>
@@ -1272,7 +1296,7 @@
 					</td>
 					<td align="center" style="width:1%;"> </td>
 					<td align="center" style="width:6%;"><a id='lblAcc1'> </a><br><a id='lblAcc2'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblMoney'> </a><br><a id='lblAccmemo'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblMoney'> </a><br><a id='lblAccmemo'> </a><br class="Usdata" style="display:none;"><a class="Usdata" id='lblMoneyuss' style="display:none;"> </a></td>
 					<td align="center" style="width:4%;"><a id='lblPaycs'> </a><br><a id='lblIndate'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblCheckno'> </a><br><a id='lblAccount_s'> </a><br><a id='lblGqbtitle'> </a></td>
 					<td align="center" style="width:5%;"><a id='lblBankno'> </a><br><a id='lblBank'> </a></td>
@@ -1294,8 +1318,9 @@
 						<input type="button" id="btnAcc.*" style="display:none;" />
 					</td>
 					<td>
-					<input type="text" id="txtMoney.*" style="text-align:right;width:95%;"/>
-					<input type="text" id="txtMemo.*" style="width:95%;"/>
+						<input type="text" id="txtMoney.*" style="text-align:right;width:95%;"/>
+						<input type="text" id="txtMemo.*" style="width:95%;"/>
+						<input type="text" id="txtMoneyus.*" class="Usdata" style="display:none;text-align:right;width:95%;"/>
 					</td>
 					<td>
 						<input type="text" id="txtPayc.*"  style="float:left;width:75%;" />
@@ -1314,7 +1339,7 @@
 					</td>
 					<td>
 						<input type="text" id="txtChgs.*" style="text-align:right;width:95%;"/>
-						<select id="cmbPartno.*"  style="float:left;width:95%;" > </select>
+						<select id="cmbPartno.*" style="float:left;width:95%;" > </select>
 						<input type="text" id="txtPart.*" style="display:none;"/>
 					</td>
 					<td>
@@ -1328,20 +1353,17 @@
 						<input type="text" id="txtPaymon.*" style="display:none;" />
 					</td>
 					<td>
-					<input type="text" id="txtPaysale.*" style="text-align:right;width:95%;"/>
-					<input type="text" id="txtUnpayorg.*" style="text-align:right;width:95%;"/>
+						<input type="text" id="txtPaysale.*" style="text-align:right;width:95%;"/>
+						<input type="text" id="txtUnpayorg.*" style="text-align:right;width:95%;"/>
 					</td>
 					<td>
-					<input type="text" id="txtUnpay.*"  style="width:95%; text-align: right;" />
-					<input type="text" id="txtPart2.*"  style="float:left;width: 95%;"/>
+						<input type="text" id="txtUnpay.*"  style="width:95%; text-align: right;" />
+						<input type="text" id="txtPart2.*"  style="float:left;width: 95%;"/>
 					</td>
-					<td>
-						<input type="text" id="txtCoin.*" style="width:95%;"/>
-					</td>
+					<td><input type="text" id="txtCoin.*" style="width:95%;"/></td>
 				</tr>
 			</table>
 		</div>
-
 		<input id="q_sys" type="hidden" />
 	</body>
 </html>
