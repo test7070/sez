@@ -53,7 +53,7 @@
 					if(isinvosystem=='2'){//沒有發票系統
 	                	$('#Xshowinvono').hide();
 	                }
-	                if(!(q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1)){
+	                if(q_getPara('sys.project').toUpperCase()!='IT'){
 						$('#Xgroupbno').hide();
 						$('#Xgroupcno').hide();
 	                }
@@ -62,14 +62,7 @@
             
             function q_gfPost() {
             	var ucctype=q_getPara('ucc.typea') + ',' + q_getPara('uca.typea');
-	            /*if(q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1)
-	            {
-	            	ucctype= q_getPara('ucc.typea_it');
-	            }*/
 	            var vccstype=q_getPara('vcc.stype');
-	            /*if(q_getPara('sys.comp').indexOf('永勝') > -1){
-	            	vccstype=q_getPara('vcc.stype_uu');
-	            }*/
             	
                 $('#q_report').q_report({
                     fileName : 'z_vcc',
@@ -107,7 +100,7 @@
                         type : '2', //[12][13]//10
                         name : 'product',
                         dbf : 'ucaucc',
-                        index : 'noa,product',
+                        index : (q_getPara('sys.project').toUpperCase()=='XY'?'noa,product,spec':'noa,product'),
                         src : 'ucaucc_b.aspx'
                     },{
                         type : '2', //[14][15]//原廠//20
@@ -195,7 +188,7 @@
                 $('.q_report .report').css('width', '420px');
                 $('.q_report .report div').css('width', '200px');
 
-                if (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1) {
+                if (q_getPara('sys.project').toUpperCase()=='IT') {
                     if (issale == 'true' && job.indexOf('經理') < 0 && r_rank <= '5') {//一般業務只能看到自己的業績
                         $('#txtSales1a').val(r_userno);
                         $('#txtSales1b').val(r_name);
@@ -226,12 +219,12 @@
 	                $('#Xshowinvono').hide();
 				}
 				
-				if(!(q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1)){
+				if(q_getPara('sys.project').toUpperCase()!='IT'){
 					$('#Xgroupbno').hide();
 					$('#Xgroupcno').hide();
 				}
 				
-				if(q_getPara('sys.comp').indexOf('楊家') > -1 || q_getPara('sys.comp').indexOf('德芳') > -1){
+				if(q_getPara('sys.project').toUpperCase()!='TN'){
 					//打客戶編號和產品後面要自動帶一樣的值
 	                $('#txtCardeal1a').blur(function() {
 	                   	if(emp($('#txtCust1a').val())){
@@ -382,10 +375,10 @@
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
-		<div id="q_menu"></div>
+		<div id="q_menu"> </div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">
-				<div id="q_report"></div>
+				<div id="q_report"> </div>
 			</div>
 			<div class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->
