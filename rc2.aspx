@@ -127,7 +127,7 @@
 				q_cmbParse("combPaytype", q_getPara('rc2.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				//q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
-				var t_where = "where=^^ 1=0 ^^";
+				var t_where = "where=^^ 1=0 ^^ stop=100";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
 				
 				//限制帳款月份的輸入 只有在備註的第一個字為*才能手動輸入					
@@ -197,7 +197,7 @@
 				
 				$('#txtTggno').change(function() {
 					if (!emp($('#txtTggno').val())) {
-						var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^";
+						var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^ stop=100";
 						q_gt('custaddr', t_where, 0, 0, 0, "");
 						if(q_getPara('sys.project').toUpperCase()=='XY'){
 							var t_where =" noa='"+$('#txtTggno').val()+"'";
@@ -870,7 +870,7 @@
 				//$('#cmbTaxtype').val(1);
 				$('#chkAtax').prop('checked',true);
 				if (!emp($('#txtTggno').val())) {
-					var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^";
+					var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^ stop=100";
 					q_gt('custaddr', t_where, 0, 0, 0, "");
 				}
 			}
@@ -1082,7 +1082,7 @@
 						break;	
 					case 'txtTggno':
 						if (!emp($('#txtTggno').val())) {
-							var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^";
+							var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^ stop=100";
 							q_gt('custaddr', t_where, 0, 0, 0, "");
 							if(q_getPara('sys.project').toUpperCase()=='XY'){
 								var t_where =" noa='"+$('#txtTggno').val()+"'";

@@ -13,9 +13,11 @@
 		    q_desc = 1
 		    q_tables = 's';
 		    var q_name = "pay";
-		    var q_readonly = ['txtNoa','txtWorker', 'txtWorker2', 'txtAccno','txtSale','txtTotal','txtPaysale','txtUnpay','txtOpay','textOpay','txtWorker2','txtRc2no'];
+		    var q_readonly = ['txtNoa','txtWorker', 'txtWorker2', 'txtAccno','txtSale','txtTotal','txtPaysale','txtUnpay','txtOpay','textOpay','txtWorker2','txtRc2no'
+		    ,'txtFloata','txtTotalus','txtPaysaleus','txtUnpayus'];
 		    var q_readonlys = ['txtRc2no', 'txtUnpay', 'txtUnpayorg', 'txtAcc2', 'txtPart2','txtMemo2','txtCno','txtCoin'];
-		    var bbmNum = new Array(['txtSale', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtOpay', 10, 0, 1], ['txtUnopay', 10, 0, 1], ['textOpay', 10, 0, 1]);
+		    var bbmNum = new Array(['txtSale', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtOpay', 10, 0, 1], ['txtUnopay', 10, 0, 1], ['textOpay', 10, 0, 1]
+		    , ['txtFloata', 10, 4, 1], ['txtTotalus', 10, 0, 1], ['txtPaysaleus', 10, 0, 1], ['txtUnpayus', 10, 0, 1]);
 		    var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtUnpayorg', 10, 0, 1]];
 		    var bbmMask = [];
 		    var bbsMask = [];
@@ -52,6 +54,7 @@
 		        bbsMask = [['txtIndate', r_picd]];
 		        q_gt('part', '', 0, 0, 0, "");
 		        q_gt('acomp', '', 0, 0, 0, "");
+		        q_gt('flors_coin', '', 0, 0, 0, "flors_coin");
 		        
 		        q_cmbParse("cmbPayc2", q_getMsg('payc').split('&').join(),"s");
 		        
@@ -179,6 +182,10 @@
 		                    q_tr('txtOpay', t_money);
 		                sum();
 		         });
+		         
+				$('cmbCoin').change(function() {
+					UsShow();
+				});
 		    }
 		
 		    function getOpay() {
@@ -231,6 +238,19 @@
 			var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
 		    function q_gtPost(t_name) {
 		        switch (t_name) {
+		        	case 'flors_coin':
+						var as = _q_appendData("flors", "", true);
+						var z_coin='';
+						for ( i = 0; i < as.length; i++) {
+							z_coin+=','+as[i].coin;
+						}
+						if(z_coin.length==0) z_coin=' ';
+						
+						q_cmbParse("cmbCoin", z_coin);
+						if(abbm[q_recno])
+							$('#cmbCoin').val(abbm[q_recno].coin);
+						
+						break;
 		        	case 'pay_import':
                 		as = _q_appendData(t_name, "", true);
                 		q_gridAddRow(bbsHtm, 'tbbs', 'txtCno,txtTggno,txtPaymon,txtCoin,txtUnpay,txtUnpayorg,txtTablea,txtAccy,txtRc2no,txtMemo2', as.length, as, 'cno,tggno,mon,coin,unpay,unpay,tablea,tableaccy,rc2no,memo', '', '');
@@ -916,6 +936,15 @@
 		    function btnCancel() {
 		        _btnCancel();
 		    }  
+		    
+		    function UsShow(){
+		    	if($('#cmbCoin').val()!=''){
+		    		$('#UsBbm').show();
+		    	}else{
+		    		$('#UsBbm').hide();
+		    	}
+		    }
+		    
 		    function tipShow(){
 				Lock(1);
 				tipInit();
@@ -1157,7 +1186,7 @@
 						<td><input id="txtPayc" type="text" class="txt c1"/></td>
 						<td class="tdZ"><input type="button" id="btnTip" value="?" style="float:right;" onclick="tipShow()"/></td>
 					</tr>
-					<tr class="tr2">
+					<tr>
 						<td><span> </span><a id='lblAcomp' class="lbl"> </a></td>
 						<td>
 							<select id="cmbCno" class="txt c1"> </select>
@@ -1178,7 +1207,7 @@
 	                        <input id="txtTggno2" type="text" class="txt c1" title='多廠商使用"逗號"分隔'/>
 						</td>
 					</tr>
-					<tr class="tr4">
+					<tr>
 						<td class="td1"><span> </span><a id='lblSale' class="lbl"> </a></td>
 						<td class="td2"><input id="txtSale"  type="text" class="txt num c1"/></td>
 						<td class="td3"><span> </span><a id='lblTotal' class="lbl"> </a></td>
@@ -1188,7 +1217,23 @@
 						<td class="td7"><span> </span><a id='lblUnpay' class="lbl"> </a></td>
 						<td class="td8"><input id="txtUnpay"  type="text" class="txt num c1"/></td>
 					</tr>  
-					<tr class="tr5">
+					<tr style="display: none;">
+						<td><span> </span><a id='lblCoin' class="lbl"> </a></td>
+						<td><select id="cmbCoin" class="txt c1"> </select></td>
+						<td><span> </span><a id='lblFloata' class="lbl"> </a></td>
+						<td><input id="txtFloata" type="text" class="txt num c1"/></td>
+					</tr> 
+					<tr id="UsBbm" style="display: none;">
+						<td> </td>
+						<td> </td>
+						<td><span> </span><a id='lblTotalus' class="lbl"> </a></td>
+						<td><input id="txtTotalus" type="text" class="txt num c1"/></td>
+						<td><span> </span><a id='lblPaysaleus' class="lbl"> </a></td>
+						<td><input id="txtPaysaleus"  type="text" class="txt num c1"/></td>
+						<td><span> </span><a id='lblUnpayus' class="lbl"> </a></td>
+						<td><input id="txtUnpayus"  type="text" class="txt num c1"/></td>
+					</tr> 
+					<tr>
 						<td><span> </span><a id='lblOpay' class="lbl"> </a></td>
 						<td><input id="txtOpay"  type="text" class="txt num c1"/></td>
 						<td><span> </span><a id='lblUnopay' class="lbl"> </a></td>
@@ -1202,9 +1247,9 @@
 						<td><input id="txtRc2no"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblMemo' class="lbl"></a></td>
-						<td colspan="3" rowspan="6" ><textarea id="txtMemo"  rows='3' cols='3' style="width: 100%; " ></textarea></td>
-						<td><span> </span><a id='lblAccc' class="lbl btn"></a></td>
+						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
+						<td colspan="3" rowspan="6" ><textarea id="txtMemo"  rows='3' cols='3' style="width: 100%; " > </textarea></td>
+						<td><span> </span><a id='lblAccc' class="lbl btn"> </a></td>
 						<td><input id="txtAccno"  type="text" class="txt c1"/></td>
 						<td> </td>
 						<td><input type="button" id="btnAuto" class="txt c1 "  style="color:red"/></td>
@@ -1235,7 +1280,7 @@
 					<td align="center" style="width:5%;"><a id='lblMemos'> </a></td>
 					<td align="center" style="width:4%;"><a id='lblPaysales'> </a></td>
 					<td align="center" style="width:4%;"><a id='lblUnpay_s'> </a></td>
-					<td align="center" style="width:3%;"><a id='lblCoins'></a></td>
+					<td align="center" style="width:3%;"><a id='lblCoins'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">

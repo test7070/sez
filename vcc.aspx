@@ -115,7 +115,7 @@
 				//q_cmbParse("cmbCoin", q_getPara('sys.coin'));
 				q_cmbParse("combPay", q_getPara('vcc.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
-				var t_where = "where=^^ 1=1  ^^";
+				var t_where = "where=^^ 1=0  ^^ stop=100";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
 				
 				//限制帳款月份的輸入 只有在備註的第一個字為*才能手動輸入					
@@ -237,7 +237,7 @@
 
 				$('#txtCustno').change(function() {
 					if (!emp($('#txtCustno').val())) {
-						var t_where = "where=^^ noa='" + $('#txtCustno').val() + "'  ^^";
+						var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^ stop=100";
 						q_gt('custaddr', t_where, 0, 0, 0, "");
 					}
 				});
@@ -649,7 +649,7 @@
 						$('#txtDatea').focus();
 
 						if (!emp($('#txtCustno').val())) {
-							var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
+							var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^ stop=100";
 							q_gt('custaddr', t_where, 0, 0, 0, "");
 						}
 						//取得車號下拉式選單
@@ -860,7 +860,7 @@
 				$('#txtDatea').focus();
 				//$('#cmbTaxtype').val('1');
 				stype_chang();
-				var t_where = "where=^^ 1=1  ^^";
+				var t_where = "where=^^ 1=0 ^^ stop=100";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
 			}
 
@@ -1046,7 +1046,7 @@
 						break;
 					case 'txtCustno':
 						if (!emp($('#txtCustno').val())) {
-							var t_where = "where=^^ noa='" + $('#txtCustno').val() + "'  ^^";
+							var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^ stop=100";
 							q_gt('custaddr', t_where, 0, 0, 0, "");
 						}
 						bbsGetOrdeList();
