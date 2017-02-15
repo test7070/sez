@@ -15,9 +15,9 @@
             var q_name = "umm";
             var q_readonly = ['txtNoa','txtWorker', 'txtCno', 'txtAcomp', 'txtSale', 'txtTotal', 'txtPaysale', 'txtUnpay', 'txtOpay', 'textOpay','txtAccno','txtWorker2'];
             var q_readonlys = ['txtUnpay', 'txtUnpayorg', 'txtAcc2', 'txtPart2','txtCoin','txtCustno','txtPaymon'];
-            var bbmNum = new Array(['txtSale', 15, 5, 1], ['txtTotal', 15, 5, 1], ['txtPaysale', 15, 5, 1], ['txtUnpay', 15, 5, 1], ['txtOpay', 15, 5, 1], ['txtUnopay', 15, 5, 1], ['textOpay', 15, 5, 1]
+            var bbmNum = new Array(['txtSale', 15, 5, 1, 1], ['txtTotal', 15, 5, 1, 1], ['txtPaysale', 15, 5, 1, 1], ['txtUnpay', 15, 5, 1, 1], ['txtOpay', 15, 5, 1, 1], ['txtUnopay', 15, 5, 1, 1], ['textOpay', 15, 5, 1, 1]
             , ['txtFloata', 15, 5, 1, 1]);
-            var bbsNum = [['txtMoney', 15, 5, 1], ['txtChgs', 15, 5, 1], ['txtPaysale', 15, 5, 1], ['txtUnpay', 15, 5, 1], ['txtUnpayorg', 15, 5, 1]
+            var bbsNum = [['txtMoney', 15, 5, 1, 1], ['txtChgs', 15, 5, 1, 1], ['txtPaysale', 15, 5, 1, 1], ['txtUnpay', 15, 5, 1, 1], ['txtUnpayorg', 15, 5, 1, 1]
             , ['txtMoneyus', 15, 5, 1, 1]];
             var bbmMask = [];
             var bbsMask = [];
