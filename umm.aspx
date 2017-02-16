@@ -16,7 +16,7 @@
             var q_readonly = ['txtNoa','txtWorker', 'txtCno', 'txtAcomp', 'txtSale', 'txtTotal', 'txtPaysale', 'txtUnpay', 'txtOpay', 'textOpay','txtAccno','txtWorker2'];
             var q_readonlys = ['txtUnpay', 'txtUnpayorg', 'txtAcc2', 'txtPart2','txtCoin','txtCustno','txtPaymon'];
             var bbmNum = new Array(['txtSale', 15, 5, 1, 1], ['txtTotal', 15, 5, 1, 1], ['txtPaysale', 15, 5, 1, 1], ['txtUnpay', 15, 5, 1, 1], ['txtOpay', 15, 5, 1, 1], ['txtUnopay', 15, 5, 1, 1], ['textOpay', 15, 5, 1, 1]
-            , ['txtFloata', 15, 5, 1, 1]);
+            , ['txtFloata', 15, 5, 1, 1], ['txtEcmoney', 15, 5, 1, 1]);
             var bbsNum = [['txtMoney', 15, 5, 1, 1], ['txtChgs', 15, 5, 1, 1], ['txtPaysale', 15, 5, 1, 1], ['txtUnpay', 15, 5, 1, 1], ['txtUnpayorg', 15, 5, 1, 1]
             , ['txtMoneyus', 15, 5, 1, 1]];
             var bbmMask = [];
@@ -51,6 +51,7 @@
 	            	, ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_,txtMoney_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
 	            	, ['txtBankno_', 'btnBank_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx']
 	            	, ['txtUmmaccno_', '', 'ummacc', 'noa,typea', 'txtUmmaccno_,txtTypea_', 'ummacc_b.aspx']
+	            	,['txtEcacc1', 'lblEcacc1', 'acc', 'acc1,acc2', 'txtEcacc1,txtEcacc2,txtEcmoney', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
 	            	//104/10/03 Vccno不提供apop 會出現系統lag問題
 	            	//, ['txtVccno_', '', 'view_vcc', 'noa,comp,unpay,unpay,typea,accy,cno,mon', 'txtVccno_,txtMemo2_,txtUnpayorg_,txtUnpay_,textTypea_,txtAccy_,txtCno_,txtPaymon_', '']
             	);
@@ -61,6 +62,7 @@
 		            	, ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_,txtMoney_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
 		            	, ['txtBankno_', 'btnBank_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx']
 		            	, ['txtUmmaccno_', '', 'ummacc', 'noa,typea', 'txtUmmaccno_,txtTypea_', 'ummacc_b.aspx']
+		            	,['txtEcacc1', 'lblEcacc1', 'acc', 'acc1,acc2', 'txtEcacc1,txtEcacc2,txtEcmoney', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
 	            	);
             	}
             	
@@ -380,6 +382,12 @@
                 			
                 			if($('#txtTablea_'+i).val()=='vcc' && t_comp == "裕承"){
                 				$('#txtTablea_'+i).val('vccst');
+                			}
+                		}
+                		
+                		if (as[0] != undefined) {
+                			if(as[0].coin!=''){
+                				$('#cmbCoin').val(as[0].coin).change();
                 			}
                 		}
                 		
@@ -962,7 +970,7 @@
                     	var n = $(this).attr('id').split('_')[1];
                         sum();
                         if(dec($('#txtFloata').val())!=0){
-		                	$('#txtMoneyus_'+n).val(q_mul(dec($(this).val()),dec($('#txtFloata').val())));
+		                	$('#txtMoneyus_'+n).val(round(q_div(dec($(this).val()),dec($('#txtFloata').val())),5));
 		                }else{
 		                	$('#txtMoneyus_'+n).val(0);
 		                }
@@ -1494,6 +1502,13 @@
 						<td><select id="cmbCoin" class="txt c1"> </select></td>
 						<td><span> </span><a id='lblFloata' class="lbl"> </a></td>
 						<td><input id="txtFloata" type="text" class="txt num c1"/></td>
+						<td><span> </span><a id='lblEcacc1' class="lbl"> </a></td>
+						<td>
+							<input type="text" id="txtEcacc1"  style="width:49%; float:left;"/>
+							<input type="text" id="txtEcacc2"  style="width:49%; float:left;"/>
+						</td>
+						<td><span> </span><a id='lblEcmoney' class="lbl"> </a></td>
+						<td><input id="txtEcmoney" type="text" class="txt num c1"/></td>
 					</tr>
 				</table>
 			</div>
