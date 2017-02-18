@@ -234,6 +234,11 @@
 
             function btnOk() {
             	Lock();
+            	if($.trim($('#cmbInvoicetype').val()).length==0){
+            		alert('請設定'+$('#lblInvoicetype').text());
+            		Unlock();
+            		return;
+            	}
             	//rev由 invoicetype取代,由於相容性rev仍會寫入值
                	switch($.trim($('#cmbInvoicetype').val())){
             		case '01':
