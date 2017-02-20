@@ -746,6 +746,12 @@
                     return;
                 }
                 
+                if(dec($('#txtFloata').val())!=0 && emp($('#cmbCoin').val())){
+					alert(q_getMsg('lblCoin')+'不可空白。');   
+					Unlock(1);
+					return;
+				}
+                
                 for (var i = 0; i < q_bbsCount; i++) {
                 	 if ($('#txtIndate_'+i).val().length > 0 && $('#txtIndate_'+i).val().indexOf('_')>-1) {
                     	alert(q_getMsg('lblIndate') + '錯誤。');

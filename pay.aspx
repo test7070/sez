@@ -567,6 +567,13 @@
 					Unlock(1);
 					return;
 				}
+				
+				if(dec($('#txtFloata').val())!=0 && emp($('#cmbCoin').val())){
+					alert(q_getMsg('lblCoin')+'不可空白。');   
+					Unlock(1);
+					return;
+				}
+				
 		        var t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  // 檢查空白 
 		        if (t_err.length > 0) {
 		            alert(t_err);
