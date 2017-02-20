@@ -254,7 +254,12 @@
                     if (s4[4].length > 0) {
                         for (var i = 0; i < $('#chkXpart').children('input').length; i++) {
                             $('#chkXpart').children('input')[i].checked = false;
-                            if ($('#chkXpart').children('input')[i].value == s4[4]) {
+                            /*if ($('#chkXpart').children('input')[i].value == s4[4]) {
+                                $('#chkXpart').children('input')[i].checked = true;
+                                $("#chkXpart").children('input')[i].disabled = false;
+                            }*/
+                            //多部門
+                            if (('^'+s4[4]+'^').indexOf('^'+$('#chkXpart').children('input')[i].value+'^')>=0) {
                                 $('#chkXpart').children('input')[i].checked = true;
                                 $("#chkXpart").children('input')[i].disabled = false;
                             }
