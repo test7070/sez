@@ -14,11 +14,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-            this.errorHandler = null;
-            function onPageError(error) {
-                alert("An error occurred:\r\n" + error.Message);
-            }
-
+			//2017/02/18  rev 由 invoicetype取代,由於相容性rev仍會寫入值
             q_tables = 's';
             var q_name = "vccar";
             var q_readonly = ['txtNoa'];
@@ -36,11 +32,15 @@
             //ajaxPath = ""; //  execute in Root
             aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,acomp,nick', 'txtCno,txtAcomp,txtNick', 'acomp_b.aspx']
             , ['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtComp_', 'cust_b.aspx']);
+            
+            var t_invoicetype = '';
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1);
+                
+                q_gt('invoicetype', '', 0, 0, 0, "getInvoicetype", r_accy);
+                
             });
 			
             function main() {
@@ -57,6 +57,8 @@
                 bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
                 q_mask(bbmMask);
                 bbsMask = [['txtDatea', r_picd]];
+				
+				q_cmbParse("cmbInvoicetype", t_invoicetype);
 				
 				if(r_len==3){
 					$('#txtBdate').datepicker();
@@ -139,10 +141,19 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'getInvoicetype':
+                		var as = _q_appendData("invoicetype", "", true);
+                		if (as[0] != undefined){
+                			t_invoicetype = '@';
+                			for(var i=0;i<as.length;i++){
+                				t_invoicetype += (t_invoicetype.length>0?',':'') + as[i].noa+'@'+as[i].namea;
+                			}
+                		}
+                		q_gt(q_name, q_content, q_sqlCount, 1);
+                		break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
-
                         break;
                     default:
                     	if(t_name.substring(0,11)=='checkInvono'){
@@ -201,6 +212,20 @@
 
                 _btnModi();
                 $('#txtCno').focus();
+                
+                //rev由 invoicetype取代,由於相容性rev仍會寫入值
+                if($('#cmbInvoicetype').val().length==0){
+                	switch($.trim($('#txtRev').val())){
+                		case '3':
+                			$('#cmbInvoicetype').val('01');
+                			break;
+            			case '2':
+                			$('#cmbInvoicetype').val('02');
+                			break;
+                		default:
+                			break;
+                	}
+                }
             }
 
             function btnPrint() {
@@ -209,6 +234,25 @@
 
             function btnOk() {
             	Lock();
+            	if($.trim($('#cmbInvoicetype').val()).length==0){
+            		alert('請設定'+$('#lblInvoicetype').text());
+            		Unlock();
+            		return;
+            	}
+            	//rev由 invoicetype取代,由於相容性rev仍會寫入值
+               	switch($.trim($('#cmbInvoicetype').val())){
+            		case '01':
+            			$('#txtRev').val('3');
+            			break;
+        			case '02':
+            			$('#txtRev').val('2');
+            			break;
+            		default:
+            			$('#txtRev').val('');
+            			break;
+            	}
+               
+                
                 $('#txtBdate').val($.trim($('#txtBdate').val()));
                 if (checkId($('#txtBdate').val()) == 0) {
                     alert(q_getMsg('lblBdate') + '錯誤。');
@@ -573,8 +617,11 @@
 						
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblRev1" class="lbl"> </a></td>
-						<td><input id="txtRev"  type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblInvoicetype" class="lbl">發票類別</a></td>
+						<td><select id="cmbInvoicetype" class="txt c1"> </select></td>
+						<!-- rev 由 invoicetype取代,由於相容性rev仍會寫入值 -->
+						<td style="display:none;"><span> </span><a id="lblRev1" class="lbl"> </a></td>
+						<td style="display:none;"><input id="txtRev"  type="text"  class="txt c1"/></td>
 						<td> </td>
 						<td>
 							<input class="btn"  id="btnSeq" type="button"/>

@@ -97,22 +97,25 @@
 			}
 
 			function mainPost() {
-				if (q_getPara('sys.project').toUpperCase()=='YC'){
-					bbsNum = [['txtMount', 15, 3], ['txtGmount', 15, 4], ['txtEmount', 15, 4], ['txtPrice', 15, 4], ['txtTotal', 15, 0]];
+				switch(q_getPara('sys.project').toUpperCase()){
+					case 'YC':
+						bbsNum = [['txtMount', 15, 3], ['txtGmount', 15, 4], ['txtEmount', 15, 4], ['txtPrice', 15, 4], ['txtTotal', 15, 0]];
+						break;
+					case 'PK':
+						bbsNum = [['txtMount', 15, 2, 1], ['txtGmount', 15, 2, 1], ['txtEmount', 15, 2, 1], ['txtPrice', 15, 4, 1], ['txtMoney', 15, 0, 1]];
+						break;
+					case 'XY':
+						aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
+							, ['txtAddress', '', 'view_road', 'memo,zipcode', '0txtAddress,txtZip', 'road_b.aspx']
+							, ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,serial,zip_invo,addr_invo,invoicetitle', 'txtCustno,txtComp,txtNick,txtSerial,txtZip,txtAddress,txtBuyer', 'cust_b.aspx']
+							, ['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp,serial', '0txtBuyerno,txtBuyer,txtSerial,txtMemo', 'cust_b.aspx']
+							, ['txtSerial', 'lblSerial', 'vccabuyer', 'serial,noa,buyer', '0txtSerial,txtBuyerno,txtBuyer', 'vccabuyer_b.aspx']
+							, ['txtProductno_', 'btnProductno_', 'ucca', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucca_b.aspx']);
+						break;
+					default:
+					
+						break;
 				}
-				if (q_getPara('sys.comp').substring(0,2)=='傑期'){
-					bbsNum = [['txtMount', 15, 2, 1], ['txtGmount', 15, 2, 1], ['txtEmount', 15, 2, 1], ['txtPrice', 15, 4, 1], ['txtMoney', 15, 0, 1]];
-				}
-				
-				if (q_getPara('sys.project').toUpperCase()=='XY'){
-					aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
-					, ['txtAddress', '', 'view_road', 'memo,zipcode', '0txtAddress,txtZip', 'road_b.aspx']
-					, ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,serial,zip_invo,addr_invo,invoicetitle', 'txtCustno,txtComp,txtNick,txtSerial,txtZip,txtAddress,txtBuyer', 'cust_b.aspx']
-					, ['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp,serial', '0txtBuyerno,txtBuyer,txtSerial,txtMemo', 'cust_b.aspx']
-					, ['txtSerial', 'lblSerial', 'vccabuyer', 'serial,noa,buyer', '0txtSerial,txtBuyerno,txtBuyer', 'vccabuyer_b.aspx']
-					, ['txtProductno_', 'btnProductno_', 'ucca', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucca_b.aspx']);
-				}
-				
 				q_getFormat();
 				bbmMask = [['txtCanceldate', r_picd],['txtCanceltime', '99:99:99'], ['txtDatea', r_picd], ['txtMon', r_picm]];
 				q_mask(bbmMask);
