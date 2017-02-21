@@ -584,20 +584,31 @@
 			}
 
 			function btnPrint() {
-				if (q_getPara('sys.project').toUpperCase()=='DC') {
-					q_box('z_vccadc.aspx?;;;' + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
-				}else if (q_getPara('sys.project').toUpperCase()=='IT') {
-					q_box('z_vccap_it.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
-				}else if (q_getPara('sys.project').toUpperCase()=='XY') {
-					q_box('z_vccp_xy.aspx' + "?;;;noa=" + trim($('#txtNoa').val()) + ";"+ r_accy, '', "95%", "95%", q_getMsg("popPrint"));
-				}else if (q_getPara('sys.project') == 'sh') {
-					q_box('z_vccap_sh.aspx' + "?;;;noa=" + trim($('#txtNoa').val())+";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
-				}else if (q_getPara('sys.project') == 'pk') {
-					q_box('z_vccap_pk.aspx' + "?;;;noa=" + trim($('#txtNoa').val())+";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
-				}else if (q_getPara('sys.project') == 'fe') {
-					q_box('z_vccap_fe.aspx' + "?;;;noa=" + trim($('#txtNoa').val())+";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
-				}else {
-					q_box('z_vccap.aspx?;;;' + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
+				switch(q_getPara('sys.project').toUpperCase()){
+					case 'ES':
+						q_box("z_vccap_es.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({noa:trim($('#txtNoa').val())}) + ";" + r_accy + "_" + r_cno, 'vcca_pk', "95%", "95%", q_getMsg("popPrint"));
+						break;
+					case 'DC':
+						q_box('z_vccadc.aspx?;;;' + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+						break;
+					case 'IT':
+						q_box('z_vccap_it.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
+						break;
+					case 'XY':
+						q_box('z_vccp_xy.aspx' + "?;;;noa=" + trim($('#txtNoa').val()) + ";"+ r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+						break;
+					case 'SH':
+						q_box('z_vccap_sh.aspx' + "?;;;noa=" + trim($('#txtNoa').val())+";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+						break;
+					case 'PK':
+						q_box('z_vccap_pk.aspx' + "?;;;noa=" + trim($('#txtNoa').val())+";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+						break;
+					case 'FE':
+						q_box('z_vccap_fe.aspx' + "?;;;noa=" + trim($('#txtNoa').val())+";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+						break;
+					default:
+						q_box('z_vccap.aspx?;;;' + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
+						break;	
 				}
 			}
 
