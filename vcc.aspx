@@ -332,14 +332,6 @@
 					}
 					break;	
                 }
-				
-				if (result.substr(0, 5) == '<Data') {
-					var Asss = _q_appendData('sss', '', true);
-					var Acar = _q_appendData('car', '', true);
-					var Acust = _q_appendData('cust', '', true);
-					alert(Asss[0]['namea'] + '^' + Acar[0]['car'] + '^' + Acust[0]['comp']);
-				} else
-					alert(t_func + '\r' + result);
 			}
 
 			function q_boxClose(s2) {
