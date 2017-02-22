@@ -90,7 +90,7 @@
                 q_cmbParse("cmbTypea", q_getPara('cust.typea'));
                 //q_cmbParse("cmbBillday", q_getPara('cust.billday'));
                 if(q_getPara('sys.project').toUpperCase()=='ES'){
-                	q_cmbParse("combPaytype", "月結,現金,回收");
+                	q_cmbParse("combPaytype", ",月結,現金,回收");
                 }else{
                 	q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
                 }
@@ -139,8 +139,10 @@
                     $(this).attr('size', '1');
                 });
                 $("#combPaytype").change(function(e) {
-                	if(q_cur==1 || q_cur==2)
-					 $('#txtPaytype').val($('#combPaytype').find(":selected").text()); 
+                	if(q_cur==1 || q_cur==2){
+                		$('#txtPaytype').val($('#combPaytype').find(":selected").text()); 
+                		$('#combPaytype')[0].selectedIndex=0;
+                	}
 				});
                 $("#txtPaytype").focus(function(e) {
   					var n=$(this).val().match(/[0-9]+/g);
