@@ -254,6 +254,18 @@
 				if (q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO'){
 					$('.cust2').show();
 				}
+				if (q_getPara('sys.project').toUpperCase()=='AD'){
+					$('#btnst4rc2vcc').show();
+					
+					$('#btnst4rc2vcc').click(function() {
+						//產生轉回典盈進出貨
+						if(!emp($('#txtNoa').val())){
+							if(confirm('確定要轉回典盈?')){
+								q_func('qtxt.query.vcctost4rc2vcc_r', 'vcc.txt,vcctost4rc2vcc_r,'+ encodeURI($('#txtNoa').val())+ ';' + encodeURI(r_accy) + ';'  + encodeURI(q_date())+ ';' + encodeURI(r_name)+ ';' + encodeURI(r_len));
+							}
+						}
+					});
+				}
 			}
 			
 			function refreshBbm() {
@@ -310,6 +322,17 @@
 			}
 			
 			function q_funcPost(t_func, result) {
+				switch(t_func) {
+					case 'qtxt.query.vcctost4rc2vcc_r':
+					var as = _q_appendData("tmp0", "", true, true);
+					if (as[0] != undefined) {
+						if(as[0].vnoa.length>0 && as[0].trc2no.length>0 && as[0].tvccno.length>0){
+							alert('出貨單已成功轉回典盈!!');
+						}
+					}
+					break;	
+                }
+				
 				if (result.substr(0, 5) == '<Data') {
 					var Asss = _q_appendData('sss', '', true);
 					var Acar = _q_appendData('car', '', true);
@@ -848,6 +871,17 @@
 				HiddenTreat();
 				refreshBbm();
 				stype_chang();
+				
+				if (q_cur==2 && q_getPara('sys.project').toUpperCase()=='AD' && !emp($('#txtNoa').val())){
+					var t_where = " where=^^ noa='" + $('#txtNoa').val() + "' and (len(isnull(zipname,''))>0 or len(isnull(zipcode,''))>0) ^^";
+					q_gt('view_vcc', t_where, 0, 0, 0, 'getst4rc2vcc_ad', r_accy,1);
+					var as = _q_appendData("view_vcc", "", true);
+					if (as[0] != undefined) {
+						for (var i = 0; i < q_bbsCount; i++) {
+							$('#btnMinus_'+i).attr('disabled', 'disabled');
+						}
+					}
+				}
 			}
 
 			function btnIns() {
@@ -890,7 +924,7 @@
 			}
 
 			function bbsSave(as) {
-				if (!as['productno'] && !as['product'] && !as['spec'] && !dec(as['total'])) {
+				if (!as['productno'] && !as['product'] && !as['spec'] && !dec(as['total']) && !as['ordeno']) {
 					as[bbsKey[1]] = '';
 					return;
 				}
@@ -1027,6 +1061,18 @@
 				Lock(1, {
 					opacity : 0
 				});
+				
+				if (q_getPara('sys.project').toUpperCase()=='AD' && !emp($('#txtNoa').val())){
+					var t_where = " where=^^ noa='" + $('#txtNoa').val() + "' and (len(isnull(zipname,''))>0 or len(isnull(zipcode,''))>0) ^^";
+					q_gt('view_vcc', t_where, 0, 0, 0, 'getst4rc2vcc_ad', r_accy,1);
+					var as = _q_appendData("view_vcc", "", true);
+					if (as[0] != undefined) {
+						alert('已轉回典盈禁止刪除!!');
+						Unlock(1);
+						return;
+					}
+				}
+				
 				var t_where = " where=^^ vccno='" + $('#txtNoa').val() + "'^^";
 				q_gt('umms', t_where, 0, 0, 0, 'btnDele', r_accy);
 			}
@@ -1358,6 +1404,7 @@
 						<td class="td3"><input id="txtWorker2" type="text" class="txt c1"/></td>
 						<td class="td4"><span> </span><a id='lblAccc' class="lbl btn"> </a></td>
 						<td class="td5" colspan='2'><input id="txtAccno" type="text" class="txt c1"/></td>
+						<td class="td7" align="right"><input id="btnst4rc2vcc" type="button" value="轉回典盈" style="display: none;"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
