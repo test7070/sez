@@ -236,8 +236,11 @@
 				
 				$('#btnOrdc').click(function() {
 					//產生採購單
-					if(!emp($('#txtNoa').val()))
-						q_func('qtxt.query.orde2ordc_r', 'orde.txt,orde2ordc_r,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val())+ ';' + encodeURI(q_date())+ ';' + encodeURI(r_name));
+					if(!emp($('#txtNoa').val())){
+						if(confirm('確定要轉採購單?')){
+							q_func('qtxt.query.orde2ordc_r', 'orde.txt,orde2ordc_r,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val())+ ';' + encodeURI(q_date())+ ';' + encodeURI(r_name));
+						}
+					}
 				});
 				
 				$('#txtUmmno').bind('contextmenu',function(e) {
@@ -1721,6 +1724,11 @@
 						+ encodeURI(r_userno) + ';' + encodeURI(r_name));
 					}
 				}
+				//修改後重新產生
+				if(q_cur==2 && (!emp($('#txtOrdcno').val()) || !emp($('#txtMemo2').val()))){
+					alert('重新轉採購單!!')
+						q_func('qtxt.query.orde2ordc_r', 'orde.txt,orde2ordc_r,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val())+ ';' + encodeURI(q_date())+ ';' + encodeURI(r_name));
+				}
             }
             
             function q_funcPost(t_func, result) {
@@ -1927,6 +1935,17 @@
 				
 				if (!confirm(mess_dele))
                     return;
+                    
+				if (!emp($('#txtOrdcno').val())){
+					alert('已轉採購單禁止刪除!!')
+					return;
+				}
+                    
+				if (!emp($('#txtMemo2').val())){
+					alert('已轉越南廠訂單禁止刪除!!')
+					return;
+				}
+                    
                 q_cur = 3;
                 if ($('#txtUmmno').val().length > 0) {
 					q_func('umm_post.post.dele', r_accy + ',' + $('#txtUmmno').val() + ',0');
