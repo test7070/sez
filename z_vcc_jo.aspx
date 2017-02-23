@@ -34,7 +34,6 @@
 				['txtTggno2a', 'btnTggno2', 'tgg', 'noa,comp', 'txtTggno2a,txtTggno2b', 'tgg_b.aspx']
 			);
 
-
             if (location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;100";
             }
@@ -158,7 +157,6 @@
                 	$.datepicker.r_len=4;
 					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
                 }
-
                 $('#txtDate1').mask(r_picd);
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask(r_picd);

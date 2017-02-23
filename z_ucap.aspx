@@ -77,7 +77,7 @@
 				q_getFormat();
 				q_langShow();
 				$('#txtXmon').mask(r_picm);
-				$('#txtXmon').val(q_date().substr(0, r_lenm));
+				$('#txtXmon').val(q_cdn(q_date().substr(0, r_lenm)+'/01',-1).substr(0, r_lenm));
 				/*if (window.parent.q_name == 'uca') {
 					var wParent = window.parent.document;
 					$('#txtSpno1a').val(wParent.getElementById("txtNoa").value);
