@@ -184,10 +184,10 @@
 				$('#chkXworkh span').css('width','200px');
 				$('#Xworkh .label').css('width','5px');
 				
-				if(q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO'){
+				//if(q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO'){
 					$('#txtXenddate').val(q_cdn(q_date(),31));
 					$('#chkXworkh [type=checkbox]').prop('checked',true)
-				}
+				//}
 				
 				$("#btnRun").click(function(){
 					var t_index = $('#q_report').data('info').radioIndex;
