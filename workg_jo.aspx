@@ -17,7 +17,7 @@
 			this.errorHandler = null;
 			q_tables = 't';
 			var q_name = "workg";
-			var q_readonly = ['txtNoa','txtFact', 'txtDatea', 'txtWorker', 'txtWorker2', 'txtOrdbno'];//105/03/30 開放 'txtWadate' 
+			var q_readonly = ['txtNoa','txtFact', 'txtDatea', 'txtWorker', 'txtWorker2', 'txtOrdbno','textOmount','textBmount'];//105/03/30 開放 'txtWadate' 
 			var q_readonlys = ['txtWorkno','txtWorkhno', 'txtIndate', 'txtInmount', 'txtWmount', 'txtUindate'];
 			var q_readonlyt = [];
 			var bbmNum = [];
@@ -722,6 +722,7 @@
 				var t_where = "where=^^ cuano='" + $('#txtNoa').val() + "' and isnull(inmount,0)>0 ^^";
 				q_gt('view_work', t_where, 0, 0, 0, "", r_accy);
 				$('#div_row').hide();
+				sum();
 			}
 			
 
@@ -759,6 +760,7 @@
 				var hasStyle = q_getPara('sys.isstyle');
 				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
 				$('#chkIscugu').attr('disabled', 'disabled');
+				sum();
 			}
 
 			function btnMinus(id) {
@@ -937,6 +939,7 @@
 				$('#lblNoq_s').text('排程序號');
 				var hasStyle = q_getPara('sys.isstyle');
 				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
+				sum();
 			}
 
 			function bbssum(seq) {
@@ -967,9 +970,14 @@
 			}
 
 			function sum() {
+				var t_omount=0;
+				var t_bmount=0;
 				for (var j = 0; j < q_bbsCount; j++) {
-
+					t_omount=q_add(t_omount,dec($('#txtOrdemount_'+j).val()));
+					t_bmount=q_add(t_bmount,dec($('#txtMount_'+j).val()));
 				}
+				$('#textOmount').val(t_omount);
+				$('#textBmount').val(t_bmount);
 			}
 
 			function q_appendData(t_Table) {
@@ -1396,10 +1404,14 @@
 						<td><input id="btnWork" type="button"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a class="lbl">每日製品入庫數</a></td>
-						<td><input id="txtMon" type="text" class="txt num c1"/></td>
-						<td colspan="3" align="center">
-							<input id="btnUindate" type="button" value="寫入預估入庫日"/>
+						<!--<td><span> </span><a class="lbl">每日製品入庫數</a></td>
+						<td><input id="txtMon" type="text" class="txt num c1"/></td>-->
+						<!--<input id="btnUindate" type="button" value="寫入預估入庫日"/>-->
+						<td><span> </span><a class="lbl">本期訂單數量</a></td>
+						<td><input id="textOmount" type="text" class="txt num c1"/></td>
+						<td><span> </span><a class="lbl">開單生產數量</a></td>
+						<td><input id="textBmount" type="text" class="txt num c1"/></td>
+						<td align="center">
 							<span> </span><a class="lbl">正式製令</a>
 							<input id="chkIscugu" type="checkbox" style="float: right;"/>
 						</td>

@@ -201,36 +201,47 @@
 				});
 
 				$('#btnStkcost').mousedown(function(e) {
-					if (e.button == 0) {
-						$('#btnStkcost').attr('disabled', 'disabled');
-						$('#btnStkcost').val('讀取中...');
-						////////////控制顯示位置
-						$('#div_stkcost').css('top', e.pageY);
-						$('#div_stkcost').css('left', e.pageX - $('#div_stkcost').width());
-						//$('#div_stkcost').toggle();
+					if(!emp($('#txtNoa').val())){
+						if (e.button == 0) {
+							$('#btnStkcost').attr('disabled', 'disabled');
+							$('#btnStkcost').val('讀取中...');
+							////////////控制顯示位置
+							$('#div_stkcost').css('top', e.pageY);
+							$('#div_stkcost').css('left', e.pageX - $('#div_stkcost').width());
+							//$('#div_stkcost').toggle();
+						}
+						
+						//包裝、運輸
+						$('#textCostp').val($('#txtPacks').val());
+						$('#textCostt').val($('#txtTrans').val());
+						//原料、人工、製造
+						//106/02/23改撈txt的內容
+						//var t_where = "where=^^ productno ='" + $('#txtNoa').val() + "' order by datea desc ^^";
+						//q_gt('wcost', t_where, 0, 0, 0, "", r_accy);
+						
+						$('#textCosta').val(0);
+						$('#textCostb').val(0);
+						$('#textCostc').val(0);
+						$('#textCostd').val(0);
+						$('#textCosttotal').val(0);
+						q_func('qtxt.query.bomcost', 'bom.txt,bomcost,' + encodeURI($('#txtNoa').val()));
+										
+						//依序執行下面
+						//報廢、模具
+						//var t_where = "where=^^ productno ='" + $('#txtNoa').val() + "' order by mon desc ^^ stop=1 ";
+						//q_gt('costs', t_where, 0, 0, 0, "", r_accy);
+						//庫存
+						//var t_where = "where=^^ ['" + q_date() + "','','') where productno='" + $('#txtNoa').val() + "' ^^";
+						//q_gt('calstk', t_where, 0, 0, 0, "", r_accy);
+						//訂單、在途量、計畫
+						//var t_where = "where=^^ ['" + q_date() + "','','') where productno=a.productno ^^";
+						//var t_where1 = "where[1]=^^a.productno='" + $('#txtNoa').val() + "' and a.enda!='1' group by productno ^^";
+						//var t_where2 = "where[2]=^^1=0^^";
+						//var t_where3 = "where[3]=^^ d.stype='5' and c.productno=a.productno and c.enda!='1' ^^";
+						//var t_where4 = "where[4]=^^ 1=0 ^^";
+						//var t_where5 = "where[5]=^^ 1=0 ^^"
+						//q_gt('workg_orde', t_where + t_where1 + t_where2 + t_where3 + t_where4, 0, 0, 0, "", r_accy);
 					}
-					
-					//包裝、運輸
-					$('#textCostp').val($('#txtPacks').val());
-					$('#textCostt').val($('#txtTrans').val());
-					//原料、人工、製造
-					var t_where = "where=^^ productno ='" + $('#txtNoa').val() + "' order by datea desc ^^";
-					q_gt('wcost', t_where, 0, 0, 0, "", r_accy);
-					//依序執行下面
-					//報廢、模具
-					//var t_where = "where=^^ productno ='" + $('#txtNoa').val() + "' order by mon desc ^^ stop=1 ";
-					//q_gt('costs', t_where, 0, 0, 0, "", r_accy);
-					//庫存
-					//var t_where = "where=^^ ['" + q_date() + "','','') where productno='" + $('#txtNoa').val() + "' ^^";
-					//q_gt('calstk', t_where, 0, 0, 0, "", r_accy);
-					//訂單、在途量、計畫
-					//var t_where = "where=^^ ['" + q_date() + "','','') where productno=a.productno ^^";
-					//var t_where1 = "where[1]=^^a.productno='" + $('#txtNoa').val() + "' and a.enda!='1' group by productno ^^";
-					//var t_where2 = "where[2]=^^1=0^^";
-					//var t_where3 = "where[3]=^^ d.stype='5' and c.productno=a.productno and c.enda!='1' ^^";
-					//var t_where4 = "where[4]=^^ 1=0 ^^";
-					//var t_where5 = "where[5]=^^ 1=0 ^^"
-					//q_gt('workg_orde', t_where + t_where1 + t_where2 + t_where3 + t_where4, 0, 0, 0, "", r_accy);
 				});
 
 				$('#btnClose_div_stkcost').click(function() {
@@ -281,7 +292,7 @@
 									t_td = t_td.substr(0, t_td.length - 1);
 									$('#txtTd_' + b_seq).val(t_td);
 									//判斷替代品是否會造成BOM無窮迴圈
-									q_func('qtxt.query', 'bom.txt,bom,' + encodeURI(t_td) + ';' + encodeURI($('#txtNoa').val()));
+									q_func('qtxt.query.bom', 'bom.txt,bom,' + encodeURI(t_td) + ';' + encodeURI($('#txtNoa').val()));
 								}
 							}
 						}
@@ -375,19 +386,20 @@
 						break;*/
 					case 'wcost':
 						var as = _q_appendData("wcost", "", true);
+						//106/02/22 不抓bbm的委外單價
 						$('#textCosta').val(0);
 						$('#textCostb').val(0);
 						$('#textCostc').val(0);
 						$('#textCostd').val(0);
 						$('#textCosttotal').val(0);
 						if (as[0] != undefined) {
-							$('#textCosta').val(round(dec(as[0].costa) / dec(as[0].mount), 0));
+							//$('#textCosta').val(round(dec(as[0].costa) / dec(as[0].mount), 0));
 							$('#textCostb').val(round(dec(as[0].costb) / dec(as[0].mount), 0));
 							$('#textCostc').val(round(dec(as[0].costc) / dec(as[0].mount), 0));
 							$('#textCostd').val(round(dec(as[0].costd) / dec(as[0].mount), 0));
-						} else {
+						}else {
 							//抓原物料金額和委外單價
-							$('#textCostd').val(dec($('#txtPrice').val()));
+							//$('#textCostd').val(dec($('#txtPrice').val()));
 							ucsa_cost = 0;
 							for (var i = 0; i < q_bbsCount; i++) {
 								if ($('#txtProductno_' + i).val() != undefined) {
@@ -407,10 +419,12 @@
 						$('#textCostw').val(0);
 						$('#textCostm').val(0);
 						if (as[0] != undefined) {
-							$('#textCostw').val(round(dec(as[0].wastemoney) / dec(as[0].bornmount), 0));
-							$('#textCostm').val(round(dec(as[0].modelmoney) / dec(as[0].bornmount), 0));
+							if(dec(as[0].bornmount)!=0){
+								$('#textCostw').val(round(dec(as[0].wastemoney) / dec(as[0].bornmount), 0));
+								$('#textCostm').val(round(dec(as[0].modelmoney) / dec(as[0].bornmount), 0));
+							}
 						}
-						
+						$('#textCosttotal').val(round(dec($('#textCosta').val()) + dec($('#textCostb').val()) + dec($('#textCostc').val()) + dec($('#textCostd').val()) + dec($('#textCostw').val()) + dec($('#textCostm').val()) + dec($('#textCostp').val()) + dec($('#textCostt').val()), 2));
 						//庫存
 						var t_where = "where=^^ ['" + q_date() + "','','') where productno='" + $('#txtNoa').val() + "' ^^";
 						q_gt('calstk', t_where, 0, 0, 0, "", r_accy);
@@ -685,7 +699,7 @@
 								$('#txtNoa').focus();
 							}*/
 							if (!emp($('#txtProductno_' + b_seq).val()) && !emp($('#txtNoa').val()))
-								q_func('qtxt.query', 'bom.txt,bom,' + encodeURI($('#txtProductno_' + b_seq).val()) + ';' + encodeURI($('#txtNoa').val()));
+								q_func('qtxt.query.bom', 'bom.txt,bom,' + encodeURI($('#txtProductno_' + b_seq).val()) + ';' + encodeURI($('#txtNoa').val()));
 						});
 						$('#btnTproductno_' + j).click(function() {
 							if (emp($('#txtNoa').val())) {
@@ -718,7 +732,7 @@
 								}
 								t_td = $('#txtTd_' + b_seq).val();
 								//判斷替代品是否會造成BOM無窮迴圈
-								q_func('qtxt.query', 'bom.txt,bom,' + encodeURI(t_td) + ';' + encodeURI($('#txtNoa').val()));
+								q_func('qtxt.query.bom', 'bom.txt,bom,' + encodeURI(t_td) + ';' + encodeURI($('#txtNoa').val()));
 							}
 						});
 
@@ -920,7 +934,7 @@
 
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
-					case 'qtxt.query':
+					case 'qtxt.query.bom':
 						var as = _q_appendData("tmp0", "", true, true);
 						if (as[0] == undefined) {
 							if (t_td.length > 0) {
@@ -932,6 +946,21 @@
 							}
 						}
 						t_td = '';
+						break;
+					case 'qtxt.query.bomcost':
+						var as = _q_appendData("tmp0", "", true, true);
+						if (as[0] != undefined) {
+							if(as[0].gno=='2'){
+								$('#textCosta').val(round(as[0].costa,2));
+								$('#textCostb').val(round(as[0].costb,2));
+								$('#textCostc').val(round(as[0].costc,2));
+								$('#textCostd').val(round(as[0].costd,2));
+							}	
+						}
+						//報廢、模具
+						var t_where = "where=^^ productno ='" + $('#txtNoa').val() + "' order by mon desc ^^ stop=1 ";
+						q_gt('costs', t_where, 0, 0, 0, "", r_accy);
+						
 						break;
 				}
 			};
