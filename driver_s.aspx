@@ -39,12 +39,19 @@
                 t_namea = $('#txtNamea').val();
                 t_guild = $('#txtGuild').val();
 				t_cartype = $('#cmbCartype').val();
-                t_btakeofficedate = t_btakeofficedate.length > 0 && t_btakeofficedate.indexOf("_") > -1 ? t_btakeofficedate.substr(0, t_btakeofficedate.indexOf("_")) : t_btakeofficedate;
-                /// 100.  .
-                t_etakeofficedate = t_etakeofficedate.length > 0 && t_etakeofficedate.indexOf("_") > -1 ? t_etakeofficedate.substr(0, t_etakeofficedate.indexOf("_")) : t_etakeofficedate;
-                /// 100.  .
-
-                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("namea", t_namea) + q_sqlPara2("datea", t_btakeofficedate, t_etakeofficedate) + q_sqlPara2("guild", t_guild)+ q_sqlPara2("cartype", t_cartype);
+				
+				t_carno = $.trim($('#txtCarno').val());
+				
+                var t_where = " 1=1 " 
+                	+ q_sqlPara2("noa", t_noa) 
+                	+ q_sqlPara2("namea", t_namea) 
+                	+ q_sqlPara2("datea", t_btakeofficedate, t_etakeofficedate) 
+                	+ q_sqlPara2("guild", t_guild)
+                	+ q_sqlPara2("cartype", t_cartype);
+                
+                if(t_carno.length>0){
+                	t_where+= " and exists(select noa from car2 where driverno=driver.noa and charindex('"+t_carno+"',carno)>0)";
+                }	
 
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
@@ -94,7 +101,12 @@
 					<input class="txt" id="txtGuild" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
-				
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblCarno'>車牌</a></td>
+					<td>
+					<input class="txt" id="txtCarno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
 		
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
