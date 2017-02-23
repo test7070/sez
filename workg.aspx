@@ -118,7 +118,7 @@
 								t_where1=t_where1+"b.custno='"+$('#txtCustno').val()+"' and ";
 							if(!emp($('#txtProductno').val()))
 								t_where1=t_where1+"a.productno='"+$('#txtProductno').val()+"' and ";	
-							t_where1=t_where1+"a.enda!='1' and (a.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and exists (select noa from uca where noa=a.productno) and charindex(a.noa+'-'+a.no2,isnull((select ordeno+',' from view_workgs where noa!='"+$('#txtNoa').val()+"' FOR XML PATH('')),''))=0 group by a.productno,a.style ^^";
+							t_where1=t_where1+" isnull(a.enda,0)!=1 and (a.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and exists (select noa from uca where noa=a.productno) and charindex(a.noa+'-'+a.no2,isnull((select ordeno+',' from view_workgs where noa!='"+$('#txtNoa').val()+"' FOR XML PATH('')),''))=0 group by a.productno,a.style ^^";
 
 							var t_where2 = "where[2]=^^e.enda!='1' and e.productno=a.productno and (e.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and exists (select noa from uca where noa=e.productno) and charindex(e.noa+'-'+e.no2,isnull((select ordeno+',' from view_workgs where noa!='"+$('#txtNoa').val()+"' FOR XML PATH('')),''))=0 ^^";
 							var t_where3 = "where[3]=^^ (c.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and d.stype='5' and c.productno=a.productno and c.enda!='1' ^^"
