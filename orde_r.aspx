@@ -1801,8 +1801,8 @@
 				as['noa'] = abbm2['noa'];
 				as['odate'] = abbm2['odate'];
 
-				if (!emp(abbm2['datea']))
-					as['datea'] = abbm2['datea'];
+				/*if (!emp(abbm2['datea']))
+					as['datea'] = abbm2['datea'];*/
 
 				as['custno'] = abbm2['custno'];
 				as['comp'] = abbm2['comp'];
