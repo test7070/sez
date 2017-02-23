@@ -42,8 +42,12 @@
             }
 			
             function mainPost() {
-            	if(q_getPara('sys.project').toUpperCase()=='RB')
+            	if(q_getPara('sys.project').toUpperCase()=='RB'){
             		q_bbsLen=10;
+            		$('.dbbs').css('width','1260px');
+            		$('#lblMoney').parent().css('width','12%');
+            		$('.coin').hide();
+            	}
             	
             	//放在mainPost 避免 r_accy抓不到
             	aPop = new Array(
@@ -1047,13 +1051,13 @@
                 }
                 _bbsAssign();
                 
-                 for (var i = 0; i < q_bbsCount; i++) {
-                 	if(emp($('#txtVccno_'+i).val()))
-                 		$('#txtVccno_'+i).css('color','black').css('background','white').removeAttr('readonly');
-                 	else
-                 		$('#txtVccno_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
-                 }
-                 UsShow();
+                for (var i = 0; i < q_bbsCount; i++) {
+                	if(emp($('#txtVccno_'+i).val()))
+                		$('#txtVccno_'+i).css('color','black').css('background','white').removeAttr('readonly');
+                	else
+                		$('#txtVccno_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+                }
+                UsShow();
             }
 
             function btnIns() {
