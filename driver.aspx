@@ -2,14 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
 		<title> </title>
-		<script src="../script/jquery.min.js" type="text/javascript"> </script>
-		<script src='../script/qj2.js' type="text/javascript"> </script>
-		<script src='qset.js' type="text/javascript"> </script>
-		<script src='../script/qj_mess.js' type="text/javascript"> </script>
-		<script src='../script/mask.js' type="text/javascript"> </script>
-		<script src="../script/qbox.js" type="text/javascript"> </script>
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
+		<script src='../script/qj2.js' type="text/javascript"></script>
+		<script src='qset.js' type="text/javascript"></script>
+		<script src='../script/qj_mess.js' type="text/javascript"></script>
+		<script src="../script/qbox.js" type="text/javascript"></script>
+		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
-		<script src="//59.125.143.170/jquery/js/qtran.js" type="text/javascript"> </script>
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             this.errorHandler = null;
             function onPageError(error) {
@@ -70,8 +73,6 @@
 						}
 					}
                 });
-                if(q_getPara('sys.project').toUpperCase()=='JS')
-					$('#btnLicence').show();
                 $('#btnLicence').click(function() {
 					if (q_cur == 1) {
 						return;
@@ -80,6 +81,19 @@
 						q_box("connlicence_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'conn', "95%", "650px", q_getMsg('btnConn'));
 					}
 				});
+				
+				switch(q_getPara('sys.project').toUpperCase()){
+					case 'JS':
+						$('#btnLicence').show();
+						break;
+					case 'ES':
+						$('.es_hide').hide();
+						$('#lblBank2').text('銀行代號');
+						$('#lblAccount2').text('匯款帳號');
+						break;
+					default:
+						break;
+				}
             }
 
             function q_boxClose(s2) {
@@ -568,7 +582,7 @@
 							<input id="txtComp"  type="text"  class="txt c3" style="width: 69%"/>
 						</td>
 					</tr>
-					<tr class="tr10">
+					<tr class="es_hide">
 						<td class="td1"><span> </span><a id="lblAccount" class="lbl"></a></td>
 						<td class="td2" colspan="3">
 						<input id="txtAccount" type="text" class="txt c1"/>
@@ -630,7 +644,7 @@
 						<td class="td8"><input id='btnLabase' type="button" /></td>
 					</tr>
 					<tr class="tr15">
-						<td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
+						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td class="td2" colspan='7'><textarea id="txtMemo" class="txt c1" rows="3" style="height:75px;"> </textarea></td>
 					</tr>
 				</table>
