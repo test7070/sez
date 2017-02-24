@@ -12,8 +12,8 @@
 		<script type="text/javascript">
 			var q_name = "uca_s";
 			aPop = new Array(
-				['txtNoa', '', 'uca', 'noa,product', 'txtNoa,txtProduct', "uca_b.aspx"],
-				['txtTggno', 'lblTgg', 'tgg', 'noa,nick', 'txtTggno,txtComp', 'tgg_b.aspx'],
+				['txtNoa', '', 'uca', 'noa,product', 'txtNoa', "uca_b.aspx"],
+				['txtTggno', 'lblTgg', 'tgg', 'noa,nick', 'txtTggno', 'tgg_b.aspx'],
 				['txtGroupeno', '', 'adsize', 'noa,mon,memo1,memo2', '0txtGroupeno', ''],
 				['txtGroupfno', '', 'adsss', 'noa,mon,memo1,memo2', '0txtGroupfno', ''],
 				['txtGroupgno', '', 'adknife', 'noa,mon,memo1,memo2', '0txtGroupgno', ''],
