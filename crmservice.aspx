@@ -194,10 +194,16 @@
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
                 if(t_para){
+                	if(r_len==4){                	
+                		$.datepicker.r_len=4;
+                	}
                 	$('#combReason').attr('disabled','disabled');
                 	$('#txtDatea').datepicker('destroy');
                 	$('#txtRepdate').datepicker('destroy');
                 }else{
+                	if(r_len==4){                	
+                		$.datepicker.r_len=4;
+                	}
                 	$('#combReason').removeAttr('disabled','disabled');
                 	$('#txtDatea').datepicker();
                 	$('#txtRepdate').datepicker();
