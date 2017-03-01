@@ -17,6 +17,7 @@
 		<script type="text/javascript">
 			var uccgaItem = '';
 			var firstRun = false;
+			var t_first=true;
 			aPop = new Array(
 				['txtXproductno', '', 'ucaucc', 'noa,product', 'txtXproductno', 'ucaucc_b.aspx']
 			);
@@ -26,6 +27,26 @@
 				if (uccgaItem.length == 0) {
 					q_gt('uccga', '', 0, 0, 0, "");
 				}
+				
+				 $('#q_report').click(function(e) {
+					if(!(q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO')){
+						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+							if($('#q_report').data().info.reportData[i].report!='z_ucap6')
+								$('#q_report div div').eq(i).hide();
+						}
+						$('#q_report div div .radio').parent().each(function(index) {
+							if(!$(this).is(':hidden') && t_first){
+								$(this).children().removeClass('nonselect').addClass('select');
+								t_first=false;
+							}
+							if($(this).is(':hidden') && t_first){
+								$(this).children().removeClass('select').addClass('nonselect');
+							}
+						});
+					}else{
+						$('#lblXstyle').text('車種');
+					}
+				});
 			});
 			function q_gfPost() {
 				$('#q_report').q_report({

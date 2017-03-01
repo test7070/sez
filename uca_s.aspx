@@ -11,12 +11,14 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
 			var q_name = "uca_s";
+			
 			aPop = new Array(
 				['txtNoa', '', 'uca', 'noa,product', 'txtNoa,txtProduct', "uca_b.aspx"],
 				['txtTggno', 'lblTgg', 'tgg', 'noa,nick', 'txtTggno,txtComp', 'tgg_b.aspx'],
 				['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx']
 			);
-			$(document).ready(function() {
+
+			$(document).ready(function() {	
 				main();
 			});
 
@@ -43,8 +45,16 @@
 			function q_gfPost() {
 				q_getFormat();
 				q_langShow();
-				q_cmbParse("cmbTypea", '@全部,' + q_getPara('uca.typea'));
+				q_cmbParse("cmbTypea", '@全部,' + q_getPara('uca.typea'));	
 				$('#txtNoa').focus();
+				
+				if (q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO'){
+					aPop = new Array(
+						['txtNoa', '', 'uca', 'noa,product', 'txtNoa', "uca_b.aspx"],
+						['txtTggno', 'lblTgg', 'tgg', 'noa,nick', 'txtTggno,txtComp', 'tgg_b.aspx'],
+						['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx']
+					);
+				}
 			}
 
 			function q_gtPost(s2){

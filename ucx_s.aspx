@@ -29,6 +29,13 @@
 				q_getFormat();
 				q_langShow();
 				q_cmbParse("cmbTypea", '@全部,' + q_getPara('uca.typea'));
+				if (q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO'){
+					aPop = new Array(
+						['txtNoa', '', 'uca', 'noa,product', 'txtNoa', "uca_b.aspx"],
+						['txtTggno', 'lblTgg', 'tgg', 'noa,nick', 'txtTggno,txtComp', 'tgg_b.aspx'],
+						['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx']
+					);
+				}
 				$('#txtNoa').focus();
 			}
 
