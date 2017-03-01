@@ -149,7 +149,7 @@
 										q_sqlPara2("groupano", t_groupano) +
 										q_sqlPara2("tggno", t_tggno);
 				
-				if (t_product.length > 0)
+				if (t_product.length > 0 && t_spec.length==0)
 					t_where += " and charindex('" + t_product + "',product)>0";
 				if (t_spec.length > 0)
 					t_where += " and (charindex('" + t_spec + "',spec)>0 or charindex('" + t_spec + "',product)>0) ";
