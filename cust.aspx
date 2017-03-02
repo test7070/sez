@@ -788,6 +788,10 @@
 				if (q_getPara('sys.project').toUpperCase()=='RB'){
 					$('.isRB').show();
 				}
+				
+				if (q_getPara('sys.project').toUpperCase()=='UJ'){
+					$('.isUJ').show();
+				}
 			}
 
 			function refreshBbm() {
@@ -1264,7 +1268,7 @@
 						<td colspan='5'><textarea id="txtMemo" rows='5' cols='10' style="width:99%; height: 50px;"> </textarea></td>
 					</tr>
 					<tr class="pk isUJ" style="display:none;">
-						<td><span> </span><a class="lblMemo2">訂單備註</a></td>
+						<td><span> </span><a id='lblMemo2' class="lbl">訂單備註</a></td>
 						<td colspan='5'>
 							<textarea id="txtMemo2" rows='5' cols='10' style="width:99%; height: 50px;"> </textarea>
 						</td>
