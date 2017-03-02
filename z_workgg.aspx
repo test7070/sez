@@ -452,7 +452,9 @@
 									var thisGen = dec(TTD[j][2]);
 									tTotal = q_add(tTotal,round(TTD[j][1],3));
 									DateObj[j].mount = q_add(dec(DateObj[j].mount),round(TTD[j][1],3));
-									OutHtml += "<td class='num'"+(thisValue>thisGen?' style="color:red;"':'')+"><font title='日產能:"+thisGen+"'>" + round(thisValue,0) + "</font></td>";
+									//OutHtml += "<td class='num'"+(thisValue>thisGen?' style="color:red;"':'')+"><font title='日產能:"+thisGen+"'>" + round(thisValue,0) + "</font></td>";
+									OutHtml += "<td class='num'"+(thisValue>thisGen?' style="color:red;"':'')+"><font title='日產能:"+thisGen+"'>"
+									+(thisValue>thisGen?"<a href=JavaScript:q_box('work.aspx',\";cuadate='"+DateObj[j].datea+"'&&stationno='"+TL[k].stationno+"';106\",'95%','95%','106')>":'') + round(thisValue,0) +(thisValue>thisGen?'</a>':'')+ "</font></td>";
 								}
 								ATotal = q_add(ATotal,tTotal);
 								OutHtml += "<td class='num'>" + round(tTotal,0) + "</td>";
