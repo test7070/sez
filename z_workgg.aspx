@@ -574,7 +574,7 @@
 							for(var j=0;j<DateList.length;j++){
 								var thisDay = DateList[j];
 								if(thisDay=='週小計'){
-									OutHtml += "<td class='tTitle' style='width:80px;' rowspan='2'>"+round(thisDay,0)+"</td>";
+									OutHtml += "<td class='tTitle' style='width:80px;' rowspan='2'>"+thisDay+"</td>";
 								}else{
 									var thisADday = r_len==3?dec(thisDay.substring(0,3))+1911+thisDay.substr(3):thisDay;
 									OutHtml += "<td class='tTitle tWidth'>" + thisDay.substr(r_len+1) + "</td>";
