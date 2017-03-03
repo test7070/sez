@@ -211,11 +211,11 @@
 							$('#txtStation').val(as[0].station);
 							$('#txtWorkmount').val(as[0].mount);
 							$('#txtInmount').val(as[0].inmount);
-							$('#txtUnmount').val(dec(as[0].mount)-dec(as[0].inmount));
+							$('#txtUnmount').val(q_sub(dec(as[0].mount),dec(as[0].inmount)));
 							
 							if(as[0].isfreeze=='true'){
 								alert('製令已被凍結!!');
-							}else if(dec(as[0].mount)-dec(as[0].inmount)>0){
+							}else if(q_sub(dec(as[0].mount),dec(as[0].inmount))>0){
 								$('#div_in').show();
 							}else{
 								alert('製令已完工!!');
