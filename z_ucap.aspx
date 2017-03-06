@@ -176,6 +176,10 @@
 					}, {
 						type : '1', //[41][42]
 						name : 'xrate'
+					}, {
+						type : '8', //[43]
+						name : 'xgno0',
+						value : '1@只顯示合計'.split(',')
 					}]
 				});
 				q_popAssign();
@@ -255,6 +259,12 @@
 				$('#Xrate').css('width','340px');
 				$('#txtXrate1').css('width','110px');
 				$('#txtXrate2').css('width','110px');
+				
+				$('#Xgno2').css('width','340px');
+				$('#chkXgno2').css('width','250px');
+				$('#chkXgno2 span').css('width','200px');
+				$('#Xgno2 .label').css('width','0px');
+				$('#Xgno2').css('height','30px');
 			}
 
 			function q_boxClose(s2) {
