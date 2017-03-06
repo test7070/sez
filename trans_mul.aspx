@@ -16,8 +16,8 @@
 		<script type="text/javascript">
             q_tables = 's';
             var q_name = "tran";
-            var q_readonly = ['txtNoa', 'txtTotal', 'txtTotal2', 'txtWeight', 'txtWorker', 'txtWorker2'];
-            var q_readonlys = ['txtTotal'];
+            var q_readonly = ['txtNoa', 'txtWeight', 'txtWorker', 'txtWorker2'];
+            var q_readonlys = [];
             var bbmNum = [['txtMount', 10, 3, 1], ['txtWeight', 10, 3, 1], ['txtTotal', 10, 0, 1]];
             var bbsNum = [['txtMount', 10, 0, 1], ['txtWeight', 10, 3, 1], ['txtPrice', 10, 3, 1], ['txtTotal', 10, 0, 1]];
             var bbmMask = [];
@@ -31,8 +31,8 @@
             aPop = new Array(['txtDriverno', 'lblDriverno', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
             , ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']
             , ['txtUccno_', 'btnProduct_', 'ucc', 'noa,product', 'txtUccno_,txtProduct_', 'ucc_b.aspx']
-            , ['txtStraddrno_', 'btnStraddrno_', 'addr', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr_b.aspx']
-            , ['txtEndaddrno_', 'btnEndaddrno_', 'addr', 'noa,addr', 'txtEndaddrno_,txtEndaddr_', 'addr_b.aspx']
+            , ['txtStraddrno_', 'btnStraddr_', 'addr', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr_b.aspx']
+            , ['txtEndaddrno_', 'btnEndaddr_', 'addr', 'noa,addr', 'txtEndaddrno_,txtEndaddr_', 'addr_b.aspx']
             ,['txtCustno_', 'btnCust_', 'cust', 'noa,comp,nick', 'txtCustno_,txtComp_,txtNick_', 'cust_b.aspx']);
 
             $(document).ready(function() {
@@ -131,6 +131,18 @@
                         var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
                         $('#btnProduct_'+n).click();
                     });
+                    $('#txtStraddrno_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnStraddr_'+n).click();
+                    });
+                    $('#txtEndaddrno_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnEndaddr_'+n).click();
+                    });		
                     $('#txtMount_' + j).change(function() {
                         sum();
                     });
@@ -169,6 +181,7 @@
             }
 
             function btnPrint() {
+            	q_box("z_trans_wh.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({noa:trim($('#txtNoa').val())}) + ";" + r_accy + "_" + r_cno, 'trans_mul', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
@@ -187,12 +200,16 @@
             }
 
             function bbsSave(as) {
-                if (!as['straddr']) {
+                if (!as['straddr'] && !as['endaddr']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
                 q_nowf();
                 as['date'] = abbm2['date'];
+                as['trandate'] = abbm2['trandate'];
+                as['driverno'] = abbm2['driverno'];
+                as['driver'] = abbm2['driver'];
+                as['carno'] = abbm2['carno'];
                 return true;
             }
 
@@ -218,6 +235,7 @@
 
             function btnSeek() {
                 _btnSeek();
+                q_box('tran_s.aspx', q_name + '_s', "500px", "600px", q_getMsg("popSeek"));
             }
 
             function btnTop() {
@@ -498,13 +516,14 @@
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:150px"><a>客戶</a></td>
-					<td align="center" style="width:60px"><a>品名</a></td>
+					<td align="center" style="width:100px"><a>客戶</a></td>
+					<td align="center" style="width:100px"><a>品名</a></td>
+					<td align="center" style="width:60px"><a>單位</a></td>
 					<td align="center" style="width:60px"><a>數量</a></td>
 					<td align="center" style="width:60px"><a>材積</a></td>
 					<td align="center" style="width:60px"><a>重量</a></td>
-					<td align="center" style="width:60px"><a>起點</a></td>
-					<td align="center" style="width:60px"><a>迄點</a></td>
+					<td align="center" style="width:100px"><a>起點</a></td>
+					<td align="center" style="width:100px"><a>迄點</a></td>
 					<td align="center" style="width:60px"><a>盤車</a></td>
 					<td align="center" style="width:60px"><a>應收金額</a></td>
 					<td align="center" style="width:60px"><a>應付金額</a></td>
@@ -528,10 +547,11 @@
 						<input type="button" id="btnCust.*" style="display:none;">
 					</td>
 					<td>
-						<input type="text" id="txtUccno.*" style="float:left;width:width:35%;" />
-						<input type="text" id="txtProduct.*" style="float:left;width:width:55%;" />
+						<input type="text" id="txtUccno.*" style="float:left;width:35%;" />
+						<input type="text" id="txtProduct.*" style="float:left;width:55%;" />
 						<input type="button" id="btnProduct.*" style="display:none;">
 					</td>
+					<td><input type="text" id="txtUnit.*" style="width:95%;" /></td>
 					<td><input type="text" id="txtMount.*" class="num" style="width:95%;" /></td>
 					<td><input type="text" id="txtVolume.*" class="num" style="width:95%;" /></td>
 					<td><input type="text" id="txtWeight.*" class="num" style="width:95%;" /></td>
