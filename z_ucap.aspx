@@ -31,7 +31,7 @@
 				 $('#q_report').click(function(e) {
 					if(!(q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO')){
 						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
-							if($('#q_report').data().info.reportData[i].report!='z_ucap6')
+							if($('#q_report').data().info.reportData[i].report=='z_ucap6')
 								$('#q_report div div').eq(i).hide();
 						}
 						$('#q_report div div .radio').parent().each(function(index) {
