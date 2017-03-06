@@ -118,7 +118,18 @@
 					$('#lblNo_' + i).text(i + 1);
                     if($('#btnMinus_' + i).hasClass('isAssign'))
                     	continue;
-                    	
+                    $('#txtCustno_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnCust_'+n).click();
+                    });	
+                    $('#txtUccno_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnProduct_'+n).click();
+                    });
                     $('#txtMount_' + j).change(function() {
                         sum();
                     });
@@ -128,11 +139,19 @@
                     $('#txtWeight_' + j).change(function() {
                         sum();
                     });
-                    $('#txtPrice_' + j).change(function() {
+                    $('#txtTotal_' + j).change(function() {
+                        sum();
+                    });
+                    $('#txtTotal2_' + j).change(function() {
                         sum();
                     });
                 }
                 _bbsAssign();
+                $('#tbbs').find('tr.data').children().hover(function(e){
+					$(this).parent().css('background','yellow');
+				},function(e){
+					$(this).parent().css('background','#cad3ff');
+				});
             }
 
             function btnIns() {
