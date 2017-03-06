@@ -17,6 +17,7 @@
 		<script type="text/javascript">
 			var uccgaItem = '';
 			var firstRun = false;
+			var t_first=true;
 			aPop = new Array(
 				['txtXproductno', '', 'ucaucc', 'noa,product', 'txtXproductno', 'ucaucc_b.aspx']
 			);
@@ -26,6 +27,26 @@
 				if (uccgaItem.length == 0) {
 					q_gt('uccga', '', 0, 0, 0, "");
 				}
+				
+				 $('#q_report').click(function(e) {
+					if(!(q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO')){
+						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+							if($('#q_report').data().info.reportData[i].report!='z_ucap6')
+								$('#q_report div div').eq(i).hide();
+						}
+						$('#q_report div div .radio').parent().each(function(index) {
+							if(!$(this).is(':hidden') && t_first){
+								$(this).children().removeClass('nonselect').addClass('select');
+								t_first=false;
+							}
+							if($(this).is(':hidden') && t_first){
+								$(this).children().removeClass('select').addClass('nonselect');
+							}
+						});
+					}else{
+						$('#lblXstyle').text('車種');
+					}
+				});
 			});
 			function q_gfPost() {
 				$('#q_report').q_report({
@@ -71,6 +92,90 @@
 					}, {
 						type : '6', //[12]
 						name : 'xstyle'
+					}, {
+						type : '6', //[13]
+						name : 'xspec'
+					}, {
+						type : '6', //[14]
+						name : 'xgroupe'
+					}, {
+						type : '6', //[15]
+						name : 'xgroupf'
+					}, {
+						type : '6', //[16]
+						name : 'xgroupg'
+					}, {
+						type : '6', //[17]
+						name : 'xgrouph'
+					}, {
+						type : '6', //[18]
+						name : 'xgroupi'
+					}, {
+						type : '6', //[19]
+						name : 'xucolor'
+					}, {
+						type : '6', //[20]
+						name : 'xscolor'
+					}, {
+						type : '6', //[21]
+						name : 'xclass'
+					}, {
+						type : '6', //[22]
+						name : 'xclassa'
+					}, {
+						type : '6', //[23]
+						name : 'xzinc'
+					}, {
+						type : '6', //[24]
+						name : 'xsizea'
+					}, {
+						type : '6', //[25]
+						name : 'xsource'
+					}, {
+						type : '6', //[26]
+						name : 'xhard'
+					}, {
+						type : '5', //[31]
+						name : 'xgroupd',
+						value : '#non@全部,ODM,OBM,OEM'.split(',')
+					}, {
+						type : '1', //[27][28]
+						name : 'xsize1'
+					}, {
+						type : '1', //[29][30]
+						name : 'xsize2'
+					}, {
+						type : '2', //[32][33]
+						name : 'xtgg',
+						dbf : 'tgg',
+						index : 'noa,comp',
+						src : 'tgg_b.aspx'
+					}, {
+						type : '2', //[34][35]
+						name : 'xprocess',
+						dbf : 'process',
+						index : 'noa,process',
+						src : 'process_b.aspx'
+					}, {
+						type : '2', //[36][37]
+						name : 'xstation',
+						dbf : 'station',
+						index : 'noa,station',
+						src : 'station_b.aspx'
+					}, {
+						type : '6', //[38]
+						name : 'zproduct'
+					}, {
+						type : '8', //[39]
+						name : 'xsbcost',
+						value : '1@顯示實際大於標準成本'.split(',')
+					}, {
+						type : '5', //[40]
+						name : 'xorder',
+						value : '#non@依階層,rate@依毛利'.split(',')
+					}, {
+						type : '1', //[41][42]
+						name : 'xrate'
 					}]
 				});
 				q_popAssign();
@@ -126,6 +231,30 @@
 				$('#Isprice').css('width','340px');
 				$('#chkIsprice').css('width','200px');
 				$('#chkIsprice span').css('width','150px');
+				
+				$('#Xsize1').css('width','340px');
+				$('#txtXsize11').css('width','110px');
+				$('#txtXsize12').css('width','110px');
+				$('#Xsize2').css('width','340px');
+				$('#txtXsize21').css('width','110px');
+				$('#txtXsize22').css('width','110px');
+				
+				$('#txtXrate1').css('text-align','right');
+				$('#txtXrate2').css('text-align','right');
+				$('#txtXsize11').css('text-align','right');
+				$('#txtXsize12').css('text-align','right');
+				$('#txtXsize21').css('text-align','right');
+				$('#txtXsize22').css('text-align','right');
+				
+				$('#Xsbcost').css('width','340px');
+				$('#chkXsbcost').css('width','250px');
+				$('#chkXsbcost span').css('width','200px');
+				$('#Xsbcost .label').css('width','0px');
+				$('#Xsbcost').css('height','30px');
+				
+				$('#Xrate').css('width','340px');
+				$('#txtXrate1').css('width','110px');
+				$('#txtXrate2').css('width','110px');
 			}
 
 			function q_boxClose(s2) {
