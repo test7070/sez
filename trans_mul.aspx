@@ -30,10 +30,10 @@
             q_desc = 1;
             aPop = new Array(['txtDriverno', 'lblDriverno', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
             , ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']
-            , ['txtUccno_', 'btnUccno_', 'ucc', 'noa,product', 'txtUccno_,txtProduct_', 'ucc_b.aspx']
+            , ['txtUccno_', 'btnProduct_', 'ucc', 'noa,product', 'txtUccno_,txtProduct_', 'ucc_b.aspx']
             , ['txtStraddrno_', 'btnStraddrno_', 'addr', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr_b.aspx']
             , ['txtEndaddrno_', 'btnEndaddrno_', 'addr', 'noa,addr', 'txtEndaddrno_,txtEndaddr_', 'addr_b.aspx']
-            ,['txtCustno_', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno_,txtComp_,txtNick_', 'cust_b.aspx']);
+            ,['txtCustno_', 'btnCust_', 'cust', 'noa,comp,nick', 'txtCustno_,txtComp_,txtNick_', 'cust_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -111,6 +111,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)
                     return;
+                q_box('tran_s.aspx', q_name + '_s', "500px", "600px", q_getMsg("popSeek"));
             }
 
             function bbsAssign() {
@@ -437,7 +438,7 @@
 						<td>
 						<input id="txtDatea" type="text" class="txt c1" />
 						</td>
-						<td><span> </span><a id="lbltrandate" class="lbl" > </a></td>
+						<td><span> </span><a id="lblTrandate" class="lbl" > </a></td>
 						<td>
 						<input id="txtTrandate" type="text" class="txt c1" />
 						</td>
@@ -447,7 +448,7 @@
 						<td>
 						<input id="txtDriverno" type="text" class="txt c1"/>
 						</td>
-						<td>
+						<td colspan="2">
 						<input id="txtDriver" type="text" class="txt c1"/>
 						</td>
 						<td><span> </span><a id="lblCarno" class="lbl btn" > </a></td>
@@ -460,14 +461,20 @@
 						<td>
 						<input id="txtMount" type="text" class="txt c1 num"/>
 						</td>
+						<td><span> </span><a id="lblVolume" class="lbl" > </a></td>
+						<td>
+						<input id="txtVolume" type="text" class="txt c1 num"/>
+						</td>
 						<td><span> </span><a id="lblWeight" class="lbl" > </a></td>
 						<td>
 						<input id="txtWeight" type="text" class="txt c1 num" />
 						</td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblTotal" class="lbl" > </a></td>
-						<td>
-						<input id="txtTotal" type="text" class="txt c1 num" />
-						</td>
+						<td><input id="txtTotal" type="text" class="txt c1 num" /></td>
+						<td><span> </span><a id="lblTotal2" class="lbl" > </a></td>
+						<td><input id="txtTotal2" type="text" class="txt c1 num" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl" > </a></td>
