@@ -218,6 +218,7 @@
 
             function btnSeek() {
                 _btnSeek();
+                q_box('tran_s.aspx', q_name + '_s', "500px", "600px", q_getMsg("popSeek"));
             }
 
             function btnTop() {
