@@ -16,8 +16,8 @@
 		<script type="text/javascript">
             q_tables = 's';
             var q_name = "tran";
-            var q_readonly = ['txtNoa', 'txtTotal', 'txtTotal2', 'txtWeight', 'txtWorker', 'txtWorker2'];
-            var q_readonlys = ['txtTotal'];
+            var q_readonly = ['txtNoa', 'txtWeight', 'txtWorker', 'txtWorker2'];
+            var q_readonlys = [];
             var bbmNum = [['txtMount', 10, 3, 1], ['txtWeight', 10, 3, 1], ['txtTotal', 10, 0, 1]];
             var bbsNum = [['txtMount', 10, 0, 1], ['txtWeight', 10, 3, 1], ['txtPrice', 10, 3, 1], ['txtTotal', 10, 0, 1]];
             var bbmMask = [];
@@ -207,6 +207,9 @@
                 q_nowf();
                 as['date'] = abbm2['date'];
                 as['trandate'] = abbm2['trandate'];
+                as['driverno'] = abbm2['driverno'];
+                as['driver'] = abbm2['driver'];
+                as['carno'] = abbm2['carno'];
                 return true;
             }
 
@@ -513,13 +516,14 @@
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:150px"><a>客戶</a></td>
-					<td align="center" style="width:60px"><a>品名</a></td>
+					<td align="center" style="width:100px"><a>客戶</a></td>
+					<td align="center" style="width:100px"><a>品名</a></td>
+					<td align="center" style="width:60px"><a>單位</a></td>
 					<td align="center" style="width:60px"><a>數量</a></td>
 					<td align="center" style="width:60px"><a>材積</a></td>
 					<td align="center" style="width:60px"><a>重量</a></td>
-					<td align="center" style="width:60px"><a>起點</a></td>
-					<td align="center" style="width:60px"><a>迄點</a></td>
+					<td align="center" style="width:100px"><a>起點</a></td>
+					<td align="center" style="width:100px"><a>迄點</a></td>
 					<td align="center" style="width:60px"><a>盤車</a></td>
 					<td align="center" style="width:60px"><a>應收金額</a></td>
 					<td align="center" style="width:60px"><a>應付金額</a></td>
@@ -543,10 +547,11 @@
 						<input type="button" id="btnCust.*" style="display:none;">
 					</td>
 					<td>
-						<input type="text" id="txtUccno.*" style="float:left;width:width:35%;" />
-						<input type="text" id="txtProduct.*" style="float:left;width:width:55%;" />
+						<input type="text" id="txtUccno.*" style="float:left;width:35%;" />
+						<input type="text" id="txtProduct.*" style="float:left;width:55%;" />
 						<input type="button" id="btnProduct.*" style="display:none;">
 					</td>
+					<td><input type="text" id="txtUnit.*" style="width:95%;" /></td>
 					<td><input type="text" id="txtMount.*" class="num" style="width:95%;" /></td>
 					<td><input type="text" id="txtVolume.*" class="num" style="width:95%;" /></td>
 					<td><input type="text" id="txtWeight.*" class="num" style="width:95%;" /></td>
