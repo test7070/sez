@@ -384,7 +384,11 @@
 									var t_copy=new Array();
 									t_copy['seq']=i;
 									for (var j = 0; j < fbbs.length; j++) {
-										t_copy[fbbs[j]]=$('#'+fbbs[j]+'_'+i).val();
+										if(fbbs[j].substr(0,3)=='chk'){
+											t_copy[fbbs[j]]=$('#'+fbbs[j]+'_'+i).prop('checked');
+										}else{
+											t_copy[fbbs[j]]=$('#'+fbbs[j]+'_'+i).val();
+										}
 									}
 									copy_row.push(t_copy);
 								}
@@ -457,7 +461,7 @@
 					}
 					
 					for (var i = 0; i < q_bbsCount; i++) {$('#btnMinus_'+i).click();}
-					while(t_tlen>q_bbsCount){$('#btnPlus').click();}
+					while(nordepno.length>q_bbsCount){$('#btnPlus').click();}
 					
 					for(var j=0;j<nordepno.length;j++){
 						for(var x=0;x<copy_row.length;x++){
@@ -469,6 +473,8 @@
 										$('#'+fbbs[y]+'_'+j).val(copy_row[x][fbbs[y]]);
 									}
 								}
+								$('#txtMount_'+j).val(nordepno[j].mount)
+								$('#txtRworkdate_'+j).val(nordepno[j].bdate)
 							}
 						}
 					}
