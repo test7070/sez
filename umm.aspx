@@ -149,9 +149,33 @@
                     }
 
                     var t_unpay, t_pay = 0;
-                    for (var i = 0; i < q_bbsCount; i++) {
+                    //先算未付金額是負的
+                    for(var i=0;i<q_bbsCount;i++){
+                    	t_unpay = q_float('txtUnpayorg_' + i);
+                    	if(t_unpay>=0)
+                    		continue;
+                    	t_money = q_add(t_money,Math.abs(t_unpay));
+                    	$('#txtPaysale_'+i).val(t_unpay);
+                    	$('#txtUnpay_'+i).val(0);
+                    }
+                    for(var i=0;i<q_bbsCount;i++){
+                    	t_unpay = q_float('txtUnpayorg_' + i);
+                    	if(t_unpay<=0)
+                    		continue;
+                    	if(t_money>=t_unpay){
+                    		$('#txtPaysale_'+i).val(t_unpay);
+                    		$('#txtUnpay_'+i).val(0);
+                    		t_money = q_sub(t_money,t_unpay);
+                    	}else{
+                    		$('#txtPaysale_'+i).val(t_money);
+                    		$('#txtUnpay_'+i).val(q_sub(t_unpay,t_money));
+                    		t_money = 0;
+                    	}
+                    }
+                    
+                    /*for (var i = 0; i < q_bbsCount; i++) {
                         if (q_float('txtUnpay_' + i) != 0) {
-                            t_unpay = q_float('txtUnpayorg_' + i)
+                            t_unpay = q_float('txtUnpayorg_' + i);
                             if (t_money >= t_unpay) {
                                 q_tr('txtPaysale_' + i, t_unpay);
                                 $('#txtUnpay_' + i).val(0);
@@ -162,7 +186,7 @@
                                 t_money = 0;
                             }
                         }
-                    }
+                    }*/
                     if (t_money > 0)
                         q_tr('txtOpay', t_money);
                     sum();
