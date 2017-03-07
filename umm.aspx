@@ -934,7 +934,8 @@
 	                else
 	                    wrServer(t_noa);
             	}else{
-            		if($.trim($('#txtCheckno_'+n).val()).length>0 && $('#txtAcc1_'+n).val().substring(0,4)=='1121' && q_float('txtMoney_'+n)<0){
+            		if($.trim($('#txtCheckno_'+n).val()).length>0 
+            		&& $('#txtAcc1_'+n).val().substring(0,4)==(q_getPara('sys.project').toUpperCase()=='YC'?'1141':'1121')&& q_float('txtMoney_'+n)<0){
             			//收退  ,1121 , 金額負
             			checkGqb_bbs(n-1);
             		}else if($.trim($('#txtCheckno_'+n).val()).length>0){
@@ -1033,7 +1034,7 @@
         				var t_noa = $('#txtNoa').val();
         				var t_checkno = $('#txtCheckno_'+n).val() ;
             			var t_where = "where=^^ checkno = '" + t_checkno + "' ^^";
-            			if($.trim($('#txtCheckno_'+n).val()).length>0 && $('#txtAcc1_'+n).val().substring(0,4)=='1121' && q_float('txtMoney_'+n)<0){
+            			if($.trim($('#txtCheckno_'+n).val()).length>0 && $('#txtAcc1_'+n).val().substring(0,4)==(q_getPara('sys.project').toUpperCase()=='YC'?'1141':'1121') && q_float('txtMoney_'+n)<0){
 	            			//收退  ,1121 , 金額負
 	            			Unlock(1);
 	            		}else if($.trim($('#txtCheckno_'+n).val()).length>0){
