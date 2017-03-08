@@ -618,10 +618,11 @@
 					</tr>
 				</table>
 			</div>
+			<input type="button" id="btnOpen" value="開立折讓" style="float:left;width:100px;height:50px;"/>
+			<input type="button" id="btnBack" value="開立退回" style="float:left;width:100px;height:50px;"/>
+			<input type="button" id="btnCancel" value="作廢折讓" style="float:left;width:100px;height:50px;"/>
 		</div>
-		<input type="button" id="btnOpen" value="開立折讓" style="width:100px;height:50px;"/>
-		<input type="button" id="btnBack" value="開立退回" style="width:100px;height:50px;"/>
-		<input type="button" id="btnCancel" value="作廢折讓" style="width:100px;height:50px;"/>
+		
 		<div class='dbbs' >
 			<table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
 				<tr style='color:white; background:#003366;' >
