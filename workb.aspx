@@ -30,7 +30,8 @@
 			var q_readonlyt = [];
 			var bbmNum = [];
 			var bbsNum = [
-				['txtMount', 15, 2, 1], ['txtBorn', 15, 0, 1], ['txtLengthb', 15, 0, 1],
+				['txtMount', 15, 2, 1], ['txtBorn', 15, 2, 1], ['txtLengthb', 15, 0, 1],
+				['txtInmount', 15, 2, 1], ['txtFixmount', 15, 2, 1],
 				['txtTheory', 15, 2, 1], ['txtWmount', 15, 2, 1],
 				['txtWk_mount', 15, 2, 1], ['txtWk_inmount', 15, 2, 1], ['txtWk_unmount', 15, 2, 1],
 			];
@@ -588,10 +589,19 @@
 			}
 			
 			function HideField() {
-				var hasStyle = q_getPara('sys.isstyle');
-				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
-				var hasSpec = q_getPara('sys.isspec');
-				var isSpec = (hasSpec.toString()=='1'?$('.isSpec').show():$('.isSpec').hide());
+				if(q_getPara('sys.isstyle')=='1'){
+					$('.isStyle').show();
+					$('#tbbs').css("width", (dec($('.dbbs')[0].offsetWidth) + $('.isStyle').width()) + "px");
+				}else{
+					$('.isStyle').hide();
+					$('#tbbs').css("width", (dec($('.dbbs')[0].offsetWidth) - $('.isStyle').width()) + "px");
+				}
+				
+				if(q_getPara('sys.isspec')=='1'){
+					$('.isSpec').show();
+				}else{
+					$('.isSpec').hide();
+				}
 			}
 
 			function btnMinus(id) {
@@ -969,7 +979,7 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1800px;">
+		<div class='dbbs' style="width: 1975px;">
 			<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1' >
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:20px;"><input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" /></td>
@@ -984,6 +994,8 @@
 					<td align="center" style="width:80px;"><a id='lblMounts'> </a></td>
 					<!--<td align="center" style="width:7%;"><a id='lblTheory'></a></td>-->
 					<td align="center" style="width:80px;"><a id='lblWmount'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblInmount_s'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblFixmount_s'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblStores'> </a></td>
 					<td align="center" ><a id='lblMemos'> </a></td>
 					<!--<td align="center" style="width:45px;"><a id='lblEnda'> </a></td>-->
@@ -1011,6 +1023,8 @@
 					<td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
 					<!--<td><input id="txtTheory.*" type="text" class="txt c1 num"/></td>-->
 					<td><input id="txtWmount.*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtInmount.*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtFixmount.*" type="text" class="txt c1 num"/></td>
 					<td>
 						<input class="btn" id="btnStore.*" type="button" value='.' style="width:1%;float: left;" />
 						<input id="txtStoreno.*" type="text" class="txt c2" style="width: 33%;"/>

@@ -14,6 +14,7 @@
 		<script src="css/jquery/ui/jquery.ui.core.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
+		<script src='../script/clipboard.min.js' type="text/javascript"> </script>
 		<script type="text/javascript">
 			var isSaturday = '0';
 			var DayName = ['週日','週一','週二','週三','週四','週五','週六'];
@@ -154,9 +155,14 @@
 				$('#txtXdate1').val(q_date());
 				$('#txtXdate2').val(q_cdn(q_date(),15));
 				$('#txtXenddate').val(q_date());
-				$('#btnXXX').click(function(e) {
+				$('#btnAuth').click(function(e) {
 					btnAuthority(q_name);
 				});
+				
+				$('#btnCopy').click(function(e) {
+					var clipboard = new Clipboard('#btnCopy');
+				});
+				
 				$('#Xgroupano select').css('width','200px');
 				
 				$('#Xshowdiff').css('width','300px');
@@ -988,7 +994,9 @@
 			</div>
 			<div id="chartCtrl" style="display:inline-block;width:2000px;">
 				<input type="button" id="btnRun" style="float:left; width:80px;font-size: medium;" value="執行"/>
-				<input type="button" id="btnXXX" style="float:left; width:80px;font-size: medium;" value="權限"/>
+				<input type="button" id="btnAuth" style="float:left; width:80px;font-size: medium;" value="權限"/>
+				<input type="button" id="btnCopy" style="float:left; width:120px;font-size: medium;" value="複製到剪貼簿" data-clipboard-target="#chart"/>
+				
 				<!--
 				<input type="button" id="btnPrevious" class="control" style="float:left; width:80px;font-size: medium;" value="上一頁"/>
 				<input type="button" id="btnNext" class="control" style="float:left; width:80px;font-size: medium;" value="下一頁"/>

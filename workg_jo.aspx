@@ -20,7 +20,7 @@
 			var q_readonly = ['txtNoa','txtFact', 'txtDatea', 'txtWorker', 'txtWorker2', 'txtOrdbno','textOmount','textBmount'];//105/03/30 開放 'txtWadate' 
 			var q_readonlys = ['txtWorkno','txtWorkhno', 'txtIndate', 'txtInmount', 'txtWmount', 'txtUindate'];
 			var q_readonlyt = [];
-			var bbmNum = [];
+			var bbmNum = [['txtMount', 15, 0, 1],['textOmount', 15, 0, 1],['textBmount', 15, 0, 1]];
 			var bbsNum = [
 				['txtOrdemount', 15, 0, 1], ['txtPlanmount', 15, 0, 1], ['txtStkmount', 15, 0, 1],
 				['txtIntmount', 15, 0, 1], ['txtPurmount', 15, 0, 1], ['txtAvailmount', 15, 0, 1],
@@ -88,10 +88,11 @@
 				});
 				$('#btnOrde').click(function() {
 					if (q_cur == 1 || q_cur == 2) {
-						if (emp($('#txtBdate').val()) && emp($('#txtEdate').val())) {
-							alert(q_getMsg('lblBdate') + '請先填寫。');
+						if (emp($('#txtBdate').val()) && emp($('#txtEdate').val()) && emp($('#txtOrdeno').val()) ) {
+							alert('【'+q_getMsg('lblBdate') +'】或【'+q_getMsg('lblOrdeno')+ '】請先填寫。');
 							return;
 						}
+						
 						if ((!emp($('#txtBdate').val()) && emp($('#txtEdate').val())) || (emp($('#txtBdate').val()) && !emp($('#txtEdate').val()))) {
 							alert(q_getMsg('lblBdate') + '錯誤!!。');
 							return;
@@ -102,8 +103,10 @@
 						if(emp($('#txtWedate').val()))
 							$('#txtWedate').val(q_cdn($('#txtEdate').val(),-dec(q_getPara('orde.preborn'))));
 						
-						if (!emp($('#txtBdate').val()) && !emp($('#txtEdate').val())) {
-							var t_where = "(a.datea between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and isnull(a.mount,0)!=0 and isnull(a.enda,0)!=1 and isnull(a.cancel,0)!=1 ";
+						if ((!emp($('#txtBdate').val()) && !emp($('#txtEdate').val())) || !emp($('#txtOrdeno').val())) {
+							var t_edate=emp($('#txtEdate').val())?r_picd:$('#txtEdate').val();
+							
+							var t_where = "(a.datea between '"+$('#txtBdate').val()+"' and '"+t_edate+"') and isnull(a.mount,0)!=0 and isnull(a.enda,0)!=1 and isnull(a.cancel,0)!=1 ";
 							t_where = t_where+" and not exists(select * from view_workgs where ordeno=a.noa+'-'+a.no2 and noa !='"+$('#txtNoa').val()+"')";
 							if(!emp($('#txtCustno').val()))
 								t_where = t_where+" and exists(select * from view_orde where noa=a.noa and custno='"+$('#txtCustno').val()+"') ";
@@ -111,6 +114,8 @@
 								t_where = t_where+" and a.productno='"+$('#txtProductno').val()+"' ";
 							if(!emp($('#txtFactno').val()))
 								t_where = t_where+" and exists(select * from view_orde where noa=a.noa and gdate='"+$('#txtFactno').val()+"') ";
+							if(!emp($('#txtOrdeno').val()))
+								t_where = t_where+" and a.noa='"+$('#txtOrdeno').val()+"' ";
 							
 							t_where="where=^^"+t_where+"^^";
 							
@@ -320,6 +325,158 @@
 				$('#lblDown_row').mousedown(function(e) {
 					if (e.button == 0) {
 						q_bbs_addrow(row_bbsbbt, row_b_seq, 1);
+					}
+				});
+				
+				$('#btnBbscut').click(function() {
+					var t_bdate='',t_bmount=0;
+					if(dec($('#txtMount').val())<=0){
+						alert('請正確填寫【每日定量生產】。');
+						return;
+					}else{
+						t_bmount=dec($('#txtMount').val());
+					}
+					if(emp($('#txtWbdate').val())){
+						alert('請先填寫【'+q_getMsg('lblWbdate') +'】。');
+						return;
+					}else{
+						t_bdate=$('#txtWbdate').val();
+					}
+					var ordepno=[];//總計
+					var copy_row=new Array();
+					//先加訂單號+製品號
+					for (var i = 0; i < q_bbsCount; i++) {
+						if(!emp($('#txtOrdeno_'+i).val()) && !emp($('#txtProductno_'+i).val())){
+							if(ordepno.length==0){
+								ordepno.push({
+									'seq':i,
+									'ordeno':$('#txtOrdeno_'+i).val(),
+									'pno':$('#txtProductno_'+i).val(),
+									'omount':dec($('#txtMount_'+i).val())
+								});
+								var t_copy=new Array();
+								t_copy['seq']=i;
+								for (var j = 0; j < fbbs.length; j++) {
+									if(fbbs[j].substr(0,3)=='chk'){
+										t_copy[fbbs[j]]=$('#'+fbbs[j]+'_'+i).prop('checked');
+									}else{
+										t_copy[fbbs[j]]=$('#'+fbbs[j]+'_'+i).val();
+									}
+								}
+								copy_row.push(t_copy);
+							}else{
+								var isexists=false;
+								for(var j=0;j<ordepno.length;j++){
+									if(ordepno[j].ordneo==$('#txtOrdeno_'+i).val() && ordepno[j].pno==$('#txtProductno_'+i).val()){
+										ordepno[j].omount=q_add(ordepno[j].omount,dec($('#txtMount_'+i).val()))
+										isexists=true;
+										break;
+									}
+								}
+								if(!isexists){
+									ordepno.push({
+										'seq':i,
+										'ordeno':$('#txtOrdeno_'+i).val(),
+										'pno':$('#txtProductno_'+i).val(),
+										'omount':dec($('#txtMount_'+i).val())
+									});
+									
+									var t_copy=new Array();
+									t_copy['seq']=i;
+									for (var j = 0; j < fbbs.length; j++) {
+										if(fbbs[j].substr(0,3)=='chk'){
+											t_copy[fbbs[j]]=$('#'+fbbs[j]+'_'+i).prop('checked');
+										}else{
+											t_copy[fbbs[j]]=$('#'+fbbs[j]+'_'+i).val();
+										}
+									}
+									copy_row.push(t_copy);
+								}
+							}
+						}
+					}
+					for(var j=0;j<ordepno.length;j++){
+						ordepno[j].obdate=t_bdate;
+						ordepno[j].nday=Math.ceil(q_div(dec(ordepno[j].omount),t_bmount));
+					}
+					
+					q_gt('holiday', "where=^^ noa>='"+t_bdate+"' ^^ stop=100" , 0, 0, 0, "getholiday", r_accy,1);
+					var holiday = _q_appendData("holiday", "", true);
+					
+					var nordepno=[];//新拆分結果
+					for(var j=0;j<ordepno.length;j++){
+						var t_day=ordepno[j].nday;
+						var t_ndate=ordepno[j].obdate;
+						var t_omount=dec(ordepno[j].omount);
+						var t_seqs=0,t_tlen=0;
+						
+						while(t_day>0 && t_omount>0){
+							var t_iswork=true;
+							var t_holidaywork=false; //假日主檔是否要上班
+							
+							for(var k=0;k<holiday.length;k++){
+								if(holiday[k].noa==t_ndate){
+									if(holiday[k].iswork=="true"){
+										t_holidaywork=true;
+									}else{
+										t_iswork=false;
+									}
+								}
+							}
+							
+							if(!t_holidaywork && t_iswork){
+							
+								var week='';
+								if(t_ndate.length==10){
+									week=new Date(dec(t_ndate.substr(0,4)),dec(t_ndate.substr(5,2))-1,dec(t_ndate.substr(8,2))).getDay()
+								}else{
+									week=new Date(dec(t_ndate.substr(0,3))+1911,dec(t_ndate.substr(4,2))-1,dec(t_ndate.substr(7,2))).getDay();
+								}
+										
+								if(q_getPara('sys.saturday')!='1' && week==6)
+									t_iswork=false;
+								if(week==0)
+									t_iswork=false;
+							}
+								
+							if(t_iswork){
+								nordepno.push({
+									'seq':ordepno[j].seq,
+									'seqs':t_seqs++,
+									'ordeno':ordepno[j].ordeno,
+									'pno':ordepno[j].pno,
+									'omount':ordepno[j].omount,
+									'obdate':ordepno[j].obdate,
+									'bdate':t_ndate,
+									'mount':t_omount>=t_bmount?t_bmount:t_omount
+								});
+								
+								t_omount=q_sub(t_omount,t_bmount);
+								t_day--;
+								t_tlen++;
+							}
+							
+							t_ndate=q_cdn(t_ndate,1);
+						}
+					}
+					
+					for (var i = 0; i < q_bbsCount; i++) {$('#btnMinus_'+i).click();}
+					while(nordepno.length>q_bbsCount){$('#btnPlus').click();}
+					
+					for(var j=0;j<nordepno.length;j++){
+						for(var x=0;x<copy_row.length;x++){
+							if(nordepno[j].seq==copy_row[x]['seq']){
+								for (var y = 0; y < fbbs.length; y++) {
+									if(fbbs[y].substr(0,3)=='chk'){
+										$('#'+fbbs[y]+'_'+j).prop('checked',copy_row[x][fbbs[y]])
+									}else{
+										$('#'+fbbs[y]+'_'+j).val(copy_row[x][fbbs[y]]);
+									}
+								}
+								$('#txtMount_'+j).val(nordepno[j].mount)
+								$('#txtRworkdate_'+j).val(nordepno[j].bdate)
+							}
+						}
 					}
 				});
 			}
@@ -1267,12 +1424,8 @@
 	>
 		<div id="div_row" style="position:absolute; top:300px; left:500px; display:none; width:150px; background-color: #ffffff; ">
 			<table id="table_row" class="table_row" style="width:100%;" border="1" cellpadding='1' cellspacing='0'>
-				<tr>
-					<td align="center" ><a id="lblTop_row" class="lbl btn">上方插入空白行</a></td>
-				</tr>
-				<tr>
-					<td align="center" ><a id="lblDown_row" class="lbl btn">下方插入空白行</a></td>
-				</tr>
+				<tr><td align="center" ><a id="lblTop_row" class="lbl btn">上方插入空白行</a></td></tr>
+				<tr><td align="center" ><a id="lblDown_row" class="lbl btn">下方插入空白行</a></td></tr>
 			</table>
 		</div>
 		<!--#include file="../inc/toolbar.inc"-->
@@ -1357,6 +1510,10 @@
 						<td><input id="btnWorkg" type="button"/></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id="lblOrdeno" class="lbl"> </a></td>
+						<td colspan="2"><input id="txtOrdeno" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblCustno" class="lbl btn"> </a></td>
 						<td colspan="4">
 							<input id="txtCustno" type="text" class="txt c3"/>
@@ -1392,7 +1549,7 @@
 						</td>
 						<td>
 							<input id="btnWorkPrint" type="button" />
-							<input id="btnWorkg_jo" type="button" value="流程卡" />
+							<input id="btnWorkg_jo" type="button"/>
 						</td>
 					</tr>
 					<tr>
@@ -1407,15 +1564,20 @@
 						<!--<td><span> </span><a class="lbl">每日製品入庫數</a></td>
 						<td><input id="txtMon" type="text" class="txt num c1"/></td>-->
 						<!--<input id="btnUindate" type="button" value="寫入預估入庫日"/>-->
-						<td><span> </span><a class="lbl">本期訂單數量</a></td>
+						<td><span> </span><a id="lblOmount" class="lbl"> </a></td>
 						<td><input id="textOmount" type="text" class="txt num c1"/></td>
-						<td><span> </span><a class="lbl">開單生產數量</a></td>
+						<td><span> </span><a id="lblBmount"  class="lbl"> </a></td>
 						<td><input id="textBmount" type="text" class="txt num c1"/></td>
 						<td align="center">
-							<span> </span><a class="lbl">正式製令</a>
+							<span> </span><a id="lblRealwork" class="lbl"> </a>
 							<input id="chkIscugu" type="checkbox" style="float: right;"/>
 						</td>
 						<td colspan="2"><input id="btnWorkReal" type="button"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblMount" class="lbl"> </a></td>
+						<td><input id="txtMount" type="text" class="txt num c1"/></td>
+						<td colspan="2"><input id="btnBbscut" type="button"/></td>
 					</tr>
 				</table>
 			</div>
@@ -1425,6 +1587,7 @@
 						<td style="width:20px;"><input id="btnPlus" type="button" style="font-size: medium; font-weight: bold;" value="＋"/></td>
 						<td style="width:20px;"> </td>
 						<td style="width:70px;"><a id='lblNoq_s'> </a></td>
+						<td style="width:150px;"><a id='lblOrdeno_s'> </a></td>
 						<td style="width:85px;"><a id='lblRworkdate_s'> </a></td>
 						<td style="width:140px;"><a id='lblProductno_s'> </a></td>
 						<td style="width:210px;"><a id='lblProduct_s'> </a></td>
@@ -1460,7 +1623,6 @@
 						<td style="width:80px;"><a id='lblInmount_s'> </a></td>
 						<td style="width:100px;"><a id='lblWmount_s'> </a></td>
 						<td><a id='lblMemo_s'> </a></td>
-						<td style="width:150px;"><a id='lblOrdeno_s'> </a></td>
 						<td style="width:50px;"><a id='lblEnda_s'> </a></td>
 						<td style="width:50px;"><a id='lblIsfreeze_s'> </a></td>
 						<td style="width:40px;"><a id='lblBorn_s'> </a></td>
@@ -1469,6 +1631,7 @@
 						<td align="center"><input id="btnMinus.*" type="button" style="font-size: medium; font-weight: bold;" value="－"/></td>
 						<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 						<td align="center"><input id="txtNoq.*" type="text" class="txt c1"/></td>
+						<td><input id="txtOrdeno.*" type="text" class="txt c1 orde odm"/></td>
 						<td><input id="txtRworkdate.*" type="text" class="txt c1"/></td>
 						<td><input id="txtProductno.*" type="text" class="txt c1"/></td>
 						<td>
@@ -1516,7 +1679,6 @@
 						<td><input id="txtInmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtWmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
-						<td><input id="txtOrdeno.*" type="text" class="txt c1 orde odm"/></td>
 						<td><input id="chkEnda.*" type="checkbox"/></td>
 						<td><input id="chkIsfreeze.*" type="checkbox"/></td>
 						<td align="center"><input class="btn" id="btnBorn.*" type="button" value='.' style=" font-weight: bold;" /></td>
