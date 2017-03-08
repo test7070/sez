@@ -1370,8 +1370,8 @@
 				</table>
 			</div>
 		</div>
-		<input type="button" id="btnOpen" value="開立" style="width:100px;height:100px;"/>
-		<input type="button" id="btnCancel" value="作廢" style="width:100px;height:100px;"/>
+		<input type="button" id="btnOpen" value="開立發票" style="width:100px;height:50px;"/>
+		<input type="button" id="btnCancel" value="作廢發票" style="width:100px;height:50px;"/>
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs' style=' text-align:center'>
 				<tr style='color:white; background:#003366;' >
