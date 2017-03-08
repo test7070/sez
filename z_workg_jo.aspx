@@ -108,11 +108,11 @@
 					
 				});
 				
-				$('#txtInmount').change(function() {
-					var t_mount=dec($('#txtInmount').val());
+				$('#txtInmount2').change(function() {
+					var t_mount=dec($('#txtInmount2').val());
 					if(isNaN(t_mount))
 						t_mount=0;
-					$('#txtInmount').val(t_mount);
+					$('#txtInmount2').val(t_mount);
 					
 				});
 				
@@ -137,16 +137,25 @@
 					var t_team=emp($('#txtTeam').val())?'#non':$('#txtTeam').val();
 					if(isNaN(t_mount))
 						t_mount=0;
-					if(t_mount>0){
-						q_func('');
-					}else{
+					if(t_mount<=0){
 						alert('請輸入入庫數量!!')
 						return;
 					}
 					
+					var t_inmount2=dec($('#txtInmount2').val());
+					if(isNaN(t_inmount2))
+						t_inmount2=0;
+					var t_wmount=dec($('#txtWmount').val());
+					if(isNaN(t_wmount))
+						t_wmount=0;
+					var t_fixmount=dec($('#txtFixmount').val());
+					if(isNaN(t_fixmount))
+						t_fixmount=0;
+					
 					if($('#txtWorkno').val().substr(1,1).replace(/[^\d]/g,'')!=''){
 						var t_timea=padL(new Date().getHours(), '0', 2)+':'+padL(new Date().getMinutes(),'0',2);
-						q_func('qtxt.query.workg_jo_put', 'z_workg_jo.txt,workg_jo_put,' + encodeURI($('#txtWorkno').val()) + ';'+ encodeURI(t_mount) + ';' + encodeURI(q_date()) + ';' + encodeURI(t_timea) + ';'+ encodeURI(r_accy) + ';' + encodeURI(r_userno) + ';' + encodeURI(r_name) + ';' + encodeURI(t_team));
+						q_func('qtxt.query.workg_jo_put', 'z_workg_jo.txt,workg_jo_put,' + encodeURI($('#txtWorkno').val()) + ';'+ encodeURI(t_mount) + ';' + encodeURI(q_date()) + ';' + encodeURI(t_timea) + ';'+ encodeURI(r_accy) + ';' + encodeURI(r_userno) + ';' + encodeURI(r_name) 
+						+ ';' + encodeURI(t_team)+ ';' + encodeURI(t_inmount2)+ ';' + encodeURI(t_wmount)+ ';' + encodeURI(t_fixmount));
 						$('#div_in').hide();	
 					}else{
 						alert("【"+$('#txtWorkno').val()+"】是模擬製令不得入庫!!");
@@ -158,16 +167,20 @@
 					var t_team=emp($('#txtTeam').val())?'#non':$('#txtTeam').val();
 					if(isNaN(t_mount))
 						t_mount=0;
-					if(t_mount>0){
-						q_func('');
-					}else{
+					if(t_mount<=0){
 						alert('請輸入退件數量!!')
 						return;
 					}
 					
+					var t_wmemo=$('#cmbWmemo').find("option:selected").text();
+					if(t_wmemo.length==0){
+						t_wmemo='#non';
+					}
+					
 					if($('#txtWorkno').val().substr(1,1).replace(/[^\d]/g,'')!=''){
 						var t_timea=padL(new Date().getHours(), '0', 2)+':'+padL(new Date().getMinutes(),'0',2);
-						q_func('qtxt.query.workg_jo_pul', 'z_workg_jo.txt,workg_jo_pul,' + encodeURI($('#txtWorkno').val()) + ';'+ encodeURI(t_mount) + ';' + encodeURI(q_date()) + ';' + encodeURI(t_timea) + ';'+ encodeURI(r_accy) + ';' + encodeURI(r_userno) + ';' + encodeURI(r_name) + ';' + encodeURI(t_team));
+						q_func('qtxt.query.workg_jo_pul', 'z_workg_jo.txt,workg_jo_pul,' + encodeURI($('#txtWorkno').val()) + ';'+ encodeURI(t_mount) + ';' + encodeURI(q_date()) + ';' + encodeURI(t_timea) + ';'+ encodeURI(r_accy) + ';' + encodeURI(r_userno) + ';' + encodeURI(r_name) 
+						+ ';' + encodeURI(t_team)+ ';' + encodeURI(t_wmemo));
 						$('#div_in').hide();	
 					}else if(dec($('#txtInmount').val())<=0){
 						alert("【"+$('#txtWorkno').val()+"】入庫量小於零不得退件!!");
@@ -336,7 +349,7 @@
 					<td style="background-color: #f8d463;" align="center">製品編號</td>
 					<td style="background-color: #f8d463;"><input id="txtProductno" style="font-size: medium;width: 98%;" disabled="disabled"></td>
 					<td style="background-color: #99eeee;" align="center">上工段移入數</td>
-					<td style="background-color: #99eeee;"><input id="txtInmount" style="font-size: medium;width:50%;text-align: right;"></td>
+					<td style="background-color: #99eeee;"><input id="txtInmount2" style="font-size: medium;width:50%;text-align: right;"></td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">製品名稱</td>
