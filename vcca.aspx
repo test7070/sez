@@ -125,6 +125,17 @@
 					$('.isST2').show();
 				}
 				
+				$('#btnOpen').click(function(e){
+					var t_noa = $.trim($('#txtNoa').val());
+					if(t_noa.length==0){
+						
+					}else{
+						q_box("generateA0101.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateA0101", "95%", "95%", '');
+					}
+					
+				});
+				
+				
 				if(q_getPara('sys.project').toUpperCase()=='VU')
 					$('#chkAtax').show();
 				
@@ -1107,7 +1118,7 @@
             }
             .dbbm {
                 float: left;
-                width: 100%;
+                width: 1000px;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -1359,6 +1370,8 @@
 				</table>
 			</div>
 		</div>
+		<input type="button" id="btnOpen" value="開立" style="width:100px;height:100px;"/>
+		<input type="button" id="btnCancel" value="作廢" style="width:100px;height:100px;"/>
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs' style=' text-align:center'>
 				<tr style='color:white; background:#003366;' >
