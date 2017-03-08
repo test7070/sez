@@ -265,6 +265,7 @@
 				$('#chkXgno0 span').css('width','200px');
 				$('#Xgno0 .label').css('width','0px');
 				$('#Xgno0').css('height','30px');
+				$('#Xgno0 [type="checkbox"]').prop('checked',true);
 			}
 
 			function q_boxClose(s2) {
