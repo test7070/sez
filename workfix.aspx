@@ -23,10 +23,10 @@
 			var q_name = "workfix";
 			var decbbs = [];
 			var decbbm = [];
-			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2'];
+			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2','txtWorkno','txtWorkgno'];
 			var q_readonlys = [];
 			var bbmNum = [];
-			var bbsNum = [['txtMount', 15, 0, 1]];
+			var bbsNum = [['txtMount', 15, 2, 1]];
 			var bbmMask = [];
 			var bbsMask = [];
 			q_sqlCount = 6;
@@ -37,9 +37,8 @@
 			aPop = new Array(
 				['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
 				['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
-				//['txtWorkno', '', 'view_work', 'noa,cuadate,uindate,productno,product,memo', 'txtWorkno,txtCuadate,txtUindate,txtProductno,txtProduct', ''],
-				['txtProductno', 'lblProduct', 'uca', 'noa,product', 'txtProductno,txtProduct', 'uca_b.aspx'],
-				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,spec,unit', 'txtProductno_,txtProduct_,txtSpec_,txtUnit_', 'ucaucc_b.aspx']
+				['txtProductno', 'lblProductno', 'uca', 'noa,product', 'txtProductno,txtProduct', 'uca_b.aspx'],
+				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx']
 			);
 
 			$(document).ready(function() {
@@ -62,47 +61,28 @@
 				bbmMask = [['txtDatea', r_picd], ['txtCuadate', r_picd], ['txtUindate', r_picd]];
 				q_mask(bbmMask);
 				
-				$('#txtWorkno').change(function() {
-					if((q_cur==1 || q_cur==2) &&!emp($(this).val())){
-						q_gt('view_work', "where=^^noa='"+$(this).val()+"' ^^", 0, 0, 0, "getwork", r_accy,1);
-						var as = _q_appendData("view_work", "", true);
-						if (as[0] != undefined) {
-							$('#txtWorkno').val(as[0].noa);
-							$('#txtCuadate').val(as[0].cuadate);
-							$('#txtUindate').val(as[0].uindate);
-							$('#txtProductno').val(as[0].productno);
-							$('#txtProduct').val(as[0].product);
-							$('#txtStationno').val(as[0].stationno);
-							$('#txtStation').val(as[0].station);
-							$('#txtTggno').val(as[0].tggno);
-							$('#txtTgg').val(as[0].comp);
-							
-							if(as[0].inmount>=as[0].mount){
-								alert('【'+$(this).val()+'】排程數量已入庫完畢!!');
-							}
-							if(as[0].isfreeze=='true'){
-								alert('【'+$(this).val()+'】已被凍結!!');
-							}
-							
-							chagecmbmemo();
-						}else{
-							alert('【'+$(this).val()+'】製令單號不存在!!');
-							chagecmbmemo();
-						}
+				$('#btnImport').click(function() {
+					if (!emp($('#txtProductno').val())){
+						q_gt('ucas', "where=^^noa='"+$('#txtProductno').val()+"' ^^", 0, 0, 0, "getworks", r_accy,1);
+						var as = _q_appendData("ucas", "", true);
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit'
+						, as.length, as, 'productno,product,unit', '');
 					}
 				});
 				
-				$('#btnImport').click(function() {
-					if(!emp($('#txtWorkno').val())){
-						q_gt('view_works', "where=^^noa='"+$('#txtWorkno').val()+"' ^^", 0, 0, 0, "getworks", r_accy,1);
-						var as = _q_appendData("view_works", "", true);
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtUnit'
-						, as.length, as, 'productno,product,spec,unit', '');
-					}else if (!emp($('#txtProductno').val())){
-						q_gt('ucas', "where=^^noa='"+$('#txtProductno').val()+"' ^^", 0, 0, 0, "getworks", r_accy,1);
-						var as = _q_appendData("ucas", "", true);
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtUnit'
-						, as.length, as, 'productno,product,spec,unit', '');
+				$('#txtWorkno').click(function() {
+					if (!emp($('#txtWorkno').val())){
+						t_where = "noa='" + $('#txtWorkno').val() + "'";
+						q_box("work.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('lblWorkno'));
+					}
+				});
+				$('#txtWorkgno').click(function() {
+					if (!emp($('#txtWorkgno').val())){
+						t_where = "noa='" + $('#txtWorkgno').val() + "'";
+						if(q_getPara('sys.project').toUpperCase().substr(0,2)=='AD' || q_getPara('sys.project').toUpperCase()=='JO')
+							q_box("workg_jo.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'workg', "95%", "95%", q_getMsg('lblWorkgno'));
+						else
+							q_box("workg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'workg', "95%", "95%", q_getMsg('lblWorkgno'));
 					}
 				});
 			}
@@ -131,7 +111,7 @@
 			
 			function btnOk() {
 				t_err = '';
-				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtTggno', q_getMsg('lblTgg')]]);
+				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtProductno', q_getMsg('lblProductno')]]);
 				if (t_err.length > 0) {
 					alert(t_err);
 					return;
@@ -222,11 +202,7 @@
 			}
 			
 			function HideField() {
-				if(q_getPara('sys.isspec')=='1'){
-					$('.isSpec').show();
-				}else{
-					$('.isSpec').hide();
-				}
+				
 			}
 
 			function readonly(t_para, empty) {
@@ -531,24 +507,30 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
-						<td><input id="txtWorkno" type="text" class="txt c1"/></td>
-						<td colspan="2"><input id="btnImport" type="button" class="txt"/></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id='lblCuadate' class="lbl"> </a></td>
 						<td><input id="txtCuadate" type="text" class="txt" style="width: 100px;"/></td>
 						<td><span> </span><a id='lblUindate' class="lbl"> </a></td>
 						<td><input id="txtUindate" type="text" class="txt" style="width: 100px;"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblProduct' class="lbl btn"> </a></td>
+						<td><span> </span><a id='lblProductno' class="lbl btn"> </a></td>
 						<td><input id="txtProductno" type="text" class="txt c1"/></td>
-						<td colspan="2"><input id="txtProduct" type="text" class="txt c1"/></td>
+						<td> </td>
+						<td colspan="2"><input id="btnImport" type="button" class="txt"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblProduct' class="lbl"> </a></td>
+						<td colspan="3"><input id="txtProduct" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td colspan='3'><input id="txtMemo" type="text" class="txt c1" style="width: 99%;"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
+						<td><input id="txtWorkno" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblWorkgno' class="lbl"> </a></td>
+						<td><input id="txtWorkgno" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
@@ -581,10 +563,7 @@
 						<input class="txt" id="txtProductno.*" type="text" style="width:80%;" />
 						<input class="btn" id="btnProductno.*" type="button" value='.' style="width:1%;" />
 					</td>
-					<td>
-						<input class="txt c1" id="txtProduct.*" type="text"/>
-						<input class="txt c1 isSpec" id="txtSpec.*" type="text"/>
-					</td>
+					<td><input class="txt c1" id="txtProduct.*" type="text"/></td>
 					<td><input class="txt c1" id="txtUnit.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtMount.*" type="text"/></td>
 					<td>
