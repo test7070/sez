@@ -1389,10 +1389,10 @@
 				</table>
 			</div>
 		</div>
-		<input type="button" id="btnA0101" value="[A0101]開立(賣方)發票" style="width:200px;height:50px;white-space:normal;"/>
-		<input type="button" id="btnA0201" value="[A0201]作廢(賣方)發票" style="width:200px;height:50px;white-space:normal;"/>
-		<input type="button" id="btnA0401" value="[A0401]開立(賣方)發票存證" style="width:200px;height:50px;white-space:normal;"/>
-		<input type="button" id="btnA0501" value="[A0501]作廢(賣方)發票存證" style="width:200px;height:50px;white-space:normal;"/>
+		<input type="button" class="einvoice" id="btnA0101" value="[A0101]開立(賣方)發票" style="width:200px;height:50px;white-space:normal;display:none;"/>
+		<input type="button" class="einvoice" id="btnA0201" value="[A0201]作廢(賣方)發票" style="width:200px;height:50px;white-space:normal;display:none;"/>
+		<input type="button" class="einvoice" id="btnA0401" value="[A0401]開立(賣方)發票存證" style="width:200px;height:50px;white-space:normal;display:none;"/>
+		<input type="button" class="einvoice" id="btnA0501" value="[A0501]作廢(賣方)發票存證" style="width:200px;height:50px;white-space:normal;display:none;"/>
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs' style=' text-align:center'>
 				<tr style='color:white; background:#003366;' >

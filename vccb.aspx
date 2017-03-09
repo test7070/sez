@@ -657,12 +657,12 @@
 				</table>
 			</div>
 			
-			<input type="button" id="btnA0301" value="[A0301]退回(買方)發票" style="float:left;width:200px;height:50px;white-space:normal;"/>
-			<input type="button" id="btnA0601" value="[A0601]退回(買方)發票存證" style="float:left;width:200px;height:50px;white-space:normal;"/>
-			<input type="button" id="btnB0101" value="[B0101]開立(買方)/傳送(賣方)折讓證明" style="float:left;width:200px;height:50px;white-space:normal;"/>
-			<input type="button" id="btnB0201" value="[B0201]作廢(買方)折讓證明單" style="float:left;width:200px;height:50px;white-space:normal;"/>
-			<input type="button" id="btnB0401" value="[B0401]開立(買方)/傳送(賣方)折讓證明單存證" style="float:left;width:200px;height:50px;white-space:normal;"/>
-			<input type="button" id="btnB0501" value="[B0501]作廢折讓證明單存證" style="float:left;width:200px;height:50px;white-space:normal;"/>
+			<input type="button" class="einvoice" id="btnA0301" value="[A0301]退回(買方)發票" style="float:left;width:200px;height:50px;white-space:normal;display:none;"/>
+			<input type="button" class="einvoice" id="btnA0601" value="[A0601]退回(買方)發票存證" style="float:left;width:200px;height:50px;white-space:normal;display:none;"/>
+			<input type="button" class="einvoice" id="btnB0101" value="[B0101]開立(買方)/傳送(賣方)折讓證明" style="float:left;width:200px;height:50px;white-space:normal;display:none;"/>
+			<input type="button" class="einvoice" id="btnB0201" value="[B0201]作廢(買方)折讓證明單" style="float:left;width:200px;height:50px;white-space:normal;display:none;"/>
+			<input type="button" class="einvoice" id="btnB0401" value="[B0401]開立(買方)/傳送(賣方)折讓證明單存證" style="float:left;width:200px;height:50px;white-space:normal;display:none;"/>
+			<input type="button" class="einvoice" id="btnB0501" value="[B0501]作廢折讓證明單存證" style="float:left;width:200px;height:50px;white-space:normal;display:none;"/>
 		</div>
 		
 		<div class='dbbs' >
