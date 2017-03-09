@@ -111,6 +111,10 @@
 						type : '0', //[20]
 						name : 'rsaturday',
 						value : q_getPara('sys.saturday')
+					},{
+						type : '0', //[21]
+						name : 'sproject',
+						value : q_getPara('sys.project').toUpperCase()
 					}]
 				});
 				
@@ -281,7 +285,7 @@
 							t_xshowfinished + ';'+
 							t_xonlyrealwork + ';'+
 							t_xbstationgno+';'+t_xestationgno+';'+
-							t_xcuanoa+';'+t_xcuanoq
+							t_xcuanoa+';'+t_xcuanoq+';'+q_getPara('sys.project').toUpperCase()
 					);
 				});
 
