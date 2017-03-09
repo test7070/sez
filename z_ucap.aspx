@@ -180,6 +180,14 @@
 						type : '8', //[43]
 						name : 'xgno0',
 						value : '1@只顯示合計'.split(',')
+					},{
+						type : '0', //[44] //標準成本bdate//抓上上的月-1年
+						name : 'stbdate',
+						value : q_cdn(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',-1).substr(0,r_lenm)+'/01',-1),-365).substr(0,r_lenm)+'/01'
+					},{
+						type : '0', //[45] //標準成本edate//抓上上的月
+						name : 'stedate',
+						value : q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',-1).substr(0,r_lenm)+'/01',-1)
 					}]
 				});
 				q_popAssign();

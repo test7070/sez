@@ -90,7 +90,11 @@
 						dbf : 'ucaucc',
 						index : 'noa,product',
 						src : 'ucaucc_b.aspx'
-					}]
+					},{/* [24]*/
+                        type : '0',
+                        name : 'xproject',
+                        value : q_getPara('sys.project').toUpperCase()
+                    }]
 				});
 				q_popAssign();
 				q_getFormat();
@@ -109,7 +113,7 @@
 				//抓製令單號
 				if (window.parent.q_name == 'workg') {
 					if (t_key[1] != undefined) {
-						var t_where = "where=^^ cuano='" + t_key[1] + "'^^";
+						var t_where = "where=^^ cuano='" + t_key[1] + "' and (noa=(select MIN(noa) from view_work where cuano='" + t_key[1] + "')  or noa=(select MAX(noa) from view_work where cuano='" + t_key[1] + "')) ^^";
 						q_gt('work', t_where, 0, 0, 0, "", r_accy);
 					}
 				} else {
