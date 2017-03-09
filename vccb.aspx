@@ -105,16 +105,54 @@
                     $('#txtMon').val($('#txtDatea').val().substr(0,r_picm));
                 });
                 
-                $('#btnOpen').click(function(e){
+                $('#btnB0101').click(function(e){
 					var t_noa = $.trim($('#txtNoa').val());
 					if(t_noa.length==0){
 						
 					}else{
-						q_box("generateB0101.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateA0101", "95%", "95%", '');
+						q_box("generateB0101.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateB0101", "95%", "95%", '');
 					}
-					
 				});
-                
+				$('#btnB0201').click(function(e){
+					var t_noa = $.trim($('#txtNoa').val());
+					if(t_noa.length==0){
+						
+					}else{
+						q_box("generateB0201.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateB0201", "95%", "95%", '');
+					}
+				});
+				$('#btnA0301').click(function(e){
+					var t_noa = $.trim($('#txtNoa').val());
+					if(t_noa.length==0){
+						
+					}else{
+						q_box("generateA0301.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateA0301", "95%", "95%", '');
+					}
+				});
+				$('#btnA0601').click(function(e){
+					var t_noa = $.trim($('#txtNoa').val());
+					if(t_noa.length==0){
+						
+					}else{
+						q_box("generateA0601.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateA0601", "95%", "95%", '');
+					}
+				});
+				$('#btnB0401').click(function(e){
+					var t_noa = $.trim($('#txtNoa').val());
+					if(t_noa.length==0){
+						
+					}else{
+						q_box("generateB0401.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateB0401", "95%", "95%", '');
+					}
+				});
+                $('#btnB0501').click(function(e){
+					var t_noa = $.trim($('#txtNoa').val());
+					if(t_noa.length==0){
+						
+					}else{
+						q_box("generateB0501.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateB0501", "95%", "95%", '');
+					}
+				});
             }
             function q_boxClose(s2) {///   q_boxClose 2/4
                 var ret;
@@ -618,9 +656,13 @@
 					</tr>
 				</table>
 			</div>
-			<input type="button" id="btnOpen" value="開立折讓" style="float:left;width:100px;height:50px;"/>
-			<input type="button" id="btnBack" value="開立退回" style="float:left;width:100px;height:50px;"/>
-			<input type="button" id="btnCancel" value="作廢折讓" style="float:left;width:100px;height:50px;"/>
+			
+			<input type="button" class="einvoice" id="btnA0301" value="[A0301]退回(買方)發票" style="float:left;width:200px;height:50px;white-space:normal;display:none;"/>
+			<input type="button" class="einvoice" id="btnA0601" value="[A0601]退回(買方)發票存證" style="float:left;width:200px;height:50px;white-space:normal;display:none;"/>
+			<input type="button" class="einvoice" id="btnB0101" value="[B0101]開立(買方)/傳送(賣方)折讓證明" style="float:left;width:200px;height:50px;white-space:normal;display:none;"/>
+			<input type="button" class="einvoice" id="btnB0201" value="[B0201]作廢(買方)折讓證明單" style="float:left;width:200px;height:50px;white-space:normal;display:none;"/>
+			<input type="button" class="einvoice" id="btnB0401" value="[B0401]開立(買方)/傳送(賣方)折讓證明單存證" style="float:left;width:200px;height:50px;white-space:normal;display:none;"/>
+			<input type="button" class="einvoice" id="btnB0501" value="[B0501]作廢折讓證明單存證" style="float:left;width:200px;height:50px;white-space:normal;display:none;"/>
 		</div>
 		
 		<div class='dbbs' >
