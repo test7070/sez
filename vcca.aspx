@@ -125,22 +125,34 @@
 					$('.isST2').show();
 				}
 				
-				$('#btnOpen').click(function(e){
+				$('#btnA0101').click(function(e){
 					var t_noa = $.trim($('#txtNoa').val());
 					if(t_noa.length==0){
 					}else{
 						q_box("generateA0101.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateA0101", "95%", "95%", '');
 					}
 				});
-				$('#btnCancelInvoice').click(function(e){
+				$('#btnA0201').click(function(e){
 					var t_noa = $.trim($('#txtNoa').val());
 					if(t_noa.length==0){
 					}else{
 						q_box("generateA0201.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateA0201", "95%", "95%", '');
 					}
 				});
-				
-				
+				$('#btnA0401').click(function(e){
+					var t_noa = $.trim($('#txtNoa').val());
+					if(t_noa.length==0){
+					}else{
+						q_box("generateA0401.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateA0401", "95%", "95%", '');
+					}
+				});
+				$('#btnA0501').click(function(e){
+					var t_noa = $.trim($('#txtNoa').val());
+					if(t_noa.length==0){
+					}else{
+						q_box("generateA0501.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateA0501", "95%", "95%", '');
+					}
+				});
 				if(q_getPara('sys.project').toUpperCase()=='VU')
 					$('#chkAtax').show();
 				
@@ -1377,8 +1389,10 @@
 				</table>
 			</div>
 		</div>
-		<input type="button" id="btnOpen" value="開立發票" style="width:100px;height:50px;"/>
-		<input type="button" id="btnCancelInvoice" value="作廢發票" style="width:100px;height:50px;"/>
+		<input type="button" id="btnA0101" value="[A0101]開立(賣方)發票" style="width:200px;height:50px;white-space:normal;"/>
+		<input type="button" id="btnA0201" value="[A0201]作廢(賣方)發票" style="width:200px;height:50px;white-space:normal;"/>
+		<input type="button" id="btnA0401" value="[A0401]開立(賣方)發票存證" style="width:200px;height:50px;white-space:normal;"/>
+		<input type="button" id="btnA0501" value="[A0501]作廢(賣方)發票存證" style="width:200px;height:50px;white-space:normal;"/>
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs' style=' text-align:center'>
 				<tr style='color:white; background:#003366;' >
