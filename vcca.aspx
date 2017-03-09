@@ -132,7 +132,7 @@
 						q_box("generateA0101.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateA0101", "95%", "95%", '');
 					}
 				});
-				$('#btnCancel').click(function(e){
+				$('#btnCancelInvoice').click(function(e){
 					var t_noa = $.trim($('#txtNoa').val());
 					if(t_noa.length==0){
 					}else{
@@ -696,8 +696,9 @@
 					t_moneys = q_float('txtMoney_' + k);
                     t_money = q_add(t_money,t_moneys);
 				}
-
+				
 				t_taxrate = parseFloat(q_getPara('sys.taxrate')) / 100;
+				$('#txtTaxrate').val(t_taxrate);
 				switch ($('#cmbTaxtype').val()) {
 					case '1':
 						// 應稅
@@ -1344,6 +1345,7 @@
 						<td>
 							<input id="txtTax"  type="text"  class="txt num c1" style="width: 90%;"/>
 							<input id="chkAtax" type="checkbox" onchange='sum()' style="display: none;" />
+							<input id="txtTaxrate"  type="text" style="display:none;"/>
 						</td>
 						<td><span> </span><a id='lblTotal' class="lbl"> </a></td>
 						<td><input id="txtTotal"  type="text"  class="txt num c1"/></td>
@@ -1376,7 +1378,7 @@
 			</div>
 		</div>
 		<input type="button" id="btnOpen" value="開立發票" style="width:100px;height:50px;"/>
-		<input type="button" id="btnCancel" value="作廢發票" style="width:100px;height:50px;"/>
+		<input type="button" id="btnCancelInvoice" value="作廢發票" style="width:100px;height:50px;"/>
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs' style=' text-align:center'>
 				<tr style='color:white; background:#003366;' >

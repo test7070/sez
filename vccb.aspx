@@ -110,9 +110,24 @@
 					if(t_noa.length==0){
 						
 					}else{
-						q_box("generateB0101.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateA0101", "95%", "95%", '');
+						q_box("generateB0101.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateB0101", "95%", "95%", '');
 					}
-					
+				});
+				$('#btnBack').click(function(e){
+					var t_noa = $.trim($('#txtNoa').val());
+					if(t_noa.length==0){
+						
+					}else{
+						q_box("generateA0301.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateA0301", "95%", "95%", '');
+					}
+				});
+				$('#btnCancelInvoice').click(function(e){
+					var t_noa = $.trim($('#txtNoa').val());
+					if(t_noa.length==0){
+						
+					}else{
+						q_box("generateA0301.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateA0301", "95%", "95%", '');
+					}
 				});
                 
             }
@@ -620,7 +635,7 @@
 			</div>
 			<input type="button" id="btnOpen" value="開立折讓" style="float:left;width:100px;height:50px;"/>
 			<input type="button" id="btnBack" value="開立退回" style="float:left;width:100px;height:50px;"/>
-			<input type="button" id="btnCancel" value="作廢折讓" style="float:left;width:100px;height:50px;"/>
+			<input type="button" id="btnCancelInvoice" value="作廢折讓" style="float:left;width:100px;height:50px;"/>
 		</div>
 		
 		<div class='dbbs' >
