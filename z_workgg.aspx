@@ -14,6 +14,7 @@
 		<script src="css/jquery/ui/jquery.ui.core.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
+		<script src='../script/clipboard.min.js' type="text/javascript"> </script>
 		<script type="text/javascript">
 			var isSaturday = '0';
 			var DayName = ['週日','週一','週二','週三','週四','週五','週六'];
@@ -110,6 +111,10 @@
 						type : '0', //[20]
 						name : 'rsaturday',
 						value : q_getPara('sys.saturday')
+					},{
+						type : '0', //[21]
+						name : 'sproject',
+						value : q_getPara('sys.project').toUpperCase()
 					}]
 				});
 				
@@ -154,9 +159,14 @@
 				$('#txtXdate1').val(q_date());
 				$('#txtXdate2').val(q_cdn(q_date(),15));
 				$('#txtXenddate').val(q_date());
-				$('#btnXXX').click(function(e) {
+				$('#btnAuth').click(function(e) {
 					btnAuthority(q_name);
 				});
+				
+				$('#btnCopy').click(function(e) {
+					var clipboard = new Clipboard('#btnCopy');
+				});
+				
 				$('#Xgroupano select').css('width','200px');
 				
 				$('#Xshowdiff').css('width','300px');
@@ -275,7 +285,7 @@
 							t_xshowfinished + ';'+
 							t_xonlyrealwork + ';'+
 							t_xbstationgno+';'+t_xestationgno+';'+
-							t_xcuanoa+';'+t_xcuanoq
+							t_xcuanoa+';'+t_xcuanoq+';'+q_getPara('sys.project').toUpperCase()
 					);
 				});
 
@@ -452,7 +462,9 @@
 									var thisGen = dec(TTD[j][2]);
 									tTotal = q_add(tTotal,round(TTD[j][1],3));
 									DateObj[j].mount = q_add(dec(DateObj[j].mount),round(TTD[j][1],3));
-									OutHtml += "<td class='num'"+(thisValue>thisGen?' style="color:red;"':'')+"><font title='日產能:"+thisGen+"'>" + round(thisValue,0) + "</font></td>";
+									//OutHtml += "<td class='num'"+(thisValue>thisGen?' style="color:red;"':'')+"><font title='日產能:"+thisGen+"'>" + round(thisValue,0) + "</font></td>";
+									OutHtml += "<td class='num'"+(thisValue>thisGen?' style="color:red;"':'')+"><font title='日產能:"+thisGen+"'>"
+									+(thisValue>thisGen?"<a style='color:red;' href=JavaScript:q_box('work.aspx',\";cuadate='"+DateObj[j].datea+"'&&stationno='"+TL[k].stationno+"';106\",'95%','95%','106')>":'') + round(thisValue,0) +(thisValue>thisGen?'</a>':'')+ "</font></td>";
 								}
 								ATotal = q_add(ATotal,tTotal);
 								OutHtml += "<td class='num'>" + round(tTotal,0) + "</td>";
@@ -574,7 +586,7 @@
 							for(var j=0;j<DateList.length;j++){
 								var thisDay = DateList[j];
 								if(thisDay=='週小計'){
-									OutHtml += "<td class='tTitle' style='width:80px;' rowspan='2'>"+round(thisDay,0)+"</td>";
+									OutHtml += "<td class='tTitle' style='width:80px;' rowspan='2'>"+thisDay+"</td>";
 								}else{
 									var thisADday = r_len==3?dec(thisDay.substring(0,3))+1911+thisDay.substr(3):thisDay;
 									OutHtml += "<td class='tTitle tWidth'>" + thisDay.substr(r_len+1) + "</td>";
@@ -986,7 +998,9 @@
 			</div>
 			<div id="chartCtrl" style="display:inline-block;width:2000px;">
 				<input type="button" id="btnRun" style="float:left; width:80px;font-size: medium;" value="執行"/>
-				<input type="button" id="btnXXX" style="float:left; width:80px;font-size: medium;" value="權限"/>
+				<input type="button" id="btnAuth" style="float:left; width:80px;font-size: medium;" value="權限"/>
+				<input type="button" id="btnCopy" style="float:left; width:120px;font-size: medium;" value="複製到剪貼簿" data-clipboard-target="#chart"/>
+				
 				<!--
 				<input type="button" id="btnPrevious" class="control" style="float:left; width:80px;font-size: medium;" value="上一頁"/>
 				<input type="button" id="btnNext" class="control" style="float:left; width:80px;font-size: medium;" value="下一頁"/>

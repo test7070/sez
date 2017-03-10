@@ -127,6 +127,32 @@
                     	$('#txtEinvono_'+(i-1)).val(t_invono);
                     }
                 });
+                
+                
+                $('#btnE0401').click(function(e){
+					var t_noa = $.trim($('#txtNoa').val());
+					if(t_noa.length==0){
+						
+					}else{
+						q_box("generateE0401.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateE0401", "95%", "95%", '');
+					}
+				});
+				$('#btnE0402').click(function(e){
+					var t_noa = $.trim($('#txtNoa').val());
+					if(t_noa.length==0){
+						
+					}else{
+						q_box("generateE0402.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateE0402", "95%", "95%", '');
+					}
+				});
+				$('#btnE0501').click(function(e){
+					var t_noa = $.trim($('#txtNoa').val());
+					if(t_noa.length==0){
+						
+					}else{
+						q_box("generateE0501.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateE0501", "95%", "95%", '');
+					}
+				});
             }
 
             function q_boxClose(s2) {
@@ -630,6 +656,9 @@
 					</tr>
 				</table>
 			</div>
+			<input type="button" class="einvoice" id="btnE0401" value="[E0401]分支機構配號檔" style="float:left;width:200px;height:50px;white-space:normal;display:none;"/>
+			<input type="button" class="einvoice" id="btnE0402" value="[E0402]空白未使用字軌檔" style="float:left;width:200px;height:50px;white-space:normal;display:none;"/>
+			<input type="button" class="einvoice" id="btnA0501" value="[E0501]營業人電子發票配號檔" style="float:left;width:200px;height:50px;white-space:normal;display:none;"/>
 		</div>
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs'>

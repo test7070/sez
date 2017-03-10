@@ -53,6 +53,10 @@
 					}, {/*6[10][11]-收款日期*/
 						type : '1',
 						name : 'ummdate'
+					}, {/*7[12]-option*/
+						type : '8',
+						name : 'xoption',
+						value : ['只顯示未收']
 					}]
 				});
 				q_popAssign();

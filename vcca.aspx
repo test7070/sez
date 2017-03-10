@@ -125,6 +125,34 @@
 					$('.isST2').show();
 				}
 				
+				$('#btnA0101').click(function(e){
+					var t_noa = $.trim($('#txtNoa').val());
+					if(t_noa.length==0){
+					}else{
+						q_box("generateA0101.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateA0101", "95%", "95%", '');
+					}
+				});
+				$('#btnA0201').click(function(e){
+					var t_noa = $.trim($('#txtNoa').val());
+					if(t_noa.length==0){
+					}else{
+						q_box("generateA0201.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateA0201", "95%", "95%", '');
+					}
+				});
+				$('#btnA0401').click(function(e){
+					var t_noa = $.trim($('#txtNoa').val());
+					if(t_noa.length==0){
+					}else{
+						q_box("generateA0401.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateA0401", "95%", "95%", '');
+					}
+				});
+				$('#btnA0501').click(function(e){
+					var t_noa = $.trim($('#txtNoa').val());
+					if(t_noa.length==0){
+					}else{
+						q_box("generateA0501.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateA0501", "95%", "95%", '');
+					}
+				});
 				if(q_getPara('sys.project').toUpperCase()=='VU')
 					$('#chkAtax').show();
 				
@@ -680,8 +708,9 @@
 					t_moneys = q_float('txtMoney_' + k);
                     t_money = q_add(t_money,t_moneys);
 				}
-
+				
 				t_taxrate = parseFloat(q_getPara('sys.taxrate')) / 100;
+				$('#txtTaxrate').val(t_taxrate);
 				switch ($('#cmbTaxtype').val()) {
 					case '1':
 						// 應稅
@@ -1107,7 +1136,7 @@
             }
             .dbbm {
                 float: left;
-                width: 100%;
+                width: 1000px;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -1328,6 +1357,7 @@
 						<td>
 							<input id="txtTax"  type="text"  class="txt num c1" style="width: 90%;"/>
 							<input id="chkAtax" type="checkbox" onchange='sum()' style="display: none;" />
+							<input id="txtTaxrate"  type="text" style="display:none;"/>
 						</td>
 						<td><span> </span><a id='lblTotal' class="lbl"> </a></td>
 						<td><input id="txtTotal"  type="text"  class="txt num c1"/></td>
@@ -1359,6 +1389,10 @@
 				</table>
 			</div>
 		</div>
+		<input type="button" class="einvoice" id="btnA0101" value="[A0101]開立(賣方)發票" style="width:200px;height:50px;white-space:normal;display:none;"/>
+		<input type="button" class="einvoice" id="btnA0201" value="[A0201]作廢(賣方)發票" style="width:200px;height:50px;white-space:normal;display:none;"/>
+		<input type="button" class="einvoice" id="btnA0401" value="[A0401]開立(賣方)發票存證" style="width:200px;height:50px;white-space:normal;display:none;"/>
+		<input type="button" class="einvoice" id="btnA0501" value="[A0501]作廢(賣方)發票存證" style="width:200px;height:50px;white-space:normal;display:none;"/>
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs' style=' text-align:center'>
 				<tr style='color:white; background:#003366;' >

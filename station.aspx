@@ -27,7 +27,7 @@
 			var bbsMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
-			brwCount2 = 14;
+			brwCount2 = 15;
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'noa';
@@ -42,7 +42,8 @@
 				['txtMechno_', 'btnMechno_', 'mech', 'noa,mech,gen', 'txtMechno_,txtMech_,txtGen_', 'mech_b.aspx'],
 				['txtStoreno', 'lblStoreno', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
 				['txtStoreinno', 'lblStoreinno', 'store', 'noa,store', 'txtStoreinno,txtStorein', 'store_b.aspx'],
-				['txtStationgno', 'lblStationgno', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx']
+				['txtStationgno', 'lblStationgno', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx'],
+				['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']
 			);
 			function main() {
 				if (dataErr) {
@@ -439,6 +440,15 @@
 						<td class="td2" colspan="2">
 							<input id="txtFactoryno" type="text" class="txt c2"/>
 							<input id="txtFactory" type="text" class="txt c3"/>
+						</td>
+						<td class="td3"> </td>
+						<td class="td4"> </td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblPart' class="lbl btn"> </a></td>
+						<td class="td2" colspan="2">
+							<input id="txtPartno" type="text" class="txt c2"/>
+							<input id="txtPart" type="text" class="txt c3"/>
 						</td>
 						<td class="td3"> </td>
 						<td class="td4"> </td>

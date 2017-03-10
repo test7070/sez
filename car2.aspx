@@ -25,7 +25,7 @@
              ['txtVrate', 6, 3,1], ['txtRrate', 6, 3,1], ['txtOrate', 6, 3,1], ['txtIrate', 6, 3,1], ['txtPrate', 6, 3,1], ['txtUlicense', 10, 0,1], ['txtDlicense', 10, 0,1], ['txtSpring', 10, 0,1], ['txtSummer', 10, 0,1],
              ['txtFalla', 10, 0,1], ['txtWinter', 10, 0,1], ['txtCylinder', 2, 0,1], ['txtSalemoney', 10, 0,1], ['txtImprovemoney1', 10, 0,1], ['txtImprovemoney2', 10, 0,1], ['txtImprovemoney3', 10, 0,1], 
              ['txtDiscountmoney', 10, 0,1], ["txtDurableyear", 2, 0, 1]];
-            var bbmMask = [["txtIndate", "999/99/99"], ["txtOutdate", "999/99/99"], ["txtPassdate", "999/99/99"], ["txtLimitdate", "999/99/99"], ["txtCheckdate", "999/99/99"], ["txtCaryear", "9999/99"],["txtCaryeartw", "999/99"], ["txtSaledate", "999/99/99"], ["txtImprovedate1", "999/99/99"], ["txtImprovedate2", "999/99/99"], ["txtImprovedate3", "999/99/99"], ["txtDiscountdate", "999/99/99"], ["txtSuspdate", "999/99/99"], ["txtOverdate", "999/99/99"], ["txtEnddate", "999/99/99"], ["txtWastedate", "999/99/99"], ["txtReissuedate", "999/99/99"], ["txtSigndate", "999/99/99"]];
+            var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -62,6 +62,14 @@
             }
 
 			function mainPost() {
+				bbmMask = [["txtIndate", "999/99/99"], ["txtOutdate", "999/99/99"], ["txtPassdate", "999/99/99"]
+				, ["txtLimitdate", "999/99/99"], ["txtCheckdate", "999/99/99"], ["txtCaryear", "9999/99"]
+				,["txtCaryeartw", "999/99"], ["txtSaledate", "999/99/99"]
+				, ["txtImprovedate1", "999/99/99"], ["txtImprovedate2", "999/99/99"], ["txtImprovedate3", "999/99/99"]
+				, ["txtDiscountdate", "999/99/99"], ["txtSuspdate", "999/99/99"], ["txtOverdate", "999/99/99"]
+				, ["txtEnddate", "999/99/99"], ["txtWastedate", "999/99/99"], ["txtReissuedate", "999/99/99"]
+				, ["txtSigndate", "999/99/99"], ["txtCanceldate", "999/99/99"], ["txtResetdate", "999/99/99"]]
+				
                 q_mask(bbmMask);
                 q_cmbParse("cmbSex", q_getPara('sys.sex'));
                 q_cmbParse("cmbChecktype", q_getPara('car2.checktype'));
@@ -1204,12 +1212,18 @@
 						<td><input id="txtOutplace" type="text" class="txt c1"/> </td>
 					</tr>
 					<tr class="other">
-						<td><span> </span><a id="lblEnddate" class="lbl" style="color: red;"> </a></td>
-						<td><input id="txtEnddate" type="text" class="txt c1"/> </td>
-						<td><span> </span><a id="lblWastedate" class="lbl" style="color: red;"> </a></td>
-						<td><input id="txtWastedate" type="text" class="txt c1"/> </td>
+						<td><span> </span><a id="lblCanceldate" class="lbl" style="color: red;"> </a></td>
+						<td><input id="txtCanceldate" type="text" class="txt c1"/> </td>
 						<td><span> </span><a id="lblSuspdate" class="lbl" style="color: red;"> </a></td>
 						<td><input id="txtSuspdate" type="text" class="txt c1"/> </td>
+						<td><span> </span><a id="lblResetdate" class="lbl" style="color: red;"> </a></td>
+						<td><input id="txtResetdate" type="text" class="txt c1"/> </td>
+					</tr>
+					<tr class="other">
+						<td><span> </span><a id="lblWastedate" class="lbl" style="color: red;"> </a></td>
+						<td><input id="txtWastedate" type="text" class="txt c1"/> </td>
+						<td><span> </span><a id="lblEnddate" class="lbl" style="color: red;"> </a></td>
+						<td><input id="txtEnddate" type="text" class="txt c1"/> </td>
 					</tr>
 					<tr class="other">
 						<td><span> </span><a id="lblPassdate" class="lbl"> </a></td>

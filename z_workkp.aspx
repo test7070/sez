@@ -75,6 +75,10 @@
 						type : '0',
 						name : 'r_len',
 						value : r_len
+					}, {
+						type : '8',
+						name : 'xissemi',
+						value:'1@含半成品'.split(',')
 					}]
 				});
 				q_popAssign();
@@ -95,6 +99,13 @@
 				$('.q_report .option div.a1').css('width','690px');
 				$('.q_report .option div .c2').css('width','130px');
 				$('.q_report .option div .c3').css('width','130px');
+				
+				$('#Xnoa').css('width','340px');
+				$('#txtXnoa').css('width','240px');
+				
+				$('#Xissemi').css('width','340px');
+				$('#chkXissemi').css('width','300px');
+				$('#Xissemi .label').css('width','0px')
 				
 				$('#txtXdate1').val(q_date().substr(0,r_lenm)+'/01');
 	            $('#txtXdate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1));

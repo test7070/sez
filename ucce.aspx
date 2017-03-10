@@ -196,7 +196,11 @@
 			}
 
 			function btnPrint() {
-				q_box('z_uccep.aspx' + "?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+				if (q_getPara('sys.project').toUpperCase()=='XY'){
+					q_box('z_uccep_xy.aspx' + "?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+				}else{
+					q_box('z_uccep.aspx' + "?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+				}
 			}
 
 			function wrServer(key_value) {

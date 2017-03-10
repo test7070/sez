@@ -617,8 +617,8 @@
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td><input id="txtNoa" type="text" class="txt c1"/></td>
 						<td>
-							<input id="chkIscarrier" type="checkbox" style="float:left;"/>
-							<a id="lblIscarrier" class="lbl" style="float:left;"> </a>
+							<!--<input id="chkIscarrier" type="checkbox" style="float:left;"/>
+							<a id="lblIscarrier" class="lbl" style="float:left;"> </a>-->
 							<span> </span><a id="lblTgg" class="lbl btn"> </a>
 						</td>
 						<td colspan="3">

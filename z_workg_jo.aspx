@@ -108,21 +108,54 @@
 					
 				});
 				
+				$('#txtInmount2').change(function() {
+					var t_mount=dec($('#txtInmount2').val());
+					if(isNaN(t_mount))
+						t_mount=0;
+					$('#txtInmount2').val(t_mount);
+					
+				});
+				
+				$('#txtWmount').change(function() {
+					var t_mount=dec($('#txtWmount').val());
+					if(isNaN(t_mount))
+						t_mount=0;
+					$('#txtWmount').val(t_mount);
+					
+				});
+				
+				$('#txtFixmount').change(function() {
+					var t_mount=dec($('#txtFixmount').val());
+					if(isNaN(t_mount))
+						t_mount=0;
+					$('#txtFixmount').val(t_mount);
+					
+				});
+				
 				$('#btnOK_div_in').click(function() {
 					var t_mount=dec($('#txtMount').val());
 					var t_team=emp($('#txtTeam').val())?'#non':$('#txtTeam').val();
 					if(isNaN(t_mount))
 						t_mount=0;
-					if(t_mount>0){
-						q_func('');
-					}else{
+					if(t_mount<=0){
 						alert('請輸入入庫數量!!')
 						return;
 					}
 					
+					var t_inmount2=dec($('#txtInmount2').val());
+					if(isNaN(t_inmount2))
+						t_inmount2=0;
+					var t_wmount=dec($('#txtWmount').val());
+					if(isNaN(t_wmount))
+						t_wmount=0;
+					var t_fixmount=dec($('#txtFixmount').val());
+					if(isNaN(t_fixmount))
+						t_fixmount=0;
+					
 					if($('#txtWorkno').val().substr(1,1).replace(/[^\d]/g,'')!=''){
 						var t_timea=padL(new Date().getHours(), '0', 2)+':'+padL(new Date().getMinutes(),'0',2);
-						q_func('qtxt.query.workg_jo_put', 'z_workg_jo.txt,workg_jo_put,' + encodeURI($('#txtWorkno').val()) + ';'+ encodeURI(t_mount) + ';' + encodeURI(q_date()) + ';' + encodeURI(t_timea) + ';'+ encodeURI(r_accy) + ';' + encodeURI(r_userno) + ';' + encodeURI(r_name) + ';' + encodeURI(t_team));
+						q_func('qtxt.query.workg_jo_put', 'z_workg_jo.txt,workg_jo_put,' + encodeURI($('#txtWorkno').val()) + ';'+ encodeURI(t_mount) + ';' + encodeURI(q_date()) + ';' + encodeURI(t_timea) + ';'+ encodeURI(r_accy) + ';' + encodeURI(r_userno) + ';' + encodeURI(r_name) 
+						+ ';' + encodeURI(t_team)+ ';' + encodeURI(t_inmount2)+ ';' + encodeURI(t_wmount)+ ';' + encodeURI(t_fixmount));
 						$('#div_in').hide();	
 					}else{
 						alert("【"+$('#txtWorkno').val()+"】是模擬製令不得入庫!!");
@@ -134,16 +167,20 @@
 					var t_team=emp($('#txtTeam').val())?'#non':$('#txtTeam').val();
 					if(isNaN(t_mount))
 						t_mount=0;
-					if(t_mount>0){
-						q_func('');
-					}else{
+					if(t_mount<=0){
 						alert('請輸入退件數量!!')
 						return;
 					}
 					
+					var t_wmemo=$('#cmbWmemo').find("option:selected").text();
+					if(t_wmemo.length==0){
+						t_wmemo='#non';
+					}
+					
 					if($('#txtWorkno').val().substr(1,1).replace(/[^\d]/g,'')!=''){
 						var t_timea=padL(new Date().getHours(), '0', 2)+':'+padL(new Date().getMinutes(),'0',2);
-						q_func('qtxt.query.workg_jo_pul', 'z_workg_jo.txt,workg_jo_pul,' + encodeURI($('#txtWorkno').val()) + ';'+ encodeURI(t_mount) + ';' + encodeURI(q_date()) + ';' + encodeURI(t_timea) + ';'+ encodeURI(r_accy) + ';' + encodeURI(r_userno) + ';' + encodeURI(r_name) + ';' + encodeURI(t_team));
+						q_func('qtxt.query.workg_jo_pul', 'z_workg_jo.txt,workg_jo_pul,' + encodeURI($('#txtWorkno').val()) + ';'+ encodeURI(t_mount) + ';' + encodeURI(q_date()) + ';' + encodeURI(t_timea) + ';'+ encodeURI(r_accy) + ';' + encodeURI(r_userno) + ';' + encodeURI(r_name) 
+						+ ';' + encodeURI(t_team)+ ';' + encodeURI(t_wmemo));
 						$('#div_in').hide();	
 					}else if(dec($('#txtInmount').val())<=0){
 						alert("【"+$('#txtWorkno').val()+"】入庫量小於零不得退件!!");
@@ -211,11 +248,27 @@
 							$('#txtStation').val(as[0].station);
 							$('#txtWorkmount').val(as[0].mount);
 							$('#txtInmount').val(as[0].inmount);
-							$('#txtUnmount').val(dec(as[0].mount)-dec(as[0].inmount));
+							$('#txtUnmount').val(q_sub(dec(as[0].mount),dec(as[0].inmount)));
 							
 							if(as[0].isfreeze=='true'){
 								alert('製令已被凍結!!');
-							}else if(dec(as[0].mount)-dec(as[0].inmount)>0){
+							}else if(q_sub(dec(as[0].mount),dec(as[0].inmount))>0){
+								$('#cmbWmemo').text('');
+								//讀取退件原因(先讀取工作線別的部門)
+								q_gt('station', "where=^^noa='"+as[0].stationno+"'^^", 0, 0, 0, "getPart",r_accy,1);
+								var as1 = _q_appendData("station", "", true);
+								if (as1[0] != undefined) {
+									if(as1[0].partno.length>0){
+										q_gt('qphr', "where=^^part='"+as1[0].partno+"'^^", 0, 0, 0, "getqphr",r_accy,1);
+										var as2 = _q_appendData("qphr", "", true);
+										var t_item = "@";
+										for (var i = 0; i < as.length; i++) {
+					                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].phr + '@' + as[i].phr;
+					                    }
+					                    q_cmbParse("cmbWmemo", t_item);
+									}
+								}
+								
 								$('#div_in').show();
 							}else{
 								alert('製令已完工!!');
@@ -272,7 +325,7 @@
 			function workin(workno) {
 				if(workno.id.length>0){
 					$('#txtWorkno').val(workno.id);
-					$('#div_in').css('top', $(workno).offset().top+20);
+					$('#div_in').css('top', $(workno).offset().top+60);
 					$('#div_in').css('left', $(workno).offset().left);
 					
 					q_gt('view_work', "where=^^noa='"+workno.id+"'^^", 0, 0, 0, "");
@@ -284,62 +337,60 @@
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
-		<div id="div_in" style="position:absolute; top:300px; left:400px; display:none; width:400px; background-color: #CDFFCE; border: 5px solid gray; z-index: 9;">
+		<div id="div_in" style="position:absolute; top:300px; left:400px; display:none; width:800px; background-color: #CDFFCE; border: 5px solid gray; z-index: 9;">
 			<table id="table_in" style="width:100%;" border="1" cellpadding='2'  cellspacing='0'>
 				<tr>
-					<td style="background-color: #f8d463;" align="center">製令編號</td>
-					<td style="background-color: #f8d463;" colspan="3"><input id="txtWorkno" style="font-size: medium;width: 98%;" disabled="disabled"></td>
+					<td style="background-color: #f8d463;width: 105px;" align="center" >製令編號</td>
+					<td style="background-color: #f8d463;width: 295px;"><input id="txtWorkno" style="font-size: medium;width: 98%;" disabled="disabled"></td>
+					<td style="background-color: #ffddff;width: 105px;" align="center">完工組別</td>
+					<td style="background-color: #ffddff;width: 295px;"><input id="txtTeam" style="font-size: medium;width: 60%;text-align: left;"></td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">製品編號</td>
-					<td style="background-color: #f8d463;" colspan="3"><input id="txtProductno" style="font-size: medium;width: 98%;" disabled="disabled"></td>
+					<td style="background-color: #f8d463;"><input id="txtProductno" style="font-size: medium;width: 98%;" disabled="disabled"></td>
+					<td style="background-color: #99eeee;" align="center">上工段移入數</td>
+					<td style="background-color: #99eeee;"><input id="txtInmount2" style="font-size: medium;width:50%;text-align: right;"></td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">製品名稱</td>
-					<td style="background-color: #f8d463;" colspan="3"><input id="txtProduct" style="font-size: medium;width: 98%;" disabled="disabled"></td>
+					<td style="background-color: #f8d463;"><input id="txtProduct" style="font-size: medium;width: 98%;" disabled="disabled"></td>
+					<td style="background-color: #99eeee;" align="center">報廢數</td>
+					<td style="background-color: #99eeee;"><input id="txtWmount" style="font-size: medium;width:50%;text-align: right;"></td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">工作線號</td>
-					<td style="background-color: #f8d463;" colspan="3"><input id="txtStationno" style="font-size: medium;width: 98%;" disabled="disabled"></td>
+					<td style="background-color: #f8d463;"><input id="txtStationno" style="font-size: medium;width: 98%;" disabled="disabled"></td>
+					<td style="background-color: #99eeee;" align="center">維修入庫數</td>
+					<td style="background-color: #99eeee;"><input id="txtFixmount" style="font-size: medium;width:50%;text-align: right;"></td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">工作線名</td>
-					<td style="background-color: #f8d463;" colspan="3"><input id="txtStation" style="font-size: medium;width: 98%;" disabled="disabled"></td>
+					<td style="background-color: #f8d463;"><input id="txtStation" style="font-size: medium;width: 98%;" disabled="disabled"></td>
+					<td style="background-color: #99eeee;" align="center" >本次入庫數量</td>
+					<td style="background-color: #99eeee;">
+						<input id="txtMount" style="font-size: medium;width:50%;text-align: right;">
+						<input id="btnOK_div_in" type="button" value="入庫" style="font-size: medium;">
+					</td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">排程數量</td>
-					<td style="background-color: #f8d463;" colspan="3"><input id="txtWorkmount" style="font-size: medium;width: 60%;text-align: right;" disabled="disabled"></td>
-				</tr>
-				<tr>
-					<td style="background-color: #f8d463;" align="center">已入庫量</td>
-					<td style="background-color: #f8d463;" colspan="3"><input id="txtInmount" style="font-size: medium;width: 60%;text-align: right;" disabled="disabled"></td>
-				</tr>
-				<tr>
-					<td style="background-color: #f8d463;" align="center">未入庫量</td>
-					<td style="background-color: #f8d463;" colspan="3"><input id="txtUnmount" style="font-size: medium;width: 60%;text-align: right;" disabled="disabled"></td>
-				</tr>
-				<tr>
-					<td style="background-color: #f8d463;" align="center">完工組別</td>
-					<td style="background-color: #f8d463;" colspan="3"><input id="txtTeam" style="font-size: medium;width: 60%;text-align: left;"></td>
-				</tr>
-				<tr>
-					<td style="background-color: #f8d463;width: 105px;" align="center">本次入庫數量</td>
-					<td style="background-color: #f8d463;"><input id="txtMount" style="font-size: medium;width:95%;text-align: right;"></td>
-					<td style="background-color: #f8d463;width: 105px;" align="center">本次退件數量</td>
-					<td style="background-color: #f8d463;"><input id="txtBmount" style="font-size: medium;width:95%;text-align: right;"></td>
-				</tr>
-				<tr>
-					<td align="center" colspan='2'>
-						<input id="btnOK_div_in" type="button" value="入庫" style="font-size: medium;">
-					</td>
-					<td align="center" colspan='2'>
+					<td style="background-color: #f8d463;"><input id="txtWorkmount" style="font-size: medium;width: 50%;text-align: right;" disabled="disabled"></td>
+					<td style="background-color: #ffffaa;" align="center">本次退件數量</td>
+					<td style="background-color: #ffffaa;">
+						<input id="txtBmount" style="font-size: medium;width:50%;text-align: right;">
 						<input id="btnOK2_div_in" type="button" value="退件" style="font-size: medium;">
 					</td>
 				</tr>
 				<tr>
-					<td align="center" colspan='4'>
-						<input id="btnClose_div_in" type="button" value="關閉視窗" style="font-size: medium;">
-					</td>
+					<td style="background-color: #f8d463;" align="center">已入庫量</td>
+					<td style="background-color: #f8d463;"><input id="txtInmount" style="font-size: medium;width: 50%;text-align: right;" disabled="disabled"></td>
+					<td style="background-color: #ffffaa;" align="center">退件原因</td>
+					<td style="background-color: #ffffaa;"><select id="cmbWmemo" style="font-size: medium;width:95%;"> </select></td>
+				</tr>
+				<tr>
+					<td style="background-color: #f8d463;" align="center">未入庫量</td>
+					<td style="background-color: #f8d463;"><input id="txtUnmount" style="font-size: medium;width: 50%;text-align: right;" disabled="disabled"></td>
+					<td colspan="2" style="text-align: center;"><input id="btnClose_div_in" type="button" value="關閉視窗" style="font-size: medium;"></td>
 				</tr>
 			</table>
 		</div>

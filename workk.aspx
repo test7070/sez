@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -107,7 +107,12 @@
 							
 							t_where1+=" and a.cuadate between '"+t_bdate+"' and '"+t_edate+"' and a.noa like 'W[0-9]%' ";
 						}
+						if(!$('#chkIssemi').prop('checked')){
+							t_where1+=" and exists(select * from ucc where noa=b.productno) "
+						}
+						
 						t_where1 = "where[1]=^^ "+t_where1+" ^^";
+						
 						q_gt('workk_works', t_where+t_where1, 0, 0, 0, "", r_accy);
 					}
 				});
@@ -792,11 +797,11 @@
 			<table id="table_stk" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">產品編號</td>
-					<td style="background-color: #f8d463;" colspan="2" id='stk_productno'></td>
+					<td style="background-color: #f8d463;" colspan="2" id='stk_productno'> </td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">產品名稱</td>
-					<td style="background-color: #f8d463;" colspan="2" id='stk_product'></td>
+					<td style="background-color: #f8d463;" colspan="2" id='stk_product'> </td>
 				</tr>
 				<tr id='stk_top'>
 					<td align="center" style="width: 30%;">倉庫編號</td>
@@ -831,11 +836,11 @@
 			<div class='dbbm'>
 				<table class="tbbm" id="tbbm">
 					<tr style="height: 1px;">
-						<td width="130px"></td>
-						<td width="255px"></td>
-						<td width="130px"></td>
-						<td width="255px"></td>
-						<td width="130px"></td>
+						<td width="130px"> </td>
+						<td width="255px"> </td>
+						<td width="130px"> </td>
+						<td width="255px"> </td>
+						<td width="130px"> </td>
 					</tr>
 					<!--<tr>
 					<td><span> </span><a id='lblTypea' class="lbl"> </a></td>
@@ -876,6 +881,7 @@
 					<tr>
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td class="td2" colspan="3"><input id="txtMemo" type="text" class="txt c5"/></td>
+						<td><input id="chkIssemi" type="checkbox"><a id="lblIssemi"> </a></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblCngno' class="lbl"> </a></td>
