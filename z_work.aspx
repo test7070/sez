@@ -135,7 +135,11 @@
 						dbf : 'ucaucc',
 						index : 'noa,product',
 						src : 'ucaucc_b.aspx'
-					}]
+					}, {/* [32]*/
+                        type : '0',
+                        name : 'xproject',
+                        value : q_getPara('sys.project').toUpperCase()
+                    }]
 				});
 				q_popAssign();
 				q_getFormat();
@@ -177,7 +181,9 @@
 				$('.option div.a2').css('width','340px');
 				$('#Aberrant').css('width','340px').css('height','30px');
 				$('#chkAberrant').css('width','250px');
-
+				$('#Xendac').css('width','340px').css('height','30px');
+				$('#chkXendac').css('width','250px');
+				
 				$("#lblXcuano").css("font-size", "13px");
 			}
 
