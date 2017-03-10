@@ -111,8 +111,8 @@
 					<td align="center" style="width:103px;"><a id='lblChgdate'> </a></td>
 					<td align="center" style="width:103px;"><a id='lblStopdate'> </a></td>
 					<td align="center" style="width:104px;"><a id='lblResetdate'> </a></td>
-					<td align="center" style="width:103px;"><a id='lblEnddate'> </a></td>
 					<td align="center" style="width:104px;"><a id='lblWastedate'> </a></td>
+					<td align="center" style="width:103px;"><a id='lblEnddate'> </a></td>
 					<td align="center" style="width:104px;"><a id='lblCanceldate'> </a></td>
 					<td align="center" style="width:104px;"><a id='lblDatea'> </a></td>
 					<td align="center" style="width:208px;"><a id='lblMemo'> </a></td>
@@ -128,8 +128,8 @@
 					<td><input class="txt" id="txtChgdate.*" type="text" maxlength='10' style="width:95%;"/></td>
 					<td><input class="txt" id="txtStopdate.*" type="text" maxlength='10' style="width:95%;"/></td>
 					<td><input class="txt" id="txtResetdate.*" type="text" maxlength='10' style="width:95%;"/></td>
-					<td><input class="txt" id="txtEnddate.*" type="text" maxlength='10' style="width:95%;"/></td>
 					<td><input class="txt" id="txtWastedate.*" type="text" maxlength='10' style="width:95%;"/></td>
+					<td><input class="txt" id="txtEnddate.*" type="text" maxlength='10' style="width:95%;"/></td>
 					<td><input class="txt" id="txtCanceldate.*" type="text" maxlength='10' style="width:95%;"/></td>
 					<td><input class="txt" id="txtDatea.*" type="text" maxlength='10' style="width:95%;"/></td>
 					<td><input class="txt" id="txtMemo.*" type="text" maxlength='90' style="width:95%;"/></td>
