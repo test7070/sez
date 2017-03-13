@@ -16,14 +16,15 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
 			aPop = new Array(
-				['txtXcno', '', 'acomp', 'noa,acomp,nick', 'txtXcno', "acomp_b.aspx"],
-				['txtXpart', '', 'part', 'part,noa', 'txtXpart', "part_b.aspx"]
+				['txtXcno', '', 'acomp', 'noa,acomp,nick', 'txtXcno', "acomp_b.aspx"]
+				//,['txtXpart', '', 'part', 'part,noa', 'txtXpart', "part_b.aspx"]
 			);
 			if (location.href.indexOf('?') < 0) {
 				location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
 			}
 			
 			$(document).ready(function() {
+				_q_boxClose();
 				q_getId();
 				$('#q_report').click(function(e) {
 					if(q_getPara('sys.isAcccUs')!='1')
@@ -116,7 +117,7 @@
 					}, {
 						type : '0', //[26]
 						name : 'rc2taxtype',
-						value : q_getPara('rc2.d4taxtype')
+						value : q_getPara('rc2.d4taxtype')==''?'0':q_getPara('rc2.d4taxtype')
 					}, {//DC
 						type : '6', //[27]
 						name : 'xaccno'
@@ -158,7 +159,7 @@
 			function q_boxClose(s2) {
 			}
 
-			var z_coin='',z_part='';
+			var z_coin='#non@本幣',z_part='#non@全部';
 			function q_gtPost(t_name) {
                 switch (t_name) {
                 	case 'flors_coin':
@@ -177,7 +178,7 @@
                 		z_part='#non@全部';
                 		var as = _q_appendData("part", "", true);
 						for ( i = 0; i < as.length; i++) {
-							z_part+=','+as[i].partno+'@'+as[i].part;
+							z_part+=','+as[i].noa+'@'+as[i].part;
 						}
 						q_gf('', 'z_pay');
                 	break;
