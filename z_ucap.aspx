@@ -188,6 +188,10 @@
 						type : '0', //[45] //標準成本edate//抓上上的月
 						name : 'stedate',
 						value : q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',-1).substr(0,r_lenm)+'/01',-1)
+					}, {
+						type : '8', //[46]
+						name : 'xproserch',
+						value : '1@模糊查詢'.split(',')
 					}]
 				});
 				q_popAssign();
@@ -274,6 +278,12 @@
 				$('#Xgno0 .label').css('width','0px');
 				$('#Xgno0').css('height','30px');
 				$('#Xgno0 [type="checkbox"]').prop('checked',true);
+				
+				$('#Xproserch').css('width','340px');
+				$('#chkXproserch').css('width','250px');
+				$('#chkXproserch span').css('width','200px');
+				$('#Xproserch .label').css('width','0px');
+				$('#Xproserch').css('height','30px');
 			}
 
 			function q_boxClose(s2) {
