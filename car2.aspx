@@ -25,7 +25,7 @@
              ['txtVrate', 6, 3,1], ['txtRrate', 6, 3,1], ['txtOrate', 6, 3,1], ['txtIrate', 6, 3,1], ['txtPrate', 6, 3,1], ['txtUlicense', 10, 0,1], ['txtDlicense', 10, 0,1], ['txtSpring', 10, 0,1], ['txtSummer', 10, 0,1],
              ['txtFalla', 10, 0,1], ['txtWinter', 10, 0,1], ['txtCylinder', 2, 0,1], ['txtSalemoney', 10, 0,1], ['txtImprovemoney1', 10, 0,1], ['txtImprovemoney2', 10, 0,1], ['txtImprovemoney3', 10, 0,1], 
              ['txtDiscountmoney', 10, 0,1], ["txtDurableyear", 2, 0, 1]];
-            var bbmMask = [["txtIndate", "999/99/99"], ["txtOutdate", "999/99/99"], ["txtPassdate", "999/99/99"], ["txtLimitdate", "999/99/99"], ["txtCheckdate", "999/99/99"], ["txtCaryear", "9999/99"],["txtCaryeartw", "999/99"], ["txtSaledate", "999/99/99"], ["txtImprovedate1", "999/99/99"], ["txtImprovedate2", "999/99/99"], ["txtImprovedate3", "999/99/99"], ["txtDiscountdate", "999/99/99"], ["txtSuspdate", "999/99/99"], ["txtOverdate", "999/99/99"], ["txtEnddate", "999/99/99"], ["txtWastedate", "999/99/99"], ["txtReissuedate", "999/99/99"], ["txtSigndate", "999/99/99"]];
+            var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -62,6 +62,14 @@
             }
 
 			function mainPost() {
+				bbmMask = [["txtIndate", "999/99/99"], ["txtOutdate", "999/99/99"], ["txtPassdate", "999/99/99"]
+				, ["txtLimitdate", "999/99/99"], ["txtCheckdate", "999/99/99"], ["txtCaryear", "9999/99"]
+				,["txtCaryeartw", "999/99"], ["txtSaledate", "999/99/99"]
+				, ["txtImprovedate1", "999/99/99"], ["txtImprovedate2", "999/99/99"], ["txtImprovedate3", "999/99/99"]
+				, ["txtDiscountdate", "999/99/99"], ["txtSuspdate", "999/99/99"], ["txtOverdate", "999/99/99"]
+				, ["txtEnddate", "999/99/99"], ["txtWastedate", "999/99/99"], ["txtReissuedate", "999/99/99"]
+				, ["txtSigndate", "999/99/99"], ["txtCanceldate", "999/99/99"], ["txtResetdate", "999/99/99"]]
+				
                 q_mask(bbmMask);
                 q_cmbParse("cmbSex", q_getPara('sys.sex'));
                 q_cmbParse("cmbChecktype", q_getPara('car2.checktype'));
@@ -523,8 +531,10 @@
             }
             
 			function q_funcPost(t_func, result) {
-		        location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";a.noa='"+$('#txtChangecarno').val()+"';"+r_accy;
-		        alert('功能執行完畢');
+				if(t_func=='changecarno.change'){
+			        location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";a.noa='"+$('#txtChangecarno').val()+"';"+r_accy;
+			        alert('功能執行完畢');
+				}
 		    } //endfunction
 		    
             function q_gfPost() {
@@ -639,11 +649,19 @@
 			
 			//暫存資料
 			var t_cardeal='',t_outdate='',t_enddate='',t_wastedate='',t_memo='',t_outplace='',t_carowner='';
-			
+			//106/03/10 異動記錄變動(報停日期,復駛日期,繳銷日期,報廢日期,註銷日期)
+			var x_suspdate='',x_resetdate='',x_wastedate='',x_enddate='',x_canceldate='';
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
-
+				
+				//106/03/10 暫存修改前資料
+				x_suspdate=$('#txtSuspdate').val();
+				x_resetdate=$('#txtResetdate').val();
+				x_wastedate=$('#txtWastedate').val();
+				x_enddate=$('#txtEnddate').val();
+				x_canceldate=$('#txtCanceldate').val();
+				
                 _btnModi();
                 refreshBbm();
                 $('txtSaledate').val(q_date());
@@ -778,9 +796,27 @@
 
                 var t_noa = replaceAll($('#txtNoa').val(),' ','');
                 replaceAll($('#txtCarno').val(t_noa),' ','');
+                
+                if(q_cur=='2'&& q_getPara('sys.project').toUpperCase()=="DC"){
+                	//106/03/10 新增到carchange
+                	if(x_suspdate!=$('#txtSuspdate').val() || x_resetdate!=$('#txtResetdate').val() ||
+					x_wastedate!=$('#txtWastedate').val() || x_enddate!=$('#txtEnddate').val() ||
+					x_canceldate!=$('#txtCanceldate').val()){
+						var t_paras=t_noa+';'+q_date()+';'
+						+(x_suspdate!=$('#txtSuspdate').val()?$('#txtSuspdate').val():'#non')+';'
+						+(x_resetdate!=$('#txtResetdate').val()?$('#txtResetdate').val():'#non')+';'
+						+(x_wastedate!=$('#txtWastedate').val()?$('#txtWastedate').val():'#non')+';'
+						+(x_enddate!=$('#txtEnddate').val()?$('#txtEnddate').val():'#non')+';'
+						+(x_canceldate!=$('#txtCanceldate').val()?$('#txtCanceldate').val():'#non')
+						
+						q_func('qtxt.query.car2change', 'changecarno.txt,car2change,' + t_paras);
+					}
+                }
+                
                 wrServer(t_noa);
-                if(q_cur=='1'&& q_getPara('sys.comp').substring(0,2)=="大昌")
+                if(q_cur=='1'&& q_getPara('sys.project').toUpperCase()=="DC"){
                 	$("#btnCarinsurance").click();
+                }
             }
 
             function wrServer(key_value) {
@@ -1204,12 +1240,18 @@
 						<td><input id="txtOutplace" type="text" class="txt c1"/> </td>
 					</tr>
 					<tr class="other">
-						<td><span> </span><a id="lblEnddate" class="lbl" style="color: red;"> </a></td>
-						<td><input id="txtEnddate" type="text" class="txt c1"/> </td>
-						<td><span> </span><a id="lblWastedate" class="lbl" style="color: red;"> </a></td>
-						<td><input id="txtWastedate" type="text" class="txt c1"/> </td>
+						<td><span> </span><a id="lblCanceldate" class="lbl" style="color: red;"> </a></td>
+						<td><input id="txtCanceldate" type="text" class="txt c1"/> </td>
 						<td><span> </span><a id="lblSuspdate" class="lbl" style="color: red;"> </a></td>
 						<td><input id="txtSuspdate" type="text" class="txt c1"/> </td>
+						<td><span> </span><a id="lblResetdate" class="lbl" style="color: red;"> </a></td>
+						<td><input id="txtResetdate" type="text" class="txt c1"/> </td>
+					</tr>
+					<tr class="other">
+						<td><span> </span><a id="lblWastedate" class="lbl" style="color: red;"> </a></td>
+						<td><input id="txtWastedate" type="text" class="txt c1"/> </td>
+						<td><span> </span><a id="lblEnddate" class="lbl" style="color: red;"> </a></td>
+						<td><input id="txtEnddate" type="text" class="txt c1"/> </td>
 					</tr>
 					<tr class="other">
 						<td><span> </span><a id="lblPassdate" class="lbl"> </a></td>

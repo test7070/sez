@@ -523,6 +523,35 @@
 							//else{
 							checkGqbStatus_btnDele(t_sel - 1);
 							//}
+						}else if (t_name.substring(0, 15) == 'bounce_umm_trd_'){
+							var t_n = t_name.split('_')[3];
+							var as = _q_appendData("view_trd", "", true);
+							if (as[0] != undefined) {
+								$('#txtVccno_'+t_n).val(as[0].noa);
+								$('#txtMemo2_'+t_n).val(as[0].memo);
+								$('#txtTablea_'+t_n).val(as[0].tablea);
+								$('#txtAccy_'+t_n).val(as[0].accy);
+								$('#txtPaysale_'+t_n).val(0);
+								$('#txtUnpayorg_'+t_n).val(as[0].unpay);
+								$('#txtUnpay_'+t_n).val(as[0].unpay);
+								$('#txtPart2_'+t_n).val(as[0].part);
+								$('#txtPartno_'+t_n).val(as[0].partno);
+								$('#txtPart_'+t_n).val(as[0].part);
+								$('#cmbPartno_'+t_n).val(as[0].partno);
+							}else{
+								$('#txtVccno_'+t_n).val('');
+								$('#txtMemo2_'+t_n).val('');
+								$('#txtTablea_'+t_n).val('');
+								$('#txtAccy_'+t_n).val('');
+								$('#txtPaysale_'+t_n).val('');
+								$('#txtUnpayorg_'+t_n).val('');
+								$('#txtUnpay_'+t_n).val('');
+								$('#txtPart2_'+t_n).val('');
+								$('#txtPartno_'+t_n).val('');
+								$('#txtPart_'+t_n).val('');
+								$('#cmbPartno_'+t_n).val('');
+								alert('立帳單不存在!!請確認是否輸入正確!!');
+							}
 						}
 						break;
 				}
@@ -721,8 +750,72 @@
 							q_box(t_form + ".aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $(this).val() + "';" + t_accy, t_tablea, "95%", "95%", q_getMsg("pop" + t_tablea));
 						}
 					});
+					//106/03/10 應收票據金額為負數 立帳單號可輸入
+					$('#txtVccno_' + i).change(function() {
+						t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						if (q_getPara('sys.project').toUpperCase()=='DC'){
+							if (!emp($('#txtVccno_' + b_seq).val()) && r_rank>='8' && (q_cur==1 || q_cur==2)) {
+								var t_where='',t_where1='',t_where2='',t_where3='',t_where4='',t_where5='',t_where6='',t_where7='',t_where8='';
+								t_where = "swhere=^^ a.noa='"+$('#txtVccno_'+b_seq).val()+"'^^";
+								t_where1= " where[1]=^^ a.noa='" + $('#txtNoa').val() + "' and a.paysale!=0 ^^";
+								t_where2= " where[2]=^^ 1=1 and a.noa='" + $('#txtNoa').val() + "'^^";
+								t_where3= " where[3]=^^ a.noa='"+$('#txtVccno_'+b_seq).val()+"' ^^";
+								//cara 不要退到超過2個月
+								t_where4= " where[4]=^^ noa='"+$('#txtVccno_'+b_seq).val()+"' and mon>'"+q_cdn(q_date().substr(0,r_lenm)+'/01',-35).substr(0,r_lenm)+"' ^^";
+								t_where5= " where[5]=^^ a.noa='"+$('#txtVccno_'+b_seq).val()+"'and CHARINDEX('會計',kind)>0 and a.datea>='102/04/01' ^^";
+								t_where6= " where[6]=^^ a.noa='"+$('#txtVccno_'+b_seq).val()+"' and (CHARINDEX('會計',kind)=0 or a.datea<'102/04/01') ^^";
+								t_where7= " where[7]=^^ noa!='"+$('#txtNoa').val()+"' ^^";
+								t_where8= " where[8]=^^ tablea='trd' and noa!='"+$('#txtNoa').val()+"' ^^";
+								
+								q_gt('umm_trd', t_where+t_where1+t_where2+t_where3+t_where4+t_where5+t_where6+t_where7+t_where8, 0, 0, 0, "bounce_umm_trd_"+b_seq, r_accy);
+							}else{
+								$('#txtVccno_'+b_seq).val('');
+								$('#txtMemo2_'+b_seq).val('');
+								$('#txtTablea_'+b_seq).val('');
+								$('#txtAccy_'+b_seq).val('');
+								$('#txtPaysale_'+b_seq).val('');
+								$('#txtUnpayorg_'+b_seq).val('');
+								$('#txtUnpay_'+b_seq).val('');
+								$('#txtPart2_'+b_seq).val('');
+								$('#txtPartno_'+b_seq).val('');
+								$('#txtPart_'+b_seq).val('');
+								$('#cmbPartno_'+b_seq).val('');
+							}
+						}
+					});
+					
 					$('#txtMoney_' + i).change(function(e) {
+						t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						
 						sum();
+						//106/03/10 應收票據金額為負數 立帳單號可輸入
+						var t_isbounce=false;
+						
+						for (var i = 0; i < q_bbsCount; i++) {
+							if (q_getPara('sys.project').toUpperCase()=='DC' && $.trim($('#txtCheckno_' + i).val()).length > 0 
+							&& ($('#txtAcc1_' + i).val().substring(0, 4) == '1121' || $('#txtAcc2_'+i).val().indexOf('應收票據')>=0)
+							&& q_float('txtMoney_' + i) < 0 && r_rank>='8' && (q_cur==1 || q_cur==2)) {
+								t_isbounce=true;
+								break;
+							}
+						}
+						
+						for (var j = 0; j < q_bbsCount; j++) {
+							if(t_isbounce){
+								$('#txtVccno_'+j).removeAttr("readonly");
+								$('#txtVccno_'+j).css("color",'');
+								$('#txtVccno_'+j).css("background",'');
+							}else{
+								$('#txtVccno_'+j).attr("readonly", "readonly");
+								$('#txtVccno_'+j).css("color",'green');
+								$('#txtVccno_'+j).css("background",'rgb(237, 237, 238)');
+							}
+						}
+						
 					});
 					$('#txtChgs_' + i).change(function(e) {
 						sum();
@@ -745,6 +838,30 @@
 							q_gt('view_gqb_chk', t_where, 0, 0, 0, "gqb_change1_" + n + "_" + t_checkno + "_" + t_noa, r_accy);
 						} else {
 							Unlock(1);
+						}
+						
+						//106/03/10 應收票據金額為負數 立帳單號可輸入
+						var t_isbounce=false;
+						
+						for (var i = 0; i < q_bbsCount; i++) {
+							if (q_getPara('sys.project').toUpperCase()=='DC' && $.trim($('#txtCheckno_' + i).val()).length > 0 
+							&& ($('#txtAcc1_' + i).val().substring(0, 4) == '1121' || $('#txtAcc2_'+i).val().indexOf('應收票據')>=0)
+							&& q_float('txtMoney_' + i) < 0 && r_rank>='8' && (q_cur==1 || q_cur==2)) {
+								t_isbounce=true;
+								break;
+							}
+						}
+						
+						for (var j = 0; j < q_bbsCount; j++) {
+							if(t_isbounce){
+								$('#txtVccno_'+j).removeAttr("readonly");
+								$('#txtVccno_'+j).css("color",'');
+								$('#txtVccno_'+j).css("background",'');
+							}else{
+								$('#txtVccno_'+j).attr("readonly", "readonly");
+								$('#txtVccno_'+j).css("color",'green');
+								$('#txtVccno_'+j).css("background",'rgb(237, 237, 238)');
+							}
 						}
 					}).bind('contextmenu', function(e) {
                         /*滑鼠右鍵*/
@@ -1225,7 +1342,7 @@
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
 						<input class="btn" id="btnAcc.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-						<input type="text" id="txtAcc1.*" style="width:85%; float:left;"/>
+						<input type="text" id="txtAcc1.*" style="width:80%; float:left;"/>
 						<span style="display:block; width:1%;float:left;"> </span>
 						<input type="text" id="txtAcc2.*" style="width:97%; float:left;"/>
 					</td>

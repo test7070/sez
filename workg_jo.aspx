@@ -1201,8 +1201,18 @@
 				if (t_func == 'qtxt.query.workrealall') {
 					$('#btnWorkReal').removeAttr('disabled');
 					var as = _q_appendData('tmp0','',true,true);
-                	alert("模擬製令成功轉成正式製令!!\n共轉換"+as.length+"張");
-                	var s2=new Array('workg_s',"where=^^noa<='"+$('#txtNoa').val()+"' ^^ ");
+					if (as[0] != undefined) {
+	                	if(as[0].total>0){
+	                		if(as[0].total==as[0].ctotal){
+	                			alert("模擬製令成功轉成正式製令!!\n共轉換"+as[0].ctotal+"張");
+	                		}else{
+	                			alert("模擬製令成功轉成正式製令!!\n共轉換"+as[0].ctotal+"張\n尚有"+q_sub(dec(as[0].total),dec(as[0].ctotal))+"張簽核尚未完成，不轉正式製令!!");
+	                		}
+	                	}else{
+	                		alert("無模擬製令需轉成正式製令!!");
+	                	}
+					}
+					var s2=new Array('workg_s',"where=^^noa<='"+$('#txtNoa').val()+"' ^^ ");
 					q_boxClose2(s2);
 				}
 				if (t_func == 'workg.genWork') {
