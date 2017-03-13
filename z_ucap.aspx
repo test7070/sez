@@ -19,7 +19,21 @@
 			var firstRun = false;
 			var t_first=true;
 			aPop = new Array(
-				['txtXproductno', '', 'ucaucc', 'noa,product', 'txtXproductno', 'ucaucc_b.aspx']
+				['txtXproductno', '', 'ucaucc', 'noa,product', 'txtXproductno', 'ucaucc_b.aspx'],
+				['txtXgroupe', 'lblGroupeno', 'adsize', 'noa,mon,memo1,memo2', '0txtXgroupe', ''],
+				['txtXgroupf', 'lblGroupfno', 'adsss', 'noa,mon,memo1,memo2', '0txtXgroupf', ''],
+				['txtXgroupg', 'lblGroupgno', 'adknife', 'noa,mon,memo1,memo2', '0txtXgroupg', ''],
+				['txtXgrouph', 'lblGrouphno', 'adpipe', 'noa,mon,memo1,memo2', '0txtXgrouph', ''],
+				['txtXgroupi', 'lblGroupino', 'adtran', 'noa,mon,memo1,memo2', '0txtXgroupi', ''],
+				
+				['txtXucolor','','adspec','noa,mon,memo,memo1,memo2','0txtXucolor',''],
+				['txtXscolor','','adly','noa,mon,memo,memo1,memo2','0txtXscolor',''],
+				['txtXclass','','adly','noa,mon,memo,memo1,memo2','0txtXclass',''],
+				['txtXclassa','','adly','noa,mon,memo,memo1,memo2','0txtXclassa',''],
+				['txtXzinc','','adly','noa,mon,memo,memo1,memo2','0txtXzinc',''],
+				['txtXsizea','','adoth','noa,mon,memo,memo1,memo2','0txtXsizea',''],
+				['txtXsource','','adpro','noa,mon,memo,memo1,memo2','0txtXsource',''],
+				['txtXhard','','addime','noa,mon,memo,memo1,memo2','0txtXhard','']
 			);
 			$(document).ready(function() {
 				_q_boxClose();
@@ -43,8 +57,6 @@
 								$(this).children().removeClass('select').addClass('nonselect');
 							}
 						});
-					}else{
-						$('#lblXstyle').text('車種');
 					}
 				});
 			});
@@ -191,7 +203,7 @@
 					}, {
 						type : '8', //[46]
 						name : 'xproserch',
-						value : '1@模糊查詢'.split(',')
+						value : '1@模糊查詢*'.split(',')
 					}]
 				});
 				q_popAssign();
