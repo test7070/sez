@@ -153,6 +153,27 @@
 						q_box("generateA0501.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateA0501", "95%", "95%", '');
 					}
 				});
+				$('#btnC0401').click(function(e){
+					var t_noa = $.trim($('#txtNoa').val());
+					if(t_noa.length==0){
+					}else{
+						q_box("generateC0401.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateC0401", "95%", "95%", '');
+					}
+				});
+				$('#btnC0501').click(function(e){
+					var t_noa = $.trim($('#txtNoa').val());
+					if(t_noa.length==0){
+					}else{
+						q_box("generateC0501.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateC0501", "95%", "95%", '');
+					}
+				});
+				$('#btnC0701').click(function(e){
+					var t_noa = $.trim($('#txtNoa').val());
+					if(t_noa.length==0){
+					}else{
+						q_box("generateC0701.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateC0701", "95%", "95%", '');
+					}
+				});
 				if(q_getPara('sys.project').toUpperCase()=='VU')
 					$('#chkAtax').show();
 				
@@ -185,9 +206,9 @@
 				$('#lblAccno').click(function() {
 					var t_year
 					if(q_getPara('sys.project').toUpperCase().substring(0,2)=='VU' && r_len=='4'){
-						t_year=$('#txtDatea').val().substring(0, 4)-1911
+						t_year=$('#txtDatea').val().substring(0, 4)-1911;
 					}else{
-						t_year=$('#txtDatea').val().substring(0, 3)
+						t_year=$('#txtDatea').val().substring(0, 3);
 					}
 					q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + t_year + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
 				});
@@ -1314,7 +1335,10 @@
 						<td><span> </span><a id='lblMon' class="lbl"> </a></td>
 						<td><input id="txtMon"  type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblChkno' class="lbl"> </a></td>
-						<td><input id="txtChkno"  type="text" class="txt c1" /></td>
+						<td>
+							<input id="txtChkno"  type="text" class="txt c1" />
+							<input id="txtRandnumber"  type="text" style="display:none;"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCust" class="lbl btn"> </a></td>
@@ -1393,6 +1417,9 @@
 		<input type="button" class="einvoice" id="btnA0201" value="[A0201]作廢(賣方)發票" style="width:200px;height:50px;white-space:normal;display:none;"/>
 		<input type="button" class="einvoice" id="btnA0401" value="[A0401]開立(賣方)發票存證" style="width:200px;height:50px;white-space:normal;display:none;"/>
 		<input type="button" class="einvoice" id="btnA0501" value="[A0501]作廢(賣方)發票存證" style="width:200px;height:50px;white-space:normal;display:none;"/>
+		<input type="button" class="einvoice" id="btnC0401" value="[C0401]開立(賣方)發票存證" style="width:200px;height:50px;white-space:normal;display:none;"/>
+		<input type="button" class="einvoice" id="btnC0501" value="[C0501]作廢(賣方)發票存證" style="width:200px;height:50px;white-space:normal;display:none;"/>
+		<input type="button" class="einvoice" id="btnC0701" value="[C0701]註銷(賣方)發票存證" style="width:200px;height:50px;white-space:normal;display:none;"/>
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs' style=' text-align:center'>
 				<tr style='color:white; background:#003366;' >
