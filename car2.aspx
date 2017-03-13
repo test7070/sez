@@ -531,8 +531,10 @@
             }
             
 			function q_funcPost(t_func, result) {
-		        location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";a.noa='"+$('#txtChangecarno').val()+"';"+r_accy;
-		        alert('功能執行完畢');
+				if(t_func=='changecarno.change'){
+			        location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";a.noa='"+$('#txtChangecarno').val()+"';"+r_accy;
+			        alert('功能執行完畢');
+				}
 		    } //endfunction
 		    
             function q_gfPost() {
@@ -647,11 +649,19 @@
 			
 			//暫存資料
 			var t_cardeal='',t_outdate='',t_enddate='',t_wastedate='',t_memo='',t_outplace='',t_carowner='';
-			
+			//106/03/10 異動記錄變動(報停日期,復駛日期,繳銷日期,報廢日期,註銷日期)
+			var x_suspdate='',x_resetdate='',x_wastedate='',x_enddate='',x_canceldate='';
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
-
+				
+				//106/03/10 暫存修改前資料
+				x_suspdate=$('#txtSuspdate').val();
+				x_resetdate=$('#txtResetdate').val();
+				x_wastedate=$('#txtWastedate').val();
+				x_enddate=$('#txtEnddate').val();
+				x_canceldate=$('#txtCanceldate').val();
+				
                 _btnModi();
                 refreshBbm();
                 $('txtSaledate').val(q_date());
@@ -786,9 +796,27 @@
 
                 var t_noa = replaceAll($('#txtNoa').val(),' ','');
                 replaceAll($('#txtCarno').val(t_noa),' ','');
+                
+                if(q_cur=='2'&& q_getPara('sys.project').toUpperCase()=="DC"){
+                	//106/03/10 新增到carchange
+                	if(x_suspdate!=$('#txtSuspdate').val() || x_resetdate!=$('#txtResetdate').val() ||
+					x_wastedate!=$('#txtWastedate').val() || x_enddate!=$('#txtEnddate').val() ||
+					x_canceldate!=$('#txtCanceldate').val()){
+						var t_paras=t_noa+';'+q_date()+';'
+						+(x_suspdate!=$('#txtSuspdate').val()?$('#txtSuspdate').val():'#non')+';'
+						+(x_resetdate!=$('#txtResetdate').val()?$('#txtResetdate').val():'#non')+';'
+						+(x_wastedate!=$('#txtWastedate').val()?$('#txtWastedate').val():'#non')+';'
+						+(x_enddate!=$('#txtEnddate').val()?$('#txtEnddate').val():'#non')+';'
+						+(x_canceldate!=$('#txtCanceldate').val()?$('#txtCanceldate').val():'#non')
+						
+						q_func('qtxt.query.car2change', 'changecarno.txt,car2change,' + t_paras);
+					}
+                }
+                
                 wrServer(t_noa);
-                if(q_cur=='1'&& q_getPara('sys.comp').substring(0,2)=="大昌")
+                if(q_cur=='1'&& q_getPara('sys.project').toUpperCase()=="DC"){
                 	$("#btnCarinsurance").click();
+                }
             }
 
             function wrServer(key_value) {
