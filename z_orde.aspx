@@ -141,7 +141,8 @@
 							}
 						});  
 				});
-                
+				
+				$('#Xend select').val('0')			
                 
                 $('#txtXdate1').mask(r_picd);
                 $('#txtXdate1').datepicker();
@@ -156,6 +157,7 @@
                 $('#txtXodate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1));
                 
                 $('#qReport div div .radio.select').click();
+                
                 
                 if(q_getPara('sys.project').toUpperCase()=='XY' ){
                 	$('#Xorder select').append($('<option>', {
