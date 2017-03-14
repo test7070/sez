@@ -137,9 +137,8 @@
 						} else {
 							$('#txtXnoa2').val('');
 							$('#txtXnoa1').val('');
-							$('#txtXdate1').val(q_date().substring(0, 7) + '01');
-							var lastDays = $.datepicker._getDaysInMonth(q_date().substring(0, 3), q_date().substring(4, 6) - 1);
-							$('#txtXdate2').val(q_date().substring(0, 7) + lastDays);
+							$('#txtXdate1').val(q_date().substring(0, r_lenm) + '/01');
+							$('#txtXdate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',+35).substr(0,r_lenm)+'/01',-1));
 						}
 						break;
 					case 'uccga':
