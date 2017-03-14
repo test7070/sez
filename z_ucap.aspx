@@ -35,29 +35,48 @@
 				['txtXsource','','adpro','noa,mon,memo,memo1,memo2','0txtXsource',''],
 				['txtXhard','','addime','noa,mon,memo,memo1,memo2','0txtXhard','']
 			);
+			var t_auth=undefined,t_isucap2=false;
 			$(document).ready(function() {
 				_q_boxClose();
 				q_getId();
+				
+				//106/03/14 成本表需有uca執行權限才能看
+				if(r_rank<'8'){
+					q_gt('authority', "where=^^ a.noa='uca' and a.pr_run=1 and a.sssno='"+r_userno+"' ^^", 0, 0, 0, "getauthority",r_accy,1);
+					t_auth = _q_appendData("authority", "", true);
+					if(t_auth[0]!=undefined){
+						t_isucap2=true;
+					}
+				}else{
+					t_isucap2=true;
+				}
+				
 				if (uccgaItem.length == 0) {
 					q_gt('uccga', '', 0, 0, 0, "");
 				}
 				
 				 $('#q_report').click(function(e) {
+				 	for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+						if($('#q_report').data().info.reportData[i].report=='z_ucap2' && !t_isucap2)
+							$('#q_report div div').eq(i).hide();
+					}
+				 	
 					if(!(q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO')){
 						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
 							if($('#q_report').data().info.reportData[i].report=='z_ucap6')
 								$('#q_report div div').eq(i).hide();
 						}
-						$('#q_report div div .radio').parent().each(function(index) {
-							if(!$(this).is(':hidden') && t_first){
-								$(this).children().removeClass('nonselect').addClass('select');
-								t_first=false;
-							}
-							if($(this).is(':hidden') && t_first){
-								$(this).children().removeClass('select').addClass('nonselect');
-							}
-						});
 					}
+					
+					$('#q_report div div .radio').parent().each(function(index) {
+						if(!$(this).is(':hidden') && t_first){
+							$(this).children().removeClass('nonselect').addClass('select');
+							t_first=false;
+						}
+						if($(this).is(':hidden') && t_first){
+							$(this).children().removeClass('select').addClass('nonselect');
+						}
+					});
 				});
 				
 			});
@@ -233,6 +252,8 @@
 					$('#txtSpno2b').val(q_getHref()[3]);
 					$('#txtXproductno').val(q_getHref()[1]);
 					$('#btnOk').click();
+				}else{
+					$('#Xtypea select').val('2');
 				}
 				
 				firstRun = false;
@@ -265,6 +286,7 @@
 				$('#Isprice').css('width','340px');
 				$('#chkIsprice').css('width','200px');
 				$('#chkIsprice span').css('width','150px');
+				$('#Isprice').css('height','30px');
 				
 				$('#Xsize1').css('width','340px');
 				$('#txtXsize11').css('width','110px');
