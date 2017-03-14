@@ -59,7 +59,13 @@
 						});
 					}
 				});
+				
 			});
+			
+			function imgshow(img) {
+				q_box(img.src+"?;;;;;"+new Date(), 'image', "85%", "85%", "");
+			}
+			
 			function q_gfPost() {
 				$('#q_report').q_report({
 					fileName : 'z_ucap',
