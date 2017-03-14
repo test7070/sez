@@ -37,10 +37,25 @@
 						dbf : 'model',
 						index : 'noa,model',
 						src : 'model_b.aspx'
+					},{
+                    	type : '8',//[4]
+						name : 'xshowenda',
+						value : "1@過期未保養,2@即將保養,3@已保養".split(',')
 					}]
 				});
 				q_popAssign();
+			
+				$('#chkXshowenda input').click(function(){ 
+					var tcheck=$(this).val(); 
+					$('#chkXshowenda input').each(function() {
+						if(tcheck!=$(this).val()){ 
+							$(this).prop('checked',false)
+						}
+					})   
+				})
 			}
+			
+			
 
 			function q_boxClose(s2) {
 			}

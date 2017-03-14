@@ -66,7 +66,7 @@
 						dbf : 'station',
 						index : 'noa,station',
 						src : 'station_b.aspx'
-					},{
+					}, {
 						type : '2', //[17] [18] 
 						name : 'xstationg',
 						dbf : 'stationg',
@@ -90,11 +90,19 @@
 						dbf : 'ucaucc',
 						index : 'noa,product',
 						src : 'ucaucc_b.aspx'
-					},{/* [24]*/
+					}, {/* [24]*/
                         type : '0',
                         name : 'xproject',
                         value : q_getPara('sys.project').toUpperCase()
-                    }]
+                    }, {
+						type : '0', //[25]
+						name : 'hostname',
+						value : location.hostname
+					}, {
+						type : '0', //[26]
+						name : 'q_db',
+						value : q_db
+					}]
 				});
 				q_popAssign();
 				q_getFormat();
