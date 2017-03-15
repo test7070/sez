@@ -1080,7 +1080,6 @@
 										   "<td class='num'>" + FormatNumber(TL[k].gen) + "</td>";
 								var TTD = TL[k].datea;
 								var tTotal = 0,wtotal=0;
-								var maxgen=TL[k].maxgen;
 								for(var j=0;j<TTD.length;j++){
 									var thisValue = round(TTD[j][1],0);
 									if(t_xshowover=='1'){
@@ -1096,8 +1095,8 @@
 										DateObj[j].mount = q_add(dec(DateObj[j].mount),wtotal);
 										wtotal=0;
 									}else{
-										OutHtml += "<td class='num'"+(thisValue>maxgen?' style="color:red;"':'')+"><font title='日產能:"+thisGen+"'>"
-										+(thisValue>maxgen?"<a style='color:red;' href=JavaScript:q_box('work.aspx',\";cuadate='"+DateObj[j].datea+"'&&isnull(modelno,'')='"+TL[k].modelno+"';106\",'95%','95%','106')>":'') + FormatNumber(round(thisValue,0)) +(thisValue>maxgen?'</a>':'')+ "</font></td>";
+										OutHtml += "<td class='num'"+(thisValue>thisGen?' style="color:red;"':'')+"><font title='日產能:"+thisGen+"'>"
+										+(thisValue>thisGen?"<a style='color:red;' href=JavaScript:q_box('work.aspx',\";cuadate='"+DateObj[j].datea+"'&&isnull(modelno,'')='"+TL[k].modelno+"';106\",'95%','95%','106')>":'') + FormatNumber(round(thisValue,0)) +(thisValue>thisGen?'</a>':'')+ "</font></td>";
 									}
 								}
 								ATotal = q_add(ATotal,tTotal);
@@ -1127,7 +1126,7 @@
 							}
 							OutHtml += "<tr><td colspan='4' class='tTotal num'>總計：</td>";
 							for(var k=0;k<DateObj.length;k++){
-								OutHtml += "<td class='tTotal num'>" + FormatNumber(round(DateObj[k].mount,0)) + "</td>";
+								OutHtml += "<td class='tTotal num' "+(round(DateObj[k].mount,0)>dec($('#txtXmaxgen').val())?' style="color:red;"':'')+">" + FormatNumber(round(DateObj[k].mount,0)) + "</td>";
 							}
 							OutHtml += "<td class='tTotal num'>" + FormatNumber(round(ATotal,0)) + "</td>";
 							OutHtml += "</table>"
