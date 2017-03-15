@@ -118,6 +118,9 @@
 					},{
 						type : '6', //[22]
 						name : 'xmaxgen'
+					},{
+						type : '6', //[23]
+						name : 'xdayclass'
 					}]
 				});
 				
@@ -202,11 +205,20 @@
 				$('#Xmaxgen div').css('width','125px');
 				$('#txtXmaxgen').val(24000);
 				
+				$('#txtXdayclass').css('text-align','right');
+				
 				$('#txtXmaxgen').change(function() {
 					var t_mount=dec($('#txtXmaxgen').val());
 					if(isNaN(t_mount))
 						t_mount=0;
 					$('#txtXmaxgen').val(t_mount);
+				});
+				
+				$('#txtXdayclass').change(function() {
+					var t_mount=dec($('#txtXdayclass').val());
+					if(isNaN(t_mount))
+						t_mount=0;
+					$('#txtXdayclass').val(t_mount);
 				});
 				
 				//if(q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO'){
@@ -291,6 +303,11 @@
 					else
 						t_xmaxgen='#non';
 						
+					if(!emp($('#txtXdayclass').val()))
+						t_xdayclass=encodeURI($('#txtXdayclass').val());
+					else
+						t_xdayclass='#non';
+						
 					Lock();
 					q_func('qtxt.query.'+txtreport,'z_workgg.txt,'+txtreport+','+
 							t_xbdate + ';' +
@@ -305,7 +322,8 @@
 							t_xshowfinished + ';'+
 							t_xonlyrealwork + ';'+
 							t_xbstationgno+';'+t_xestationgno+';'+
-							t_xcuanoa+';'+t_xcuanoq+';'+q_getPara('sys.project').toUpperCase()+';'+t_xmaxgen
+							t_xcuanoa+';'+t_xcuanoq+';'+q_getPara('sys.project').toUpperCase()+';'+
+							t_xmaxgen+';'+t_xdayclass
 					);
 				});
 
@@ -1037,8 +1055,8 @@
 							
 							OutHtml += '<tr>';
 							OutHtml += "<td class='tTitle' style='width:240px;' colspan='2' rowspan='2'>模具</td>" +
-									   "<td class='tTitle' style='width:60px;' rowspan='2'>日產能</td>" +
-									   "<td class='tTitle' style='width:80px;' rowspan='2'>稼動率</td>";
+									   "<td class='tTitle' style='width:60px;' rowspan='2'>模具數</td>" +
+									   "<td class='tTitle' style='width:80px;' rowspan='2'>最大日產能</td>";
 							var tmpTd = '<tr>';
 							for(var j=0;j<DateList.length;j++){
 								var thisDay = DateList[j];
@@ -1084,11 +1102,11 @@
 								OutHtml += "<td class='num'>" + FormatNumber(round(tTotal,0)) + "</td>";
 								OutHtml += '</tr>';
 								
-								if(k%20==0 && k!=0){
+								if(k%27==0 && k!=0){
 									OutHtml += '<tr>';
 									OutHtml += "<td class='tTitle' style='width:240px;' colspan='2' rowspan='2'>模具</td>" +
-											   "<td class='tTitle' style='width:60px;' rowspan='2'>日產能</td>" +
-											   "<td class='tTitle' style='width:80px;' rowspan='2'>稼動率</td>";
+											   "<td class='tTitle' style='width:60px;' rowspan='2'>模具數</td>" +
+											   "<td class='tTitle' style='width:80px;' rowspan='2'>最大日產能</td>";
 									tmpTd = '<tr>';
 									for(var j=0;j<DateList.length;j++){
 										var thisDay = DateList[j];
