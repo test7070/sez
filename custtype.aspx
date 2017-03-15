@@ -1,14 +1,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
-		<script src='../script/mask.js' type="text/javascript"></script>
 		<script src="../script/qbox.js" type="text/javascript"></script>
+		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
 			this.errorHandler = null;
 
@@ -306,8 +310,8 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
-						<td align="center" style="width:15%"><a id='vewNoa'> </a></td>
-						<td align="center" style="width:30%"><a id='vewNamea'> </a></td>
+						<td align="center" style="width:15%"><a id='vewNoa'>編號</a></td>
+						<td align="center" style="width:30%"><a id='vewNamea'>類型</a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
@@ -326,13 +330,13 @@
 						<td class="tdZ"> </td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
+						<td class="td1"><span> </span><a id='lblNoa' class="lbl">編號</a></td>
 						<td class="td2"><input id="txtNoa" type="text" class="txt c1" /></td>
 						<td class="td3"> </td>
 						<td class="td4"> </td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblNamea' class="lbl"> </a></td>
+						<td class="td1"><span> </span><a id='lblNamea' class="lbl">類型</a></td>
 						<td class="td2"><input id="txtNamea" type="text" class="txt c1"/></td>
 						<td class="td3"> </td>
 						<td class="td4"> </td>
