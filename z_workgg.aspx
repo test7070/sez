@@ -206,6 +206,7 @@
 				$('#txtXmaxgen').val(24000);
 				
 				$('#txtXdayclass').css('text-align','right');
+				$('#txtXdayclass').val(120);
 				
 				$('#txtXmaxgen').change(function() {
 					var t_mount=dec($('#txtXmaxgen').val());
@@ -1008,7 +1009,6 @@
 								var isFind = false;
 								for(var j=0;j<TL.length;j++){
 									if((as[i].modelno==TL[j].modelno)){
-										TL[j].rate = q_add(dec(TL[j].rate),dec(as[i].mount));
 										TL[j].days = q_add(dec(TL[j].days),1);
 										isFind = true;
 									}
@@ -1017,8 +1017,9 @@
 									TL.push({
 										modelno : as[i].modelno,
 										model : as[i].model,
-										gen : (dec(as[i].gen)==0?dec($('#txtXmaxgen').val()):dec(as[i].gen)),
-										rate : 0,
+										gen : (dec(as[i].gen)==0?dec($('#txtXdayclass').val()):dec(as[i].gen)),
+										mmount : dec(as[i].mmount),
+										maxgen : dec(as[i].maxgen),
 										days : 1,
 										datea : []
 									});
@@ -1075,10 +1076,11 @@
 							for(var k=0;k<TL.length;k++){
 								OutHtml += '<tr>';
 								OutHtml += "<td class='Lproduct' style='width:120px;'>" + TL[k].modelno + "</td><td class='Lproduct' style='width:120px;'>" + TL[k].model + "</td>" +
-										   "<td class='num'>" + FormatNumber(TL[k].gen) + "</td>" +
-										   "<td class='num'>" + FormatNumber((dec(TL[k].gen)==0?0:round(q_mul(q_div(TL[k].rate,q_mul(TL[k].gen,TL[k].days)),100),3))) + "</td>";
+										   "<td class='num'>" + FormatNumber(TL[k].mmount) + "</td>" +
+										   "<td class='num'>" + FormatNumber(TL[k].gen) + "</td>";
 								var TTD = TL[k].datea;
 								var tTotal = 0,wtotal=0;
+								var maxgen=TL[k].maxgen;
 								for(var j=0;j<TTD.length;j++){
 									var thisValue = round(TTD[j][1],0);
 									if(t_xshowover=='1'){
@@ -1094,8 +1096,8 @@
 										DateObj[j].mount = q_add(dec(DateObj[j].mount),wtotal);
 										wtotal=0;
 									}else{
-										OutHtml += "<td class='num'"+(thisValue>thisGen?' style="color:red;"':'')+"><font title='日產能:"+thisGen+"'>"
-										+(thisValue>thisGen?"<a style='color:red;' href=JavaScript:q_box('work.aspx',\";cuadate='"+DateObj[j].datea+"'&&isnull(modelno,'')='"+TL[k].modelno+"';106\",'95%','95%','106')>":'') + FormatNumber(round(thisValue,0)) +(thisValue>thisGen?'</a>':'')+ "</font></td>";
+										OutHtml += "<td class='num'"+(thisValue>maxgen?' style="color:red;"':'')+"><font title='日產能:"+thisGen+"'>"
+										+(thisValue>maxgen?"<a style='color:red;' href=JavaScript:q_box('work.aspx',\";cuadate='"+DateObj[j].datea+"'&&isnull(modelno,'')='"+TL[k].modelno+"';106\",'95%','95%','106')>":'') + FormatNumber(round(thisValue,0)) +(thisValue>maxgen?'</a>':'')+ "</font></td>";
 									}
 								}
 								ATotal = q_add(ATotal,tTotal);
