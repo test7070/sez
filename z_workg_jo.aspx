@@ -74,6 +74,8 @@
                 $('#chkXunenda').css('margin-top','5px');
                 $('#Xunenda .label').css('width','0px');
                 
+                $('#txtXcuanoq').val('001');
+                
                 //預設值
                 $('#txtXmount').val('600');
                 $('#txtXmount').keyup(function() {
@@ -129,7 +131,10 @@
 					if(isNaN(t_mount))
 						t_mount=0;
 					$('#txtFixmount').val(t_mount);
-					
+				});
+				
+				$('#cmbWmemo').change(function() {
+					$('#txtWmemo').val($('#cmbWmemo').find("option:selected").text());
 				});
 				
 				$('#btnOK_div_in').click(function() {
@@ -172,7 +177,7 @@
 						return;
 					}
 					
-					var t_wmemo=$('#cmbWmemo').find("option:selected").text();
+					var t_wmemo=$('#txtWmemo').val();
 					if(t_wmemo.length==0){
 						t_wmemo='#non';
 					}
@@ -385,7 +390,10 @@
 					<td style="background-color: #f8d463;" align="center">已入庫量</td>
 					<td style="background-color: #f8d463;"><input id="txtInmount" style="font-size: medium;width: 50%;text-align: right;" disabled="disabled"></td>
 					<td style="background-color: #ffffaa;" align="center">退件原因</td>
-					<td style="background-color: #ffffaa;"><select id="cmbWmemo" style="font-size: medium;width:95%;"> </select></td>
+					<td style="background-color: #ffffaa;">
+						<input id="txtWmemo" style="font-size: medium;width:260px;">
+						<select id="cmbWmemo" style="font-size: medium;width:20px;"> </select>
+					</td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">未入庫量</td>
