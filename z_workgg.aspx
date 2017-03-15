@@ -115,6 +115,12 @@
 						type : '0', //[21]
 						name : 'sproject',
 						value : q_getPara('sys.project').toUpperCase()
+					},{
+						type : '6', //[22]
+						name : 'xmaxgen'
+					},{
+						type : '6', //[23]
+						name : 'xdayclass'
 					}]
 				});
 				
@@ -124,7 +130,7 @@
                 }
                 
 				$('#q_report').click(function(){
-					var ChartShowIndex = [0,1,4,5];
+					var ChartShowIndex = [0,1,4,5,9];
 					var parent=document.getElementById("chart");
 					if($('#q_report').data('info').radioIndex != clickIndex){
 						$('#frameReport').html('');
@@ -193,6 +199,28 @@
 				$('#chkXworkh').css('width','250px');
 				$('#chkXworkh span').css('width','200px');
 				$('#Xworkh .label').css('width','5px');
+				
+				$('#txtXmaxgen').css('text-align','right');
+				$('#txtXmaxgen').css('width','150px');
+				$('#Xmaxgen div').css('width','125px');
+				$('#txtXmaxgen').val(24000);
+				
+				$('#txtXdayclass').css('text-align','right');
+				$('#txtXdayclass').val(120);
+				
+				$('#txtXmaxgen').change(function() {
+					var t_mount=dec($('#txtXmaxgen').val());
+					if(isNaN(t_mount))
+						t_mount=0;
+					$('#txtXmaxgen').val(t_mount);
+				});
+				
+				$('#txtXdayclass').change(function() {
+					var t_mount=dec($('#txtXdayclass').val());
+					if(isNaN(t_mount))
+						t_mount=0;
+					$('#txtXdayclass').val(t_mount);
+				});
 				
 				//if(q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO'){
 					$('#txtXenddate').val(q_cdn(q_date(),31));
@@ -271,6 +299,16 @@
 					else
 						t_xcuanoq='#non';
 						
+					if(!emp($('#txtXmaxgen').val()))
+						t_xmaxgen=encodeURI($('#txtXmaxgen').val());
+					else
+						t_xmaxgen='#non';
+						
+					if(!emp($('#txtXdayclass').val()))
+						t_xdayclass=encodeURI($('#txtXdayclass').val());
+					else
+						t_xdayclass='#non';
+						
 					Lock();
 					q_func('qtxt.query.'+txtreport,'z_workgg.txt,'+txtreport+','+
 							t_xbdate + ';' +
@@ -285,7 +323,8 @@
 							t_xshowfinished + ';'+
 							t_xonlyrealwork + ';'+
 							t_xbstationgno+';'+t_xestationgno+';'+
-							t_xcuanoa+';'+t_xcuanoq+';'+q_getPara('sys.project').toUpperCase()
+							t_xcuanoa+';'+t_xcuanoq+';'+q_getPara('sys.project').toUpperCase()+';'+
+							t_xmaxgen+';'+t_xdayclass
 					);
 				});
 
@@ -927,9 +966,192 @@
 							$('#chart').css('width',t_totalWidth+'px').html(OutHtml);
 						}
 						break;
+					case 'qtxt.query.z_workgg11':
+						var as = _q_appendData('tmp0','',true,true);
+						if (as[0] == undefined) {
+							alert('沒有資料!!');
+						}else{
+							var t_bdate = $.trim($('#txtXdate1').val());
+							var t_edate = $.trim($('#txtXdate2').val());
+							t_bdate = (t_bdate.length>=9?t_bdate:q_date());
+							var t_bADdate = r_len==3?(dec(t_bdate.substring(0,3))+1911)+t_bdate.substr(3):t_bdate;
+							var t_edate = $.trim($('#txtXdate2').val());
+							t_edate = (t_edate.length>=9?t_edate:q_date());
+							var t_eADdate = r_len==3?(dec(t_edate.substring(0,3))+1911)+t_edate.substr(3):t_edate;
+							var myStartDate = new Date(t_bADdate);
+							var myEndDate = new Date(t_eADdate);
+							var DiffDays = ((myEndDate - myStartDate)/ 86400000);
+							var DateList = [];
+							var DateObj = [];
+							for(var j=0;j<=DiffDays;j++){
+								var thisDay = q_cdn(t_bdate,j);
+								var thisADday = r_len==3?dec(thisDay.substring(0,3))+1911+thisDay.substr(3):thisDay;
+								if((new Date(thisADday).getDay())!=0){
+									DateList.push(thisDay);
+									DateObj.push({
+										datea:thisDay,
+										mount:0
+									});
+								}else{
+									//小計欄
+									if(j!=0){
+										DateList.push('週小計');
+										DateObj.push({
+											datea:'週小計',
+											mount:0,
+										});
+									}
+								}
+							}
+							var TL = [];
+							var OutHtml= '<table id="tTable" border="1px" cellpadding="0" cellspacing="0">';
+							for(var i=0;i<as.length;i++){
+								var isFind = false;
+								for(var j=0;j<TL.length;j++){
+									if((as[i].modelno==TL[j].modelno)){
+										TL[j].days = q_add(dec(TL[j].days),1);
+										isFind = true;
+									}
+								}
+								if(!isFind){
+									TL.push({
+										modelno : as[i].modelno,
+										model : as[i].model,
+										gen : (dec(as[i].gen)==0?dec($('#txtXdayclass').val()):dec(as[i].gen)),
+										mmount : dec(as[i].mmount),
+										maxgen : dec(as[i].maxgen),
+										days : 1,
+										datea : []
+									});
+								}
+							}
+							for(var k=0;k<TL.length;k++){
+								for(var j=0;j<DateList.length;j++){
+									var thisDateGen = TL[k].gen;
+									for(var i=0;i<as.length;i++){
+										if((as[i].modelno==TL[k].modelno) && (as[i].datea==DateList[j])){
+											thisDateGen = as[i].gen;
+											break;
+										}
+									}
+									TL[k].datea.push([DateList[j],0,thisDateGen]);
+								}
+							}
+							for(var k=0;k<as.length;k++){
+								isFind = false;
+								for(var j=0;j<TL.length;j++){
+									if(isFind) break;
+									if((as[k].modelno==TL[j].modelno)){
+										var TLDatea = TL[j].datea;
+										for(var h=0;h<TLDatea.length;h++){
+											if(as[k].datea==TLDatea[h][0]){
+												TLDatea[h][1] = dec(TLDatea[h][1])+dec(as[k].mount);
+												isFind = true;
+												break;
+											}
+										}
+									}
+								}
+							}
+							
+							OutHtml += '<tr>';
+							OutHtml += "<td class='tTitle' style='width:240px;' colspan='2' rowspan='2'>模具</td>" +
+									   "<td class='tTitle' style='width:60px;' rowspan='2'>模具數</td>" +
+									   "<td class='tTitle' style='width:80px;' rowspan='2'>最大日產能</td>";
+							var tmpTd = '<tr>';
+							for(var j=0;j<DateList.length;j++){
+								var thisDay = DateList[j];
+								if(thisDay=='週小計'){
+									OutHtml += "<td class='tTitle' style='width:80px;' rowspan='2'>"+thisDay+"</td>";
+								}else{
+									var thisADday = r_len==3?dec(thisDay.substring(0,3))+1911+thisDay.substr(3):thisDay;
+									OutHtml += "<td class='tTitle tWidth'>" + thisDay.substr(r_len+1) + "</td>";
+									tmpTd += "<td class='tTitle tWidth'>" + DayName[(new Date(thisADday).getDay())] + "</td>";
+								}
+							}
+							OutHtml += "<td class='tTitle tWidth' rowspan='2'>小計</td>";
+							tmpTd += "</tr>"
+							OutHtml += '</tr>' + tmpTd;
+							var ATotal = 0;
+							for(var k=0;k<TL.length;k++){
+								OutHtml += '<tr>';
+								OutHtml += "<td class='Lproduct' style='width:120px;'>" + TL[k].modelno + "</td><td class='Lproduct' style='width:120px;'>" + TL[k].model + "</td>" +
+										   "<td class='num'>" + FormatNumber(TL[k].mmount) + "</td>" +
+										   "<td class='num'>" + FormatNumber(TL[k].gen) + "</td>";
+								var TTD = TL[k].datea;
+								var tTotal = 0,wtotal=0;
+								var maxgen=TL[k].maxgen;
+								for(var j=0;j<TTD.length;j++){
+									var thisValue = round(TTD[j][1],0);
+									if(t_xshowover=='1'){
+										thisValue = (thisValue==0?'':thisValue);
+									}
+									var thisGen = dec(TTD[j][2]);
+									tTotal = q_add(tTotal,round(TTD[j][1],0));
+									DateObj[j].mount = q_add(dec(DateObj[j].mount),round(TTD[j][1],0));
+									
+									wtotal= q_add(wtotal,round(TTD[j][1],0));
+									if(TTD[j][0]=='週小計'){
+										OutHtml += "<td class='num'><font title='週小計:"+wtotal+"'>"+ FormatNumber(round(wtotal,0))+"</font></td>";
+										DateObj[j].mount = q_add(dec(DateObj[j].mount),wtotal);
+										wtotal=0;
+									}else{
+										OutHtml += "<td class='num'"+(thisValue>maxgen?' style="color:red;"':'')+"><font title='日產能:"+thisGen+"'>"
+										+(thisValue>maxgen?"<a style='color:red;' href=JavaScript:q_box('work.aspx',\";cuadate='"+DateObj[j].datea+"'&&isnull(modelno,'')='"+TL[k].modelno+"';106\",'95%','95%','106')>":'') + FormatNumber(round(thisValue,0)) +(thisValue>maxgen?'</a>':'')+ "</font></td>";
+									}
+								}
+								ATotal = q_add(ATotal,tTotal);
+								OutHtml += "<td class='num'>" + FormatNumber(round(tTotal,0)) + "</td>";
+								OutHtml += '</tr>';
+								
+								if(k%27==0 && k!=0){
+									OutHtml += '<tr>';
+									OutHtml += "<td class='tTitle' style='width:240px;' colspan='2' rowspan='2'>模具</td>" +
+											   "<td class='tTitle' style='width:60px;' rowspan='2'>模具數</td>" +
+											   "<td class='tTitle' style='width:80px;' rowspan='2'>最大日產能</td>";
+									tmpTd = '<tr>';
+									for(var j=0;j<DateList.length;j++){
+										var thisDay = DateList[j];
+										if(thisDay=='週小計'){
+											OutHtml += "<td class='tTitle' style='width:80px;' rowspan='2'>"+thisDay+"</td>";
+										}else{
+											var thisADday = r_len==3?dec(thisDay.substring(0,3))+1911+thisDay.substr(3):thisDay;
+											OutHtml += "<td class='tTitle tWidth'>" + thisDay.substr(r_len+1) + "</td>";
+											tmpTd += "<td class='tTitle tWidth'>" + DayName[(new Date(thisADday).getDay())] + "</td>";
+										}
+									}
+									OutHtml += "<td class='tTitle tWidth' rowspan='2'>小計</td>";
+									tmpTd += "</tr>"
+									OutHtml += '</tr>' + tmpTd;
+								}
+							}
+							OutHtml += "<tr><td colspan='4' class='tTotal num'>總計：</td>";
+							for(var k=0;k<DateObj.length;k++){
+								OutHtml += "<td class='tTotal num'>" + FormatNumber(round(DateObj[k].mount,0)) + "</td>";
+							}
+							OutHtml += "<td class='tTotal num'>" + FormatNumber(round(ATotal,0)) + "</td>";
+							OutHtml += "</table>"
+							var t_totalWidth = 0;
+							t_totalWidth = 670+((70+2)*(DateObj.length+1+2))+10;
+							$('#chart').css('width',t_totalWidth+'px').html(OutHtml);
+						}
+					
+						break;
 				}
 				Unlock();
 			}
+			
+			function FormatNumber(n) {
+            	var xx = "";
+            	if(n<0){
+            		n = Math.abs(n);
+            		xx = "-";
+            	}     		
+                n += "";
+                var arr = n.split(".");
+                var re = /(\d{1,3})(?=(\d{3})+$)/g;
+                return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
+            }
 		</script>
 		<style type="text/css">
 			#tTable{
