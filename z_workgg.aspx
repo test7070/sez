@@ -121,6 +121,9 @@
 					},{
 						type : '6', //[23]
 						name : 'xdayclass'
+					},{
+						type : '6', //[24]
+						name : 'xordeno'
 					}]
 				});
 				
@@ -308,6 +311,11 @@
 						t_xdayclass=encodeURI($('#txtXdayclass').val());
 					else
 						t_xdayclass='#non';
+					
+					if(!emp($('#txtXordeno').val()))
+						t_xordeno=encodeURI($('#txtXordeno').val());
+					else
+						t_xordeno='#non';
 						
 					Lock();
 					q_func('qtxt.query.'+txtreport,'z_workgg.txt,'+txtreport+','+
@@ -324,7 +332,7 @@
 							t_xonlyrealwork + ';'+
 							t_xbstationgno+';'+t_xestationgno+';'+
 							t_xcuanoa+';'+t_xcuanoq+';'+q_getPara('sys.project').toUpperCase()+';'+
-							t_xmaxgen+';'+t_xdayclass
+							t_xmaxgen+';'+t_xdayclass+';'+t_xordeno
 					);
 				});
 
@@ -1095,8 +1103,12 @@
 										DateObj[j].mount = q_add(dec(DateObj[j].mount),wtotal);
 										wtotal=0;
 									}else{
+										//OutHtml += "<td class='num'"+(thisValue>thisGen?' style="color:red;"':'')+"><font title='日產能:"+thisGen+"'>"
+										//+(thisValue>thisGen?"<a style='color:red;' href=JavaScript:q_box('work.aspx',\";cuadate='"+DateObj[j].datea+"'&&isnull(modelno,'')='"+TL[k].modelno+"';106\",'95%','95%','106')>":'') + FormatNumber(round(thisValue,0)) +(thisValue>thisGen?'</a>':'')+ "</font></td>";
+										
 										OutHtml += "<td class='num'"+(thisValue>thisGen?' style="color:red;"':'')+"><font title='日產能:"+thisGen+"'>"
-										+(thisValue>thisGen?"<a style='color:red;' href=JavaScript:q_box('work.aspx',\";cuadate='"+DateObj[j].datea+"'&&isnull(modelno,'')='"+TL[k].modelno+"';106\",'95%','95%','106')>":'') + FormatNumber(round(thisValue,0)) +(thisValue>thisGen?'</a>':'')+ "</font></td>";
+										+(thisValue>thisGen?"<a style='color:red;' href=JavaScript:q_box('work.aspx',&quot;;noa%20in%20(select%20workno%20from%20view_cugu%20where%20datea='"+DateObj[j].datea+"')&amp;&amp;isnull(modelno,'')='"+TL[k].modelno+"';106&quot;,'95%','95%','106')>":'') + FormatNumber(round(thisValue,0)) +(thisValue>thisGen?'</a>':'')+ "</font></td>";
+										
 									}
 								}
 								ATotal = q_add(ATotal,tTotal);
@@ -1126,7 +1138,7 @@
 							}
 							OutHtml += "<tr><td colspan='4' class='tTotal num'>總計：</td>";
 							for(var k=0;k<DateObj.length;k++){
-								OutHtml += "<td class='tTotal num' "+(round(DateObj[k].mount,0)>dec($('#txtXmaxgen').val())?' style="color:red;"':'')+">" + FormatNumber(round(DateObj[k].mount,0)) + "</td>";
+								OutHtml += "<td class='tTotal num' "+((round(DateObj[k].mount,0)>dec($('#txtXmaxgen').val()) && DateObj[k].datea!='週小計')?' style="color:red;"':'')+">" + FormatNumber(round(DateObj[k].mount,0)) + "</td>";
 							}
 							OutHtml += "<td class='tTotal num'>" + FormatNumber(round(ATotal,0)) + "</td>";
 							OutHtml += "</table>"
