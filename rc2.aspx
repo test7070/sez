@@ -994,6 +994,7 @@
 				else
 					$('#txtMon').attr('readonly', 'readonly');
 				refreshBbm();
+				refreshBbs();
 			}
 
 			function btnMinus(id) {

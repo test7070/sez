@@ -1711,13 +1711,6 @@
 				var t_where = "where=^^ 1=0 ^^ stop=100";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
 				
-				//106/03/16 限制 訂單交期
-				q_gt('qsys', t_where, 0, 0, 0, "getdodate", r_accy, 1);
-				var as = _q_appendData("qsys", "", true);
-				if (as[0] != undefined) {
-					t_dodatename=as[0].name;
-					t_dodate=as[0].value;
-				}
 			}
 			
 			//106/03/16 限制 訂單交期 修改判斷總量是否有變動
@@ -1732,14 +1725,6 @@
 				}
 					
 				_btnModi();
-				
-				//106/03/16 限制 訂單交期
-				q_gt('qsys', t_where, 0, 0, 0, "getdodate", r_accy, 1);
-				var as = _q_appendData("qsys", "", true);
-				if (as[0] != undefined) {
-					t_dodatename=as[0].name;
-					t_dodate=as[0].value;
-				}
 				
 				$('#txtOdate').focus();
 
