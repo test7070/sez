@@ -25,7 +25,7 @@
 			var decbbm = [];
 			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2','txtWorkno','txtWorkgno'];
 			var q_readonlys = [];
-			var bbmNum = [];
+			var bbmNum = [['txtMount', 15, 2, 1]];
 			var bbsNum = [['txtMount', 15, 2, 1]];
 			var bbmMask = [];
 			var bbsMask = [];
@@ -63,10 +63,19 @@
 				
 				$('#btnImport').click(function() {
 					if (!emp($('#txtProductno').val())){
+						var t_mount=dec($('#txtMount').val());
+						if(t_mount==0){
+							t_mount=1;
+						}
+						
 						q_gt('ucas', "where=^^noa='"+$('#txtProductno').val()+"' ^^", 0, 0, 0, "getworks", r_accy,1);
 						var as = _q_appendData("ucas", "", true);
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit'
-						, as.length, as, 'productno,product,unit', '');
+						for (var i = 0; i < as.length; i++) {
+							as[i].mount=t_mount*as[i].mount*(1+(dec(as[i].loss)/100))
+						}
+						
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount'
+						, as.length, as, 'productno,product,unit,mount', '');
 					}
 				});
 				
@@ -515,7 +524,8 @@
 					<tr>
 						<td><span> </span><a id='lblProductno' class="lbl btn"> </a></td>
 						<td><input id="txtProductno" type="text" class="txt c1"/></td>
-						<td> </td>
+						<td><span> </span><a id='lblMount' class="lbl"> </a></td>
+						<td><input id="txtMount" type="text" class="txt num c1"/></td>
 						<td colspan="2"><input id="btnImport" type="button" class="txt"/></td>
 					</tr>
 					<tr>
