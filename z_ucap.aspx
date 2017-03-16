@@ -15,7 +15,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-			var uccgaItem = '';
+			var uccgaItem = '',uccgbItem='';
 			var firstRun = false;
 			var t_first=true;
 			aPop = new Array(
@@ -229,6 +229,10 @@
 						type : '8', //[46]
 						name : 'xproserch',
 						value : '1@模糊查詢*'.split(',')
+					}, {
+						type : '5', //[47]
+						name : 'xgroupbno',
+						value : uccgbItem.split(',')
 					}]
 				});
 				q_popAssign();
@@ -337,10 +341,18 @@
 						for ( i = 0; i < as.length; i++) {
 							uccgaItem = uccgaItem + (uccgaItem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa + ' . ' + as[i].namea;
 						}
+						q_gt('uccgb', '', 0, 0, 0, "");
+						break;
+					case 'uccgb':
+						var as = _q_appendData("uccgb", "", true);
+						uccgbItem = "#non@全部";
+						for ( i = 0; i < as.length; i++) {
+							uccgbItem = uccgbItem + (uccgbItem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa + ' . ' + as[i].namea;
+						}
 						firstRun = true;
 						break;
 				}
-				if ((uccgaItem.length > 0) && firstRun) {
+				if ((uccgaItem.length > 0) && (uccgbItem.length > 0) && firstRun) {
 					q_gf('', 'z_ucap');
 				}
 			}
