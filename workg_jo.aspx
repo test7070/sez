@@ -367,7 +367,7 @@
 							}else{
 								var isexists=false;
 								for(var j=0;j<ordepno.length;j++){
-									if(ordepno[j].ordneo==$('#txtOrdeno_'+i).val() && ordepno[j].pno==$('#txtProductno_'+i).val()){
+									if(ordepno[j].ordeno==$('#txtOrdeno_'+i).val() && ordepno[j].pno==$('#txtProductno_'+i).val()){
 										ordepno[j].omount=q_add(ordepno[j].omount,dec($('#txtMount_'+i).val()))
 										isexists=true;
 										break;
