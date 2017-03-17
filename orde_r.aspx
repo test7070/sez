@@ -1241,7 +1241,9 @@
 					}
 				}
 								
-				//106/03/16 限制 訂單交期
+				//106/03/16 限制 訂單交期 106/03/17後面等確定再改抓orde.dodate
+				var t_where="where=^^noa='qsys.orde.dodate'^^"
+				//var t_where="where=^^noa='orde.dodate'^^"
 				q_gt('qsys', t_where, 0, 0, 0, "getdodate", r_accy, 1);
 				var as = _q_appendData("qsys", "", true);
 				if (as[0] != undefined) {
