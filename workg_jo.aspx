@@ -477,6 +477,7 @@
 								$('#txtRworkdate_'+j).val(nordepno[j].bdate)
 							}
 						}
+						$('#txtNoq_'+j).val('');
 					}
 				});
 			}
