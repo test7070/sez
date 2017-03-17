@@ -385,8 +385,15 @@
 	                			if($('#txtProductno_'+i).val()==t_productno)
 	                				t_curmount = q_add(t_curmount,q_float('txtMount_'+i));
 	                		}
-	                		if(t_curmount>t_mount){
-	                			alert('產品【'+t_productno+'】'+t_date+' 庫存：'+t_mount);
+	                		switch(q_getPara('sys.project').toUpperCase()){
+	                			case 'ES':
+	                				//再興不檢查庫存
+	                				break;
+	                			default:
+	                				if(t_curmount>t_mount){
+			                			alert('產品【'+t_productno+'】'+t_date+' 庫存：'+t_mount);
+			                		}
+			                		break;
 	                		}
 						}
 						break;
