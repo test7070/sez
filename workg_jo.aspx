@@ -1131,11 +1131,41 @@
 				var t_omount=0;
 				var t_bmount=0;
 				for (var j = 0; j < q_bbsCount; j++) {
-					t_omount=q_add(t_omount,dec($('#txtOrdemount_'+j).val()));
 					t_bmount=q_add(t_bmount,dec($('#txtMount_'+j).val()));
 				}
-				$('#textOmount').val(t_omount);
 				$('#textBmount').val(t_bmount);
+				
+				var ttorde=new Array();
+				for (var i = 0; i < q_bbsCount; i++) {
+					if(!emp($('#txtOrdeno_'+i).val())){
+						if(ttorde.length==0){
+							ttorde.push({
+								'ordeno':$('#txtOrdeno_'+i).val(),
+								'omount':dec($('#txtOrdemount_'+i).val())
+							});
+						}else{
+							var isexists=false;
+							for(var j=0;j<ttorde.length;j++){
+								if(ttorde[j].ordeno==$('#txtOrdeno_'+i).val()){
+									isexists=true;
+									break;
+								}
+							}
+							if(!isexists){
+								ttorde.push({
+									'ordeno':$('#txtOrdeno_'+i).val(),
+									'omount':dec($('#txtOrdemount_'+i).val())
+								});
+							}
+						}
+					}
+				}
+				
+				for (var j = 0; j < ttorde.length; j++) {
+					t_omount=q_add(t_omount,dec(ttorde[j].omount));
+				}
+				
+				$('#textOmount').val(t_omount);
 			}
 
 			function q_appendData(t_Table) {
