@@ -636,7 +636,7 @@
 			function btnPrint() {
 				switch(q_getPara('sys.project').toUpperCase()){
 					case 'ES':
-						q_box("z_vccap_es.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({noa:trim($('#txtNoa').val())}) + ";" + r_accy + "_" + r_cno, 'vcca_pk', "95%", "95%", q_getMsg("popPrint"));
+						q_box("z_vccap_es.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({noa:trim($('#txtNoa').val())}) + ";" + r_accy + "_" + r_cno, 'vcca', "95%", "95%", q_getMsg("popPrint"));
 						break;
 					case 'DC':
 						q_box('z_vccadc.aspx?;;;' + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
@@ -655,6 +655,9 @@
 						break;
 					case 'FE':
 						q_box('z_vccap_fe.aspx' + "?;;;noa=" + trim($('#txtNoa').val())+";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+						break;
+					case 'WH':
+						q_box("z_vccap_wh.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({noa:trim($('#txtNoa').val())}) + ";" + r_accy + "_" + r_cno, 'vcca', "95%", "95%", q_getMsg("popPrint"));
 						break;
 					default:
 						q_box('z_vccap.aspx?;;;' + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
