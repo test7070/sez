@@ -367,7 +367,7 @@
 							}else{
 								var isexists=false;
 								for(var j=0;j<ordepno.length;j++){
-									if(ordepno[j].ordneo==$('#txtOrdeno_'+i).val() && ordepno[j].pno==$('#txtProductno_'+i).val()){
+									if(ordepno[j].ordeno==$('#txtOrdeno_'+i).val() && ordepno[j].pno==$('#txtProductno_'+i).val()){
 										ordepno[j].omount=q_add(ordepno[j].omount,dec($('#txtMount_'+i).val()))
 										isexists=true;
 										break;
@@ -509,8 +509,8 @@
 					case 'ordesimport':
 						var as = _q_appendData("view_ordes", "", true);
 						if (as[0] != undefined) {
-							//清空bbs資料
-							if (q_cur == 1) {
+							//清空bbs資料 1060316若ordeno匯入不清除
+							if (q_cur == 1 && emp($('#txtOrdeno').val())) {
 								for (var i = 0; i < q_bbsCount; i++) {
 									$('#btnMinus_' + i).click();
 								}
