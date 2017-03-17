@@ -509,8 +509,8 @@
 					case 'ordesimport':
 						var as = _q_appendData("view_ordes", "", true);
 						if (as[0] != undefined) {
-							//清空bbs資料
-							if (q_cur == 1) {
+							//清空bbs資料 1060316若ordeno匯入不清除
+							if (q_cur == 1 && emp($('#txtOrdeno').val())) {
 								for (var i = 0; i < q_bbsCount; i++) {
 									$('#btnMinus_' + i).click();
 								}
