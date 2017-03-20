@@ -216,7 +216,7 @@
 					}, {
 						type : '8', //[43]
 						name : 'xgno0',
-						value : '1@只顯示合計'.split(',')
+						value : '1@顯示子階成本'.split(',')
 					},{
 						type : '0', //[44] //標準成本bdate//抓上上的月-1年
 						name : 'stbdate',
@@ -321,7 +321,7 @@
 				$('#chkXgno0 span').css('width','200px');
 				$('#Xgno0 .label').css('width','0px');
 				$('#Xgno0').css('height','30px');
-				$('#Xgno0 [type="checkbox"]').prop('checked',true);
+				//$('#Xgno0 [type="checkbox"]').prop('checked',true);
 				
 				$('#Xproserch').css('width','340px');
 				$('#chkXproserch').css('width','250px');
