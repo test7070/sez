@@ -429,8 +429,8 @@
 				
 				$('#combPayterms').change(function() {
 					if(!emp($('#txtCustno').val()) && !emp($('#txtProductno_'+$('#textNoq').val()).val()) && !emp($('#combPayterms').val())){
-						var t_where = "where=^^ a.custno='"+$('#txtCustno').val()+"' and a.productno='"+$('#txtProductno_'+$('#textNoq').val()).val()+"' and a.payterms='"+$('#combPayterms').val()+"' and '"+$('#txtOdate').val()+"'>=a.bdate order by bdate desc,noa desc ^^";
-						q_gt('custprices', t_where, 0, 0, 0, "getcustprices", r_accy, 1);
+						var t_where = "where=^^ a.custno='"+$('#txtCustno').val()+"' and a.productno='"+$('#txtProductno_'+$('#textNoq').val()).val()+"' and a.payterms='"+$('#combPayterms').val()+"' and '"+$('#txtOdate').val()+"'>=a.bdate order by bdate desc,noa desc --^^";
+						q_gt('custprices_uca', t_where, 0, 0, 0, "getcustprices", r_accy, 1);
 						var as = _q_appendData("custprices", "", true);
 						if (as[0] != undefined) {
 							$('#textCommission').val(as[0].commission);
