@@ -74,6 +74,8 @@
                 $('#chkXunenda').css('margin-top','5px');
                 $('#Xunenda .label').css('width','0px');
                 
+                $('#txtXcuanoq').val('001');
+                
                 //預設值
                 $('#txtXmount').val('600');
                 $('#txtXmount').keyup(function() {
@@ -129,7 +131,10 @@
 					if(isNaN(t_mount))
 						t_mount=0;
 					$('#txtFixmount').val(t_mount);
-					
+				});
+				
+				$('#cmbWmemo').change(function() {
+					$('#txtWmemo').val($('#cmbWmemo').find("option:selected").text());
 				});
 				
 				$('#btnOK_div_in').click(function() {
@@ -172,7 +177,7 @@
 						return;
 					}
 					
-					var t_wmemo=$('#cmbWmemo').find("option:selected").text();
+					var t_wmemo=$('#txtWmemo').val();
 					if(t_wmemo.length==0){
 						t_wmemo='#non';
 					}
@@ -262,8 +267,16 @@
 										q_gt('qphr', "where=^^part='"+as1[0].partno+"'^^", 0, 0, 0, "getqphr",r_accy,1);
 										var as2 = _q_appendData("qphr", "", true);
 										var t_item = "@";
-										for (var i = 0; i < as.length; i++) {
-					                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].phr + '@' + as[i].phr;
+										for (var i = 0; i < as2.length; i++) {
+					                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as2[i].phr + '@' + as2[i].phr;
+					                    }
+					                    q_cmbParse("cmbWmemo", t_item);
+									}else{
+										q_gt('qphr', "where=^^part=''^^", 0, 0, 0, "getqphr",r_accy,1);
+										var as2 = _q_appendData("qphr", "", true);
+										var t_item = "@";
+										for (var i = 0; i < as2.length; i++) {
+					                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as2[i].phr + '@' + as2[i].phr;
 					                    }
 					                    q_cmbParse("cmbWmemo", t_item);
 									}
@@ -385,7 +398,10 @@
 					<td style="background-color: #f8d463;" align="center">已入庫量</td>
 					<td style="background-color: #f8d463;"><input id="txtInmount" style="font-size: medium;width: 50%;text-align: right;" disabled="disabled"></td>
 					<td style="background-color: #ffffaa;" align="center">退件原因</td>
-					<td style="background-color: #ffffaa;"><select id="cmbWmemo" style="font-size: medium;width:95%;"> </select></td>
+					<td style="background-color: #ffffaa;">
+						<input id="txtWmemo" style="font-size: medium;width:260px;">
+						<select id="cmbWmemo" style="font-size: medium;width:20px;"> </select>
+					</td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">未入庫量</td>

@@ -55,19 +55,28 @@
 			function q_seekStr() {
 				t_cno = $('#cmbAcomp').val();
 				t_noa = $('#txtNoa').val();
-				t_custno = $('#txtCustno').val();
-				t_cust = $('#txtCust').val();
-				t_serial = $('#txtSerial').val();
-				t_buyer = $('#txtBuyer').val();
 				t_bdate = $('#txtBdate').val();
 				t_edate = $('#txtEdate').val();
 				t_mon = $('#txtMon').val();
 				
-				var t_where = " 1=1 " + q_sqlPara2("cno", t_cno)+ q_sqlPara2("mon", t_mon)+ q_sqlPara2("noa", t_noa)+ q_sqlPara2("serial", t_serial) + q_sqlPara2("custno", t_custno) + q_sqlPara2("datea", t_bdate, t_edate);
-				if (t_cust.length > 0)
-                    t_where += " and charindex('" + t_cust + "',comp)>0";
-                if (t_buyer.length > 0)
-                    t_where += " and charindex('" + t_buyer + "',buyer)>0";    
+				t_key = $('#txtKey').val();
+				
+				var t_where = " 1=1 " 
+					+ q_sqlPara2("cno", t_cno)
+					+ q_sqlPara2("mon", t_mon)
+					+ q_sqlPara2("noa", t_noa)
+					+ q_sqlPara2("datea", t_bdate, t_edate);
+
+				if(t_key.length>0){
+					t_where +=" and (";
+					t_where += "charindex('" + t_key + "',custno)>0";
+					t_where += " or charindex('" + t_key + "',comp)>0";
+					t_where += " or charindex('" + t_key + "',nick)>0";
+					t_where += " or charindex('" + t_key + "',serial)>0";
+					t_where += " or charindex('" + t_key + "',buyerno)>0";
+					t_where += " or charindex('" + t_key + "',buyer)>0";
+					t_where +=")";
+				}
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
@@ -109,29 +118,12 @@
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblCustno'> </a></td>
+					<td class='seek'  style="width:20%;"><a id='lblKey'>編號、名稱、統編</a></td>
 					<td>
-					<input class="txt" id="txtCustno" type="text" style="width:215px; font-size:medium;" />
+					<input class="txt" id="txtKey" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblCust'> </a></td>
-					<td>
-					<input class="txt" id="txtCust" type="text" style="width:215px; font-size:medium;" />
-					</td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblSerial'> </a></td>
-					<td>
-					<input class="txt" id="txtSerial" type="text" style="width:215px; font-size:medium;" />
-					</td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblBuyer'> </a></td>
-					<td>
-					<input class="txt" id="txtBuyer" type="text" style="width:215px; font-size:medium;" />
-					</td>
-				</tr>
+				
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
 		</div>

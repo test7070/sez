@@ -734,7 +734,7 @@
 					<tr>
 						<td><span> </span><a id='lblOption01' class="lbl">開發票</a></td>
 						<td>
-							<input id="chkOptuin01"  type="checkbox" style="float:left;"/>
+							<input id="chkOption01"  type="checkbox" style="float:left;"/>
 							<span style="float:left;display:block;width:10px;"> </span>
 							<a class="lbl" style="float:left;">附回郵</a>
 							<span style="float:left;display:block;width:10px;"> </span>

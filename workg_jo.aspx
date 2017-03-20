@@ -367,7 +367,7 @@
 							}else{
 								var isexists=false;
 								for(var j=0;j<ordepno.length;j++){
-									if(ordepno[j].ordneo==$('#txtOrdeno_'+i).val() && ordepno[j].pno==$('#txtProductno_'+i).val()){
+									if(ordepno[j].ordeno==$('#txtOrdeno_'+i).val() && ordepno[j].pno==$('#txtProductno_'+i).val()){
 										ordepno[j].omount=q_add(ordepno[j].omount,dec($('#txtMount_'+i).val()))
 										isexists=true;
 										break;
@@ -477,6 +477,7 @@
 								$('#txtRworkdate_'+j).val(nordepno[j].bdate)
 							}
 						}
+						$('#txtNoq_'+j).val('');
 					}
 				});
 			}
@@ -509,8 +510,8 @@
 					case 'ordesimport':
 						var as = _q_appendData("view_ordes", "", true);
 						if (as[0] != undefined) {
-							//清空bbs資料
-							if (q_cur == 1) {
+							//清空bbs資料 1060316若ordeno匯入不清除
+							if (q_cur == 1 && emp($('#txtOrdeno').val())) {
 								for (var i = 0; i < q_bbsCount; i++) {
 									$('#btnMinus_' + i).click();
 								}
@@ -1130,11 +1131,41 @@
 				var t_omount=0;
 				var t_bmount=0;
 				for (var j = 0; j < q_bbsCount; j++) {
-					t_omount=q_add(t_omount,dec($('#txtOrdemount_'+j).val()));
 					t_bmount=q_add(t_bmount,dec($('#txtMount_'+j).val()));
 				}
-				$('#textOmount').val(t_omount);
 				$('#textBmount').val(t_bmount);
+				
+				var ttorde=new Array();
+				for (var i = 0; i < q_bbsCount; i++) {
+					if(!emp($('#txtOrdeno_'+i).val())){
+						if(ttorde.length==0){
+							ttorde.push({
+								'ordeno':$('#txtOrdeno_'+i).val(),
+								'omount':dec($('#txtOrdemount_'+i).val())
+							});
+						}else{
+							var isexists=false;
+							for(var j=0;j<ttorde.length;j++){
+								if(ttorde[j].ordeno==$('#txtOrdeno_'+i).val()){
+									isexists=true;
+									break;
+								}
+							}
+							if(!isexists){
+								ttorde.push({
+									'ordeno':$('#txtOrdeno_'+i).val(),
+									'omount':dec($('#txtOrdemount_'+i).val())
+								});
+							}
+						}
+					}
+				}
+				
+				for (var j = 0; j < ttorde.length; j++) {
+					t_omount=q_add(t_omount,dec(ttorde[j].omount));
+				}
+				
+				$('#textOmount').val(t_omount);
 			}
 
 			function q_appendData(t_Table) {

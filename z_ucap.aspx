@@ -15,39 +15,76 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-			var uccgaItem = '';
+			var uccgaItem = '',uccgbItem='',coinItem='';
 			var firstRun = false;
 			var t_first=true;
 			aPop = new Array(
-				['txtXproductno', '', 'ucaucc', 'noa,product', 'txtXproductno', 'ucaucc_b.aspx']
+				['txtXproductno', '', 'ucaucc', 'noa,product', 'txtXproductno', 'ucaucc_b.aspx'],
+				['txtXgroupe', 'lblGroupeno', 'adsize', 'noa,mon,memo1,memo2', '0txtXgroupe', ''],
+				['txtXgroupf', 'lblGroupfno', 'adsss', 'noa,mon,memo1,memo2', '0txtXgroupf', ''],
+				['txtXgroupg', 'lblGroupgno', 'adknife', 'noa,mon,memo1,memo2', '0txtXgroupg', ''],
+				['txtXgrouph', 'lblGrouphno', 'adpipe', 'noa,mon,memo1,memo2', '0txtXgrouph', ''],
+				['txtXgroupi', 'lblGroupino', 'adtran', 'noa,mon,memo1,memo2', '0txtXgroupi', ''],
+				
+				['txtXucolor','','adspec','noa,mon,memo,memo1,memo2','0txtXucolor',''],
+				['txtXscolor','','adly','noa,mon,memo,memo1,memo2','0txtXscolor',''],
+				['txtXclass','','adly','noa,mon,memo,memo1,memo2','0txtXclass',''],
+				['txtXclassa','','adly','noa,mon,memo,memo1,memo2','0txtXclassa',''],
+				['txtXzinc','','adly','noa,mon,memo,memo1,memo2','0txtXzinc',''],
+				['txtXsizea','','adoth','noa,mon,memo,memo1,memo2','0txtXsizea',''],
+				['txtXsource','','adpro','noa,mon,memo,memo1,memo2','0txtXsource',''],
+				['txtXhard','','addime','noa,mon,memo,memo1,memo2','0txtXhard','']
 			);
+			var t_auth=undefined,t_isucap2=false;
 			$(document).ready(function() {
 				_q_boxClose();
 				q_getId();
+				
+				//106/03/14 成本表需有uca執行權限才能看
+				if(r_rank<'8'){
+					q_gt('authority', "where=^^ a.noa='uca' and a.pr_run=1 and a.sssno='"+r_userno+"' ^^", 0, 0, 0, "getauthority",r_accy,1);
+					t_auth = _q_appendData("authority", "", true);
+					if(t_auth[0]!=undefined){
+						t_isucap2=true;
+					}
+				}else{
+					t_isucap2=true;
+				}
+				
 				if (uccgaItem.length == 0) {
 					q_gt('uccga', '', 0, 0, 0, "");
 				}
 				
 				 $('#q_report').click(function(e) {
+				 	for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+						if($('#q_report').data().info.reportData[i].report=='z_ucap2' && !t_isucap2)
+							$('#q_report div div').eq(i).hide();
+					}
+				 	
 					if(!(q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO')){
 						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
 							if($('#q_report').data().info.reportData[i].report=='z_ucap6')
 								$('#q_report div div').eq(i).hide();
 						}
-						$('#q_report div div .radio').parent().each(function(index) {
-							if(!$(this).is(':hidden') && t_first){
-								$(this).children().removeClass('nonselect').addClass('select');
-								t_first=false;
-							}
-							if($(this).is(':hidden') && t_first){
-								$(this).children().removeClass('select').addClass('nonselect');
-							}
-						});
-					}else{
-						$('#lblXstyle').text('車種');
 					}
+					
+					$('#q_report div div .radio').parent().each(function(index) {
+						if(!$(this).is(':hidden') && t_first){
+							$(this).children().removeClass('nonselect').addClass('select');
+							t_first=false;
+						}
+						if($(this).is(':hidden') && t_first){
+							$(this).children().removeClass('select').addClass('nonselect');
+						}
+					});
 				});
+				
 			});
+			
+			function imgshow(img) {
+				q_box(img.src+"?;;;;;"+new Date(), 'image', "85%", "85%", "");
+			}
+			
 			function q_gfPost() {
 				$('#q_report').q_report({
 					fileName : 'z_ucap',
@@ -179,7 +216,7 @@
 					}, {
 						type : '8', //[43]
 						name : 'xgno0',
-						value : '1@只顯示合計'.split(',')
+						value : '1@顯示子階成本'.split(',')
 					},{
 						type : '0', //[44] //標準成本bdate//抓上上的月-1年
 						name : 'stbdate',
@@ -188,6 +225,18 @@
 						type : '0', //[45] //標準成本edate//抓上上的月
 						name : 'stedate',
 						value : q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',-1).substr(0,r_lenm)+'/01',-1)
+					}, {
+						type : '8', //[46]
+						name : 'xproserch',
+						value : '1@模糊查詢*'.split(',')
+					}, {
+						type : '5', //[47]
+						name : 'xgroupbno',
+						value : uccgbItem.split(',')
+					}, {
+						type : '5', //[48]
+						name : 'xcoin',
+						value : coinItem.split(',')
 					}]
 				});
 				q_popAssign();
@@ -211,6 +260,8 @@
 					$('#txtSpno2b').val(q_getHref()[3]);
 					$('#txtXproductno').val(q_getHref()[1]);
 					$('#btnOk').click();
+				}else{
+					$('#Xtypea select').val('2');
 				}
 				
 				firstRun = false;
@@ -243,6 +294,7 @@
 				$('#Isprice').css('width','340px');
 				$('#chkIsprice').css('width','200px');
 				$('#chkIsprice span').css('width','150px');
+				$('#Isprice').css('height','30px');
 				
 				$('#Xsize1').css('width','340px');
 				$('#txtXsize11').css('width','110px');
@@ -273,7 +325,13 @@
 				$('#chkXgno0 span').css('width','200px');
 				$('#Xgno0 .label').css('width','0px');
 				$('#Xgno0').css('height','30px');
-				$('#Xgno0 [type="checkbox"]').prop('checked',true);
+				//$('#Xgno0 [type="checkbox"]').prop('checked',true);
+				
+				$('#Xproserch').css('width','340px');
+				$('#chkXproserch').css('width','250px');
+				$('#chkXproserch span').css('width','200px');
+				$('#Xproserch .label').css('width','0px');
+				$('#Xproserch').css('height','30px');
 			}
 
 			function q_boxClose(s2) {
@@ -287,10 +345,26 @@
 						for ( i = 0; i < as.length; i++) {
 							uccgaItem = uccgaItem + (uccgaItem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa + ' . ' + as[i].namea;
 						}
+						q_gt('uccgb', '', 0, 0, 0, "");
+						break;
+					case 'uccgb':
+						var as = _q_appendData("uccgb", "", true);
+						uccgbItem = "#non@全部";
+						for ( i = 0; i < as.length; i++) {
+							uccgbItem = uccgbItem + (uccgbItem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa + ' . ' + as[i].namea;
+						}
+						q_gt('flors_coin', '', 0, 0, 0, "flors_coin");
+						break;
+					case 'flors_coin':
+						var as = _q_appendData("flors", "", true);
+						coinItem = "#non@本幣";
+						for ( i = 0; i < as.length; i++) {
+							coinItem = coinItem + (coinItem.length > 0 ? ',' : '') + as[i].coin + '@' + as[i].coin;
+						}
 						firstRun = true;
 						break;
 				}
-				if ((uccgaItem.length > 0) && firstRun) {
+				if ((uccgaItem.length > 0) && (uccgbItem.length > 0) && firstRun) {
 					q_gf('', 'z_ucap');
 				}
 			}

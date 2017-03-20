@@ -857,7 +857,15 @@
 			function refreshBbs(){
 				if(q_getPara('sys.project').toUpperCase()!='XY'){
 					$('.isCust').hide();
-				}	
+				}else{
+					//106/03/16 M開頭不能改品號
+					if(r_userno.substr(0,1).toUpperCase()=='M'){
+						for (var j = 0; j < q_bbsCount; j++) {
+							$('#txtProductno_'+j).attr('disabled', 'disabled');
+							$('#btnProductno_'+j).attr('disabled', 'disabled');
+						}
+					}
+				}
 			}
 
 			function btnIns() {
@@ -986,6 +994,7 @@
 				else
 					$('#txtMon').attr('readonly', 'readonly');
 				refreshBbm();
+				refreshBbs();
 			}
 
 			function btnMinus(id) {

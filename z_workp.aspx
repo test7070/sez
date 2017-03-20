@@ -66,7 +66,7 @@
 						dbf : 'station',
 						index : 'noa,station',
 						src : 'station_b.aspx'
-					},{
+					}, {
 						type : '2', //[17] [18] 
 						name : 'xstationg',
 						dbf : 'stationg',
@@ -90,11 +90,19 @@
 						dbf : 'ucaucc',
 						index : 'noa,product',
 						src : 'ucaucc_b.aspx'
-					},{/* [24]*/
+					}, {/* [24]*/
                         type : '0',
                         name : 'xproject',
                         value : q_getPara('sys.project').toUpperCase()
-                    }]
+                    }, {
+						type : '0', //[25]
+						name : 'hostname',
+						value : location.hostname
+					}, {
+						type : '0', //[26]
+						name : 'q_db',
+						value : q_db
+					}]
 				});
 				q_popAssign();
 				q_getFormat();
@@ -137,9 +145,8 @@
 						} else {
 							$('#txtXnoa2').val('');
 							$('#txtXnoa1').val('');
-							$('#txtXdate1').val(q_date().substring(0, 7) + '01');
-							var lastDays = $.datepicker._getDaysInMonth(q_date().substring(0, 3), q_date().substring(4, 6) - 1);
-							$('#txtXdate2').val(q_date().substring(0, 7) + lastDays);
+							$('#txtXdate1').val(q_date().substring(0, r_lenm) + '/01');
+							$('#txtXdate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',+35).substr(0,r_lenm)+'/01',-1));
 						}
 						break;
 					case 'uccga':

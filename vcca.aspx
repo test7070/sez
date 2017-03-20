@@ -111,6 +111,7 @@
 							, ['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp,serial', '0txtBuyerno,txtBuyer,txtSerial,txtMemo', 'cust_b.aspx']
 							, ['txtSerial', 'lblSerial', 'vccabuyer', 'serial,noa,buyer', '0txtSerial,txtBuyerno,txtBuyer', 'vccabuyer_b.aspx']
 							, ['txtProductno_', 'btnProductno_', 'ucca', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucca_b.aspx']);
+						bbsNum = [['txtMount', 15, 3,1], ['txtGmount', 15, 4,1], ['txtEmount', 15, 4,1], ['txtPrice', 15, 4,1], ['txtTotal', 15, 0,1]];
 						break;
 					default:
 					
@@ -119,6 +120,7 @@
 				q_getFormat();
 				bbmMask = [['txtCanceldate', r_picd],['txtCanceltime', '99:99:99'], ['txtDatea', r_picd], ['txtMon', r_picm]];
 				q_mask(bbmMask);
+				q_xchgForm();
 				q_cmbParse("cmbTaxtype", q_getPara('vcca.taxtype'));
 				
 				if(q_db.toUpperCase()=="ST2"){
@@ -153,6 +155,27 @@
 						q_box("generateA0501.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateA0501", "95%", "95%", '');
 					}
 				});
+				$('#btnC0401').click(function(e){
+					var t_noa = $.trim($('#txtNoa').val());
+					if(t_noa.length==0){
+					}else{
+						q_box("generateC0401.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateC0401", "95%", "95%", '');
+					}
+				});
+				$('#btnC0501').click(function(e){
+					var t_noa = $.trim($('#txtNoa').val());
+					if(t_noa.length==0){
+					}else{
+						q_box("generateC0501.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateC0501", "95%", "95%", '');
+					}
+				});
+				$('#btnC0701').click(function(e){
+					var t_noa = $.trim($('#txtNoa').val());
+					if(t_noa.length==0){
+					}else{
+						q_box("generateC0701.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateC0701", "95%", "95%", '');
+					}
+				});
 				if(q_getPara('sys.project').toUpperCase()=='VU')
 					$('#chkAtax').show();
 				
@@ -185,9 +208,9 @@
 				$('#lblAccno').click(function() {
 					var t_year
 					if(q_getPara('sys.project').toUpperCase().substring(0,2)=='VU' && r_len=='4'){
-						t_year=$('#txtDatea').val().substring(0, 4)-1911
+						t_year=$('#txtDatea').val().substring(0, 4)-1911;
 					}else{
-						t_year=$('#txtDatea').val().substring(0, 3)
+						t_year=$('#txtDatea').val().substring(0, 3);
 					}
 					q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + t_year + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
 				});
@@ -363,8 +386,15 @@
 	                			if($('#txtProductno_'+i).val()==t_productno)
 	                				t_curmount = q_add(t_curmount,q_float('txtMount_'+i));
 	                		}
-	                		if(t_curmount>t_mount){
-	                			alert('產品【'+t_productno+'】'+t_date+' 庫存：'+t_mount);
+	                		switch(q_getPara('sys.project').toUpperCase()){
+	                			case 'ES':
+	                				//再興不檢查庫存
+	                				break;
+	                			default:
+	                				if(t_curmount>t_mount){
+			                			alert('產品【'+t_productno+'】'+t_date+' 庫存：'+t_mount);
+			                		}
+			                		break;
 	                		}
 						}
 						break;
@@ -375,11 +405,12 @@
 					case 'getAcomp':
 						var as = _q_appendData("acomp", "", true);
 						if (as[0] != undefined) {
-							$('#txtCno').val(as[0].noa);
-							$('#txtAcomp').val(as[0].nick);
+							if($('#txtCno').val().length == 0){
+								$('#txtCno').val(as[0].noa);
+								$('#txtAcomp').val(as[0].nick);
+							}
 						}
 						Unlock(1);
-						$('#txtDatea').val(q_date());
 						if(q_getPara('sys.project')=='fe'){
 							//鉅昕發票找還沒開過的
 							t_wehre = "where=^^['"+$('#txtCno').val()+"','"+$('#txtDatea').val()+"')^^";
@@ -554,29 +585,42 @@
             }
 
 			function btnIns() {
-				if(q_getPara('sys.project')=='pe'){
-					$('#txtMon').val('');
-					$('#txtCustno').val('');
-					$('#txtComp').val('');
-					$('#txtZip').val('');
-					$('#txtAddress').val('');
-				}
 				curData.copy();
 				_btnIns();
 				curData.paste();
 				$('#btnOk').data('guid',guid());//送簽核用
 				
-				if (q_getPara('sys.project').toUpperCase()=='VU'){//1050118
-					$('#txtCustno').val('');
-					$('#txtComp').val('');
-					$('#txtSerial').val('');
-					$('#txtZip').val('');
-					$('#txtAddress').val('');
-					$('#txtBuyerno').val('');
-					$('#txtBuyer').val('');
-				}
-				if (q_getPara('sys.project').toUpperCase()=='XY'){//1050118
-					$('#txtMon').val(q_date().substr(0,r_lenm))
+				switch(q_getPara('sys.project').toUpperCase()){
+					case 'ES':
+						if($('#txtCno').val()=='A'){
+							$('#txtProductno_0').val('01');
+							$('#txtProduct_0').val('運費');
+							$('#txtMount_0').val(1);
+						}else if($('#txtCno').val()=='B'){
+							$('#txtProductno_0').val('02');
+							$('#txtProduct_0').val('搬運工資');
+							$('#txtMount_0').val(1);
+						}
+						break;
+					case 'PE':
+						$('#txtMon').val('');
+						$('#txtCustno').val('');
+						$('#txtComp').val('');
+						$('#txtZip').val('');
+						$('#txtAddress').val('');
+						break;
+					case 'VU':
+						$('#txtCustno').val('');
+						$('#txtComp').val('');
+						$('#txtSerial').val('');
+						$('#txtZip').val('');
+						$('#txtAddress').val('');
+						$('#txtBuyerno').val('');
+						$('#txtBuyer').val('');
+						break;
+					case 'XY':
+						$('#txtMon').val(q_date().substr(0,r_lenm));
+						break;
 				}
 				
 				$('#txtNoa').data('key_buyer','');//檢查發票抬頭用
@@ -614,7 +658,7 @@
 			function btnPrint() {
 				switch(q_getPara('sys.project').toUpperCase()){
 					case 'ES':
-						q_box("z_vccap_es.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({noa:trim($('#txtNoa').val())}) + ";" + r_accy + "_" + r_cno, 'vcca_pk', "95%", "95%", q_getMsg("popPrint"));
+						q_box("z_vccap_es.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({noa:trim($('#txtNoa').val())}) + ";" + r_accy + "_" + r_cno, 'vcca', "95%", "95%", q_getMsg("popPrint"));
 						break;
 					case 'DC':
 						q_box('z_vccadc.aspx?;;;' + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
@@ -633,6 +677,9 @@
 						break;
 					case 'FE':
 						q_box('z_vccap_fe.aspx' + "?;;;noa=" + trim($('#txtNoa').val())+";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+						break;
+					case 'WH':
+						q_box("z_vccap_wh.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({noa:trim($('#txtNoa').val())}) + ";" + r_accy + "_" + r_cno, 'vcca', "95%", "95%", q_getMsg("popPrint"));
 						break;
 					default:
 						q_box('z_vccap.aspx?;;;' + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
@@ -678,6 +725,11 @@
 				}
 				if (!emp($('#txtVccno').val()))	//103/03/07 出貨單轉來發票金額一律不改
 					return;
+				//數量為0,自動當作1
+				for(var i=0;i<q_bbsCount;i++){
+					if(q_float('txtMount_'+i)==0)
+						$('#txtMount_'+i).val(1);
+				}
 					
 				$('#txtTax').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
 				var t_mounts, t_prices, t_moneys=0, t_mount = 0, t_money = 0, t_taxrate=0.5, t_tax=0, t_total=0;
@@ -1266,6 +1318,7 @@
 						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
                         <td align="center" style="width:80px; color:black;"><a id='vewCust'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewBuyer'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewSerial'>統編</a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewMoney'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTax'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTotal'> </a></td>
@@ -1280,6 +1333,7 @@
 						<td id='datea' style="text-align: center;">~datea</td>
                         <td id='nick' style="text-align: left;">~nick</td>
 						<td id='buyer,4' style="text-align: left;">~buyer,4</td>
+						<td id='serial' style="text-align: left;">~serial</td>
 						<td id='money,0,1' style="text-align: right;">~money,0,1</td>
 						<td id='tax,0,1' style="text-align: right;">~tax,0,1</td>
 						<td id='total,0,1' style="text-align: right;">~total,0,1</td>
@@ -1314,7 +1368,10 @@
 						<td><span> </span><a id='lblMon' class="lbl"> </a></td>
 						<td><input id="txtMon"  type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblChkno' class="lbl"> </a></td>
-						<td><input id="txtChkno"  type="text" class="txt c1" /></td>
+						<td>
+							<input id="txtChkno"  type="text" class="txt c1" />
+							<input id="txtRandnumber"  type="text" style="display:none;"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCust" class="lbl btn"> </a></td>
@@ -1393,6 +1450,9 @@
 		<input type="button" class="einvoice" id="btnA0201" value="[A0201]作廢(賣方)發票" style="width:200px;height:50px;white-space:normal;display:none;"/>
 		<input type="button" class="einvoice" id="btnA0401" value="[A0401]開立(賣方)發票存證" style="width:200px;height:50px;white-space:normal;display:none;"/>
 		<input type="button" class="einvoice" id="btnA0501" value="[A0501]作廢(賣方)發票存證" style="width:200px;height:50px;white-space:normal;display:none;"/>
+		<input type="button" class="einvoice" id="btnC0401" value="[C0401]開立(賣方)發票存證" style="width:200px;height:50px;white-space:normal;display:none;"/>
+		<input type="button" class="einvoice" id="btnC0501" value="[C0501]作廢(賣方)發票存證" style="width:200px;height:50px;white-space:normal;display:none;"/>
+		<input type="button" class="einvoice" id="btnC0701" value="[C0701]註銷(賣方)發票存證" style="width:200px;height:50px;white-space:normal;display:none;"/>
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs' style=' text-align:center'>
 				<tr style='color:white; background:#003366;' >
