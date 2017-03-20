@@ -120,6 +120,7 @@
 				q_getFormat();
 				bbmMask = [['txtCanceldate', r_picd],['txtCanceltime', '99:99:99'], ['txtDatea', r_picd], ['txtMon', r_picm]];
 				q_mask(bbmMask);
+				q_xchgForm();
 				q_cmbParse("cmbTaxtype", q_getPara('vcca.taxtype'));
 				
 				if(q_db.toUpperCase()=="ST2"){
@@ -408,7 +409,6 @@
 							$('#txtAcomp').val(as[0].nick);
 						}
 						Unlock(1);
-						$('#txtDatea').val(q_date());
 						if(q_getPara('sys.project')=='fe'){
 							//鉅昕發票找還沒開過的
 							t_wehre = "where=^^['"+$('#txtCno').val()+"','"+$('#txtDatea').val()+"')^^";
@@ -583,38 +583,51 @@
             }
 
 			function btnIns() {
-				if(q_getPara('sys.project')=='pe'){
-					$('#txtMon').val('');
-					$('#txtCustno').val('');
-					$('#txtComp').val('');
-					$('#txtZip').val('');
-					$('#txtAddress').val('');
-				}
 				curData.copy();
 				_btnIns();
 				curData.paste();
 				$('#btnOk').data('guid',guid());//送簽核用
 				
-				if (q_getPara('sys.project').toUpperCase()=='VU'){//1050118
-					$('#txtCustno').val('');
-					$('#txtComp').val('');
-					$('#txtSerial').val('');
-					$('#txtZip').val('');
-					$('#txtAddress').val('');
-					$('#txtBuyerno').val('');
-					$('#txtBuyer').val('');
-				}
-				if (q_getPara('sys.project').toUpperCase()=='XY'){//1050118
-					$('#txtMon').val(q_date().substr(0,r_lenm))
+				switch(q_getPara('sys.project').toUpperCase()){
+					case 'ES':
+						if($('#txtCno').val()=='A'){
+							$('#txtProductno_0').val('01');
+							$('#txtProduct_0').val('運費');
+							$('#txtMount_0').val(1);
+						}else if($('#txtCno').val()=='B'){
+							$('#txtProductno_0').val('02');
+							$('#txtProduct_0').val('搬運工資');
+							$('#txtMount_0').val(1);
+						}
+						break;
+					case 'PE':
+						$('#txtMon').val('');
+						$('#txtCustno').val('');
+						$('#txtComp').val('');
+						$('#txtZip').val('');
+						$('#txtAddress').val('');
+						break;
+					case 'VU':
+						$('#txtCustno').val('');
+						$('#txtComp').val('');
+						$('#txtSerial').val('');
+						$('#txtZip').val('');
+						$('#txtAddress').val('');
+						$('#txtBuyerno').val('');
+						$('#txtBuyer').val('');
+						break;
+					case 'XY':
+						$('#txtMon').val(q_date().substr(0,r_lenm));
+						break;
 				}
 				
 				$('#txtNoa').data('key_buyer','');//檢查發票抬頭用
 				
 				$('#cmbTaxtype').val(1);
-				Lock(1, {
+				/*Lock(1, {
 					opacity : 0
-				});
-				q_gt('acomp', '', 0, 0, 0, 'getAcomp', r_accy);
+				});*/
+				///q_gt('acomp', '', 0, 0, 0, 'getAcomp', r_accy);  已經複製BBM,似乎沒意義
 				
 				if (q_getPara('sys.project').toUpperCase()=='XY' && window.parent.q_name=='z_umm_xy') {
 					if(q_getHref()[1]!='' && q_getHref()[1]!=undefined){
@@ -710,6 +723,11 @@
 				}
 				if (!emp($('#txtVccno').val()))	//103/03/07 出貨單轉來發票金額一律不改
 					return;
+				//數量為0,自動當作1
+				for(var i=0;i<q_bbsCount;i++){
+					if(q_float('txtMount_'+i)==0)
+						$('#txtMount_'+i).val(1);
+				}
 					
 				$('#txtTax').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
 				var t_mounts, t_prices, t_moneys=0, t_mount = 0, t_money = 0, t_taxrate=0.5, t_tax=0, t_total=0;
