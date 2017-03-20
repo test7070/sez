@@ -15,7 +15,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-			var uccgaItem = '',uccgbItem='';
+			var uccgaItem = '',uccgbItem='',coinItem='';
 			var firstRun = false;
 			var t_first=true;
 			aPop = new Array(
@@ -216,7 +216,7 @@
 					}, {
 						type : '8', //[43]
 						name : 'xgno0',
-						value : '1@只顯示合計'.split(',')
+						value : '1@顯示子階成本'.split(',')
 					},{
 						type : '0', //[44] //標準成本bdate//抓上上的月-1年
 						name : 'stbdate',
@@ -233,6 +233,10 @@
 						type : '5', //[47]
 						name : 'xgroupbno',
 						value : uccgbItem.split(',')
+					}, {
+						type : '5', //[48]
+						name : 'xcoin',
+						value : coinItem.split(',')
 					}]
 				});
 				q_popAssign();
@@ -321,7 +325,7 @@
 				$('#chkXgno0 span').css('width','200px');
 				$('#Xgno0 .label').css('width','0px');
 				$('#Xgno0').css('height','30px');
-				$('#Xgno0 [type="checkbox"]').prop('checked',true);
+				//$('#Xgno0 [type="checkbox"]').prop('checked',true);
 				
 				$('#Xproserch').css('width','340px');
 				$('#chkXproserch').css('width','250px');
@@ -348,6 +352,14 @@
 						uccgbItem = "#non@全部";
 						for ( i = 0; i < as.length; i++) {
 							uccgbItem = uccgbItem + (uccgbItem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa + ' . ' + as[i].namea;
+						}
+						q_gt('flors_coin', '', 0, 0, 0, "flors_coin");
+						break;
+					case 'flors_coin':
+						var as = _q_appendData("flors", "", true);
+						coinItem = "#non@本幣";
+						for ( i = 0; i < as.length; i++) {
+							coinItem = coinItem + (coinItem.length > 0 ? ',' : '') + as[i].coin + '@' + as[i].coin;
 						}
 						firstRun = true;
 						break;

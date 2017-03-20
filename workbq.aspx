@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -370,6 +370,7 @@
 							$('#txtStoreno').val(as[0].storeno);
 							$('#txtStore').val(as[0].store);
 						}
+						changeqphr();
 						break;
 					case q_name:
 						if (q_cur == 4)
@@ -464,6 +465,13 @@
 						else
 							$('#txtMount_'+b_seq).val(0)
 					});
+					
+					$('#combQphr_'+j).change(function() {
+						t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						$('#txtErrmemo_'+b_seq).val($('#combQphr_'+b_seq).find("option:selected").text());
+					});
 				}
 				HideField();
 			}
@@ -476,6 +484,7 @@
 				$('#txtDatea').focus();
 				$('#cmbTaxtype').val('1');
 				Fieldchange();
+				changeqphr();
 			}
 
 			function btnModi() {
@@ -484,6 +493,7 @@
 				_btnModi();
 				$('#txtProduct').focus();
 				Fieldchange();
+				changeqphr();
 			}
 
 			function btnPrint() {
@@ -607,6 +617,9 @@
 						var t_where = "where=^^ noa ='" + $('#txtWorkno').val() + "' ^^";
 						q_gt('work', t_where, 0, 0, 0, "", r_accy);
 						break;
+					case 'txtStationno':
+						changeqphr();
+						break;
 				}
 			}
 
@@ -713,6 +726,31 @@
 						$('#txtErrmount_'+i).attr('disabled', 'disabled');
 						$('#txtErrmemo_'+i).attr('disabled', 'disabled');
 					}
+				}
+			}
+			
+			function changeqphr() {
+				q_gt('station', "where=^^noa='"+$('#txtStationno').val()+"'^^", 0, 0, 0, "getPart",r_accy,1);
+				var as1 = _q_appendData("station", "", true);
+				var t_partno='';
+				if (as1[0] != undefined) {
+					t_partno=as1[0].partno;
+				}
+				
+				if(t_partno.length>0){
+					q_gt('qphr', "where=^^part='"+t_partno+"'^^", 0, 0, 0, "getqphr",r_accy,1);
+				}else{
+					q_gt('qphr', "where=^^part=''^^", 0, 0, 0, "getqphr",r_accy,1);
+				}
+				var as2 = _q_appendData("qphr", "", true);
+				var t_item = "@";
+				for (var i = 0; i < as2.length; i++) {
+					t_item = t_item + (t_item.length > 0 ? ',' : '') + as2[i].phr + '@' + as2[i].phr;
+				}
+				
+				for(var i=0;i<q_bbsCount;i++){
+					$('#combQphr_'+i).text('');
+					q_cmbParse("combQphr_"+i, t_item);
 				}
 			}
 		</script>
@@ -959,7 +997,8 @@
 					<td><input class="txt c1 num" id="txtOutmount.*" type="text"/></td>
 					<td>
 						<input class="txt c1 num" id="txtErrmount.*" type="text"/>
-						<input class="txt c1" id="txtErrmemo.*" type="text"/>
+						<input class="txt c1" id="txtErrmemo.*" type="text" style="width:120px;"/>
+						<select class=" txt c1" id="combQphr.*" style="width:20px;"> </select>
 					</td>
 					<td>
 						<input class="txt c1" id="txtMemo.*" type="text"/>

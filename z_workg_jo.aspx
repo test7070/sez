@@ -267,8 +267,16 @@
 										q_gt('qphr', "where=^^part='"+as1[0].partno+"'^^", 0, 0, 0, "getqphr",r_accy,1);
 										var as2 = _q_appendData("qphr", "", true);
 										var t_item = "@";
-										for (var i = 0; i < as.length; i++) {
-					                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].phr + '@' + as[i].phr;
+										for (var i = 0; i < as2.length; i++) {
+					                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as2[i].phr + '@' + as2[i].phr;
+					                    }
+					                    q_cmbParse("cmbWmemo", t_item);
+									}else{
+										q_gt('qphr', "where=^^part=''^^", 0, 0, 0, "getqphr",r_accy,1);
+										var as2 = _q_appendData("qphr", "", true);
+										var t_item = "@";
+										for (var i = 0; i < as2.length; i++) {
+					                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as2[i].phr + '@' + as2[i].phr;
 					                    }
 					                    q_cmbParse("cmbWmemo", t_item);
 									}
