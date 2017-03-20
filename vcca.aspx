@@ -120,6 +120,7 @@
 				q_getFormat();
 				bbmMask = [['txtCanceldate', r_picd],['txtCanceltime', '99:99:99'], ['txtDatea', r_picd], ['txtMon', r_picm]];
 				q_mask(bbmMask);
+				q_xchgForm();
 				q_cmbParse("cmbTaxtype", q_getPara('vcca.taxtype'));
 				
 				if(q_db.toUpperCase()=="ST2"){
@@ -404,11 +405,12 @@
 					case 'getAcomp':
 						var as = _q_appendData("acomp", "", true);
 						if (as[0] != undefined) {
-							$('#txtCno').val(as[0].noa);
-							$('#txtAcomp').val(as[0].nick);
+							if($('#txtCno').val().length == 0){
+								$('#txtCno').val(as[0].noa);
+								$('#txtAcomp').val(as[0].nick);
+							}
 						}
 						Unlock(1);
-						$('#txtDatea').val(q_date());
 						if(q_getPara('sys.project')=='fe'){
 							//鉅昕發票找還沒開過的
 							t_wehre = "where=^^['"+$('#txtCno').val()+"','"+$('#txtDatea').val()+"')^^";
@@ -583,29 +585,42 @@
             }
 
 			function btnIns() {
-				if(q_getPara('sys.project')=='pe'){
-					$('#txtMon').val('');
-					$('#txtCustno').val('');
-					$('#txtComp').val('');
-					$('#txtZip').val('');
-					$('#txtAddress').val('');
-				}
 				curData.copy();
 				_btnIns();
 				curData.paste();
 				$('#btnOk').data('guid',guid());//送簽核用
 				
-				if (q_getPara('sys.project').toUpperCase()=='VU'){//1050118
-					$('#txtCustno').val('');
-					$('#txtComp').val('');
-					$('#txtSerial').val('');
-					$('#txtZip').val('');
-					$('#txtAddress').val('');
-					$('#txtBuyerno').val('');
-					$('#txtBuyer').val('');
-				}
-				if (q_getPara('sys.project').toUpperCase()=='XY'){//1050118
-					$('#txtMon').val(q_date().substr(0,r_lenm))
+				switch(q_getPara('sys.project').toUpperCase()){
+					case 'ES':
+						if($('#txtCno').val()=='A'){
+							$('#txtProductno_0').val('01');
+							$('#txtProduct_0').val('運費');
+							$('#txtMount_0').val(1);
+						}else if($('#txtCno').val()=='B'){
+							$('#txtProductno_0').val('02');
+							$('#txtProduct_0').val('搬運工資');
+							$('#txtMount_0').val(1);
+						}
+						break;
+					case 'PE':
+						$('#txtMon').val('');
+						$('#txtCustno').val('');
+						$('#txtComp').val('');
+						$('#txtZip').val('');
+						$('#txtAddress').val('');
+						break;
+					case 'VU':
+						$('#txtCustno').val('');
+						$('#txtComp').val('');
+						$('#txtSerial').val('');
+						$('#txtZip').val('');
+						$('#txtAddress').val('');
+						$('#txtBuyerno').val('');
+						$('#txtBuyer').val('');
+						break;
+					case 'XY':
+						$('#txtMon').val(q_date().substr(0,r_lenm));
+						break;
 				}
 				
 				$('#txtNoa').data('key_buyer','');//檢查發票抬頭用
@@ -710,6 +725,11 @@
 				}
 				if (!emp($('#txtVccno').val()))	//103/03/07 出貨單轉來發票金額一律不改
 					return;
+				//數量為0,自動當作1
+				for(var i=0;i<q_bbsCount;i++){
+					if(q_float('txtMount_'+i)==0)
+						$('#txtMount_'+i).val(1);
+				}
 					
 				$('#txtTax').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
 				var t_mounts, t_prices, t_moneys=0, t_mount = 0, t_money = 0, t_taxrate=0.5, t_tax=0, t_total=0;
@@ -1298,6 +1318,7 @@
 						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
                         <td align="center" style="width:80px; color:black;"><a id='vewCust'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewBuyer'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewSerial'>統編</a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewMoney'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTax'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTotal'> </a></td>
@@ -1312,6 +1333,7 @@
 						<td id='datea' style="text-align: center;">~datea</td>
                         <td id='nick' style="text-align: left;">~nick</td>
 						<td id='buyer,4' style="text-align: left;">~buyer,4</td>
+						<td id='serial' style="text-align: left;">~serial</td>
 						<td id='money,0,1' style="text-align: right;">~money,0,1</td>
 						<td id='tax,0,1' style="text-align: right;">~tax,0,1</td>
 						<td id='total,0,1' style="text-align: right;">~total,0,1</td>
