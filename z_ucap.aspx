@@ -15,7 +15,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-			var uccgaItem = '',uccgbItem='';
+			var uccgaItem = '',uccgbItem='',coinItem='';
 			var firstRun = false;
 			var t_first=true;
 			aPop = new Array(
@@ -233,6 +233,10 @@
 						type : '5', //[47]
 						name : 'xgroupbno',
 						value : uccgbItem.split(',')
+					}, {
+						type : '5', //[48]
+						name : 'xcoin',
+						value : coinItem.split(',')
 					}]
 				});
 				q_popAssign();
@@ -348,6 +352,14 @@
 						uccgbItem = "#non@全部";
 						for ( i = 0; i < as.length; i++) {
 							uccgbItem = uccgbItem + (uccgbItem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa + ' . ' + as[i].namea;
+						}
+						q_gt('flors_coin', '', 0, 0, 0, "flors_coin");
+						break;
+					case 'flors_coin':
+						var as = _q_appendData("flors", "", true);
+						coinItem = "#non@本幣";
+						for ( i = 0; i < as.length; i++) {
+							coinItem = coinItem + (coinItem.length > 0 ? ',' : '') + as[i].coin + '@' + as[i].coin;
 						}
 						firstRun = true;
 						break;
