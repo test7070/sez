@@ -405,8 +405,10 @@
 					case 'getAcomp':
 						var as = _q_appendData("acomp", "", true);
 						if (as[0] != undefined) {
-							$('#txtCno').val(as[0].noa);
-							$('#txtAcomp').val(as[0].nick);
+							if($('#txtCno').val().length == 0){
+								$('#txtCno').val(as[0].noa);
+								$('#txtAcomp').val(as[0].nick);
+							}
 						}
 						Unlock(1);
 						if(q_getPara('sys.project')=='fe'){
@@ -624,10 +626,10 @@
 				$('#txtNoa').data('key_buyer','');//檢查發票抬頭用
 				
 				$('#cmbTaxtype').val(1);
-				/*Lock(1, {
+				Lock(1, {
 					opacity : 0
-				});*/
-				///q_gt('acomp', '', 0, 0, 0, 'getAcomp', r_accy);  已經複製BBM,似乎沒意義
+				});
+				q_gt('acomp', '', 0, 0, 0, 'getAcomp', r_accy);
 				
 				if (q_getPara('sys.project').toUpperCase()=='XY' && window.parent.q_name=='z_umm_xy') {
 					if(q_getHref()[1]!='' && q_getHref()[1]!=undefined){
@@ -1316,6 +1318,7 @@
 						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
                         <td align="center" style="width:80px; color:black;"><a id='vewCust'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewBuyer'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewSerial'>統編</a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewMoney'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTax'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTotal'> </a></td>
@@ -1330,6 +1333,7 @@
 						<td id='datea' style="text-align: center;">~datea</td>
                         <td id='nick' style="text-align: left;">~nick</td>
 						<td id='buyer,4' style="text-align: left;">~buyer,4</td>
+						<td id='serial' style="text-align: left;">~serial</td>
 						<td id='money,0,1' style="text-align: right;">~money,0,1</td>
 						<td id='tax,0,1' style="text-align: right;">~tax,0,1</td>
 						<td id='total,0,1' style="text-align: right;">~total,0,1</td>
