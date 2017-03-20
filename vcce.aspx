@@ -216,7 +216,7 @@
 							}
 							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtProductno,txtProduct,txtUnit,txtSpec,txtMount', b_ret.length, b_ret, 'noa,no2,productno,product,unit,spec,mount', 'txtProductno');
 							if (b_ret[0].noa != undefined) {
-								var t_where = "noa='" + b_ret[0].noa + "'";
+								var t_where = "where=^^noa='" + b_ret[0].noa + "'^^";
 								q_gt('view_orde', t_where, 0, 0, 0, "", r_accy);
 							}
 						}

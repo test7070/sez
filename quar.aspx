@@ -389,8 +389,8 @@
 				
 				$('#combPayterms').change(function() {
 					if(!emp($('#txtCustno').val()) && !emp($('#txtProductno_'+$('#textNoq').val()).val()) && !emp($('#combPayterms').val())){
-						var t_where = "where=^^ a.custno='"+$('#txtCustno').val()+"' and (b.xproductno='"+$('#txtProductno_'+$('#textNoq').val()).val()+"' or a.productno='"+$('#txtProductno_'+$('#textNoq').val()).val()+"') and a.payterms='"+$('#combPayterms').val()+"' and '"+$('#txtOdate').val()+"'>=a.bdate order by bdate desc,noa desc ^^";
-						q_gt('custprices', t_where, 0, 0, 0, "getcustprices", r_accy, 1);
+						var t_where = "where=^^ a.custno='"+$('#txtCustno').val()+"' and (b.xproductno='"+$('#txtProductno_'+$('#textNoq').val()).val()+"' or a.productno='"+$('#txtProductno_'+$('#textNoq').val()).val()+"') and a.payterms='"+$('#combPayterms').val()+"' and '"+$('#txtOdate').val()+"'>=a.bdate order by bdate desc,noa desc --^^";
+						q_gt('custprices_uca', t_where, 0, 0, 0, "getcustprices", r_accy, 1);
 						var as = _q_appendData("custprices", "", true);
 						if (as[0] != undefined) {
 							$('#textCommission').val(as[0].commission);
@@ -405,8 +405,8 @@
 				
 				$('#combPayterms2').change(function() {
 					if(!emp($('#txtCustno').val()) && !emp($('#txtProductno_'+$('#textNoq').val()).val()) && !emp($('#combPayterms2').val())){
-						var t_where = "where=^^ a.custno='"+$('#txtCustno').val()+"' and (b.xproductno='"+$('#txtProductno_'+$('#textNoq').val()).val()+"' or a.productno='"+$('#txtProductno_'+$('#textNoq').val()).val()+"') and a.payterms='"+$('#combPayterms2').val()+"' and '"+$('#txtOdate').val()+"'>=a.bdate order by bdate desc,noa desc ^^";
-						q_gt('custprices', t_where, 0, 0, 0, "getcustprices", r_accy, 1);
+						var t_where = "where=^^ a.custno='"+$('#txtCustno').val()+"' and (b.xproductno='"+$('#txtProductno_'+$('#textNoq').val()).val()+"' or a.productno='"+$('#txtProductno_'+$('#textNoq').val()).val()+"') and a.payterms='"+$('#combPayterms2').val()+"' and '"+$('#txtOdate').val()+"'>=a.bdate order by bdate desc,noa desc --^^";
+						q_gt('custprices_uca', t_where, 0, 0, 0, "getcustprices", r_accy, 1);
 						var as = _q_appendData("custprices", "", true);
 						if (as[0] != undefined) {
 							$('#textCommission2').val(as[0].commission);
@@ -1146,8 +1146,8 @@
 								$('#txtPayterms2_'+b_seq).val($('#cmbPayterms').val().substr(0,$('#cmbPayterms').val().length-2));
 							}
 							
-							var t_where = "where=^^ a.custno='"+$('#txtCustno').val()+"' and b.xproductno='"+$('#txtProductno_'+b_seq).val()+"' and a.payterms='"+$('#cmbPayterms').val()+"' and '"+$('#txtOdate').val()+"'>=a.bdate order by bdate desc,noa desc ^^";
-							q_gt('custprices', t_where, 0, 0, 0, "getcustprices", r_accy, 1);
+							var t_where = "where=^^ a.custno='"+$('#txtCustno').val()+"' and b.xproductno='"+$('#txtProductno_'+b_seq).val()+"' and a.payterms='"+$('#cmbPayterms').val()+"' and '"+$('#txtOdate').val()+"'>=a.bdate order by bdate desc,noa desc --^^";
+							q_gt('custprices_uca', t_where, 0, 0, 0, "getcustprices", r_accy, 1);
 							var as = _q_appendData("custprices", "", true);
 							if (as[0] != undefined) {
 								$('#txtCommission_'+b_seq).val(as[0].commission);
@@ -1243,8 +1243,8 @@
 			
 			function bbspaytermschange(n){
 				if(!emp($('#txtCustno').val()) && !emp($('#txtProductno_'+n).val()) && !emp($('#cmbPayterms').val())){
-					var t_where = "where=^^ a.custno='"+$('#txtCustno').val()+"' and (b.xproductno='"+$('#txtProductno_'+n).val()+"' or a.productno='"+$('#txtProductno_'+n).val()+"') and a.payterms='"+$('#combPayterms').val()+"' and '"+$('#txtOdate').val()+"'>=a.bdate order by bdate desc,noa desc ^^";
-					q_gt('custprices', t_where, 0, 0, 0, "getcustprices", r_accy, 1);
+					var t_where = "where=^^ a.custno='"+$('#txtCustno').val()+"' and (b.xproductno='"+$('#txtProductno_'+n).val()+"' or a.productno='"+$('#txtProductno_'+n).val()+"') and a.payterms='"+$('#combPayterms').val()+"' and '"+$('#txtOdate').val()+"'>=a.bdate order by bdate desc,noa desc --^^";
+					q_gt('custprices_uca', t_where, 0, 0, 0, "getcustprices", r_accy, 1);
 					var as = _q_appendData("custprices", "", true);
 					if (as[0] != undefined) {
 						$('#txtCommission_'+n).val(as[0].commission);
