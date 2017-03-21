@@ -35,12 +35,19 @@
 				q_popAssign();
 				q_getFormat();
 				q_langShow();
+				if(r_len==4){                	
+                	$.datepicker.r_len=4;
+					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+                }
 				$('#txtXdate1').mask(r_picd);
 				$('#txtXdate1').datepicker();
 				$('#txtXdate2').mask(r_picd);
 				$('#txtXdate2').datepicker();
 				$('#txtXdate1').val(q_date().substr(0,r_lenm)+'/01');
 				$('#txtXdate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1));
+				
+				$('.q_report .report').css('width', '420px');
+				$('.q_report .report div').css('width', '210px');
 				
 			}
 			
