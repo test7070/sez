@@ -139,6 +139,10 @@
                         type : '0',
                         name : 'xproject',
                         value : q_getPara('sys.project').toUpperCase()
+                    }, {/* [33]*/
+                        type : '0',
+                        name : 'xnowdate',
+                        value : q_date()
                     }]
 				});
 				q_popAssign();
