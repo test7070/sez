@@ -30,6 +30,12 @@
                     },{
                         type : '6',//[2]
                         name : 'xnoa'
+                    },{
+                        type : '2',//[3][4]
+                        name : 'xnoa'
+                    },{
+                        type : '2',//[5][6]
+                        name : 'xboatdate'
                     }]
                 });
                 q_popAssign();
