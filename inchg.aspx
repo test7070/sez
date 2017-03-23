@@ -30,7 +30,7 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']
-            ,['txtBoatno', 'lblBoat', 'boat', 'noa,boat', 'txtBoatno,txtBoat', 'boat_b.aspx']
+            //,['txtBoatno', 'lblBoat', 'boat', 'noa,boat', 'txtBoatno,txtBoat', 'boat_b.aspx']
             );
 
             $(document).ready(function() {
@@ -452,9 +452,9 @@
 					<tr>
 						<td class='td1'><span> </span><a id="lblBcomp" class="lbl" > </a></td>
 						<td class="td2"><input id="txtBcomp" type="text"  class="txt c1"/></td>
-						<td class='td3'><span> </span><a id="lblBoat" class="lbl btn"> </a></td>
-						<td class="td4">
-							<input id="txtBoatno" type="text" class="txt c2"/>
+						<td class='td3'><span> </span><a id="lblBoat" class="lbl"> </a></td>
+						<td class="td4" colspan="2">
+							<!--<input id="txtBoatno" type="text" class="txt c2"/>-->
 							<input id="txtBoat" type="text" class="txt c3"/>
 						</td>
 						<!--<td class="td5"><input id="btnIndata" type="button"/></td>-->

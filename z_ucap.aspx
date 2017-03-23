@@ -237,6 +237,9 @@
 						type : '5', //[48]
 						name : 'xcoin',
 						value : coinItem.split(',')
+					}, {
+						type : '6', //[49]
+						name : 'xvccnum'
 					}]
 				});
 				q_popAssign();
@@ -332,6 +335,9 @@
 				$('#chkXproserch span').css('width','200px');
 				$('#Xproserch .label').css('width','0px');
 				$('#Xproserch').css('height','30px');
+				
+				$('#lblXvccnum').css('font-size','12px');
+				$('#txtXvccnum').css('text-align','right');
 			}
 
 			function q_boxClose(s2) {
