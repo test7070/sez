@@ -21,12 +21,12 @@
 			
 			var _custno = new Array();
 			var _condition = "";
+			var _first = true;
             function main() {
                 if (dataErr) {
                     dataErr = false;
                     return;
                 }
-                
                 $('#btnSearch').click(function() {
 					var custno = new Array();
 					for(var i=0;i<q_bbsCount;i++){
@@ -70,7 +70,8 @@
 	            }    
 	            t_content = "where=^^"+t_content+"^^";
                 brwCount = -1;
-                mainBrow(0, t_content);
+                brwCount2 = 500;  //避免讀太久
+                mainBrow(6, t_content);
             }
 			function mainPost() {
 				$('#btnTop').hide();
@@ -85,23 +86,16 @@
             function q_gtPost(t_name) {
 				switch (t_name) {
 					case q_name:
-						abbs = _q_appendData(q_name, "", true);
+						if(!_first){
+							abbs = _q_appendData(q_name, "", true);
+						}else{
+							_first = false;
+						}
 						refresh();
 						break;
 				}
 			}
-
-            function refresh() {
-                _refresh();
-                $('#txtCondition').val(_condition);
-                for(var i=0;i<_custno.length;i++){
-                	for(var j=0;j<q_bbsCount;j++){
-                		if(_custno[i]==$('#txtNoa_'+j).val()){
-                			$('#chkSel_'+j).prop('checked',true);
-                			break;
-                		}
-                	}	
-                }
+			function bbsAssign() { 
                 for (var i = 0; i < q_bbsCount; i++) {
 					$('#lblNo_' + i).text(i + 1);
                     if($('#chkSel_' + i).hasClass('isAssign'))
@@ -115,7 +109,13 @@
                         if(t_noa.length==0)
                         	return;
                         switch(q_getPara('sys.project').toUpperCase()){
-                        	case 'DC':
+                        	case 'ES':
+                        		q_box("custtran.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; noa='" + t_noa + "';" + r_accy, 'cust', "95%", "95%", q_getMsg("popCust"));
+                        		break;
+                    		case 'DS':
+                        		q_box("custtran.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; noa='" + t_noa + "';" + r_accy, 'cust', "95%", "95%", q_getMsg("popCust"));
+                        		break;
+                    		case 'DC':
                         		q_box("custtran.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; noa='" + t_noa + "';" + r_accy, 'cust', "95%", "95%", q_getMsg("popCust"));
                         		break;
                         	default:
@@ -123,7 +123,21 @@
                         		break;
                         }
                     });	
-            	}
+            	}      
+                _bbsAssign();
+                $('#txtCondition').val(_condition);
+                for(var i=0;i<_custno.length;i++){
+                	for(var j=0;j<q_bbsCount;j++){
+                		if(_custno[i]==$('#txtNoa_'+j).val()){
+                			$('#chkSel_'+j).prop('checked',true);
+                			break;
+                		}
+                	}	
+                } 
+            }
+
+            function refresh() {
+                _refresh();
             }
 		</script>
 		<style type="text/css">
@@ -136,10 +150,10 @@
 		<div  id="dFixedTitle" style="overflow-y: scroll;">
 			<table id="tFixedTitle" class='tFixedTitle'  border="2"  cellpadding='2' cellspacing='1' style='width:100%;'  >
 				<tr style='color:white; background:#003366;' >
-					<td align="center" style="width:2%;"> </td>
+					<td align="center" style="width:5%;"> </td>
 					<th align="center" style="width:2%;"><input type="checkbox" id="checkAllCheckbox"/></th>
 					<td align="center" style="width:10%;">編號</td>
-					<td align="center" style="width:20%;">名稱</td>
+					<td align="center" style="width:30%;">名稱</td>
 					<td align="center" style="width:10%;">統編</td>
 					<td align="center" style="width:10%;">電話</td>
 					<td align="center" style="width:10%;">傳真</td>
@@ -149,19 +163,19 @@
 		<div id="dbbs" style="overflow: scroll;height:450px;" >
 			<table id="tbbs" class='tbbs' border="2" cellpadding='2' cellspacing='1' style='width:100%;' >
 				<tr style="display:none;">
-					<td align="center" style="width:2%;"> </td>
+					<td align="center" style="width:5%;"> </td>
 					<th align="center" style="width:2%;"> </th>
 					<td align="center" style="width:10%;">編號</td>
-					<td align="center" style="width:20%;">名稱</td>
+					<td align="center" style="width:30%;">名稱</td>
 					<td align="center" style="width:10%;">統編</td>
 					<td align="center" style="width:10%;">電話</td>
 					<td align="center" style="width:10%;">傳真</td>
 				</tr>
 				<tr style='background:#cad3ff;'>
-					<td style="width:2%;"><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+					<td style="width:5%;"><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td style="width:2%;"><input type="checkbox" class="ccheck" id="chkSel.*"/></td>
 					<td style="width:10%;"><input type="text" style="float:left;width:100%;" readonly="readonly" id="txtNoa.*" /></td>
-					<td style="width:20%;"><input type="text" style="float:left;width:100%;" readonly="readonly" id="txtComp.*" /></td>
+					<td style="width:30%;"><input type="text" style="float:left;width:100%;" readonly="readonly" id="txtComp.*" /></td>
 					<td style="width:10%;"><input type="text" style="float:left;width:100%;" readonly="readonly" id="txtSerial.*" /></td>
 					<td style="width:10%;"><input type="text" style="float:left;width:100%;" readonly="readonly" id="txtTel.*" /></td>
 					<td style="width:10%;"><input type="text" style="float:left;width:100%;" readonly="readonly" id="txtFax.*" /></td>
