@@ -152,7 +152,7 @@
 				if (t_product.length > 0 && t_spec.length==0)
 					t_where += " and charindex('" + t_product + "',product)>0";
 				if (t_spec.length > 0)
-					t_where += " and (charindex('" + t_spec + "',spec)>0 or charindex('" + t_spec + "',product)>0) ";
+					t_where += " and charindex('" + t_spec + "',spec)>0 ";//106/03/23 不查詢品名 or charindex('" + t_spec + "',product)>0)
 				if (t_groupeno.length > 0)
 					t_where += " and (charindex('" + t_groupeno + "',groupeno)>0 or charindex('" + t_groupeno + "',product)>0) ";
 				if (t_groupfno.length > 0)
