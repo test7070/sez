@@ -74,7 +74,15 @@
 						type : '5', //[13]/
 						name : 'xgroupcno',
 						value : uccgcItem.split(',')
-					}]
+					}, {/* [14]*/
+                        type : '0',
+                        name : 'rlen',
+                        value : r_len
+                    }, {/* [15]*/
+                        type : '0',
+                        name : 'xnowdate',
+                        value : q_date()
+                    }]
                 });
                 
                 q_popAssign();

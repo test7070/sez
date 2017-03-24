@@ -6,15 +6,14 @@
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
-		<script src='../script/mask.js' type="text/javascript"></script>
 		<script src="../script/qbox.js" type="text/javascript"></script>
+		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
-
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-			this.errorHandler = null;
-			function onPageError(error) {
-				alert("An error occurred:\r\n" + error.Message);
-			}
 
 			var q_name = "carchg";
 			var q_readonly = ['txtNoa', 'txtWorker', 'txtTreno'];
@@ -216,7 +215,15 @@
 			function btnIns() {
 				curData.copy();
                 _btnIns();
-                curData.paste();
+                switch(q_getPara('sys.project').toUpperCase()){
+                	case 'ES':
+                		//新增時保持空白
+                		break;
+                	default:
+                		curData.paste();
+                		break;
+                }
+                
 				$('#txtNoa').val('AUTO');
 				$('#txtDatea').focus();
 			}
@@ -284,6 +291,12 @@
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
+				if (t_para){
+                	$('#txtDatea').datepicker('destroy');
+                }
+                else{
+                	$('#txtDatea').datepicker();
+                }
 			}
 
 			function btnMinus(id) {
