@@ -139,31 +139,33 @@
             function bbsAssign() {
                 for (var i = 0; i < q_bbsCount; i++) {
                     $('#lblNo_' + i).text(i + 1);
-                    if (!$('#btnMinus_' + i).hasClass('isAssign')) {
-                        $('#chkSel_' + i).click(function() {
-                            sum();
-                        }).hover(function() {
-                            t_IdSeq = -1;
-                            /// 要先給  才能使用 q_bodyId()
-                            q_bodyId($(this).attr('id'));
-                            b_seq = t_IdSeq;
-                            $('#trSel_' + b_seq).addClass('sel');
-                        }, function() {
-                            t_IdSeq = -1;
-                            /// 要先給  才能使用 q_bodyId()
-                            q_bodyId($(this).attr('id'));
-                            b_seq = t_IdSeq;
-                            $('#trSel_' + b_seq).removeClass('sel');
- 
-                            if ($('#chkSel_' +b_seq).prop('checked')) {//判斷是否被選取
-                                $('#trSel_' + b_seq).addClass('chksel');
-                                //變色
-                            } else {
-                                $('#trSel_' + b_seq).removeClass('chksel');
-                                //取消變色
-                            }
-                        });
-                    }
+                    if ($('#btnMinus_' + i).hasClass('isAssign'))/// 重要
+                        continue;
+                    $('#chkSel_' + i).click(function(e) {
+                        sum();
+                    }).hover(function(e) {
+						var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#trSel_' + n).addClass('sel');
+                    }, function(e) {
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#trSel_' + n).removeClass('sel');
+                            if ($('#chkSel_' +n).prop('checked')) {//判斷是否被選取
+                            $('#trSel_' + n).addClass('chksel');
+                            //變色
+                        } else {
+                            $('#trSel_' + n).removeClass('chksel');
+                            //取消變色
+                        }
+                    });
+                    $('#txtCheckno_'+i).bind('contextmenu',function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        var t_noa = $(this).val();
+                        if(t_noa.length>0 ){
+                            q_box("gqb.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; gqbno='" + t_noa + "';" + r_accy, 'trans', "95%", "95%", q_getMsg("popGqb"));
+                        }
+                    });
                 }
                 _bbsAssign();
             }
