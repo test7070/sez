@@ -240,6 +240,10 @@
 					}, {
 						type : '6', //[49]
 						name : 'xvccnum'
+					}, {
+						type : '0', //[50]
+						name : 'xip',
+						value : location.hostname
 					}]
 				});
 				q_popAssign();
