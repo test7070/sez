@@ -312,7 +312,13 @@
 				$('#txtCustno').attr('readonly', false);
 				$('#txtComp').attr('readonly', false);
 				$('#txtSerial').attr('readonly', false);
+				$('#txtMoney').attr('readonly', false);
 				$('#txtMon').attr('readonly', false);
+				$('#txtProductno').attr('readonly', false);
+				$('#txtProduct').attr('readonly', false);
+				$('#txtUnit').attr('readonly', false);
+				$('#txtMount').attr('readonly', false);
+				$('#txtPrice').attr('readonly', false);
 				$('#txtBuyerno').attr('readonly', false);
 				$('#txtBuyer').attr('readonly', false);
 				
