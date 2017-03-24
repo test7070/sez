@@ -329,6 +329,8 @@
 						if(as[0].vnoa.length>0 && as[0].trc2no.length>0 && as[0].tvccno.length>0){
 							alert('出貨單已成功轉回典盈!!');
 						}
+					}else{
+						alert('產生錯誤請聯絡工程師!!');
 					}
 					break;	
                 }
