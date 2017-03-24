@@ -2,7 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<<<<<<< HEAD
 		<title></title>
+=======
+		<title>銷售報表</title>
+>>>>>>> 902190f5972df1ff05a0c632feb4b423b7577df9
 		<script src="/../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>

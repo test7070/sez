@@ -43,13 +43,7 @@
 	                    dbf : 'cust',
 	                    index : 'noa,comp',
 	                    src : 'cust_b.aspx'
-	                }{
-                        type : '2', //[14][15]//原廠//20
-                        name : 'tggno',
-                        dbf : 'tgg',
-                        index : 'noa,comp',
-                        src : 'tgg_b.aspx'
-                    }]
+	                }]
                 });
                 q_popAssign();
                 q_getFormat();
