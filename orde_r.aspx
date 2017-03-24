@@ -235,6 +235,20 @@
 				});
 				
 				$('#btnOrdc').click(function() {
+					if(!emp($('#txtGdate').val())){
+						var t_where = "where=^^ 1=1 ^^ stop=100";
+						q_gt('factory', t_where, 0, 0, 0, "getfactory",r_accy,1);
+						var as = _q_appendData("factory", "", true);
+						if (as[0] != undefined) {
+							if(as[0].tggno.length==0 || as[0].ip.length==0 || as[0].db.length==0){
+								alert("【Factory】內容不完整!!");
+								return;
+							}
+						}else{
+							alert("【Factory】編號不存在!!");
+							return;
+						}
+					}
 					//產生採購單
 					if(!emp($('#txtNoa').val())){
 						if(confirm('確定要轉採購單?')){
@@ -1047,6 +1061,13 @@
 							$('#cmbCoin').val(abbm[q_recno].coin);
 						
 						break;
+					case 'insfactory':
+						var as = _q_appendData("factory", "", true);
+						if (as[0] != undefined) {
+							$('#txtGdate').val(as[0].noa);
+							$('#txtGtime').val(as[0].factory);
+						}
+						break;
 					case 'msg_ucc':
 						var as = _q_appendData("ucc", "", true);
 						t_msg = '';
@@ -1713,6 +1734,10 @@
 				var t_where = "where=^^ 1=0 ^^ stop=100";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
 				
+				if(q_getPara('sys.project').toUpperCase()=='JO'){
+					var t_where = "where=^^ 1=1 ^^ stop=100";
+					q_gt('factory', t_where, 0, 0, 0, "insfactory");
+				}
 			}
 			
 			//106/03/16 限制 訂單交期 修改判斷總量是否有變動
@@ -1765,10 +1790,28 @@
 						+ encodeURI(r_userno) + ';' + encodeURI(r_name));
 					}
 				}
+				
+				
+				var factory_true=true;
+				if(!emp($('#txtGdate').val())){
+					var t_where = "where=^^ 1=1 ^^ stop=100";
+					q_gt('factory', t_where, 0, 0, 0, "getfactory",r_accy,1);
+					var as = _q_appendData("factory", "", true);
+					if (as[0] != undefined) {
+						if(as[0].tggno.length==0 || as[0].ip.length==0 || as[0].db.length==0){
+							alert("【Factory】內容不完整!!");
+							factory_true=false;
+						}
+					}else{
+						alert("【Factory】編號不存在!!");
+						factory_true=false;
+					}
+				}
+				
 				//修改後重新產生
-				if(q_cur==2 && (!emp($('#txtOrdcno').val()) || !emp($('#txtMemo2').val()))){
+				if(q_cur==2 && (!emp($('#txtOrdcno').val()) || !emp($('#txtMemo2').val())) && factory_true){
 					alert('重新轉採購單!!')
-						q_func('qtxt.query.orde2ordc_r', 'orde.txt,orde2ordc_r,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val())+ ';' + encodeURI(q_date())+ ';' + encodeURI(r_name));
+					q_func('qtxt.query.orde2ordc_r', 'orde.txt,orde2ordc_r,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val())+ ';' + encodeURI(q_date())+ ';' + encodeURI(r_name));
 				}
             }
             
