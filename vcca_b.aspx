@@ -39,7 +39,7 @@
                     return;
                 }
                 mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
-
+				
             }
 
             function mainPost() {
@@ -73,6 +73,19 @@
 	                    }
 	                }
 				}catch(e){}
+				
+				$('#btnSearch').click(function() {
+					var t_where="1=1";
+					var t_condition = $.trim($('#txtCondition').val());
+					if(t_condition.length>0){
+						t_where+=" and( charindex('"+t_condition+"',noa)>0"
+							+ " or charindex('"+t_condition+"',comp)>0"
+							+ " or charindex('"+t_condition+"',buyer)>0"
+							+ " or charindex('"+t_condition+"',serial)>0"
+							+ " or charindex('"+t_condition+"',memo)>0)";
+					}
+					location.href = "http://"+location.host +location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";"+t_where+";"+r_accy;
+				});
             }
 
             function q_gtPost() {
@@ -149,6 +162,11 @@
 				</tr>
 			</table>
 		</div>
+		<div>
+			<a>關鍵字查詢</a>
+			<input class="txt" id="txtCondition" type="text" style="width:130px;" />
+			<input type="button" id="btnSearch" style="border-style: none; width: 26px; height: 26px; cursor: pointer; background: url(../image/search_32.png) 0px 0px no-repeat;background-size: 100%;">
+		 </div>
 		<!--#include file="../inc/pop_ctrl.inc"-->
 	
 	</body>
