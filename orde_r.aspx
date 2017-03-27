@@ -1263,8 +1263,8 @@
 				}
 								
 				//106/03/16 限制 訂單交期 106/03/17後面等確定再改抓orde.dodate
-				var t_where="where=^^noa='qsys.orde.dodate'^^"
-				//var t_where="where=^^noa='orde.dodate'^^"
+				//var t_where="where=^^noa='qsys.orde.dodate'^^"
+				var t_where="where=^^noa='orde.dodate'^^"
 				q_gt('qsys', t_where, 0, 0, 0, "getdodate", r_accy, 1);
 				var as = _q_appendData("qsys", "", true);
 				if (as[0] != undefined) {
@@ -2063,6 +2063,7 @@
 				var t_date='',t_mon='';//計算日期
 				var factnotv=0;//排程量
 				if((q_cur==1 || q_cur==2)){
+					//排產週
 					/*if(!emp($('#txtOdate').val()) && !emp($('#txtDate3').val()) && !emp($('#txtGdate').val())){ //排產週
 						var t_odate=new Date(dec($('#txtOdate').val().substr(0,r_len))
 						,dec($('#txtOdate').val().substr(r_len+1,r_lenm-r_len-1))-1
@@ -2146,7 +2147,10 @@
 							}
 							$('#txtDatea_'+x).val(t_date);
 						}
-					}else*/ if(!emp($('#txtOdate').val()) && !emp($('#txtGdate').val()) && dec($('#txtMount_'+x).val())>0 ){
+					}*/ 
+					/*else*/
+					//supforecasts 工廠產能預估
+					/*if(!emp($('#txtOdate').val()) && !emp($('#txtGdate').val()) && dec($('#txtMount_'+x).val())>0 ){
 						var t_where = "where=^^ mon='" + q_cdn($('#txtOdate').val(),1).substr(0,r_lenm) + "' and factno='"+$('#txtGdate').val()+"' ^^";
 						q_gt('supforecasts', t_where, 0, 0, 0, "",r_accy,1);
 						var ass = _q_appendData("supforecasts", "", true);
@@ -2209,7 +2213,67 @@
 							}
 							$('#txtDatea_'+x).val(t_date);
 						}
+					}*/
+					
+					//106/03/27 根據sys orde.dodate +3 若 單一產品數量超出3000 多1天
+					var t_dodate=$('#txtOdate').val()>q_date()?$('#txtOdate').val():q_date();
+					var t_where = "where=^^ noa='orde.dodate' ^^";
+					q_gt('qsys', t_where, 0, 0, 0, "",r_accy,1);
+					var as = _q_appendData("qsys", "", true);
+					if (as[0] != undefined) {
+						t_dodate=as[0].value;
 					}
+					q_gt('holiday', "where=^^ noa>='"+q_date()+"' ^^ stop=100" , 0, 0, 0, "getholiday", r_accy,1);
+					var holiday = _q_appendData("holiday", "", true);
+					//先加3天
+					var t_addday=3;
+					
+					//該訂單品項總數量超出3000 多1天
+					var t_productno=$('#txtProductno_'+x).val();
+					var t_mount=0;
+					for (var j = 0; j < (dec(x)+1); j++) {
+						if($('#txtProductno_'+ j).val()==t_productno){
+							t_mount=q_add(t_mount,dec($('#txtMount_'+j).val()));
+						}
+					}
+					if(t_mount>3000){
+						t_addday=q_add(t_addday,Math.floor(t_mount/3000))
+					}
+					
+					while(t_addday>0){
+						t_dodate=q_cdn(t_dodate,1);
+						var t_iswork=true;
+						var t_holidaywork=false; //假日主檔是否要上班
+							
+						for(var k=0;k<holiday.length;k++){
+							if(holiday[k].noa==t_dodate){
+								if(holiday[k].iswork=="true"){
+									t_holidaywork=true;
+								}else{
+									t_iswork=false;
+								}
+							}
+						}
+							
+						if(!t_holidaywork && t_iswork){
+							var week='';
+							if(t_dodate.length==10){
+								week=new Date(dec(t_dodate.substr(0,4)),dec(t_dodate.substr(5,2))-1,dec(t_dodate.substr(8,2))).getDay()
+							}else{
+								week=new Date(dec(t_dodate.substr(0,3))+1911,dec(t_dodate.substr(4,2))-1,dec(t_dodate.substr(7,2))).getDay();
+							}
+									
+							if(q_getPara('sys.saturday')!='1' && week==6)
+								t_iswork=false;
+							if(week==0)
+								t_iswork=false;
+						}
+							
+						if(t_iswork){
+							t_addday--;
+						}
+					}
+					$('#txtDatea_'+x).val(t_dodate);
 				}
 			}
 			
