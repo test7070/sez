@@ -43,7 +43,7 @@
 						type : '2',
 						name : 'product', //[4][5]
 						dbf : 'ucaucc',
-						index : 'noa,product',
+						index : q_getPara('sys.project').toUpperCase()=='XY'?('noa,product,spec'):('noa,product'),
 						src : 'ucaucc_b.aspx'
 					}, {//1-3
 						type : '2',
