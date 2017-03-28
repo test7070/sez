@@ -1084,6 +1084,11 @@
                 	else
                 		$('#txtVccno_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
                 }
+                $('#tbbs').find('tr.data').children().hover(function(e){
+					$(this).parent().css('background','#F2F5A9');
+				},function(e){
+					$(this).parent().css('background','#cad3ff');
+				});
                 UsShow();
             }
 
@@ -1658,7 +1663,7 @@
 					<td align="center" style="width:5%;"><a id='lblUnpay_s'> </a></td>
 					<td align="center" style="width:3%;"><a id='lblCoins'> </a></td>
 				</tr>
-				<tr  style='background:#cad3ff;'>
+				<tr class="data" style='background:#cad3ff;'>
 					<td align="center">
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
