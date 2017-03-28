@@ -772,11 +772,12 @@
 		            $('#txtMoney_' + i).change(function (e) {
 		            	var n = $(this).attr('id').split('_')[1];
 		                sum();
-		                if(dec($('#txtFloata').val())!=0){
+		                //106/03/28不換算外幣金額
+		                /*if(dec($('#txtFloata').val())!=0){
 		                	$('#txtMoneyus_'+n).val(round(q_div(dec($(this).val()),dec($('#txtFloata').val())),5));
 		                }else{
 		                	$('#txtMoneyus_'+n).val(0);
-		                }
+		                }*/
 		            });
 
 		            $('#txtChgs_' + i).change(function (e) {
