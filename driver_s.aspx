@@ -34,7 +34,7 @@
                 $('#txtBtakeofficedate').datepicker();
                 $('#txtEtakeofficedate').datepicker();
 				q_cmbParse("cmbCartype",'@全部,'+q_getPara('driver.cartype'));
-                $('#txtBtakeofficedate').focus();
+                $('#txtNoa').focus();
             }
 
             function q_seekStr() {
@@ -44,6 +44,7 @@
                 t_namea = $('#txtNamea').val();
                 t_guild = $('#txtGuild').val();
 				t_cartype = $('#cmbCartype').val();
+				t_memo = $.trim($('#txtMemo').val());
 				
 				t_carno = $.trim($('#txtCarno').val());
 				
@@ -53,6 +54,10 @@
                 	+ q_sqlPara2("takeofficedate", t_btakeofficedate, t_etakeofficedate) 
                 	+ q_sqlPara2("guild", t_guild)
                 	+ q_sqlPara2("cartype", t_cartype);
+                
+                if(t_memo.length>0){
+                	t_where += " and (charindex('"+t_memo+"',tel)>0 or charindex('"+t_memo+"',mobile)>0 or charindex('"+t_memo+"',idno)>0 or charindex('"+t_memo+"',memo)>0)"; 
+                }
                 
                 if(t_carno.length>0){
                 	t_where+= " and exists(select noa from car2 where driverno=driver.noa and charindex('"+t_carno+"',carno)>0)";
@@ -112,7 +117,10 @@
 					<input class="txt" id="txtCarno" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
-		
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblMemo'>電話、備註</a></td>
+					<td><input class="txt" id="txtMemo" type="text" style="width:215px; font-size:medium;" title="電話、手機、身份證、備註"/></td>
+				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
 		</div>
