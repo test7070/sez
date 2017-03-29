@@ -126,6 +126,21 @@
                         type : '0',
                         name : 'r_len',
                         value : r_len
+                    }, {//XY使用//4-1
+						type : '2', //[29][30]
+						name : 'xycust',
+						dbf : 'cust',
+						index : 'noa,comp',
+						src : 'cust_b.aspx'
+					}, {//XY使用//4-2
+                        type : '6', //[31]
+                        name : 'xyproduct'
+                    }, {//XY使用//4-3
+                        type : '6', //[32]
+                        name : 'xystyle',
+                    }, {//XY使用//4-4
+                        type : '6', //[33]
+                        name : 'xyspec'
                     }]
 				});
 				q_popAssign();
@@ -186,6 +201,18 @@
         				q_func( 'qtxt.query.stkucce','stkucc.txt,stkucce,' + t_datea+ ';'+t_type+ ';'+ t_bstore+ ';'+ t_estore+ ';'+ t_bpno+ ';'+ t_epno);
         			}
                 });
+                
+                if(window.parent.q_name=='z_uccep_xy' && q_getPara('sys.project').toUpperCase()=='XY'){
+                	if (q_getHref()[1] != undefined) {
+                		$('#txtProduct1a').val(q_getHref()[1]);
+                		$('#txtProduct2a').val(q_getHref()[1]);
+                	}
+                	
+                	if (q_getHref()[3] != undefined) {
+                		$('#txtEdate').val(q_getHref()[3]);
+                	}
+                	$('#btnOk').click();
+                }
 			}
 
 			function q_boxClose(s2) {
