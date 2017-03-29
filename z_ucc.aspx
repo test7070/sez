@@ -126,6 +126,21 @@
                         type : '0',
                         name : 'r_len',
                         value : r_len
+                    }, {//XY使用//4-1
+						type : '2', //[29][30]
+						name : 'xycust',
+						dbf : 'cust',
+						index : 'noa,comp',
+						src : 'cust_b.aspx'
+					}, {//XY使用//4-2
+                        type : '6', //[31]
+                        name : 'xyproduct'
+                    }, {//XY使用//4-3
+                        type : '6', //[32]
+                        name : 'xystyle',
+                    }, {//XY使用//4-4
+                        type : '6', //[33]
+                        name : 'xyspec'
                     }]
 				});
 				q_popAssign();
