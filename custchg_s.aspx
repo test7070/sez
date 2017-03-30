@@ -62,6 +62,7 @@
                 t_edate = $('#txtEdate').val();
                 t_custno = $('#txtCustno').val();
                 t_carteam = $('#cmbCarteam').val();
+                t_memo = $.trim($('#txtMemo').val());
 
                 var t_where = " 1=1 " 
                 	+ q_sqlPara2("noa", t_noa) 
@@ -69,6 +70,10 @@
                 	+ q_sqlPara2("custno", t_custno)
                 	+ q_sqlPara2("acc1", t_acc1)
 					+ q_sqlPara2("carteamno", t_carteam);
+				
+				if(t_memo.length>0){
+					t_where += " and (charindex('"+t_memo+"',memo)>0 or charindex('"+t_memo+"',plusitem)>0 or charindex('"+t_memo+"',minusitem)>0 or charindex('"+t_memo+"',trdno)>0)";
+				}	
 
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
@@ -114,6 +119,12 @@
 					<td class='seek'  style="width:20%;"><a id='lblAcc1'></a></td>
 					<td>
 					<input class="txt" id="txtAcc1" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblMemo'>備註</a></td>
+					<td>
+					<input class="txt" id="txtMemo" type="text" style="width:215px; font-size:medium;" title="備註、項目名稱、請款單號"/>
 					</td>
 				</tr>
 			</table>
