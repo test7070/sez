@@ -108,6 +108,7 @@
 						$('#lblBuyer').click(function(e){
 							if(!(q_cur==1 || q_cur==2))
 								return;
+							b_pop = '';
 							var t_custno = $('#txtCustno').val();
 		                	var t_cno = $('#txtCno').val();
 		                	var t_where ='';
@@ -343,7 +344,7 @@
 
 			function q_boxClose(s2) {
 				var ret;
-				switch (s2) {
+				switch (b_pop) {
 					case 'cust_buyer':
 						if (b_ret != null) {
                         	as = b_ret;
