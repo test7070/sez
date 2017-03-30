@@ -98,6 +98,26 @@
 
 			function mainPost() {
 				switch(q_getPara('sys.project').toUpperCase()){
+					case 'DC':
+						//買受人改 cust_buyer_b
+						aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
+						, ['txtAddress', '', 'view_road', 'memo,zipcode', '0txtAddress,txtZip', 'road_b.aspx']
+						, ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,serial,zip_invo,addr_invo', 'txtCustno,txtComp,txtNick,txtSerial,txtZip,txtAddress', 'cust_b.aspx']
+						, ['txtSerial', 'lblSerial', 'vccabuyer', 'serial,noa,buyer', '0txtSerial,txtBuyerno,txtBuyer', 'vccabuyer_b.aspx']
+						, ['txtProductno_', 'btnProductno_', 'ucca', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucca_b.aspx']);
+						$('#lblBuyer').click(function(e){
+							if(!(q_cur==1 || q_cur==2))
+								return;
+							var t_custno = $('#txtCustno').val();
+		                	var t_cno = $('#txtCno').val();
+		                	var t_where ='';
+		                	if(t_custno.length>0)
+		                		q_box("cust_buyer_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+";"+JSON.stringify({custno:t_custno,cno:t_cno}), "cust_buyer", "95%", "95%", '');
+							else
+								alert('請輸入客戶編號');
+						});
+						
+						break;
 					case 'YC':
 						bbsNum = [['txtMount', 15, 3], ['txtGmount', 15, 4], ['txtEmount', 15, 4], ['txtPrice', 15, 4], ['txtTotal', 15, 0]];
 						break;
