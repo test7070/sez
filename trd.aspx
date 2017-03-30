@@ -356,6 +356,16 @@
                 	abbm[q_recno]['year2'] = string[3];
                		//$('#txtYear2').val(string[3]);
                 }
+                //存檔產生發票
+                /*switch(q_getPara('sys.project').toUpperCase()){
+                	case 'WH':
+                		var t_noa = $.trim($('#txtNoa').val());
+                		q_func('qtxt.query.trd2vcca', 'trd.txt,trd2vcca,' + encodeURI(t_noa)); 
+                		break;
+                	default:
+                		break;
+                }*/
+                
                 Unlock(1);
             }
             function btnOk() {
