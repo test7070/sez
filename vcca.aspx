@@ -343,7 +343,19 @@
 
 			function q_boxClose(s2) {
 				var ret;
-				switch (b_pop) {
+				switch (s2) {
+					case 'cust_buyer':
+						if (b_ret != null) {
+                        	as = b_ret;
+                        	if(as[0]!=undefined){
+                        		$('#txtBuyerno').val(as[0].buyerno);
+                        		$('#txtBuyer').val(as[0].buyer);
+                        		$('#txtSerial').val(as[0].serial);
+                        		$('#txtZip').val(as[0].zip);
+                        		$('#txtAddress').val(as[0].address);
+                        	}
+                        }
+						break;
 					case 'vccavcc':
                         if (b_ret != null) {
                         	$("#dbbt").show();
