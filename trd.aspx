@@ -40,12 +40,14 @@
             , ['txtStraddrno', '', 'addr', 'noa,addr', 'txtStraddrno,txtStraddr', 'addr_b2.aspx']
             , ['txtEndaddrno', '', 'addr', 'noa,addr', 'txtEndaddrno,txtEndaddr', 'addr_b2.aspx']
             , ['txtBoatno', 'lblBoat', 'boat', 'noa,boat', 'txtBoatno,txtBoat', 'boat_b.aspx']);
-
+			
+			var t_carteam = '';
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+                q_gt('carteam', '', 0, 0, 0, "");
+                
             });
             function main() {
                 if (dataErr) {
@@ -60,6 +62,8 @@
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtBtrandate', r_picd], ['txtEtrandate', r_picd], ['txtVccadate', r_picd]];
                 q_mask(bbmMask);
+                q_cmbParse("cmbCarteamno", t_carteam);
+                
 				$('#txtBdate').datepicker();
 				$('#txtEdate').datepicker();
 				$('#txtBtrandate').datepicker();
@@ -118,6 +122,7 @@
                 	var t_etrandate = $.trim($('#txtEtrandate').val());
                 	var t_baddrno = $.trim($('#txtStraddrno').val());
                 	var t_eaddrno = $.trim($('#txtEndaddrno').val());
+                	var t_carteamno = $.trim($('#cmbCarteamno').val());
                 	var t_where = "(b.noa is null or b.noa='"+t_noa+"')";
                 	t_where += " and a.custno='"+t_custno+"'";
                 	t_where += t_bdate.length>0?" and a.datea>='"+t_bdate+"'":"";
@@ -126,12 +131,17 @@
                 	t_where += t_etrandate.length>0?" and a.trandate<='"+t_etrandate+"'":"";
                 	t_where += t_baddrno.length>0?" and a.straddrno>='"+t_baddrno+"'":"";
                 	t_where += t_eaddrno.length>0?" and a.straddrno<='"+t_eaddrno+"'":"";
+                	if(t_carteamno.length>0){
+                   		t_where += " and a.carteamno='"+t_carteamno+"'";
+                   	}else{
+                   		//alert('立帳單中的資料，車隊需一致。');
+                   	}
                 	var t_po = "";
                 	if ($.trim($('#txtPo').val()).length > 0) {
                         var tmp = $.trim($('#txtPo').val()).split(',');
                         t_po = ' and (';
                         for (var i in tmp)
-                        t_po += (i == 0 ? '' : ' or ') + "a.po='" + tmp[i] + "'"
+                        t_po += (i == 0 ? '' : ' or ') + "a.po='" + tmp[i] + "'";
                         t_po += ')';
                         t_where += t_po;
                     }
@@ -148,6 +158,12 @@
                     }
                     t_custchgno = 'custchgno=' + $('#txtCustchgno').val();
                     t_where = "  custno='" + $('#txtCustno').val() + "' and  (trdno='" + $('#txtNoa').val() + "' or len(isnull(trdno,''))=0) ";
+                   	var t_carteamno = $.trim($('#cmbCarteamno').val());
+                   	if(t_carteamno.length>0){
+                   		t_where += " and carteamno='"+t_carteamno+"'";
+                   	}else{
+                   		//alert('立帳單中的資料，車隊需一致。');
+                   	}
                     q_box("custchg_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;" + t_custchgno + ";", 'custchg', "95%", "650px", q_getMsg('popCustchg'));
                 });
                 $("#btnVcca").click(function(e) {
@@ -166,6 +182,16 @@
 				
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'carteam':
+						var as = _q_appendData("carteam", "", true);
+						t_carteam = "@";
+						if(as[0]!=undefined){
+    						for ( i = 0; i < as.length; i++) {
+    							t_carteam = t_carteam + (t_carteam.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
+    						}
+						}
+						q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
+                		break;
                 	case 'btnDele':
                 		var as = _q_appendData("umms", "", true);
                         if (as[0] != undefined) {
@@ -330,6 +356,16 @@
                 	abbm[q_recno]['year2'] = string[3];
                		//$('#txtYear2').val(string[3]);
                 }
+                //存檔產生發票
+                /*switch(q_getPara('sys.project').toUpperCase()){
+                	case 'WH':
+                		var t_noa = $.trim($('#txtNoa').val());
+                		q_func('qtxt.query.trd2vcca', 'trd.txt,trd2vcca,' + encodeURI(t_noa)); 
+                		break;
+                	default:
+                		break;
+                }*/
+                
                 Unlock(1);
             }
             function btnOk() {
@@ -718,6 +754,7 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id="vewChk"> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id="vewDatea"> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewCarteam'>車隊</a></td>
 						<td align="center" style="width:100px; color:black;"><a id="vewComp"> </a></td>
 						<td align="center" style="width:120px; color:black;"><a id="vewPo">P/O</a></td>
 						<td align="center" style="width:70px; color:black;"><a id="vewMoney"> </a></td>
@@ -732,6 +769,7 @@
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox"/></td>
 						<td id="datea" style="text-align: center;">~datea</td>
+						<td id="carteamno=cmbCarteamno" style="text-align: center;">~carteamno=cmbCarteamno</td>
 						<td id="nick" style="text-align: center;">~nick</td>
 						<td id="po" style="text-align: center;">~po</td>
 						<td id="money,0,1" style="text-align: right;">~money,0,1</td>
@@ -799,8 +837,8 @@
 						<td class="tdZ"> </td>
 					</tr>
 					<tr class="trX">
-						<td> </td>
-						<td> </td>
+						<td><span> </span><a id="lblCarteam" class="lbl">車隊</a></td>
+						<td><select id="cmbCarteamno" class="txt c1"> </select></td>
 						<td> </td>
 						<td> </td>
 						<td> </td>

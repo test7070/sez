@@ -9,7 +9,10 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
-
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             this.errorHandler = null;
             function onPageError(error) {
@@ -64,14 +67,14 @@
 				}
 			};
 			var curData = new currentData();
-			
+			var t_carteam = '';
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1);
+                q_gt('carteam', '', 0, 0, 0, "");
+                
             });
 
-            //////////////////   end Ready
             function main() {
                 if (dataErr) {
                     dataErr = false;
@@ -85,12 +88,15 @@
                 q_modiDay = q_getPara('sys.modiday2');
                 /// 若未指定， d4=  q_getPara('sys.modiday');
                 q_mask(bbmMask);
+                q_cmbParse("cmbCarteamno", t_carteam);
+                
                 $('#txtAcc1').change(function() {
-                    var s1 = trim($(this).val());
-                    if (s1.length > 4 && s1.indexOf('.') < 0)
-                        $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
-                    if (s1.length == 4)
-                        $(this).val(s1 + '.');
+                    var patt = /^(\d{4})([^\.,.]*)$/g;
+                    if (patt.test($(this).val()))
+                        $(this).val($(this).val().replace(patt, "$1.$2"));
+                    else if ((/^(\d{4})$/).test($(this).val())) {
+                        $(this).val($(this).val() + '.');
+                    }
                 });
                 $('#txtMinusitemno').blur(function(e) {
                     $('#txtMinusitem').focus();
@@ -105,19 +111,28 @@
                 switch (b_pop) {
                     case q_name + '_s':
                         q_boxClose2(s2);
-                        ///   q_boxClose 3/4
                         break;
                 }   /// end Switch
             }
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'carteam':
+						var as = _q_appendData("carteam", "", true);
+						t_carteam = "@";
+						if(as[0]!=undefined){
+    						for ( i = 0; i < as.length; i++) {
+    							t_carteam = t_carteam + (t_carteam.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
+    						}
+						}
+						q_gt(q_name, q_content, q_sqlCount, 1);
+						break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
 
                         break;
-                }  /// end switch
+                } 
             }
 
             /*   function q_popPost(id) {
@@ -139,7 +154,7 @@
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('custchg_s.aspx', q_name + '_s', "530px", "400px", q_getMsg("popSeek"));
+                q_box('custchg_s.aspx', q_name + '_s', "550px", "500px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -206,6 +221,12 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                if (t_para){
+                	$('#txtDatea').datepicker('destroy');
+                }
+                else{
+                	$('#txtDatea').datepicker();
+                }
             }
 
             function btnMinus(id) {
@@ -433,6 +454,7 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewCarteam'>車隊</a></td>
 						<td align="center" style="width:140px; color:black;"><a id='vewComp'> </a></td>
 						<td align="center" style="width:300px; color:black;"><a id='vewItem'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewMinusmoney'> </a></td>
@@ -444,6 +466,7 @@
 						<input id="chkBrow.*" type="checkbox" />
 						</td>
 						<td id="datea" style="text-align: center;">~datea</td>
+						<td id="carteamno=cmbCarteamno" style="text-align: center;">~carteamno=cmbCarteamno</td>
 						<td id="comp,4" style="text-align: center;">~comp,4</td>
 						<td id="minusitem plusitem" style="text-align: left;">~minusitem ~plusitem</td>
 						<td id="minusmoney,0,1" style="text-align: right;">~minusmoney,0,1</td>
@@ -474,6 +497,8 @@
 						<td>
 						<input id="txtDatea"  type="text" class="txt c1" />
 						</td>
+						<td><span> </span><a id="lblCarteam" class="lbl">車隊</a></td>
+						<td><select id="cmbCarteamno" class="txt c1"> </select></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblAcomp" class="lbl btn" > </a></td>
