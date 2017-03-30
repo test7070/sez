@@ -98,7 +98,7 @@
 
 			function mainPost() {
 				switch(q_getPara('sys.project').toUpperCase()){
-					case 'DC':
+					case 'ES':
 						//買受人改 cust_buyer_b
 						aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
 						, ['txtAddress', '', 'view_road', 'memo,zipcode', '0txtAddress,txtZip', 'road_b.aspx']
@@ -111,9 +111,10 @@
 							b_pop = '';
 							var t_custno = $('#txtCustno').val();
 		                	var t_cno = $('#txtCno').val();
+		                	var t_condition = '';
 		                	var t_where ='';
 		                	if(t_custno.length>0)
-		                		q_box("cust_buyer_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+";"+JSON.stringify({custno:t_custno,cno:t_cno}), "cust_buyer", "95%", "95%", '');
+		                		q_box("cust_buyer_b.aspx?" + r_userno + ";" + r_name + ";" + q_getId()[2] + ";" + t_where+";"+";"+JSON.stringify({custno:t_custno,cno:t_cno,condition:t_condition,q_time:q_time}), "cust_buyer", "95%", "95%", '**');
 							else
 								alert('請輸入客戶編號');
 						});

@@ -28,24 +28,35 @@
                 var t_para = new Array();
 	            try{
 	            	t_para = JSON.parse(decodeURIComponent(q_getId()[5]));
-	            	t_content = "where=^^['"+t_para.custno+"','"+t_para.cno+"')^^";
+	            	t_content = "where=^^['"+t_para.custno+"','"+t_para.cno+"','"+t_para.condition+"')^^";
+	            	$('#txtCondition').val(t_para.condition);
 	            }catch(e){
 	            }    
                 brwCount = -1;
-                mainBrow(0, t_content);
+                mainBrow(6, t_content);
                 for (var i = 0; i < q_bbsCount; i++) {
 					$('#lblNo_' + i).text(i + 1);
 				}
+				$('#btnSearch').click(function() {
+					var t_where ='';
+					var t_custno='',t_cno='';
+					var t_condition = $.trim($('#txtCondition').val());
+		            try{
+		            	t_para = JSON.parse(decodeURIComponent(q_getId()[5]));
+		            	t_custno=t_para.custno;
+		            	t_cno=t_para.cno;
+		            	q_time=t_para.q_time;
+		            }catch(e){
+		            } 
+		            console.log("http://"+location.host +location.pathname+"?" + r_userno + ";" + r_name + ";" + q_getId()[2] + ";" + t_where+";"+";"+JSON.stringify({custno:t_custno,cno:t_cno,condition:t_condition,q_time:q_time}));
+					location.href = "http://"+location.host +location.pathname+"?" + r_userno + ";" + r_name + ";" + q_getId()[2] + ";" + t_where+";"+";"+JSON.stringify({custno:t_custno,cno:t_cno,condition:t_condition,q_time:q_time});
+				});
             }
 			function mainPost() {
 				$('#btnTop').hide();
 				$('#btnPrev').hide();
 				$('#btnNext').hide();
 				$('#btnBott').hide();
-				
-				$('#checkAllCheckbox').click(function(e){
-					$('.ccheck').prop('checked',$(this).prop('checked'));
-				});
 			}
             function q_gtPost(t_name) {
 				switch (t_name) {
@@ -59,11 +70,24 @@
             function refresh() {
                 _refresh();
             }
+            function bbsAssign() {/// 表身運算式
+				for (var i = 0; i < q_bbsCount; i++) {
+					$('#lblNo_' + i).text(i + 1);
+					if ($('#btnMinus_' + i).hasClass('isAssign')) 
+						continue;
+				}
+				_bbsAssign();
+			}
 		</script>
 		<style type="text/css">
 		</style>
 	</head>
 	<body>
+		<div>
+			<a>查詢</a>
+			<input class="txt" id="txtCondition" type="text" style="width:130px;" />
+			<input type="button" id="btnSearch" style="border-style: none; width: 26px; height: 26px; cursor: pointer; background: url(../image/search_32.png) 0px 0px no-repeat;background-size: 100%;">
+		 </div>
 		<div  id="dFixedTitle" style="overflow-y: scroll;">
 			<table id="tFixedTitle" class='tFixedTitle'  border="2"  cellpadding='2' cellspacing='1' style='width:100%;'  >
 				<tr style='color:white; background:#003366;' >
@@ -104,6 +128,7 @@
 				</tr>
 			</table>
 		</div>
+		
 		<!--#include file="../inc/pop_ctrl.inc"-->
 	</body>
 </html>
