@@ -1247,32 +1247,7 @@
 		</style>
 	</head>
 	<body>
-		<div id="toolbar">
-  <div id="q_menu"></div>
-  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <input id="btnXchg" type="button" style="display:none;background:url(../image/xchg_24.png) no-repeat;width:28px;height:26px"/>
-  <a id='lblQcopy' style="display:none;"></a>
-  <input id="chekQcopy" type="checkbox" style="display:none;"/>
-  <input id="btnIns" type="button"/>
-  <input id="btnModi" type="button"/>
-  <input id="btnDele" type="button"/>
-  <input id="btnSeek" type="button"/>
-  <input id="btnPrint" type="button"/>
-  <input id="btnPrevPage" type="button"/>
-  <input id="btnPrev" type="button"/>
-  <input id="btnNext" type="button"/>
-  <input id="btnNextPage" type="button"/>
-  <input id="btnOk" type="button" disabled="disabled" />&nbsp;&nbsp;&nbsp;
-  <input id="btnCancel" type="button" disabled="disabled"/>&nbsp;
-  <input id="btnAuthority" type="button" />&nbsp;&nbsp;
-  <span id="btnSign" style="text-decoration: underline;"></span>&nbsp;&nbsp;
-  <span id="btnAsign" style="text-decoration: underline;"></span>&nbsp;&nbsp;
-  <span id="btnLogout" style="text-decoration: underline;color:orange;"></span>&nbsp;&nbsp;
-  <input id="pageNow" type="text"  style="position: relative;text-align:center;"  size="2"/> /
-  <input id="pageAll" type="text"  style="position: relative;text-align:center;"  size="2"/>
-  </div>
-  <div id="q_acDiv"></div>
-</div>
+		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' style="overflow:hidden; width: 1270px;">
 			<div class="dview" id="dview">
 				<table class="tview" id="tview" >
