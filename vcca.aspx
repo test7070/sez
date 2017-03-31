@@ -98,27 +98,14 @@
 
 			function mainPost() {
 				switch(q_getPara('sys.project').toUpperCase()){
+					case 'DC':
+						cust_buyer();
+						break;
+					case 'WH':
+						cust_buyer();
+						break;
 					case 'ES':
-						//買受人改 cust_buyer_b
-						aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
-						, ['txtAddress', '', 'view_road', 'memo,zipcode', '0txtAddress,txtZip', 'road_b.aspx']
-						, ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,serial,zip_invo,addr_invo', 'txtCustno,txtComp,txtNick,txtSerial,txtZip,txtAddress', 'cust_b.aspx']
-						, ['txtSerial', 'lblSerial', 'vccabuyer', 'serial,noa,buyer', '0txtSerial,txtBuyerno,txtBuyer', 'vccabuyer_b.aspx']
-						, ['txtProductno_', 'btnProductno_', 'ucca', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucca_b.aspx']);
-						$('#lblBuyer').click(function(e){
-							if(!(q_cur==1 || q_cur==2))
-								return;
-							b_pop = '';
-							var t_custno = $('#txtCustno').val();
-		                	var t_cno = $('#txtCno').val();
-		                	var t_condition = '';
-		                	var t_where ='';
-		                	if(t_custno.length>0)
-		                		q_box("cust_buyer_b.aspx?" + r_userno + ";" + r_name + ";" + q_getId()[2] + ";" + t_where+";"+";"+JSON.stringify({custno:t_custno,cno:t_cno,condition:t_condition,q_time:q_time}), "cust_buyer", "95%", "95%", '**');
-							else
-								alert('請輸入客戶編號');
-						});
-						
+						cust_buyer();
 						break;
 					case 'YC':
 						bbsNum = [['txtMount', 15, 3], ['txtGmount', 15, 4], ['txtEmount', 15, 4], ['txtPrice', 15, 4], ['txtTotal', 15, 0]];
@@ -136,7 +123,6 @@
 						bbsNum = [['txtMount', 15, 3,1], ['txtGmount', 15, 4,1], ['txtEmount', 15, 4,1], ['txtPrice', 15, 4,1], ['txtTotal', 15, 0,1]];
 						break;
 					default:
-					
 						break;
 				}
 				q_getFormat();
@@ -144,6 +130,14 @@
 				q_mask(bbmMask);
 				q_xchgForm();
 				q_cmbParse("cmbTaxtype", q_getPara('vcca.taxtype'));
+				
+				switch(q_getPara('sys.project').toUpperCase()){
+					case 'VU':
+						$('#chkAtax').show();
+						break;
+					default:
+						break;	
+				}
 				
 				//HOT KEY
                 $('#btnIns').val('新增(alt+1)').css('white-space','normal').css('width','70px');
@@ -210,8 +204,7 @@
 						q_box("generateC0701.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateC0701", "95%", "95%", '');
 					}
 				});
-				if(q_getPara('sys.project').toUpperCase()=='VU')
-					$('#chkAtax').show();
+				
 				
 				$('#cmbTaxtype').focus(function() {
 					var len = $("#cmbTaxtype").children().length > 0 ? $("#cmbTaxtype").children().length : 1;
@@ -253,18 +246,24 @@
 				});
 				$('#lblVccno').click(function() {
 					t_vccno = $('#txtVccno').val();
-					
 					if(t_vccno.length>0){
-						if (q_getPara('sys.project').toUpperCase()=='IT')
-							q_pop('txtVccno', "vcc_it.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + ($('#txtDatea').val().substring(0, 3)<'101'?r_accy:$('#txtDatea').val().substring(0, 3)) + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
-						else if (q_getPara('sys.comp').indexOf('裕承隆') > -1)
-							q_pop('txtVccno', "vccst.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
-						else if (q_getPara('sys.project').toUpperCase()=='VU')
-							q_pop('txtVccno', "vcc_vu.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
-						else if (q_getPara('sys.project').toUpperCase()=='XY')
-							q_pop('txtVccno', "vcc_xy.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";charindex(noa,'" + $('#txtVccno').val() + "')>0;" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
-						else
-							q_pop('txtVccno', "vcc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
+						switch(q_getPara('sys.project').toUpperCase()){
+							case 'IT':
+								q_pop('txtVccno', "vcc_it.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + ($('#txtDatea').val().substring(0, 3)<'101'?r_accy:$('#txtDatea').val().substring(0, 3)) + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
+								break;
+							case 'BD':
+								q_pop('txtVccno', "vccst.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
+								break;
+							case 'VU':
+								q_pop('txtVccno', "vcc_vu.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
+								break;
+							case 'XY':
+								q_pop('txtVccno', "vcc_xy.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";charindex(noa,'" + $('#txtVccno').val() + "')>0;" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
+								break;
+							default:
+								q_pop('txtVccno', "vcc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
+								break;	
+						}
 					}else{
 						if (q_getPara('sys.project').toUpperCase()=='XY'){
 							return;
@@ -648,6 +647,11 @@
 					}
 				}
 				_bbsAssign();
+				$('#tbbs').find('tr.data').children().hover(function(e){
+					$(this).parent().css('background','#F2F5A9');
+				},function(e){
+					$(this).parent().css('background','#cad3ff');
+				});
 				refreshBbs();
 				for (var j = 0; j < q_bbsCount; j++) {
 					if (j>=7 && q_getPara('sys.project').toUpperCase()=='VU'){
@@ -768,11 +772,14 @@
 
 			function btnPrint() {
 				switch(q_getPara('sys.project').toUpperCase()){
+					case 'WH':
+						q_box("z_vccap_wh.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({noa:trim($('#txtNoa').val())}) + ";" + r_accy + "_" + r_cno, 'vcca', "95%", "95%", q_getMsg("popPrint"));
+						break;
 					case 'ES':
 						q_box("z_vccap_es.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({noa:trim($('#txtNoa').val())}) + ";" + r_accy + "_" + r_cno, 'vcca', "95%", "95%", q_getMsg("popPrint"));
 						break;
 					case 'DC':
-						q_box('z_vccadc.aspx?;;;' + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+						q_box("z_vccadc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({noa:trim($('#txtNoa').val())}) + ";" + r_accy + "_" + r_cno, 'vcca', "95%", "95%", q_getMsg("popPrint"));
 						break;
 					case 'IT':
 						q_box('z_vccap_it.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
@@ -788,9 +795,6 @@
 						break;
 					case 'FE':
 						q_box('z_vccap_fe.aspx' + "?;;;noa=" + trim($('#txtNoa').val())+";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
-						break;
-					case 'WH':
-						q_box("z_vccap_wh.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({noa:trim($('#txtNoa').val())}) + ";" + r_accy + "_" + r_cno, 'vcca', "95%", "95%", q_getMsg("popPrint"));
 						break;
 					default:
 						q_box('z_vccap.aspx?;;;' + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
@@ -1230,6 +1234,29 @@
 					$('#lblTot_money').text('');
             }
             
+            function cust_buyer(){
+            	//買受人改 cust_buyer_b
+				aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
+				, ['txtAddress', '', 'view_road', 'memo,zipcode', '0txtAddress,txtZip', 'road_b.aspx']
+				, ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,serial,zip_invo,addr_invo', 'txtCustno,txtComp,txtNick,txtSerial,txtZip,txtAddress', 'cust_b.aspx']
+				, ['txtSerial', 'lblSerial', 'vccabuyer', 'serial,noa,buyer', '0txtSerial,txtBuyerno,txtBuyer', 'vccabuyer_b.aspx']
+				, ['txtProductno_', 'btnProductno_', 'ucca', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucca_b.aspx']);
+				$('#lblBuyer').click(function(e){
+					if(!(q_cur==1 || q_cur==2))
+						return;
+					b_pop = '';
+					var t_custno = $('#txtCustno').val();
+                	var t_cno = $('#txtCno').val();
+                	var t_condition = '';
+                	var t_where ='';
+                	if(t_custno.length>0)
+                		q_box("cust_buyer_b.aspx?" + r_userno + ";" + r_name + ";" + q_getId()[2] + ";" + t_where+";"+";"+JSON.stringify({custno:t_custno,cno:t_cno,condition:t_condition,q_time:q_time}), "cust_buyer", "95%", "95%", '**');
+					else{
+						q_msg($('#txtCustno'),'輸入客戶編號，以便顯示買受人記錄。');
+					}
+				});
+            }
+            
             function FormatNumber(n) {
 				var xx = "";
 				if (n < 0) {
@@ -1240,37 +1267,6 @@
 				var arr = n.split(".");
 				var re = /(\d{1,3})(?=(\d{3})+$)/g;
 				return xx + arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
-			}
-
-			function checkId(str) {
-				if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
-					var key = 'ABCDEFGHJKLMNPQRSTUVXYWZIO';
-					var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
-					var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
-					if ((n % 10) == 0)
-						return 1;
-				} else if ((/^[0-9]{8}$/g).test(str)) {//統一編號
-					var key = '12121241';
-					var n = 0;
-					var m = 0;
-					for (var i = 0; i < 8; i++) {
-						n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
-						m += Math.floor(n / 10) + n % 10;
-					}
-					if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
-						return 2;
-				} else if ((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)) {//西元年
-					var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$");
-					if (regex.test(str))
-						return 3;
-				} else if ((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)) {//民國年
-					str = (parseInt(str.substring(0, 3)) + 1911) + str.substring(3);
-					var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$");
-					if (regex.test(str))
-						return 4;
-				}
-				return 0;
-				//錯誤
 			}
 		</script>
 		<style type="text/css">
@@ -1581,7 +1577,7 @@
 					<td align="center" style="width:80px;display: none;" class="ordeno"><a id='lblOrdeno'> </a></td>
 					<td align="center" style="width:180px;"><a id='lblMemos'> </a></td>
 				</tr>
-				<tr id="tr.*" style='background:#cad3ff;'>
+				<tr id="tr.*" class='data' style='background:#cad3ff;'>
 					<td align="center">
 						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 						<input id="txtNoq.*" type="text" style="display: none;" />
