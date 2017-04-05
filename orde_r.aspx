@@ -235,6 +235,20 @@
 				});
 				
 				$('#btnOrdc').click(function() {
+					if(!emp($('#txtGdate').val())){
+						var t_where = "where=^^ 1=1 ^^ stop=100";
+						q_gt('factory', t_where, 0, 0, 0, "getfactory",r_accy,1);
+						var as = _q_appendData("factory", "", true);
+						if (as[0] != undefined) {
+							if(as[0].tggno.length==0 || as[0].ip.length==0 || as[0].db.length==0){
+								alert("【Factory】內容不完整!!");
+								return;
+							}
+						}else{
+							alert("【Factory】編號不存在!!");
+							return;
+						}
+					}
 					//產生採購單
 					if(!emp($('#txtNoa').val())){
 						if(confirm('確定要轉採購單?')){
@@ -1047,6 +1061,13 @@
 							$('#cmbCoin').val(abbm[q_recno].coin);
 						
 						break;
+					case 'insfactory':
+						var as = _q_appendData("factory", "", true);
+						if (as[0] != undefined) {
+							$('#txtGdate').val(as[0].noa);
+							$('#txtGtime').val(as[0].factory);
+						}
+						break;
 					case 'msg_ucc':
 						var as = _q_appendData("ucc", "", true);
 						t_msg = '';
@@ -1242,8 +1263,8 @@
 				}
 								
 				//106/03/16 限制 訂單交期 106/03/17後面等確定再改抓orde.dodate
-				var t_where="where=^^noa='qsys.orde.dodate'^^"
-				//var t_where="where=^^noa='orde.dodate'^^"
+				//var t_where="where=^^noa='qsys.orde.dodate'^^"
+				var t_where="where=^^noa='orde.dodate'^^"
 				q_gt('qsys', t_where, 0, 0, 0, "getdodate", r_accy, 1);
 				var as = _q_appendData("qsys", "", true);
 				if (as[0] != undefined) {
@@ -1713,6 +1734,10 @@
 				var t_where = "where=^^ 1=0 ^^ stop=100";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
 				
+				if(q_getPara('sys.project').toUpperCase()=='JO'){
+					var t_where = "where=^^ 1=1 ^^ stop=100";
+					q_gt('factory', t_where, 0, 0, 0, "insfactory");
+				}
 			}
 			
 			//106/03/16 限制 訂單交期 修改判斷總量是否有變動
@@ -1765,10 +1790,28 @@
 						+ encodeURI(r_userno) + ';' + encodeURI(r_name));
 					}
 				}
+				
+				
+				var factory_true=true;
+				if(!emp($('#txtGdate').val())){
+					var t_where = "where=^^ 1=1 ^^ stop=100";
+					q_gt('factory', t_where, 0, 0, 0, "getfactory",r_accy,1);
+					var as = _q_appendData("factory", "", true);
+					if (as[0] != undefined) {
+						if(as[0].tggno.length==0 || as[0].ip.length==0 || as[0].db.length==0){
+							alert("【Factory】內容不完整!!");
+							factory_true=false;
+						}
+					}else{
+						alert("【Factory】編號不存在!!");
+						factory_true=false;
+					}
+				}
+				
 				//修改後重新產生
-				if(q_cur==2 && (!emp($('#txtOrdcno').val()) || !emp($('#txtMemo2').val()))){
+				if(q_cur==2 && (!emp($('#txtOrdcno').val()) || !emp($('#txtMemo2').val())) && factory_true){
 					alert('重新轉採購單!!')
-						q_func('qtxt.query.orde2ordc_r', 'orde.txt,orde2ordc_r,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val())+ ';' + encodeURI(q_date())+ ';' + encodeURI(r_name));
+					q_func('qtxt.query.orde2ordc_r', 'orde.txt,orde2ordc_r,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val())+ ';' + encodeURI(q_date())+ ';' + encodeURI(r_name));
 				}
             }
             
@@ -2020,6 +2063,7 @@
 				var t_date='',t_mon='';//計算日期
 				var factnotv=0;//排程量
 				if((q_cur==1 || q_cur==2)){
+					//排產週
 					/*if(!emp($('#txtOdate').val()) && !emp($('#txtDate3').val()) && !emp($('#txtGdate').val())){ //排產週
 						var t_odate=new Date(dec($('#txtOdate').val().substr(0,r_len))
 						,dec($('#txtOdate').val().substr(r_len+1,r_lenm-r_len-1))-1
@@ -2103,7 +2147,10 @@
 							}
 							$('#txtDatea_'+x).val(t_date);
 						}
-					}else*/ if(!emp($('#txtOdate').val()) && !emp($('#txtGdate').val()) && dec($('#txtMount_'+x).val())>0 ){
+					}*/ 
+					/*else*/
+					//supforecasts 工廠產能預估
+					/*if(!emp($('#txtOdate').val()) && !emp($('#txtGdate').val()) && dec($('#txtMount_'+x).val())>0 ){
 						var t_where = "where=^^ mon='" + q_cdn($('#txtOdate').val(),1).substr(0,r_lenm) + "' and factno='"+$('#txtGdate').val()+"' ^^";
 						q_gt('supforecasts', t_where, 0, 0, 0, "",r_accy,1);
 						var ass = _q_appendData("supforecasts", "", true);
@@ -2166,7 +2213,127 @@
 							}
 							$('#txtDatea_'+x).val(t_date);
 						}
+					}*/
+					
+					//106/03/27 根據sys orde.dodate +3 若 單一產品數量超出3000 多1天
+					//106/03/28 依據型號 超出模具數多1天
+					var t_dodate=$('#txtOdate').val()>q_date()?$('#txtOdate').val():q_date();
+					var t_where = "where=^^ noa='orde.dodate' ^^";
+					q_gt('qsys', t_where, 0, 0, 0, "",r_accy,1);
+					var as = _q_appendData("qsys", "", true);
+					if (as[0] != undefined) {
+						t_dodate=as[0].value;
 					}
+					q_gt('holiday', "where=^^ noa>='"+q_date()+"' ^^ stop=100" , 0, 0, 0, "getholiday", r_accy,1);
+					var holiday = _q_appendData("holiday", "", true);
+					//先加3天
+					var t_addday=3;
+					var t_productno=$('#txtProductno_'+x).val();
+					//該訂單品項總數量超出3000 多1天
+					/*var t_mount=0;
+					for (var j = 0; j < (dec(x)+1); j++) {
+						if($('#txtProductno_'+ j).val()==t_productno){
+							t_mount=q_add(t_mount,dec($('#txtMount_'+j).val()));
+						}
+					}
+					if(t_mount>3000){
+						t_addday=q_add(t_addday,Math.floor(t_mount/3000))
+					}*/
+					
+					//106/03/28 依據型號 超出模具數多1天 //找不到模具超過兩萬多一天
+					q_gt('model', "where=^^ exists (select * from ucx where noa='"+t_productno+"' and (spec=model.noa or spec=REPLACE(REPLACE(model.noa,'WU-',''),'WU',''))) ^^ stop=100" , 0, 0, 0, "getmodel", r_accy,1);
+					var as = _q_appendData("model", "", true);
+					var modelno='';
+					var modelmount=0;//模具數
+					var modelgen=0; //模具產能
+					if (as[0] != undefined) {
+						modelno=as[0].noa;
+						modelmount=dec(as[0].mount);
+						if(modelmount==0){
+							modelmount=1;
+						}
+						modelgen=q_mul(modelmount,120);
+					}
+					//讀取表身相同型號的品號
+					var modelucc=new Array();
+					if(modelno.length>0){
+						var t_where="";
+						for (var j = 0; j < dec(x); j++) {
+							if(!emp($('#txtProductno_'+j).val()))
+								t_where+=" or noa='"+$('#txtProductno_'+j).val()+"'";
+						}
+						if(t_where.length>0){
+							t_where="(1=0 "+t_where+") and exists (select * from model where noa='"+modelno+"' and (noa=ucx.spec or REPLACE(REPLACE(noa,'WU-',''),'WU','')=ucx.spec)) "
+							q_gt('ucx', "where=^^ "+t_where+" ^^ stop=999" , 0, 0, 0, "getucx", r_accy,1);
+							modelucc = _q_appendData("ucx", "", true);
+						}
+						var t_mount=dec($('#txtMount_'+x).val());
+						for (var j = 0; j < dec(x); j++) {
+							if($('#txtProductno_'+ j).val()==t_productno){
+								t_mount=q_add(t_mount,dec($('#txtMount_'+j).val()));
+							}else{
+								var t_existsmodel=false;
+								for(var k=0;k<modelucc.length;k++){
+									if($('#txtProductno_'+ j).val()==modelucc[k].noa){
+										t_existsmodel=true;
+										break;
+									}
+								}
+								if(t_existsmodel){
+									t_mount=q_add(t_mount,dec($('#txtMount_'+j).val()));
+								}
+							}
+						}
+						if(t_mount>modelgen){
+							t_addday=q_add(t_addday,Math.floor(t_mount/modelgen))
+						}
+					}else{
+						var t_mount=0;
+						//找不到模具
+						for (var j = 0; j < (dec(x)+1); j++) {
+							if($('#txtProductno_'+ j).val()==t_productno){
+								t_mount=q_add(t_mount,dec($('#txtMount_'+j).val()));
+							}
+						}
+						if(t_mount>20000){
+							t_addday=q_add(t_addday,Math.floor(t_mount/20000))
+						}
+					}
+					
+					while(t_addday>0){
+						t_dodate=q_cdn(t_dodate,1);
+						var t_iswork=true;
+						var t_holidaywork=false; //假日主檔是否要上班
+							
+						for(var k=0;k<holiday.length;k++){
+							if(holiday[k].noa==t_dodate){
+								if(holiday[k].iswork=="true"){
+									t_holidaywork=true;
+								}else{
+									t_iswork=false;
+								}
+							}
+						}
+							
+						if(!t_holidaywork && t_iswork){
+							var week='';
+							if(t_dodate.length==10){
+								week=new Date(dec(t_dodate.substr(0,4)),dec(t_dodate.substr(5,2))-1,dec(t_dodate.substr(8,2))).getDay()
+							}else{
+								week=new Date(dec(t_dodate.substr(0,3))+1911,dec(t_dodate.substr(4,2))-1,dec(t_dodate.substr(7,2))).getDay();
+							}
+									
+							if(q_getPara('sys.saturday')!='1' && week==6)
+								t_iswork=false;
+							if(week==0)
+								t_iswork=false;
+						}
+							
+						if(t_iswork){
+							t_addday--;
+						}
+					}
+					$('#txtDatea_'+x).val(t_dodate);
 				}
 			}
 			

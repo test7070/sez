@@ -707,7 +707,7 @@
 						<input type="text" id="txtAcc1.*"  style="width:35%;"/>
 						<input type="text" id="txtAcc2.*"  style="width:45%;"/>
 					</td>
-					<td ><input type="text" id="txtMemo.*" style="width:95%;" /></td>
+					<td><textarea id="txtMemo.*" style="width:95%;"> </textarea></td>
 					<td><input type="text" id="txtMoney.*" style="width:95%;text-align: right;" /></td>
 				</tr>
 			</table>

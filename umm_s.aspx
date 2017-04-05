@@ -81,6 +81,7 @@
                 t_accno = $.trim($('#txtAccno').val());
 				t_vccno = $.trim($('#txtVccno').val());
 				t_money = $.trim($('#txtMoney').val());
+				t_memo = $.trim($('#txtMemo').val());
 				
                 var t_where = " 1=1 " 
                 + q_sqlPara2("datea", t_bdate, t_edate) 
@@ -100,7 +101,9 @@
                 if (t_mon.length>0){
                     t_where += "and ('"+t_mon+"'=case when isnull(mon,'')='' then left(datea,6) else mon end "
                         +" or exists(select noa from umms where umms.noa=umm.noa and charindex('"+t_mon+"',umms.memo2)>0) )";
-                }
+               	}
+               	if (t_memo.length>0)
+                    t_where += " and charindex('" + t_memo + "',memo)>0";
                 if(t_money!=0){
                 	t_where += " and exists(select noa from umms where umms.noa=umm.noa and money="+t_money+")";
                 }
@@ -172,7 +175,12 @@
 					<td class='seek'  style="width:20%;"><a id='lblMoney'>收款金額</a></td>
 					<td><input class="txt" id="txtMoney" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblMemo'>備註</a></td>
+					<td><input class="txt" id="txtMemo" type="text" style="width:215px; font-size:medium;" /></td>
+				</tr>
 			</table>
+			
 			<!--#include file="../inc/seek_ctrl.inc"-->
 		</div>
 	</body>

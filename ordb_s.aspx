@@ -34,9 +34,15 @@
                 q_langShow();
                 bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
                 q_mask(bbmMask);
-                q_cmbParse("cmbKind", '@全部,'+q_getPara('ordc.kind'));
                 q_cmbParse("cmbApv", '@全部,Y@Y,N@N');
-                
+                switch(q_getPara('sys.project').toUpperCase()){
+                	case 'PK':
+                		q_cmbParse("cmbKind", '@全部,'+q_getPara('sys.stktype')+',1@物料');
+                		break;
+            		default:
+                		q_cmbParse("cmbKind", '@全部,'+q_getPara('ordc.kind'));
+                		break;
+                }
                 $('#txtNoa').focus();
                 $('#txtComp').attr('readonly', true).css('background-color', 'rgb(237,237,238)').css('color', 'green');
                 $('#txtSales').attr('readonly', true).css('background-color', 'rgb(237,237,238)').css('color', 'green');
