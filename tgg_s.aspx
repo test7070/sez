@@ -36,19 +36,16 @@
 				t_noa = $('#txtNoa').val();
 				t_comp = $('#txtComp').val();
 				t_serial = $('#txtSerial').val();
-				t_tel = $('#txtTel').val();
-				t_fax = $('#txtFax').val();
+				t_memo = $.trim($('#txtMemo').val());
 				
 				var t_where = " 1=1 " + q_sqlPara2("serial", t_serial);
 				if (t_noa.length > 0)
 					t_where += " and charindex('" + t_noa + "',noa)>0";
 				if (t_comp.length > 0)
                     t_where += " and (charindex('" + t_comp + "',comp)>0 or charindex('" + t_comp + "',nick)>0)";
-                if (t_tel.length > 0)
-					t_where += " and (charindex('" + t_tel + "',tel)>0 or charindex('" + t_tel + "',mobile)>0 )";
-				if (t_fax.length > 0)
-					t_where += " and charindex('" + t_fax + "',fax)>0";
-                    
+                if(t_memo.length>0){
+					t_where += " and (charindex('"+t_memo+"',memo)>0 or charindex('"+t_memo+"',tel)>0 or charindex('"+t_memo+"',fax)>0 or charindex('"+t_memo+"',mobile)>0)";
+				}    
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
@@ -78,12 +75,10 @@
 					<td><input class="txt" id="txtSerial" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblTel'> </a></td>
-					<td><input class="txt" id="txtTel" type="text" style="width:215px; font-size:medium;" /></td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblFax'> </a></td>
-					<td><input class="txt" id="txtFax" type="text" style="width:215px; font-size:medium;" /></td>
+					<td class='seek'  style="width:20%;"><a id='lblMemo'>備註、電話</a></td>
+					<td>
+					<input class="txt" id="txtMemo" type="text" style="width:215px; font-size:medium;" title="備註、電話"/>
+					</td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->

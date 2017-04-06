@@ -26,7 +26,7 @@
             aPop = new Array(
 				['txtCust1a', 'btnCust1', 'cust', 'noa,comp', 'txtCust1a,txtCust1b', 'cust_b.aspx'],
 				['txtCust2a', 'btnCust2', 'cust', 'noa,comp', 'txtCust2a,txtCust2b', 'cust_b.aspx'],
-				['txtSales1a', 'btnSales1', 'sss', 'noa,comp', 'txtSales1a,txtSales1b', 'sss_b.aspx'],
+				['txtSales1a', 'btnSales1', 'sss', 'noa,namea', 'txtSales1a,txtSales1b', 'sss_b.aspx'],
 				['txtSales2a', 'btnSales2', 'sss', 'noa,namea', 'txtSales2a,txtSales2b', 'sss_b.aspx'],
 				['txtProduct1a', 'btnProduct1', 'ucaucc', 'noa,product', 'txtProduct1a,txtProduct1b', 'ucaucc_b.aspx'],
 				['txtProduct2a', 'btnProduct2', 'ucaucc', 'noa,product', 'txtProduct2a,txtProduct2b', 'ucaucc_b.aspx'],
@@ -110,7 +110,7 @@
 	                		$('#Salesgroup').hide();
 	                		$('#Multcust').hide();
 	                		$('#Multucc').hide();
-	                	}	
+	                	}
 	                	if(report_name=='21'){
 	                		$('#Mon').hide();
 	                		$('#Xgroupbno').hide();
@@ -120,8 +120,42 @@
 	                		$('#Xstype').hide();
 	                		$('#Vcctypea').hide();
 	                		$('#Xpartno').hide();
+	                		$('#product').hide();
+	                		$('#Xtype').hide();
+	                		$('#Xgroupano').hide();
+	                		$('#Salesgroup').hide();
+	                		$('#Multcust').hide();
+	                		$('#Multucc').hide();
+	                		$('#Product').hide();
 	                	}
 	                	if(report_name=='22'){
+	                		$('#Mon').hide();
+	                		$('#Sales').hide();
+	                		$('#Xgroupbno').hide();
+	                		$('#Xgroupcno').hide();
+	                		$('#Xshowinvono').hide();
+	                		$('#Tggno').hide();
+	                		$('#Xstype').hide();
+	                		$('#Vcctypea').hide();
+	                		$('#Xpartno').hide();
+	                		$('#product').hide();
+	                		$('#Xtype').hide();
+	                		$('#Xgroupano').hide();
+	                		$('#Salesgroup').hide();
+	                		$('#Multcust').hide();
+	                		$('#Multucc').hide();
+	                	}		
+	                	if(report_name=='23'){
+	                		$('#Mon').hide();
+	                		$('#Xgroupbno').hide();
+	                		$('#Xgroupcno').hide();
+	                		$('#Xshowinvono').hide();
+	                		$('#Tggno').hide();
+	                		$('#Xstype').hide();
+	                		$('#Vcctypea').hide();
+	                		$('#Xpartno').hide();
+	                	}
+	                	if(report_name=='24'){
 	                		$('#Mon').hide();
 	                		$('#Sales').hide();
 	                		$('#Product').hide();
@@ -231,7 +265,7 @@
 					var bsales=!emp($('#txtSales1a').val())?$('#txtSales1a').val():'#non';
 					var esales=!emp($('#txtSales2a').val())?$('#txtSales2a').val():'#non';
 					var bproduct=!emp($('#txtProduct1a').val())?$('#txtProduct1a').val():'#non';
-					var eproduct=!emp($('#txtProduct2a').val())?$('#txtproduct2a').val():'#non';
+					var eproduct=!emp($('#txtProduct2a').val())?$('#txtProduct2a').val():'#non';
 					var btggno=!emp($('#txtTggno1a').val())?$('#txtTggno1a').val():'#non';
 					var etggno=!emp($('#txtTggno2a').val())?$('#txtTggno2a').val():'#non';
 					var type=!emp($('#cmbType').val())?$('#cmbType').val():'#non';
@@ -312,7 +346,13 @@
 							q_gtx("z_vcc21", t_where + ";;" + t_para + ";;z_vcc;;出貨產品統計表");
 						}
 						if(report_namea=='22'){
-							q_gtx("z_vcc22", t_where + ";;" + t_para + ";;z_vcc;;應收帳款對帳單");
+							q_gtx("z_vcc22", t_where + ";;" + t_para + ";;z_vcc;;出貨產品統計表");
+						}
+						if(report_namea=='23'){
+							q_gtx("z_vcc23", t_where + ";;" + t_para + ";;z_vcc;;出貨產品統計表");
+						}
+						if(report_namea=='24'){
+							q_gtx("z_vcc24", t_where + ";;" + t_para + ";;z_vcc;;應收帳款對帳單");
 						}
 					}
 				});
@@ -643,10 +683,18 @@
 						</div>
 						<div class="rptext">
 							<input  type="radio" value="21" class="radio">
-							<span class="text">出貨產品統計表</span>
+							<span class="text">出貨利潤統計表</span>
 						</div>
 						<div class="rptext">
 							<input  type="radio" value="22" class="radio">
+							<span class="text">出貨狀況提示表</span>
+						</div>
+						<div class="rptext">
+							<input  type="radio" value="23" class="radio">
+							<span class="text">出貨產品統計表</span>
+						</div>
+						<div class="rptext">
+							<input  type="radio" value="24" class="radio">
 							<span class="text">應收帳款對帳單</span>
 						</div>
 					</div>	
