@@ -1125,13 +1125,13 @@
 					<td><input id="txtProductno..*" type="text" class="txt c1"/></td>
 					<td><input id="txtClass..*" type="text" class="txt c1"/></td>
 					<td>
-						<input class="txt num c8" id="textSize1..*" type="text" disabled="disabled"/>
+						<input class="txt num" id="textSize1..*" type="text" style="float: left;width:60px;" disabled="disabled"/>
 						<div id="x1..*" style="float: left">x</div>
-						<input class="txt num c8" id="textSize2..*" type="text" disabled="disabled"/>
+						<input class="txt num" id="textSize2..*" type="text" style="float: left;width:60px;" disabled="disabled"/>
 						<div id="x2..*" style="float: left">x</div>
-						<input class="txt num c8" id="textSize3..*" type="text" disabled="disabled"/>
+						<input class="txt num" id="textSize3..*" type="text" style="float: left;width:60px;" disabled="disabled"/>
 						<div id="x3..*" style="float: left">x</div>
-						<input class="txt num c8" id="textSize4..*" type="text" disabled="disabled"/>
+						<input class="txt num" id="textSize4..*" type="text" style="float: left;width:60px;" disabled="disabled"/>
 						<!--上為虛擬下為實際-->
 						<input id="txtRadius..*" type="hidden"/>
 						<input id="txtWidth..*" type="hidden"/>
