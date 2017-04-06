@@ -244,6 +244,33 @@
 						type : '0', //[50]
 						name : 'xip',
 						value : location.hostname
+					}
+					//z_ucap7使用
+					, {
+						type : '2', //[51][52]
+						name : 'xucc',
+						dbf : 'ucc',
+						index : 'noa,product',
+						src : 'ucc_b.aspx'
+					}, {
+						type : '5', //[53]
+						name : 'ucctypea',
+						value : [q_getPara('report.all')].concat(q_getPara('ucc.typea').split(','))
+					}, {
+						type : '5', //[54]
+						name : 'uccgroupano',
+						value : uccgaItem.split(',')
+					}, {
+						type : '5', //[55]
+						name : 'uccgroupbno',
+						value : uccgbItem.split(',')
+					}, {
+						type : '6', //[56]
+						name : 'uccname'
+					}, {
+						type : '0', //[57]
+						name : 'ucctypastr',
+						value : q_getPara('ucc.typea')
 					}]
 				});
 				q_popAssign();
