@@ -66,7 +66,16 @@
 				});
 
 				$('#lblCust2').click(function(e) {
-					q_box("cust_b2.aspx", 'cust', "95%", "95%", q_getMsg("popCust"));
+					switch(q_getPara('sys.project').toUpperCase()){
+						case 'DC':
+							var custno= $('#txtCustno2').val().length==0?new Array():$('#txtCustno2').val().split(',');
+                			q_box("multi_cust_b.aspx?" + r_userno + ";" + r_name + ";" + q_id + ";" + "　" +";"+r_accy+";"+JSON.stringify({custno:custno,condition:""}), "multi_cust", "95%", "95%", '');
+							break;
+						default:
+							q_box("cust_b2.aspx", 'cust', "95%", "95%", q_getMsg("popCust"));
+							break;
+						
+					}
 				});
 
 				$('#txtOpay').change(function() {
@@ -237,6 +246,18 @@
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {
+					case 'multi_cust':
+                        if (b_ret != null) {
+                        	as = b_ret;
+                        	if(as!=undefined){
+                        		var t_cust="";
+	                        	for(var i=0;i<as.length;i++){
+	                        		t_cust +=(t_cust.length>0?',':'')+as[i].noa;
+	                        	}
+	                        	$('#txtCustno2').val(t_cust);
+                        	}
+                        }
+                        break;
 					case 'umm_trd':
 						if (q_cur > 0 && q_cur < 4) {// q_cur： 0 = 瀏覽狀態 1=新增 2=修改 3=刪除 4=查詢
 							b_ret = getb_ret(); // q_box() 執行後，選取的資料
