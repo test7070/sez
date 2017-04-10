@@ -16,7 +16,6 @@
 			var q_name = "cust2_s";
 			aPop = new Array(['txtNoa', 'lblNoa', 'cust', 'noa,nick', 'txtNoa', 'cust_b.aspx']
 			,['txtSerial', 'lblSerial', 'cust', 'serial,noa,nick', 'txtSerial', 'cust_b.aspx']
-			,['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno', 'sss_b.aspx']
 			);
 			$(document).ready(function() {
 				main();
@@ -35,14 +34,26 @@
 			}
 
 			function q_seekStr() {
-				t_noa = $('#txtNoa').val();
-				t_comp = $('#txtComp').val();
-				t_serial = $('#txtSerial').val();
-				t_salesno = $('#txtSalesno').val();
+				t_noa = $.trim($('#txtNoa').val());
+				t_serial = $.trim($('#txtSerial').val());
+				t_memo = $.trim($('#txtMemo').val());
 				
-				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("serial", t_serial)+ q_sqlPara2("salesno", t_salesno);
-				if (t_comp.length > 0)
-                    t_where += " and (charindex('" + t_comp + "',comp)>0 or charindex('" + t_comp + "',nick)>0)";
+				var t_where = " 1=1 " 
+					+ q_sqlPara2("noa", t_noa) 
+					+ q_sqlPara2("serial", t_serial);
+				if (t_memo.length > 0){
+					t_where += " and (charindex('" + t_memo+ "',comp)>0" 
+						+" or charindex('" + t_memo + "',nick)>0"
+						+" or charindex('" + t_memo + "',tel)>0"
+						+" or charindex('" + t_memo + "',fax)>0"
+						+" or charindex('" + t_memo + "',addr_fact)>0"
+						+" or charindex('" + t_memo + "',addr_comp)>0"
+						+" or charindex('" + t_memo + "',addr_invo)>0"
+						+" or charindex('" + t_memo + "',addr_home)>0"
+						+" or charindex('" + t_memo + "',sales)>0"
+						+")";
+				}
+                    
                     
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
@@ -61,27 +72,21 @@
 		<div style='width:400px; text-align:center;padding:15px;' >
 			<table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
+					<td class='seek'  style="width:20%;"><a id='lblNoa'>客戶編號</a></td>
 					<td>
 					<input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblComp'></a></td>
-					<td>
-					<input class="txt" id="txtComp" type="text" style="width:215px; font-size:medium;" />
-					</td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblSerial'></a></td>
+					<td class='seek'  style="width:20%;"><a id='lblSerial'>統一編號</a></td>
 					<td>
 					<input class="txt" id="txtSerial" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblSales'></a></td>
+					<td class='seek'  style="width:20%;"><a id='lblMemo'>備註</a></td>
 					<td>
-					<input class="txt" id="txtSalesno" type="text" style="width:215px; font-size:medium;" />
+					<input class="txt" id="txtMemo" type="text" style="width:215px; font-size:medium;" title="備註、電話、地址..."/>
 					</td>
 				</tr>
 			</table>
