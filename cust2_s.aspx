@@ -51,6 +51,7 @@
 						+" or charindex('" + t_memo + "',addr_invo)>0"
 						+" or charindex('" + t_memo + "',addr_home)>0"
 						+" or charindex('" + t_memo + "',sales)>0"
+						+" or charindex('" + t_memo + "',memo)>0"
 						+")";
 				}
                     
