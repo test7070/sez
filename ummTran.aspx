@@ -146,7 +146,7 @@
 				//0926改為開啟視窗
 				$('#btnVcc').click(function(e) {
 					switch(q_getPara('sys.project').toUpperCase()){
-						case 'WH':
+						case 'DC':
 							var t_custno = $.trim($('#txtCustno').val());
 							var t_custno2 = $.trim($('#txtCustno2').val());
 							q_func('qtxt.query.trd2umms_wh', 'umm.txt,trd2umms_wh,' + encodeURI(t_custno) + ';'+ encodeURI(t_custno2));
@@ -315,8 +315,8 @@
                 switch(t_func) {
                 	case 'qtxt.query.trd2umms_wh':
             			var as = _q_appendData("tmp0", "", true, true);
-                        q_gridAddRow(bbsHtm, 'tbbs', 'txtTablea,txtAccy,txtVccno,txtCustno,txtMon'
-                        , as.length, as, 'accy,noa,', '','');
+                        q_gridAddRow(bbsHtm, 'tbbs', 'txtTablea,txtAccy,txtVccno,txtCustno,txtMemo2,txtMon,txtUnpauorg,txtUnpay'
+                        , as.length, as, 'tablea,accy,noa,custno,cust,mon,unpayed,unpayed', '','');
                         for ( i = 0; i < q_bbsCount; i++) {
                             if (i < as.length) {
                             }else{
