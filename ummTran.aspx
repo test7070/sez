@@ -148,7 +148,7 @@
 					switch(q_getPara('sys.project').toUpperCase()){
 						case 'DC':
 							var t_custno = $.trim($('#txtCustno').val());
-							var t_custno2 = $.trim($('#txtCustno2').val());
+							var t_custno2 = $.trim($('#txtCustno2').val()).replace(',','@');
 							q_func('qtxt.query.trd2umms_wh', 'umm.txt,trd2umms_wh,' + encodeURI(t_custno) + ';'+ encodeURI(t_custno2));
 							//q_gt('view_quat', "where=^^ noa='"+t_quatno+"' ^^", 0, 0, 0, JSON.stringify({action:'importQuat'}));
 							break;
@@ -315,8 +315,8 @@
                 switch(t_func) {
                 	case 'qtxt.query.trd2umms_wh':
             			var as = _q_appendData("tmp0", "", true, true);
-                        q_gridAddRow(bbsHtm, 'tbbs', 'txtTablea,txtAccy,txtVccno,txtCustno,txtMemo2,txtMon,txtUnpauorg,txtUnpay'
-                        , as.length, as, 'tablea,accy,noa,custno,cust,mon,unpayed,unpayed', '','');
+                        q_gridAddRow(bbsHtm, 'tbbs', 'txtTablea,txtAccy,txtVccno,txtCustno,txtMemo2,txtMon,txtUnpayorg,txtUnpay'
+                        , as.length, as, 'tablea,accy,noa,custno,cust,mon,unpay,unpay', '','');
                         for ( i = 0; i < q_bbsCount; i++) {
                             if (i < as.length) {
                             }else{
