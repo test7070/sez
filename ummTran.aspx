@@ -60,7 +60,8 @@
 				q_getFormat();
 				
 				q_cmbParse("cmbCno", t_acomp);
-				q_cmbParse("cmbPartno", t_part, 's');
+				if(t_part.length>0)
+					q_cmbParse("cmbPartno", t_part, 's');
 						
 				if (r_rank < 7)
 					q_readonly[q_readonly.length] = 'txtAccno';
@@ -680,7 +681,7 @@
 						$('#txtPart_' + i).val($('#cmbPartno_' + i).find(":selected").text());
 					}
 					//為了查詢
-					var t_part = '', t_checkno = '';
+					let t_part = '', t_checkno = '';
 					for (var i = 0; i < q_bbsCount; i++) {
 						if (t_part.indexOf($.trim($('#txtPart_' + i).val())) == -1)
 							t_part += (t_part.length > 0 ? ',' : '') + $.trim($('#txtPart_' + i).val());
