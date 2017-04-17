@@ -119,7 +119,7 @@
 						t_eradius = (t_eradius == 0 ? 9999 : t_eradius * 1.07);
 						t_ewidth = (t_ewidth == 0 ? 9999 : t_ewidth * 1.07);
 						var t_where = "1=1 and enda!=1 and cut='1' ";
-						t_where += q_sqlPara2('odate', t_bdate, t_edate) + q_sqlPara2('dime', t_bdime, t_edime) + q_sqlPara2('radius', t_bradius, t_eradius) + q_sqlPara2('width', t_bwidth, t_ewidth) + q_sqlPara2('style', t_style) + q_sqlPara2('productno', t_productno) + q_sqlPara2('mechno', t_mechno);
+						t_where += q_sqlPara2('odate', t_bdate, t_edate) + q_sqlPara2('dime', t_bdime, t_edime) + q_sqlPara2('radius', t_bradius, t_eradius) + q_sqlPara2('width', t_bwidth, t_ewidth) + q_sqlPara2('style', t_style) + q_sqlPara2('productno', t_productno);
 						t_where += " and (notv > 0) and kind='B2'";
 						q_box("ordestt_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'view_ordes', "95%", "95%", q_getMsg('popOrde'));
 						//q_gt('view_ordes', t_where, 0, 0, 0, "", r_accy);
@@ -1125,13 +1125,13 @@
 					<td><input id="txtProductno..*" type="text" class="txt c1"/></td>
 					<td><input id="txtClass..*" type="text" class="txt c1"/></td>
 					<td>
-						<input class="txt num c8" id="textSize1..*" type="text" disabled="disabled"/>
+						<input class="txt num" id="textSize1..*" type="text" style="float: left;width:60px;" disabled="disabled"/>
 						<div id="x1..*" style="float: left">x</div>
-						<input class="txt num c8" id="textSize2..*" type="text" disabled="disabled"/>
+						<input class="txt num" id="textSize2..*" type="text" style="float: left;width:60px;" disabled="disabled"/>
 						<div id="x2..*" style="float: left">x</div>
-						<input class="txt num c8" id="textSize3..*" type="text" disabled="disabled"/>
+						<input class="txt num" id="textSize3..*" type="text" style="float: left;width:60px;" disabled="disabled"/>
 						<div id="x3..*" style="float: left">x</div>
-						<input class="txt num c8" id="textSize4..*" type="text" disabled="disabled"/>
+						<input class="txt num" id="textSize4..*" type="text" style="float: left;width:60px;" disabled="disabled"/>
 						<!--上為虛擬下為實際-->
 						<input id="txtRadius..*" type="hidden"/>
 						<input id="txtWidth..*" type="hidden"/>

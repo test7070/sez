@@ -172,21 +172,6 @@
                     		t_money = 0;
                     	}
                     }
-                    
-                    /*for (var i = 0; i < q_bbsCount; i++) {
-                        if (q_float('txtUnpay_' + i) != 0) {
-                            t_unpay = q_float('txtUnpayorg_' + i);
-                            if (t_money >= t_unpay) {
-                                q_tr('txtPaysale_' + i, t_unpay);
-                                $('#txtUnpay_' + i).val(0);
-                                t_money = t_money - t_unpay;
-                            } else {
-                                q_tr('txtPaysale_' + i, t_money);
-                                q_tr('txtUnpay_' + i, t_unpay - t_money);
-                                t_money = 0;
-                            }
-                        }
-                    }*/
                     if (t_money > 0)
                         q_tr('txtOpay', t_money);
                     sum();

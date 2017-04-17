@@ -88,13 +88,25 @@
 
             function mainPost() {
                 q_cmbParse("cmbTypea", q_getPara('cust.typea'));
-                //q_cmbParse("cmbBillday", q_getPara('cust.billday'));
-                if(q_getPara('sys.project').toUpperCase()=='ES'){
-                	q_cmbParse("combPaytype", ",月結,現金,回收");
-                }else{
-                	q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
+                switch(q_getPara('sys.project').toUpperCase()){
+                	case 'WH':
+                		$('#combPaytype').hide();
+                		
+                		$('#txtPaytype').attr('list','listPaytype');
+                		$('#listPaytype').append("<option value='現金'> </option>");
+                		$('#listPaytype').append("<option value='月結'> </option>");
+                		
+                		$('#txtGetdate').attr('list','listGetdate');
+                		$('#listGetdate').append("<option value='20'> </option>");
+                		$('#listGetdate').append("<option value='25'> </option>");
+                		break;
+                	case 'ES':
+                		q_cmbParse("combPaytype", ",月結,現金,回收");
+                		break;
+                	default:
+                		q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
+                		break;
                 }
-                
                 q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				
 				$('#txtNoa').change(function(e){
@@ -292,9 +304,6 @@
             		alert(q_getMsg('lblChkdate')+'錯誤。');  
             	if($('#txtStartdate').val().length>0 && !q_cd($('#txtStartdate').val()))
             		alert(q_getMsg('lblStartdate')+'錯誤。');
-            	/*	var t_err = '';	
-            	if (dec($('#txtCredit').val()) > 9999999999)
-                    t_err = t_err + q_getMsg('msgCreditErr') + '\r';*/ 
                 
                 $('#txtWorker' ).val(r_name);
                 if(q_cur==1){
@@ -324,7 +333,6 @@
             		$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
             	}
             }
-
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
@@ -712,18 +720,27 @@
 					<tr>
 						<td><span> </span><a id='lblDueday' class="lbl"> </a></td>
 						<td><input id="txtDueday" type="text" class="txt num c1"/>	</td>
-						<td><span> </span><a id='lblGetdate' class="lbl"> </a></td>
-						<td><input id="txtGetdate" type="text" class="txt c1"/>	</td>
+						<td>
+							<span> </span><a id='lblTrantype' class="lbl"> </a>
+						</td>
+						<td><select id="cmbTrantype" class="txt c1"> </select></td>
 						<td><span> </span><a id='lblUacc2' class="lbl"> </a></td>
 						<td><input id="txtUacc2" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblPaytype' class="lbl"> </a></td>
-						<td><input id="txtPaytype" type="text" class="txt c1"/></td>
-						<td><select id="combPaytype" style="float:left; width:20px;"> </select>
-							<span> </span><a id='lblTrantype' class="lbl"> </a>
+						<td>
+							<input id="txtPaytype" type="text" class="txt c1"/>
+							<datalist id="listPaytype"> </datalist>
 						</td>
-						<td><select id="cmbTrantype" class="txt c1"> </select></td>
+						<td>
+							<select id="combPaytype" style="float:left; width:20px;"> </select>
+							<span> </span><a id='lblGetdate' class="lbl"> </a>
+						</td>
+						<td>
+							<input id="txtGetdate" type="text" class="txt c1"/>	
+							<datalist id="listGetdate"> </datalist>
+						</td>
 						<td><span> </span><a id='lblUacc3' class="lbl"> </a></td>
 						<td><input id="txtUacc3"  type="text" class="txt c1"/></td>
 					</tr>
