@@ -285,8 +285,8 @@
             _bbsAssign();
             table_change();
             if(q_getPara('sys.project').toUpperCase()=='VU'){
-            	$('#lblW133').text('加班時數');
-            	$('#lblW133_s').text('加班時數');
+            	//$('#lblW133').text('加班時數');//106/04 調整
+            	//$('#lblW133_s').text('加班時數');//106/04 調整
             	$('#lblW100').text('值班時數');
             	$('#lblW100_s').text('值班時數');
             }
@@ -427,7 +427,7 @@
         
         function table_change() {
         	if(q_getPara('sys.project').toUpperCase()=='VU'){
-	            $('.w166').hide();
+	            //$('.w166').hide(); //106/04 調整
 				$('.rein').show();
             }
             if(q_getPara('sys.project').toUpperCase()=='FE'){
