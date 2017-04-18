@@ -188,7 +188,13 @@
                     sum();
                 });
                 $('#lblAccno').click(function() {
-                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+                	var t_years=0
+					if(q_getPara('sys.project').toUpperCase().substring(0,2)=='VU' && r_len=='4'){
+						t_years=$('#txtDatea').val().substring(0, 4)-1911;
+					}else{
+						t_years=$('#txtDatea').val().substring(0, 3);
+					}
+                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + t_years + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
                 });
             }
 

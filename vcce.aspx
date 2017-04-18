@@ -744,13 +744,13 @@
 			<div class='dbbm' style="width: 68%;float:left">
 				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
 					<tr class="tr0" style="height: 0px;">
-						<td class="td1" style="width: 120px;"> </td>
+						<td class="td1" style="width: 105px;"> </td>
 						<td class="td2" style="width: 105px;"> </td>
 						<td class="td4" style="width: 105px;"> </td>
 						<td class="td5" style="width: 105px;"> </td>
 						<td class="td5" style="width: 105px;"> </td>
 						<td class="td3" style="width: 105px;"> </td>
-						<td class="td4" style="width: 105px;"> </td>
+						<td class="td4" style="width: 120px;"> </td>
 						<td class="td6" style="width: 105px;"> </td>
 					</tr>
 					<tr>
