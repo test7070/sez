@@ -26,7 +26,7 @@
             var bbmNum = [];
             var bbsNum = [['txtMoney1',10,0,1],['txtMoney2',10,0,1]];
             var bbtNum = [['txtMoney1',10,0,1],['txtMoney2',10,0,1]];
-            var bbmMask = [['txtAccy','999'],['txtMon','999/99'],['txtDatea','999/99/99']];
+            var bbmMask = [];
             var bbsMask = [];
             var bbtMask = [];
             q_sqlCount = 6;
@@ -127,13 +127,88 @@
 
             function mainPost() {
                 q_getFormat();
+                bbmMask = [['txtAccy',r_pic],['txtMon',r_picm],['txtDatea',r_picd]];
                 q_mask(bbmMask);
             }
+            function getYear(value){
+            	var r = "";
+            	try{
+            		switch(value.length){
+	            		case 10: //2017/04/18
+	            			r = (parseInt(value.substring(0,4))-1911)+"";
+	            			break;
+	        			case 9: //106/04/18
+	            			r = value.substring(0,3);
+	            			break;
+            			case 7: //2017/04
+	            			r = (parseInt(value.substring(0,4))-1911)+"";
+	            			break;
+	        			case 6: //106/04
+	            			r = value.substring(0,3);
+	            			break;
+            			case 4: //2017
+	            			r = (parseInt(value.substring(0,4))-1911)+"";
+	            			break;
+	        			case 3: //106
+	            			r = value.substring(0,3);
+	            			break;
+	            		default:
+	            			return "";
+	            			break;	
+	            	}
+            	}catch(e){}
+            	return r;
+            }
+            function getMon(value){
+            	var r = "";
+            	try{
+            		switch(value.length){
+	            		case 10: //2017/04/18
+	            			r = value.substring(5,7);
+	            			break;
+	        			case 9: //106/04/18
+	            			r = value.substring(4,6);
+	            			break;
+	        			case 7: //2017/04
+	            			r = value.substring(5,7);
+	            			break;
+	            		case 6: //106/04
+	            			r = value.substring(4,6);
+	            			break;	
+	            		default:
+	            			return "";
+	            			break;	
+	            	}
+            	}catch(e){}
+            	return r;
+            }
+            function getDay(value){
+            	var r = "";
+            	try{
+            		switch(value.length){
+	            		case 10: //2017/04/18
+	            			r = value.substring(8,10);
+	            			break;
+	        			case 9: //106/04/18
+	            			r = value.substring(7,9);
+	            			break;
+	            		default:
+	            			return "";
+	            			break;	
+	            	}
+            	}catch(e){}
+            	return r;
+            }
+            
             function btnImport_click(){
-            	if($.trim($('#txtMon').val()).length>0){
-            		t_accy = $.trim($('#txtMon').val()).substring(0,3);
-            		Lock(1,{opacity:0});
-            		q_gt('tables', "where=^^ TABLE_NAME='acccs"+t_accy+"_1'^^", 0, 0, 0, "checktable");
+            	var t_accy = getYear($('#txtMon').val());
+            	if(t_accy>0){
+            		try{
+        				Lock(1,{opacity:0});
+            			q_gt('tables', "where=^^ TABLE_NAME='acccs"+t_accy+"_1'^^", 0, 0, 0, "checktable");	
+            		}catch(e){
+            			
+            		}
             	}else{
             		alert('請輸入月份‧');
             	}
@@ -152,7 +227,7 @@
 					Unlock();
 				}else{
 					if($('#txtGindex__'+n).val()=='01' && $.trim($('#txtAcc1__'+n).val()).length>0){
-						var t_accy = $('#txtMon').val().substring(0,3);
+						var t_accy = getYear($('#txtMon').val());
 						var t_where = "";
 						t_data1 = new Array(),t_data2 = new Array();
 						$('#txtMoney1__'+n).val(0);
@@ -163,7 +238,7 @@
 						}else{
 							t_where = " a.accc5='"+t_acc1+"'";
 						}
-						t_where += " and left(b.accc2,2)<='"+$('#txtMon').val().substring(4,6)+"' and LEFT(a.accc3,2)!='00'";
+						t_where += " and left(b.accc2,2)<='"+getMon($('#txtMon').val())+"' and LEFT(a.accc3,2)!='00'";
 						t_where = "where=^^"+t_where+"^^";
 						q_gt('acccs_sum', t_where, 0, 0, 0, "acccs_sum_"+n+"_"+t_acc1, t_accy+"_1");
 					}
@@ -189,8 +264,8 @@
                 		}
                 		break;
                 	case 'checktable':
-                		t_accy = $.trim($('#txtMon').val()).substring(0,3);
-                		t_mon = $.trim($('#txtMon').val()).substring(4,6);
+                		t_accy = getYear($('#txtMon').val());
+                		t_mon = getMon($('#txtMon').val());
                 		var as = _q_appendData("INFORMATION_SCHEMA.TABLES", "", true);
                 		if(as[0]!=undefined){
                 			//不含期初
@@ -202,8 +277,8 @@
                 		}
                 		break;
                 	case  'accashf_import1':
-                		t_accy = $.trim($('#txtMon').val()).substring(0,3);
-                		t_mon = $.trim($('#txtMon').val()).substring(4,6);
+                		t_accy = getYear($('#txtMon').val());
+                		t_mon = getMon($('#txtMon').val());
                 		var as = _q_appendData("acccs", "", true);
                 		if(as[0]!=undefined){
                 			t_data1 = as;
