@@ -92,7 +92,7 @@
 				var t_weight = dec($('#txtWeight').val());
 				var t_gweight = dec($('#txtGweight').val());
 				var t_sweight = 0;
-				if(t_gweight != 0 && t_empweight != 0){
+				/*if(t_gweight != 0 && t_empweight != 0){
 					t_weight = t_gweight - (t_empweight - t_minusweight + t_plusweight);
 				}
 				if(t_empweight != 0 && t_weight != 0 && t_gweight == 0){
@@ -100,16 +100,19 @@
 				}
 				if(t_gweight != 0 && t_weight != 0 && t_empweight == 0){
 					t_empweight = t_gweight - t_weight - (t_plusweight - t_minusweight);
-				}
+				}*/
+				
+				t_gweight = t_empweight - t_minusweight + t_plusweight + t_weight;
+				
 				//BBS
 				for (var j = 0; j < q_bbsCount; j++) {
 					if(!emp($('#txtVccno_' + j).val()) && !($('#chkExclude_' + j).is(':checked'))){
 						t_sweight += dec($('#txtSweight_' + j).val());
 					}
 				}
-				$('#txtWeight').val(t_weight);
+				//$('#txtWeight').val(t_weight);
 				$('#txtGweight').val(t_gweight);
-				$('#txtEmpweight').val(t_empweight);
+				//$('#txtEmpweight').val(t_empweight);
 				$('#txtSweight').val(t_sweight);				
 				
 			}
@@ -395,7 +398,7 @@
 				</tr>
 				<tr class="tr2">
 					<td class="td1"><span> </span><a id='lblCustno' class="lbl btn"> </a></td>
-					<td class="td2" colspan="2">
+					<td class="td2" colspan="3">
 						<input id="txtCustno"  type="text" style="float:left;width:30%;"/>
 						<input id="txtCust"  type="text" style="float:left;width:70%;"/>
 						<input id="txtNick"  type="text" style="display:none;"/>
@@ -457,12 +460,12 @@
 				<td  align="center" style="width:30px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 				</td>
-				<td align="center" class="td1" style="width:20%"><a id='lblVccno_s'></a></td>
-				<td align="center" class="td1" style="width:10%"><a id='lblDatea_s'></a></td>
-				<td align="center" class="td1" style="width:8%"><a id='lblExclude_s'></a></td>
-				<td align="center" class="td1" style="width:10%"><a id='lblWeight_s'></a></td>
-				<td align="center" class="td1" style="width:10%"><a id='lblSweight_s'></a></td>
-				<td align="center" class="td1" style="width:10%"><a id='lblPweight_s'></a></td>
+				<td align="center" class="td1" style="width:20%"><a id='lblVccno_s'> </a></td>
+				<td align="center" class="td1" style="width:10%"><a id='lblDatea_s'> </a></td>
+				<td align="center" class="td1" style="width:8%"><a id='lblExclude_s'> </a></td>
+				<td align="center" class="td1" style="width:10%"><a id='lblWeight_s'> </a></td>
+				<td align="center" class="td1" style="width:10%"><a id='lblSweight_s'> </a></td>
+				<td align="center" class="td1" style="width:10%"><a id='lblPweight_s'> </a></td>
 			</tr>
 			<tr id="trSel.*" style='background:#cad3ff;'>
 				<td style="width:1%;">
