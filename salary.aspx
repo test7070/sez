@@ -262,20 +262,20 @@
 							$(".hid_addh46_2").hide();
 							$(".hid_tax_other2").hide();
 							$(".hid_meals").hide();
-			            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-600)+"px");
+			            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-700)+"px");
 			            	scroll("tbbs","box",1);
 							$("#btnHideaddmoney").val("加班費顯示");
 						}else{
 							$(".hid_ostand").show();
 							$(".hid_addh2_1").show();
-							$(".hid_addh2_2").hide();
+							$(".hid_addh2_2").show();
 							$(".hid_addmoney").show();
 							$(".hid_addh100").show();
 							$(".hid_addh46_1").hide();
 							$(".hid_addh46_2").hide();
 							$(".hid_tax_other2").show();
 							$(".hid_meals").show();
-			            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+600)+"px");
+			            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+700)+"px");
 			            	 scroll("tbbs","box",1);
 							$("#btnHideaddmoney").val("加班費隱藏");
 						}
@@ -811,7 +811,7 @@
 		                    q_bodyId($(this).attr('id'));
 		                    b_seq = t_IdSeq;
 	           				if (q_getPara('sys.project').toUpperCase()=='VU')
-	           					q_tr('txtAddmoney_'+b_seq,Math.round(dec($('#txtOstand_'+b_seq).val())*1.3333*dec($('#txtAddh2_1_'+b_seq).val()))+Math.round(dec($('#txtOstand_'+b_seq).val())*1*dec($('#txtAddh100_'+b_seq).val())));//加班費
+	           					q_tr('txtAddmoney_'+b_seq,Math.round(dec($('#txtOstand_'+b_seq).val())*1.3333*dec($('#txtAddh2_1_'+b_seq).val()))+Math.round(dec($('#txtOstand_'+b_seq).val())*1.6666*dec($('#txtAddh2_2_'+b_seq).val()))+Math.round(dec($('#txtOstand_'+b_seq).val())*1*dec($('#txtAddh100_'+b_seq).val())));//加班費
 	           				sum();
 	           			});
 	           			$('#txtAddmoney_'+j).change(function () {sum();});
@@ -820,10 +820,17 @@
 		                    q_bodyId($(this).attr('id'));
 		                    b_seq = t_IdSeq;
 	           				if (q_getPara('sys.project').toUpperCase()=='VU')
-	           					q_tr('txtAddmoney_'+b_seq,Math.round(dec($('#txtOstand_'+b_seq).val())*1.3333*dec($('#txtAddh2_1_'+b_seq).val()))+Math.round(dec($('#txtOstand_'+b_seq).val())*1*dec($('#txtAddh100_'+b_seq).val())));//加班費
+	           					q_tr('txtAddmoney_'+b_seq,Math.round(dec($('#txtOstand_'+b_seq).val())*1.3333*dec($('#txtAddh2_1_'+b_seq).val()))+Math.round(dec($('#txtOstand_'+b_seq).val())*1.6666*dec($('#txtAddh2_2_'+b_seq).val()))+Math.round(dec($('#txtOstand_'+b_seq).val())*1*dec($('#txtAddh100_'+b_seq).val())));//加班費
 	           				sum();
 	           			});
-	           			$('#txtAddh2_2_'+j).change(function () {sum();});
+	           			$('#txtAddh2_2_'+j).change(function () {
+	           				t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                    q_bodyId($(this).attr('id'));
+		                    b_seq = t_IdSeq;
+	           				if (q_getPara('sys.project').toUpperCase()=='VU')
+	           					q_tr('txtAddmoney_'+b_seq,Math.round(dec($('#txtOstand_'+b_seq).val())*1.3333*dec($('#txtAddh2_1_'+b_seq).val()))+Math.round(dec($('#txtOstand_'+b_seq).val())*1.6666*dec($('#txtAddh2_2_'+b_seq).val()))+Math.round(dec($('#txtOstand_'+b_seq).val())*1*dec($('#txtAddh100_'+b_seq).val())));//加班費
+	           				sum();
+						});
 	           			$('#txtTotal3_'+j).change(function () {sum();});
 	           			$('#txtTax_other2_'+j).change(function () {sum();});
 	           			$('#txtMeals_'+j).change(function () {sum();});
@@ -843,7 +850,7 @@
 		                    q_bodyId($(this).attr('id'));
 		                    b_seq = t_IdSeq;
 	           				if (q_getPara('sys.project').toUpperCase()=='VU')
-	           					q_tr('txtAddmoney_'+b_seq,Math.round(dec($('#txtOstand_'+b_seq).val())*1.3333*dec($('#txtAddh2_1_'+b_seq).val()))+Math.round(dec($('#txtOstand_'+b_seq).val())*1*dec($('#txtAddh100_'+b_seq).val())));//加班費
+	           					q_tr('txtAddmoney_'+b_seq,Math.round(dec($('#txtOstand_'+b_seq).val())*1.3333*dec($('#txtAddh2_1_'+b_seq).val()))+Math.round(dec($('#txtOstand_'+b_seq).val())*1.6666*dec($('#txtAddh2_2_'+b_seq).val()))+Math.round(dec($('#txtOstand_'+b_seq).val())*1*dec($('#txtAddh100_'+b_seq).val())));//加班費
 	           				sum();
 	           			});
 	           			$('#txtTotal4_'+j).change(function () {sum();});
@@ -945,7 +952,7 @@
 	            	$('#lblBo_traffics').text('裁剪噸數獎金');
 	            	$('#lblBo_specials').text('績效獎金');
 	            	$('#lblBo_oths').text('其他津貼');
-	            	$('#lblAddh2_1s').text('加班時數');
+	            	//$('#lblAddh2_1s').text('加班時數');
 	            	$('#lblAddh100s').text('值班時數');
 	            	$('#lblMoney1s').text('獎金基數');
 	            	$('#lblMoney2s').text('獎金噸數');
@@ -1451,7 +1458,7 @@
 	        			
 	        			//當有核取時加班費金額可以直接修改 //11/10 只有第一次計算
 	        			if(imports){
-	        				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.3333*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val())));//加班費   				
+	        				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.3333*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.6666*dec($('#txtAddh2_2_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val())));//加班費   				
 	        			}
 	        			q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())+dec($('#txtMeals_'+j).val())));//應領總額=給付總額+加班費+免稅其他
 	        			//福利金
@@ -1484,7 +1491,7 @@
 	        			
 	        			//當有核取時加班費金額可以直接修改 //11/10 只有第一次計算
 	        			if(imports){
-	        				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.3333*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val())));//加班費
+	        				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.3333*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.6666*dec($('#txtAddh2_2_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val())));//加班費
 	        			}
 	        			q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())+dec($('#txtMeals_'+j).val())));//應領總額=給付總額+加班費+免稅其他
 	        			//福利金
@@ -1510,7 +1517,7 @@
 	        			
 	        			//當有核取時加班費金額可以直接修改 //11/10 只有第一次計算
 	        			if(imports){
-	        				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.3333*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val())));//加班費
+	        				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.3333*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.6666*dec($('#txtAddh2_2_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val())));//加班費
 	        			}
 	        			
 	        			q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())+dec($('#txtMeals_'+j).val())));//應領總額
@@ -2107,7 +2114,7 @@
 				$(".hid_meals").show();
 				
 				if (q_getPara('sys.project').toUpperCase()=='VU'){
-					$(".hid_addh2_2").hide();
+					//$(".hid_addh2_2").hide(); //106/04
 					$(".hid_addh46_1").hide();
 					$(".hid_addh46_2").hide();
 					$('.hid_money1').show();
