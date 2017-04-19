@@ -746,6 +746,21 @@
             
             var ummcustchk=false;//檢查請款單的客戶是否為同一個客戶
             function btnOk() {
+            	//106/04/19 RB檢查表身沒有資料不能存檔
+            	if(q_getPara('sys.project').toUpperCase()=='RB'){
+            		var isdata=false;
+            		for (var i = 0; i < q_bbsCount; i++) {
+            			if(!emp($('#txtAcc1_'+i).val()) || dec($('#txtMoney_'+i).val())!=0 || dec($('#txtPaysale_'+i).val())!=0){
+            				isdata=true;
+            				break;
+            			}
+            		}
+            		if(!isdata){
+            			alert('表身無填入正確資料!!')
+            			return;
+            		}
+            	}
+            	
             	if(!ummcustchk){
             		var custwhere='';
             		for (var i = 0; i < q_bbsCount; i++) {
