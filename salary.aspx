@@ -490,11 +490,17 @@
 		            	var t_where4 = "where[4]=^^ noa between '"+date_3+"' and '"+date_4+"' and sssno=a.noa ^^";
 		            	var t_where5 = "where[5]=^^ sysgen='1' and mon='"+$('#txtMon').val()+"' ^^";
 		            	
+		            	var t_where6 = "";
+		            	if(q_getPara('sys.project').toUpperCase()=='VU' && $('#cmbPerson').find("option:selected").text()=='日薪')
+		            		t_where6 = "where[6]=^^ noa between '"+date_1+"' and '"+date_2+"' and sssno=a.noa and noa>=a.indate and DATEPART(WEEKDAY,noa)-1!=0 and DATEPART(WEEKDAY,noa)-1!=6 ^^";
+		            	else
+		            		t_where6 = "where[6]=^^ noa between '"+date_1+"' and '"+date_2+"' and sssno=a.noa and noa>=a.indate ^^";
+		            	
 		            	getdtmp();
 		            	if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
 		            		q_gt('salary_it_import', t_where+t_where1+t_where2+t_where3+t_where4+t_where5 , 0, 0, 0, "salaryst_import", r_accy);
 		            	}else{
-				        	q_gt('salaryst_import', t_where+t_where1+t_where2+t_where3+t_where4+t_where5 , 0, 0, 0, "", r_accy);
+				        	q_gt('salaryst_import', t_where+t_where1+t_where2+t_where3+t_where4+t_where5+t_where6 , 0, 0, 0, "", r_accy);
 				        }
 	            		break;
 	                case 'salaryst_import':
@@ -1928,7 +1934,7 @@
 	        	getdtmp();
 	        	$('#tbbs').css("width","5400px");
 	        	if (q_getPara('sys.project').toUpperCase()=='VU'){
-	        		$('#tbbs').css("width","5300px");
+	        		$('#tbbs').css("width","5500px");
 	        	}
 	        	
 	             if ($('#cmbPerson').find("option:selected").text().indexOf('本國')>-1){
