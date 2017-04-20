@@ -31,7 +31,7 @@
 			brwKey = 'Datea';
 			aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'], ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_,txtMoney_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno], ['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'], ['txtUmmaccno_', '', 'payacc', 'noa,typea', 'txtUmmaccno_,txtTypea_', 'payacc_b.aspx'], ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']);
 			
-			var t_part='',t_acomp='';
+			var t_parts='',t_acomp='';
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
@@ -47,7 +47,7 @@
 				q_mask(bbmMask);
 				bbsMask = [['txtIndate', r_picd]];
 				
-				q_cmbParse("cmbPartno", t_part, 's');
+				q_cmbParse("cmbPartno", t_parts, 's');
 				q_cmbParse("cmbCno", t_acomp);
 				q_cmbParse("cmbPayc2", q_getMsg('payc').split('&').join(), "s");
 				$('#btnExplain').click(function() {
@@ -248,10 +248,10 @@
 				switch (t_name) {
 					case 'part':
 						var as = _q_appendData("part", "", true);
+						t_parts = "@";
 						if (as[0] != undefined) {
-							t_part = "@";
 							for ( i = 0; i < as.length; i++) {
-								t_part = t_part + (t_part.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
+								t_parts = t_parts + (t_parts.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
 							}
 						}
 						q_gt('acomp', '', 0, 0, 0, "");
@@ -259,8 +259,8 @@
 						break;
 					case 'acomp':
 						var as = _q_appendData("acomp", "", true);
+						t_acomp = "@";
 						if (as[0] != undefined) {
-							t_acomp = "@";
 							for ( i = 0; i < as.length; i++) {
 								t_acomp = t_acomp + (t_acomp.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
 							}
