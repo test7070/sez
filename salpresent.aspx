@@ -429,6 +429,9 @@
         	if(q_getPara('sys.project').toUpperCase()=='VU'){
 	            //$('.w166').hide(); //106/04 調整
 				$('.rein').show();
+				$('.w200').hide();
+				$('.w266').hide();
+				$('.special').hide();
             }
             if(q_getPara('sys.project').toUpperCase()=='FE'){
             	$('.rest').show();
@@ -661,7 +664,7 @@
             <td class='w100'><span> </span><a id="lblW100" class="lbl" > </a></td>
             <td class='w100'><input id="txtW100"  type="text" class="txt num c1"/></td>
         </tr>
-        <tr>
+        <tr class='w200'>
             <td class='w200'><span> </span><a id="lblW200" class="lbl" > </a></td>
             <td class='w200'><input id="txtW200"  type="text" class="txt num c1"/></td>
             <td class='w266'><span> </span><a id="lblW266" class="lbl" > </a></td>
@@ -693,7 +696,7 @@
                 <td align="center" class='w166'><a id='lblW166_s'> </a></td>
                 <td align="center" class='w100'><a id='lblW100_s'> </a></td>
                 <td align="center" class='w200'><a id='lblW200_s'> </a></td>
-                <td align="center" class='w200'><a id='lblW266_s'> </a></td>
+                <td align="center" class='w266'><a id='lblW266_s'> </a></td>
                 <!--<td align="center"><a id='lblW300_s'> </a></td>-->
                 <td align="center" class='special'><a id='lblHr_special_s'> </a></td>
                 <td align="center"><a id='lblMemo_s'> </a></td>

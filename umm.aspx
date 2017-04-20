@@ -802,7 +802,10 @@
                     	return;
                 	}
                 }
-                var t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
+                
+                $('#txtDatea').val(trim($('#txtDatea').val()));
+                
+                var t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')],['txtDatea', q_getMsg('lblDatea')]]);
                 // 檢查空白
                 if (t_err.length > 0) {
                     alert(t_err);
