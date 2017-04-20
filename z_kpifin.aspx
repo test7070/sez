@@ -90,6 +90,8 @@
                 q_popAssign();
                 q_langShow();
                 
+                $('#Xyear').find('select').val((parseInt(q_date().substring(0,r_len))-1)+"");
+                
                 $('#btnOk').before($('#btnOk').clone().attr('id', 'btnOk2').show()).hide();
                 $('#btnOk2').click(function(e){
             		switch($('#q_report').data('info').radioIndex) {
@@ -98,6 +100,7 @@
 							var t_edate = $('#Xyear').find('select').val()+'/12/31';
 							isFirst = true;
 							q_func('z_acbe.z_acbe1y', t_bdate + "," + t_edate);
+							break;
                         default:
                            	$('#btnOk').click();
                             break;
