@@ -19,7 +19,7 @@
             var q_name = "vccd";
             var q_readonly = ['txtNoa','txtInno','txtWorker','txtWorker2'];
             var q_readonlys = [];
-            var bbmNum = [['txtWeight', 10, 3, 1],['txtPrice', 10, 3, 1],['txtTranmoney', 10, 3, 1]];
+            var bbmNum = [/*['txtWeight', 10, 3, 1],['txtPrice', 10, 3, 1],*/['txtTranmoney', 10, 3, 1]];
             var bbsNum = [['txtDime', 10, 3, 1],['txtWidth', 10, 3, 1],['txtLengthb', 10, 3, 1],['txtInmount', 10, 3, 1],
             			  ['txtInweight', 10, 3, 1],['txtMount', 10, 3, 1],['txtWeight', 10, 3, 1],['txtPrice', 10, 3, 1],
             			  ['txtTotal', 10, 3, 1],['txtTheory', 10, 3, 1],['txtRadius', 10, 3, 1]
@@ -40,6 +40,7 @@
 				['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 				['txtUno_', 'btnUno_', 'uccc', 'view_uccc', 'txtUno_', 'uccc_seek_b.aspx?;;;1=0','95%','60%'],
 				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,spec,unit', 'txtProductno_,txtProduct_,txtSpec_,txtUnit_', 'ucaucc_b.aspx'],
+				['txtCar', 'lblCar', 'cardeal', 'nick', 'txtCar', 'cardeal_b.aspx'],
 				['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx']
 			);
             $(document).ready(function() {
@@ -77,6 +78,8 @@
                 b_pop = '';
             }
 
+
+			
             function q_gtPost(t_name) {
                 switch (t_name) {
 					case q_name:
@@ -139,9 +142,9 @@
                 $('#txtDatea').focus();
                 sum();
             }
-
+			
             function btnPrint() {
-
+                q_box('z_vccd_jo.aspx' + "?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
@@ -422,7 +425,7 @@
 						<td colspan="6"><input id="txtMemo"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblCar' class="lbl"> </a></td>
+						<td><span> </span><a id='lblCar' class="lbl btn"> </a></td>
 						<td><input id="txtCar"  type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblCarno' class="lbl"> </a></td>
 						<td><input id="txtCarno"  type="text" class="txt c1"/></td>

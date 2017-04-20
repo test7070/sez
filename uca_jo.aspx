@@ -387,6 +387,10 @@
 						break;*/
 					case 'wcost':
 						var as = _q_appendData("wcost", "", true);
+<<<<<<< HEAD
+						//106/02/22 costa 抓cost
+=======
+>>>>>>> ac69bfdb7c64d65095d5215f68542a19d159f9e1
 						//106/02/22 不抓bbm的委外單價
 						$('#textCosta').val(0);
 						$('#textCostb').val(0);
@@ -398,7 +402,11 @@
 							$('#textCostb').val(round(dec(as[0].costb) / dec(as[0].mount), 0));
 							$('#textCostc').val(round(dec(as[0].costc) / dec(as[0].mount), 0));
 							$('#textCostd').val(round(dec(as[0].costd) / dec(as[0].mount), 0));
+<<<<<<< HEAD
+						}/*else {
+=======
 						}else {
+>>>>>>> ac69bfdb7c64d65095d5215f68542a19d159f9e1
 							//抓原物料金額和委外單價
 							//$('#textCostd').val(dec($('#txtPrice').val()));
 							ucsa_cost = 0;
@@ -408,7 +416,7 @@
 									q_gt('costs', t_where, 0, 0, 0, "ucascost_" + i, r_accy);
 								}
 							}
-						}
+						}*/
 						
 						//報廢、模具
 						var t_where = "where=^^ productno ='" + $('#txtNoa').val() + "' order by mon desc ^^ stop=1 ";
@@ -420,12 +428,20 @@
 						$('#textCostw').val(0);
 						$('#textCostm').val(0);
 						if (as[0] != undefined) {
+<<<<<<< HEAD
+							$('#textCosta').val(dec(as[0].price));//106/02/22 costa 抓cost
+							$('#textCostw').val(round(dec(as[0].wastemoney) / dec(as[0].bornmount), 0));
+							$('#textCostm').val(round(dec(as[0].modelmoney) / dec(as[0].bornmount), 0));
+						}
+						$('#textCosttotal').val(round(dec($('#textCosta').val()) + dec($('#textCostb').val()) + dec($('#textCostc').val()) + dec($('#textCostd').val()) + dec($('#textCostw').val()) + dec($('#textCostm').val()) + dec($('#textCostp').val()) + dec($('#textCostt').val()), 0));
+=======
 							if(dec(as[0].bornmount)!=0){
 								$('#textCostw').val(round(dec(as[0].wastemoney) / dec(as[0].bornmount), 0));
 								$('#textCostm').val(round(dec(as[0].modelmoney) / dec(as[0].bornmount), 0));
 							}
 						}
 						$('#textCosttotal').val(round(dec($('#textCosta').val()) + dec($('#textCostb').val()) + dec($('#textCostc').val()) + dec($('#textCostd').val()) + dec($('#textCostw').val()) + dec($('#textCostm').val()) + dec($('#textCostp').val()) + dec($('#textCostt').val()), 2));
+>>>>>>> ac69bfdb7c64d65095d5215f68542a19d159f9e1
 						//庫存
 						var t_where = "where=^^ ['" + q_date() + "','','') where productno='" + $('#txtNoa').val() + "' ^^";
 						q_gt('calstk', t_where, 0, 0, 0, "", r_accy);

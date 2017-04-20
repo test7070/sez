@@ -750,7 +750,7 @@
 						<td class="td5" style="width: 105px;"> </td>
 						<td class="td5" style="width: 105px;"> </td>
 						<td class="td3" style="width: 105px;"> </td>
-						<td class="td4" style="width: 120px;"> </td>
+						<td class="td4" style="width: 130px;"> </td>
 						<td class="td6" style="width: 105px;"> </td>
 					</tr>
 					<tr>
@@ -858,7 +858,7 @@
 						<td align="center">
 							<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 						</td>
-						<td align="center" style="width:10%;"><a id='lblOrdeno_s'> </a></td>
+						<td align="center" style="width:13%;"><a id='lblOrdeno_s'> </a></td>
 						<td align="center" style="width:4%;"><a id='lblNo2_s'> </a></td>
 						<td align="center" style="width:20%;"><a id='lblProductno_s'> </a></td>
 						<td align="center" style="width:4%;"><a id='lblUnit_s'> </a></td>
