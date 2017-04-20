@@ -1,16 +1,20 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
-    <head>
-        <title></title>
-        <script src="../script/jquery.min.js" type="text/javascript"></script>
-        <script src='../script/qj2.js' type="text/javascript"></script>
-        <script src='qset.js' type="text/javascript"></script>
-        <script src='../script/qj_mess.js' type="text/javascript"></script>
-        <script src="../script/qbox.js" type="text/javascript"></script>
-        <script src='../script/mask.js' type="text/javascript"></script>
-        <link href="../qbox.css" rel="stylesheet" type="text/css" />
-        <script type="text/javascript">
-			q_desc = 1
+	<head>
+		<title> </title>
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
+		<script src='../script/qj2.js' type="text/javascript"></script>
+		<script src='qset.js' type="text/javascript"></script>
+		<script src='../script/qj_mess.js' type="text/javascript"></script>
+		<script src='../script/mask.js' type="text/javascript"></script>
+		<script src="../script/qbox.js" type="text/javascript"></script>
+		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
+		<script type="text/javascript">
+			q_desc = 1;
 			q_tables = 's';
 			var q_name = "pay";
 			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtAccno', 'txtSale', 'txtTotal', 'txtPaysale', 'txtUnpay', 'txtOpay', 'textOpay', 'txtWorker2', 'txtRc2no'];
@@ -26,11 +30,13 @@
 			brwNowPage = 0;
 			brwKey = 'Datea';
 			aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'], ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_,txtMoney_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno], ['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'], ['txtUmmaccno_', '', 'payacc', 'noa,typea', 'txtUmmaccno_,txtTypea_', 'payacc_b.aspx'], ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']);
+			
+			var t_parts='',t_acomp='';
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
 				q_brwCount();
-				q_gt(q_name, q_content, q_sqlCount, 1);
+				q_gt('part', '', 0, 0, 0, "");
 			});
 			function main() {
 				mainForm(1);
@@ -40,8 +46,9 @@
 				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
 				q_mask(bbmMask);
 				bbsMask = [['txtIndate', r_picd]];
-				q_gt('part', '', 0, 0, 0, "");
-				q_gt('acomp', '', 0, 0, 0, "");
+				
+				q_cmbParse("cmbPartno", t_parts, 's');
+				q_cmbParse("cmbCno", t_acomp);
 				q_cmbParse("cmbPayc2", q_getMsg('payc').split('&').join(), "s");
 				$('#btnExplain').click(function() {
 					$('#ChangeExplain').toggle();
@@ -239,6 +246,28 @@
 			}
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'part':
+						var as = _q_appendData("part", "", true);
+						t_parts = "@";
+						if (as[0] != undefined) {
+							for ( i = 0; i < as.length; i++) {
+								t_parts = t_parts + (t_parts.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
+							}
+						}
+						q_gt('acomp', '', 0, 0, 0, "");
+				
+						break;
+					case 'acomp':
+						var as = _q_appendData("acomp", "", true);
+						t_acomp = "@";
+						if (as[0] != undefined) {
+							for ( i = 0; i < as.length; i++) {
+								t_acomp = t_acomp + (t_acomp.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
+							}
+						}
+						q_gt(q_name, q_content, q_sqlCount, 1);
+						break;
+						
 					case 'calcopay':
 						console.log('q_gtPost  calcopay');
 						var as = _q_appendData("paybs", "", true);
@@ -252,28 +281,8 @@
 						}
 						checkGqb_bbs(q_bbsCount - 1);
 						break;
-					case 'part':
-						var as = _q_appendData("part", "", true);
-						if (as[0] != undefined) {
-							var t_item = "@";
-							for ( i = 0; i < as.length; i++) {
-								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
-							}
-							q_cmbParse("cmbPartno", t_item, 's');
-							refresh(q_recno);
-							/// 第一次需要重新載入
-						}
-						break;
-					case 'acomp':
-						var as = _q_appendData("acomp", "", true);
-						if (as[0] != undefined) {
-							var t_item = "@";
-							for ( i = 0; i < as.length; i++) {
-								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
-							}
-							q_cmbParse("cmbCno", t_item);
-						}
-						break;
+					
+					
 					case 'payb':
 						var as = _q_appendData('paybs', '', true);
 						if (as[0] != undefined)

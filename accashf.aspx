@@ -233,12 +233,21 @@
 						$('#txtMoney1__'+n).val(0);
 						//5碼的才需判斷是否要包含子科目
 						var t_acc1 = $.trim($('#txtAcc1__'+n).val());
-						if(t_acc1.length==5 && $('#chkIsall__'+n).prop('checked')){
+						/*if(t_acc1.length==5 && $('#chkIsall__'+n).prop('checked')){
 							t_where = " left(a.accc5,5)='"+t_acc1+"'";
 						}else{
 							t_where = " a.accc5='"+t_acc1+"'";
 						}
 						t_where += " and left(b.accc2,2)<='"+getMon($('#txtMon').val())+"' and LEFT(a.accc3,2)!='00'";
+						*/
+						
+						//損益表有含期初,所以期初的傳票也應該要算進去,所以不排除 0000  了
+						if(t_acc1.length==5 && $('#chkIsall__'+n).prop('checked')){
+							t_where = " left(accc5,5)='"+t_acc1+"'";
+						}else{
+							t_where = " accc5='"+t_acc1+"'";
+						}
+						t_where += " and left(accc2,2)<='"+getMon($('#txtMon').val())+"' --and LEFT(accc3,2)!='00'";
 						t_where = "where=^^"+t_where+"^^";
 						q_gt('acccs_sum', t_where, 0, 0, 0, "acccs_sum_"+n+"_"+t_acc1, t_accy+"_1");
 					}
@@ -269,7 +278,8 @@
                 		var as = _q_appendData("INFORMATION_SCHEMA.TABLES", "", true);
                 		if(as[0]!=undefined){
                 			//不含期初
-                			t_where = "where=^^ (b.accc2 between '01/01' and '"+t_mon+"/31') and LEFT(a.accc3,2)!='00' ^^";
+                			////損益表有含期初,所以期初的傳票也應該要算進去,所以不排除 0000  了
+                			t_where = "where=^^ (b.accc2 between '01/01' and '"+t_mon+"/31') --and LEFT(a.accc3,2)!='00' ^^";
                 			q_gt('accashf_import', t_where, 0, 0, 0, "accashf_import1", t_accy+"_1");
                 		}else{
                 			//alert('無資料。');
