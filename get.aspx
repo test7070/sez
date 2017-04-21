@@ -291,7 +291,7 @@
 				
 				if (q_getPara('sys.project').toUpperCase()=='XY'){
 					$('#txtStoreno').val('A');
-					$('#txtStore').val('總倉庫');
+					$('#txtStore').val('工廠倉');
 				}
 			}
 
