@@ -706,7 +706,7 @@
 					for (var i = 0; i < q_bbsCount; i++) {
 						if(!emp($('#txtProductno_'+i).val()) && emp($('#txtStoreno_'+i).val())){
 							$('#txtStoreno_'+i).val('A');
-							$('#txtStore_'+i).val('總倉庫');
+							$('#txtStore_'+i).val('工廠倉');
 						}
 					}
 				}
@@ -1069,7 +1069,7 @@
 									$('#txtSpec_'+b_seq).val(as[0].style+' '+as[0].spec);
 								}
 								$('#txtStoreno_'+b_seq).val('A');
-								$('#txtStore_'+b_seq).val('總倉庫');
+								$('#txtStore_'+b_seq).val('工廠倉');
 							}
 						}
 						break;
