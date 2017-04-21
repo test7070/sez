@@ -87,7 +87,16 @@
 			var curData = new currentData();
 
             function mainPost() {
-                q_cmbParse("cmbTypea", q_getPara('cust.typea'));
+            	switch(q_getPara('sys.project').toUpperCase()){
+            		case 'WH':
+            			q_cmbParse("cmbTypea", "一般,空運");
+            			break;
+            		default:
+            			q_cmbParse("cmbTypea", q_getPara('cust.typea'));
+            			break;
+            	}
+                
+                
                 switch(q_getPara('sys.project').toUpperCase()){
                 	case 'WH':
                 		$('#combPaytype').hide();
