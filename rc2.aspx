@@ -127,8 +127,8 @@
 				q_cmbParse("combPaytype", q_getPara('rc2.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				//q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
-				var t_where = "where=^^ 1=0 ^^ stop=100";
-				q_gt('custaddr', t_where, 0, 0, 0, "");
+				//var t_where = "where=^^ 1=0 ^^ stop=100";
+				//q_gt('custaddr', t_where, 0, 0, 0, "");
 				
 				//限制帳款月份的輸入 只有在備註的第一個字為*才能手動輸入					
 				$('#txtMemo').change(function(){
@@ -197,8 +197,10 @@
 				
 				$('#txtTggno').change(function() {
 					if (!emp($('#txtTggno').val())) {
-						var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^ stop=100";
-						q_gt('custaddr', t_where, 0, 0, 0, "");
+						//var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^ stop=100";
+						//q_gt('custaddr', t_where, 0, 0, 0, "");
+						var t_where = "where=^^ tggno='" + $('#txtTggno').val() + "' and datea>='"+q_cdn(q_date(),-183)+"' ^^ stop=999";
+						q_gt('view_rc2', t_where, 0, 0, 0, "custaddr", r_accy);
 						if(q_getPara('sys.project').toUpperCase()=='XY'){
 							var t_where =" noa='"+$('#txtTggno').val()+"'";
 							q_gt('tgg', "where=^^ "+t_where+" ^^", 0, 0, 0, "xytggdata");
@@ -430,11 +432,20 @@
 						}
 						break;
 					case 'custaddr':
-						var as = _q_appendData("custaddr", "", true);
+						var as = _q_appendData("view_rc2", "", true);
 						var t_item = " @ ";
 						if (as[0] != undefined) {
 							for ( i = 0; i < as.length; i++) {
-								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].post + '@' + as[i].addr;
+								var tt_item=t_item.split(',');
+								var t_exists=false;
+								for (var j=0;j<tt_item.length;j++){
+									if(as[i].post2 + '@' + as[i].addr2==tt_item[j]){
+										t_exists=true;
+										break;
+									}
+								}
+								if(!t_exists)
+								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].post2 + '@' + as[i].addr2;
 							}
 						}
 						document.all.combAddr.options.length = 0;
@@ -495,8 +506,10 @@
 						Unlock(1);
 						$('#txtDatea').focus();
 						if (!emp($('#txtTggno').val())) {
-							var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^";
-							q_gt('custaddr', t_where, 0, 0, 0, "");
+							//var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^";
+							//q_gt('custaddr', t_where, 0, 0, 0, "");
+							var t_where = "where=^^ tggno='" + $('#txtTggno').val() + "' and datea>='"+q_cdn(q_date(),-183)+"' ^^ stop=999";
+							q_gt('view_rc2', t_where, 0, 0, 0, "custaddr", r_accy);
 						}
 						break;
 					case 'ordc':
@@ -878,8 +891,9 @@
 				//$('#cmbTaxtype').val(1);
 				$('#chkAtax').prop('checked',true);
 				if (!emp($('#txtTggno').val())) {
-					var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^ stop=100";
-					q_gt('custaddr', t_where, 0, 0, 0, "");
+					//var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^ stop=100";
+					//q_gt('custaddr', t_where, 0, 0, 0, "");
+					
 				}
 			}
 
@@ -1091,8 +1105,10 @@
 						break;	
 					case 'txtTggno':
 						if (!emp($('#txtTggno').val())) {
-							var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^ stop=100";
-							q_gt('custaddr', t_where, 0, 0, 0, "");
+							//var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^ stop=100";
+							//q_gt('custaddr', t_where, 0, 0, 0, "");
+							var t_where = "where=^^ tggno='" + $('#txtTggno').val() + "' and datea>='"+q_cdn(q_date(),-183)+"' ^^ stop=999";
+							q_gt('view_rc2', t_where, 0, 0, 0, "custaddr", r_accy);
 							if(q_getPara('sys.project').toUpperCase()=='XY'){
 								var t_where =" noa='"+$('#txtTggno').val()+"'";
 								q_gt('tgg', "where=^^ "+t_where+" ^^", 0, 0, 0, "xytggdata");
