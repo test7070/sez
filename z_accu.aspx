@@ -65,8 +65,8 @@
                     }]
                 });
                 q_popAssign();
-                $('#txtXmon1').mask('999/99');
-                $('#txtXmon2').mask('999/99');
+                $('#txtXmon1').mask(r_picm);
+                $('#txtXmon2').mask(r_picm);
                 $('#lblXproj').css('font-weight','bolder').css('color','blue');
                 $('#lblXproj').click(function(e) {
                 	q_box("proj_b2.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno , 'proj', "450px", "600px", q_getMsg("popProj"));
