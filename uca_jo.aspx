@@ -413,26 +413,12 @@
 						$('#textCostw').val(0);
 						$('#textCostm').val(0);
 						if (as[0] != undefined) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-							$('#textCosta').val(dec(as[0].price));//106/02/22 costa 抓cost
-							$('#textCostw').val(round(dec(as[0].wastemoney) / dec(as[0].bornmount), 0));
-							$('#textCostm').val(round(dec(as[0].modelmoney) / dec(as[0].bornmount), 0));
-						}
-						$('#textCosttotal').val(round(dec($('#textCosta').val()) + dec($('#textCostb').val()) + dec($('#textCostc').val()) + dec($('#textCostd').val()) + dec($('#textCostw').val()) + dec($('#textCostm').val()) + dec($('#textCostp').val()) + dec($('#textCostt').val()), 0));
-
-=======
->>>>>>> a7afb889ffb5297926cb891991751e17d2ec4dc2
 							if(dec(as[0].bornmount)!=0){
 								$('#textCostw').val(round(dec(as[0].wastemoney) / dec(as[0].bornmount), 0));
 								$('#textCostm').val(round(dec(as[0].modelmoney) / dec(as[0].bornmount), 0));
 							}
 						}
 						$('#textCosttotal').val(round(dec($('#textCosta').val()) + dec($('#textCostb').val()) + dec($('#textCostc').val()) + dec($('#textCostd').val()) + dec($('#textCostw').val()) + dec($('#textCostm').val()) + dec($('#textCostp').val()) + dec($('#textCostt').val()), 2));
-<<<<<<< HEAD
-
-=======
->>>>>>> a7afb889ffb5297926cb891991751e17d2ec4dc2
 						//庫存
 						var t_where = "where=^^ ['" + q_date() + "','','') where productno='" + $('#txtNoa').val() + "' ^^";
 						q_gt('calstk', t_where, 0, 0, 0, "", r_accy);
