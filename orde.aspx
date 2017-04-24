@@ -50,6 +50,7 @@
 				q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
 				q_gt('flors_coin', '', 0, 0, 0, "flors_coin");
 				$('#txtOdate').focus();
+				
 			});
 
 			function main() {
@@ -84,7 +85,7 @@
 
 			function mainPost() {
 				q_getFormat();
-				bbmMask = [['txtOdate', r_picd]];
+				bbmMask = [['txtOdate', r_picd],['txtDatea', r_picd]];
 				q_mask(bbmMask);
 				bbsMask = [['txtDatea', r_picd]];
 				bbsNum = [['txtPrice', 12, q_getPara('vcc.pricePrecision'), 1], ['txtMount', 9, q_getPara('vcc.mountPrecision'), 1], ['txtTotal', 10, 0, 1],['txtC1', 10, q_getPara('vcc.mountPrecision'), 1], ['txtNotv', 10, q_getPara('vcc.mountPrecision'), 1]];
@@ -163,7 +164,6 @@
 						tr.innerHTML+= "<td id='addr2_tdPost2_"+i+"'><input id='addr2_txtPost2_"+i+"' type='text' class='txt addr2' value='"+t_post2[i]+"' style='width: 70px'/></td>";
 						tr.innerHTML+="<td id='addr2_tdAddr2_"+i+"'><input id='addr2_txtAddr2_"+i+"' type='text' class='txt c1 addr2' value='"+t_addr2[i]+"' /></td>";
 						var tmp = document.getElementById("addr2_close");
-						tmp.parentNode.insertBefore(tr,tmp);
 					}
 					readonly_addr2();
 					$('#div_addr2').show();
@@ -209,15 +209,6 @@
 				if(q_getPara('sys.project').toUpperCase()=="PK"){ //104/06/25 潘小姐 只要顯示外銷
 					var s2=new Array(q_name+'_s',"where=^^stype='3' ^^ ");
                 	q_boxClose2(s2);
-				}
-				if(q_getPara('sys.project').toUpperCase()=="UJ"){//更動ST2 永振半成品
-					aPop = new Array(
-						['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc_b.aspx'],
-						['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
-						['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
-						['txtCustno', 'lblCust', 'cust', 'noa,nick,paytype,trantype,tel,fax,zip_comp,addr_fact', 'txtCustno,txtComp,txtPaytype,cmbTrantype,txtTel,txtFax,txtPost,txtAddr', 'cust_b.aspx'],
-						['ordb_txtTggno_', '', 'tgg', 'noa,comp', 'ordb_txtTggno_,ordb_txtTgg_', '']
-					);
 				}
 			}
 			
@@ -1157,7 +1148,7 @@
 							<span> </span><a id='lblCancel'> </a>
 						</td>
 					</tr>
-					<tr class="tr11">
+					<tr class="tr12">
 						<td class="td1"><span> </span><a id='lblMemo' class='lbl'> </a></td>
 						<td class="td2" colspan='7'>
 							<textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea>
