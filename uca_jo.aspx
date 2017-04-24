@@ -126,7 +126,6 @@
 				}
 			};
 			var curData = new currentData();
-
 			function main() {
 				if (dataErr) {
 					dataErr = false;
@@ -136,7 +135,6 @@
 				mainForm(0);
 				$('#txtNoa').focus();
 			}
-
 			function mainPost() {
 				q_getFormat();
 				bbmMask = [['txtKdate', r_picd], ['txtWdate', r_picd]];
@@ -195,12 +193,10 @@
 						q_bbs_addrow(row_bbsbbt, row_b_seq, 1);
 					}
 				});
-
 				$('#btnCustproduct').click(function() {
 					t_where = "noa='" + $('#txtNoa').val() + "'";
 					q_box("ucccust.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucccust', "95%", "95%", q_getMsg('btnCustproduct'));
 				});
-
 				$('#btnStkcost').mousedown(function(e) {
 					if(!emp($('#txtNoa').val())){
 						if (e.button == 0) {
@@ -244,13 +240,11 @@
 						//q_gt('workg_orde', t_where + t_where1 + t_where2 + t_where3 + t_where4, 0, 0, 0, "", r_accy);
 					}
 				});
-
 				$('#btnClose_div_stkcost').click(function() {
 					$('#div_stkcost').toggle();
 					$('#div_stk').hide();
 					$('#btnStkcost').removeAttr('disabled');
 				});
-
 				$('#btnStk').click(function() {
 					if (!emp($('#txtNoa').val()) && $("#div_stk").is(":hidden")) {
 						//document.getElementById("stk_productno").innerHTML = $('#txtNoa' ).val();
@@ -277,7 +271,6 @@
 					}
 				});*/
 			}
-
 			var t_td = '';
 			function q_boxClose(s2) {
 				var ret;
@@ -387,10 +380,6 @@
 						break;*/
 					case 'wcost':
 						var as = _q_appendData("wcost", "", true);
-<<<<<<< HEAD
-						//106/02/22 costa 抓cost
-=======
->>>>>>> ac69bfdb7c64d65095d5215f68542a19d159f9e1
 						//106/02/22 不抓bbm的委外單價
 						$('#textCosta').val(0);
 						$('#textCostb').val(0);
@@ -402,11 +391,7 @@
 							$('#textCostb').val(round(dec(as[0].costb) / dec(as[0].mount), 0));
 							$('#textCostc').val(round(dec(as[0].costc) / dec(as[0].mount), 0));
 							$('#textCostd').val(round(dec(as[0].costd) / dec(as[0].mount), 0));
-<<<<<<< HEAD
-						}/*else {
-=======
 						}else {
->>>>>>> ac69bfdb7c64d65095d5215f68542a19d159f9e1
 							//抓原物料金額和委外單價
 							//$('#textCostd').val(dec($('#txtPrice').val()));
 							ucsa_cost = 0;
@@ -416,7 +401,7 @@
 									q_gt('costs', t_where, 0, 0, 0, "ucascost_" + i, r_accy);
 								}
 							}
-						}*/
+						}
 						
 						//報廢、模具
 						var t_where = "where=^^ productno ='" + $('#txtNoa').val() + "' order by mon desc ^^ stop=1 ";
@@ -429,19 +414,25 @@
 						$('#textCostm').val(0);
 						if (as[0] != undefined) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 							$('#textCosta').val(dec(as[0].price));//106/02/22 costa 抓cost
 							$('#textCostw').val(round(dec(as[0].wastemoney) / dec(as[0].bornmount), 0));
 							$('#textCostm').val(round(dec(as[0].modelmoney) / dec(as[0].bornmount), 0));
 						}
 						$('#textCosttotal').val(round(dec($('#textCosta').val()) + dec($('#textCostb').val()) + dec($('#textCostc').val()) + dec($('#textCostd').val()) + dec($('#textCostw').val()) + dec($('#textCostm').val()) + dec($('#textCostp').val()) + dec($('#textCostt').val()), 0));
 
+=======
+>>>>>>> a7afb889ffb5297926cb891991751e17d2ec4dc2
 							if(dec(as[0].bornmount)!=0){
 								$('#textCostw').val(round(dec(as[0].wastemoney) / dec(as[0].bornmount), 0));
 								$('#textCostm').val(round(dec(as[0].modelmoney) / dec(as[0].bornmount), 0));
 							}
 						}
 						$('#textCosttotal').val(round(dec($('#textCosta').val()) + dec($('#textCostb').val()) + dec($('#textCostc').val()) + dec($('#textCostd').val()) + dec($('#textCostw').val()) + dec($('#textCostm').val()) + dec($('#textCostp').val()) + dec($('#textCostt').val()), 2));
+<<<<<<< HEAD
 
+=======
+>>>>>>> a7afb889ffb5297926cb891991751e17d2ec4dc2
 						//庫存
 						var t_where = "where=^^ ['" + q_date() + "','','') where productno='" + $('#txtNoa').val() + "' ^^";
 						q_gt('calstk', t_where, 0, 0, 0, "", r_accy);
@@ -509,7 +500,6 @@
 								stk_row++;
 							}
 						}
-
 						$('#div_stk').css('top', $('#div_stkcost').offset().top);
 						$('#div_stk').css('left', $('#div_stkcost').offset().left - parseInt($('#div_stk').css('width')));
 						$('#div_stk').toggle();
@@ -547,7 +537,6 @@
 						}
 						break;
 				}
-
 				if (t_name.substr(0, 9) == 'ucascost_') {
 					var as = _q_appendData("costs", "", true);
 					if (as[0] != undefined) {
@@ -558,7 +547,6 @@
 				}
 				$('#textCosttotal').val(round(dec($('#textCosta').val()) + dec($('#textCostb').val()) + dec($('#textCostc').val()) + dec($('#textCostd').val()) + dec($('#textCostw').val()) + dec($('#textCostm').val()) + dec($('#textCostp').val()) + dec($('#textCostt').val()), 0));
 			}
-
 			function btnOk() {
 				var t_noa=$('#txtSpec').val();
 				if(!emp($('#txtGroupeno').val()))
@@ -632,15 +620,12 @@
 							break;
 						}
 					}
-
 					if (!emp($('#txtProcess__' + i).val()) && !emp($('#txtTggno__' + i).val()) && emp($('#txtProductno__' + i).val())) {
 						$('#txtProductno__' + i).val($('#txtNoa').val() + '-' + $('#txtTggno__' + i).val() + '-' + ('000' + noqt).slice(-3));
 					}
 				}
-
 				$('#txtWorker').val(r_name);
 				sum();
-
 				//重新設定noq
 				for (var i = 0; i < q_bbsCount; i++) {
 					if (!emp($('#txtProductno_' + i).val()))
@@ -668,14 +653,12 @@
 						}
 					}
 				}
-
 				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
 				if (s1.length == 0 || s1 == "AUTO")
 					q_gtnoa(q_name, replaceAll('D' + $('#txtKdate').val(), '/', ''));
 				else
 					wrServer(s1);
 			}
-
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
 					return;
@@ -752,7 +735,6 @@
 								q_func('qtxt.query.bom', 'bom.txt,bom,' + encodeURI(t_td) + ';' + encodeURI($('#txtNoa').val()));
 							}
 						});
-
 						$('#btnMinus_'+j).bind('contextmenu',function(e) {
 							e.preventDefault();
 	                    	if(e.button==2){
@@ -785,7 +767,6 @@
 				$('#lblGrouphno').unbind('click');
 				$('#lblGroupino').unbind('click');
 			}
-
 			var assm_row = 0;
 			function bbtAssign() {
 				for (var i = 0; i < q_bbtCount; i++) {
@@ -800,7 +781,6 @@
 								q_tr('txtMakes_fee__' + b_seq, round(q_float('txtPrice__' + b_seq) * 0.2, 2));
 							}
 						});
-
 						$('#btnAssm__' + i).mousedown(function(e) {
 							if (q_cur < 1 || q_cur > 2)
 								return;
@@ -845,7 +825,6 @@
 										assm_row++;
 									}
 								}
-
 								//顯示資料的數量
 								var assmtmp = $('#txtAssm__' + b_seq).val().split(';');
 								for (var x = 0; x < assmtmp.length; x++) {
@@ -863,7 +842,6 @@
 								//////////////
 							}
 						});
-
 						//只顯示使用的原物料
 						$('#txtAssm__' + i).mousedown(function(e) {
 							t_IdSeq = -1;
@@ -909,7 +887,6 @@
 										assm_row++;
 									}
 								}
-
 								//顯示資料的數量
 								var assmtmp = $('#txtAssm__' + b_seq).val().split(';');
 								for (var x = 0; x < assmtmp.length; x++) {
@@ -921,14 +898,12 @@
 										}
 									}
 								}
-
 								////////////控制顯示位置
 								$('#div_assm').css('top', e.pageY - parseInt($('#div_assm').css('height')));
 								$('#div_assm').css('left', e.pageX - parseInt($('#div_assm').css('width')));
 								//////////////
 							}
 						});
-
 						$('#btnMinut__' + i).bind('contextmenu',function(e) {
 							e.preventDefault();
 							if (e.button == 2) {
@@ -948,7 +923,6 @@
 				}
 				_bbtAssign();
 			}
-
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
 					case 'qtxt.query.bom':
@@ -981,7 +955,6 @@
 						break;
 				}
 			};
-
 			function btnIns() {
 				if ($('#Copy').is(':checked')) {
 					curData.copy();
@@ -994,7 +967,6 @@
 				$('#txtKdate').focus();
 				$('#txtRev').val('001');
 			}
-
 			function btnModi() {
 				if (emp($('#txtNoa').val()))
 					return;
@@ -1002,17 +974,14 @@
 				$('#txtMdate').val(q_date());
 				$('#txtMdate').focus();
 			}
-
 			function btnPrint() {
 				q_box("z_ucap.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "' and product='" + $('#txtProduct').val() + "';" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
 			}
-
 			function wrServer(key_value) {
 				var i;
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 				_btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
 			}
-
 			function bbsSave(as) {
 				t_err = '';
 				if (!as['productno'] && !as['product']) {
@@ -1026,7 +995,6 @@
 					alert(t_err);
 					return false;
 				}
-
 				return true;
 			}
 			
@@ -1038,11 +1006,8 @@
                 q_nowf();
                 return true;
             }
-
 			function sum() {
-
 			}
-
 			function getMolds(){
 				var thisNoa = $.trim($('#txtNoa').val());
 				if((thisNoa.length>0)){
@@ -1136,7 +1101,6 @@
 					}
 				}
 			}
-
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
 				if (t_para) {
@@ -1159,62 +1123,48 @@
 				$('#lblGrouphno').unbind('click');
 				$('#lblGroupino').unbind('click');
 			}
-
 			function btnMinus(id) {
 				_btnMinus(id);
 				sum();
 			}
-
 			function btnPlus(org_htm, dest_tag, afield) {
 				_btnPlus(org_htm, dest_tag, afield);
 				if (q_tables == 's')
 					bbsAssign();
 			}
-
 			function q_appendData(t_Table) {
 				dataErr = !_q_appendData(t_Table);
 			}
-
 			function btnSeek() {
 				_btnSeek();
 			}
-
 			function btnTop() {
 				_btnTop();
 			}
-
 			function btnPrev() {
 				_btnPrev();
 			}
-
 			function btnPrevPage() {
 				_btnPrevPage();
 			}
-
 			function btnNext() {
 				_btnNext();
 			}
-
 			function btnNextPage() {
 				_btnNextPage();
 			}
-
 			function btnBott() {
 				_btnBott();
 			}
-
 			function q_brwAssign(s1) {
 				_q_brwAssign(s1);
 			}
-
 			function btnDele() {
 				_btnDele();
 			}
-
 			function btnCancel() {
 				_btnCancel();
 			}
-
 			//輸入數字判斷
 			function ValidateFloat(e, pnumber) {
 				if (!/^\d+[.]?\d*$/.test(pnumber)) {
@@ -1222,7 +1172,6 @@
 				}
 				return false;
 			}
-
 			var mouse_div = true;
 			//控制滑鼠消失div
 			var row_bbsbbt = '';
