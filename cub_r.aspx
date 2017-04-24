@@ -44,6 +44,8 @@
 				,['txtM2','','adly','noa,mon,memo,memo1,memo2','0txtM2','']
 				,['txtM3','','adly','noa,mon,memo,memo1,memo2','0txtM3','']
 				,['txtM8','','addime','noa,mon,memo,memo1,memo2','0txtM8','']
+				,['txtM9','','adly','noa,mon,memo,memo1,memo2','0txtM8','']
+				,['txtM10','','adly','noa,mon,memo,memo1,memo2','0txtM10','']
 			);
 
 			$(document).ready(function() {
@@ -883,12 +885,18 @@
 					<tr>
 						<td><span> </span><a id="lblM1" class="lbl" >車縫</a></td>
 						<td><input id="txtM1" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblM2" class="lbl" >皮料號(1)</a></td>
-						<td><input id="txtM2" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblM3" class="lbl" >皮料號(4)</a></td>
-						<td><input id="txtM3" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblM4" class="lbl" >護片</a></td>
 						<td><input id="txtM4" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblM2" class="lbl" >皮料號(1)</a></td>
+						<td><input id="txtM2" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblM9" class="lbl" >皮料號(2)</a></td>
+						<td><input id="txtM9" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblM10" class="lbl" >皮料號(3)</a></td>
+						<td><input id="txtM10" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblM3" class="lbl" >皮料號(4)</a></td>
+						<td><input id="txtM3" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblM6" class="lbl" >印刷/位置</a></td>
