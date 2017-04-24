@@ -38,7 +38,8 @@
                     return;
                 main();
             });
-
+			
+			var _para = {};
             function main() {
                 if (dataErr) {
                     dataErr = false;
@@ -47,7 +48,8 @@
                 var t_para = new Array();
 	            try{
 	            	t_para = JSON.parse(decodeURIComponent(q_getId()[5]));
-	            	t_content = "where=^^['"+t_para.project+"','"+t_para.custno+"','"+t_para.vccano+"','"+t_para.trdno+"')^^";
+	            	t_content = "where=^^['"+t_para.project+"','"+t_para.custno+"','"+t_para.vccano+"','"+t_para.trdno+"','"+t_para.condition+"')^^";
+	            	_para = t_para;
 	            }catch(e){
 	            }    
                 brwCount = -1;
@@ -58,6 +60,13 @@
 				$('#btnPrev').hide();
 				$('#btnNext').hide();
 				$('#btnBott').hide();
+				
+				$('#btnSearch').click(function() {
+					var t_para = _para; 
+					var t_where=" ";
+					t_para.condition = $.trim($('#txtCondition').val());
+					location.href = "http://"+location.host +location.pathname+"?" + r_userno + ";" + r_name + ";" + q_getId()[2] + ";" + t_where+";"+";"+JSON.stringify({project:t_para.project,custno:t_para.custno,vccano:t_para.vccano,trdno:t_para.trdno,condition:t_para.condition});
+				});
 			}
             function q_gtPost(t_name) {
 				switch (t_name) {
@@ -109,8 +118,8 @@
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:25px" ><!--<input type="checkbox" id="checkAllCheckbox"/>--></td>
 					<td align="center" style="width:25px;"> </td>
-					<td align="center" style="width:120px;"><a id='lblNoa'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblDatea'> </a></td>
+					<td align="center" style="width:120px;"><a id='lblNoa'>發票號碼</a></td>
+					<td align="center" style="width:80px;"><a id='lblDatea'>日期</a></td>
 					<td align="center" style="width:100px;"><a>統編</a></td>
 					<td align="center" style="width:120px;"><a>客戶</a></td>
 					<td align="center" style="width:120px;"><a>買受人</a></td>
@@ -157,6 +166,11 @@
 				</tr>
 			</table>
 		</div>
+		<div>
+			<a>關鍵字查詢</a>
+			<input class="txt" id="txtCondition" type="text" style="width:130px;" />
+			<input type="button" id="btnSearch" style="border-style: none; width: 26px; height: 26px; cursor: pointer; background: url(../image/search_32.png) 0px 0px no-repeat;background-size: 100%;">
+		 </div>
 		<!--#include file="../inc/pop_ctrl.inc"-->
 	
 	</body>

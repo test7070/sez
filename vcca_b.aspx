@@ -39,7 +39,6 @@
                     return;
                 }
                 mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
-				
             }
 
             function mainPost() {
