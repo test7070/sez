@@ -434,14 +434,14 @@
 							$('#textCostm').val(round(dec(as[0].modelmoney) / dec(as[0].bornmount), 0));
 						}
 						$('#textCosttotal').val(round(dec($('#textCosta').val()) + dec($('#textCostb').val()) + dec($('#textCostc').val()) + dec($('#textCostd').val()) + dec($('#textCostw').val()) + dec($('#textCostm').val()) + dec($('#textCostp').val()) + dec($('#textCostt').val()), 0));
-=======
+
 							if(dec(as[0].bornmount)!=0){
 								$('#textCostw').val(round(dec(as[0].wastemoney) / dec(as[0].bornmount), 0));
 								$('#textCostm').val(round(dec(as[0].modelmoney) / dec(as[0].bornmount), 0));
 							}
 						}
 						$('#textCosttotal').val(round(dec($('#textCosta').val()) + dec($('#textCostb').val()) + dec($('#textCostc').val()) + dec($('#textCostd').val()) + dec($('#textCostw').val()) + dec($('#textCostm').val()) + dec($('#textCostp').val()) + dec($('#textCostt').val()), 2));
->>>>>>> ac69bfdb7c64d65095d5215f68542a19d159f9e1
+
 						//庫存
 						var t_where = "where=^^ ['" + q_date() + "','','') where productno='" + $('#txtNoa').val() + "' ^^";
 						q_gt('calstk', t_where, 0, 0, 0, "", r_accy);
