@@ -130,6 +130,12 @@
 				//var t_where = "where=^^ 1=0 ^^ stop=100";
 				//q_gt('custaddr', t_where, 0, 0, 0, "");
 				
+				$('#cmbTypea').change(function() {
+					for (var i = 0; i < q_bbsCount; i++) {
+						$('#btnMinus_'+i).click();
+					}
+				});
+				
 				//限制帳款月份的輸入 只有在備註的第一個字為*才能手動輸入					
 				$('#txtMemo').change(function(){
 					if ($('#txtMemo').val().substr(0,1)=='*')
@@ -638,7 +644,10 @@
 				var t_ordeno = trim($('#txtOrdeno').val());
 				var t_where = " kind!='2' &&";
 				if (t_tggno.length > 0 || q_getPara('sys.project').toUpperCase()=='XY' ){
-					t_where = "isnull(b.enda,0)=0 && isnull(b.cancel,'0')='0' && isnull(view_ordcs.enda,0)=0 " + q_sqlPara2("tggno", t_tggno) +  q_sqlPara2("noa", t_ordeno);
+					if($('#cmbTypea').val()=='1')
+						t_where = "isnull(b.enda,0)=0 && isnull(b.cancel,'0')='0' && isnull(view_ordcs.enda,0)=0 " + q_sqlPara2("tggno", t_tggno) +  q_sqlPara2("noa", t_ordeno);
+					else
+						t_where = " 1=1 " + q_sqlPara2("tggno", t_tggno) +  q_sqlPara2("noa", t_ordeno);
 					t_where = t_where;
 				} else {
 					var t_err = q_chkEmpField([['txtTggno', q_getMsg('lblTgg')]]);
