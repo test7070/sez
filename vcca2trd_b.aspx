@@ -14,8 +14,6 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-			// TRD只能匯入一張VCCA
-			// VCCA能匯入多張TRD
             var q_name = "vcca2trd", t_content = "where=^^['')^^", bbsKey = ['noa','noq'], as;
             var isBott = false;
             var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
