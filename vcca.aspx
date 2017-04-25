@@ -106,6 +106,17 @@
 						break;
 					case 'ES':
 						cust_buyer();
+						//HOT KEY
+		                $('#btnIns').val('新增(alt+1)').css('white-space','normal').css('width','70px');
+		                $('#btnModi').val('修改(alt+2)').css('white-space','normal').css('width','70px');
+		                $('#btnDele').val('刪除(alt+3)').css('white-space','normal').css('width','70px');
+		                $('#btnSeek').val('查詢(alt+4)').css('white-space','normal').css('width','70px');
+		                $('#btnPrint').val('列印(alt+5)').css('white-space','normal').css('width','70px');
+		                $('#btnPrevPage').val('翻上頁(alt+6)').css('white-space','normal').css('width','70px');
+		                $('#btnPrev').val('上筆(alt+7)').css('white-space','normal').css('width','70px');
+		                $('#btnNext').val('下筆(alt+8)').css('white-space','normal').css('width','70px');
+		                $('#btnNextPage').val('翻下頁(alt+9)').css('white-space','normal').css('width','70px');
+		                $('#btnOk').val('確定(F9)').css('white-space','normal').css('width','70px');
 						break;
 					case 'YC':
 						bbsNum = [['txtMount', 15, 3], ['txtGmount', 15, 4], ['txtEmount', 15, 4], ['txtPrice', 15, 4], ['txtTotal', 15, 0]];
@@ -138,18 +149,6 @@
 					default:
 						break;	
 				}
-				
-				//HOT KEY
-                $('#btnIns').val('新增(alt+1)').css('white-space','normal').css('width','70px');
-                $('#btnModi').val('修改(alt+2)').css('white-space','normal').css('width','70px');
-                $('#btnDele').val('刪除(alt+3)').css('white-space','normal').css('width','70px');
-                $('#btnSeek').val('查詢(alt+4)').css('white-space','normal').css('width','70px');
-                $('#btnPrint').val('列印(alt+5)').css('white-space','normal').css('width','70px');
-                $('#btnPrevPage').val('翻上頁(alt+6)').css('white-space','normal').css('width','70px');
-                $('#btnPrev').val('上筆(alt+7)').css('white-space','normal').css('width','70px');
-                $('#btnNext').val('下筆(alt+8)').css('white-space','normal').css('width','70px');
-                $('#btnNextPage').val('翻下頁(alt+9)').css('white-space','normal').css('width','70px');
-                $('#btnOk').val('確定(F9)').css('white-space','normal').css('width','70px');
 				
 				if(q_db.toUpperCase()=="ST2"){
 					$('.isST2').show();
@@ -296,50 +295,51 @@
 			function  q_onkeydown(e){
 				if(!e.altKey)
             		return;
-            	switch(e.keyCode){
-            		case 49:
-            			if($('#btnIns').attr('disabled')!='disabled')
-            				$('#btnIns').click();
-            			break;
-        			case 50:
-        				if($('#btnModi').attr('disabled')!='disabled')
-        					$('#btnModi').click();
-            			break;
-        			case 51:
-        				if($('#btnDele').attr('disabled')!='disabled')
-        					$('#btnDele').click();
-            			break;
-        			case 52:
-        				if($('#btnSeek').attr('disabled')!='disabled')
-        					$('#btnSeek').click();
-            			break;
-        			case 53:
-        				if($('#btnPrint').attr('disabled')!='disabled')
-        					$('#btnPrint').click();
-            			break;
-        			case 54:
-        				if($('#btnPrevPage').attr('disabled')!='disabled')
-        					$('#btnPrevPage').click();
-            			break;
-        			case 55:
-        				if($('#btnPrev').attr('disabled')!='disabled')
-        					$('#btnPrev').click();
-            			break;
-        			case 56:
-        				if($('#btnNext').attr('disabled')!='disabled')
-        					$('#btnNext').click();
-            			break;
-        			case 57:
-        				if($('#btnNextPage').attr('disabled')!='disabled')
-        					$('#btnNextPage').click();
-            			break;
-        			/*case 48:
-        				if($('#btnOk').attr('disabled')!='disabled')
-        					$('#btnOk').click();
-            			break;*/
-            		default:
-            			break;
-            	}	
+            	if(q_getPara('sys.project').toUpperCase()=='ES')	
+	            	switch(e.keyCode){
+	            		case 49:
+	            			if($('#btnIns').attr('disabled')!='disabled')
+	            				$('#btnIns').click();
+	            			break;
+	        			case 50:
+	        				if($('#btnModi').attr('disabled')!='disabled')
+	        					$('#btnModi').click();
+	            			break;
+	        			case 51:
+	        				if($('#btnDele').attr('disabled')!='disabled')
+	        					$('#btnDele').click();
+	            			break;
+	        			case 52:
+	        				if($('#btnSeek').attr('disabled')!='disabled')
+	        					$('#btnSeek').click();
+	            			break;
+	        			case 53:
+	        				if($('#btnPrint').attr('disabled')!='disabled')
+	        					$('#btnPrint').click();
+	            			break;
+	        			case 54:
+	        				if($('#btnPrevPage').attr('disabled')!='disabled')
+	        					$('#btnPrevPage').click();
+	            			break;
+	        			case 55:
+	        				if($('#btnPrev').attr('disabled')!='disabled')
+	        					$('#btnPrev').click();
+	            			break;
+	        			case 56:
+	        				if($('#btnNext').attr('disabled')!='disabled')
+	        					$('#btnNext').click();
+	            			break;
+	        			case 57:
+	        				if($('#btnNextPage').attr('disabled')!='disabled')
+	        					$('#btnNextPage').click();
+	            			break;
+	        			/*case 48:
+	        				if($('#btnOk').attr('disabled')!='disabled')
+	        					$('#btnOk').click();
+	            			break;*/
+	            		default:
+	            			break;
+	            	}	
 			}
 
 			function q_boxClose(s2) {
