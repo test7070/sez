@@ -760,7 +760,26 @@
             			return;
             		}
             	}
-            	
+            	//106/04/25 VU 檢查表身應收票據
+            	if(q_getPara('sys.project').toUpperCase()=='VU'){
+            		var is1131err='';
+            		for (var i = 0; i < q_bbsCount; i++) {
+            			if($('#txtAcc1_'+i).val().substr(0,4)=='1131'){
+            				if($('#txtAcc1_'+i).val()!='1131.'+$('#txtCustno').val()){
+            					is1131err='應收票據科目【'+$('#txtAcc1_'+i).val()+'】與收款客戶【'+$('#txtComp').val()+'】不符!!';
+            					break;
+            				}
+            				if(emp($('#txtCheckno_'+i).val())){
+            					is1131err='應收票據未輸入支票號碼!!';
+            					break;
+            				}
+            			}
+            		}
+            		if(is1131err.length>0){
+            			alert(is1131err);
+            			return;
+            		}
+            	}
             	if(!ummcustchk){
             		var custwhere='';
             		for (var i = 0; i < q_bbsCount; i++) {

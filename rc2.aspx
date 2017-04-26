@@ -626,7 +626,7 @@
 						}
 						
 						if(t_msg.length>0){
-							alert(t_msg+'進貨數量高於允需超交數量!!');
+							alert(t_msg+'進貨數量高於允許超交數量!!');
 						}else{
 							check_ordc_overrate=true;
 							btnOk();
@@ -699,7 +699,7 @@
 				}		
 					
 				//檢查是否有超交	
-				if(!check_ordc_overrate){
+				if(!check_ordc_overrate && $('#cmbTypea').val()=='1'){
 					var t_where ='';
 					for (var i = 0; i < q_bbsCount; i++) {
 						if (!emp($('#txtOrdeno_'+i).val()) && t_where.indexOf($('#txtOrdeno_'+i).val())==-1){
