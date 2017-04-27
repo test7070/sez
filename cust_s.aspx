@@ -84,9 +84,7 @@
 				t_invoicetitle = $('#txtInvoicetitle').val();
 				t_memo = $('#txtMemo').val();
 				t_tel = $('#txtTel').val();
-				t_fax = $('#txtFax').val();
 				t_typea = document.getElementById('cmbTypea').value;
-				t_fax = $('#txtMemo').val();
 				
 				var t_where = " 1=1 " 
 					+ q_sqlPara2("serial", t_serial)
@@ -104,9 +102,7 @@
 				if (t_memo.length > 0)
 					t_where += " and charindex('" + t_memo + "',memo)>0";
 				if (t_tel.length > 0)
-					t_where += " and (charindex('" + t_tel + "',tel)>0 or charindex('" + t_tel + "',mobile)>0 )";
-				if (t_fax.length > 0)
-					t_where += " and charindex('" + t_fax + "',fax)>0";
+					t_where += " and (charindex('" + t_tel + "',tel)>0 or charindex('" + t_tel + "',mobile)>0 or charindex('" + t_tel + "',fax)>0)";
 				if (t_typea.length > 0)
 					t_where += " and charindex('" + t_typea + "',typea)>0";	
 				t_where = ' where=^^' + t_where +r_where+ '^^ ';
@@ -158,16 +154,12 @@
 					<td><input class="txt" id="txtGrpno" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblMemo'> </a></td>
+					<td class='seek'  style="width:20%;"><a id='lblMemo'>備註</a></td>
 					<td><input class="txt" id="txtMemo" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblTel'> </a></td>
+					<td class='seek'  style="width:20%;"><a>電話、傳真、行動</a></td>
 					<td><input class="txt" id="txtTel" type="text" style="width:215px; font-size:medium;" /></td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblFax'> </a></td>
-					<td><input class="txt" id="txtFax" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
