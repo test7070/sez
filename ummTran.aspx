@@ -147,7 +147,7 @@
 				//0926改為開啟視窗
 				$('#btnVcc').click(function(e) {
 					switch(q_getPara('sys.project').toUpperCase()){
-						case 'DC':
+						case 'WH':
 							var t_custno = $.trim($('#txtCustno').val());
 							var t_custno2 = $.trim($('#txtCustno2').val()).replace(',','@');
 							q_func('qtxt.query.trd2umms_wh', 'umm.txt,trd2umms_wh,' + encodeURI(t_custno) + ';'+ encodeURI(t_custno2));
@@ -808,7 +808,7 @@
 						for (var i = 0; i < q_bbsCount; i++) {
 							if (q_getPara('sys.project').toUpperCase()=='DC' && $.trim($('#txtCheckno_' + i).val()).length > 0 
 							&& ($('#txtAcc1_' + i).val().substring(0, 4) == '1121' || $('#txtAcc2_'+i).val().indexOf('應收票據')>=0)
-							&& q_float('txtMoney_' + i) < 0 && r_rank>='8' && (q_cur==1 || q_cur==2)) {
+							&& q_float('txtMoney_' + i) < 0 && (r_rank>='8' || r_userno=='040136'  || r_userno=='020113' || r_userno=='030117' || r_userno=='05013') && (q_cur==1 || q_cur==2)) {
 								t_isbounce=true;
 								break;
 							}
@@ -856,7 +856,7 @@
 						for (var i = 0; i < q_bbsCount; i++) {
 							if (q_getPara('sys.project').toUpperCase()=='DC' && $.trim($('#txtCheckno_' + i).val()).length > 0 
 							&& ($('#txtAcc1_' + i).val().substring(0, 4) == '1121' || $('#txtAcc2_'+i).val().indexOf('應收票據')>=0)
-							&& q_float('txtMoney_' + i) < 0 && r_rank>='8' && (q_cur==1 || q_cur==2)) {
+							&& q_float('txtMoney_' + i) < 0 && (r_rank>='8' || r_userno=='040136'  || r_userno=='020113' || r_userno=='030117' || r_userno=='05013') && (q_cur==1 || q_cur==2)) {
 								t_isbounce=true;
 								break;
 							}
