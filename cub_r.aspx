@@ -17,7 +17,7 @@
 			this.errorHandler = null;
 			q_tables = 't';
 			var q_name = "cub";
-			var q_readonly = ['txtNoa','txtComp','txtWorker','txtWorker2','txtMo','txtVcceno','txtCost'];
+			var q_readonly = ['txtNoa','txtComp','txtWorker','txtWorker2','txtMo','txtVcceno','txtCost','txtIpfrom','txtIpto'];
 			var q_readonlys = ['txtDate2', 'txtOrdeno', 'txtNo2','txtMo','txtW01'];
 			var q_readonlyt = ['txtSpec','txtSize','txtPlace'];
 			var bbmNum = [['txtMount',10,0,1],['txtCost',15,0,1]];
@@ -46,6 +46,7 @@
 				,['txtM8','','addime','noa,mon,memo,memo1,memo2','0txtM8','']
 				,['txtM9','','adly','noa,mon,memo,memo1,memo2','0txtM8','']
 				,['txtM10','','adly','noa,mon,memo,memo1,memo2','0txtM10','']
+				,['txtFactoryno','lblFactory','factory','noa,factory,ip,db','txtFactoryno,txtFactory,textIp,textDb','factory_b.aspx']
 			);
 
 			$(document).ready(function() {
@@ -91,6 +92,10 @@
 					}
 				});
 				
+				$('#textFactoryno').change(function() {
+                	$('#txtIpto').val($('textIp').val()+','+$('textDb').val());
+				});
+				
 				$('#txtMount').change(function() {
 					$('#txtMo').val(round(q_mul(dec($('#txtMount').val()),dec($('#txtPrice').val())),0));
 				});
@@ -114,6 +119,11 @@
 				$('#chkEnda').change(function() {
 					if($(this).prop('checked') && emp($('#txtEdate').val()))
 						$('#txtEdate').val(q_date());
+				});
+				
+				$('#chkMenda').change(function() {
+					if($(this).prop('checked') && emp($('#txtMedate').val()))
+						$('#txtMedate').val(q_date());
 				});
 			}
 
@@ -258,6 +268,7 @@
 				$('#txtDatea').val(q_date());
 				$('#txtDatea').focus();
 				$('#txtMount').val(1);
+				$('#txtIpfrom').val(q_db);
 				
 				if(emp($('#txtProcess_0').val())){//自動產生流程
 					var as =[];
@@ -283,6 +294,7 @@
 					return;
 				_btnModi();
 				$('#txtDatea').focus();
+				$('#txtIpfrom').val(q_db);
 			}
 
 			function btnPrint() {
@@ -299,6 +311,16 @@
 					if(emp($('#txtCustno').val()) && emp($('#txtEdate').val())){
 						alert('【'+q_getMsg('lblCust')+'】和【出貨日期】空白，不會產生出貨單!!');
 					}else if(emp($('#txtEdate').val())){
+						alert('【出貨日期】空白，不會產生出貨單!!');
+					}else{
+						alert('【'+q_getMsg('lblCust')+'】空白，不會產生出貨單!!');
+					}
+				}
+				
+				if($('#chkMenda').prop('checked') && (emp($('#txtCustno').val()) || emp($('#txtMedate').val()))){
+					if(emp($('#txtCustno').val()) && emp($('#txtMedate').val())){
+						alert('【'+q_getMsg('lblCust')+'】和【出貨日期】空白，不會產生出貨單!!');
+					}else if(emp($('#txtMedate').val())){
 						alert('【出貨日期】空白，不會產生出貨單!!');
 					}else{
 						alert('【'+q_getMsg('lblCust')+'】空白，不會產生出貨單!!');
@@ -634,9 +656,13 @@
 					if(!$('#chkIsproj').prop('checked')){
 						$('#chkEnda').attr('disabled', 'disabled');
 						$('#txtEdate').attr('disabled', 'disabled');
+						$('#chkMenda').attr('disabled', 'disabled');
+						$('#txtMedate').attr('disabled', 'disabled');
 					}else{
 						$('#chkEnda').removeAttr("disabled");
 						$('#txtEdate').removeAttr("disabled");
+						$('#chkMenda').removeAttr("disabled");
+						$('#txtMedate').removeAttr("disabled");
 					}
 					for (var i = 0; i < q_bbsCount; i++) {
 						if(!$('#chkIsproj').prop('checked')){
@@ -921,15 +947,45 @@
 						<td colspan="7"><input id="txtMemo" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id="lblFactory" class="lbl btn" >工廠</a></td>
+						<td><input id="txtFactoryno" type="text" class="txt c1"/></td>
+						<td><input id="txtFactory" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblIpfrom" class="lbl" >Ipfrom</a></td>
+						<td><input id="txtIpfrom" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblIpto" class="lbl" >Ipto</a></td>
+						<td><input id="txtIpto" type="text" class="txt c1"/></td>	
+					</tr>
+					<tr>
+						<td> </td>
+						<td><input id="textIp" type="text" class="txt c1"/></td>	
+						<td><input id="textDb" type="text" class="txt c1"/></td>
+					</tr>	
+					<tr>
 						<td> </td>
 						<td colspan="2">
 							<input id="chkEnda" type="checkbox"/>
-							<a id='lblEnda_r'>產生出貨單</a>
-							<span> </span><a id="lblEdate_r" class="lbl" >出貨日期</a>
+							<a id='lblEnda_r'>貿易端 __ 產生出貨單 </a>
 						</td>
+						<td><span> </span><a id="lblEdate_r" class="lbl" >出貨日期</a></td>
 						<td><input id="txtEdate" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblVccno_r" class="lbl" >出貨單號</a></td>
 						<td><input id="txtVcceno" type="text" class="txt c1"/></td>
+						<!--<td>
+							<input id="chkCancel" type="checkbox"/>
+							<span> </span><a id='lblCancel'>取消</a>
+						</td>-->
+					</tr>
+					<tr>
+						<td> </td>
+						<td colspan="2">
+							<input id="chkMenda" type="checkbox"/>
+							<a id='lblMenda_r'>製造端 __ 產生出貨單 </a>
+							
+						</td>
+						<td><span> </span><a id="lblMedate_r" class="lbl" >出貨日期</a></td>
+						<td><input id="txtMedate" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblMvccno_r" class="lbl" >出貨單號</a></td>
+						<td><input id="txtMvcceno" type="text" class="txt c1"/></td>
 						<!--<td>
 							<input id="chkCancel" type="checkbox"/>
 							<span> </span><a id='lblCancel'>取消</a>
