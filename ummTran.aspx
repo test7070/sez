@@ -765,8 +765,8 @@
 						t_IdSeq = -1;
 						q_bodyId($(this).attr('id'));
 						b_seq = t_IdSeq;
-						if (q_getPara('sys.project').toUpperCase()=='DC'){
-							if (!emp($('#txtVccno_' + b_seq).val()) && r_rank>='8' && (q_cur==1 || q_cur==2)) {
+						if (q_getPara('sys.project').toUpperCase()=='DC'){//106/04/26 調整可使用人員
+							if (!emp($('#txtVccno_' + b_seq).val()) && (r_rank>='8' || r_userno=='040136'  || r_userno=='020113' || r_userno=='030117' || r_userno=='05013') && (q_cur==1 || q_cur==2)) {
 								var t_where='',t_where1='',t_where2='',t_where3='',t_where4='',t_where5='',t_where6='',t_where7='',t_where8='';
 								t_where = "swhere=^^ a.noa='"+$('#txtVccno_'+b_seq).val()+"'^^";
 								t_where1= " where[1]=^^ a.noa='" + $('#txtNoa').val() + "' and a.paysale!=0 ^^";
@@ -805,7 +805,7 @@
 						//106/03/10 應收票據金額為負數 立帳單號可輸入
 						var t_isbounce=false;
 						
-						for (var i = 0; i < q_bbsCount; i++) {
+						for (var i = 0; i < q_bbsCount; i++) {//106/04/26 調整可使用人員
 							if (q_getPara('sys.project').toUpperCase()=='DC' && $.trim($('#txtCheckno_' + i).val()).length > 0 
 							&& ($('#txtAcc1_' + i).val().substring(0, 4) == '1121' || $('#txtAcc2_'+i).val().indexOf('應收票據')>=0)
 							&& q_float('txtMoney_' + i) < 0 && (r_rank>='8' || r_userno=='040136'  || r_userno=='020113' || r_userno=='030117' || r_userno=='05013') && (q_cur==1 || q_cur==2)) {
@@ -853,7 +853,7 @@
 						//106/03/10 應收票據金額為負數 立帳單號可輸入
 						var t_isbounce=false;
 						
-						for (var i = 0; i < q_bbsCount; i++) {
+						for (var i = 0; i < q_bbsCount; i++) {//106/04/26 調整可使用人員
 							if (q_getPara('sys.project').toUpperCase()=='DC' && $.trim($('#txtCheckno_' + i).val()).length > 0 
 							&& ($('#txtAcc1_' + i).val().substring(0, 4) == '1121' || $('#txtAcc2_'+i).val().indexOf('應收票據')>=0)
 							&& q_float('txtMoney_' + i) < 0 && (r_rank>='8' || r_userno=='040136'  || r_userno=='020113' || r_userno=='030117' || r_userno=='05013') && (q_cur==1 || q_cur==2)) {
