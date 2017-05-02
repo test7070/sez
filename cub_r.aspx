@@ -46,7 +46,7 @@
 				,['txtM8','','addime','noa,mon,memo,memo1,memo2','0txtM8','']
 				,['txtM9','','adly','noa,mon,memo,memo1,memo2','0txtM8','']
 				,['txtM10','','adly','noa,mon,memo,memo1,memo2','0txtM10','']
-				,['txtFactoryno','lblFactory','factory','noa,factory,ip,db','txtFactoryno,txtFactory,textIp,textDb','factory_b.aspx']
+				,['txtFactoryno','lblFactory','factory','noa,factory','txtFactoryno,txtFactory','factory_b.aspx']
 			);
 
 			$(document).ready(function() {
@@ -91,11 +91,7 @@
 						$('#txtPrice').val(round(q_div(dec($('#txtMo').val()),dec($('#txtMount').val())),q_getPara('vcc.pricePrecision')));
 					}
 				});
-				
-				$('#textFactoryno').change(function() {
-                	$('#txtIpto').val($('textIp').val()+','+$('textDb').val());
-				});
-				
+						
 				$('#txtMount').change(function() {
 					$('#txtMo').val(round(q_mul(dec($('#txtMount').val()),dec($('#txtPrice').val())),0));
 				});
@@ -124,7 +120,8 @@
 				$('#chkMenda').change(function() {
 					if($(this).prop('checked') && emp($('#txtMedate').val()))
 						$('#txtMedate').val(q_date());
-				});
+				});				
+				
 			}
 
 			function q_gtPost(t_name) {
@@ -200,6 +197,15 @@
                             abbm[q_recno]['vcceno'] = as[0].vcceno;
                         }
                         break;
+                    case 'factory':
+                		var as = _q_appendData("factory", "", true);
+                        var t_item ="";
+						if (as[0] != undefined) {
+							t_item =(t_item.length > 0 ? ',' : '') + as[0].ip + ','+ as[0].db;
+						}
+						$('#txtIpto').val(t_item);
+                		break;    
+                   
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
@@ -253,6 +259,17 @@
 						break;
 				}
 				b_pop = '';
+			}
+			
+			function q_popPost(id){
+				switch(id){
+					case 'txtFactoryno':
+						var t_where = "where=^^ noa ='"+$('#txtFactoryno').val()+"' ^^";
+						q_gt('factory', t_where, 0, 0, 0, "factory");		
+						break;
+					default:
+						break;
+				}			
 			}
 
 			function _btnSeek() {
@@ -316,7 +333,7 @@
 						alert('【'+q_getMsg('lblCust')+'】空白，不會產生出貨單!!');
 					}
 				}
-				
+
 				if($('#chkMenda').prop('checked') && (emp($('#txtCustno').val()) || emp($('#txtMedate').val()))){
 					if(emp($('#txtCustno').val()) && emp($('#txtMedate').val())){
 						alert('【'+q_getMsg('lblCust')+'】和【出貨日期】空白，不會產生出貨單!!');
@@ -645,11 +662,6 @@
 				alert("An error occurred:\r\n" + error.Message);
 			}
 			
-	        function q_popPost(s1) {
-			   	switch (s1) {
-			        
-			   	}
-			}
 			
 			function bbsdisabled() {
 				if(q_cur==1 || q_cur==2){
@@ -953,12 +965,8 @@
 						<td><span> </span><a id="lblIpfrom" class="lbl" >Ipfrom</a></td>
 						<td><input id="txtIpfrom" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblIpto" class="lbl" >Ipto</a></td>
-						<td><input id="txtIpto" type="text" class="txt c1"/></td>	
-					</tr>
-					<tr>
-						<td> </td>
-						<td><input id="textIp" type="text" class="txt c1"/></td>	
-						<td><input id="textDb" type="text" class="txt c1"/></td>
+						<td  colspan="2"><input id="txtIpto" type="text" class="txt c1"/></td>
+	
 					</tr>	
 					<tr>
 						<td> </td>
@@ -996,7 +1004,7 @@
 						<td><input id="txtCost" type="text" class="txt num c1"/></td>
 						<td><span> </span><a id="lblWorker" class="lbl" > </a></td>
 						<td><input id="txtWorker" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblWorker2" class="lbl" > </a></td>
+						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
 						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
 					</tr>
 					<tr style="display: none;">

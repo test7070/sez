@@ -43,8 +43,10 @@
         function mainPost() { 
         	bbmMask = [['txtBdate',r_picd],['txtEdate',r_picd],['txtBtime', '99:99'],['txtEtime', '99:99']];
         	q_mask(bbmMask);
-        	var t_where = "where=^^ checkerno ='"+ abbm[q_recno].checkerno +"' ^^";
-			q_gt('signagent', t_where, 0, 0, 0, "");
+        	if(abbm[q_recno] != undefined) {
+	        	var t_where = "where=^^ checkerno ='"+ abbm[q_recno].checkerno +"' ^^";
+				q_gt('signagent', t_where, 0, 0, 0, "");
+			}
 			$('#txtCheckerno').change(function() {
         		var t_where = "where=^^ checkerno ='"+$('#txtCheckerno').val()+"' ^^";
 				q_gt('signagent', t_where, 0, 0, 0, "");
@@ -179,8 +181,10 @@
         }
         function refresh(recno) {
             _refresh(recno);
-			var t_where = "where=^^ checkerno ='"+ abbm[q_recno].checkerno +"' ^^";
-			q_gt('signagent', t_where, 0, 0, 0, "");
+            if(abbm[q_recno] != undefined) {
+				var t_where = "where=^^ checkerno ='"+ abbm[q_recno].checkerno +"' ^^";
+				q_gt('signagent', t_where, 0, 0, 0, "");
+			}
         }
 		function q_popPost(s1) {
 			switch (s1) {
