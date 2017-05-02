@@ -89,7 +89,7 @@
             function mainPost() {
             	switch(q_getPara('sys.project').toUpperCase()){
             		case 'WH':
-            			q_cmbParse("cmbTypea", "一般,空運");
+            			q_cmbParse("cmbTypea", "一般");
             			break;
             		default:
             			q_cmbParse("cmbTypea", q_getPara('cust.typea'));
@@ -174,7 +174,15 @@
 		            }
 				});
                 $('#btnConn').click(function() {
-                    t_where = "noa='" + $('#txtNoa').val() + "'";
+                	var t_where = "";
+                	switch(q_getPara('sys.project').toUpperCase()){
+                		case 'WH':
+                			t_where = "noa='" + $('#txtNoa').val() + "' and typea='cust'";
+                			break;
+                		default:
+                			t_where = "noa='" + $('#txtNoa').val() + "'";
+                			break;
+                	}
                     q_box("conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'conn', "95%", "650px", q_getMsg('btnConn'));
                 });
                 $('#btnDetail').click(function() {
