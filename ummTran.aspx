@@ -59,7 +59,8 @@
 			function mainPost() {
 				q_getFormat();
 				
-				q_cmbParse("cmbCno", t_acomp);
+				if(t_acomp.length>0)
+					q_cmbParse("cmbCno", t_acomp);
 				if(t_part.length>0)
 					q_cmbParse("cmbPartno", t_part, 's');
 						
