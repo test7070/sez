@@ -23,7 +23,7 @@
 			var decbbs = ['weight', 'uweight', 'price'];
 			var decbbm = ['weight', 'hours', 'pretime', 'mount', 'wages', 'makes'/*, 'mechs', 'trans'*/, 'molds', 'packs', 'uweight', 'price'];
 			var decbbt = [];
-			var q_readonly = ['textCosta','txtModel','txtStationg', 'textCostb', 'textCostc', 'textCostd', 'textCostw', 'textCostm', 'textCostp', 'textCostt', 'textCosttotal', 'textStk', 'textOrdemount', 'textPlanmount', 'textIntmount', 'textAvaistk','txtMolds','txtRev'];
+			var q_readonly = ['textCosta','txtModel','txtStationg', 'textCostb', 'textCostc', 'textCostd', 'textCostw', 'textCostm', 'textCostp', 'textCostt', 'textCosttotal', 'textStk', 'textOrdemount', 'textPlanmount', 'textIntmount', 'textAvaistk','txtMolds','txtRev','txtKdate','txtWdate'];
 			var q_readonlys = [];
 			var q_readonlyt = ['txtAssm'];
 			var bbmNum = [['txtPrice', 15, 5, 1, 1],['txtPreday', 12, 0, 1],['txtHours', 10, 3, 1],['txtMinutes', 10, 3, 1],['txtHminutes', 10, 3, 1],['txtSec', 2, 0, 1],['txtHsec', 2, 0, 1]
@@ -116,6 +116,7 @@
 					}
 				}
 			};
+			
 			var curData = new currentData();
 			function main() {
 				if (dataErr) {
@@ -126,6 +127,7 @@
 				mainForm(0);
 				$('#txtNoa').focus();
 			}
+			
 			function mainPost() {
 				if (q_getPara('sys.project').toUpperCase()=='RB'){
 					aPop = new Array(
@@ -158,6 +160,7 @@
 					t_where = "noa='" + $('#txtNoa').val() + "'";
 					q_box("ucctd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucctd', "680px", "650px", q_getMsg('btnUcctd'));
 				});
+				
 				$('#btnUcap').click(function() {
 					t_where = "noa='" + $('#txtNoa').val() + "'";
 					q_box("ucap_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucap', "860px", "706px", q_getMsg('btnUcap'));
@@ -180,6 +183,7 @@
 					//}
 					$('#div_assm').toggle();
 				});
+				
 				$('#btnClose_div_assm').click(function() {
 					$('#div_assm').toggle();
 				});
@@ -195,10 +199,12 @@
 						q_bbs_addrow(row_bbsbbt, row_b_seq, 1);
 					}
 				});
+				
 				$('#btnCustproduct').click(function() {
 					t_where = "noa='" + $('#txtNoa').val() + "'";
 					q_box("ucccust.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucccust', "95%", "95%", q_getMsg('btnCustproduct'));
 				});
+				
 				$('#btnStkcost').mousedown(function(e) {
 					if(!emp($('#txtNoa').val())){
 						if (e.button == 0) {
@@ -242,11 +248,13 @@
 						//q_gt('workg_orde', t_where + t_where1 + t_where2 + t_where3 + t_where4, 0, 0, 0, "", r_accy);
 					}
 				});
+				
 				$('#btnClose_div_stkcost').click(function() {
 					$('#div_stkcost').toggle();
 					$('#div_stk').hide();
 					$('#btnStkcost').removeAttr('disabled');
 				});
+				
 				$('#btnStk').click(function() {
 					if (!emp($('#txtNoa').val()) && $("#div_stk").is(":hidden")) {
 						//document.getElementById("stk_productno").innerHTML = $('#txtNoa' ).val();
@@ -256,13 +264,16 @@
 						q_gt('calstk', t_where, 0, 0, 0, "msg_stk_all", r_accy);
 					}
 				});
+				
 				$('#btnClose_div_stk').click(function() {
 					$('#div_stk').toggle();
 				});
+				
 				$('#btnModel').click(function(){
 					var t_where = "noa='" + $.trim($('#txtNoa').val()) + "'";
 					q_box("ucab.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucab', "95%", "95%", $('#btnModel').val());
 				});
+				
 				$('#txtNoa').change(function(){
 					var thisVal = $.trim($(this).val());
 					if(thisVal.length > 0){
@@ -525,6 +536,7 @@
 				}
 				$('#textCosttotal').val(round(dec($('#textCosta').val()) + dec($('#textCostb').val()) + dec($('#textCostc').val()) + dec($('#textCostd').val()) + dec($('#textCostw').val()) + dec($('#textCostm').val()) + dec($('#textCostp').val()) + dec($('#textCostt').val()), 0));
 			}
+			
 			function btnOk() {
 				t_err = '';
 				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtProduct', q_getMsg('lblProduct')]]);
@@ -577,6 +589,7 @@
 				else
 					wrServer(s1);
 			}
+			
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
 					return;
@@ -676,6 +689,7 @@
 				}
 				_bbsAssign();
 			}
+			
 			var assm_row = 0;
 			function bbtAssign() {
 				for (var i = 0; i < q_bbtCount; i++) {
@@ -832,6 +846,7 @@
 				}
 				_bbtAssign();
 			}
+			
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
 					case 'qtxt.query.bom':
@@ -863,7 +878,8 @@
 						
 						break;
 				}
-			};
+			}
+			
 			function btnIns() {
 				if ($('#Copy').is(':checked')) {
 					curData.copy();
@@ -873,24 +889,29 @@
 					curData.paste();
 				}
 				$('#txtKdate').val(q_date());
-				$('#txtKdate').focus();
+				$('#txtWdate').val('');
+				$('#txtProduct').focus();
 				$('#txtRev').val('001');
 			}
+			
 			function btnModi() {
 				if (emp($('#txtNoa').val()))
 					return;
 				_btnModi();
-				$('#txtMdate').val(q_date());
-				$('#txtMdate').focus();
+				$('#txtWdate').val(q_date());
+				$('#txtProduct').focus();
 			}
+			
 			function btnPrint() {
 				q_box("z_ucap.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "' and product='" + $('#txtProduct').val() + "';" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
 			}
+			
 			function wrServer(key_value) {
 				var i;
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 				_btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
 			}
+			
 			function bbsSave(as) {
 				t_err = '';
 				if (!as['productno'] && !as['product']) {
@@ -915,8 +936,10 @@
                 q_nowf();
                 return true;
             }
+			
 			function sum() {
 			}
+			
 			function getMolds(){
 				var thisNoa = $.trim($('#txtNoa').val());
 				if((thisNoa.length>0)){
@@ -957,6 +980,7 @@
 					$('.isUJ').show();
 				}
 			}
+			
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
 				if (t_para) {
@@ -973,45 +997,58 @@
 					}*/
 				}
 			}
+			
 			function btnMinus(id) {
 				_btnMinus(id);
 				sum();
 			}
+			
 			function btnPlus(org_htm, dest_tag, afield) {
 				_btnPlus(org_htm, dest_tag, afield);
 				if (q_tables == 's')
 					bbsAssign();
 			}
+			
 			function q_appendData(t_Table) {
 				dataErr = !_q_appendData(t_Table);
 			}
+			
 			function btnSeek() {
 				_btnSeek();
 			}
+			
 			function btnTop() {
 				_btnTop();
 			}
+			
 			function btnPrev() {
 				_btnPrev();
 			}
+			
 			function btnPrevPage() {
 				_btnPrevPage();
 			}
+			
 			function btnNext() {
 				_btnNext();
 			}
+			
 			function btnNextPage() {
 				_btnNextPage();
 			}
+			
 			function btnBott() {
 				_btnBott();
 			}
+			
 			function q_brwAssign(s1) {
 				_q_brwAssign(s1);
 			}
+			
 			function btnDele() {
 				_btnDele();
 			}
+			
 			function btnCancel() {
 				_btnCancel();
 			}
