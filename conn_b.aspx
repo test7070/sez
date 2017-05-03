@@ -77,30 +77,22 @@
 			
 			var maxnoq='000';
 			var search_noq=false;
-            function btnOk() {
+			function btnOk() {
                 sum();
-
                 t_key = q_getHref();
-                if(!search_noq){
-					q_gt('conn', "where=^^noa='"+t_key[1]+"'^^", 0, 0, 0, "conn_maxnoq");
-					return;
-				}
-				
-                for (var i = 0; i < q_bbsCount; i++) {
+                q_gt('conn', "where=^^noa='"+t_key[1]+"'^^", 0, 0, 0, "conn_maxnoq");
+            }
+            function Save(maxnoq){
+            	for (var i = 0; i < q_bbsCount; i++) {
                 	$('#txtTypea_'+i).val($.trim(t_key[3]));
                 	if(emp($('#txtNoq_'+i).val())){
                 		maxnoq=('000'+(dec(maxnoq)+1)).substr(-3);
                 		$('#txtNoq_'+i).val(maxnoq);
                 	}
                 }
-                
-                /*for (var i = 0; i < q_bbsCount; i++){
-                	$('#txtPart_'+i).val($('#cmbPartno_'+i).find(":selected").text());
-               	 }*/
-
                 _btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
-                
             }
+           
 			
             function bbsSave(as) {
                 if (!as['namea'] && !as['tel'] && !as['addr'] && !as['mobile']) {
@@ -144,12 +136,13 @@
             function q_gtPost(t_name) {  /// 資料下載後 ...
                 switch (t_name) {
 					case 'conn_maxnoq':
+						var maxnoq = '000';
 						var as = _q_appendData("conn", "", true);
 						if (as[0] != undefined) {
 							maxnoq=as[as.length-1].noq;
 						}
-						search_noq=true;
-						btnOk();
+						Save(maxnoq);
+						break;
 					break;
 				    /*case 'part':
                         var as = _q_appendData("part", "", true);

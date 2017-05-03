@@ -152,6 +152,11 @@
 					q_box("uploadimg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'uploadimg', "680px", "650px", q_getMsg('btnUploadimg'));
 				});
 				
+				$('#btnIssued').click(function() {
+					t_where = "noa='" + $('#txtNoa').val() + "'";
+					q_box("ucaissued.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'uploadimg', "680px", "650px", q_getMsg('btnIssued'));
+				});
+				
 				$('#btnUcctd').click(function() {
 					t_where = "noa='" + $('#txtNoa').val() + "'";
 					q_box("ucctd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucctd', "680px", "650px", q_getMsg('btnUcctd'));
@@ -1743,6 +1748,9 @@
 						<td><span> </span><a id="lblRev" class="lbl"> </a></td>
 						<td><input id="txtRev" type="text" class="txt c1" style="width: 30%;"/>
 							<input id="btnUploadimg" type="button"  />
+						</td>
+						<td>
+							<input id="btnIssued" type="button"  />
 						</td>
 						<!--
 						<td><span> </span><a id="lblTrans" class="lbl"> </a></td>
