@@ -432,7 +432,7 @@
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
 	                $('#textEdate').val(t_year+'/'+t_month+'/'+t_day);
 	                
-	                $('#chkSssno').children('input').attr('checked', 'checked');
+	                //$('#chkSssno').children('input').attr('checked', 'checked');
 	                
 	                //---------------------------車行
 	                $('#txtCardeal1a').blur(function() {
