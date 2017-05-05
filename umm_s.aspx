@@ -81,6 +81,7 @@
                 t_accno = $.trim($('#txtAccno').val());
 				t_vccno = $.trim($('#txtVccno').val());
 				t_money = $.trim($('#txtMoney').val());
+				t_account = $.trim($('#txtAccount').val());
 				t_memo = $.trim($('#txtMemo').val());
 				
                 var t_where = " 1=1 " 
@@ -98,6 +99,8 @@
                     t_where += " and exists(select noa from umms where umms.noa=umm.noa and charindex('" + t_checkno + "',umms.checkno)>0)";
                 if (t_vccno.length>0)
                 	t_where += " and exists(select noa from umms where umms.noa=umm.noa and charindex('" + t_vccno + "',umms.vccno)>0)";
+            	if (t_account.length>0)
+                	t_where += " and exists(select noa from umms where umms.noa=umm.noa and charindex('" + t_account + "',umms.account)>0)";
                 if (t_mon.length>0){
                     t_where += "and ('"+t_mon+"'=case when isnull(mon,'')='' then left(datea,6) else mon end "
                         +" or exists(select noa from umms where umms.noa=umm.noa and charindex('"+t_mon+"',umms.memo2)>0) )";
@@ -170,6 +173,10 @@
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblVccno'> </a></td>
 					<td><input class="txt" id="txtVccno" type="text" style="width:215px; font-size:medium;" /></td>
+				</tr>
+				<tr class='seek_tr yc'>
+					<td class='seek'  style="width:20%;"><a id='lblAccount'>銀行帳號</a></td>
+					<td><input class="txt" id="txtAccount" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 				<tr class='seek_tr yc'>
 					<td class='seek'  style="width:20%;"><a id='lblMoney'>收款金額</a></td>
