@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -251,6 +251,11 @@
                 		default:
                 			break;
                 	}
+                	
+                	//電子發票
+                	if($('#chkIselectric').prop('checked')){
+                		$('#cmbInvoicetype').val('07');
+                	}
                 }
             }
 
@@ -272,6 +277,12 @@
             			break;
         			case '02':
             			$('#txtRev').val('2');
+            			break;
+            		case '07':
+            			$('#chkIselectric').prop('checked',true);
+            			break;
+            		case '08':
+            			$('#chkIselectric').prop('checked',true);
             			break;
             		default:
             			$('#txtRev').val('');
@@ -569,7 +580,7 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 950px;
+                width: 1260px;
             }
             .tbbs a {
                 font-size: medium;
@@ -652,6 +663,7 @@
 						<td>
 							<input class="btn"  id="btnSeq" type="button"/>
 							<input id="txtSeq" type="text" style="display:none;"/>
+							<input id="chkIselectric" type="checkbox" style="display:none;" />
 						</td>
 					</tr>
 				</table>
@@ -668,6 +680,7 @@
 					</td>
 					<td align="center" style="width:50px;"><a id='lblNo2'> </a></td>
 					<td align="center" style="width:300px;"><a id='lblInvonos'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblPart'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblCust'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblDatea'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblMemo'> </a></td>
@@ -679,8 +692,13 @@
 					<td><input type="text" id="txtNo2.*" style="width:95%;text-align:center;"/></td>
 					<td>
 						<input id="txtBinvono.*"  type="text" style="float:left;width: 130px;"/>
-						<a id="lblSymbol3"style="float:left;width: 20px;"> </a>
+						<a id="lblSymbol3" style="float:left;width: 20px;"> </a>
 						<input id="txtEinvono.*"  type="text" style="float:left;width: 130px;"/>
+					</td>
+					<td>
+						<input class="btn"  id="btnPart.*" type="button" value='.' style=" font-weight: bold;width:1%;float: left;" />
+						<input type="text" id="txtPartno.*" style="width: 35%;float: left;"/>
+						<input type="text" id="txtPart.*"  style="width: 53%;float: left;"/>
 					</td>
 					<td>
 						<input class="btn"  id="btnCust.*" type="button" value='.' style=" font-weight: bold;width:1%;float: left;" />
