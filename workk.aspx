@@ -177,9 +177,9 @@
 						workk_import=as;
 						//讀其他倉庫數量
 						if(emp($('#txtStoreno').val()))
-							var t_where = "where=^^ ['" + q_date() + "','','') where storeno!='"+$('#txtStoreinno').val()+"' group by productno order by productno^^";
+							var t_where = "where=^^ ['" + q_date() + "','','') where storeno!='"+$('#txtStoreinno').val()+"' and (mount>0 or weight>0) group by productno order by productno ^^";
 						else
-							var t_where = "where=^^ ['" + q_date() + "','','') where storeno='"+$('#txtStoreno').val()+"' group by productno order by productno^^";
+							var t_where = "where=^^ ['" + q_date() + "','','') where storeno='"+$('#txtStoreno').val()+"' and (mount>0 or weight>0) group by productno order by productno ^^";
 							
 						q_gt('work_stk', t_where, 0, 0, 0, "workk_work_stk", r_accy);
 						
