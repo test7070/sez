@@ -677,28 +677,11 @@
 
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
-					case 'qtxt.query.genUno':
-						q_func('rc2_post.post.a0', r_accy + ',' + $('#txtNoa').val() + ',0');
-						break;
-					case 'rc2_post.post.a0':
-						q_func('rc2_post.post.a1', r_accy + ',' + $('#txtNoa').val() + ',1');
-						q_reLoad();
-						break;	
 					case 'qtxt.query.getuno':
 						var as = _q_appendData("tmp0", "", true, true);
 						if (as[0] != undefined) {
 							if (as.length != q_bbsCount) {
 								alert('批號取得異常。');
-							} else {
-								for (var i = 0; i < q_bbsCount; i++) {
-									if ($('#txtUno_' + i).val().length == 0) {
-										if(q_getPara('sys.comp').substring(0,2)=='傑期' && $('#txtProductno_'+i).val().toUpperCase()=='OEM'){
-							
-										}else{
-											$('#txtUno_' + i).val(as[i].uno);
-										}
-									}
-								}
 							}
 						}
 						if (stkchkcount == 0) {
