@@ -70,7 +70,7 @@
                 $('#txtDate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',35).substr(0,r_lenm)+'/01',-1));
 
 
-                if (q_getPara('sys.project').toUpperCase()=='DC' && ((r_rank < 7 && r_userno != '020125' && r_userno != '020113'))) {
+                if (q_getPara('sys.project').toUpperCase()=='DC' && ((r_rank < 7 && r_userno != '020125' && r_userno != '020113' && r_userno!='040136'))) {
                     $('#txtSssno1a').val(r_userno).attr('disabled', 'disabled');
                     $('#txtSssno2a').val(r_userno).attr('disabled', 'disabled');
                     $('#txtSssno1b').val(r_name);
