@@ -153,6 +153,28 @@
 						q_box("generateE0501.aspx?db="+q_db+"&bno="+t_noa+"&eno="+t_noa, "generateE0501", "95%", "95%", '');
 					}
 				});
+				
+				$('#cmbInvoicetype').change(function() {
+					$('#chkIselectric').prop('checked',false);
+	               	switch($.trim($('#cmbInvoicetype').val())){
+	            		case '01':
+	            			$('#txtRev').val('3');
+	            			break;
+	        			case '02':
+	            			$('#txtRev').val('2');
+	            			break;
+	            		case '07':
+	            			$('#chkIselectric').prop('checked',true);
+	            			break;
+	            		case '08':
+	            			$('#chkIselectric').prop('checked',true);
+	            			break;
+	            		default:
+	            			$('#txtRev').val('');
+	            			$('#chkIselectric').prop('checked',false);
+	            			break;
+	            	}
+				});
             }
 
             function q_boxClose(s2) {
@@ -271,6 +293,8 @@
             		return;
             	}
             	//rev由 invoicetype取代,由於相容性rev仍會寫入值
+            	$('#chkIselectric').prop('checked',false);
+            	
                	switch($.trim($('#cmbInvoicetype').val())){
             		case '01':
             			$('#txtRev').val('3');
@@ -286,6 +310,7 @@
             			break;
             		default:
             			$('#txtRev').val('');
+            			$('#chkIselectric').prop('checked',false);
             			break;
             	}
                
@@ -390,6 +415,10 @@
                 _refresh(recno);
 				$('#txtBinvono').css("color","black");
 				$('#txtEinvono').css("color","black");
+				
+				if(q_getPara('sys.project').toUpperCase()=='XY'){
+					$('.isrev').show()
+				}
             }
 
             function readonly(t_para, empty) {
@@ -509,7 +538,7 @@
             }
             .dbbm {
                 float: left;
-                width: 550px;
+                width: 650px;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -655,10 +684,10 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblInvoicetype" class="lbl">發票類別</a></td>
-						<td><select id="cmbInvoicetype" class="txt c1"> </select></td>
+						<td><select id="cmbInvoicetype" class="txt c1" style="width: 210px;"> </select></td>
 						<!-- rev 由 invoicetype取代,由於相容性rev仍會寫入值 -->
-						<td style="display:none;"><span> </span><a id="lblRev1" class="lbl"> </a></td>
-						<td style="display:none;"><input id="txtRev"  type="text"  class="txt c1"/></td>
+						<td class="isrev" style="display:none;"><span> </span><a id="lblRev1" class="lbl"> </a></td>
+						<td class="isrev" style="display:none;"><input id="txtRev"  type="text"  class="txt c1"/></td>
 						<td> </td>
 						<td>
 							<input class="btn"  id="btnSeq" type="button"/>
