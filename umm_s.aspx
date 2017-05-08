@@ -174,7 +174,7 @@
 					<td class='seek'  style="width:20%;"><a id='lblVccno'> </a></td>
 					<td><input class="txt" id="txtVccno" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
-				<tr class='seek_tr yc'>
+				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblAccount'>銀行帳號</a></td>
 					<td><input class="txt" id="txtAccount" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
