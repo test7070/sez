@@ -141,7 +141,7 @@
                         }
                         
                         //執行txt
-                        q_func('qtxt.query.cub_r_0', 'cub.txt,cub_r,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val()) + ';0;' + encodeURI(q_getPara('sys.key_rc2'))+';'+ encodeURI(q_getPara('sys.key_vcc')) );
+                        q_func('qtxt.query.cub_r_0', 'cub.txt,cub_r,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val()) + ';0;' + encodeURI(q_getPara('sys.key_rc2'))+';'+ encodeURI(q_getPara('sys.key_vcc')));
                         break;
 					case 'stpost_rc2_1':
                         var as = _q_appendData("view_rc2", "", true);
