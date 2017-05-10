@@ -135,12 +135,15 @@
                 q_gt('acomp', '', 0, 0, 0, "");
                 q_gt('part', '', 0, 0, 0, "");
                 q_gt('salm', '', 0, 0, 0, "");
+                q_gt('class5', '', 0, 0, 0, "");
+                
                 /*$("#cmbCno").focus(function() {
                     var len = $(this).children().length > 0 ? $(this).children().length : 1;
                     $(this).attr('size', len + "");
                 }).blur(function() {
                     $(this).attr('size', '1');
                 });*/
+               
                 $("#cmbPartno").focus(function() {
                     var len = $(this).children().length > 0 ? $(this).children().length : 1;
                     $(this).attr('size', len + "");
@@ -275,6 +278,18 @@
                             	$("#cmbJobno").val(abbm[q_recno].jobno);
                         }
                         break;
+					case 'class5':
+						var as = _q_appendData("class5", "", true);
+						if (as[0] != undefined) {
+							var t_item = "";
+							for ( i = 0; i < as.length; i++) {
+								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].namea;
+							}
+							q_cmbParse("combClass5", t_item);
+							if (abbm[q_recno] != undefined)
+								$("#combClass5").val(abbm[q_recno].class5.split(','));
+						}
+						break;
                 	/*case 'acomp':
                         var as = _q_appendData("acomp", "", true);
                         var t_item = " @ ";
@@ -353,6 +368,8 @@
             	//$('#txtAcomp').val($('#cmbCno').find(":selected").text());
                 $('#txtPart').val($('#cmbPartno').find(":selected").text());
                 $('#txtJob').val($('#cmbJobno').find(":selected").text());
+                if($('#combClass5').val()!=null)
+                	$('#txtClass5').val($('#combClass5').val().toString());
                 
                 if (!emp($('#txtId').val()))
                     $('#txtId').val($('#txtId').val().toUpperCase());
@@ -376,6 +393,7 @@
             function refresh(recno) {
                 _refresh(recno);
                refreshBbm();
+               $('#combClass5').val($('#txtClass5').val().split(','));
             }
 			function refreshBbm(){
             	if(q_cur==1){
@@ -386,6 +404,11 @@
             }
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                if(t_para){
+					$('#combClass5').attr('disabled','disabled');
+				}else{
+					$('#combClass5').removeAttr('disabled');
+				}
             }
 
             function btnMinus(id) {
@@ -719,7 +742,16 @@
 							<input id="txtCno"  type="text" class="txt c2"/>
 							<input id="txtComp"  type="text" class="txt c3"/>
 						</td>
-					</tr>					
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblClass5' class="lbl"> </a></td>
+						<td>
+							<select id="combClass5" class="txt c1" multiple="multiple" size="3"> </select>
+							<input id="txtClass5" type="hidden" class="txt c1"/>
+						</td>
+						<td><span> </span><a id='lblBarcode' class="lbl"> </a></td>
+						<td><input id="txtBarcode" type="text" class="txt c1" /></td>
+					</tr>
 					<tr>
 						<td><span> </span><a id="lblConn" class="lbl"> </a></td>
 						<td><input id="txtConn"  type="text"  class="txt c1"/></td>
