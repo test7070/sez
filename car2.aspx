@@ -24,7 +24,8 @@
             var bbmNum = [['txtInmoney', 10, 0,1],['txtInvoicemoney', 10, 0,1], ['txtOutmoney', 10, 0,1], ['txtIrange', 10, 0,1], ['txtManage', 10, 0,1], ['txtReserve', 10, 0,1], ['txtHelp', 10, 0,1],
              ['txtVrate', 6, 3,1], ['txtRrate', 6, 3,1], ['txtOrate', 6, 3,1], ['txtIrate', 6, 3,1], ['txtPrate', 6, 3,1], ['txtUlicense', 10, 0,1], ['txtDlicense', 10, 0,1], ['txtSpring', 10, 0,1], ['txtSummer', 10, 0,1],
              ['txtFalla', 10, 0,1], ['txtWinter', 10, 0,1], ['txtCylinder', 2, 0,1], ['txtSalemoney', 10, 0,1], ['txtImprovemoney1', 10, 0,1], ['txtImprovemoney2', 10, 0,1], ['txtImprovemoney3', 10, 0,1], 
-             ['txtDiscountmoney', 10, 0,1], ["txtDurableyear", 2, 0, 1]];
+             ['txtDiscountmoney', 10, 0,1], ["txtDurableyear", 2, 0, 1]
+             ,['txtWeight1',10,1],['txtWeight2',10,1],['txtWeight3',10,1],['txtVolume',10,1]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
