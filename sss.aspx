@@ -135,7 +135,7 @@
                 q_gt('acomp', '', 0, 0, 0, "");
                 q_gt('part', '', 0, 0, 0, "");
                 q_gt('salm', '', 0, 0, 0, "");
-                q_gt('class5', '', 0, 0, 0, "");
+                q_gt('class5', "where=^^ isnull(enda,0)=0 ^^", 0, 0, 0, "");
                 
                 /*$("#cmbCno").focus(function() {
                     var len = $(this).children().length > 0 ? $(this).children().length : 1;
@@ -368,7 +368,8 @@
             	//$('#txtAcomp').val($('#cmbCno').find(":selected").text());
                 $('#txtPart').val($('#cmbPartno').find(":selected").text());
                 $('#txtJob').val($('#cmbJobno').find(":selected").text());
-                $('#txtClass5').val($('#combClass5').val().toString());
+                if($('#combClass5').val()!=null)
+                	$('#txtClass5').val($('#combClass5').val().toString());
                 
                 if (!emp($('#txtId').val()))
                     $('#txtId').val($('#txtId').val().toUpperCase());
