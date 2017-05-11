@@ -76,7 +76,7 @@
 			function mainPost() {
 				document.title='樣品流程管理';
 				q_getFormat();
-				bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd],['txtUindate', r_picd]];
+				bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtMedate', r_picd],['txtUindate', r_picd]];
 				bbsMask = [['txtDate2', r_picd], ['txtDatea', r_picd]];
 				
 				bbmNum = [['txtMount',10,q_getPara('vcc.mountPrecision'),1],['txtPrice', 15, q_getPara('vcc.pricePrecision'), 1]
@@ -141,7 +141,7 @@
                         }
                         
                         //執行txt
-                        q_func('qtxt.query.cub_r_0', 'cub.txt,cub_r,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val()) + ';0;' + encodeURI(q_getPara('sys.key_rc2'))+';'+ encodeURI(q_getPara('sys.key_vcc')));
+                        q_func('qtxt.query.cub_r_0', 'cub.txt,cub_r,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val()) + ';0;' + encodeURI(q_getPara('sys.key_rc2'))+';'+ encodeURI(q_getPara('sys.key_vcc'))+ ';' + encodeURI($('#txtFactoryno').val()));
                         break;
 					case 'stpost_rc2_1':
                         var as = _q_appendData("view_rc2", "", true);
@@ -173,7 +173,7 @@
                             sleep(100);
                         }
                         
-                        q_func('qtxt.query.cub_r_3', 'cub.txt,cub_r,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val()) + ';0;' + encodeURI(q_getPara('sys.key_rc2'))+';'+ encodeURI(q_getPara('sys.key_vcc')));
+                        q_func('qtxt.query.cub_r_3', 'cub.txt,cub_r,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val()) + ';0;' + encodeURI(q_getPara('sys.key_rc2'))+';'+ encodeURI(q_getPara('sys.key_vcc'))+ ';' + encodeURI($('#txtFactoryno').val()));
                         break;
                     case 'getrc2no':
                         var as = _q_appendData("view_cubs", "", true);
@@ -225,7 +225,7 @@
 			function q_funcPost(t_func, result) {
                 switch(t_func) {
                     case 'qtxt.query.cub_r_0':
-                        q_func('qtxt.query.cub_r_1', 'cub.txt,cub_r,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val()) + ';1;' + encodeURI(q_getPara('sys.key_rc2'))+';'+ encodeURI(q_getPara('sys.key_vcc')));
+                        q_func('qtxt.query.cub_r_1', 'cub.txt,cub_r,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val()) + ';1;' + encodeURI(q_getPara('sys.key_rc2'))+';'+ encodeURI(q_getPara('sys.key_vcc'))+ ';' + encodeURI($('#txtFactoryno').val()));
                         break;
                     case 'qtxt.query.cub_r_1':
                         q_gt('view_rc2', "where=^^postname='" + $('#txtNoa').val() + "'^^", 0, 0, 0, "stpost_rc2_1");
