@@ -139,7 +139,8 @@
 				q_getFormat();
 				bbmMask = [['txtCanceldate', r_picd],['txtCanceltime', '99:99:99'], ['txtDatea', r_picd], ['txtMon', r_picm]];
 				q_mask(bbmMask);
-				//q_xchgForm(); //106/05/11 預設仍要先顯示vew
+				q_xchgForm();
+				q_xchgView(); //106/05/11 預設仍要先顯示vew (前面先執行到Form載入data再跳回VEW)
 				q_cmbParse("cmbTaxtype", q_getPara('vcca.taxtype'));
 				
 				switch(q_getPara('sys.project').toUpperCase()){
