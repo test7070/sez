@@ -57,6 +57,16 @@
 				bbsMask = [['txtDatea', r_picd]];
 				q_mask(bbsMask);
 				
+				q_gt('class5', "where=^^ 1=1 ^^", 0, 0, 0, "",r_accy,1);
+				var tclass5 = _q_appendData("class5", "", true);
+				if (tclass5[0] != undefined) {
+					var t_item = "";
+					for ( i = 0; i < tclass5.length; i++) {
+						t_item = t_item + (t_item.length > 0 ? ',' : '') + tclass5[i].noa + '@' + tclass5[i].namea;
+					}
+					q_cmbParse("combClass5", t_item,'s');
+				}
+				
 				var no_auth=true;
 				
 				for(var i = 0; i < q_auth.length; i++) {
@@ -186,11 +196,19 @@
 	            	$('#lblBo_full').text('全勤獎金');
 	            	$('#lblBo_money1').text('獎金基數');
 	            	$('.vu').show();
+	            	$('.vuhide').hide();
 	            }
 			}
 			
 			function btnOk() {
 				sum();
+				
+				for(var j = 0; j < q_bbsCount; j++) {
+					if($('#combClass5_'+j).val()!=null)
+                		$('#txtClass5_'+j).val($('#combClass5_'+j).val().toString());
+                	else
+                		$('#txtClass5_'+j).val('');
+				}
 				
 				t_key = q_getHref();
 				
@@ -231,6 +249,9 @@
 			
 			function refresh() {
 				_refresh();
+				for(var j = 0; j < q_bbsCount; j++) {
+					$('#combClass5_'+j).val($('#txtClass5_'+j).val().split(','));
+				}
 			}
 			
 			function sum() { }
@@ -239,7 +260,7 @@
 			var salranks=[];
 			function q_gtPost(t_postname) {  /// 資料下載後 ...
 				switch (t_postname) {
-				case 'salrank':
+					case 'salrank':
 					salrank = _q_appendData("salrank", "", true);
 					if(salrank[0]!=undefined){
 						q_tr('txtBo_admin_'+b_seq,salrank[0].bo_admin);
@@ -252,12 +273,21 @@
 						if(salranks[0]!=undefined)
 							q_tr('txtSalary_'+b_seq,salranks[dec($('#txtLevel2_'+b_seq).val())-1].money);
 					}
-				break;
+					break;
 				}  /// end switch
 			}
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
+				if(t_para){
+					for(var j = 0; j < q_bbsCount; j++) {
+						$('#combClass5_'+j).attr('disabled','disabled');
+					}
+				}else{
+					for(var j = 0; j < q_bbsCount; j++) {
+						$('#combClass5_'+j).removeAttr('disabled');
+					}
+				}
 			}
 
 			function btnMinus(id) {
@@ -309,29 +339,28 @@
 		</style>
 	</head>
 	<body>
-		<div  id="dbbs"  >
-			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1'   >
+		<div id="dbbs" style="width:1280px;">
+			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' >
 				<tr style='color:White; background:#003366;' >
-					<td align="center" style="width:1%;">
-					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
-					</td>
+					<td align="center" style="width:35px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<!--<td align="center" class="td1"><a id='lblNoa'></a></td>-->
-					<td align="center" class="td3"><a id='lblDatea'> </a></td>
-					<td align="center" class="td2"><a id='lblJobno'> </a></td>
-					<td align="center" class="td4"><a id='lblJob'> </a></td>
-					<td align="center" class="td1"><a id='lblLevel1'> </a></td>
-					<td align="center" class="td1"><a id='lblLevel2'> </a></td>
+					<td align="center" style="width: 80px;"><a id='lblDatea'> </a></td>
+					<td align="center" style="width: 80px;"><a id='lblJobno'> </a></td>
+					<td align="center" style="width: 100px;"><a id='lblJob'> </a></td>
+					<td align="center" style="width: 40px;"><a id='lblLevel1'> </a></td>
+					<td align="center" style="width: 40px;"><a id='lblLevel2'> </a></td>
 					<!--<td align="center" class="td1"><a id='lblLevel3'></a></td>-->
-					<td align="center" class="td3"><a id='lblMoney'> </a></td>
-					<td align="center" class="td3 vu"><a id='lblBo_money1'> </a></td>
-					<td align="center" class="td3"><a id='lblBo_admin'> </a></td>
-					<td align="center" class="td3"><a id='lblBo_traffic'> </a></td>
-					<td align="center" class="td3"><a id='lblBo_special'> </a></td>
-					<td align="center" class="td3"><a id='lblBo_oth'> </a></td>
-					<td align="center" class="td3"><a id='lblBo_full'> </a></td>
-					<td align="center" class="td3"><a id='lblSalary'> </a></td>
-					<td align="center" class="td3"><a id='lblMeals'> </a></td>
-					<td align="center" class="td3"><a id='lblMemo'> </a></td>
+					<td align="center" style="width: 80px;"><a id='lblMoney'> </a></td>
+					<td align="center" style="width: 80px;" class="vu"><a id='lblBo_money1'> </a></td>
+					<td align="center" style="width: 80px;"><a id='lblBo_admin'> </a></td>
+					<td align="center" style="width: 80px;"><a id='lblBo_traffic'> </a></td>
+					<td align="center" style="width: 80px;"><a id='lblBo_special'> </a></td>
+					<td align="center" style="width: 80px;"><a id='lblBo_oth'> </a></td>
+					<td align="center" style="width: 80px;"><a id='lblBo_full'> </a></td>
+					<td align="center" style="width: 80px;"><a id='lblSalary'> </a></td>
+					<td align="center" style="width: 80px;"><a id='lblMeals'> </a></td>
+					<td align="center" style="width: 80px;" class="vuhide"><a id='lblClass5'> </a></td>
+					<td align="center" style="width: 100px;"><a id='lblMemo'> </a></td>
 					<!--<td align="center" class="td1"><a id='lblUnfix'></a></td>
 					<td align="center" class="td3"><a id='lblSa_retire'></a></td>
 					<td align="center" class="td3"><a id='lblRate'></a></td>
@@ -343,8 +372,8 @@
 					<td align="center" class="td3"><a id='lblCh_health'></a></td>
 					<td align="center" class="td3"><a id='lblMount'></a></td>-->
 				</tr>
-				<tr  style='background:#cad3ff;'>
-					<td ><input class="btn"  id="btnMinus.*" type="button" value='-' style="font-weight: bold; "  /></td>
+				<tr style='background:#cad3ff;'>
+					<td align="center"><input class="btn"  id="btnMinus.*" type="button" value='-' style="font-weight: bold; "  /></td>
 					<td >
 						<input class="txt c1"  id="txtDatea.*" type="text"  />
 						<input class="txt c1"  id="txtNoa.*" type="hidden"  />
@@ -364,6 +393,10 @@
 					<td ><input class="txt num c1" id="txtBo_full.*" type="text" /></td>
 					<td ><input class="txt num c1" id="txtSalary.*" type="text" /></td>
 					<td ><input class="txt num c1" id="txtMeals.*" type="text" /></td>
+					<td class="vuhide">
+						<select id="combClass5.*" class="txt c1" multiple="multiple" size="3"> </select>
+						<input class="txt c1" id="txtClass5.*" type="hidden" />
+					</td>
 					<td ><input class="txt c1" id="txtMemo.*" type="text" /></td>
 					<!--<td ><input class="txt c1" id="txtUnfix.*" type="text" /></td>
 					<td ><input class="txt c1" id="txtSa_retire.*" type="text" /></td>
