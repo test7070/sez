@@ -163,10 +163,7 @@
 	        			case '02':
 	            			$('#txtRev').val('2');
 	            			break;
-	            		case '07':
-	            			$('#chkIselectric').prop('checked',true);
-	            			break;
-	            		case '08':
+	            		case '05':
 	            			$('#chkIselectric').prop('checked',true);
 	            			break;
 	            		default:
@@ -274,9 +271,9 @@
                 			break;
                 	}
                 	
-                	//電子發票
+                	//電子計算機
                 	if($('#chkIselectric').prop('checked')){
-                		$('#cmbInvoicetype').val('07');
+                		$('#cmbInvoicetype').val('05');
                 	}
                 }
             }
@@ -302,10 +299,7 @@
         			case '02':
             			$('#txtRev').val('2');
             			break;
-            		case '07':
-            			$('#chkIselectric').prop('checked',true);
-            			break;
-            		case '08':
+            		case '05':
             			$('#chkIselectric').prop('checked',true);
             			break;
             		default:

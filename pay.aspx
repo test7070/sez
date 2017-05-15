@@ -32,7 +32,7 @@
 		    aPop = new Array(
             ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
              ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_,txtMoney_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
-             ['txtBankno_', 'btnBank_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],
+             ['txtBankno_', 'btnBank_', 'bank', 'noa,bank,account', 'txtBankno_,txtBank_,txtAccount_', 'bank_b.aspx'],
              ['txtUmmaccno_', '', 'payacc', 'noa,typea', 'txtUmmaccno_,txtTypea_', 'payacc_b.aspx'],
              ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']
              ,['txtEcacc1', 'lblEcacc1', 'acc', 'acc1,acc2', 'txtEcacc1,txtEcacc2,txtEcmoney', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
@@ -1130,7 +1130,7 @@
             }
             .dview {
                 float: left;
-                width: 20%;
+                width: 23%;
                 border-width: 0px;
             }
             .tview {
@@ -1150,7 +1150,7 @@
             }
             .dbbm {
                 float: left;
-                width: 80%;
+                width: 77%;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -1282,7 +1282,7 @@
 			</table>
 		</div>
 		<!--#include file="../inc/toolbar.inc"-->
-		<div id='dmain' style="width: 1270px;">
+		<div id='dmain' style="width: 1260px;">
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
@@ -1304,7 +1304,7 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr class="tr0" style="height:1px;">
-						<td style="width: 95px;"> </td>
+						<td style="width: 85px;"> </td>
 						<td style="width: 120px;"> </td>
 						<td style="width: 95px;"> </td>
 						<td style="width: 100px;"> </td>
@@ -1403,7 +1403,7 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1270px;">
+		<div class='dbbs' style="width: 1260px;">
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
 					<td  align="center" style="width:1%;">
@@ -1413,8 +1413,8 @@
 					<td align="center" style="width:6%;"><a id='lblAcc1'> </a><br><a id='lblAcc2'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblMoney'> </a><br><a id='lblAccmemo'> </a><br class="Usdata" style="display:none;"><a class="Usdata" id='lblMoneyuss' style="display:none;"> </a></td>
 					<td align="center" style="width:4%;"><a id='lblPaycs'> </a><br><a id='lblIndate'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblCheckno'> </a><br><a id='lblAccount_s'> </a><br><a id='lblGqbtitle'> </a></td>
-					<td align="center" style="width:5%;"><a id='lblBankno'> </a><br><a id='lblBank'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblCheckno'> </a><br><a id='lblGqbtitle'> </a></td>
+					<td align="center" style="width:5%;"><a id='lblBankno'> </a><br><a id='lblBank'> </a><br><a id='lblAccount_s'> </a></td>
 					<td align="center" style="width:3%;"><a id='lblChgsTran'> </a><br><a id='lblPart_s'> </a></td>
 					<td align="center" style="width:5%;"><a id='lblMemos'> </a></td>
 					<td align="center" style="width:4%;"><a id='lblPaysales'> </a></td>
@@ -1444,13 +1444,13 @@
 					</td>
 					<td>
 						<input type="text" id="txtCheckno.*"  style="width:95%;" />
-						<input type="text" id="txtAccount.*"  style="width:95%;" />
 						<input type="text" id="txtTitle.*"  style="width:95%;" />
 					</td>
 					<td>
                         <input type="text" id="txtBankno.*"  style="width:95%; float:left;" title="點擊滑鼠右鍵，列出明細。"/>
 						<input type="text" id="txtBank.*"  style="width:95%; float:left;"/>
 						<input type="button" id="btnBank.*"  style=" display:none;"/>
+						<input type="text" id="txtAccount.*"  style="width:95%;" />
 					</td>
 					<td>
 						<input type="text" id="txtChgs.*" style="text-align:right;width:95%;"/>
