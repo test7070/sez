@@ -23,6 +23,16 @@
             $(document).ready(function() {
                 q_getId();
                 q_gf('', 'z_salpresent');
+                
+                $('#q_report').click(function(e) {
+					now_report=$('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report;
+					if(now_report=='z_salpresent3'){
+						$('#reportnote').text('※此報表為提供勞工局檢查正常出勤報表，非公司內部出勤正常報表。');
+						$('#reportnote').show();
+					}else{
+						$('#reportnote').hide();
+					}
+				});
             });
             function q_gfPost() {
                 $('#q_report').q_report({
@@ -40,6 +50,23 @@
                         dbf : 'sss',
                         index : 'noa,namea',
                         src : 'sssall_b.aspx'
+                    },{
+                        type : '2',
+                        name : 'partno',
+                        dbf : 'part',
+                        index : 'noa,part',
+                        src : 'part_b.aspx'
+                    },{
+                    	type : '0',
+                    	name : 'r_len',
+                    	value : r_len
+                    },{
+                        type : '1',
+                        name : 'xmon'
+                    },{
+                        type : '5',
+                        name : 'xorder',
+                        value : ('sssno@員工編號,partno@部門-員工,datea@日期').split(',')
                     }]
                 });
                 q_popAssign();
@@ -47,6 +74,11 @@
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask(r_picd);
                 $('#txtDate2').datepicker();
+                
+                $('#txtXmon1').mask(r_picm);
+                $('#txtXmon2').mask(r_picm);
+                $('#txtXmon1').val(q_date().substr(0,r_lenm));
+                $('#txtXmon2').val(q_date().substr(0,r_lenm));
                 
                 var tmp = document.getElementById("btnWebPrint");
 				var tmpbtn = document.createElement("input");
@@ -106,6 +138,7 @@
 			<div id="container">
 				<div id="q_report"> </div>
 			</div>
+			<div id="reportnote" style="color: red;display: none;width: 1000px;"> </div>
 			<div class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->
 			</div>

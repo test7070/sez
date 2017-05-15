@@ -140,6 +140,7 @@
 				bbmMask = [['txtCanceldate', r_picd],['txtCanceltime', '99:99:99'], ['txtDatea', r_picd], ['txtMon', r_picm]];
 				q_mask(bbmMask);
 				q_xchgForm();
+				q_xchgView(); //106/05/11 預設仍要先顯示vew (前面先執行到Form載入data再跳回VEW)
 				q_cmbParse("cmbTaxtype", q_getPara('vcca.taxtype'));
 				
 				switch(q_getPara('sys.project').toUpperCase()){
@@ -840,11 +841,11 @@
 				}
 				if (!emp($('#txtVccno').val()))	//103/03/07 出貨單轉來發票金額一律不改
 					return;
-				//數量為0,自動當作1
-				for(var i=0;i<q_bbsCount;i++){
+				//數量為0,自動當作1 //106/05/11 不判斷
+				/*for(var i=0;i<q_bbsCount;i++){
 					if(q_float('txtMount_'+i)==0)
 						$('#txtMount_'+i).val(1);
-				}
+				}*/
 					
 				$('#txtTax').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
 				var t_mounts, t_prices, t_moneys=0, t_mount = 0, t_money = 0, t_taxrate=0.5, t_tax=0, t_total=0;
