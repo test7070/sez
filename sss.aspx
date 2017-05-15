@@ -196,7 +196,142 @@
                 	$('#btnSsschg').show();	
                 }
                 
+                //稅務相關按鈕-------------------------------------
+				if(q_getPara('sys.salb')=='1'){
+					q_gt('payform', '', 0, 0, 0, "");
+					q_gt('paymark', '', 0, 0, 0, "");
+					q_gt('payremark', '', 0, 0, 0, "");
+					$('#issalb').show();
+				}else{
+					$('#issalb').hide();
+				}
+				
+				$('#btnTax').click(function(e) {
+                    q_box("sssu.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';"+r_accy+";" + q_cur, 'sssu', "95%", "95%", q_getMsg('popSssu'));
+                });
+                
+                $('#btnSalbs').click(function(e) {
+                    $('#div_salbs').toggle();
+                });
+                
+                $('#btnClose_div_salbs').click(function(e) {
+                    $('#div_salbs').hide();
+                });
+                
+                $('#btnInsert_div_salbs').click(function(e) {
+                	if(!emp($('#textYear').val())){
+                		var t_paras = $('#txtNoa').val()+ ';'+$('#textYear').val()+ ';'+q_getPara('sys.key_salb')+ ';' 
+                		+ $('#combTypea').val()+ ';' + $('#combTypeb').val()+ ';' + $('#combTypec').val()+';';
+                		                		
+                		for (var i=1;i<=12;i++){
+                			t_paras += dec($('#textRmoney_'+i).val())+ '#' +dec($('#textSmoney_'+i).val())+ '#' +dec($('#textTmoney_'+i).val())+ '#' +dec($('#textOmoney_'+i).val())+(i==12?'':'#');
+	                    }
+                		
+	                	q_func('qtxt.query.salbs', 'salb.txt,sss,' + t_paras);
+                    	$('#div_salbs').hide();
+                   }else{
+                   	alert('年度禁止空白!!');
+                   }
+                });
+               
+				$('#combTypea').change(function(){
+					//處理內容
+					$('#combTypeb').text('');
+					$('#combTypec').text('');
+					
+					var c_typeb=' @ ';
+					for (i=0;i<t_typeb.length;i++){
+						if(t_typeb[i].noa==$('#combTypea').val())
+							c_typeb=c_typeb+','+t_typeb[i].inote+"@"+t_typeb[i].kind;
+					}
+					q_cmbParse("combTypeb", c_typeb);
+							
+					//處理內容
+					var c_typec=' @ ';
+					for (i=0;i<t_typec.length;i++){
+						if(t_typec[i].payformno==$('#combTypea').val())
+							c_typec=c_typec+','+t_typec[i].noa+"@"+t_typec[i].noa+'.'+t_typec[i].mark;
+					}
+					q_cmbParse("combTypec", c_typec);
+				});
+               
+				$('#textBmon').val('01');
+				$('#textBmon').blur(function(e) {
+                    var bmon=dec($('#textBmon').val())
+                    if(bmon>12 || bmon<0){
+                    	$('#textBmon').val('01');
+                    }
+                });
+				
+				$('#textEmon').val('12'); 
+                $('#textEmon').blur(function(e) {
+                    var emon=dec($('#textEmon').val())
+                    if(emon>12 || emon<0){
+                    	$('#textEmon').val('12');
+                    }
+                });
+               
+				$('#btnImport_rmoney').click(function(e) {
+	               	var bmon=dec($('#textBmon').val())
+	               	var emon=dec($('#textEmon').val())
+                    for (var i=bmon;i<=emon;i++){
+                    	q_tr('textRmoney_'+i,$('#textRmoney').val());
+                    }
+                });
+                
+                $('#btnImport_smoney').click(function(e) {
+                	var bmon=dec($('#textBmon').val())
+	               	var emon=dec($('#textEmon').val())
+                    for (var i=bmon;i<=emon;i++){
+                    	q_tr('textSmoney_'+i,$('#textSmoney').val());
+                    }
+                    sum();
+                });
+                
+                $('#btnImport_tmoney').click(function(e) {
+                    var bmon=dec($('#textBmon').val())
+	               	var emon=dec($('#textEmon').val())
+                    for (var i=bmon;i<=emon;i++){
+                    	q_tr('textTmoney_'+i,$('#textTmoney').val());
+                    }
+                    sum();
+                });
+                
+                $('#btnImport_tmoney2').click(function(e) {
+                    var bmon=dec($('#textBmon').val())
+	               	var emon=dec($('#textEmon').val())
+                    for (var i=bmon;i<=emon;i++){
+                    	q_tr('textTmoney_'+i,q_div(q_mul(dec($('#textSmoney_'+i).val()),dec($('#textTmoney2').val())),100));
+                    }
+                    sum();
+                });
+                
+                $('#btnImport_omoney').click(function(e) {
+                    var bmon=dec($('#textBmon').val())
+	               	var emon=dec($('#textEmon').val())
+                    for (var i=bmon;i<=emon;i++){
+                    	q_tr('textOmoney_'+i,$('#textOmoney').val());
+                    }
+                });
+                $('#table_salbs .num').val(0);
+                $('#textYear').val(r_accy);
+                $('#table_salbs .num').keyup(function() {
+					var tmp=$(this).val();
+					tmp=tmp.match(/\d{1,}\.{0,1}\d{0,}/);
+					$(this).val(tmp);
+					sum();
+				});
             }
+            
+            function sum() {
+				var t_total=0,t_tax=0;
+				for (var i=1;i<=12;i++){
+					t_total=q_add(t_total,dec($('#textSmoney_'+i).val()));
+					t_tax=q_add(t_tax,dec($('#textTmoney_'+i).val()));
+				}
+				q_tr('textTotal',t_total);
+				q_tr('textTax',t_tax);
+			}
             
             function q_boxClose(s2) {
                 var ret;
@@ -207,7 +342,8 @@
                         break;
                 }   /// end Switch
             }
-
+			
+			var t_typeb=[],t_typec=[];
             function q_gtPost(t_name) {
                 switch (t_name) {
                 	case 'authority':
@@ -299,6 +435,20 @@
                         q_cmbParse("cmbCno", t_item);
                         $("#cmbCno").val(abbm[q_recno].cno);
                         break;*/
+					case 'payform':
+						var as = _q_appendData("payform", "", true);
+		                var t_item = " @ ";
+						for ( i = 0; i < as.length; i++) {
+							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' +as[i].noa+'.'+ as[i].form;
+						}
+						q_cmbParse("combTypea", t_item);
+						break;
+					case 'paymark':
+						t_typec = _q_appendData("paymark", "", true);
+						break;
+					case 'payremark':
+						t_typeb = _q_appendData("payremark", "", true);
+						break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -572,6 +722,10 @@
                 width: 69%;
                 float: left;
             }
+            .txt.c4 {
+				width: 95%;
+				float: left;
+			}
             .txt.num {
                 text-align: right;
             }
@@ -769,10 +923,177 @@
 						<td><input id='btnLabases' type="button" /></td>
 						<td><input id='btnSsschg' type="button" style="display: none;"/></td>
 					</tr>
+					<tr class='issalb' style="display: none;">
+						<td> </td>
+						<td colspan="5">
+							<input id='btnTax' type="button" />
+							<span> </span>
+							<input id='btnSalbs' type="button"/>
+							<span> </span>
+						</td>
+					</tr>
 				</table>
 			</div>
 		</div>
 		<input id="q_sys" type="hidden" />
+		<div id="div_salbs" style="position:absolute; top:300px; left:100px; display:none; width:950px; background-color: #CDFFCE; border: 5px solid gray;">
+			<table id="table_salbs" style="width:100%;" border="1" cellpadding='2'  cellspacing='0'>
+				<tr>
+					<td style="background-color: #C7FAFF;width: 125px;" align="center">所得格式</td>
+					<td style="background-color: #C7FAFF;width: 150px;" align="center"><select id="combTypea" class="txt c1"> </select></td>
+					<td style="background-color: #f8d463;width: 56px;" align="center">01月<BR>退休金</td>
+					<td style="background-color: #f8d463;width: 116px;" align="center"><input id="textRmoney_1" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;width: 50px;" align="center">01月<BR>金額</td>
+					<td style="background-color: #f8d463;width: 116px;" align="center"><input id="textSmoney_1" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;width: 50px;" align="center">01月<BR>扣繳</td>
+					<td style="background-color: #f8d463;width: 116px;" align="center"><input id="textTmoney_1" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;width: 50px;" align="center">01月<BR>抵繳</td>
+					<td style="background-color: #f8d463;width: 116px;" align="center"><input id="textOmoney_1" type="text" class="txt num c4"/></td>
+				</tr>
+				<tr>
+					<td style="background-color: #C7FAFF;" align="center">所得註記</td>
+					<td style="background-color: #C7FAFF;" align="center"><select id="combTypeb" class="txt c1"> </select></td>
+					<td style="background-color: #f8d463;" align="center">02月<BR>退休金</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textRmoney_2" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">02月<BR>金額</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textSmoney_2" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">02月<BR>扣繳</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textTmoney_2" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">02月<BR>抵繳</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textOmoney_2" type="text" class="txt num c4"/></td>
+				</tr>
+				<tr>
+					<td style="background-color: #C7FAFF;" align="center">項目代號</td>
+					<td style="background-color: #C7FAFF;" align="center"><select id="combTypec" class="txt c1"> </select></td>
+					<td style="background-color: #f8d463;" align="center">03月<BR>退休金</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textRmoney_3" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">03月<BR>金額</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textSmoney_3" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">03月<BR>扣繳</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textTmoney_3" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">03月<BR>抵繳</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textOmoney_3" type="text" class="txt num c4"/></td>
+				</tr>
+				<tr>
+					<td style="background-color: #C7FAFF;" align="center">起迄月份</td>
+					<td style="background-color: #C7FAFF;" align="center">
+						<input id="textBmon" type="text" class="txt c2"/><a style="float: left;">~</a>
+						<input id="textEmon" type="text" class="txt c2"/>
+					</td>
+					<td style="background-color: #f8d463;" align="center">04月<BR>退休金</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textRmoney_4" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">04月<BR>金額</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textSmoney_4" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">04月<BR>扣繳</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textTmoney_4" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">04月<BR>抵繳</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textOmoney_4" type="text" class="txt num c4"/></td>
+				</tr>
+				<tr>
+					<td style="background-color: #C7FAFF;" align="center"><input id="btnImport_rmoney" type="button" value="填入退休金"></td>
+					<td style="background-color: #C7FAFF;" align="center"><input id="textRmoney" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">05月<BR>退休金</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textRmoney_5" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">05月<BR>金額</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textSmoney_5" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">05月<BR>扣繳</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textTmoney_5" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">05月<BR>抵繳</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textOmoney_5" type="text" class="txt num c4"/></td>
+				</tr>
+				<tr>
+					<td style="background-color: #C7FAFF;" align="center"><input id="btnImport_smoney" type="button" value="填入金額"></td>
+					<td style="background-color: #C7FAFF;" align="center"><input id="textSmoney" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">06月<BR>退休金</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textRmoney_6" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">06月<BR>金額</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textSmoney_6" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">06月<BR>扣繳</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textTmoney_6" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">06月<BR>抵繳</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textOmoney_6" type="text" class="txt num c4"/></td>
+				</tr>
+				<tr>
+					<td style="background-color: #C7FAFF;" align="center"><input id="btnImport_tmoney" type="button" value="填入扣繳稅額"></td>
+					<td style="background-color: #C7FAFF;" align="center"><input id="textTmoney" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">07月<BR>退休金</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textRmoney_7" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">07月<BR>金額</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textSmoney_7" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">07月<BR>扣繳</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textTmoney_7" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">07月<BR>抵繳</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textOmoney_7" type="text" class="txt num c4"/></td>
+				</tr>
+				<tr>
+					<td style="background-color: #C7FAFF;" align="center"><input id="btnImport_tmoney2" type="button" value="填入扣繳%"></td>
+					<td style="background-color: #C7FAFF;" align="center"><input id="textTmoney2" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">08月<BR>退休金</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textRmoney_8" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">08月<BR>金額</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textSmoney_8" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">08月<BR>扣繳</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textTmoney_8" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">08月<BR>抵繳</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textOmoney_8" type="text" class="txt num c4"/></td>
+				</tr>
+				<tr>
+					<td style="background-color: #C7FAFF;" align="center"><input id="btnImport_omoney" type="button" value="填入抵繳稅額"></td>
+					<td style="background-color: #C7FAFF;" align="center"><input id="textOmoney" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">09月<BR>退休金</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textRmoney_9" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">09月<BR>金額</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textSmoney_9" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">09月<BR>扣繳</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textTmoney_9" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">09月<BR>抵繳</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textOmoney_9" type="text" class="txt num c4"/></td>
+				</tr>
+				<tr>
+					<td style="background-color: #C7FAFF;" align="center"> </td>
+					<td style="background-color: #C7FAFF;" align="center"> </td>
+					<td style="background-color: #f8d463;" align="center">10月<BR>退休金</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textRmoney_10" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">10月<BR>金額</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textSmoney_10" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">10月<BR>扣繳</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textTmoney_10" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">10月<BR>抵繳</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textOmoney_10" type="text" class="txt num c4"/></td>
+				</tr>
+				<tr>
+					<td style="background-color: #C7FAFF;" align="center">金額合計</td>
+					<td style="background-color: #C7FAFF;" align="center"><input id="textTotal" type="text" class="txt num c4" disabled="disabled" style="background:RGB(237,237,237);color:green;"/></td>
+					<td style="background-color: #f8d463;" align="center">11月<BR>退休金</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textRmoney_11" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">11月<BR>金額</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textSmoney_11" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">11月<BR>扣繳</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textTmoney_11" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">11月<BR>抵繳</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textOmoney_11" type="text" class="txt num c4"/></td>
+				</tr>
+				<tr>
+					<td style="background-color: #C7FAFF;" align="center">稅額合計</td>
+					<td style="background-color: #C7FAFF;" align="center"><input id="textTax" type="text" class="txt num c4" disabled="disabled" style="background:RGB(237,237,237);color:green;"/></td>
+					<td style="background-color: #f8d463;" align="center">12月<BR>退休金</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textRmoney_12" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">12月<BR>金額</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textSmoney_12" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">12月<BR>扣繳</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textTmoney_12" type="text" class="txt num c4"/></td>
+					<td style="background-color: #f8d463;" align="center">12月<BR>抵繳</td>
+					<td style="background-color: #f8d463;" align="center"><input id="textOmoney_12" type="text" class="txt num c4"/></td>
+				</tr>
+				<tr id='salbs_close'>
+					<td align="center" colspan='10'>
+						<input id="textYear" type="text" style="width: 30px;"/> 年度
+						<input id="btnInsert_div_salbs" type="button" value="寫入稅務薪資表">
+						<input id="btnClose_div_salbs" type="button" value="關閉視窗">
+					</td>
+				</tr>
+			</table>
+		</div>
 	</body>
 </html>
 
