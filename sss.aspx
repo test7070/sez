@@ -641,6 +641,14 @@
                	}
                	return 0;//錯誤
             }
+            
+            function q_funcPost(t_func, result) {
+                switch(t_func) {
+                	case 'qtxt.query.salbs':
+						alert('稅務薪資寫入完畢。');
+						break;
+				}
+			}
 		</script>
 		<style type="text/css">
 			#dmain {
