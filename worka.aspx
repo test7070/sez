@@ -530,40 +530,22 @@
 							alert(btnok_msg);
 						}
 						break;
-						
-					/*case 'btnOk_checkuno':
+					case 'btnOk_checkuno':
 						var as = _q_appendData("view_uccb", "", true);
-						 if ($('#cmbTypea').val()=='1' && as[0] != undefined) {
-							var msg='';
+						if ($('#cmbTypea').val()=='1' && as[0] != undefined) {
+							var msg = '';
 							for (var i = 0; i < as.length; i++) {
-									var t_mount = $('#txtMount_' + i).val();
-									var t_uno = $('#txtUno_' + i).val();
-									if(as[0].mount<t_mount)
-									alert(t_uno + ' 此批號庫存數:'+as[0].mount);
+								msg += (msg.length > 0 ? '\n' : '') + as[i].uno + ' 此批號已存在!!\n';
 							}
+							alert(msg);
+							Unlock(1);
 							return;
-						}else{
-							getUno();
 						}
-						break;*/
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
 						break;
 				}
-				/*if (t_name.substring(0, 9) == 'checkUno_') {
-					if($('#cmbTypea').val()=='1'){
-						var n = t_name.split('_')[1];
-						var as = _q_appendData("view_uccb", "", true);
-						if (as[0] != undefined) {
-							var t_uno = $('#txtUno_' + n).val();
-							var t_mount = $('#txtMount_' + n).val();
-							if(t_mount<as[0].mount)
-								alert(t_uno + ' 此批號庫存數:'+as[0].mount);
-							$('#txtUno_' + n).focus();
-						}
-					}
-				}*/
 			}
 
 			var btnok_bbsstkchk = false, stkchkcount = 0, stkchkcount2 = 0, btnok_msg = '';
@@ -617,7 +599,7 @@
 					stkchkcount++;
 				}
 				
-				/*//檢查批號
+				//Uno檢查
 				for (var i = 0; i < q_bbsCount; i++) {
 					for (var j = i + 1; j < q_bbsCount; j++) {
 						if ($.trim($('#txtUno_' + i).val()).length > 0 && $.trim($('#txtUno_' + i).val()) == $.trim($('#txtUno_' + j).val())) {
@@ -626,17 +608,10 @@
 							return;
 						}
 					}
+					 var t_where = "where=^^ uno ='" + $('#txtUno').val() + "' ^^"
+					 q_gt('view_uccb',t_where, 0, 0, 0, 'btnOk_checkuno');
 				}
-				var t_where = '';
-				for (var i = 0; i < q_bbsCount; i++) {
-					if ($.trim($('#txtUno_' + i).val()).length > 0)
-						t_where += (t_where.length > 0 ? ' or ' : '') + "(uno='" + $.trim($('#txtUno_' + i).val()) + "') ^^";
-				}
-				if (t_where.length > 0){
-					q_gt('view_uccb', "where=^^" + t_where + "^^", 0, 0, 0, 'btnOk_checkuno');
-				}else{
-					getUno();
-				}*/
+				
 				if (stkchkcount == 0) {
 					$('#txtWorker').val(r_name);
 					sum();
@@ -650,9 +625,6 @@
 				
 			}
 			
-			/*function getUno() {
-				
-			}*/
 
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
@@ -677,11 +649,6 @@
 						 }
 						 }
 						 });*/
-						/*$('#txtUno_' + j).change(function(e) {
-								var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
-								var t_uno = $.trim($(this).val());
-								q_gt('view_uccb', "where=^^uno='" + t_uno + "' ^^", 0, 0, 0, 'checkUno_' + n);
-						});*/
 						$('#btnStk_' + i).mousedown(function(e) {
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
