@@ -186,6 +186,10 @@
                         type : '0',
                         name : 'r_len',
                         value : r_len
+                    }, {//23
+                        type : '5',
+                        name : 'sort03',
+                        value : '1@到期日,2@客戶'.split(',')
                     }]
                 });
                 q_popAssign();
