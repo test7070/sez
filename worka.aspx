@@ -535,41 +535,12 @@
 						if ($('#cmbTypea').val()=='1' && as[0] != undefined) {
 							var msg = '';
 							for (var i = 0; i < as.length; i++) {
-								msg += (msg.length > 0 ? '\n' : '') + as[i].uno + ' 此批號已存在!!\n【' + as[i].action + '】單號：' + as[i].noa;
+								msg += (msg.length > 0 ? '\n' : '') + as[i].uno + ' 此批號已存在!!\n';
 							}
 							alert(msg);
 							Unlock(1);
 							return;
-						} else {
-							getUno();
 						}
-						break;
-					default:
-						if (t_name.substring(0, 9) == 'checkUno_') {
-							if($('#cmbTypea').val()=='1'){
-								var n = t_name.split('_')[1];
-								var as = _q_appendData("view_uccb", "", true);
-								if (as[0] != undefined) {
-									var t_uno = $('#txtUno_' + n).val();
-									alert(t_uno + ' 此批號已存在!!\n【' + as[0].action + '】單號：' + as[0].noa);
-									$('#txtUno_' + n).focus();
-								}
-							}
-							
-						} else if (t_name.substring(0, 14) == 'btnOkcheckUno_') {
-							var n = parseInt(t_name.split('_')[1]);
-							var as = _q_appendData("view_uccb", "", true);
-							if ($('#cmbTypea').val()=='1' && as[0] != undefined) {
-								var t_uno = $('#txtUno_' + n).val();
-								alert(t_uno + ' 此批號已存在!!\n【' + as[0].action + '】單號：' + as[0].noa);
-								Unlock(1);
-								return;
-							} else {
-								btnOk_checkUno(n - 1);
-							}
-							break;
-						}
-						break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
@@ -637,65 +608,23 @@
 							return;
 						}
 					}
+					 var t_where = "where=^^ uno ='" + $('#txtUno').val() + "' ^^"
+					 q_gt('view_uccb',t_where, 0, 0, 0, 'btnOk_checkuno');
 				}
-				var t_where = '';
-				for (var i = 0; i < q_bbsCount; i++) {
-					if ($.trim($('#txtUno_' + i).val()).length > 0)
-						t_where += (t_where.length > 0 ? ' or ' : '') + "(uno='" + $.trim($('#txtUno_' + i).val()) + "' and not(tablea='rc2s' and noa='" + $.trim($('#txtNoa').val()) + "'))";
+				
+				if (stkchkcount == 0) {
+					$('#txtWorker').val(r_name);
+					sum();
+					var t_date = $('#txtDatea').val();
+					var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
+					if (s1.length == 0 || s1 == "AUTO")
+						q_gtnoa(q_name, replaceAll(q_getPara('sys.key_worka') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+					else
+						wrServer(s1);
 				}
-				if (t_where.length > 0){
-					q_gt('view_uccb', "where=^^" + t_where + "^^", 0, 0, 0, 'btnOk_checkuno');
-				}else{
-					getUno();
-				}
-
 				
 			}
 			
-			function getUno() {
-				var t_buno = '　';
-				var t_datea = '　';
-				var t_style = '　';
-				for (var i = 0; i < q_bbsCount; i++) {
-					if (i != 0) {
-						t_buno += '&';
-						t_datea += '&';
-						t_style += '&';
-					}
-					if ($('#txtUno_' + i).val().length == 0 ) {
-						if(q_getPara('sys.comp').substring(0,2)=='傑期' && $('#txtProductno_'+i).val().toUpperCase()=='OEM'){
-							
-						}else{
-							t_buno += '';
-							t_datea += $('#txtDatea').val();
-							t_style += $('#txtStyle_' + i).val();
-						}
-					}
-				}
-				q_func('qtxt.query.getuno', 'uno.txt,getuno,' + t_buno + ';' + t_datea + ';' + t_style + ';');
-			}
-
-			function q_funcPost(t_func, result) {
-				switch(t_func) {
-					case 'qtxt.query.getuno':
-						var as = _q_appendData("tmp0", "", true, true);
-						if (as[0] != undefined) {
-							if (as.length != q_bbsCount) {
-								alert('批號取得異常。');
-							}
-						}
-						if (stkchkcount == 0) {
-							$('#txtWorker').val(r_name);
-							sum();
-							var t_date = $('#txtDatea').val();
-							var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
-							if (s1.length == 0 || s1 == "AUTO")
-								q_gtnoa(q_name, replaceAll(q_getPara('sys.key_worka') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-							else
-								wrServer(s1);
-						}
-				}
-			}
 
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
@@ -720,14 +649,6 @@
 						 }
 						 }
 						 });*/
-						$('#txtUno_' + j).change(function(e) {
-							if ($('#cmbTypea').val() != '2') {
-								var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
-								var t_uno = $.trim($(this).val());
-								var t_noa = $.trim($('#txtNoa').val());
-								q_gt('view_uccb', "where=^^uno='" + t_uno + "' and not(tablea='rc2s' and noa='" + t_noa + "')^^", 0, 0, 0, 'checkUno_' + n);
-							}
-						});
 						$('#btnStk_' + i).mousedown(function(e) {
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));

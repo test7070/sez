@@ -174,6 +174,10 @@
             		break;
             	case 'sss':
             		var as = _q_appendData("sss", "", true);
+            		//106/05/16 抓取clss5 正常上下班資料
+            		q_gt('class5', "where=^^1=1^^" , 0, 0, 0, "getclass5", r_accy,1);
+            		var tclass5 = _q_appendData("class5", "", true);
+            		
             		for (var j = 0; j < as.length; j++) {
             			if((r_len==3 && $('#txtNoa').val()>='105/12/23') || (r_len==4 && $('#txtNoa').val()>='2016/12/23')){
 	            			if(!t_workday){
@@ -224,8 +228,21 @@
             					as[j].clockout='17:30';
             				}
             			}else{
-            				as[j].clockin='08:00';
-            				as[j].clockout='17:00';
+            				var t_inclass5=false;
+            				if(as[j].class5.length>0){
+	            				for (var k = 0; k < tclass5.length; k++) {
+	            					if(as[j].class5.split(',')[0]==tclass5[k].noa){
+	            						as[j].clockin=tclass5[k].btime;
+	            						as[j].clockout=tclass5[k].etime;
+	            						t_inclass5=true;
+	            						break;
+	            					}
+	            				}
+            				}
+            				if(!t_inclass5){
+	            				as[j].clockin='08:00';
+	            				as[j].clockout='17:00';
+            				}
             			}
             		}
             		q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtClockin,txtClockout,txtW100,txtW133,txtW166,txtHr_special'
@@ -296,6 +313,9 @@
             $('#lblW200_s').text('例假日HR>8');
             $('#lblW266').text('休息日加班HR>8');
             $('#lblW266_s').text('休息日HR>8');
+            //W100 國定假日8H計 <=8*1.0 >8*1.33 >10*1.66
+            //W266 六休假日4H計 <=8加班 仍打再w133和w166計算 >8打在W266*2.66
+            //W200 日例假日8H計 <=8*1.0 打再W100 >8 打在W200*2
             
             if(q_getPara('sys.project').toUpperCase()=='RK'){
             	$('#lblW200').text('HR>4加班時數');

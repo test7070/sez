@@ -115,6 +115,16 @@
 				}else{
 					$('.stamp_tr').hide();
 				}
+				
+				if(q_getPara('sys.salb')=='1'){
+					$('.salb').show();
+				}else{
+					$('.salb').hide();
+				}
+				
+				$('#btnAcompu').click(function () {
+					q_box("acompu.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';"+r_accy+";" + q_cur, 'acompu', "95%", "95%", q_getMsg('popAcompu'));
+				});
             }
             function display(){
             	$('.stamp_chk').prop('checked',false);
@@ -475,7 +485,6 @@
                 color: #FF8F19;
             }
             .txt.c1 {
-            	text-align: center;
                 width: 98%;
                 float: left;
             }
@@ -611,6 +620,8 @@
 						<tr>
 							<td><span> </span><a id='lblInsur_disaster' class="lbl"> </a></td>
 							<td><input id="txtInsur_disaster"  type="text" class="txt c1" /></td>
+							<td> </td>
+							<td><input id='btnAcompu' type="button" class='salb'/></td>
 						</tr>
 						<tr class="schema_tr" style="display:none;"> </tr>
 						<tr style="display:none;">
