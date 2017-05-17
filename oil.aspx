@@ -74,7 +74,7 @@
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1)
+                q_gt(q_name, q_content, q_sqlCount, 1);
             });
 
             function main() {
@@ -86,7 +86,8 @@
             }///  end Main()
 
             function mainPost() {
-            	q_modiDay= 30;  /// 若未指定， d4=  q_getPara('sys.modiday');
+            	//  2017/05/17     因為日光,所以延長到半年
+            	q_modiDay= 180;  /// 若未指定， d4=  q_getPara('sys.modiday');
                 q_mask(bbmMask);
                 q_cmbParse("cmbProduct", q_getPara('oil.product'));
                 $('#cmbProduct').focus(function() {
