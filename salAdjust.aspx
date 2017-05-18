@@ -21,7 +21,13 @@
 			var q_readonly = [];
 			var q_readonlys = [];
 			var bbmNum = [];
-			var bbsNum = [['txtMoney',10,0,1],['txtBo_admin',10,0,1],['txtBo_traffic',10,0,1],['txtBo_special',10,0,1],['txtBo_oth',10,0,1],['txtBo_full',10,0,1],['txtSalary',10,0,1],['txtMeals',10,0,1]];
+			var bbsNum = [
+				['txtMoney',10,0,1],['txtBo_admin',10,0,1],['txtBo_traffic',10,0,1],['txtBo_special',10,0,1],['txtBo_oth',10,0,1],['txtBo_full',10,0,1],['txtSalary',10,0,1],['txtMeals',10,0,1]
+				,['txtSa_labor',10,0,1],['txtLa_comp',10,0,1],['txtLa_person',10,0,1],['txtAs_labor',10,0,1]
+				,['txtSa_health',10,0,1],['txtHe_comp',10,0,1],['txtHe_person',10,0,1],['txtAs_health',10,0,1],['txtHplus2',10,0,1]
+				,['txtSa_retire',10,0,1],['txtRe_rate',10,2,1],['txtRe_comp',10,0,1],['txtRe_person',10,0,1]
+				,['txtTax',10,0,1],['txtMount',10,0,1]
+			];
 			var bbmMask = [];
 			var bbsMask = [];
 			aPop = new Array(['txtJobno_', 'txtJobno_', 'salm', 'noa,job,level1', 'txtJobno_,txtJob_,txtLevel1_','salm_b.aspx']);
@@ -198,6 +204,15 @@
 	            	$('.vu').show();
 	            	$('.vuhide').hide();
 	            }
+	            
+	            var t_proj='DC,SF,VU,DJ,RB,XY,FE,IT,ST2,AMD,RK,TN'.split(',');
+	            for(var i = 0; i < t_proj.length; i++) {
+	            	if (q_getPara('sys.project').toUpperCase()==t_proj[i]){
+		            	$('.labor').hide();	
+		            	$('#dbbs').css('width','1280px');
+		            	break;
+		            }
+	            }
 			}
 			
 			function btnOk() {
@@ -339,7 +354,7 @@
 		</style>
 	</head>
 	<body>
-		<div id="dbbs" style="width:1280px;">
+		<div id="dbbs" style="width:2480px;">
 			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' >
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:35px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
@@ -360,17 +375,24 @@
 					<td align="center" style="width: 80px;"><a id='lblSalary'> </a></td>
 					<td align="center" style="width: 80px;"><a id='lblMeals'> </a></td>
 					<td align="center" style="width: 80px;" class="vuhide"><a id='lblClass5'> </a></td>
+					<!--106/05/17 全部客戶開始使用 除非有買勞健保系統才不會抓這裡資料-->
+					<td align="center" style="width: 80px;" class="labor"><a id='lblSa_labor'>勞保投保薪資</a></td>
+					<td align="center" style="width: 80px;" class="labor"><a id='lblLa_comp'>勞保公司負擔</a></td>
+					<td align="center" style="width: 80px;" class="labor"><a id='lblLa_person'>勞保自付額</a></td>
+					<td align="center" style="width: 80px;" class="labor"><a id='lblAs_labor'>勞保輔助</a></td>
+					<td align="center" style="width: 80px;" class="labor"><a id='lblSa_health'>健保投保薪資</a></td>
+					<td align="center" style="width: 80px;" class="labor"><a id='lblHe_comp'>健保公司負擔</a></td>
+					<td align="center" style="width: 80px;" class="labor"><a id='lblHe_person'>健保自付額</a></td>
+					<td align="center" style="width: 80px;" class="labor"><a id='lblAs_health'>健保輔助</a></td>
+					<td align="center" style="width: 80px;" class="labor"><a id='lblHplus2'>二代健保補價</a></td>
+					<td align="center" style="width: 80px;" class="labor"><a id='lblSa_retire'>勞退提繳薪資</a></td>
+					<td align="center" style="width: 80px;" class="labor"><a id='lblRe_rate'>勞退提繳率(%)</a></td>
+					<td align="center" style="width: 80px;" class="labor"><a id='lblRe_comp'>勞退公司提繳</a></td>
+					<td align="center" style="width: 80px;" class="labor"><a id='lblRe_person'>勞退個人提繳</a></td>
+					<td align="center" style="width: 80px;" class="labor"><a id='lblTax'>所得稅</a></td>
+					<td align="center" style="width: 80px;" class="labor"><a id='lblMount'>扶養人數</a></td>
+					<!------------------------------------------------------------->
 					<td align="center" style="width: 100px;"><a id='lblMemo'> </a></td>
-					<!--<td align="center" class="td1"><a id='lblUnfix'></a></td>
-					<td align="center" class="td3"><a id='lblSa_retire'></a></td>
-					<td align="center" class="td3"><a id='lblRate'></a></td>
-					<td align="center" class="td3"><a id='lblRetire'></a></td>
-					<td align="center" class="td3"><a id='lblSa_labor'></a></td>
-					<td align="center" class="td3"><a id='lblSa_health'></a></td>
-					<td align="center" class="td3"><a id='lblSal_retire'></a></td>
-					<td align="center" class="td3"><a id='lblCh_labor'></a></td>
-					<td align="center" class="td3"><a id='lblCh_health'></a></td>
-					<td align="center" class="td3"><a id='lblMount'></a></td>-->
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td align="center"><input class="btn"  id="btnMinus.*" type="button" value='-' style="font-weight: bold; "  /></td>
@@ -397,17 +419,24 @@
 						<select id="combClass5.*" class="txt c1" multiple="multiple" size="3"> </select>
 						<input class="txt c1" id="txtClass5.*" type="hidden" />
 					</td>
+					<!--106/05/17------------------------------------------------------>
+					<td class="labor"><input class="txt num c1" id="txtSa_labor.*" type="text" /></td>
+					<td class="labor"><input class="txt num c1" id="txtLa_comp.*" type="text" /></td>
+					<td class="labor"><input class="txt num c1" id="txtLa_person.*" type="text" /></td>
+					<td class="labor"><input class="txt num c1" id="txtAs_labor.*" type="text" /></td>
+					<td class="labor"><input class="txt num c1" id="txtSa_health.*" type="text" /></td>
+					<td class="labor"><input class="txt num c1" id="txtHe_comp.*" type="text" /></td>
+					<td class="labor"><input class="txt num c1" id="txtHe_person.*" type="text" /></td>
+					<td class="labor"><input class="txt num c1" id="txtAs_health.*" type="text" /></td>
+					<td class="labor"><input class="txt num c1" id="txtHplus2.*" type="text" /></td>
+					<td class="labor"><input class="txt num c1" id="txtSa_retire.*" type="text" /></td>
+					<td class="labor"><input class="txt num c1" id="txtRe_rate.*" type="text" /></td>
+					<td class="labor"><input class="txt num c1" id="txtRe_comp.*" type="text" /></td>
+					<td class="labor"><input class="txt num c1" id="txtRe_person.*" type="text" /></td>
+					<td class="labor"><input class="txt num c1" id="txtTax.*" type="text" /></td>
+					<td class="labor"><input class="txt num c1" id="txtMount.*" type="text" /></td>
+					<!------------------------------------------------------------->
 					<td ><input class="txt c1" id="txtMemo.*" type="text" /></td>
-					<!--<td ><input class="txt c1" id="txtUnfix.*" type="text" /></td>
-					<td ><input class="txt c1" id="txtSa_retire.*" type="text" /></td>
-					<td ><input class="txt c1" id="txtRate.*" type="text" /></td>
-					<td ><input class="txt c1" id="txtRetire.*" type="text" /></td>
-					<td ><input class="txt c1" id="txtSa_labor.*" type="text" /></td>
-					<td ><input class="txt c1" id="txtSa_health.*" type="text" /></td>
-					<td ><input class="txt c1" id="txtSal_retire.*" type="text" /></td>
-					<td ><input class="txt c1" id="txtCh_labor.*" type="text"  /></td>
-					<td ><input class="txt c1" id="txtCh_health.*" type="text" /></td>
-					<td ><input class="txt c1" id="txtMount.*" type="text" /></td>-->
 				</tr>
 			</table>
 			<!--#include file="../inc/pop_modi.inc"-->
