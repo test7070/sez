@@ -616,7 +616,7 @@
                 	}
                 }
 				
-				if ($.trim($('#txtCustno').val()) == 0) {
+				if ($.trim($('#txtCustno').val()).length == 0) {
 					alert(m_empty + q_getMsg('lblCust'));
 					Unlock(1);
 					return false;
