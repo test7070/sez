@@ -161,12 +161,13 @@
 	            	var t_addlimit=$('#cmbAddlimit').val();
 	            		if(t_addlimit.length>0)
 	            			t_addlimit='0';
-	            	
-	            	q_func('qtxt.query.salaryimport', 'salary.txt,salaryimport,' 
-	            		+t_mon+';'+t_len+';'+t_person+';'+t_monkind+';'+t_proj+';'
-	            		+t_date1+';'+t_date2+';'+t_date3+';'+t_date4+';'+t_date5+';'+t_date6+';'
-	            		+t_addselect+';'+t_addlimit
-	            	);
+	            	if(q_cur==1 || q_cur==2){
+		            	q_func('qtxt.query.salaryimport', 'salary.txt,salaryimport,' 
+		            		+t_mon+';'+t_len+';'+t_person+';'+t_monkind+';'+t_proj+';'
+		            		+t_date1+';'+t_date2+';'+t_date3+';'+t_date4+';'+t_date5+';'+t_date6+';'
+		            		+t_addselect+';'+t_addlimit
+		            	);
+		            }
 	            	$('#div_select').hide();
 				});
 	            
@@ -2035,6 +2036,7 @@
 	            table_change();
 	            $('#txtNoa').focus();
 	            $('#btndiv_detail_close').click();
+	            $('#div_select').hide();
 	        }
 	
 	        function readonly(t_para, empty) {
@@ -2048,6 +2050,7 @@
 					$("#bbs_detail [type='text'] ").removeAttr('disabled');
 					$("#bbs_detail [type='checkbox'] ").removeAttr('disabled');
 				}
+				$('#div_select').hide();
 	        }
 	
 	        function btnMinus(id) {
