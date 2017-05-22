@@ -562,7 +562,9 @@
 							$('#txtSize__'+txtOrgName[1]).val(file.name);
 						if(txtOrgName[0]=='txtPrt')
 							$('#txtPlace__'+txtOrgName[1]).val(file.name);
-						$('#'+txtName).val(guid()+Date.now()+ext);
+						//$('#'+txtName).val(guid()+Date.now()+ext);
+						//106/05/22 不再使用亂數編碼
+						$('#'+txtName).val(file.name);
 						
 						fr = new FileReader();
 						fr.fileName = $('#'+txtName).val();
