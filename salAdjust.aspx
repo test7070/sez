@@ -56,7 +56,7 @@
 
 			function mainPost() {
 				q_getFormat();
-				if (q_getPara('sys.project').toUpperCase()=='VU'){
+				if (q_getPara('sys.project').toUpperCase()=='VU' || q_getPara('sys.project').toUpperCase()=='VU2'){
 					bbsNum = [['txtMoney',10,0,1],['txtBo_admin',10,0,1],['txtBo_traffic',10,0,1],['txtBo_special',10,0,1],['txtBo_oth',10,0,1],['txtBo_full',10,0,1],['txtSalary',10,0,1],['txtMeals',10,0,1],['txtBo_money1',10,3,1]];
 				}
 				
@@ -193,7 +193,7 @@
 		            $('#lblBo_special').text('技術加給');
 		            $('#lblBo_full').text('全勤獎金');
 	           }
-	           if (q_getPara('sys.project').toUpperCase()=='VU'){
+	           if (q_getPara('sys.project').toUpperCase()=='VU'|| q_getPara('sys.project').toUpperCase()=='VU2'){
 	            	$('#lblMoney').text('底薪');
 	            	$('#lblBo_admin').text('銷貨獎金');
 	            	$('#lblBo_traffic').text('裁剪噸數獎金');
@@ -205,7 +205,7 @@
 	            	$('.vuhide').hide();
 	            }
 	            
-	            var t_proj='DC,SF,VU,DJ,RB,XY,FE,IT,ST2,AMD,RK,TN'.split(',');
+	            var t_proj='DC,SF,VU,VU2,DJ,RB,XY,FE,IT,ST2,AMD,RK,TN'.split(',');
 	            for(var i = 0; i < t_proj.length; i++) {
 	            	if (q_getPara('sys.project').toUpperCase()==t_proj[i]){
 		            	$('.labor').hide();	
