@@ -491,17 +491,14 @@
 						<td align="center" style="width:5%"><a id="vewChk"> </a></td>
 						<td align="center" style="display:none;"><a> </a></td>
 						<td align="center" style="width:20%"><a>日期</a></td>
-						<td align="center" style="width:20%"><a>司機</a></td>
-						<td align="center" style="width:20%"><a>車牌</a></td>
+						<td align="center" style="width:20%"><a>出車單號</a></td>
 					</tr>
 					<tr>
 						<td>
 						<input id="chkBrow.*" type="checkbox"/>
 						</td>
-						<td align="center" id='noa' style="display:none;">~noa</td>
 						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='driver'>~driver</td>
-						<td align="center" id='carno'>~carno</td>
+						<td align="center" id='noa'>~noa</td>
 					</tr>
 				</table>
 			</div>
