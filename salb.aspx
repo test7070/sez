@@ -57,9 +57,10 @@
 			}
 
 			function mainPost() {
+				//強制民國年
 				q_getFormat();
-				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['textYear', '999']];
-				bbsMask = [['txtExdate', r_picd]];
+				bbmMask = [['txtDatea', '999/99/99'], ['txtMon', '999/99'], ['textYear', '999']];
+				bbsMask = [['txtExdate', '999/99/99']];
 				q_mask(bbmMask);
 				q_cmbParse("cmbSex", q_getPara('sss.sex'),'s');
 				

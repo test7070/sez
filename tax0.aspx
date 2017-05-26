@@ -44,8 +44,8 @@
 
             function mainPost() {
             	$('#btnIns').hide();
-            	
-            	bbmMask = [['textBdate', r_picd],['textEdate', r_picd],['textMon', r_picm]];
+            	//強制民國年
+            	bbmMask = [['textBdate', '999/99/99'],['textEdate', '999/99/99'],['textMon', '999/99']];
                 q_mask(bbmMask);
                 
                 q_cmbParse("cmbStype", ('').concat(new Array('', '直接外銷','其他')));
