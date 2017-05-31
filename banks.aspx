@@ -32,7 +32,6 @@
            					 ['txtAcc3', 'lblAcc2', 'acc', 'acc1,acc2', 'txtAcc3,txtAcc4', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
             $(document).ready(function() {
                 bbmKey = ['noa'];
-                brwCount2 = 20
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1);
             });
@@ -59,7 +58,6 @@
                 	if((/^[0-9]{4}$/g).test(str))
                 		$(this).val(str+'.');
 				});
-				
 				$('#lblAccno').click(function() {
 					q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + (!emp($('#txtDatea').val())?$('#txtDatea').val().substring(0, 3):r_accy) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('lblAccc'), true);
 				});
@@ -319,7 +317,7 @@
                 height: 35px;
             }
             .tbbm tr td {
-                width: 10%;
+                width: 24%;
             }
             .tbbm .tdZ {
                 width: 1%;
@@ -466,7 +464,8 @@
 					<tr>
 						<td><span> </span><a id='lblEnddate' class="lbl"> </a></td>
 						<td><input id="txtEnddate" type="text" class="txt c1" /></td>
-						<td> </td>
+						<td><span> </span><a id='lblTypea' class="lbl">類型</a></td>
+						<td><input id="txtTypea" type="text" class="txt c1" list="listType"/></td>
 					</tr>
 					<tr class="pay">
 						<td><span> </span><a id='lblAcc2' class="lbl btn"> </a> <a id='lblAcc2x' class="lbl btn"> </a></td>
@@ -515,5 +514,10 @@
 			</div>
 		</div>
 		<input id="q_sys" type="hidden" />
+		<datalist id="listType">
+			<option>信用貸款</option>
+			<option>票貼及應收帳款</option>
+			<option>不動產抵押 </option>
+		</datalist>
 	</body>
 </html>
