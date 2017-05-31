@@ -918,6 +918,7 @@
 	           			$('#txtBo_night_'+j).change(function () {sum();});
 	           			$('#txtBo_duty_'+j).change(function () {sum();});
 	           			$('#txtTax6_'+j).change(function () {sum();});
+	           			$('#chkIsaostand_'+j).change(function () {sum();});
 	           			$('#txtAddh46_1_'+j).change(function () {sum();});
 	           			$('#txtAddh46_2_'+j).change(function () {sum();});
 	           			$('#txtAddh100_'+j).change(function () {

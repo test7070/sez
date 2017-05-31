@@ -25,6 +25,15 @@
                     options : [{
                         type : '6',
                         name : 'xdate'
+                    },{
+                        type : '1',
+                        name : 'ydate'
+                    }, {
+                        type : '2',
+                        name : 'xstore',
+                        dbf : 'store',
+                        index : 'noa,store',
+                        src : 'store_b.aspx'
                     }]
                 });
                 q_popAssign();
@@ -32,7 +41,12 @@
                 q_langShow();
 
                 $('#txtXdate').mask(r_picd);
-                $('#txtXdate').val(q_date());                
+                $('#txtXdate').val(q_date());
+                
+                $('#txtYdate1').mask(r_picd);
+                $('#txtYdate2').mask(r_picd);
+                $('#txtYdate1').val(q_date().substr(0,r_lenm)+'/01');
+                $('#txtYdate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',35).substr(0,r_lenm)+'/01',-1));
 
             }
 

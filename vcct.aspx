@@ -46,7 +46,8 @@
             }
 
             function mainPost() {
-            	bbmMask = [['txtDatea', r_picd],['txtMon', r_picm],['textBdate', r_picd],['textEdate', r_picd],['textMon', r_picm]];
+            	//強制民國年
+            	bbmMask = [['txtDatea', '999/99/99'],['txtMon', '999/99'],['textBdate', '999/99/99'],['textEdate', '999/99/99'],['textMon', '999/99']];
                 q_mask(bbmMask);
                 
                 q_cmbParse("cmbTypea", q_getPara('vcct.typea'));
@@ -131,8 +132,9 @@
 					var t_vcca=$('#checkVcca').prop('checked')?'1':'#non';
 					var t_rc2a=$('#checkRc2a').prop('checked')?'1':'#non';
 					var t_proj=q_getPara('sys.project').toUpperCase();
+					var t_len=r_len;
 					
-					q_func('qtxt.query.vcct', 'vcct.txt,vcct,'+t_mon+';'+t_bdate+';'+t_edate+';'+t_vcca+';'+t_rc2a+';'+t_proj);
+					q_func('qtxt.query.vcct', 'vcct.txt,vcct,'+t_mon+';'+t_bdate+';'+t_edate+';'+t_vcca+';'+t_rc2a+';'+t_proj+';'+t_len);
 				});
 				
 				$('#btnClose_div_vcca').click(function() {
