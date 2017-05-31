@@ -268,7 +268,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['straddr'] ) {
+                if (!as['straddrno'] ) {
                     as[bbsKey[1]] = '';
                     return;
                 }
