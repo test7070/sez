@@ -90,7 +90,7 @@
 			}
 
 			function mainPost() {
-				//q_mask(bbmMask,bbsMask);
+				q_mask(bbmMask);
 				q_getFormat();
 
 				/*
@@ -114,23 +114,17 @@
                 		q_box("tranvccewh_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+";"+JSON.stringify({project:q_getPara('sys.project').toUpperCase(),tranno:t_noa,driverno:t_driverno}), "tranvcce_tran", "95%", "95%", '');
                 	  });
                 	*/
-                	 $('#btnMao').click(function(e) {	 	 //行車里程Button
-                	 	    var t_where ='';
-                			var t_noa = $.trim($('#txtNoa').val());
-                			var t_driverno = $.trim($('#txtDriverno').val());
-                	 		q_box("oil.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+";"+JSON.stringify({project:q_getPara('sys.project').toUpperCase(),tranno:t_noa,driverno:t_driverno}), "tranvcce_tran", "95%", "95%", '');
-                	 	});
+                	  $('#btnMao').click(function(e) {	 	 //行車里程Button
+                	 	    t_where = "oildate='" + $('#txtTrandate').val() + "' and carno='" + $('#txtCarno').val() + "' and driverno='" + $('#txtDriverno').val() + "'";
+							q_box("oil.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'oil', "95%", "95%", q_getMsg('btnMao'));
+                	  });
                 	  $('#btnTick').click(function(e) {		//回數票
-                	  		var t_where ='';
-                			var t_noa = $.trim($('#txtNoa').val());
-                			var t_driverno = $.trim($('#txtDriverno').val());
-                	 		q_box("Etc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+";"+JSON.stringify({project:q_getPara('sys.project').toUpperCase(),tranno:t_noa,driverno:t_driverno}), "tranvcce_tran", "95%", "95%", '');
+                	  		t_where = "datea='" + $('#txtDatea').val() + "' and carno='" + $('#txtCarno').val() + "' and driverno='" + $('#txtDriverno').val() + "'";
+							q_box("etc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'etc', "95%", "95%", q_getMsg('btnTick'));
                 	  });
                 	  $('#btnCarcost').click(function(e) {	//出車費用
-                	  		var t_where ='';
-                			var t_noa = $.trim($('#txtNoa').val());
-                			var t_driverno = $.trim($('#txtDriverno').val());
-                	 		q_box("carchg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+";"+JSON.stringify({project:q_getPara('sys.project').toUpperCase(),tranno:t_noa,driverno:t_driverno}), "tranvcce_tran", "95%", "95%", '');
+                	  		t_where = "datea='" + $('#txtDatea').val() + "' and carno='" + $('#txtCarno').val() + "' and driverno='" + $('#txtDriverno').val() + "'";
+                	  		q_box("carchg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'carchg', "95%", "95%", q_getMsg('btnCarcost'));
                 	  });
 			}
 			//依序上傳
@@ -377,7 +371,7 @@
 			function btnIns() {		//新增
 				_btnIns();
 				$('#txtNoa').val('AUTO');
-				//$('#txtTrandate').focus();
+				$('#txtTrandate').focus();
 				$('#txtDatea').focus();
 			}
 
@@ -385,7 +379,7 @@
 				if (emp($('#txtNoa').val()))
 					return;
 				_btnModi();
-				//$('#txtTrandate').focus();
+				$('#txtTrandate').focus();
 				$('#txtDatea').focus();
 			}
 
@@ -463,16 +457,10 @@
 					$('#txtDatea').datepicker('destroy');
 					$('#txtTrandate').datepicker('destroy');
 					$('#btnTranvcce').attr('disabled','disabled');
-					$('#btnMao').attr('disabled','disabled');
-					$('#btnTick').attr('disabled','disabled');
-					$('#btnCarcost').attr('disabled','disabled');
 				}else{
 					$('#txtDatea').datepicker();
 					$('#txtTrandate').datepicker();
 					$('#btnTranvcce').removeAttr('disabled');
-					$('#btnMao').removeAttr('disabled');
-					$('#btnTick').removeAttr('disabled');
-					$('#btnCarcost').removeAttr('disabled');
 				}
 			}
 
@@ -743,12 +731,10 @@
 						<td class="tdZ"> </td>
 					</tr>
 					<tr>
-						<!--<td><span> </span><a id="lblTrandate" class="lbl">交運日期</a></td>
-						<td><input type="text" id="txtTrandate" class="txt c1"/></td>-->
-						<td><span> </span><a id="lblDatea" class="lbl">登錄日期</a></td>
-						<td><input type="text" id="txtDatea" class="txt c1"/></td>
 						<td><span> </span><a id="lblTrandate" class="lbl">交運日期</a></td>
 						<td><input type="text" id="txtTrandate" class="txt c1"/></td>
+						<td><span> </span><a id="lblDatea" class="lbl">登錄日期</a></td>
+						<td><input type="text" id="txtDatea" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblDriver" class="lbl">司機</a></td>
