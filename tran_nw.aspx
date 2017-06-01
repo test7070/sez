@@ -53,6 +53,7 @@
                     return;
                 }
                 mainForm(0);
+                window.parent.document.title='出車作業'
             }
 
             function sum() {

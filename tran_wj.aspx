@@ -730,7 +730,7 @@
 					</tr>
 				</table>
 			</div>
-<div class='dbbm'>
+			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr class="tr0" style="height:1px;">
 						<td> </td>
@@ -747,21 +747,21 @@
 						<td><input type="text" id="txtTrandate" class="txt c1"/></td>-->
 						<td><span> </span><a id="lblDatea" class="lbl">登錄日期</a></td>
 						<td><input type="text" id="txtDatea" class="txt c1"/></td>
+						<td><span> </span><a id="lblTrandate" class="lbl">交運日期</a></td>
+						<td><input type="text" id="txtTrandate" class="txt c1"/></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblDriver" class="lbl">司機</a></td>
 						<td colspan="2">
 							<input type="text" id="txtDriverno" class="txt" style="float:left;width:40%;"/>
 							<input type="text" id="txtDriver" class="txt" style="float:left;width:60%;"/>
 						</td>
-					</tr>
-					<tr>
 						<td>
 							<span> </span><a id="lblCarno" class="lbl">車號<input type="text" id="btnCarno" style="display:none;"/></a>
 						</td>
 						<td><input type="text" id="txtCarno" class="txt c1"/></td>
 						<td><span> </span><a id="lblCarplateno" class="lbl">板牌號碼</a></td>
 						<td><input type="text"  id="txtEtime"  class="txt c1"/></td>
-						<td><span> </span><a id="lblCartype" class="lbl">隨車</a></td>
-						<td><input type="text"  id="txtBtime" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMount" class="lbl">件數</a></td>
@@ -776,6 +776,8 @@
 						<td><input type="text" id="txtTotal" class="txt c1"/></td>
 						<td><span> </span><a id="lblTotal3" class="lbl">抽成獎金</a></td>
 						<td><input type="text" id="txtTotal3" class="txt c1"/></td>
+						<td><span> </span><a id="lblCartype" class="lbl">隨車</a></td>
+						<td><input type="text"  id="txtBtime" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
