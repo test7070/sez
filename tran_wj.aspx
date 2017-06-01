@@ -90,8 +90,8 @@
 			}
 
 			function mainPost() {
-				q_mask(bbmMask,bbsMask);
-				//q_getFormat();
+				//q_mask(bbmMask,bbsMask);
+				q_getFormat();
 
 				/*
 				var t_type = q_getPara('trans.typea').split(',');
@@ -837,7 +837,7 @@
 					<td>	
 						<input type="text" id="txtCustno.*" style="width:40%;"/>
 						<input type="text" id="txtComp.*" style="width:45%;"/>
-						<input type="text" id="txtNick.*" style="display:none;"/>
+						<input type="text" id="txtNick.*"  style ="display:none;"/>
 					</td>
 					<td>
 						<input type="text" id="txtUccno.*" style="float:left;width:40%;"/>
@@ -861,8 +861,8 @@
 					<td><input type="text" class="num"  id="txtemiles.*" style="width:95%;"/></td>
 					<td><input type="text" id="txtMiles.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtReserve.*" class="num" style="width:95%;"/></td>
-					<td><input type="text" id="txtltime.*" class="num" style="float:left;width:95%;"/></td>
-					<td><input type="text" id="txtstime.*" class="num" style="float:left;width:95%;"/></td>
+					<td><input type="text" id="txtltime.*"  style="float:left;width:95%;"/></td>
+					<td><input type="text" id="txtstime.*"  style="float:left;width:95%;"/></td>
 					<td><input type="text" id="txtTotal.*" class="num" style="float:center;width:95%;"/></td>
 				</tr>
 			</table>
