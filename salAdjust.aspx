@@ -286,7 +286,8 @@
 						q_tr('txtMoney_'+b_seq,salrank[0].money);
 						salranks = _q_appendData("salranks", "", true);
 						if(salranks[0]!=undefined)
-							q_tr('txtSalary_'+b_seq,salranks[dec($('#txtLevel2_'+b_seq).val())-1].money);
+							q_tr('txtMoney_'+b_seq,salranks[dec($('#txtLevel2_'+b_seq).val())-1].money);
+						$('#txtMoney_'+b_seq).change();
 					}
 					break;
 				}  /// end switch
