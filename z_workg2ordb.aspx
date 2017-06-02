@@ -147,6 +147,8 @@
 					
 					//103/12/26 預設先代入訂單預交日或製成品入庫日 最晚的日期
 					$('#txtEnddate2').val(wParent.getElementById("txtWedate").value>wParent.getElementById("txtEdate").value?wParent.getElementById("txtWedate").value:wParent.getElementById("txtEdate").value);
+					if($('#txtEnddate2').val().length>0)
+						$('#txtEnddate1').val(q_cdn($('#txtEnddate2').val(),-60));
 					
 					if(wParent.getElementById("vtunordb_"+parent_recno).innerHTML==''){
 						$('#btnOrda').attr('disabled', 'disabled');
