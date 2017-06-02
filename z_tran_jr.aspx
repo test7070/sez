@@ -24,7 +24,7 @@
             });
             function q_gfPost() {
                $('#q_report').q_report({
-                        fileName : 'z_tran_nw',
+                        fileName : 'z_tran_jr',
                         options : [{
 							type : '0',//[1]
 							name : 'accy',
