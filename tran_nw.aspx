@@ -22,7 +22,7 @@
             var bbsNum = [['txtMount', 10, 0, 1], ['txtOutmount', 10, 0, 1], ['txtInmount', 10, 0, 1], ['txtMount2', 10, 0, 1], ['txtWeight', 10, 3, 1], ['txtWeight2', 10, 3, 1], 
             			 ['txtMiles', 10, 0, 1], ['txtGross', 10, 3, 1], ['txtWeight3', 10, 3, 1], ['txtPton', 10, 3, 1], ['txtPrice', 10, 3, 1], ['txtPrice2', 10, 3, 1], ['txtCustprice', 10, 3, 1], 
             			 ['txtCustdiscount', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtTotal2', 10, 0, 1], ['txtDiscount', 10, 0, 1]];
-            var bbmMask = [];
+            var bbmMask = [['txtDatea', '999/99/99'],['txtTrandate', '999/99/99']];
             var bbsMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -53,6 +53,7 @@
                     return;
                 }
                 mainForm(0);
+                window.parent.document.title='出車作業'
             }
 
             function sum() {
@@ -86,6 +87,7 @@
             }
 
             function mainPost() {
+            	q_mask(bbmMask);
                 q_getFormat();
                 bbsMask = [['txtDatea', r_picd],['txtCldate', r_picd],['txtLtime','99:99'],['txtStime','99:99'],['txtDtime','99:99']];
                 q_cmbParse("cmbUnit2",'1@上班時間 ,2@指定時間,3@24小時皆可','s');
@@ -288,6 +290,13 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                if(t_para){
+					$('#txtDatea').datepicker('destroy');
+					$('#txtTrandate').datepicker('destroy');
+				}else{
+					$('#txtDatea').datepicker();
+					$('#txtTrandate').datepicker();
+				}
             }
 
             function btnMinus(id) {
