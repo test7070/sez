@@ -548,7 +548,7 @@
 				margin: -1px;
 			}
 			.dbbs {
-				width: 2400px;
+				width: 1700px;
 			}
 			.dbbt {
 				width: 2000px;
@@ -677,23 +677,24 @@
 			<img id="img" crossorigin="anonymous" style="float:left;display:none;"/> 
 		</div>
 		<div class='dbbs' >
-			<table id="tbbs" class='tbbs'>
+			<table id="tbbs" class='tbbs' >
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:70px"><a>出車日期</a></td>
-					<td align="center" style="width:70px;"><a>進場日期</a></td>
-					<td align="center" style="width:150px;"><a>常態事業單位</a></td>
-					<td align="center" style="width:150px"><a>廢棄物</a></td>
-					<td align="center" style="width:100px"><a>事業噸數</a></td>
-					<td align="center" style="width:150px"><a>處理廠噸數</a></td>
-					<td align="center" style="width:150px"><a>處理單價</a></td>
-					<td align="center" style="width:150px"><a>金額</a></td>
-					<td align="center" style="width:150px"><a>聯單編號</a></td>
-					<td align="center" style="width:150px"><a>出車車號</a></td>
+					<td align="center" style="width:90px"><a>出車日期</a></td>
+					<td align="center" style="width:90px"><a>進場日期</a></td>
+					<td align="center" style="width:150px"><a>常態事業單位</a></td>
+					<td align="center" style="width:180px"><a>廢棄物</a></td>
+					<td align="center" style="width:120px"><a>事業噸數</a></td>
+					<td align="center" style="width:120px"><a>處理廠噸數</a></td>
+					<td align="center" style="width:90px"><a>處理單價</a></td>
+					<td align="center" style="width:90px"><a>金額</a></td>
+					<td align="center" style="width:220px"><a>聯單編號</a></td>
+					<td align="center" style="width:100px"><a>出車車號</a></td>
 					<td align="center" style="width:150px"><a>處理廠</a></td>
-					<td align="center" style="width:150px"><a id="lblChk1">已申報</a></td>
-					<td align="center" style="width:100px"><a>備註</a></td>
+					<td align="center" style="width:60px"><a>已申報</a></td>
+					<td align="center" style="width:220px"><a>訂單</a></td>
+					<td align="center" style="width:250px"><a>備註</a></td>
 				</tr>
 				<tr class="data" style='background:#cad3ff;'>
 					<td align="center">
@@ -701,59 +702,35 @@
 						<input type="text" id="txtNoq.*" style="display:none;"/>
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-					<td><input type="text" id="txtTypea.*" list="listTypea" style="width:95%;"/></td>
+					<td><input type="text" id="txtDatea.*" style="width:95%;"/></td>
+					<td><input type="text" id="txtTrandate.*" style="width:95%;"/></td>
 					<td>
-						<input type="text" id="txtCarno.*" style="width:95%;"/>
-						<input type="button" id="btnCarno.*" style="display:none;"/>
-					</td>
-					<td>
-						<input type="text" id="txtDriverno.*" style="width:45%;float:left;"/>
-						<input type="text" id="txtDriver.*" style="width:45%;float:left;"/>
-						<input type="button" id="btnDriver.*" style="display:none;"/>
-					</td>
-					<td>
-						<input type="text" id="txtCustno.*" style="float:left;width:40%;"/>
+						<input type="text" id="txtCustno.*" style="float:left;width:40%;" />
 						<input type="text" id="txtCust.*" style="float:left;width:45%;"/>
 						<input type="button" id="btnCust.*" style="display:none;"/>
 					</td>
-					<td><input type="text" id="txtConn.*"  style="width:95%;"/></td>
 					<td>
-						<input type="text" id="txtProductno.*" style="float:left;width:45%;"/>
-						<input type="text" id="txtProduct.*" style="float:left;width:45%;"/>
-						<input type="button" id="btnProduct.*" style="display:none;"/>
-						<input type="text" id="txtUweight.*" style="display:none;"/>
+						<input type="text" id="txtProductno.*" style="float:left;width:40%;"/>
+						<input type="text" id="txtProduct.*" style="float:left;width:53%;"/>
 					</td>
-					<td style="display:none;"><input type="text" id="txtLengthb.*" class="num" style="width:95%;"/></td>
-					<td style="display:none;"><input type="text" id="txtWidth.*" class="num bbsWeight" style="width:95%;"/></td>
-					<td style="display:none;"><input type="text" id="txtHeight.*" class="num" style="width:95%;"/></td>
-					<td><input type="text" id="txtMount.*" class="num" style="width:95%;"/></td>
-					<td><input type="text" id="txtUnit.*" list="listUnit" style="width:95%;"/></td>
-					<td><input type="text" id="txtVolume.*" class="num " style="width:95%;"/></td>
 					<td><input type="text" id="txtWeight.*" class="num" style="width:95%;"/></td>
-					<td><input type="text" id="txtUnit2.*" list="listUnit2" style="width:95%;"/></td>
-					<td><input type="text" id="txtTotal.*" class="num " style="width:95%;"/></td>
-					<td><input type="text" id="txtTotal2.*" class="num " style="width:95%;"/></td>
-					<td><input type="text" id="txtTotal3.*" class="num " style="width:95%;"/></td>
+					<td><input type="text" id="txtUweight.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtTotal.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtTotal2.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtPo.*" style="width:95%;"/></td>
+					<td><input type="text" id="txtCarno.*" style="width:95%;"/></td>
 					<td>
 						<input type="text" id="txtAddrno.*" style="float:left;width:40%;"/>
 						<input type="text" id="txtAddr.*" style="float:left;width:50%;"/>
 						<input type="button" id="btnAddr.*" style="display:none;"/>
 					</td>
-					<td>
-						<input type="text" id="txtAddrno2.*" style="float:left;width:40%;"/>
-						<input type="text" id="txtAddr2.*" style="float:left;width:50%;"/>
-						<input type="button" id="btnAddr2.*" style="display:none;"/>
-					</td>
-					
-					<td><input type="text" id="txtMemo2.*" style="width:95%;"/></td>
+					<td align="center"><input id="chkChk1.*" type="checkbox"/></td>
 					<td>
 						<input type="text" id="txtOrdeno.*" style="float:left;width:70%;"/>
 						<input type="text" id="txtNo2.*" style="float:left;width:20%;"/>
 					</td>
-					<td align="center"><input type="checkbox" id="chkChk1.*"/></td>
-					<td><input type="text" id="txtMemo.*" style="width:95%;"/></td>
+					<td><input type="text" id="txtMemo.*" style="width:95%;" /></td>
 				</tr>
-
 			</table>
 		</div>
 		<datalist id="listUnit"> </datalist>
