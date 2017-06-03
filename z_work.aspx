@@ -143,7 +143,17 @@
                         type : '0',
                         name : 'xnowdate',
                         value : q_date()
-                    }]
+                    },{
+						type : '6', //[34] 21
+						name : 'xordeno'
+					},{
+						type : '6', //[35] 22
+						name : 'xno2'
+					}, {
+						type : '5', //[36] 23
+						name : 'yorder',
+						value : ('stationno@工作線別,pno@物品編號,ordeno@訂單號碼').split(',')
+					}]
 				});
 				q_popAssign();
 				q_getFormat();
