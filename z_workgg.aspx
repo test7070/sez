@@ -124,6 +124,9 @@
 					},{
 						type : '6', //[24]
 						name : 'xordeno'
+					},{
+						type : '6', //[25]
+						name : 'xno2'
 					}]
 				});
 				
