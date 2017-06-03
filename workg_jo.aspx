@@ -76,7 +76,7 @@
                 }
 				
 				bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtSfbdate', r_picd], ['txtSfedate', r_picd], ['txtWadate', r_picd], ['txtWbdate', r_picd], ['txtWedate', r_picd]];
-				bbsMask = [['txtRworkdate', r_picd], ['txtCuadate', r_picd], ['txtIndate', r_picd], ['txtUindate', r_picd], ['txtNoq','999']];
+				bbsMask = [['txtRworkdate', r_picd], ['txtCuadate', r_picd], ['txtIndate', r_picd], ['txtUindate', r_picd], ['txtNoq','999'], ['txtOdatea', r_picd]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbStype", q_getPara('workg.stype'));	
 				
@@ -533,9 +533,12 @@
 									as[i].ordeno = as[i].noa+'-'+as[i].no2;
 								}
 							}
-							q_gridAddRow(bbsHtm, 'tbbs', 'txtRworkdate,txtProductno,txtProduct,txtSpec,txtStyle,txtOrdemount,txtMount,txtOrdeno'
+							//106/06/03 依據預交日排序
+							as.sort(function(a, b) {if(a.datea>b.datea) {return 1;} if (a.datea < b.datea) {return -1;} return 0;});
+							
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtRworkdate,txtProductno,txtProduct,txtSpec,txtStyle,txtOrdemount,txtMount,txtOrdeno,txtOdatea'
 							, as.length, as
-							, 'rworkdate,productno,product,spec,style,mount,mount,ordeno,stationno,station', 'txtProductno');
+							, 'rworkdate,productno,product,spec,style,mount,mount,ordeno,datea,stationno,station', 'txtProductno');
 						} else {
 							alert('無訂單資料!!。');
 						}
@@ -1415,7 +1418,7 @@
 				font-size: medium;
 			}
 			.dbbs {
-				width: 1800px;
+				width: 1900px;
 			}
 			.dbbs .tbbs {
 				margin: 0;
@@ -1629,6 +1632,7 @@
 						<td style="width:20px;"> </td>
 						<td style="width:70px;"><a id='lblNoq_s'> </a></td>
 						<td style="width:150px;"><a id='lblOrdeno_s'> </a></td>
+						<td style="width:100px;"><a id='lblOdatea_s'> </a></td>
 						<td style="width:85px;"><a id='lblRworkdate_s'> </a></td>
 						<td style="width:140px;"><a id='lblProductno_s'> </a></td>
 						<td style="width:210px;"><a id='lblProduct_s'> </a></td>
@@ -1673,6 +1677,7 @@
 						<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 						<td align="center"><input id="txtNoq.*" type="text" class="txt c1"/></td>
 						<td><input id="txtOrdeno.*" type="text" class="txt c1 orde odm"/></td>
+						<td><input id="txtOdatea.*" type="text" class="txt c1 orde odm"/></td>
 						<td><input id="txtRworkdate.*" type="text" class="txt c1"/></td>
 						<td><input id="txtProductno.*" type="text" class="txt c1"/></td>
 						<td>
