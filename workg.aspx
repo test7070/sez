@@ -371,9 +371,13 @@
 								as[i].rworkdate = '';
 								as[i].ordeno = as[i].ordeno.substr(0, as[i].ordeno.length - 1);
 							}
-							q_gridAddRow(bbsHtm, 'tbbs', 'txtRworkdate,txtProductno,txtProduct,txtSpec,txtUnmount,txtOrdemount,txtPlanmount,txtStkmount,txtIntmount,txtPurmount,txtAvailmount,txtMount,txtOrdeno,txtStationno,txtStation,txtSaleforecast,txtPrepare,txtUnprepare,txtStyle'
+							
+							//106/06/03 依據預交日排序
+							as.sort(function(a, b) {if(a.datea>b.datea) {return 1;} if (a.datea < b.datea) {return -1;} return 0;});
+							
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtRworkdate,txtProductno,txtProduct,txtSpec,txtUnmount,txtOrdemount,txtPlanmount,txtStkmount,txtIntmount,txtPurmount,txtAvailmount,txtMount,txtOrdeno,txtOdatea,txtStationno,txtStation,txtSaleforecast,txtPrepare,txtUnprepare,txtStyle'
 							, as.length, as
-							, 'rworkdate,productno,product,spec,unmount,ordemount,planmount,stkmount,inmount,purmount,availmount,bornmount,ordeno,stationno,station,saleforecast,prepare,unprepare,style', 'txtProductno');
+							, 'rworkdate,productno,product,spec,unmount,ordemount,planmount,stkmount,inmount,purmount,availmount,bornmount,ordeno,datea,stationno,station,saleforecast,prepare,unprepare,style', 'txtProductno');
 							change_field();
 						} else {
 							alert('無訂單資料!!。');
@@ -711,7 +715,7 @@
 						$('.orde').attr('disabled', 'disabled');
 						$('.odm').val('');
 					}
-					$('.dbbs').css('width','3300px');
+					$('.dbbs').css('width','3400px');
 					$('#lblMount_s').css('color','white');
 				}else{
 					$('.sf').hide();
@@ -726,6 +730,8 @@
 					$('.dbbs').css('width','2850px');
 					$('#lblMount_s').css('color','red');
 				}
+				var hasStyle = q_getPara('sys.isstyle');
+				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
 			}
 
 			function readonly(t_para, empty) {
@@ -758,8 +764,6 @@
 					$('#copyunprepare').removeAttr('disabled').prop('checked',false);
 				}
 				change_field();
-				var hasStyle = q_getPara('sys.isstyle');
-				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
 			}
 
 			function btnMinus(id) {
@@ -1147,7 +1151,7 @@
 				font-size: medium;
 			}
 			.dbbs {
-				width: 3300px;
+				width: 3400px;
 			}
 			.dbbs .tbbs {
 				margin: 0;
@@ -1369,6 +1373,7 @@
 						<td style="width:100px;"><a id='lblWmount_s'> </a></td>
 						<td><a id='lblMemo_s'> </a></td>
 						<td style="width:150px;"><a id='lblOrdeno_s'> </a></td>
+						<td style="width:100px;"><a id='lblOdatea_s'> </a></td>
 						<td style="width:50px;"><a id='lblIsfreeze_s'> </a></td>
 						<td style="width:40px;"><a id='lblBorn_s'> </a></td>
 						<td style="width:60px;"><a id='lblNoq_s'> </a></td>
@@ -1424,6 +1429,7 @@
 						<td><input id="txtWmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
 						<td><input id="txtOrdeno.*" type="text" class="txt c1 orde odm"/></td>
+						<td><input id="txtOdatea.*" type="text" class="txt c1 orde odm"/></td>
 						<td><input id="chkIsfreeze.*" type="checkbox"/></td>
 						<td align="center">
 							<input class="btn" id="btnBorn.*" type="button" value='.' style=" font-weight: bold;" />

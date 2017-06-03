@@ -124,6 +124,9 @@
 					},{
 						type : '6', //[24]
 						name : 'xordeno'
+					},{
+						type : '6', //[25]
+						name : 'xno2'
 					}]
 				});
 				
@@ -317,6 +320,11 @@
 					else
 						t_xordeno='#non';
 						
+					if(!emp($('#txtXno2').val()))
+						t_xordeno2=encodeURI($('#txtXno2').val());
+					else
+						t_xordeno2='#non';
+						
 					Lock();
 					q_func('qtxt.query.'+txtreport,'z_workgg.txt,'+txtreport+','+
 							t_xbdate + ';' +
@@ -332,7 +340,7 @@
 							t_xonlyrealwork + ';'+
 							t_xbstationgno+';'+t_xestationgno+';'+
 							t_xcuanoa+';'+t_xcuanoq+';'+q_getPara('sys.project').toUpperCase()+';'+
-							t_xmaxgen+';'+t_xdayclass+';'+t_xordeno
+							t_xmaxgen+';'+t_xdayclass+';'+t_xordeno+';'+t_xordeno2
 					);
 				});
 
