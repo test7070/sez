@@ -127,6 +127,10 @@
 					},{
 						type : '6', //[25]
 						name : 'xno2'
+					}, {
+						type : '8', //[26]
+						name : 'xshownowork',
+						value : ('1@未完工').split(',')
 					}]
 				});
 				
@@ -213,6 +217,11 @@
 				
 				$('#txtXdayclass').css('text-align','right');
 				$('#txtXdayclass').val(120);
+				
+				$('#Xshownowork').css('width','300px');
+				$('#chkXshownowork').css('width','250px');
+				$('#chkXshownowork span').css('width','200px');
+				$('#Xshownowork .label').css('width','5px');
 				
 				$('#txtXmaxgen').change(function() {
 					var t_mount=dec($('#txtXmaxgen').val());
@@ -325,6 +334,12 @@
 					else
 						t_xordeno2='#non';
 						
+					if($('#chkXshownowork input[type="checkbox"]').prop('checked'))
+						t_xshownowork=encodeURI('1');
+					else{
+						t_xshownowork='#non'
+					}
+						
 					Lock();
 					q_func('qtxt.query.'+txtreport,'z_workgg.txt,'+txtreport+','+
 							t_xbdate + ';' +
@@ -340,7 +355,7 @@
 							t_xonlyrealwork + ';'+
 							t_xbstationgno+';'+t_xestationgno+';'+
 							t_xcuanoa+';'+t_xcuanoq+';'+q_getPara('sys.project').toUpperCase()+';'+
-							t_xmaxgen+';'+t_xdayclass+';'+t_xordeno+';'+t_xordeno2
+							t_xmaxgen+';'+t_xdayclass+';'+t_xordeno+';'+t_xordeno2+';'+t_xshownowork
 					);
 				});
 
@@ -519,10 +534,10 @@
 									DateObj[j].mount = q_add(dec(DateObj[j].mount),round(TTD[j][1],3));
 									//OutHtml += "<td class='num'"+(thisValue>thisGen?' style="color:red;"':'')+"><font title='日產能:"+thisGen+"'>" + round(thisValue,0) + "</font></td>";
 									OutHtml += "<td class='num'"+(thisValue>thisGen?' style="color:red;"':'')+"><font title='日產能:"+thisGen+"'>"
-									+(thisValue>thisGen?"<a style='color:red;' href=JavaScript:q_box('work.aspx',\";cuadate='"+DateObj[j].datea+"'&&stationno='"+TL[k].stationno+"';106\",'95%','95%','106')>":'') + round(thisValue,0) +(thisValue>thisGen?'</a>':'')+ "</font></td>";
+									+(thisValue>thisGen?"<a style='color:red;' href=JavaScript:q_box('work.aspx',\";cuadate='"+DateObj[j].datea+"'&&stationno='"+TL[k].stationno+"';106\",'95%','95%','106')>":'') + Zerospaec(round(thisValue,0)) +(thisValue>thisGen?'</a>':'')+ "</font></td>";
 								}
 								ATotal = q_add(ATotal,tTotal);
-								OutHtml += "<td class='num'>" + round(tTotal,0) + "</td>";
+								OutHtml += "<td class='num'>" + Zerospaec(round(tTotal,0)) + "</td>";
 								OutHtml += '</tr>';
 								
 								if(k%20==0 && k!=0){
@@ -544,9 +559,9 @@
 							}
 							OutHtml += "<tr><td colspan='4' class='tTotal num'>總計：</td>";
 							for(var k=0;k<DateObj.length;k++){
-								OutHtml += "<td class='tTotal num'>" + round(DateObj[k].mount,0) + "</td>";
+								OutHtml += "<td class='tTotal num'>" + Zerospaec(round(DateObj[k].mount,0)) + "</td>";
 							}
-							OutHtml += "<td class='tTotal num'>" + round(ATotal,0) + "</td>";
+							OutHtml += "<td class='tTotal num'>" + Zerospaec(round(ATotal,0)) + "</td>";
 							OutHtml += "</table>"
 							var t_totalWidth = 0;
 							t_totalWidth = 670+((70+2)*(DateObj.length+1+2))+10;
@@ -570,6 +585,11 @@
 							var DiffDays = ((myEndDate - myStartDate)/ 86400000);
 							var DateList = [];
 							var DateObj = [];
+							
+							var t_xshownowork='0';
+							if($('#chkXshownowork input[type="checkbox"]').prop('checked'))
+								t_xshownowork='1';
+							
 							for(var j=0;j<=DiffDays;j++){
 								var thisDay = q_cdn(t_bdate,j);
 								var thisADday = r_len==3?dec(thisDay.substring(0,3))+1911+thisDay.substr(3):thisDay;
@@ -578,7 +598,9 @@
 									DateObj.push({
 										datea:thisDay,
 										value:0,
-										stotal:0
+										ivalue:0,
+										stotal:0,
+										itotal:0
 									});
 								}else{
 									//小計欄
@@ -587,7 +609,9 @@
 										DateObj.push({
 											datea:'週小計',
 											value:0,
-											stotal:0
+											ivalue:0,
+											stotal:0,
+											itotal:0
 										});
 									}
 								}
@@ -614,7 +638,7 @@
 							}
 							for(var k=0;k<TL.length;k++){
 								for(var j=0;j<DateList.length;j++){
-									TL[k].datea.push([DateList[j],0]);
+									TL[k].datea.push([DateList[j],0,0]);
 								}
 							}
 							for(var k=0;k<as.length;k++){
@@ -626,6 +650,7 @@
 										for(var h=0;h<TLDatea.length;h++){
 											if(as[k].datea==TLDatea[h][0]){
 												TLDatea[h][1] = dec(TLDatea[h][1])+dec(as[k].value);
+												TLDatea[h][2] = dec(TLDatea[h][2])+dec(as[k].ivalue);
 												isFind = true;
 												break;
 											}
@@ -637,11 +662,16 @@
 							OutHtml += "<td class='tTitle' style='width:370px;' colspan='2' rowspan='2'>物品</td>" +
 									   "<td class='tTitle' style='width:210px;' colspan='2' rowspan='2'>工作線別</td>" +
 									   "<td class='tTitle' style='width:100px;' rowspan='2'>需工時</td>";
+							if(t_xshownowork=='1')
+								OutHtml += "<td class='tTitle' style='width:100px;' rowspan='2'> </td>";
+								
 							var tmpTd = '<tr>';
 							for(var j=0;j<DateList.length;j++){
 								var thisDay = DateList[j];
 								if(thisDay=='週小計'){
 									OutHtml += "<td class='tTitle' style='width:80px;' rowspan='2'>"+thisDay+"</td>";
+									if(t_xshownowork=='1')
+										OutHtml += "<td class='tTitle' style='width:100px;' rowspan='2'> </td>";
 								}else{
 									var thisADday = r_len==3?dec(thisDay.substring(0,3))+1911+thisDay.substr(3):thisDay;
 									OutHtml += "<td class='tTitle tWidth'>" + thisDay.substr(r_len+1) + "</td>";
@@ -652,6 +682,7 @@
 							tmpTd += "</tr>"
 							OutHtml += '</tr>' + tmpTd;
 							var ATotal = 0,wtotal=0;
+							var iATotal = 0,iwtotal=0;
 							var t_stationno='#non';
 							var t_station='#non';
 							var rowline=0;
@@ -661,15 +692,29 @@
 									OutHtml += "<tr><td colspan='2' class='sTotal num'></td>";
 									OutHtml += "<td class='sTotal stationno'>" + t_stationno + "</td><td class='sTotal station'>" + t_station + "</td>" ;
 									OutHtml += "<td class='sTotal num'>小計：</td>";
-									var stotla=0
+									if(t_xshownowork=='1')
+										OutHtml += "<td class='sTotal num'>排程數量<br><a style='color:red;'>未完工數</a></td>"
+									var stotla=0,itotla=0;
 									for(var c=0;c<DateObj.length;c++){
-										OutHtml += "<td class='sTotal num'>" + round(DateObj[c].stotal,3) + "</td>";
+										if(t_xshownowork=='1')
+											OutHtml += "<td class='sTotal num'>" + Zerospaec(round(DateObj[c].stotal,3)) +"<BR><a style='color:red;'>"+Zerospaec(round(DateObj[c].itotal,3)) + "</a></td>";
+										else
+											OutHtml += "<td class='sTotal num'>" + Zerospaec(round(DateObj[c].stotal,3)) + "</td>";
+										
 										if(DateObj[c].datea!='週小計'){
 											stotla=q_add(stotla,round(DateObj[c].stotal,3));
+											itotla=q_add(itotla,round(DateObj[c].itotal,3));
+										}else{
+											if(t_xshownowork=='1')
+												OutHtml += "<td class='sTotal num'>排程數量<br><a style='color:red;'>未完工數</a></td>"
 										}
 										DateObj[c].stotal=0;
+										DateObj[c].itotal=0;
 									}
-									OutHtml += "<td class='sTotal num'>" + round(stotla,0) + "</td></tr>";
+									if(t_xshownowork=='1')
+										OutHtml += "<td class='sTotal num'>" + Zerospaec(round(stotla,0))+"<BR><a style='color:red;'>"+Zerospaec(round(itotla,0)) + "</a></td></tr>";
+									else
+										OutHtml += "<td class='sTotal num'>" + Zerospaec(round(stotla,0)) + "</td></tr>";
 									rowline++;
 								}
 								
@@ -678,11 +723,16 @@
 									OutHtml += "<td class='tTitle' style='width:370px;' colspan='2' rowspan='2'>物品</td>" +
 											   "<td class='tTitle' style='width:210px;' colspan='2' rowspan='2'>工作線別</td>" +
 											   "<td class='tTitle' style='width:100px;' rowspan='2'>需工時</td>";
+									if(t_xshownowork=='1')
+										OutHtml += "<td class='tTitle' style='width:100px;' rowspan='2'> </td>";
+									
 									tmpTd = '<tr>';
 									for(var j=0;j<DateList.length;j++){
 										var thisDay = DateList[j];
 										if(thisDay=='週小計'){
 											OutHtml += "<td class='tTitle' style='width:80px;' rowspan='2'>"+thisDay+"</td>";
+											if(t_xshownowork=='1')
+												OutHtml += "<td class='tTitle' style='width:100px;' rowspan='2'> </td>";
 										}else{
 											var thisADday = r_len==3?dec(thisDay.substring(0,3))+1911+thisDay.substr(3):thisDay;
 											OutHtml += "<td class='tTitle tWidth'>" + thisDay.substr(r_len+1) + "</td>";
@@ -699,24 +749,51 @@
 								OutHtml += "<td class='Lproduct' style='width:150px;'>" + TL[k].productno + "</td><td class='Lproduct' style='width:220px;'>" + TL[k].product + "</td>" +
 										   "<td class='Lproduct' style='width:120px;'>" + TL[k].stationno + "</td><td class='Lproduct' style='width:120px;'>" + TL[k].station + "</td>" +
 										   "<td class='num'>" + TL[k].gen + "</td>";
+								if(t_xshownowork=='1')
+									OutHtml += "<td class='num'>排程數量<br><a style='color:red;'>未完工數</a></td>";
+									
 								var TTD = TL[k].datea;
-								var tTotal = 0;
+								var tTotal = 0,itTotal = 0;
 								for(var j=0;j<TTD.length;j++){
 									if(TTD[j][0]=='週小計'){
-										OutHtml += "<td class='num'>" + round(wtotal,0) + "</td>";
+										if(t_xshownowork=='1')
+											OutHtml += "<td class='num'>" + Zerospaec(round(wtotal,0)) +"<br><a style='color:red;'>"+Zerospaec(round(iwtotal,0)) + "</a></td>";
+										else
+											OutHtml += "<td class='num'>" + Zerospaec(round(wtotal,0)) + "</td>";
+										if(t_xshownowork=='1')
+											OutHtml += "<td class='num'>排程數量<br><a style='color:red;'>未完工數</a></td>";
+											
 										DateObj[j].value = q_add(dec(DateObj[j].value),wtotal);
 										DateObj[j].stotal = q_add(dec(DateObj[j].stotal),wtotal);
 										wtotal=0;
+										
+										DateObj[j].ivalue = q_add(dec(DateObj[j].ivalue),iwtotal);
+										DateObj[j].itotal = q_add(dec(DateObj[j].itotal),iwtotal);
+										iwtotal=0;
+										
 									}else{
 										wtotal= q_add(wtotal,round(TTD[j][1],3));
 										tTotal = q_add(tTotal,round(TTD[j][1],3));
 										DateObj[j].value = q_add(dec(DateObj[j].value),round(TTD[j][1],3));
 										DateObj[j].stotal = q_add(dec(DateObj[j].stotal),round(TTD[j][1],3));
-										OutHtml += "<td class='num'>" + round(TTD[j][1],0) + "</td>";
+										
+										iwtotal= q_add(iwtotal,round(TTD[j][2],3));
+										itTotal = q_add(itTotal,round(TTD[j][2],3));
+										DateObj[j].ivalue = q_add(dec(DateObj[j].ivalue),round(TTD[j][2],3));
+										DateObj[j].itotal = q_add(dec(DateObj[j].itotal),round(TTD[j][2],3));
+										
+										if(t_xshownowork=='1')
+											OutHtml += "<td class='num'>" + Zerospaec(round(TTD[j][1],0)) +"<BR><a style='color:red;'>"+Zerospaec(round(TTD[j][2],0)) + "</a></td>";
+										else
+											OutHtml += "<td class='num'>" + Zerospaec(round(TTD[j][1],0)) + "</td>";
 									}
 								}
 								ATotal = q_add(ATotal,tTotal);
-								OutHtml += "<td class='num'>" + round(tTotal,0) + "</td>";
+								iATotal = q_add(iATotal,itTotal);
+								if(t_xshownowork=='1')
+									OutHtml += "<td class='num'>" + Zerospaec(round(tTotal,0)) +"<BR><a style='color:red;'>"+Zerospaec(round(itTotal,0)) + "</a></td>";
+								else
+									OutHtml += "<td class='num'>" + Zerospaec(round(tTotal,0)) + "</td>";
 								OutHtml += '</tr>';
 								
 								t_stationno=TL[k].stationno;
@@ -728,22 +805,47 @@
 								OutHtml += "<tr><td colspan='2' class='sTotal num'></td>";
 								OutHtml += "<td class='sTotal stationno'>" + t_stationno + "</td><td class='sTotal station'>" + t_station + "</td>" ;
 								OutHtml += "<td class='sTotal num'>小計：</td>";
-								var stotla=0
+								if(t_xshownowork=='1')
+									OutHtml += "<td class='sTotal num'>排程數量<br><a style='color:red;'>未完工數</a></td>"
+								var stotla=0,itotla=0;
 								for(var c=0;c<DateObj.length;c++){
-									OutHtml += "<td class='sTotal num'>" + round(DateObj[c].stotal,0) + "</td>";
+									if(t_xshownowork=='1')
+										OutHtml += "<td class='sTotal num'>" + Zerospaec(round(DateObj[c].stotal,0)) +"<BR><a style='color:red;'>" +Zerospaec(round(DateObj[c].itotal,0)) + "</a></td>";
+									else
+										OutHtml += "<td class='sTotal num'>" + Zerospaec(round(DateObj[c].stotal,0)) + "</td>";
 									if(DateObj[c].datea!='週小計'){
-										stotla=q_add(stotla,round(DateObj[c].stotal,3));
+											itotla=q_add(itotla,round(DateObj[c].itotal,3));
+											stotla=q_add(stotla,round(DateObj[c].stotal,3));
+									}else{
+										if(t_xshownowork=='1')
+											OutHtml += "<td class='sTotal num'>排程數量<br><a style='color:red;'>未完工數</a></td>"
 									}
 									DateObj[c].stotal=0;
+									DateObj[c].itotal=0;
 								}
-								OutHtml += "<td class='sTotal num'>" + round(stotla,0) + "</td></tr>";
+								if(t_xshownowork=='1')
+									OutHtml += "<td class='sTotal num'>" + Zerospaec(round(stotla,0))+"<BR><a style='color:red;'>"+Zerospaec(round(itotla,0)) + "</a></td></tr>";
+								else
+									OutHtml += "<td class='sTotal num'>" + Zerospaec(round(stotla,0)) + "</td></tr>";
 							}
 							
 							OutHtml += "<tr><td colspan='5' class='tTotal num'>總計：</td>";
+							if(t_xshownowork=='1')
+								OutHtml += "<td class='tTotal num'>排程數量<br><a style='color:red;'>未完工數</a></td>"
 							for(var k=0;k<DateObj.length;k++){
-								OutHtml += "<td class='tTotal num'>" + round(DateObj[k].value,0) + "</td>";
+								if(t_xshownowork=='1')
+									OutHtml += "<td class='tTotal num'>" + Zerospaec(round(DateObj[k].value,0))+"<BR><a style='color:red;'>"+Zerospaec(round(DateObj[k].ivalue,0)) + "</a></td>";
+								else
+									OutHtml += "<td class='tTotal num'>" + Zerospaec(round(DateObj[k].value,0)) + "</td>";
+								if(DateObj[k].datea=='週小計'){
+									if(t_xshownowork=='1')
+										OutHtml += "<td class='tTotal num'>排程數量<br><a style='color:red;'>未完工數</a></td>"
+								}
 							}
-							OutHtml += "<td class='tTotal num'>" + round(ATotal,0) + "</td>";
+							if(t_xshownowork=='1')
+								OutHtml += "<td class='tTotal num'>" + Zerospaec(round(ATotal,0))+"<BR><a style='color:red;'>" +Zerospaec(round(iATotal,0))+ "</a></td>";
+							else
+								OutHtml += "<td class='tTotal num'>" + Zerospaec(round(ATotal,0)) + "</td>";
 							OutHtml += "</table>"
 							var t_totalWidth = 0;
 							t_totalWidth = 690+((70+2)*(DateObj.length+1+2))+10;
@@ -842,35 +944,35 @@
 								for(var j=0;j<TTD.length;j++){
 									tTotal = q_add(tTotal,round(TTD[j][1],3));
 									DateObj[j].value = q_add(dec(DateObj[j].value),round(TTD[j][1],3));
-									OutHtml += "<td class='num'>" + round(TTD[j][1],0) + "</td>";
+									OutHtml += "<td class='num'>" + Zerospaec(round(TTD[j][1],0)) + "</td>";
 								}
 								ATotal = q_add(ATotal,tTotal);
-								OutHtml += "<td class='num'>" + tTotal + "</td>";
+								OutHtml += "<td class='num'>" + Zerospaec(tTotal) + "</td>";
 								OutHtml += '</tr>';
 								OutHtml += '<tr id="chgTitle">';
 								OutHtml += "<td class='center subTitle' style='width:80px;'>排程數量</td>";
 								for(var j=0;j<TTD.length;j++){
 									wTotal = q_add(wTotal,round(TTD[j][2],3));
 									DateObj[j].workmount = q_add(dec(DateObj[j].workmount),round(TTD[j][2],3));
-									OutHtml += "<td class='num'>" + round(TTD[j][2],0) + "</td>";
+									OutHtml += "<td class='num'>" + Zerospaec(round(TTD[j][2],0)) + "</td>";
 								}
 								wATotal = q_add(wATotal,wTotal);
-								OutHtml += "<td class='num'>" + round(wTotal,0) + "</td>";
+								OutHtml += "<td class='num'>" + Zerospaec(round(wTotal,0)) + "</td>";
 								OutHtml += '</tr>';
 
 							}
 							OutHtml += "<tr><td colspan='2' rowspan='2' class='tTotal num'>總計：</td>";
 							OutHtml += "<td class='center tTotal' style='width:80px;'>訂單數量</td>";
 							for(var k=0;k<DateObj.length;k++){
-								OutHtml += "<td class='tTotal num'>" + round(DateObj[k].value,0) + "</td>";
+								OutHtml += "<td class='tTotal num'>" + Zerospaec(round(DateObj[k].value,0)) + "</td>";
 							}
-							OutHtml += "<td class='tTotal num'>" + round(ATotal,3) + "</td></tr>";
+							OutHtml += "<td class='tTotal num'>" + Zerospaec(round(ATotal,3)) + "</td></tr>";
 							OutHtml += "<tr>";
 							OutHtml += "<td class='center tTotal' style='width:80px;'>排程數量</td>";
 							for(var k=0;k<DateObj.length;k++){
-								OutHtml += "<td class='tTotal num'>" + round(DateObj[k].workmount,0) + "</td>";
+								OutHtml += "<td class='tTotal num'>" + Zerospaec(round(DateObj[k].workmount,0)) + "</td>";
 							}
-							OutHtml += "<td class='tTotal num'>" + round(wATotal,0) + "</td>";
+							OutHtml += "<td class='tTotal num'>" + Zerospaec(round(wATotal,0)) + "</td>";
 							OutHtml += "</tr></table>"
 							var t_totalWidth = 0;
 							t_totalWidth = 660+((70+2)*(DateObj.length+1+2))+10;
@@ -965,17 +1067,17 @@
 								for(var j=0;j<TTD.length;j++){
 									tTotal = q_add(tTotal,round(TTD[j][1],3));
 									DateObj[j].value = q_add(dec(DateObj[j].value),round(TTD[j][1],3));
-									OutHtml += "<td class='num'>" + round(TTD[j][1],0) + "</td>";
+									OutHtml += "<td class='num'>" + Zerospaec(round(TTD[j][1],0)) + "</td>";
 								}
 								ATotal = q_add(ATotal,tTotal);
-								OutHtml += "<td class='num'>" + round(tTotal,0) + "</td>";
+								OutHtml += "<td class='num'>" + Zerospaec(round(tTotal,0)) + "</td>";
 								OutHtml += '</tr>';
 							}
 							OutHtml += "<tr><td colspan='2' class='tTotal num'>總計：</td>";
 							for(var k=0;k<DateObj.length;k++){
-								OutHtml += "<td class='tTotal num'>" + round(DateObj[k].value,0) + "</td>";
+								OutHtml += "<td class='tTotal num'>" + Zerospaec(round(DateObj[k].value,0)) + "</td>";
 							}
-							OutHtml += "<td class='tTotal num'>" + round(ATotal,0) + "</td>";
+							OutHtml += "<td class='tTotal num'>" + Zerospaec(round(ATotal,0)) + "</td>";
 							OutHtml += "</table>"
 							var t_totalWidth = 0;
 							t_totalWidth = 660+((70+2)*(DateObj.length+1+2))+10;
@@ -1107,7 +1209,7 @@
 									
 									wtotal= q_add(wtotal,round(TTD[j][1],0));
 									if(TTD[j][0]=='週小計'){
-										OutHtml += "<td class='num'><font title='週小計:"+wtotal+"'>"+ FormatNumber(round(wtotal,0))+"</font></td>";
+										OutHtml += "<td class='num'><font title='週小計:"+wtotal+"'>"+ Zerospaec(FormatNumber(round(wtotal,0)))+"</font></td>";
 										DateObj[j].mount = q_add(dec(DateObj[j].mount),wtotal);
 										wtotal=0;
 									}else{
@@ -1115,12 +1217,12 @@
 										//+(thisValue>thisGen?"<a style='color:red;' href=JavaScript:q_box('work.aspx',\";cuadate='"+DateObj[j].datea+"'&&isnull(modelno,'')='"+TL[k].modelno+"';106\",'95%','95%','106')>":'') + FormatNumber(round(thisValue,0)) +(thisValue>thisGen?'</a>':'')+ "</font></td>";
 										
 										OutHtml += "<td class='num'"+(thisValue>thisGen?' style="color:red;"':'')+"><font title='日產能:"+thisGen+"'>"
-										+(thisValue>thisGen?"<a style='color:red;' href=JavaScript:q_box('work.aspx',&quot;;noa%20in%20(select%20workno%20from%20view_cugu%20where%20datea='"+DateObj[j].datea+"')&amp;&amp;isnull(modelno,'')='"+TL[k].modelno+"';106&quot;,'95%','95%','106')>":'') + FormatNumber(round(thisValue,0)) +(thisValue>thisGen?'</a>':'')+ "</font></td>";
+										+(thisValue>thisGen?"<a style='color:red;' href=JavaScript:q_box('work.aspx',&quot;;noa%20in%20(select%20workno%20from%20view_cugu%20where%20datea='"+DateObj[j].datea+"')&amp;&amp;isnull(modelno,'')='"+TL[k].modelno+"';106&quot;,'95%','95%','106')>":'') + Zerospaec(FormatNumber(round(thisValue,0))) +(thisValue>thisGen?'</a>':'')+ "</font></td>";
 										
 									}
 								}
 								ATotal = q_add(ATotal,tTotal);
-								OutHtml += "<td class='num'>" + FormatNumber(round(tTotal,0)) + "</td>";
+								OutHtml += "<td class='num'>" + Zerospaec(FormatNumber(round(tTotal,0))) + "</td>";
 								OutHtml += '</tr>';
 								
 								if(k%27==0 && k!=0){
@@ -1146,9 +1248,9 @@
 							}
 							OutHtml += "<tr><td colspan='4' class='tTotal num'>總計：</td>";
 							for(var k=0;k<DateObj.length;k++){
-								OutHtml += "<td class='tTotal num' "+((round(DateObj[k].mount,0)>dec($('#txtXmaxgen').val()) && DateObj[k].datea!='週小計')?' style="color:red;"':'')+">" + FormatNumber(round(DateObj[k].mount,0)) + "</td>";
+								OutHtml += "<td class='tTotal num' "+((round(DateObj[k].mount,0)>dec($('#txtXmaxgen').val()) && DateObj[k].datea!='週小計')?' style="color:red;"':'')+">" + Zerospaec(FormatNumber(round(DateObj[k].mount,0))) + "</td>";
 							}
-							OutHtml += "<td class='tTotal num'>" + FormatNumber(round(ATotal,0)) + "</td>";
+							OutHtml += "<td class='tTotal num'>" + Zerospaec(FormatNumber(round(ATotal,0))) + "</td>";
 							OutHtml += "</table>"
 							var t_totalWidth = 0;
 							t_totalWidth = 670+((70+2)*(DateObj.length+1+2))+10;
@@ -1170,6 +1272,14 @@
                 var arr = n.split(".");
                 var re = /(\d{1,3})(?=(\d{3})+$)/g;
                 return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
+            }
+            
+            function Zerospaec(n) {
+            	if(dec(n)==0){
+            		return '';
+            	}else{
+            		return n;
+            	}
             }
 		</script>
 		<style type="text/css">
