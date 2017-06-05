@@ -24,7 +24,8 @@
 		    var q_readonly = ['txtNoa', 'txtWmoney', 'txtCmoney','txtMoney', 'txtTotal','txtWorker'];
 		    var q_readonlys = ['txtMemo2'];
 		    var bbmNum = new Array(['txtMiles', 10, 0],['txtDiscount', 10, 0], ['txtWmoney', 10, 0], ['txtCmoney', 10, 0], ['txtMoney', 10, 0], ['txtTax', 10, 0], ['txtTotal', 10, 0]);
-		    var bbsNum = new Array(['txtPrice', 10, 1], ['txtMount', 10, 1], ['txtMoney', 10, 0]);
+		    //2017/06/05 DC  單價有到小數2位的需求
+		    var bbsNum = new Array(['txtPrice', 10, 2], ['txtMount', 10, 1], ['txtMoney', 10, 0]);
 		    var bbmMask = [];
 		    var bbsMask = [];
 		    q_sqlCount = 6;
