@@ -1438,7 +1438,7 @@
 					<td><input id="txtSize.*" type="text" style="width:95%;" /></td>
 					<td><input id="txtGweight.*" type="text" class="txt num" style="width:95%;"/></td>
 					<td>
-						<input id="txtMemo.*" type="text" class="txt" style="width:95%;" value="備註"/>
+						<input id="txtMemo.*" type="text" class="txt" style="width:95%;"/>
 						<input id="recno.*" type="hidden" />
 					</td>
 				</tr>
