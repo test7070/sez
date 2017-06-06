@@ -21,10 +21,10 @@
 
 			q_tables = 's';
 			var q_name = "rc2";
-			var q_readonly = ['txtRc2atax', 'txtTgg', 'txtAccno', 'txtAcomp', 'txtSales', 'txtNoa', 'txtWorker', 'txtWorker2', 'txtMoney', 'txtWeight', 'txtTotal', 'txtTotalus'];
-			var q_readonlys = ['txtTotal'];
+			var q_readonly = ['txtRc2atax', 'txtTgg', 'txtAccno', 'txtAcomp', 'txtSales', 'txtNoa', 'txtWorker', 'txtWorker2', 'txtMoney', 'txtWeight', 'txtTotal', 'txtTotalus'];//鎖住不能輸入
+			var q_readonlys = ['txtTotal', 'txtStore', 'txtUnit'];
 			var bbmNum = [['txtRc2atax', 10, 0, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtTotalus', 10, 2, 1], ['txtWeight', 10, 2, 1], ['txtFloata', 10, 4, 1]];
-			var bbsNum = [['txtPrice', 15, 3, 1], ['txtTotal', 12, 0, 1], ['txtMount', 10, 0, 1], ['txtWeight', 10, 2, 1],
+			var bbsNum = [['txtPrice', 15, 3, 1], ['txtTotal', 12, 0, 1], ['txtdiscount', 3, 3, 1], ['txtMount', 10, 0, 1], ['txtWeight', 10, 2, 1],
 			['txtDime', 10, 3, 1], ['txtWidth', 10, 2, 1],['txtLengthb', 10, 1, 1]];
 			var bbmMask = [];
 			var bbsMask = [];
@@ -72,8 +72,8 @@
 				if (!(q_cur == 1 || q_cur == 2))
 					return;
 				//$('#cmbTaxtype').val((($('#cmbTaxtype').val()) ? $('#cmbTaxtype').val() : '1'));
-				var t_mount = 0, t_price = 0, t_money = 0, t_moneyus = 0, t_weight = 0, t_total = 0, t_tax = 0;
-				var t_mounts = 0, t_prices = 0, t_moneys = 0, t_weights = 0;
+				var t_mount = 0, t_price = 0, t_money = 0, t_moneyus = 0, t_weight = 0, t_total = 0, t_tax = 0 ;
+				var t_mounts = 0, t_prices = 0, t_moneys = 0, t_weights = 0 ,t_discounts = 1 ;
 				var t_unit = '';
 				var t_float = q_float('txtFloata');
 				var t_kind = (($('#cmbKind').val()) ? $('#cmbKind').val() : '');
@@ -97,11 +97,15 @@
 					t_weights = q_float('txtWeight_' + j);
 					t_prices = q_float('txtPrice_' + j);
 					t_mounts = q_float('txtMount_' + j);
+					t_discounts = q_float('txtdiscount_' + j);
+					
 					
 					if (t_unit.length == 0 || t_unit == 'KG' || t_unit == 'M2' || t_unit == 'M²' || t_unit == 'M' || t_unit == '批' || t_unit == '公斤' || t_unit == '噸' || t_unit == '頓') {
-						t_moneys = q_mul(t_prices, t_weights);
+						t_moneys11 = q_mul(t_prices,t_weights);
+						t_moneys = q_mul(t_discounts,t_moneys11);
 					} else {
-						t_moneys = q_mul(t_prices, t_mounts);
+						t_moneys11 = q_mul(t_prices,t_mounts);
+						t_moneys = q_mul(t_discounts,t_moneys11);
 					}
 						
 					if (t_float == 0) {
@@ -114,6 +118,7 @@
 					$('#txtTotal_' + j).val(FormatNumber(t_moneys));
 					
 					t_weight = q_add(t_weight, t_weights);
+					t_discount = q_add(t_discount, t_discounts);
 					t_mount = q_add(t_mount, t_mounts);
 					t_money = q_add(t_money, t_moneys);
 				}
@@ -128,6 +133,7 @@
 				$('#txtWeight').val(FormatNumber(t_weight));
 				$('#txtMoney').val(FormatNumber(t_money));
 				$('#txtTax').val(FormatNumber(t_tax));
+				$('#txtdiscount').val(FormatNumber(t_discount));
 				$('#txtTotal').val(FormatNumber(t_total));
 				if (t_float == 0)
 					$('#txtTotalus').val(0);
@@ -208,6 +214,10 @@
 				});*/
 				
 				$('#txtTotal').change(function() {
+					sum();
+				});
+				
+				$('#txtdiscount').change(function() {
 					sum();
 				});
 				
@@ -571,6 +581,9 @@
 							sum();
 						});
 						$('#txtWeight_' + j).change(function() {
+							sum();
+						});
+						$('#txtdiscount_' + j).change(function() {
 							sum();
 						});
 						$('#txtPrice_' + j).change(function() {

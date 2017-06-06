@@ -23,7 +23,7 @@
 			q_tables = 's';
 			var q_name = "vcc";
 			var q_readonly = ['txtVccatax', 'txtComp', 'txtAccno', 'txtAcomp', 'txtSales', 'txtNoa', 'txtWorker', 'txtWorker2', 'txtMoney', 'txtWeight', 'txtTotal', 'txtTotalus','txtTotal2','txtBenifit','txtCardeal'];
-			var q_readonlys = ['txtTotal','txtSprice','txtTheory'];
+			var q_readonlys = ['txtTotal','txtSprice','txtTheory','txtUnit'];
 			var bbmNum = [
 				['txtVccatax', 10, 0, 1], ['txtMoney', 10, 0, 1],
 				['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1],
@@ -1309,7 +1309,7 @@
 						<td><span> </span><a id='lblAddr' class="lbl"> </a></td>
 						<td colspan="3" >
 							<input id="txtPost" type="text" style="float:left; width:50px;"/>
-							<input id="txtAddr" type="text" style="float:left; width:315px;"/>
+							<input id="txtAddr" type="text" style="float:left; width:313px;"/>
 						</td>
 						<td><span> </span><a id='lblAddr2' class="lbl"> </a></td>
 						<td colspan="3" >
@@ -1391,8 +1391,8 @@
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:30px;"><input class="btn" id="btnPlus" type="button" value='+' style="font-weight: bold;" /></td>
 					<td align="center" style="width:20px;">序</td>
-					<td align="center" style="width:150px;"><a id='lblProductno_st'> </a></td>
-					<td align="center" style="width:15px;"><a id='lblStyle_st'> </a></td>215
+					<td align="center" style="width:30px;"><a id='lblProductno_st'> </a></td>
+					<td align="center" style="width:15px;"><a id='lblStyle_st'> </a></td>
 					<td align="center" style="width:120px;"><a id='lblProduct_st'> </a></td>
 					<td align="center" style="width:30px;"><!---<a id='lblSpec_st'> </a>---->板面</td>
 					<td align="center" style="width:50px;"><a id='lblDime_st'> </a></td>
@@ -1418,8 +1418,8 @@
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
-						<input class="btn" id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:15px;float:left;" />
-						<input id="txtProductno.*" type="text" style="width:135px;" />
+						<!---input class="btn" id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:15px;float:left;" /135px--->
+						<input id="txtProductno.*" type="text" style="width:95%;" />
 					</td>
 					<td><input id="txtStyle.*" type="text" style="width:85%;text-align:center;" /></td>
 					<td><input id="txtProduct.*" type="text" style="width:95%;" /></td>
@@ -1438,7 +1438,7 @@
 					<td><input id="txtSize.*" type="text" style="width:95%;" /></td>
 					<td><input id="txtGweight.*" type="text" class="txt num" style="width:95%;"/></td>
 					<td>
-						<input id="txtMemo.*" type="text" class="txt" style="width:95%;" value="備註"/>
+						<input id="txtMemo.*" type="text" class="txt" style="width:95%;"/>
 						<input id="recno.*" type="hidden" />
 					</td>
 				</tr>
