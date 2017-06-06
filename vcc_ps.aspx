@@ -23,7 +23,7 @@
 			q_tables = 's';
 			var q_name = "vcc";
 			var q_readonly = ['txtVccatax', 'txtComp', 'txtAccno', 'txtAcomp', 'txtSales', 'txtNoa', 'txtWorker', 'txtWorker2', 'txtMoney', 'txtWeight', 'txtTotal', 'txtTotalus','txtTotal2','txtBenifit','txtCardeal'];
-			var q_readonlys = ['txtTotal','txtSprice','txtTheory'];
+			var q_readonlys = ['txtTotal','txtSprice','txtTheory','txtUnit'];
 			var bbmNum = [
 				['txtVccatax', 10, 0, 1], ['txtMoney', 10, 0, 1],
 				['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1],
