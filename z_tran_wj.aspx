@@ -26,24 +26,28 @@
             function q_gfPost() {
                $('#q_report').q_report({
                         fileName : 'z_tran_wj',
-                        options : [ {
-						type : '1',//[1][2]
+                        options : [  {
+                        type : '0', //[1]
+                        name : 'accy',
+                        value : q_getId()[4]
+					},{
+						type : '1',//[2][3]
 						name : 'date'
 					},{
-						type : '2', //[3][4]
+						type : '2', //[4][5]
 						name : 'cust',
 						dbf : 'cust',
 						index : 'noa,comp',
 						src : 'cust_b.aspx'
 					},{
-						type : '2', //[5][6]
+						type : '2', //[6][7]
 						name : 'carno',
 						dbf : 'car2',
 						index : 'noa,driver',
 						src : 'car2_b.aspx'
 					}
 					,{
-						type : '2', //[7][8]
+						type : '2', //[8][9]
 						name : 'Driver',
 						dbf : 'driver',
 						index : 'noa,namea',

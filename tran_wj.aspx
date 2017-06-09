@@ -116,7 +116,17 @@
                 	*/
                 	  $('#btnMao').click(function(e) {	 	 //行車里程Button
                 	 	    t_where = "oildate='" + $('#txtTrandate').val() + "' and carno='" + $('#txtCarno').val() + "' and driverno='" + $('#txtDriverno').val() + "'";
+							var wParent = window.parent.document;
+							var t_trandate= wParent.getElementById("txtTrandate").value
+							var t_carno= wParent.getElementById("txtCarno").value
+							var t_driver= wParent.getElementById("txtDriver").value
+							var t_driverno= wParent.getElementById("txtDriverno").value
+							$('#txtOildate').val(t_trandate);
+							$('#txtCarno').val(t_carno);
+							$('#txtdriver').val(t_driver);
+							$('#txtdriverno').val(t_driverno);
 							q_box("oil.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'oil', "95%", "95%", q_getMsg('btnMao'));
+							
                 	  });
                 	  $('#btnTick').click(function(e) {		//回數票
                 	  		t_where = "datea='" + $('#txtDatea').val() + "' and carno='" + $('#txtCarno').val() + "' and driverno='" + $('#txtDriverno').val() + "'";
