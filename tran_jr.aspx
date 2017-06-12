@@ -355,7 +355,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 1500px;
+                width: 1650px;
             }
             .tbbs a {
                 font-size: medium;
@@ -489,6 +489,7 @@
 					<td align="center" style="width:160px"><a>聯單編號</a></td>
 					<td align="center" style="width:80px"><a>出車車號</a></td>
 					<td align="center" style="width:150px"><a>處理廠</a></td>
+					<td align="center" style="width:150px"><a>派車單號</a></td>
 					<td align="center" style="width:60px"><a>已申報</a></td>
 					<td align="center" style="width:150px"><a>備註</a></td>
 				</tr>
@@ -527,6 +528,7 @@
 						<input type="text" id="txtStraddr.*" style="float:left;width:53%;"/>
 						<input type="button" id="btnStraddr.*" style="display:none;"/>
 					</td>
+					<td><input type="text" id="txtOrdeno.*" style="width:95%;"/></td>
 					<td align="center"><input id="chkChk1.*" type="checkbox"/></td>
 					<td><input type="text" id="txtMemo.*" style="width:95%;" /></td>
 				</tr>
