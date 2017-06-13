@@ -393,7 +393,7 @@
 				margin: -1px;
 			}
 			.dbbs {
-				width: 1335px;
+				width: 1235px;
 			}
 			.tbbs a {
 				font-size: medium;
@@ -515,7 +515,6 @@
 					<td align="center" style="width:120px;display:none;"><a>起點</a></td>
 					<td align="center" style="width:100px"><a>出車日期</a></td>
 					<td align="center" style="width:100px"><a>進廠日期</a></td>
-					<td align="center" style="width:150px"><a>聯單編號</a></td>
 					<td align="center" style="width:150px"><a>備註</a></td>
 				</tr>
 				<tr class="data" style='background:#cad3ff;'>
@@ -549,9 +548,6 @@
 					</td>
 					<td>
 						<input type="text" id="txtDate2.*" style="width:95%;"/>
-					</td>
-					<td>
-						<input type="text" id="txtCaseno.*" style="width:95%;"/>
 					</td>
 					<td><input type="text" id="txtMemo.*" style="width:95%;" /></td>
 				</tr>

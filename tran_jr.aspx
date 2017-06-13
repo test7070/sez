@@ -18,8 +18,8 @@
             var q_name = "tran";
             var q_readonly = ['txtNoa', 'txtWeight','txtTotal', 'txtWorker', 'txtWorker2'];
             var q_readonlys = [];
-            var bbmNum = [['txtMount', 10, 2, 1],['txtWeight', 10, 2, 1],['txtTotal', 10, 3, 1],['txtTotal', 10, 3, 1]];
-            var bbsNum = [['txtWeight', 10, 2, 1],['txtWeight2', 10, 2, 1],['txtPrice', 10, 3, 1],['txtTotal', 10, 3, 1]];
+            var bbmNum = [['txtMount', 10, 2, 1],['txtWeight', 10, 2, 1],['txtTotal', 10, 0, 1]];
+            var bbsNum = [['txtWeight', 10, 2, 1],['txtWeight2', 10, 2, 1],['txtPrice', 10, 0, 1],['txtTotal', 10, 0, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -64,7 +64,7 @@
              	}
              	$('#txtMount').val(t_tweight);
              	$('#txtWeight').val(t_tweight2);
-             	$('#txtTotal').val(q_add(t_total,$('#txtTotal2').val()));
+             	$('#txtTotal').val(t_total);
             }
 
             function mainPost() {
@@ -447,15 +447,15 @@
 						</td>
 						<td><span> </span><a id="lbl" class="lbl" >處理廠總噸數</a></td>
 						<td><input id="txtWeight" type="text" class="txt c1 num" /></td>
+						<td><span> </span><a id="lbl" class="lbl" >應收金額</a></td>
+                        <td><input id="txtTotal" type="text" class="txt c1 num" /></td>
 					</tr>
-					<tr>
+					<!--<tr>
 						<td><span> </span><a id="lbl" class="lbl" >稅金</a></td>
 						<td>
 						<input id="txtTotal2" type="text" class="txt c1 num" />
 						</td>
-						<td><span> </span><a id="lbl" class="lbl" >應收金額</a></td>
-						<td><input id="txtTotal" type="text" class="txt c1 num" /></td>
-					</tr>
+					</tr>-->
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl" > </a></td>
 						<td colspan="5"><textarea id="txtMemo" style="height:40px;" class="txt c1"> </textarea></td>

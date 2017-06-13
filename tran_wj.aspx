@@ -852,7 +852,7 @@
 						<input type="text" id="txtEndaddrno.*" style="float:left;width:30%;"/>
 						<input type="text" id="txtEndaddr.*"style="float:left;width:65%;"/>	
 					</td>
-					<td><input type="text" id="txtCarno.*" class="txt c1" style="width:95%;"/></td>
+					<td><input type="text" id="txtCardno.*" class="txt c1" style="width:95%;"/></td>
 					<td><input type="text" class="num"  id="txtbmiles.*" style="width:95%;"/></td>
 					<td><input type="text" class="num"  id="txtemiles.*" style="width:95%;"/></td>
 					<td><input type="text" id="txtMiles.*" class="num" style="width:95%;"/></td>

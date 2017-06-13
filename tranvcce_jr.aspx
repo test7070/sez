@@ -210,8 +210,8 @@
 							b_ret = getb_ret();
 							if (!b_ret || b_ret.length == 0)
 								return;
-								ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtTime1,txtTime2,txtCustno,txtCust,txtConn,txtProductno,txtProduct,txtWeight,txtUweight,txtTotal,txtTotal2,txtAddrno,txtAddr,txtMemo,txtMemo2', b_ret.length, b_ret, 
-								'noa,noq,date1,date2,addrno2,addr2,conn,productno,product,mount,weight,price,money,addrno,addr,memo,caseno', 'txtProductno,txtProduct,txtSpec');
+								ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtTime1,txtTime2,txtCustno,txtCust,txtConn,txtProductno,txtProduct,txtWeight,txtUweight,txtTotal,txtTotal2,txtAddrno,txtAddr,txtMemo', b_ret.length, b_ret, 
+								'noa,noq,date1,date2,addrno2,addr2,conn,productno,product,mount,weight,price,money,addrno,addr,memo', 'txtProductno,txtProduct,txtSpec');
 							}
                         break;
                     case q_name + '_s':
