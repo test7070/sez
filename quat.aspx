@@ -439,9 +439,6 @@
 			}
 		</script>
 		<style type="text/css">
-			#dmain {
-				overflow: hidden;
-			}
 			.dview {
 				float: left;
 				width: 30%;
