@@ -37,7 +37,8 @@
 			//q_xchg = 1;
 			brwCount2 = 7;
 			aPop = new Array(	//參數1,2 使用的物件 3,資料表名稱 4,顯示的欄位 5,6寫入的欄位 7,檔案名稱
-				 ['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
+				['txtDriverno', 'lblDriverno', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
+				,['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
 				,['txtUccno_', 'btnProduct_', 'ucc', 'noa,product', 'txtUccno_,txtProduct_', 'ucc_b.aspx']
 				,['txtStraddrno_', 'btnStraddr_', 'addr', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr_b.aspx']
 				,['txtEndaddrno_', 'btnEndaddr_', 'addr', 'noa,addr', 'txtEndaddrno_,txtEndaddr_', 'addr_b.aspx']
@@ -747,14 +748,12 @@
 						<td><input type="text" id="txtDatea" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblDriver" class="lbl">司機</a></td>
+						<td><span> </span><a id="lblDriverno" class="lbl btn"></a></td>
 						<td colspan="2">
 							<input type="text" id="txtDriverno" class="txt" style="float:left;width:40%;"/>
 							<input type="text" id="txtDriver" class="txt" style="float:left;width:60%;"/>
 						</td>
-						<td>
-							<span> </span><a id="lblCarno" class="lbl">車號<input type="text" id="btnCarno" style="display:none;"/></a>
-						</td>
+						<td><span> </span><a id="lblCarno" class="lbl btn"><input type="text" id="btnCarno" style="display:none;"/></a></td>
 						<td><input type="text" id="txtCarno" class="txt c1"/></td>
 						<td><span> </span><a id="lblCarplateno" class="lbl">板牌號碼</a></td>
 						<td><input type="text"  id="txtEtime"  class="txt c1"/></td>
