@@ -291,13 +291,19 @@
 				
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 				$('#txtOdate').val(q_date());
+
+                /*if ($('#cmbStype').find("option:selected").text() == '外銷')
+                    $('#btnOrdei').show();
+                else
+                    $('#btnOrdei').hide();*/
+
+
 				
 				if (q_getPara('sys.project').toUpperCase()=='GU')
 					$('#txtDatea').val(q_cdn(q_date(), 30));
 				else
 					$('#txtDatea').val(q_cdn(q_date(), 3));
-					
-				
+
 				$('#txtDatea').focus();
 
 				$('#txtCno').val(z_cno);
