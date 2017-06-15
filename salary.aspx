@@ -59,7 +59,7 @@
 			
 	        function mainPost() {
 	            q_getFormat();
-	            bbmMask = [['txtDatea', r_picd],['txtMon', r_picm]];
+	            bbmMask = [['txtDatea', r_picd],['txtMon', r_picm],['textMon', r_picm]];
 	            q_mask(bbmMask);
 	            
 	            if (q_getPara('sys.project').toUpperCase()=='VU' || q_getPara('sys.project').toUpperCase()=='VU2'){
@@ -85,6 +85,7 @@
 	            
 	            $('#cmbAddsource').val('2');
 	            $('#cmbAddlimit').val('0');
+	            $('#textMon').val(q_date().substr(0,r_lenm));
 				
 				$('#txtDatea').focusout(function () {
 					q_cd( $(this).val() ,$(this));
@@ -134,6 +135,7 @@
 	            			//LOAD 客戶
 	            			q_gt('sssr',"where=^^ '"+$('#txtMon').val()+"' between left(stopdate,"+r_lenm+") and left(dbo.q_cdn(reindate,-1),"+r_lenm+") ^^", 0, 0, 0, "sssr", r_accy);
 	            		}else{
+	            			$('#textMon').val($('#txtMon').val().substr(0,r_lenm));
 	            			$('#div_select').show();
 	            		}
 			        }
@@ -157,6 +159,10 @@
 	            	var t_addselect=$('#cmbAddsource').val();
 	            		if(t_addselect.length==0)
 	            			t_addselect='2';
+	            	var t_addmon=$('#textMon').val();
+	            		if(t_addmon.length==0){
+	            			t_addmon=$('#txtMon').val();
+	            		}
 	            	//'0@無限制,1@根據calss5限制加班總時數'
 	            	var t_addlimit=$('#cmbAddlimit').val();
 	            		if(t_addlimit.length==0)
@@ -165,7 +171,7 @@
 		            	q_func('qtxt.query.salaryimport', 'salary.txt,salaryimport,' 
 		            		+t_mon+';'+t_len+';'+t_person+';'+t_monkind+';'+t_proj+';'
 		            		+t_date1+';'+t_date2+';'+t_date3+';'+t_date4+';'+t_date5+';'+t_date6+';'
-		            		+t_addselect+';'+t_addlimit
+		            		+t_addselect+';'+t_addlimit+';'+t_addmon
 		            	);
 		            }
 	            	$('#div_select').hide();
@@ -477,19 +483,19 @@
 						}
 						var as = _q_appendData("tmp0", "", true, true);
 						if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1){
-							q_gridAddRow(bbsHtm, 'tbbs', 'txtSno,txtNamea,txtDaymoney,txtBo_admin,txtBo_traffic,txtBo_special,txtBo_oth,txtCh_labor1,txtCh_labor2,txtCh_health_insure,txtDay,txtMi_saliday,txtAddh2_1,txtAddh2_2,txtAddh100,txtAddh200,txtAddh266,txtAddh46_1,txtAddh46_2,txtCh_labor,txtChgcash,txtCh_labor_comp,txtCh_labor_self,txtTax,txtRaise_num,txtCh_health,txtLate,txtHr_late,txtHr_sick,txtHr_person,txtHr_nosalary,txtHr_leave,txtMemo,txtPlus,txtMinus,txtBorrow,txtBo_full,txtAddmoney,txtHplus2,txtMemo2,txtPartno,txtPart,txtMeals,textIsaostand,txtOstand'
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtSno,txtNamea,txtDaymoney,txtBo_admin,txtBo_traffic,txtBo_special,txtBo_oth,txtCh_labor1,txtCh_labor2,txtCh_health_insure,txtDay,txtMi_saliday,txtAddh2_1,txtAddh2_2,txtAddh100,txtAddh200,txtAddh266,txtAddh46_1,txtAddh46_2,txtCh_labor,txtChgcash,txtCh_labor_comp,txtCh_labor_self,txtTax,txtRaise_num,txtCh_health,txtLate,txtHr_late,txtMi_late,txtHr_sick,txtMi_sick,txtHr_person,txtMi_person,txtHr_nosalary,txtMi_nosalary,txtHr_leave,txtMi_leave,txtMemo,txtPlus,txtMinus,txtBorrow,txtBo_full,txtAddmoney,txtHplus2,txtMemo2,txtPartno,txtPart,txtMeals,textIsaostand,txtOstand'
 							, as.length, as
-							, 'sssno,namea,salary,bo_admin,bo_traffic,bo_special,bo_oth,ch_labor1,ch_labor2,ch_health_insure,inday,mi_saliday,addh1,addh2,addh100,addh200,addh266,addh3,addh4,ch_labor,chgcash,ch_labor_comp,ch_labor_self,tax,raise_num,ch_health,late,hr_late,hr_sick,hr_person,hr_nosalary,hr_leave,memo,plus,minus,borrow,bo_full,addmoney,hplus2,memo2,partno,part,meals,ismanua,ostand'
+							, 'sssno,namea,salary,bo_admin,bo_traffic,bo_special,bo_oth,ch_labor1,ch_labor2,ch_health_insure,inday,mi_saliday,addh1,addh2,addh100,addh200,addh266,addh3,addh4,ch_labor,chgcash,ch_labor_comp,ch_labor_self,tax,raise_num,ch_health,late,hr_late,mi_late,hr_sick,mi_sick,hr_person,mi_person,hr_nosalary,mi_nosalary,hr_leave,mi_leave,memo,plus,minus,borrow,bo_full,addmoney,hplus2,memo2,partno,part,meals,ismanua,ostand'
 							, '');
 						}else if ($('#cmbPerson').find("option:selected").text().indexOf('時薪')>-1){
-							q_gridAddRow(bbsHtm, 'tbbs', 'txtSno,txtNamea,txtDaymoney,txtBo_admin,txtBo_traffic,txtBo_special,txtBo_oth,txtCh_labor1,txtCh_labor2,txtCh_health_insure,txtDay,txtMi_saliday,txtAddh2_1,txtAddh2_2,txtAddh100,txtAddh200,txtAddh266,txtAddh46_1,txtAddh46_2,txtCh_labor,txtChgcash,txtCh_labor_comp,txtCh_labor_self,txtTax,txtRaise_num,txtCh_health,txtLate,txtHr_late,txtHr_sick,txtHr_person,txtHr_nosalary,txtHr_leave,txtMemo,txtPlus,txtMinus,txtBorrow,txtBo_full,txtAddmoney,txtHplus2,txtMemo2,txtPartno,txtPart,txtMeals,textIsaostand,txtOstand'
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtSno,txtNamea,txtDaymoney,txtBo_admin,txtBo_traffic,txtBo_special,txtBo_oth,txtCh_labor1,txtCh_labor2,txtCh_health_insure,txtDay,txtMi_saliday,txtAddh2_1,txtAddh2_2,txtAddh100,txtAddh200,txtAddh266,txtAddh46_1,txtAddh46_2,txtCh_labor,txtChgcash,txtCh_labor_comp,txtCh_labor_self,txtTax,txtRaise_num,txtCh_health,txtLate,txtHr_late,txtMi_late,txtHr_sick,txtMi_sick,txtHr_person,txtMi_person,txtHr_nosalary,txtMi_nosalary,txtHr_leave,txtMi_leave,txtMemo,txtPlus,txtMinus,txtBorrow,txtBo_full,txtAddmoney,txtHplus2,txtMemo2,txtPartno,txtPart,txtMeals,textIsaostand,txtOstand'
 							, as.length, as
-							, 'sssno,namea,salary,bo_admin,bo_traffic,bo_special,bo_oth,ch_labor1,ch_labor2,ch_health_insure,hrs,mi_saliday,addh1,addh2,addh100,addh200,addh266,addh3,addh4,ch_labor,chgcash,ch_labor_comp,ch_labor_self,tax,raise_num,ch_health,late,hr_late,hr_sick,hr_person,hr_nosalary,hr_leave,memo,plus,minus,borrow,bo_full,addmoney,hplus2,memo2,partno,part,meals,ismanua,ostand'
+							, 'sssno,namea,salary,bo_admin,bo_traffic,bo_special,bo_oth,ch_labor1,ch_labor2,ch_health_insure,hrs,mi_saliday,addh1,addh2,addh100,addh200,addh266,addh3,addh4,ch_labor,chgcash,ch_labor_comp,ch_labor_self,tax,raise_num,ch_health,late,hr_late,mi_late,hr_sick,mi_sick,hr_person,mi_person,hr_nosalary,mi_nosalary,hr_leave,mi_leave,memo,plus,minus,borrow,bo_full,addmoney,hplus2,memo2,partno,part,meals,ismanua,ostand'
 							, '');
 						}else{
-							q_gridAddRow(bbsHtm, 'tbbs', 'txtSno,txtNamea,txtMoney,txtBo_admin,txtBo_traffic,txtBo_special,txtBo_oth,txtCh_labor1,txtCh_labor2,txtCh_health_insure,txtDay,txtMi_saliday,txtAddh2_1,txtAddh2_2,txtAddh100,txtAddh200,txtAddh266,txtAddh46_1,txtAddh46_2,txtCh_labor,txtChgcash,txtCh_labor_comp,txtCh_labor_self,txtTax,txtRaise_num,txtCh_health,txtLate,txtHr_late,txtHr_sick,txtHr_person,txtHr_nosalary,txtHr_leave,txtMemo,txtPlus,txtMinus,txtBorrow,txtBo_full,txtMi_sick,txtMi_person,txtMi_nosalary,txtMi_leave,txtAddmoney,txtHplus2,txtBo_born,txtBo_night,txtBo_duty,txtTax_other,txtMeals,txtMemo2,txtPartno,txtPart,textIsaostand,txtOstand'
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtSno,txtNamea,txtMoney,txtBo_admin,txtBo_traffic,txtBo_special,txtBo_oth,txtCh_labor1,txtCh_labor2,txtCh_health_insure,txtDay,txtMi_saliday,txtAddh2_1,txtAddh2_2,txtAddh100,txtAddh200,txtAddh266,txtAddh46_1,txtAddh46_2,txtCh_labor,txtChgcash,txtCh_labor_comp,txtCh_labor_self,txtTax,txtRaise_num,txtCh_health,txtLate,txtHr_late,txtMi_late,txtHr_sick,txtMi_sick,txtHr_person,txtMi_person,txtHr_nosalary,txtMi_nosalary,txtHr_leave,txtMi_leave,txtMemo,txtPlus,txtMinus,txtBorrow,txtBo_full,txtMi_sick,txtMi_person,txtMi_nosalary,txtMi_leave,txtAddmoney,txtHplus2,txtBo_born,txtBo_night,txtBo_duty,txtTax_other,txtMeals,txtMemo2,txtPartno,txtPart,textIsaostand,txtOstand'
 							, as.length, as
-							, 'sssno,namea,salary,bo_admin,bo_traffic,bo_special,bo_oth,ch_labor1,ch_labor2,ch_health_insure,day,mi_saliday,addh1,addh2,addh100,addh200,addh266,addh3,addh4,ch_labor,chgcash,ch_labor_comp,ch_labor_self,tax,raise_num,ch_health,late,hr_late,hr_sick,hr_person,hr_nosalary,hr_leave,memo,plus,minus,borrow,bo_full,mi_sick,mi_person,mi_nosalary,mi_leave,addmoney,hplus2,bo_born,bo_night,bo_day,tax_other,meals,memo2,partno,part,ismanua,ostand'
+							, 'sssno,namea,salary,bo_admin,bo_traffic,bo_special,bo_oth,ch_labor1,ch_labor2,ch_health_insure,day,mi_saliday,addh1,addh2,addh100,addh200,addh266,addh3,addh4,ch_labor,chgcash,ch_labor_comp,ch_labor_self,tax,raise_num,ch_health,late,hr_late,mi_late,hr_sick,mi_sick,hr_person,mi_person,hr_nosalary,mi_nosalary,hr_leave,mi_leave,memo,plus,minus,borrow,bo_full,mi_sick,mi_person,mi_nosalary,mi_leave,addmoney,hplus2,bo_born,bo_night,bo_day,tax_other,meals,memo2,partno,part,ismanua,ostand'
 							, '');
 						}
 						for(var j = 0; j < q_bbsCount; j++) {
@@ -1265,6 +1271,16 @@
 	        		return;
 	        	}
 	        	
+	        	var tload=false;
+	        	if( q_getPara('sys.project').toUpperCase()=='DC' ||
+	            	q_getPara('sys.project').toUpperCase()=='IT' || q_getPara('sys.project').toUpperCase()=='AMD' ||
+	            	q_getPara('sys.project').toUpperCase()=='VU' || q_getPara('sys.project').toUpperCase()=='VU2' || q_getPara('sys.project').toUpperCase()=='SF' ||
+	            	q_getPara('sys.project').toUpperCase()=='XY' || q_getPara('sys.project').toUpperCase()=='RB' ||
+	            	q_getPara('sys.project').toUpperCase()=='RK' || q_getPara('sys.project').toUpperCase()=='RS'
+	            ){
+	            	tload=true;
+	            }
+	        	
 	        	//bbs計算
 	        	getdtmp();
 	        	for (var j = 0; j < q_bbsCount; j++) {
@@ -1372,18 +1388,20 @@
 		        				+dec($('#txtMi_late_'+j).val())+dec($('#txtMi_sick_'+j).val())+dec($('#txtMi_person_'+j).val())+dec($('#txtMi_nosalary_'+j).val())+dec($('#txtMi_leave_'+j).val())));
 	        				}else{
 	        					var t_money=q_float('txtMoney_'+j)+q_float('txtBo_admin_'+j)+q_float('txtBo_traffic_'+j)+q_float('txtBo_special_'+j)+q_float('txtBo_oth_'+j);
-	        					if(inday>0){
-	        						q_tr('txtMi_late_'+j,round(t_money/inday/8*q_float('txtHr_late_'+j),0));
-				        			q_tr('txtMi_sick_'+j,round(t_money/inday/8*q_float('txtHr_sick_'+j)/2,0));
-					                q_tr('txtMi_person_'+j,round(t_money/inday/8*q_float('txtHr_person_'+j),0));
-					                q_tr('txtMi_nosalary_'+j,round(t_money/inday/8*q_float('txtHr_nosalary_'+j),0));
-					                q_tr('txtMi_leave_'+j,round(t_money/inday/8*q_float('txtHr_leave_'+j),0));
-	        					}else{
-		        					q_tr('txtMi_late_'+j,round(t_money/30/8*q_float('txtHr_late_'+j),0));
-				        			q_tr('txtMi_sick_'+j,round(t_money/30/8*q_float('txtHr_sick_'+j)/2,0));
-					                q_tr('txtMi_person_'+j,round(t_money/30/8*q_float('txtHr_person_'+j),0));
-					                q_tr('txtMi_nosalary_'+j,round(t_money/30/8*q_float('txtHr_nosalary_'+j),0));
-					                q_tr('txtMi_leave_'+j,round(t_money/30/8*q_float('txtHr_leave_'+j),0));
+	        					if(tload){
+		        					if(inday>0){
+		        						q_tr('txtMi_late_'+j,round(t_money/inday/8*q_float('txtHr_late_'+j),0));
+					        			q_tr('txtMi_sick_'+j,round(t_money/inday/8*q_float('txtHr_sick_'+j)/2,0));
+						                q_tr('txtMi_person_'+j,round(t_money/inday/8*q_float('txtHr_person_'+j),0));
+						                q_tr('txtMi_nosalary_'+j,round(t_money/inday/8*q_float('txtHr_nosalary_'+j),0));
+						                q_tr('txtMi_leave_'+j,round(t_money/inday/8*q_float('txtHr_leave_'+j),0));
+		        					}else{
+			        					q_tr('txtMi_late_'+j,round(t_money/30/8*q_float('txtHr_late_'+j),0));
+					        			q_tr('txtMi_sick_'+j,round(t_money/30/8*q_float('txtHr_sick_'+j)/2,0));
+						                q_tr('txtMi_person_'+j,round(t_money/30/8*q_float('txtHr_person_'+j),0));
+						                q_tr('txtMi_nosalary_'+j,round(t_money/30/8*q_float('txtHr_nosalary_'+j),0));
+						                q_tr('txtMi_leave_'+j,round(t_money/30/8*q_float('txtHr_leave_'+j),0));
+			        				}
 		        				}
 		        				q_tr('txtMi_saliday_'+j,Math.round(dec($('#txtHr_late_'+j).val())+dec($('#txtHr_sick_'+j).val())+dec($('#txtHr_person_'+j).val())+dec($('#txtHr_nosalary_'+j).val())+dec($('#txtHr_leave_'+j).val())));//扣薪時數=病假+事假+事假+曠工金額
 		        				q_tr('txtMi_total_'+j,Math.round(dec($('#txtMi_late_'+j).val())+dec($('#txtMi_sick_'+j).val())+dec($('#txtMi_person_'+j).val())+dec($('#txtMi_nosalary_'+j).val())+dec($('#txtMi_leave_'+j).val())));//扣薪金額=病假+事假+事假+曠工金額
@@ -1444,19 +1462,21 @@
 		        				+dec($('#txtMi_late_'+j).val())+dec($('#txtMi_sick_'+j).val())+dec($('#txtMi_person_'+j).val())+dec($('#txtMi_nosalary_'+j).val())+dec($('#txtMi_leave_'+j).val())));
 	        				}else{
 	        					var t_money=q_float('txtMoney_'+j)+q_float('txtBo_admin_'+j)+q_float('txtBo_traffic_'+j)+q_float('txtBo_special_'+j)+q_float('txtBo_oth_'+j);
-	        					if(inday>0){
-		        					q_tr('txtMi_late_'+j,round(t_money/inday/8*q_float('txtHr_late_'+j),0));
-		        					q_tr('txtMi_sick_'+j,round(t_money/inday/8*q_float('txtHr_sick_'+j)/2,0));
-				                	q_tr('txtMi_person_'+j,round(t_money/inday/8*q_float('txtHr_person_'+j),0));
-				                	q_tr('txtMi_nosalary_'+j,round(t_money/inday/8*q_float('txtHr_nosalary_'+j),0));
-				                	q_tr('txtMi_leave_'+j,round(t_money/inday/8*q_float('txtHr_leave_'+j),0));
-			                	}else{
-			                		q_tr('txtMi_late_'+j,round(t_money/30/8*q_float('txtHr_late_'+j),0));
-		        					q_tr('txtMi_sick_'+j,round(t_money/30/8*q_float('txtHr_sick_'+j)/2,0));
-				                	q_tr('txtMi_person_'+j,round(t_money/30/8*q_float('txtHr_person_'+j),0));
-				                	q_tr('txtMi_nosalary_'+j,round(t_money/30/8*q_float('txtHr_nosalary_'+j),0));
-				                	q_tr('txtMi_leave_'+j,round(t_money/30/8*q_float('txtHr_leave_'+j),0));
-			                	}
+	        					if(tload){
+		        					if(inday>0){
+			        					q_tr('txtMi_late_'+j,round(t_money/inday/8*q_float('txtHr_late_'+j),0));
+			        					q_tr('txtMi_sick_'+j,round(t_money/inday/8*q_float('txtHr_sick_'+j)/2,0));
+					                	q_tr('txtMi_person_'+j,round(t_money/inday/8*q_float('txtHr_person_'+j),0));
+					                	q_tr('txtMi_nosalary_'+j,round(t_money/inday/8*q_float('txtHr_nosalary_'+j),0));
+					                	q_tr('txtMi_leave_'+j,round(t_money/inday/8*q_float('txtHr_leave_'+j),0));
+				                	}else{
+				                		q_tr('txtMi_late_'+j,round(t_money/30/8*q_float('txtHr_late_'+j),0));
+			        					q_tr('txtMi_sick_'+j,round(t_money/30/8*q_float('txtHr_sick_'+j)/2,0));
+					                	q_tr('txtMi_person_'+j,round(t_money/30/8*q_float('txtHr_person_'+j),0));
+					                	q_tr('txtMi_nosalary_'+j,round(t_money/30/8*q_float('txtHr_nosalary_'+j),0));
+					                	q_tr('txtMi_leave_'+j,round(t_money/30/8*q_float('txtHr_leave_'+j),0));
+				                	}
+				                }
 			                	q_tr('txtMi_saliday_'+j,Math.round(dec($('#txtHr_sick_'+j).val())+dec($('#txtHr_person_'+j).val())+dec($('#txtHr_nosalary_'+j).val())+dec($('#txtHr_leave_'+j).val())));//扣薪時數=病假+事假+事假+曠工金額
 		        				q_tr('txtMi_total_'+j,Math.round(dec($('#txtMi_sick_'+j).val())+dec($('#txtMi_person_'+j).val())+dec($('#txtMi_nosalary_'+j).val())+dec($('#txtMi_leave_'+j).val())));//扣薪金額=病假+事假+事假+曠工金額	
 	        				}
@@ -3057,6 +3077,10 @@
 				<tr>
 					<td style="width: 100px;">加班來源：</td>
 					<td style="width: 200px;"><select id="cmbAddsource" style="font-size: medium;width: 100%;"> </select></td>
+				</tr>
+				<tr>
+					<td style="width: 100px;">加班月份：</td>
+					<td style="width: 200px;"><input id="textMon" type="text" class="txt c1"></td>
 				</tr>
 				<tr>
 					<td style="width: 100px;">加班限制：</td>
