@@ -37,8 +37,7 @@
 			//q_xchg = 1;
 			brwCount2 = 7;
 			aPop = new Array(	//參數1,2 使用的物件 3,資料表名稱 4,顯示的欄位 5,6寫入的欄位 7,檔案名稱
-				 ['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
-				,['txtUccno_', 'btnProduct_', 'ucc', 'noa,product', 'txtUccno_,txtProduct_', 'ucc_b.aspx']
+				['txtUccno_', 'btnProduct_', 'ucc', 'noa,product', 'txtUccno_,txtProduct_', 'ucc_b.aspx']
 				,['txtStraddrno_', 'btnStraddr_', 'addr', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr_b.aspx']
 				,['txtEndaddrno_', 'btnEndaddr_', 'addr', 'noa,addr', 'txtEndaddrno_,txtEndaddr_', 'addr_b.aspx']
 				,['txtCarno_', 'btnCarno_', 'carplate', 'noa,driver', 'txtCarno_', 'carplate_b.aspx']
@@ -116,17 +115,7 @@
                 	*/
                 	  $('#btnMao').click(function(e) {	 	 //行車里程Button
                 	 	    t_where = "oildate='" + $('#txtTrandate').val() + "' and carno='" + $('#txtCarno').val() + "' and driverno='" + $('#txtDriverno').val() + "'";
-							var wParent = window.parent.document;
-							var t_trandate= wParent.getElementById("txtTrandate").value
-							var t_carno= wParent.getElementById("txtCarno").value
-							var t_driver= wParent.getElementById("txtDriver").value
-							var t_driverno= wParent.getElementById("txtDriverno").value
-							$('#txtOildate').val(t_trandate);
-							$('#txtCarno').val(t_carno);
-							$('#txtdriver').val(t_driver);
-							$('#txtdriverno').val(t_driverno);
-							q_box("oil.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'oil', "95%", "95%", q_getMsg('btnMao'));
-							
+                	 	    q_box("oil.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'oil', "95%", "95%", q_getMsg('btnMao'));
                 	  });
                 	  $('#btnTick').click(function(e) {		//回數票
                 	  		t_where = "datea='" + $('#txtDatea').val() + "' and carno='" + $('#txtCarno').val() + "' and driverno='" + $('#txtDriverno').val() + "'";
@@ -283,6 +272,12 @@
                         var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
                         $('#btnStraddr_'+n).click();
                     	});
+                    	 $('#txtUccno_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnProduct_'+n).click();
+                    });
                    	 $('#txtEndaddrno_' + i).bind('contextmenu', function(e) {
                         /*滑鼠右鍵*/
                         e.preventDefault();
@@ -753,7 +748,7 @@
 							<input type="text" id="txtDriver" class="txt" style="float:left;width:60%;"/>
 						</td>
 						<td>
-							<span> </span><a id="lblCarno" class="lbl">車號<input type="text" id="btnCarno" style="display:none;"/></a>
+							<span> </span><a id="lblCarno" class="lbl btn">車號</a>
 						</td>
 						<td><input type="text" id="txtCarno" class="txt c1"/></td>
 						<td><span> </span><a id="lblCarplateno" class="lbl">板牌號碼</a></td>
@@ -834,12 +829,13 @@
 						<input type="text" id="txtCustno.*" style="width:40%;"/>
 						<input type="text" id="txtComp.*" style="width:45%;"/>
 						<input type="text" id="txtNick.*"  style ="display:none;"/>
+						<input type="button" id="btnCust.*" style="display:none;">
 					</td>
 					<td>
 						<input type="text" id="txtUccno.*" style="float:left;width:40%;"/>
+						<input type="button" id="btnProduct.*" style="display:none;">
 						<input type="text" id="txtProduct.*" style="float:left;width:45%;"/>	
 					</td>
-					
 						<td><input type="text" id="txtPrice.*" class="num" style="float:left;width:95%;"/></td>
 						<td><input type="text" id="txtMount.*" class="num" style="float:left;width:95%;"/></td>
 						<td><input type="text" id="txtWeight.*" class="num" style="float:left;width:95%;"/></td>
@@ -847,12 +843,17 @@
 					<td>
 						<input type="text" id="txtStraddrno.*" style="float:left;width:30%;"/>
 						<input type="text" id="txtStraddr.*" style="float:left;width:65%;"/>
+						<input type="button" id="btnStraddr.*" style="display:none;">
 					</td>	
 					<td>
 						<input type="text" id="txtEndaddrno.*" style="float:left;width:30%;"/>
 						<input type="text" id="txtEndaddr.*"style="float:left;width:65%;"/>	
+						<input type="button" id="btnEndaddr.*" style="display:none;">
 					</td>
-					<td><input type="text" id="txtCarno.*" class="txt c1" style="width:95%;"/></td>
+					<td>
+						<input type="text" id="txtCarno.*" class="txt c1" style="width:95%;"/>
+						<input type="text" id="btnCarno.*" style="display:none;"/>
+					</td>
 					<td><input type="text" class="num"  id="txtbmiles.*" style="width:95%;"/></td>
 					<td><input type="text" class="num"  id="txtemiles.*" style="width:95%;"/></td>
 					<td><input type="text" id="txtMiles.*" class="num" style="width:95%;"/></td>
