@@ -367,7 +367,7 @@
 						<td class="td5"> </td>
 						<td class="td6"> </td>
 					</tr>
-					<tr class="nosf">
+					<tr style="display: none;" class="nosf">
 						<td class="td1"><span> </span><a id="lblPrice" class="lbl"> </a></td>
 						<td class="td2"><input id="txtPrice" type="text" class="txt c1 num"/></td>
 						<td align="left">NT/噸</td>
