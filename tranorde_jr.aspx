@@ -18,8 +18,9 @@
 			var q_name = "tranorde";
 			var q_readonly = ['txtNoa','txtWorker', 'txtWorker2','txtBoat'];
 			var q_readonlys = ['txtAddress'];
-			var bbsNum = new Array();
-			var bbsMask = new Array();
+			var bbsNum = new Array(['txtMount', 10, 2, 1],['txtWeight', 10, 2, 1],['txtPrice', 10, 3, 1],['txtMoney', 10, 0, 1]);
+			var bbsMask = new Array(['txtDate1', '999/99/99'],['txtDate2', '999/99/99'],['txtTime1', '99:99'],['txtTime2', '99:99']);
+			var bbtNum = new Array();
 			var bbtMask = new Array(); 
 			var bbmNum = new Array();
 			var bbmMask = new Array(['txtDatea', '999/99/99'],['txtDate1', '999/99/99'],['txtDate2', '999/99/99'],['txtTime1', '99:99'],['txtTime2', '99:99']);
@@ -33,10 +34,8 @@
 			//q_xchg = 1;
 			brwCount2 = 5;
 			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'] 
-				,['txtAddrno', 'lblAddr_js', 'addr', 'noa,addr,address', 'txtAddrno,txtAddr,txtBoat', 'addr_b.aspx']
 				,['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
-				,['txtAddrno_', 'btnAddr_', 'addr', 'noa,addr', 'txtAddrno_,txtAddr_', 'addr_b.aspx']
-				,['txtAddrno2_', 'btnAddr2_', 'addr', 'noa,addr', 'txtAddrno2_,txtAddr2_', 'addr_b.aspx']);
+				,['txtAddrno_', 'btnAddr_', 'addr', 'noa,addr', 'txtAddrno_,txtAddr_', 'addr_b.aspx']);
 			$(document).ready(function() {
 				var t_where = '';
 				bbmKey = ['noa'];
@@ -49,6 +48,9 @@
 			function sum() {
 				if (!(q_cur == 1 || q_cur == 2))
 					return;
+				for(var i=0;i<q_bbsCount;i++){
+					$('#txtMoney_'+i).val(q_mul(q_float('txtWeight_'+i),q_float('txtPrice_'+i)));
+             	}
 			}
 			
 			function main() {
@@ -59,8 +61,8 @@
 				mainForm(0);
 			}
 			function mainPost() {
+				q_getFormat();
 				q_mask(bbmMask);
-				
 			}
 			function bbsAssign() {
 				for (var i = 0; i < q_bbsCount; i++) {
@@ -79,13 +81,12 @@
                         var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
                         $('#btnAddr_'+n).click();
                     });
-                    $('#txtAddrno2_' + i).bind('contextmenu', function(e) {
-                        /*滑鼠右鍵*/
-                        e.preventDefault();
-                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
-                        $('#btnAddr2_'+n).click();
-                    });
+                    $('#txtWeight_'+i).change(function(e){sum();});
                     $('#txtPrice_'+i).change(function(e){sum();});
+                    $('#txtAddrno2_'+i).val($('#txtCustno').val());
+                    $('#txtAddr2_'+i).val($('#txtNick').val());
+                    if($('#chkEnda').prop('checked'))
+                         $('#chkChk3_'+i).prop('checked',true);
 				}
 				_bbsAssign();
 				$('#tbbs').find('tr.data').children().hover(function(e){
@@ -93,6 +94,7 @@
 				},function(e){
 					$(this).parent().css('background','#cad3ff');
 				});
+				
 			}
 			function bbtAssign() {
                 for (var i = 0; i < q_bbtCount; i++) {
@@ -103,7 +105,7 @@
                 _bbtAssign();
             }
 			function bbsSave(as) {
-				if (!as['addrno']) {
+				if (!as['addrno2']) {
 					as[bbsKey[1]] = '';
 					return;
 				}
@@ -153,6 +155,15 @@
                     return;
                 }
 				sum();
+				
+				for(var i=0;i<q_bbsCount;i++){
+				    if ($('#txtProductno_'+i).val().length != 0 || $('#txtAddrno_'+i).val().length != 0 ){
+				        $('#txtAddrno2_'+i).val($('#txtCustno').val());
+                        $('#txtAddr2_'+i).val($('#txtNick').val());
+                        if($('#chkEnda').prop('checked'))
+                           $('#chkChk3_'+i).prop('checked',true);
+				    }
+                }
 				if(q_cur ==1){
 					$('#txtWorker').val(r_name);
 				}else if(q_cur ==2){
@@ -382,7 +393,7 @@
 				margin: -1px;
 			}
 			.dbbs {
-				width: 1600px;
+				width: 1235px;
 			}
 			.tbbs a {
 				font-size: medium;
@@ -495,11 +506,15 @@
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:150px"><a>品名</a></td>
-					<td align="center" style="width:60px"><a>重量</a></td>
-					<td align="center" style="width:60px"><a>單價</a></td>
-					<td align="center" style="width:60px"><a>金額</a></td>
-					<td align="center" style="width:120px"><a>起點</a></td>
+					<td align="center" style="width:150px"><a>廢棄物</a></td>
+					<td align="center" style="width:80px"><a>事業噸數</a></td>
+					<td align="center" style="width:80px"><a>處理廠噸數</a></td>
+					<td align="center" style="width:80px"><a>處理單價</a></td>
+					<td align="center" style="width:80px"><a>金額</a></td>
+					<td align="center" style="width:120px"><a>處理廠</a></td>
+					<td align="center" style="width:120px;display:none;"><a>起點</a></td>
+					<td align="center" style="width:100px"><a>出車日期</a></td>
+					<td align="center" style="width:100px"><a>進廠日期</a></td>
 					<td align="center" style="width:150px"><a>備註</a></td>
 				</tr>
 				<tr class="data" style='background:#cad3ff;'>
@@ -513,6 +528,7 @@
 						<input type="text" id="txtProduct.*" style="width:55%;" />
 						<input type="button" id="btnProduct.*" style="display:none;">
 					</td>
+					<td><input type="text" id="txtMount.*" class="num" style="width:95%;" /></td>
 					<td><input type="text" id="txtWeight.*" class="num" style="width:95%;" /></td>
 					<td><input type="text" id="txtPrice.*" class="num" style="width:95%;" /></td>
 					<td><input type="text" id="txtMoney.*" class="num" style="width:95%;" /></td>
@@ -520,6 +536,18 @@
 						<input type="text" id="txtAddrno.*" style="width:45%;" />
 						<input type="text" id="txtAddr.*" style="width:45%;" />
 						<input type="button" id="btnAddr.*" style="display:none;">
+					</td>
+					<td  style="display:none;">
+						<input type="text" id="txtAddrno2.*" style="width:45%;" />
+						<input type="text" id="txtAddr2.*" style="width:45%;" />
+						<input type="button" id="btnAddr2.*" style="display:none;">
+						<input id="chkChk3.*" type="checkbox" style="display:none;"/>
+					</td>
+					<td>
+						<input type="text" id="txtDate1.*" style="width:95%;"/>
+					</td>
+					<td>
+						<input type="text" id="txtDate2.*" style="width:95%;"/>
 					</td>
 					<td><input type="text" id="txtMemo.*" style="width:95%;" /></td>
 				</tr>

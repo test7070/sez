@@ -155,11 +155,11 @@
 	            	var t_date6=q_cdn(q_cdn(t_date3,45).substr(0,r_lenm)+'/01',-1);
 	            	//'0@沒有加班時數,1@根據加班單,2@根據出勤紀錄表,3@根據出勤紀錄自訂加班時數'
 	            	var t_addselect=$('#cmbAddsource').val();
-	            		if(t_addselect.length>0)
+	            		if(t_addselect.length==0)
 	            			t_addselect='2';
 	            	//'0@無限制,1@根據calss5限制加班總時數'
 	            	var t_addlimit=$('#cmbAddlimit').val();
-	            		if(t_addlimit.length>0)
+	            		if(t_addlimit.length==0)
 	            			t_addlimit='0';
 	            	if(q_cur==1 || q_cur==2){
 		            	q_func('qtxt.query.salaryimport', 'salary.txt,salaryimport,' 

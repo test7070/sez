@@ -706,7 +706,7 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
                 <td align="center"><a id='lblSssno_s'> </a></td>
-                <td align="center"><a id='lblNamea_s'> </a></td>
+                <td align="center" style="width: 80px;"><a id='lblNamea_s'> </a></td>
                 <td align="center"><a id='lblClockin_s'> </a></td>
                 <td align="center" class='rest' style="display: none;"><a id='lblRestin_s'> </a></td>
                 <td align="center" class='rest' style="display: none;"><a id='lblRestout_s'> </a></td>
@@ -720,6 +720,7 @@
                 <!--<td align="center"><a id='lblW300_s'> </a></td>-->
                 <td align="center" class='special'><a id='lblHr_special_s'> </a></td>
                 <td align="center"><a id='lblMemo_s'> </a></td>
+                <td align="center" style="width: 45px;"><a id='lblIsforget_s'> </a></td>
                 <!--<td align="center"><a id='lblHour_s'> </a></td>
                 <td align="center"><a id='lblAddwork_s'> </a></td>-->
             </tr>
@@ -739,7 +740,8 @@
                 <td class='w266'><input class="txt num c1" id="txtW266.*"type="text" /></td>
                 <!--<td ><input class="txt num c1" id="txtW300.*"type="text" /></td>-->
                 <td class='special'><input class="txt num c1" id="txtHr_special.*"type="text" /></td>
-                <td ><input class="txt c1" id="txtMemo.*"type="text" /></td>
+                <td><input class="txt c1" id="txtMemo.*"type="text" /></td>
+                <td align="center"><input id="chkIsforget.*" type="checkbox"></td>
                 <!--<td ><input class="txt num c1" id="txtHour.*"type="text" /></td>
                 <td ><input class="txt num c1" id="txtAddwork.*" type="text" /></td>-->
             </tr>
