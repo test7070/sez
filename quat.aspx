@@ -58,11 +58,6 @@
 			function sum() {
 				var t1 = 0, t_unit, t_mount, t_weight = 0, t_total = 0;
 				for (var j = 0; j < q_bbsCount; j++) {
-					/*if($('#txtUnit_' + j).val().toUpperCase()=='KG'){
-					 q_tr('txtTotal_'+j,q_mul(q_float('txtWeight_'+j),q_float('txtPrice_'+j)))
-					 }else{
-					 q_tr('txtTotal_'+j,q_mul(q_float('txtMount_'+j),q_float('txtPrice_'+j)))
-					 }*/
 					q_tr('txtTotal_' + j, q_mul(q_float('txtMount_' + j), q_float('txtPrice_' + j)));
 					t_total = q_add(t_total, q_float('txtTotal_' + j));
 					//t_weight+=q_float('txtWeight_'+j);
@@ -265,7 +260,6 @@
 						$('#txtMount_' + j).change(function() {
 							sum();
 						});
-						//$('#txtWeight_' + j).change(function () {sum();});
 						$('#txtPrice_' + j).change(function() {
 							sum();
 						});
@@ -274,7 +268,6 @@
 							/// 要先給 才能使用 q_bodyId()
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-							//t_where = "cust='" + $('#txtCustno').val() + "' and noq='" + $('#txtProductno_' + b_seq).val() + "'";
 							t_where = "custno='" + $('#txtCustno').val() + "' and comp='" + $('#txtComp').val() + "' and productno='" + $('#txtProductno_' + b_seq).val() + "' and product='" + $('#txtProduct_' + b_seq).val() + "'";
 							q_box("z_vccrecord.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vccrecord', "95%", "95%", q_getMsg('lblRecord_s'));
 						});
@@ -288,13 +281,13 @@
 				_btnIns();
 				
 				$('#chkIsproj').attr('checked', true);
-				
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 				$('#txtOdate').val(q_date());
-				$('#txtDatea').val(q_cdn(q_date(), 3));
-				
+				if (q_getPara('sys.project').toUpperCase()=='GU')
+					$('#txtDatea').val(q_cdn(q_date(), 30));
+				else
+					$('#txtDatea').val(q_cdn(q_date(), 3));
 				$('#txtDatea').focus();
-
 				$('#txtCno').val(z_cno);
 				$('#txtAcomp').val(z_acomp);
 
@@ -434,14 +427,6 @@
 			}
 		</script>
 		<style type="text/css">
-			#dmain {
-				overflow: hidden;
-			}
-			.dview {
-				float: left;
-				width: 30%;
-				border-width: 0px;
-			}
 			.tview {
 				width: 100%;
 				border: 5px solid gray;
@@ -576,7 +561,7 @@
 	<body>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' style="overflow:hidden;width: 1270px;">
-			<div class="dview" id="dview">
+			<div id="dview" style="float:left;width:30%;border-width:0px;">
 				<table class="tview" id="tview"	>
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
@@ -708,7 +693,6 @@
 					<td align="center" style="width:95px;" class="isStyle"><a id='lblStyle'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMount'> </a></td>
-					<!--<td align="center"><a id='lblWeights'></a></td>-->
 					<td align="center" style="width:100px;"><a id='lblPrices'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblTotals'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblMemos'> </a></td>
@@ -730,7 +714,6 @@
 					<td class="isStyle"><input id="txtStyle.*" type="text" class="txt c1"/></td>
 					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
-					<!--<td style="width:8%;"><input id="txtWeight.*" type="text" class="txt c2 num"/></td>-->
 					<td><input id="txtPrice.*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtTotal.*" type="text" class="txt c1 num"/></td>
 					<td>

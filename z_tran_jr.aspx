@@ -47,7 +47,13 @@
 						dbf : 'car2',
 						index : 'noa,driver',
 						src : 'car2_b.aspx'
-					}]
+					},{
+                        type : '2', //[10][11]
+                        name : 'xaddr',
+                        dbf : 'addr',
+                        index : 'noa,addr',
+                        src : 'addr_b.aspx'
+                    }]
                     });
                 q_popAssign();
                  $('#txtDate1').mask('999/99/99');

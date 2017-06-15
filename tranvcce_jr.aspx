@@ -43,25 +43,6 @@
 			function sum() {
 				if (!(q_cur == 1 || q_cur == 2))
 					return;
-				var cuft=0;
-				for(var i=0;i<q_bbsCount;i++){
-					cuft = round(0.0000353 * q_float('txtLengthb_'+i)* q_float('txtWidth_'+i)* q_float('txtHeight_'+i)* q_float('txtMount_'+i),2); 
-					$('#txtVolume_'+i).val(cuft);
-					$('#txtWeight_'+i).val(round(q_float('txtMount_'+i)*q_float('txtUweight_'+i),0));
-				}
-				/*for(var i=0;i<q_bbtCount;i++){
-					cuft = 0;
-					t_weight = 0;
-					for(var j=0;j<q_bbsCount;j++){
-						if($('#txtOrdeno__'+i).val()==$('#txtOrdeno_'+j).val() && $('#txtNo2__'+i).val()==$('#txtNo2_'+j).val()){
-							cuft = round(0.0000353 *q_float('txtMount__'+i)* q_float('txtLengthb_'+j)* q_float('txtWidth_'+j)* q_float('txtHeight_'+j),2); 
-							t_weight = round(q_float('txtMount__'+i)*q_float('txtUweight_'+j),0);
-							break;
-						}
-					}
-					$('#txtVolume__'+i).val(Math.ceil(cuft));
-					$('#txtWeight__'+i).val(t_weight);	
-				}*/
 			}
 			
 			$(document).ready(function() {
@@ -101,8 +82,8 @@
 				}
 				
 				$('#btnOrde').click(function(e){
-                	var t_where ='';
-                	q_box("tranordewh_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+";"+JSON.stringify({project:q_getPara('sys.project').toUpperCase(),noa:$('#txtNoa').val(),chk1:$('#chkChk1').prop('checked')?1:0,chk2:$('#chkChk2').prop('checked')?1:0}), "tranorde_tranvcce", "95%", "95%", '');
+					var t_where = "chk3!=1 and not exists(select * from view_tranvcces where (a.noa=ordeno and a.noq=no2 and (select SUM(uweight)from view_tranvcces where ordeno=a.noa)=a.weight))";
+	                q_box("tranordejr_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'tranorde_tranvcce', "95%", "650px");
                 });
                 
                 $('#btnImport').click(function() {
@@ -118,7 +99,7 @@
                    		var t_bdate = $('#textBdate').val();
                    		var t_edate = $('#textEdate').val();
                    		t_key = (t_key.length==0?'BA':t_key);//一定要有值
-                   		q_func('qtxt.query.tranvcce2tran_es', 'tran.txt,tranvcce2tran,' + encodeURI(t_key) + ';'+ encodeURI(t_bdate) + ';'+ encodeURI(t_edate));
+                   		q_func('qtxt.query.tranvcce2tran_es', 'tran.txt,tranvccejr2tranjr,' + encodeURI(t_key) + ';'+ encodeURI(t_bdate) + ';'+ encodeURI(t_edate));
                 	}
                 });
 			}
@@ -225,33 +206,13 @@
                 var ret;
                 switch (b_pop) {
                 	case 'tranorde_tranvcce':
-                        if (b_ret != null) {
-                        	for(var i=0;i<q_bbsCount;i++)
-                        		$('#btnMinus_'+i).click();
-                        	as = b_ret;
-                        	
-                        	for(var i=0;i<as.length;i++){
-                        		var n = parseInt(as[i].n);
-                        		if(n>1){
-                        			as[i].n = 1;
-                        			var a = as.slice(0,i);
-                        			var b = as.slice(i+1,as.length);
-                        			var t = as.slice(i,i+1);
-                        			var as = a;
-                        			while(n>0){
-                        				as = as.concat(t);
-                        				n--;
-                        			}
-                        			as = as.concat(b);
-                        		}
-                        	}
-                        	while(q_bbsCount<as.length)
-                        		$('#btnPlus').click();
-                    		q_gridAddRow(bbsHtm, 'tbbs', 'txtTypea,txtOrdeno,txtNo2,txtCustno,txtCust,txtConn,txtProductno,txtProduct,txtUweight,txtMount,txtUnit,txtVolume,txtWeight,txtAddrno,txtAddr,txtAddrno2,txtAddr2,txtMemo,txtMemo2,txtLengthb,txtWidth,txtHeight'
-                        	, as.length, as, 'typea,noa,noq,custno,cust,conn,productno,product,uweight,emount,unit,evolume,eweight,addrno,addr,addrno2,addr2,memo,memo2,lengthb,width,height', '','');
-                        }else{
-                        	Unlock(1);
-                        }
+                		if (q_cur > 0 && q_cur < 4) {
+							b_ret = getb_ret();
+							if (!b_ret || b_ret.length == 0)
+								return;
+								ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtTime1,txtTime2,txtCustno,txtCust,txtConn,txtProductno,txtProduct,txtWeight,txtUweight,txtTotal,txtTotal2,txtAddrno,txtAddr,txtMemo', b_ret.length, b_ret, 
+								'noa,noq,date1,date2,addrno2,addr2,conn,productno,product,mount,weight,price,money,addrno,addr,memo', 'txtProductno,txtProduct,txtSpec');
+							}
                         break;
                     case q_name + '_s':
                         q_boxClose2(s2);
@@ -653,8 +614,6 @@
 						<td colspan="2"><input type="text" id="txtNoa" class="txt c1"/></td>
 						<td><span> </span><a id="lblDatea_js" class="lbl">日期</a></td>
 						<td><input type="text" id="txtDatea" class="txt c1"/></td>
-						<td><span> </span><a id="lblTimea_js" class="lbl">時間</a></td>
-						<td><input type="text" id="txtTimea" style="text-align: center;" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
@@ -692,7 +651,6 @@
 					<td align="center" style="width:220px"><a>聯單編號</a></td>
 					<td align="center" style="width:100px"><a>出車車號</a></td>
 					<td align="center" style="width:150px"><a>處理廠</a></td>
-					<td align="center" style="width:60px"><a>已申報</a></td>
 					<td align="center" style="width:220px"><a>訂單</a></td>
 					<td align="center" style="width:250px"><a>備註</a></td>
 				</tr>
@@ -702,8 +660,8 @@
 						<input type="text" id="txtNoq.*" style="display:none;"/>
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-					<td><input type="text" id="txtDatea.*" style="width:95%;"/></td>
-					<td><input type="text" id="txtTrandate.*" style="width:95%;"/></td>
+					<td><input type="text" id="txtTime1.*" style="width:95%;"/></td>
+					<td><input type="text" id="txtTime2.*" style="width:95%;"/></td>
 					<td>
 						<input type="text" id="txtCustno.*" style="float:left;width:40%;" />
 						<input type="text" id="txtCust.*" style="float:left;width:45%;"/>
@@ -717,14 +675,17 @@
 					<td><input type="text" id="txtUweight.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtTotal.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtTotal2.*" class="num" style="width:95%;"/></td>
-					<td><input type="text" id="txtPo.*" style="width:95%;"/></td>
-					<td><input type="text" id="txtCarno.*" style="width:95%;"/></td>
+					<td><input type="text" id="txtMemo2.*" style="width:95%;"/></td>
+					<td><input type="text" id="txtCarno.*" style="width:95%;"/>
+						<input type="text" id="txtDriverno.*" style="display:none;"/>
+						<input type="text" id="txtDriver.*" style="display:none;"/>
+						<input type="button" id="btnCarno.*" style="display:none;"/>
+					</td>
 					<td>
 						<input type="text" id="txtAddrno.*" style="float:left;width:40%;"/>
 						<input type="text" id="txtAddr.*" style="float:left;width:50%;"/>
 						<input type="button" id="btnAddr.*" style="display:none;"/>
 					</td>
-					<td align="center"><input id="chkChk1.*" type="checkbox"/></td>
 					<td>
 						<input type="text" id="txtOrdeno.*" style="float:left;width:70%;"/>
 						<input type="text" id="txtNo2.*" style="float:left;width:20%;"/>

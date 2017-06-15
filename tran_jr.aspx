@@ -18,8 +18,8 @@
             var q_name = "tran";
             var q_readonly = ['txtNoa', 'txtWeight','txtTotal', 'txtWorker', 'txtWorker2'];
             var q_readonlys = [];
-            var bbmNum = [['txtMount', 10, 2, 1],['txtWeight', 10, 2, 1],['txtTotal', 10, 3, 1],['txtTotal', 10, 3, 1]];
-            var bbsNum = [['txtWeight', 10, 2, 1],['txtWeight2', 10, 2, 1],['txtPrice', 10, 3, 1],['txtTotal', 10, 3, 1]];
+            var bbmNum = [['txtMount', 10, 2, 1],['txtWeight', 10, 2, 1],['txtTotal', 10, 0, 1]];
+            var bbsNum = [['txtWeight', 10, 2, 1],['txtWeight2', 10, 2, 1],['txtPrice', 10, 0, 1],['txtTotal', 10, 0, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -64,7 +64,7 @@
              	}
              	$('#txtMount').val(t_tweight);
              	$('#txtWeight').val(t_tweight2);
-             	$('#txtTotal').val(q_add(t_total,$('#txtTotal2').val()));
+             	$('#txtTotal').val(t_total);
             }
 
             function mainPost() {
@@ -355,7 +355,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 1500px;
+                width: 1650px;
             }
             .tbbs a {
                 font-size: medium;
@@ -447,15 +447,15 @@
 						</td>
 						<td><span> </span><a id="lbl" class="lbl" >處理廠總噸數</a></td>
 						<td><input id="txtWeight" type="text" class="txt c1 num" /></td>
+						<td><span> </span><a id="lbl" class="lbl" >應收金額</a></td>
+                        <td><input id="txtTotal" type="text" class="txt c1 num" /></td>
 					</tr>
-					<tr>
+					<!--<tr>
 						<td><span> </span><a id="lbl" class="lbl" >稅金</a></td>
 						<td>
 						<input id="txtTotal2" type="text" class="txt c1 num" />
 						</td>
-						<td><span> </span><a id="lbl" class="lbl" >應收金額</a></td>
-						<td><input id="txtTotal" type="text" class="txt c1 num" /></td>
-					</tr>
+					</tr>-->
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl" > </a></td>
 						<td colspan="5"><textarea id="txtMemo" style="height:40px;" class="txt c1"> </textarea></td>
@@ -489,6 +489,7 @@
 					<td align="center" style="width:160px"><a>聯單編號</a></td>
 					<td align="center" style="width:80px"><a>出車車號</a></td>
 					<td align="center" style="width:150px"><a>處理廠</a></td>
+					<td align="center" style="width:150px"><a>派車單號</a></td>
 					<td align="center" style="width:60px"><a>已申報</a></td>
 					<td align="center" style="width:150px"><a>備註</a></td>
 				</tr>
@@ -527,6 +528,7 @@
 						<input type="text" id="txtStraddr.*" style="float:left;width:53%;"/>
 						<input type="button" id="btnStraddr.*" style="display:none;"/>
 					</td>
+					<td><input type="text" id="txtOrdeno.*" style="width:95%;"/></td>
 					<td align="center"><input id="chkChk1.*" type="checkbox"/></td>
 					<td><input type="text" id="txtMemo.*" style="width:95%;" /></td>
 				</tr>

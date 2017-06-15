@@ -42,9 +42,8 @@
 					},{
 						type : '2', //[6][7]
 						name : 'carno',
-						dbf : 'car2',
-						index : 'noa,driver',
-						src : 'car2_b.aspx'
+						index : 'carno',
+						dbf : 'car2'
 					}
 					,{
 						type : '2', //[8][9]
@@ -64,29 +63,21 @@
                 t_noa  =  t_noa.replace('noa=','');
                 $('#txtNoa1').val(t_noa);
                 $('#txtNoa2').val(t_noa);
-                
-                 var t_date,t_year,t_month,t_day;
-	                t_date = new Date();
-	                t_date.setDate(1);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                t_day = t_date.getUTCDate();
-	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
+                 if(window.parent.q_name=='tran'){
+                		var wParent = window.parent.document;
+						var t_trandate= wParent.getElementById("txtTrandate").value
+						var t_carno= wParent.getElementById("txtCarno").value
+						var t_driverno= wParent.getElementById("txtDriverno").value
+						$('#txtDate1').val(t_trandate);
+						$('#txtDate2').val(t_trandate);
+						$('#txtCarno1a').val(t_carno);
+						$('#txtCarno2a').val(t_carno);
+						$('#txtDriver1a').val(t_driverno);
+						$('#txtDriver2a').val(t_driverno);
+
+                }
+			 }
 	                
-	                t_date = new Date();
-	                t_date.setDate(35);
-	                t_date.setDate(0);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                t_day = t_date.getUTCDate();
-	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
-	                }
 
             function q_boxClose(s2) {
             }
