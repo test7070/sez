@@ -78,7 +78,11 @@
 	            	q_cmbParse("cmbPerson", q_getPara('person.typea'));
 	            	q_cmbParse("cmbMonkind", ('').concat(new Array( '本月','上期', '下期')));
 	            }
-	            q_cmbParse("cmbTypea", ('').concat(new Array('薪資')));
+	            
+	            if(q_getPara('sys.project').toUpperCase()=='SAL')
+	            	q_cmbParse("cmbTypea", ('').concat(new Array('薪資','獎金')));
+	            else
+	            	q_cmbParse("cmbTypea", ('').concat(new Array('薪資')));
 	            
 	            q_cmbParse("cmbAddsource", '0@沒有加班時數,1@加班單,2@出勤紀錄表,3@出勤紀錄自訂加班時數');
 	            q_cmbParse("cmbAddlimit", '0@無限制,1@班別限制總時數');
@@ -97,6 +101,11 @@
 	            });
 	            
 	            $('#cmbMonkind').change(function () {
+	            	getdtmp();
+	            	check_insed();
+	            });
+	            
+	            $('#cmbTypea').change(function () {
 	            	getdtmp();
 	            	check_insed();
 	            });
@@ -1216,7 +1225,7 @@
 	        function check_insed() {
 	        	if(q_cur==1){
 	        	 //判斷是否已新增過
-	           		var t_where = "where=^^ mon='"+$('#txtMon').val()+"' and person='"+$('#cmbPerson').find("option:selected").text()+"' and monkind='"+$('#cmbMonkind').find("option:selected").text()+"' ^^";
+	           		var t_where = "where=^^ mon='"+$('#txtMon').val()+"' and person='"+$('#cmbPerson').find("option:selected").text()+"' and monkind='"+$('#cmbMonkind').find("option:selected").text()+"' and typea='"+$('#cmbTypea').val()+"' ^^";
 			    	q_gt('salary', t_where , 0, 0, 0, "", r_accy);
 			    }
 	        }
