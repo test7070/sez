@@ -115,7 +115,7 @@
                 	  });
                 	*/
                 	  $('#btnMao').click(function(e) {	 	 //行車里程Button
-                	 	    t_where = "oildate='" + $('#txtTrandate').val() + "' and carno='" + $('#txtCarno').val() + "' and driverno='" + $('#txtDriverno').val() + "'";
+                	 	    t_where = "datea='" + $('#txtDatea').val() + "' and carno='" + $('#txtCarno').val() + "' and driverno='" + $('#txtDriverno').val() + "'";
                 	 	    q_box("oil.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'oil', "95%", "95%", q_getMsg('btnMao'));
                 	  });
                 	  $('#btnTick').click(function(e) {		//回數票
@@ -647,26 +647,15 @@
 						<td><input type="text" id="txtTrandate" class="txt c1"/></td>
 					</tr>
 					<tr>
-<<<<<<< HEAD
-					    <td><span> </span><a id="lblCarno" class="lbl btn"><input type="text" id="btnCarno" style="display:none;"/></a></td>
+            		    <td><span> </span><a id="lblCarno" class="lbl btn"><input type="text" id="btnCarno" style="display:none;"/></a></td>
                         <td><input type="text" id="txtCarno" class="txt c1"/></td>
-						<td><span> </span><a id="lblDriverno" class="lbl btn"></a></td>
-=======
 						<td><span> </span><a id="lblDriver" class="lbl btn">司機</a></td>
->>>>>>> 834ba71c1ee528db95124223ac866af795c914c8
+
 						<td colspan="2">
 							<input type="text" id="txtDriverno" class="txt" style="float:left;width:40%;"/>
 							<input type="text" id="txtDriver" class="txt" style="float:left;width:60%;"/>
 						</td>
-<<<<<<< HEAD
-						<td><span> </span><a id="lblCarplateno" class="lbl">板牌號碼</a></td>
-=======
-						<td>
-							<span> </span><a id="lblCarno" class="lbl btn">車號</a>
-						</td>
-						<td><input type="text" id="txtCarno" class="txt c1"/></td>
 						<td><span> </span><a id="lblCarplateno" class="lbl btn">板牌號碼</a></td>
->>>>>>> 834ba71c1ee528db95124223ac866af795c914c8
 						<td><input type="text"  id="txtEtime"  class="txt c1"/></td>
 					</tr>
 					<tr>
