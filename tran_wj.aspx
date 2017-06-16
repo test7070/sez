@@ -748,13 +748,13 @@
 						<td><input type="text" id="txtDatea" class="txt c1"/></td>
 					</tr>
 					<tr>
+					    <td><span> </span><a id="lblCarno" class="lbl btn"><input type="text" id="btnCarno" style="display:none;"/></a></td>
+                        <td><input type="text" id="txtCarno" class="txt c1"/></td>
 						<td><span> </span><a id="lblDriverno" class="lbl btn"></a></td>
 						<td colspan="2">
 							<input type="text" id="txtDriverno" class="txt" style="float:left;width:40%;"/>
 							<input type="text" id="txtDriver" class="txt" style="float:left;width:60%;"/>
 						</td>
-						<td><span> </span><a id="lblCarno" class="lbl btn"><input type="text" id="btnCarno" style="display:none;"/></a></td>
-						<td><input type="text" id="txtCarno" class="txt c1"/></td>
 						<td><span> </span><a id="lblCarplateno" class="lbl">板牌號碼</a></td>
 						<td><input type="text"  id="txtEtime"  class="txt c1"/></td>
 					</tr>
