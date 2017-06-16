@@ -42,9 +42,8 @@
 					},{
 						type : '2', //[6][7]
 						name : 'carno',
-						dbf : 'car2',
-						index : 'noa,driver',
-						src : 'car2_b.aspx'
+						index : 'carno',
+						dbf : 'car2'
 					}
 					,{
 						type : '2', //[8][9]
@@ -64,8 +63,7 @@
                 t_noa  =  t_noa.replace('noa=','');
                 $('#txtNoa1').val(t_noa);
                 $('#txtNoa2').val(t_noa);
-                
-                 var t_date,t_year,t_month,t_day;
+                    var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
 	                t_date.setDate(1);
 	                t_year = t_date.getUTCFullYear()-1911;
@@ -86,7 +84,8 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
-	                }
+			 }
+	                
 
             function q_boxClose(s2) {
             }

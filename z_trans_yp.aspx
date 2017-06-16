@@ -25,9 +25,9 @@
                 q_gf('', 'z_trans_yp');
             });
             function q_gfPost() {
-                $('#q_report').q_report({
+               $('#q_report').q_report({
                     fileName : 'z_trans_yp',
-                    options : [{
+                   options : [{
                         type : '0',
                         name : 'accy',
                         value : q_getId()[4]
