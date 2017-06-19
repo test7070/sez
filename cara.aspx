@@ -156,16 +156,18 @@
             }
 			
 			function q_funcPost(t_func, result) {
-		        //location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";carno='"+$('#txtCarno').val()+"';"+r_accy;
-		        alert('結轉功能執行完畢!!');
-		        $('#btnNextmon').removeAttr('disabled').val(q_getMsg('btnNextmon'));
-		        Unlock();
-		        
-		        //106/02/13 避免出貨結轉資料沒有正常刷新 一律全部重刷
-		        location.href =location.href
-		        
-		        //var s2=new Array('cara_s',"where=^^carno='"+$('#txtCarno').val()+"' ^^ ");
-                //q_boxClose2(s2);
+				if(t_func=='cara.genNext'){
+			        //location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";carno='"+$('#txtCarno').val()+"';"+r_accy;
+			        alert('結轉功能執行完畢!!');
+			        $('#btnNextmon').removeAttr('disabled').val(q_getMsg('btnNextmon'));
+			        Unlock();
+			        
+			        //106/02/13 避免出貨結轉資料沒有正常刷新 一律全部重刷
+			        location.href =location.href
+			       
+			        //var s2=new Array('cara_s',"where=^^carno='"+$('#txtCarno').val()+"' ^^ ");
+	                //q_boxClose2(s2);
+               }
 		    } //endfunction
 			
             function q_boxClose(s2) {///   q_boxClose 2/4

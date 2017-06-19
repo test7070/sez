@@ -230,11 +230,12 @@
                 if(window.parent.q_name=='tran'){
                 		var wParent = window.parent.document;
 						var t_trandate= wParent.getElementById("txtTrandate").value
+						var t_datea= wParent.getElementById("txtDatea").value
 						var t_carno= wParent.getElementById("txtCarno").value
 						var t_driver= wParent.getElementById("txtDriver").value
 						var t_driverno= wParent.getElementById("txtDriverno").value
 						$('#txtOildate').val(t_trandate);
-						$('#txtDatea').val(t_trandate);
+						$('#txtDatea').val(t_datea);
 						$('#txtCarno').val(t_carno);
 						$('#txtDriverno').val(t_driverno);
 						$('#txtDriver').val(t_driver);

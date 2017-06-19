@@ -358,6 +358,8 @@
 									}
 								}
 								ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtSpec,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtPrice,txtTotal,txtMemo,txtCustno,txtComp', b_ret.length, b_ret, 'uno,productno,spec,product,unit,notv,noa,no2,price,total,memo,custno,comp', 'txtProductno,txtProduct');
+								//106/06/19 變動備註
+								for (var i = 0; i < q_bbsCount; i++) {$('#txtMount_' + i).change();}
 							}else
 								ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtSpec,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtPrice,txtTotal,txtMemo', b_ret.length, b_ret, 'uno,productno,spec,product,unit,notv,noa,no2,price,total,memo', 'txtProductno,txtProduct');
 							bbsAssign();
