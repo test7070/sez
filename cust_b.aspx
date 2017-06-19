@@ -73,12 +73,14 @@
 					<th align="center" > </th>
 					<th align="center" style='color:Blue;' ><a id='lblNoa'> </a></th>
 					<th align="center" style='color:Blue;' ><a id='lblComp'> </a></th>
+					<th align="center" style='color:Blue;' ><a id='lblNick'>簡稱</a></th>
 					<th align="center" style='color:Blue;' ><a id='lblSerial'> </a></th>
 				</tr>
 				<tr>
 					<td style="width:2%;"><input name="sel"  id="radSel.*" type="radio" /></td>
-					<td style="width:20%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" /></td>
-					<td style="width:60%;"><input class="txt" id="txtComp.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+					<td style="width:15%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+					<td style="width:40%;"><input class="txt" id="txtComp.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+					<td style="width:20%;"><input class="txt" id="txtNick.*" type="text" style="width:98%;"  readonly="readonly" /></td>
 					<td style="width:15%;"><input class="txt" id="txtSerial.*" type="text" style="width:98%;"  readonly="readonly" /></td>
 				</tr>
 			</table>
