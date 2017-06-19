@@ -226,12 +226,11 @@
                 }
 						if(window.parent.q_name=='tran'){
                 		var wParent = window.parent.document;
-						var t_trandate= wParent.getElementById("txtTrandate").value
+						var t_Datea= wParent.getElementById("txtDatea").value
 						var t_carno= wParent.getElementById("txtCarno").value
 						var t_driver= wParent.getElementById("txtDriver").value
 						var t_driverno= wParent.getElementById("txtDriverno").value
-						$('#txtDatea').val(t_trandate);
-						$('#txtDatea2').val(t_trandate);
+						$('#txtDatea').val(t_Datea);
 						$('#txtCarno').val(t_carno);
 						$('#txtDriverno').val(t_driverno);
 						$('#txtDriver').val(t_driver);
