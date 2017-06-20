@@ -62,8 +62,8 @@
                         value : ('zzzzz@無部門,'+t_data.data['part']).split(',')
                     },{
 						type : '0',
-						name : 'rlen',
-						value : r_len
+						name : 'rlenm',
+						value : r_lenm
 					}]
 				});
 				q_popAssign();
