@@ -60,7 +60,11 @@
                         type : '8',
                         name : 'xpartno',
                         value : ('zzzzz@無部門,'+t_data.data['part']).split(',')
-                    }]
+                    },{
+						type : '0',
+						name : 'rlen',
+						value : r_len
+					}]
 				});
 				q_popAssign();
                 q_getFormat();
