@@ -576,6 +576,17 @@
 
 				return true;
 			}
+			
+			function bbtSave(as) {
+				if (!as['productno'] && !as['product'] && !as['uno']) {
+					as[bbsKey[1]] = '';
+					return;
+				}
+
+				q_nowf();
+
+				return true;
+			}
 
 			function refresh(recno) {
 				_refresh(recno);

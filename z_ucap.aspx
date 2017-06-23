@@ -19,21 +19,7 @@
 			var firstRun = false;
 			var t_first=true;
 			aPop = new Array(
-				['txtXproductno', '', 'ucaucc', 'noa,product', 'txtXproductno', 'ucaucc_b.aspx'],
-				['txtXgroupe', 'lblGroupeno', 'adsize', 'noa,mon,memo1,memo2', '0txtXgroupe', ''],
-				['txtXgroupf', 'lblGroupfno', 'adsss', 'noa,mon,memo1,memo2', '0txtXgroupf', ''],
-				['txtXgroupg', 'lblGroupgno', 'adknife', 'noa,mon,memo1,memo2', '0txtXgroupg', ''],
-				['txtXgrouph', 'lblGrouphno', 'adpipe', 'noa,mon,memo1,memo2', '0txtXgrouph', ''],
-				['txtXgroupi', 'lblGroupino', 'adtran', 'noa,mon,memo1,memo2', '0txtXgroupi', ''],
-				
-				['txtXucolor','','adspec','noa,mon,memo,memo1,memo2','0txtXucolor',''],
-				['txtXscolor','','adly','noa,mon,memo,memo1,memo2','0txtXscolor',''],
-				['txtXclass','','adly','noa,mon,memo,memo1,memo2','0txtXclass',''],
-				['txtXclassa','','adly','noa,mon,memo,memo1,memo2','0txtXclassa',''],
-				['txtXzinc','','adly','noa,mon,memo,memo1,memo2','0txtXzinc',''],
-				['txtXsizea','','adoth','noa,mon,memo,memo1,memo2','0txtXsizea',''],
-				['txtXsource','','adpro','noa,mon,memo,memo1,memo2','0txtXsource',''],
-				['txtXhard','','addime','noa,mon,memo,memo1,memo2','0txtXhard','']
+				['txtXproductno', '', 'ucaucc', 'noa,product', 'txtXproductno', 'ucaucc_b.aspx']
 			);
 			var t_auth=undefined,t_isucap2=false;
 			$(document).ready(function() {
@@ -79,6 +65,29 @@
 					});
 				});
 				
+				
+				if(q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO'){
+					aPop = new Array(
+						['txtXproductno', '', 'ucaucc', 'noa,product', 'txtXproductno', 'ucaucc_b.aspx'],
+						['txtXgroupe', 'lblGroupeno', 'adsize', 'noa,mon,memo1,memo2', '0txtXgroupe', ''],
+						['txtXgroupf', 'lblGroupfno', 'adsss', 'noa,mon,memo1,memo2', '0txtXgroupf', ''],
+						['txtXgroupg', 'lblGroupgno', 'adknife', 'noa,mon,memo1,memo2', '0txtXgroupg', ''],
+						['txtXgrouph', 'lblGrouphno', 'adpipe', 'noa,mon,memo1,memo2', '0txtXgrouph', ''],
+						['txtXgroupi', 'lblGroupino', 'adtran', 'noa,mon,memo1,memo2', '0txtXgroupi', ''],
+						
+						['txtXucolor','','adspec','noa,mon,memo,memo1,memo2','0txtXucolor',''],
+						['txtXscolor','','adly','noa,mon,memo,memo1,memo2','0txtXscolor',''],
+						['txtXclass','','adly','noa,mon,memo,memo1,memo2','0txtXclass',''],
+						['txtXclassa','','adly','noa,mon,memo,memo1,memo2','0txtXclassa',''],
+						['txtXzinc','','adly','noa,mon,memo,memo1,memo2','0txtXzinc',''],
+						['txtXsizea','','adoth','noa,mon,memo,memo1,memo2','0txtXsizea',''],
+						['txtXsource','','adpro','noa,mon,memo,memo1,memo2','0txtXsource',''],
+						['txtXhard','','addime','noa,mon,memo,memo1,memo2','0txtXhard','']
+						
+						,['txtXstyle','','adpro2','memo','0txtXstyle','']
+						
+					);
+				}
 			});
 			
 			function imgshow(img) {
