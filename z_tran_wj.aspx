@@ -33,20 +33,19 @@
 					},{
 						type : '1',//[2][3]
 						name : 'date'
-					},{
-						type : '2', //[4][5]
-						name : 'cust',
-						dbf : 'cust',
-						index : 'noa,comp',
-						src : 'cust_b.aspx'
-					},{
-						type : '2', //[6][7]
+					},
+					{
+						type : '6',//[4]
+						name : 'Mon'
+					},
+					{
+						type : '2', //[5][6]
 						name : 'carno',
-						index : 'carno',
-						dbf : 'car2'
+						index : 'carno,driverno',
+						src : 'car2_b.aspx'
 					}
 					,{
-						type : '2', //[8][9]
+						type : '2', //[7][8]
 						name : 'Driver',
 						dbf : 'driver',
 						index : 'noa,namea',
@@ -54,6 +53,8 @@
 					}]
                     });
                 q_popAssign();
+				 $('#txtMon').mask('999/99');
+	             $('#txtMon').datepicker();
                  $('#txtDate1').mask('999/99/99');
 	             $('#txtDate1').datepicker();
 	             $('#txtDate2').mask('999/99/99');

@@ -660,17 +660,17 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMount" class="lbl">件數</a></td>
-						<td><input type="text" id="txtMount" class="txt c1"/></td>
+						<td><input type="text" id="txtMount" class="txt c1 num"/></td>
 						<td><span> </span><a id="lblWeight" class="lbl">重量</a></td>
-						<td><input type="text" id="txtWeight" class="txt c1"/></td>
+						<td><input type="text" id="txtWeight" class="txt c1 num"/></td>
 						<td><span> </span><a id="lblMile" class="lbl">公里</a></td>
-						<td><input type="text" id="txtVoyage" class="txt c1"/></td>
+						<td><input type="text" id="txtVoyage" class="txt c1 num"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblTotal" class="lbl">應收金額</a></td>
-						<td><input type="text" id="txtTotal" class="txt c1"/></td>
+						<td><input type="text" id="txtTotal" class="txt c1 num"/></td>
 						<td><span> </span><a id="lblTotal3" class="lbl">抽成獎金</a></td>
-						<td><input type="text" id="txtTotal3" class="txt c1"/></td>
+						<td><input type="text" id="txtTotal3" class="txt c1 num"/></td>
 						<td><span> </span><a id="lblCartype" class="lbl">隨車</a></td>
 						<td><input type="text"  id="txtBtime" class="txt c1"/></td>
 					</tr>
