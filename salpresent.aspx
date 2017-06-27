@@ -58,7 +58,7 @@
             bbmMask = [['txtNoa', r_picd]];
             q_mask(bbmMask);
             
-            if(q_getPara('sys.project').toUpperCase()=='VU' || q_getPara('sys.project').toUpperCase()=='DJ'){
+            if(q_getPara('sys.project').toUpperCase()=='VU' || q_getPara('sys.project').toUpperCase()=='DJ' || q_getPara('sys.comp').toUpperCase().indexOf('宏進')>-1){
             	bbsMask = [['txtClockin', '99:99'],['txtClockout', '99:99']];
             }else{
             	bbsMask = [['txtClockin', '99:99:99'],['txtClockout', '99:99:99'],['txtRestin', '99:99:99'],['txtRestout', '99:99:99']];
