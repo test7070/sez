@@ -53,6 +53,15 @@
                         dbf : 'addr',
                         index : 'noa,addr',
                         src : 'addr_b.aspx'
+                    },{//[12]
+                        type : '6',
+                        name : 'xmon'
+                    },{//[13][14]
+                        type : '2',
+                        name : 'driver',
+                        dbf : 'driver',
+                        index : 'noa,namea',
+                        src : 'driver_b.aspx'
                     }]
                     });
                 q_popAssign();

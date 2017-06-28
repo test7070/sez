@@ -97,19 +97,21 @@
 	                	}
 	                	if(report_name=='20'){
 	                		$('#Mon').hide();
-	                		$('#Xgroupbno').hide();
-	                		$('#Xgroupcno').hide();
-	                		$('#Xshowinvono').hide();
-	                		$('#Tggno').hide();
-	                		$('#Xstype').hide();
-	                		$('#Vcctypea').hide();
-	                		$('#Xpartno').hide();
-	                		$('#product').hide();
-	                		$('#Xtype').hide();
-	                		$('#Xgroupano').hide();
-	                		$('#Salesgroup').hide();
-	                		$('#Multcust').hide();
-	                		$('#Multucc').hide();
+                            $('#Sales').hide();
+                            $('#Product').hide();
+                            $('#Xgroupbno').hide();
+                            $('#Xgroupcno').hide();
+                            $('#Xshowinvono').hide();
+                            $('#Tggno').hide();
+                            $('#Xstype').hide();
+                            $('#Vcctypea').hide();
+                            $('#Xpartno').hide();
+                            $('#product').hide();
+                            $('#Xtype').hide();
+                            $('#Xgroupano').hide();
+                            $('#Salesgroup').hide();
+                            $('#Multcust').hide();
+                            $('#Multucc').hide();
 	                	}
 	                	if(report_name=='21'){
 	                		$('#Mon').hide();
