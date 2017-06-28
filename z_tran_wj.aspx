@@ -30,21 +30,21 @@
                         type : '0', //[1]
                         name : 'accy',
                         value : q_getId()[4]
-					},{
+					},{//1
 						type : '1',//[2][3]
 						name : 'date'
 					},
-					{
+					{//2
 						type : '6',//[4]
 						name : 'Mon'
 					},
-					{
+					{//3
 						type : '2', //[5][6]
 						name : 'carno',
 						index : 'carno,driverno',
 						src : 'car2_b.aspx'
 					}
-					,{
+					,{//4
 						type : '2', //[7][8]
 						name : 'Driver',
 						dbf : 'driver',
