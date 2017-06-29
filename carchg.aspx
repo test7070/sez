@@ -224,7 +224,7 @@
                 		curData.paste();
                 		break;
                 }
-						if(window.parent.q_name=='tran'){
+				if(window.parent.q_name=='tran'){
                 		var wParent = window.parent.document;
 						var t_Datea= wParent.getElementById("txtDatea").value
 						var t_carno= wParent.getElementById("txtCarno").value
