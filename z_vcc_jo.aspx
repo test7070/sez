@@ -2,11 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<<<<<<< HEAD
 		<title></title>
-=======
 		<title>銷售報表</title>
->>>>>>> 902190f5972df1ff05a0c632feb4b423b7577df9
 		<script src="/../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -100,19 +97,21 @@
 	                	}
 	                	if(report_name=='20'){
 	                		$('#Mon').hide();
-	                		$('#Xgroupbno').hide();
-	                		$('#Xgroupcno').hide();
-	                		$('#Xshowinvono').hide();
-	                		$('#Tggno').hide();
-	                		$('#Xstype').hide();
-	                		$('#Vcctypea').hide();
-	                		$('#Xpartno').hide();
-	                		$('#product').hide();
-	                		$('#Xtype').hide();
-	                		$('#Xgroupano').hide();
-	                		$('#Salesgroup').hide();
-	                		$('#Multcust').hide();
-	                		$('#Multucc').hide();
+                            $('#Sales').hide();
+                            $('#Product').hide();
+                            $('#Xgroupbno').hide();
+                            $('#Xgroupcno').hide();
+                            $('#Xshowinvono').hide();
+                            $('#Tggno').hide();
+                            $('#Xstype').hide();
+                            $('#Vcctypea').hide();
+                            $('#Xpartno').hide();
+                            $('#product').hide();
+                            $('#Xtype').hide();
+                            $('#Xgroupano').hide();
+                            $('#Salesgroup').hide();
+                            $('#Multcust').hide();
+                            $('#Multucc').hide();
 	                	}
 	                	if(report_name=='21'){
 	                		$('#Mon').hide();
@@ -288,7 +287,7 @@
 						+ stype + ';' + salesgroup + ';' + vcctypea + ';' + partno + ';' + showinvono + ';' + q_getPara('sys.isspec') + ';' 
 						+ multcust + ';' + multucc + ';' +r_len;
 						
-					var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
+					var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno + ",bdate="+bdate + ",edate="+edate;
 					
 					var report_namea=$('#q_report [type=radio]:checked').val();
 					

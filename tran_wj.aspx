@@ -40,7 +40,7 @@
 				['txtUccno_', 'btnProduct_', 'ucc', 'noa,product', 'txtUccno_,txtProduct_', 'ucc_b.aspx']
 				,['txtStraddrno_', 'btnStraddr_', 'addr', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr_b.aspx']
 				,['txtEndaddrno_', 'btnEndaddr_', 'addr', 'noa,addr', 'txtEndaddrno_,txtEndaddr_', 'addr_b.aspx']
-				,['txtCarno_', 'btnCarno_', 'carplate', 'noa,driver', 'txtCarno_', 'carplate_b.aspx']
+				,['txtCardeal_', 'btnCardeal_', 'carplate', 'noa,driver', 'txtCardeal_', 'carplate_b.aspx']
 				,['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
 				,['txtEtime', 'lblCarplateno', 'carplate', 'noa,driver', 'txtEtime', 'carplate_b.aspx']
 				,['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']
@@ -128,7 +128,7 @@
                 	  });
                 	$('#txtEtime').change(function(e) {
                 		for (var i = 0; i < q_bbsCount; i++) {
-                			$('#txtCarno_' + i).val($(this).val());
+                			$('#txtCardeal_' + i).val($(this).val());
                 		}
                    	 });
 			}
@@ -164,6 +164,12 @@
                         e.preventDefault();
                         var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
                         $('#btnCarno_'+n).click();
+                   	 });
+                   	 $('#txtCardeal_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnCardeal_'+n).click();
                    	 });
                    	 $('#txtCustno_' + i).bind('contextmenu', function(e) {
                         /*滑鼠右鍵*/
@@ -209,7 +215,7 @@
 			}
 
 			function bbsSave(as) {
-				if (!as['carno']) {	//沒有寫carno，不儲存tbbs
+				if (!as['cardeal']) {
 					as[bbsKey[1]] = '';
 					return;
 				}
@@ -217,6 +223,7 @@
 				as['datea'] = abbm2['datea'];
 				as['driverno'] = abbm2['driverno'];
 				as['driver'] = abbm2['driver'];
+				as['carno'] = abbm2['carno'];
 				return true;
 			}
 			function q_boxClose(s2) {
@@ -660,17 +667,17 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMount" class="lbl">件數</a></td>
-						<td><input type="text" id="txtMount" class="txt c1"/></td>
+						<td><input type="text" id="txtMount" class="txt c1 num"/></td>
 						<td><span> </span><a id="lblWeight" class="lbl">重量</a></td>
-						<td><input type="text" id="txtWeight" class="txt c1"/></td>
+						<td><input type="text" id="txtWeight" class="txt c1 num"/></td>
 						<td><span> </span><a id="lblMile" class="lbl">公里</a></td>
-						<td><input type="text" id="txtVoyage" class="txt c1"/></td>
+						<td><input type="text" id="txtVoyage" class="txt c1 num"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblTotal" class="lbl">應收金額</a></td>
-						<td><input type="text" id="txtTotal" class="txt c1"/></td>
+						<td><input type="text" id="txtTotal" class="txt c1 num"/></td>
 						<td><span> </span><a id="lblTotal3" class="lbl">抽成獎金</a></td>
-						<td><input type="text" id="txtTotal3" class="txt c1"/></td>
+						<td><input type="text" id="txtTotal3" class="txt c1 num"/></td>
 						<td><span> </span><a id="lblCartype" class="lbl">隨車</a></td>
 						<td><input type="text"  id="txtBtime" class="txt c1"/></td>
 					</tr>
@@ -755,8 +762,8 @@
 						<input type="button" id="btnEndaddr.*" style="display:none;">
 					</td>
 					<td>
-						<input type="text" id="txtCarno.*" class="txt c1" style="width:95%;"/>
-						<input type="text" id="btnCarno.*" style="display:none;"/>
+						<input type="text" id="txtCardeal.*" class="txt c1" style="width:95%;"/>
+						<input type="text" id="btnCardeal.*" style="display:none;"/>
 					</td>
 					<td><input type="text" class="num"  id="txtbmiles.*" style="width:95%;"/></td>
 					<td><input type="text" class="num"  id="txtemiles.*" style="width:95%;"/></td>

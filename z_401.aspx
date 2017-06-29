@@ -60,7 +60,7 @@
 
 				$('#txtXmon1').mask('999/99');
 				$('#txtXmon2').mask('999/99');
-				$('#txtXdate').mask('999/99//99');
+				$('#txtXdate').mask('999/99/99');
 				var t_date=(dec(q_date().substr(4,2))%2==0)?q_cdn(q_date().substr(0,6)+'/28',-45).substr(0,6):q_date().substr(0,6);
 				//$('#txtXmon1').val(q_date().substr(0,6));
 				//$('#txtXmon2').val(q_cdn($('#txtXmon1').val()+'/01',45).substr(0,6)).attr('disabled', 'disabled').css('background','RGB(237,237,237)');
