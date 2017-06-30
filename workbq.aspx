@@ -738,14 +738,14 @@
 				}
 				
 				if(t_partno.length>0){
-					q_gt('qphr', "where=^^part='"+t_partno+"'^^", 0, 0, 0, "getqphr",r_accy,1);
+					q_gt('reason', "where=^^partno='"+t_partno+"' and typea='workbq'^^", 0, 0, 0, "getreason",r_accy,1);
 				}else{
-					q_gt('qphr', "where=^^part=''^^", 0, 0, 0, "getqphr",r_accy,1);
+					q_gt('reason', "where=^^partno='' and typea='workbq'^^", 0, 0, 0, "getreason",r_accy,1);
 				}
-				var as2 = _q_appendData("qphr", "", true);
+				var as2 = _q_appendData("reasons", "", true);
 				var t_item = "@";
 				for (var i = 0; i < as2.length; i++) {
-					t_item = t_item + (t_item.length > 0 ? ',' : '') + as2[i].phr + '@' + as2[i].phr;
+					t_item = t_item + (t_item.length > 0 ? ',' : '') + as2[i].reason;
 				}
 				
 				for(var i=0;i<q_bbsCount;i++){
