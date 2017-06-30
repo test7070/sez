@@ -616,6 +616,8 @@
 						<input id="txtAcc1"  type="text" class="txt c2"/>
 						<input id="txtAcc2"  type="text"  class="txt c3"/>
 						</td>
+						<td><span> </span><a id='lblCustchgno' class="lbl btn">客戶加減項</a></td>
+						<td><input id="txtCustchgno"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>

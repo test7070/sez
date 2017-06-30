@@ -46,7 +46,7 @@
             }
 
             function mainPost() {
-                $('#txtAcc1').change(function() {
+                $('#txtAcc1').blur(function() {
                 	if(!(q_cur==1 || q_cur==2))
                 		return;
                 	//避免存檔後才觸發到	
@@ -131,9 +131,6 @@
             function btnOk() {
             	Lock(1,{opacity:0});
             	
-            	//var patt = /^(\d{4})([^\.,.]*)$/g;
-                //$('#txtAcc1').val($('#txtAcc1').val().replace(patt,"$1.$2"));
-                $('#txtAcc1').change();
             	var t_acc1 = $.trim($('#txtAcc1').val());
             	if(t_acc1.length==0){
             		alert('請輸入'+q_getMsg('lblAcc1'));
