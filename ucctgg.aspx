@@ -19,8 +19,8 @@
             var q_name = "ucctgg";
             var q_readonly = ['txtNoa','txtWorker', 'txtWorker2','txtPredate','txtMount','txtPrice'];
             var q_readonlys = ['txtTotal'];
-            var bbmNum = [['txtMinmount', 10, 0, 1], ['txtMount', 10, 2, 1], ['txtPrice', 15, 2, 1]];
-            var bbsNum = [['txtMount', 10, 0, 1], ['txtPrice', 15, 3, 1]];
+            var bbmNum = [['txtMinmount', 10, 0, 1], ['txtMount', 10, 2, 1], ['txtPrice', 15, 4, 1]];
+            var bbsNum = [['txtMount', 10, 0, 1], ['txtPrice', 15, 4, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
