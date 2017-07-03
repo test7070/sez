@@ -92,19 +92,19 @@
 					+ q_sqlPara2("grpno", t_grpno);
 					
 				if (t_noa.length > 0)
-					t_where += " and charindex('" + t_noa + "',noa)>0";
+					t_where += " and charindex(N'" + t_noa + "',noa)>0";
 				if (t_comp.length > 0)
-                    t_where += " and (charindex('" + t_comp + "',comp)>0 or charindex('" + t_comp + "',nick)>0)";
+                    t_where += " and (charindex(N'" + t_comp + "',comp)>0 or charindex(N'" + t_comp + "',nick)>0)";
                 if (t_boss.length > 0)
-					t_where += " and charindex('" + t_boss + "',boss)>0";    
+					t_where += " and charindex(N'" + t_boss + "',boss)>0";    
                 if (t_invoicetitle.length > 0)
-					t_where += " and charindex('" + t_invoicetitle + "',invoicetitle)>0";
+					t_where += " and charindex(N'" + t_invoicetitle + "',invoicetitle)>0";
 				if (t_memo.length > 0)
-					t_where += " and charindex('" + t_memo + "',memo)>0";
+					t_where += " and charindex(N'" + t_memo + "',memo)>0";
 				if (t_tel.length > 0)
-					t_where += " and (charindex('" + t_tel + "',tel)>0 or charindex('" + t_tel + "',mobile)>0 or charindex('" + t_tel + "',fax)>0)";
+					t_where += " and (charindex(N'" + t_tel + "',tel)>0 or charindex(N'" + t_tel + "',mobile)>0 or charindex(N'" + t_tel + "',fax)>0)";
 				if (t_typea.length > 0)
-					t_where += " and charindex('" + t_typea + "',typea)>0";	
+					t_where += " and charindex(N'" + t_typea + "',typea)>0";	
 				t_where = ' where=^^' + t_where +r_where+ '^^ ';
 				return t_where;
 			}
