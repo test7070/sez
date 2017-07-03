@@ -26,6 +26,7 @@
 			brwNowPage = 0;
 			brwKey = 'noa';
 			q_desc = 1;
+			q_copy = 1;
 			//ajaxPath = ""; //  execute in Root
 			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']
 			, ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
@@ -69,10 +70,11 @@
 				}
 			};
 			var curData = new currentData();
+			var t_carteam = "";
 			$(document).ready(function() {
 				bbmKey = ['noa'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1);
+                q_gt('carteam', '', 0, 0, 0, "");
 			});			
 			//////////////////   end Ready
 			function main() {
@@ -88,8 +90,8 @@
 				q_modiDay= q_getPara('sys.modiday2');  /// 若未指定， d4=  q_getPara('sys.modiday'); 
 				bbmMask = [['txtDatea', r_picd]];
 				q_mask(bbmMask);
-				q_gt('carteam', '', 0, 0, 0, "");
-
+				
+				q_cmbParse("cmbCarteamno", t_carteam);
 				$('input[type="text"]').focus(function() {
 					$(this).addClass('focus_b');
 				}).blur(function() {
@@ -120,18 +122,62 @@
 				$('#lblAccno').click(function () {
 	            	q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
 	       		});
+	       		
+	       		$('#lblCustchgno').click(function(e){
+	       			if(!(q_cur==1 || q_cur==2))
+	       				return;
+	       			var t_where ='';
+	       			var t_project = q_getPara('sys.project').toUpperCase();
+	       			var t_carchgno = $('#txtNoa').val(); 
+	       			var t_custno = $('#txtCustno').val();
+                	q_box("custchg_dc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+";"+JSON.stringify({project:t_project,carchgno:t_carchgno,custno:t_custno}), "custchg2carchg", "95%", "95%", '');
+	       		});
 
 			}
 			function q_boxClose(s2) {
-				var ret;
-				switch (b_pop) {
-					case q_name + '_s':
+                var ret;
+                switch (b_pop) {
+                	case 'custchg2carchg':
+                        if (b_ret != null) {
+                        	as = b_ret;
+                        	if(as[0].noa.length>0)
+                        		$('#txtCustchgno').val(as[0].noa);
+                        	else
+                        		$('#txtCustchgno').val('');
+                        	/*for(var i=0;i<q_bbsCount;i++)
+                        		$('#btnMinus_'+i).click();
+                        	as = b_ret;
+                        	
+                        	for(var i=0;i<as.length;i++){
+                        		var n = parseInt(as[i].n);
+                        		if(n>1){
+                        			as[i].n = 1;
+                        			var a = as.slice(0,i);
+                        			var b = as.slice(i+1,as.length);
+                        			var t = as.slice(i,i+1);
+                        			var as = a;
+                        			while(n>0){
+                        				as = as.concat(t);
+                        				n--;
+                        			}
+                        			as = as.concat(b);
+                        		}
+                        	}
+                        	while(q_bbsCount<as.length)
+                        		$('#btnPlus').click();
+
+                    		q_gridAddRow(bbsHtm, 'tbbs', 'txtTypea,txtCustcngno'
+                        	, as.length, as, 'noa', '','');*/
+                        }else{
+                        	Unlock(1);
+                        }
+                        break;
+                    case q_name + '_s':
 						q_boxClose2(s2);
-						///   q_boxClose 3/4
 						break;
-				}   /// end Switch
-				b_pop='';
-			}
+                }
+                b_pop='';
+            }
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
@@ -156,16 +202,16 @@
 						break;
 					case 'carteam':
 						var as = _q_appendData("carteam", "", true);
-						var t_item = "@";
+						t_carteam = "@";
 						if(as[0]!=undefined){
     						for ( i = 0; i < as.length; i++) {
-    							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
+    							t_carteam = t_carteam + (t_carteam.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
     						}
-    						q_cmbParse("cmbCarteamno", t_item);
 						}
-						if(abbm[q_recno]!=undefined)
+						/*if(abbm[q_recno]!=undefined)
 					       $("#cmbCarteamno").val(abbm[q_recno].carteamno);
-						q_gridv('tview', browHtm, fbrow, abbm, brwNowPage, brwCount);
+						q_gridv('tview', browHtm, fbrow, abbm, brwNowPage, brwCount);*/
+						q_gt(q_name, q_content, q_sqlCount, 1);
 						break;
 					case q_name:
 						if (q_cur == 4)
@@ -214,28 +260,25 @@
 			}
 
 			function btnIns() {
-				curData.copy();
                 _btnIns();
-                switch(q_getPara('sys.project').toUpperCase()){
-                	case 'ES':
-                		//新增時保持空白
-                		break;
-                	default:
-                		curData.paste();
-                		break;
-                }
+                $('#txtNoa').val('AUTO');
+                $('#txtWorker').val('');
+                $('#txtTreno').val('');
+                $('#txtAccno').val('');
+                $('#txtCustchgno').val('');
+                
 				if(window.parent.q_name=='tran'){
                 		var wParent = window.parent.document;
-						var t_Datea= wParent.getElementById("txtDatea").value
-						var t_carno= wParent.getElementById("txtCarno").value
-						var t_driver= wParent.getElementById("txtDriver").value
-						var t_driverno= wParent.getElementById("txtDriverno").value
+						var t_Datea= wParent.getElementById("txtDatea").value;
+						var t_carno= wParent.getElementById("txtCarno").value;
+						var t_driver= wParent.getElementById("txtDriver").value;
+						var t_driverno= wParent.getElementById("txtDriverno").value;
 						$('#txtDatea').val(t_Datea);
 						$('#txtCarno').val(t_carno);
 						$('#txtDriverno').val(t_driverno);
 						$('#txtDriver').val(t_driver);
                 }
-				$('#txtNoa').val('AUTO');
+				
 				$('#txtDatea').focus();
 			}
 
