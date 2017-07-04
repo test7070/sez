@@ -132,7 +132,7 @@
 				q_getFormat();
 				bbmMask = [['txtOdate', r_picd],['txtDate1', r_picd],['txtDate2', r_picd],['txtDate4', r_picd]];
 				q_mask(bbmMask);
-				bbsMask = [['txtDatea', r_picd]];
+				bbsMask = [['txtDatea', r_picd],['txtIndate', r_picd]];
 				bbsNum = [['txtPrice', 12, q_getPara('vcc.pricePrecision'), 1], ['txtMount', 9, q_getPara('vcc.mountPrecision'), 1], ['txtTotal', 15, 0, 1]
 				, ['txtBenifit', 15, 0, 1],['txtC1', 10, q_getPara('vcc.mountPrecision'), 1], ['txtNotv', 10, q_getPara('vcc.mountPrecision'), 1], ['txtSprice', 10, q_getPara('vcc.pricePrecision'), 1]
 				,['txtCuft', 10, q_getPara('vcc.weightPrecision'), 1],['txtRadius', 12, q_getPara('vcc.pricePrecision'), 1]];
@@ -3007,7 +3007,10 @@
 					<td align="center" style="width:150px;display: none;" class="isimg"><a id='lblImg_s'> </a></td>
 					<td align="center" style="width:85px;"><a id='lblGemounts'> </a></td>
 					<td align="center" style="width:175px;"><a id='lblMemos_r'>Remark</a></td>
-					<td align="center" style="width:95px;"><a id='lblDateas'> </a></td>
+					<td align="center" style="width:95px;">
+						<a id='lblDateas'> </a>
+						<BR><a id='lblPlanpdate_s'>生管預交日</a>
+					</td>
 					<td align="center" style="width:43px;"><a id='lblEndas_r'>Closed</a></td>
 					<td align="center" style="width:43px;"><a id='lblCancels_r'>Cancel</a></td>
 					<td align="center" style="width:43px;"><a id='lblBorn'> </a></td>
@@ -3085,7 +3088,10 @@
 						<input class="txt" id="txtNo3.*" type="text" style="width: 20%;"/>
 						<input id="recno.*" type="hidden" />
 					</td>
-					<td><input class="txt c7" id="txtDatea.*" type="text" /></td>
+					<td>
+						<input class="txt c7" id="txtDatea.*" type="text" />
+						<input class="txt c7" id="txtIndate.*" type="text" />
+					</td>
 					<td align="center"><input id="chkEnda.*" type="checkbox"/></td>
 					<td align="center"><input id="chkCancel.*" type="checkbox"/></td>
 					<td align="center"><input class="btn" id="btnBorn.*" type="button" value='.' style=" font-weight: bold;" /></td>

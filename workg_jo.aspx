@@ -536,9 +536,9 @@
 							//106/06/03 依據預交日排序
 							as.sort(function(a, b) {if(a.datea>b.datea) {return 1;} if (a.datea < b.datea) {return -1;} return 0;});
 							
-							q_gridAddRow(bbsHtm, 'tbbs', 'txtRworkdate,txtProductno,txtProduct,txtSpec,txtStyle,txtOrdemount,txtMount,txtOrdeno,txtOdatea'
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtRworkdate,txtProductno,txtProduct,txtSpec,txtStyle,txtOrdemount,txtMount,txtOrdeno,txtOdatea,txtCuadate'
 							, as.length, as
-							, 'rworkdate,productno,product,spec,style,mount,mount,ordeno,datea,stationno,station', 'txtProductno');
+							, 'rworkdate,productno,product,spec,style,mount,mount,ordeno,datea,indate,stationno,station', 'txtProductno');
 						} else {
 							alert('無訂單資料!!。');
 						}
@@ -1116,8 +1116,8 @@
 					else
 						$('#txtMount_' + seq).val(0);*/
 					//沒有訂單號碼指定開工日寫入明天的日期
-					if(emp($('#txtOrdeno_' + seq).val())&&q_float('txtMount_'+ seq)>0)
-						$('#txtCuadate_' + seq).val(q_cdn(q_date(),1));
+					/*if(emp($('#txtOrdeno_' + seq).val())&&q_float('txtMount_'+ seq)>0)
+						$('#txtCuadate_' + seq).val(q_cdn(q_date(),1));*/
 				}
 			}
 
@@ -1418,7 +1418,7 @@
 				font-size: medium;
 			}
 			.dbbs {
-				width: 1900px;
+				width: 2000px;
 			}
 			.dbbs .tbbs {
 				margin: 0;
@@ -1656,7 +1656,7 @@
 						<td style="width:110px;">
 							<a id='lblMount_s' style="color: red;font-weight: bold;"> </a>
 						</td>
-						<!--<td style="width:80px;"><a id='lblCuadate_s'> </a></td>-->
+						
 						<!--<td style="width:130px;"><a id='lblStation_s'> </a></td>-->
 						<!--<td style="width:100px;"><a id='lblDayborn_s'> </a></td>-->
 						<td style="width:180px;"><a id='lblWorkno_s'> </a></td>
@@ -1665,6 +1665,7 @@
 						<td style="width:90px;">
 							<a id='lblUindate_s'> </a>/<a id='lblIndate_s'> </a>
 						</td>
+						<td style="width:90px;"><a id='lblPlanpdate_s'>生管預交日</a></td>
 						<td style="width:80px;"><a id='lblInmount_s'> </a></td>
 						<td style="width:100px;"><a id='lblWmount_s'> </a></td>
 						<td><a id='lblMemo_s'> </a></td>
@@ -1708,7 +1709,7 @@
 						<!--<td><input id="txtSalemount.*" type="text" class="txt c1 num orde"/></td>
 						<td style="display: none;"><input id="txtPlanmount.*" type="text" class="txt c1 num orde"/></td>-->
 						<td><input id="txtMount.*" type="text" class="txt c1 num orde odm"/></td>
-						<!--<td><input id="txtCuadate.*" type="text" class="txt c1"/></td>-->
+						
 						<!--<td>
 							<input id="txtStationno.*" type="text" class="txt c1" style="width: 70%"/>
 							<input id="btnStation.*" type="button" style="float:left;font-size: medium; font-weight: bold;" value="."/>
@@ -1722,6 +1723,7 @@
 							<input id="txtUindate.*" type="text" class="txt c1 orde odm"/>
 							<input id="txtIndate.*" type="text" class="txt c1"/>
 						</td>
+						<td><input id="txtCuadate.*" type="text" class="txt c1"/></td>
 						<td><input id="txtInmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtWmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtMemo.*" type="text" class="txt c1"/></td>

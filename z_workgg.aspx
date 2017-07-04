@@ -400,6 +400,38 @@
                 	}
                 	$("#btnRun").click();
 				}
+				
+				if(window.parent.q_name=='z_workgg'){
+					var tpara=q_getId()[3].split('&&');
+					var txaction='';
+					for(var i=0;i<tpara.length;i++){
+						if(tpara[i].indexOf('cuadate')>-1){
+							var tmp=replaceAll(tpara[i].split('=')[1],"'",'');
+							$('#txtXdate1').val(tmp);
+							$('#txtXdate2').val(tmp);
+						}else if(tpara[i].indexOf('stationno')>-1){
+							var tmp=replaceAll(tpara[i].split('=')[1],"'",'');
+							$('#txtXstationno1a').val(tmp).change();
+							$('#txtXstationno2a').val(tmp).change();
+						}else if(tpara[i].indexOf('xaction')>-1){
+							var tmp=replaceAll(tpara[i].split('=')[1],"'",'');
+							txaction=tmp;
+						}
+					}
+					if(txaction.length>0){
+						var t_index=-1;
+						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+							if($('#q_report').data('info').reportData[i].report==txaction){
+								t_index=i;
+								break;	
+							}
+						}
+						if(t_index>-1){
+							$('#q_report').find('span.radio').eq(t_index).parent().click();	
+							$("#btnOk").click();
+						}
+					}
+				}
 			}
 
 			function q_boxClose(s2) {
@@ -534,7 +566,8 @@
 									DateObj[j].mount = q_add(dec(DateObj[j].mount),round(TTD[j][1],3));
 									//OutHtml += "<td class='num'"+(thisValue>thisGen?' style="color:red;"':'')+"><font title='日產能:"+thisGen+"'>" + round(thisValue,0) + "</font></td>";
 									OutHtml += "<td class='num'"+(thisValue>thisGen?' style="color:red;"':'')+"><font title='日產能:"+thisGen+"'>"
-									+(thisValue>thisGen?"<a style='color:red;' href=JavaScript:q_box('work.aspx',\";cuadate='"+DateObj[j].datea+"'&&stationno='"+TL[k].stationno+"';106\",'95%','95%','106')>":'') + Zerospaec(round(thisValue,0)) +(thisValue>thisGen?'</a>':'')+ "</font></td>";
+									//+(thisValue>thisGen?"<a style='color:red;' href=JavaScript:q_box('work.aspx',\";cuadate='"+DateObj[j].datea+"'&&stationno='"+TL[k].stationno+"';106\",'95%','95%','106')>":'') + Zerospaec(round(thisValue,0)) +(thisValue>thisGen?'</a>':'')+ "</font></td>";
+									+(thisValue>thisGen?"<a style='color:red;' href=JavaScript:q_box('z_workgg.aspx',\";cuadate='"+DateObj[j].datea+"'&&stationno='"+TL[k].stationno+"'&&xaction='z_workgg4';106\",'95%','95%','106')>":'') + Zerospaec(round(thisValue,0)) +(thisValue>thisGen?'</a>':'')+ "</font></td>";
 								}
 								ATotal = q_add(ATotal,tTotal);
 								OutHtml += "<td class='num'>" + Zerospaec(round(tTotal,0)) + "</td>";

@@ -326,7 +326,7 @@
 					$('#btn_div_cugt').attr('disabled', 'disabled');
 					$('#btn_div_cugt').val('更新中....');
 					q_func('qtxt.query.cugtchange', 'cug.txt,cugtchange,'+t_cugt_bstationno+';'+t_cugt_estationno+';'+t_cugt_bstationgno+';'+t_cugt_estationgno
-					+';'+t_cugt_bdate+';'+t_cugt_edate+';'+t_cugt_saturday+';'+t_cugt_sunday+';'+t_cugt_gen+';'+t_week+';'+r_name);
+					+';'+t_cugt_bdate+';'+t_cugt_edate+';'+t_cugt_saturday+';'+t_cugt_sunday+';'+t_cugt_gen+';'+t_week+';'+r_name+';'+r_len);
 					q_cur=0;
 					$('#div_cugtweek').hide();
 				});
@@ -1532,8 +1532,9 @@
 									$('#textAllDelayday').val('');
 									//查詢子階work
 									var t_where = "where=^^ cuano+'-'+cuanoq=(select cuano+'-'+cuanoq from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') ";
-									t_where=t_where+"and isnull(previd,'')=(select isnull(nowid,'') from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') ";
-									t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') ^^";
+									t_where=t_where+"and isnull(previd,'')='"+$('#txtWorkno_' + b_seq).val()+"' ^^";
+									//t_where=t_where+"and isnull(previd,'')=(select isnull(nowid,'') from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') ";
+									//t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') ^^";
 									q_gt('view_work', t_where, 0, 0, 0, "child_work", r_accy);
 									//有廠商的work也要顯示 >>>拿掉 and stationno!=''
 									$('#div_child').css('top', $('#btnChildchange_'+b_seq).offset().top+25);
@@ -1879,8 +1880,9 @@
                 		//重新開啟新的資料
                 		$('#div_child').toggle();
 						var t_where = "where=^^ cuano+'-'+cuanoq=(select cuano+'-'+cuanoq from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ";
-						t_where=t_where+"and isnull(previd,'')=(select isnull(nowid,'') from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ";
-						t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ^^";
+						t_where=t_where+"and isnull(previd,'')='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"' ^^";
+						//t_where=t_where+"and isnull(previd,'')=(select isnull(nowid,'') from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ";
+						//t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ^^";
 						//有廠商的work也要顯示 >>>拿掉 and stationno!=''
 						q_gt('view_work', t_where, 0, 0, 0, "child_work", r_accy);
                 	break;
@@ -1889,8 +1891,9 @@
                 		//重新開啟新的資料
                 		$('#div_child').toggle();
 						var t_where = "where=^^ cuano+'-'+cuanoq=(select cuano+'-'+cuanoq from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ";
-						t_where=t_where+"and isnull(previd,'')=(select isnull(nowid,'') from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ";
-						t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ^^";
+						t_where=t_where+"and isnull(previd,'')='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"' ^^";
+						//t_where=t_where+"and isnull(previd,'')=(select isnull(nowid,'') from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ";
+						//t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ^^";
 						q_gt('view_work', t_where, 0, 0, 0, "child_work", r_accy);
                 	break;
                 	case 'qtxt.query.workreal':
