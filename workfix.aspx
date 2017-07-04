@@ -330,13 +330,25 @@
 						t_partno=as[0].partno;
 					}
 					if(t_partno.length>0){
-						q_gt('qphr', "where=^^part='"+t_partno+"'^^", 0, 0, 0, "getqphr",r_accy,1);
-						var as = _q_appendData("qphr", "", true);
+						q_gt('reason', "where=^^partno='"+t_partno+"' and typea='workfix' ^^", 0, 0, 0, "getreason",r_accy,1);
+						var as = _q_appendData("reasons", "", true);
 						var t_item = "@";
 						for (var i = 0; i < as.length; i++) {
-							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].phr + '@' + as[i].phr;
+							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].reason;
 						}
-						q_cmbParse("combMemo", t_item,'s');
+						for(var i=0;i<q_bbsCount;i++){
+							q_cmbParse("combMemo_"+i, t_item);
+						}
+					}else{
+						q_gt('reason', "where=^^partno='' and typea='workfix' ^^", 0, 0, 0, "getreason",r_accy,1);
+						var as = _q_appendData("reasons", "", true);
+						var t_item = "@";
+						for (var i = 0; i < as.length; i++) {
+							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].reason;
+						}
+						for(var i=0;i<q_bbsCount;i++){
+							q_cmbParse("combMemo_"+i, t_item);
+						}
 					}
 				}
 			}

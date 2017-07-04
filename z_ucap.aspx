@@ -378,6 +378,61 @@
 				
 				$('#lblXvccnum').css('font-size','12px');
 				$('#txtXvccnum').css('text-align','right');
+				
+				var tmp = document.getElementById("btnOk");
+                var tmpbtn = document.createElement("input");
+                tmpbtn.id = "btnOk2"
+                tmpbtn.type = "button"
+                tmpbtn.value = "查詢"
+                tmpbtn.style.cssText = "font-size: 16px; font-weight: bold; color: blue; cursor: pointer;";
+                tmp.parentNode.insertBefore(tmpbtn, tmp);
+                $('#btnOk').hide();
+				
+				$('#btnOk2').click(function(e) {
+                    var tindex=$('#q_report').data().info.radioIndex;
+                    var treport=$('#q_report').data().info.reportData[tindex].report;
+                    var treportname=$('#q_report').data().info.reportData[tindex].reportName;
+                    if(treport=='z_ucap1'){
+                    	var t_limit=3;//限制顯示筆數
+                    	
+                    	var t_bnoa=$.trim($('#txtSpno1a').val());
+                    	var t_enoa=$.trim($('#txtSpno2a').val());
+                    	var t_groupano=$('#Xgroupano select').val();
+                    	var t_groupbno=$('#Xgroupbno select').val();
+                    	var t_typea=$('#Xtypea select').val();
+                    	var t_style=$.trim($('#txtXstyle').val());
+                    	
+                    	var t_where="1=1";
+                    	
+                    	if(t_bnoa.length>0 && t_enoa.length>0){
+                    		t_where+=" and noa between '"+t_bnoa+"' and '"+t_enoa+"'";
+                    	}else if(t_bnoa.length>0){
+                    		t_where+=" and noa >= '"+t_bnoa+"'";
+                    	}else if(t_enoa.length>0){
+                    		t_where+=" and noa <= '"+t_enoa+"'";
+                    	}
+                    	
+                    	if(t_groupano.length>0 && t_groupano!='#non')
+							t_where+=" and groupano='"+t_groupano+"'";
+						if(t_groupbno.length>0 && t_groupbno!='#non')
+							t_where+=" and groupbno='"+t_groupbno+"'";
+						if(t_style.length>0 && t_style!='#non')
+							t_where+=" and charindex('"+t_style+"',style)>0)";
+						if(t_typea.length>0 && t_typea!='#non') 
+							t_where+=" and typea='"+t_typea+"'";
+                    	
+						q_gt('uca', "where=^^"+t_where+"^^ stop=20", 0, 0, 0, "getauthority",r_accy,1);
+						var as_uca = _q_appendData("uca", "", true);
+						if(as_uca.length>t_limit){
+							q_msg($(this),"【"+treportname+"】查詢產品數量超過"+t_limit+"筆，避免執行時間過長將限制顯示筆數!!",0,3000);
+							$('#txtSpno2a').val(as_uca[4].noa);
+							$('#txtSpno2b').val(as_uca[4].product);
+						}
+						$('#btnOk').click();
+                    }else{
+                    	$('#btnOk').click();
+                    }
+                });
 			}
 
 			function q_boxClose(s2) {

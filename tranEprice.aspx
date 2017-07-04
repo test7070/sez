@@ -30,14 +30,14 @@
             brwKey = 'noa';
             //ajaxPath = ""; //  execute in Root
             aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr', 'txtStraddrno,txtStraddr', 'addr_b.aspx']);
+            
+            var t_calctypes="";
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1)
-                $('#txtNoa').focus
+                q_gt('calctype2', '', 0, 0, 0, "calctype");
             });
 
-            //////////////////   end Ready
             function main() {
                 if (dataErr) {
                     dataErr = false;
@@ -45,7 +45,7 @@
                 }
                 mainForm(0);
                 // 1=Last  0=Top
-            }///  end Main()
+            }
 
             function mainPost() {
                 bbmMask = new Array(['txtDatea', r_picd], ['txtMon', r_picm],['txtBdate', r_picd], ['txtEdate', r_picd]);
@@ -54,7 +54,7 @@
                 if(q_getPara('sys.comp').substring(0,2)=='大昌'){
                 	q_cmbParse("cmbCalctype", "0@全部,1@公司車,2@外車");
                 }else{
-                	q_gt('calctype2', '', 0, 0, 0, "calctype");
+                	q_cmbParse("cmbCalctype", t_calctypes);
                 }
                 $("#cmbCalctype").focus(function() {
                     var len = $("#cmbCalctype").children().length > 0 ? $("#cmbCalctype").children().length : 1;
@@ -100,9 +100,7 @@
                         for ( i = 0; i < as.length; i++) {
                             t_calctypes += (t_calctypes.length > 0 ? ',' : '') + as[i].noa + as[i].noq + '@' + as[i].typea;
                         }
-                        q_cmbParse("cmbCalctype", t_calctypes);
-                        if (abbm.length > 0)
-                            $("#cmbCalctype").val(abbm[q_recno].calctype);
+                        q_gt(q_name, q_content, q_sqlCount, 1);
                         break;
                     case q_name:
                         if (q_cur == 4)
