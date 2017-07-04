@@ -355,7 +355,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 1650px;
+                width: 1700px;
             }
             .tbbs a {
                 font-size: medium;
@@ -484,6 +484,7 @@
 					<td align="center" style="width:150px"><a>廢棄物</a></td>
 					<td align="center" style="width:90px"><a>事業噸數</a></td>
 					<td align="center" style="width:90px"><a>處理廠噸數</a></td>
+					<td align="center" style="width:60px"><a>單位</a></td>
 					<td align="center" style="width:90px"><a>處理單價</a></td>
 					<td align="center" style="width:90px"><a>金額</a></td>
 					<td align="center" style="width:160px"><a>聯單編號</a></td>
@@ -512,6 +513,7 @@
 						<input type="text" id="txtProduct.*" style="float:left;width:53%;"/>
 						<input type="button" id="btnProduct.*" style="display:none;"/>
 					</td>
+					<td><input type="text" id="txtUnit.*" style="width:95%;"/></td>
 					<td><input type="text" id="txtWeight.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtWeight2.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtPrice.*" class="num" style="width:95%;"/></td>
