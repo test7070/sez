@@ -1880,8 +1880,9 @@
                 		//重新開啟新的資料
                 		$('#div_child').toggle();
 						var t_where = "where=^^ cuano+'-'+cuanoq=(select cuano+'-'+cuanoq from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ";
-						t_where=t_where+"and isnull(previd,'')=(select isnull(nowid,'') from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ";
-						t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ^^";
+						t_where=t_where+"and isnull(previd,'')='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"' ^^";
+						//t_where=t_where+"and isnull(previd,'')=(select isnull(nowid,'') from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ";
+						//t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ^^";
 						//有廠商的work也要顯示 >>>拿掉 and stationno!=''
 						q_gt('view_work', t_where, 0, 0, 0, "child_work", r_accy);
                 	break;
@@ -1890,8 +1891,9 @@
                 		//重新開啟新的資料
                 		$('#div_child').toggle();
 						var t_where = "where=^^ cuano+'-'+cuanoq=(select cuano+'-'+cuanoq from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ";
-						t_where=t_where+"and isnull(previd,'')=(select isnull(nowid,'') from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ";
-						t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ^^";
+						t_where=t_where+"and isnull(previd,'')='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"' ^^";
+						//t_where=t_where+"and isnull(previd,'')=(select isnull(nowid,'') from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ";
+						//t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ^^";
 						q_gt('view_work', t_where, 0, 0, 0, "child_work", r_accy);
                 	break;
                 	case 'qtxt.query.workreal':
