@@ -1550,14 +1550,14 @@
 						<td><input id="txtNoa" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblKdate" class="lbl"> </a></td>
 						<td>
-							<input id="txtKdate" type="text" class="txt c1" style="width:65%;"/>
+							<input id="txtKdate" type="text" class="txt c1" style="width:55%;"/>
 							<div style="float:left;">
 								<input id="Copy" type="checkbox" />
 								<span> </span><a id="lblCopy"> </a>
 							</div>
 						</td>
 						<td><span> </span><a id="lblWdate" class="lbl"> </a></td>
-						<td><input id="txtWdate" type="text" class="txt c1" style="width:90%;"/></td>
+						<td><input id="txtWdate" type="text" class="txt c1" style="width:55%;"/></td>
 					</tr>
 					<tr style="display: none;">
 						<td><span> </span><a id="lblProduct" class="lbl"> </a></td>
