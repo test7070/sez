@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery-1.6.1.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -139,6 +139,7 @@
 					<td class="td2" align="center" style="width:10%;"><a id='lblCustno'> </a></td>
 					<td class="td3" align="center" style="width:20%;"><a id='lblComp'> </a></td>
 					<td class="td4" align="center" style="width:15%;"><a id='lblProductno'> </a></td>
+					<td class="td4" align="center" style="width:20%;"><a id='lblProduct'> </a></td>
 					<td class="isport" align="center" style="width:10%;display: none;"><a id='lblPackwayno'> </a></td>
 					<td class="isport" align="center" style="width:15%;display: none;"><a id='lblPackway'> </a></td>
 					<!--<td class="td4" align="center" style="width:10%;"><a id='lblPrice'> </a></td>-->
@@ -152,6 +153,7 @@
 					<td class="td2"><input class="txt"  id="txtCustno.*" maxlength='30'type="text" style="width:95%;"  /></td>
 					<td class="td3"><input class="txt" id="txtComp.*" type="text" maxlength='90' style="width:95%;"   /></td>
 					<td class="td4"><input class="txt" id="txtProductno.*" type="text" style="width:95%;"  /></td>
+					<td class="td4"><input class="txt" id="txtProduct.*" type="text" style="width:95%;"  /></td>
 					<td class="isport" style="display: none;">
 						<input class="txt" id="txtPackwayno.*" type="text" style="width:65%;"  />
 						<input class="btn" id="btnPackway.*" type="button" value='.' style=" font-weight: bold;"/>
