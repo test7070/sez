@@ -649,9 +649,9 @@
                 $('#txtWmon2').mask('999/99');
 
                 $('#chkXoption2').children('input').attr('checked', 'checked');
-                //$('#chkXcarteam').children('input').attr('checked', 'checked');
+                $('#chkXcarteam').children('input').attr('checked', 'checked');
                 $('#chkXcarkind').children('input').attr('checked', 'checked');
-                //$('#chkXcalctypes').children('input').attr('checked', 'checked');
+                $('#chkXcalctypes').children('input').attr('checked', 'checked');
                 $('#chkXfield05').children('input').attr('checked', 'checked');
                 $('#chkYoption28').children('input').attr('checked', 'checked');
                 
