@@ -513,6 +513,7 @@
 										TL[j].rate = q_add(dec(TL[j].rate),dec(as[i].mount));
 										TL[j].days = q_add(dec(TL[j].days),1);
 										isFind = true;
+										break;
 									}
 								}
 								if(!isFind){
@@ -520,7 +521,7 @@
 										stationno : as[i].stationno,
 										station : as[i].station,
 										gen : (dec(as[i].gen)==0?8:dec(as[i].gen)),
-										rate : 0,
+										rate : dec(as[i].mount),
 										days : 1,
 										datea : []
 									});
@@ -573,8 +574,9 @@
 							for(var k=0;k<TL.length;k++){
 								OutHtml += '<tr>';
 								OutHtml += "<td class='Lproduct' style='width:120px;'>" + TL[k].stationno + "</td><td class='Lproduct' style='width:120px;'>" + TL[k].station + "</td>" +
-										   "<td class='num'>" + TL[k].gen + "</td>" +
-										   "<td class='num'>" + (dec(TL[k].gen)==0?0:round(q_mul(q_div(TL[k].rate,q_mul(TL[k].gen,TL[k].days)),100),3)) + "</td>";
+										   "<td class='num'>" + TL[k].gen + "</td>" 
+										   //+"<td class='num'>" + (dec(TL[k].gen)==0?0:round(q_mul(q_div(TL[k].rate,q_mul(TL[k].gen,TL[k].days)),100),3)) + "</td>";
+										   +"<td class='num'>" + (dec(TL[k].gen)==0?0:round(q_mul(q_div(TL[k].rate,q_mul(TL[k].gen,DateList.length)),100),3)) + "</td>";
 								var TTD = TL[k].datea;
 								var tTotal = 0;
 								for(var j=0;j<TTD.length;j++){
