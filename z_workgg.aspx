@@ -27,7 +27,9 @@
 				
 				$('#q_report').click(function(e) {
 					var n=$('#q_report').data().info.radioIndex;
-					if($('#q_report').data().info.reportData[n].report=='z_workgg6'){
+					if($('#q_report').data().info.reportData[n].report=='z_workgg6'
+					|| $('#q_report').data().info.reportData[n].report=='z_workgg13'
+					){
 						$('#lblXdate').text('預交日');
 					}else{
 						$('#lblXdate').text(q_getMsg('lblXdate'));

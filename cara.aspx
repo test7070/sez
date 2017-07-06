@@ -63,7 +63,7 @@
                 q_mask(bbmMask);
 				bbsMask = [['txtDatea', r_picd],['txtIndate', r_picd],['txtPdate', r_picd],['txtUdate', r_picd],['txtPaydate', r_picd]];
                 //q_mask(bbsMask);
-                $('#textNextmon').mask('999/99');
+                $('#textNextmon').mask(r_picm);
                 $('#textDiscount').mask('99');
                 q_cmbParse("cmbIsource", q_getPara('cara.isource'));
                 
@@ -348,6 +348,12 @@
 	           					}
                     		}
                     		sum();
+                		break;
+                	case 'getcaracar':
+                		var as = _q_appendData("cara", "", true);
+                    	if(as[0]!=undefined){
+                    		alert('車牌重複!!');
+                    	}
                 		break;
                     case q_name:
                         if(q_cur == 4)
@@ -830,6 +836,13 @@
 		    			//判斷要輸入支付和付款
            				var t_where = "where=^^ noa ='"+$('#txtCaritemno_'+b_seq).val()+"' ^^";
 					    q_gt('caritem', t_where , 0, 0, 0, "", r_accy);
+			        break;
+			        case 'txtCarno':
+		    			//判斷cara 是否有帳(DC許s)
+		    			if(q_getPara('sys.project').toUpperCase()=='DC'){
+	           				var t_where = "where=^^ carno ='"+$('#txtCarno').val()+"' ^^ stop=100";
+						    q_gt('cara', t_where , 0, 0, 0, "getcaracar", r_accy);
+					    }
 			        break;
 		    	}
 			}
