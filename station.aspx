@@ -526,7 +526,7 @@
 					<tr>
 						<td class="td1"><span> </span><a id='lblMaxgen' class="lbl"> </a></td>
 						<td class="td2"><input id="txtMaxgen" type="text" class="txt c1 num"/></td>
-						<td class="td3">Pcs</td>
+						<td class="td3"><a id='lblMaxgenunit' class="lbl" style="float: left;"> </a></td>
 						<td class="td4"> </td>
 					</tr>
 					<tr>
