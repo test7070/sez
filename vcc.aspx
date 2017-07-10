@@ -957,6 +957,10 @@
 				HiddenTreat();
 				stype_chang();
 				refreshBbm();
+				if (q_getPara('sys.project').toUpperCase()=='ENG'){
+                    $('#xbProductno').css('width', '100px');
+                    $('#xbProduct').css('width', '260px');
+                }
 			}
 
 			function HiddenTreat(returnType){
@@ -1413,8 +1417,8 @@
 					<td align="center" style="width:40px;">
 						<input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;width:" />
 					</td>
-					<td align="center" style="width:180px"><a id='lblProductno_s'> </a></td>
-					<td align="center" style="width:180px;"><a id='lblProduct_s'> </a></td>
+					<td align="center" style="width:180px" id='xbProductno'><a id='lblProductno_s'> </a></td>
+					<td align="center" style="width:180px;" id='xbProduct'><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:95px;" class="isStyle"><a id='lblStyle_s'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblMount_s'> </a></td>

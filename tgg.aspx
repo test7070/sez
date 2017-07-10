@@ -53,7 +53,7 @@
 			currentData.prototype = {
 				data : [],
 				/*排除的欄位,新增時不複製*/
-				exclude : [],
+				exclude : [],		
 				/*記錄當前的資料*/
 				copy : function() {
 					curData.data = new Array();
@@ -78,6 +78,12 @@
 					for (var i in curData.data) {
 						$('#' + curData.data[i].field).val(curData.data[i].value);
 					}
+					if(q_getPara('sys.project').toUpperCase()=='ENG' || q_getPara('sys.project').toUpperCase()=='ST'){
+                        $('#txtUacc1').val('');
+                        $('#txtUacc2').val('');
+                        $('#txtUacc3').val('');
+                        $('#txtUacc4').val('');
+                    }
 				}
 			};
 			var curData = new currentData();
