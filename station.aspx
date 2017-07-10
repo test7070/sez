@@ -55,6 +55,10 @@
 			
 			function mainPost() {
 				q_getFormat();
+				
+				q_cmbParse("cmbGensel", '1@'+q_getMsg('lblMachinehour')+','+'2@'+q_getMsg('lblManhour'));
+				ChangeMUnit();
+				
 				$('#txtNoa').change(function(e) {
 					$(this).val($.trim($(this).val()).toUpperCase());
 					if ($(this).val().length > 0) {
@@ -73,6 +77,10 @@
 				});
 				$('#txtMount').change(function(){
 					sum();
+				});
+				
+				$('#cmbGensel').change(function(){
+					ChangeMUnit();
 				});
 			}
 
@@ -148,6 +156,7 @@
 				_btnModi();
 				refreshBbm();
 				$('#txtStation').focus();
+				ChangeMUnit();
 			}
 
 			function btnPrint() {
@@ -165,6 +174,7 @@
 					}
 				}
 				_bbsAssign();
+				ChangeMUnit();
 			}
 
 			function bbsSave(as) {
@@ -197,6 +207,7 @@
 			function refresh(recno) {
 				_refresh(recno);
 				refreshBbm();
+				ChangeMUnit();
 			}
 
 			function refreshBbm() {
@@ -262,6 +273,16 @@
 
 			function btnCancel() {
 				_btnCancel();
+			}
+			
+			function ChangeMUnit() {
+				if($('#cmbGensel').val()=='1'){
+					$('#lblManunit').text(q_getMsg('lblMachinehour'));
+					$('#lblMachunit').text(q_getMsg('lblMachinehour'));
+				}else{
+					$('#lblManunit').text(q_getMsg('lblManhour'));
+					$('#lblMachunit').text(q_getMsg('lblManhour'));
+				}
 			}
 		</script>
 		<style type="text/css">
@@ -472,46 +493,52 @@
 						<td class="td4"> </td>
 					</tr>
 					<tr>
+						<td class="td1"><span> </span><a id='lblGensel' class="lbl"> </a></td>
+						<td class="td2"><select id="cmbGensel" style="font-size: medium;" > </select></td>
+						<td class="td3"> </td>
+						<td class="td4"> </td>
+					</tr>
+					<tr>
 						<td class="td1"><span> </span><a id='lblHours' class="lbl"> </a></td>
 						<td class="td2"><input id="txtHours" type="text" class="txt c1 num"/></td>
-						<td class="td3"> </td>
+						<td class="td3">HR</td>
 						<td class="td4"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblWages' class="lbl"> </a></td>
 						<td class="td2"><input id="txtWages" type="text" class="txt c1 num"/></td>
-						<td class="td3">人時</td>
+						<td class="td3"><a id='lblManunit' class="lbl" style="float: left;"> </a></td>
 						<td class="td4"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMount' class="lbl"> </a></td>
 						<td class="td2"><input id="txtMount" type="text" class="txt c1 num"/></td>
-						<td class="td3"> </td>
+						<td class="td3"><a id='lblMechunit' class="lbl" style="float: left;"> </a></td>
 						<td class="td4"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblGen' class="lbl"> </a></td>
 						<td class="td2"><input id="txtGen" type="text" class="txt c1 num"/></td>
-						<td class="td3">機時</td>
+						<td class="td3"><a id='lblMachunit' class="lbl" style="float: left;"> </a></td>
 						<td class="td4"> </td>
 						
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMaxgen' class="lbl"> </a></td>
 						<td class="td2"><input id="txtMaxgen" type="text" class="txt c1 num"/></td>
-						<td class="td3">Pcs</td>
+						<td class="td3"><a id='lblMaxgenunit' class="lbl" style="float: left;"> </a></td>
 						<td class="td4"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMovmount' class="lbl"> </a></td>
 						<td class="td2"><input id="txtMovmount" type="text" class="txt c1 num"/></td>
-						<td class="td3"> </td>
+						<td class="td3">Pcs</td>
 						<td class="td4"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMovtime' class="lbl"> </a></td>
 						<td class="td2"><input id="txtMovtime" type="text" class="txt c1 num"/></td>
-						<td class="td3">Hr</td>
+						<td class="td3">HR</td>
 						<td class="td4"> </td>
 					</tr>
 					<tr>
@@ -520,7 +547,7 @@
 						<td class="td3">Min.</td>
 						<td class="td4"> </td>
 					</tr>
-					<tr>
+					<tr style="display: none;">
 						<td class="td1"><span> </span><a id='lblMechcost' class="lbl"> </a></td>
 						<td class="td2"><input id="txtMechcost" type="text" class="txt c1 num"/></td>
 						<td class="td3"> </td>

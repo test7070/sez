@@ -264,19 +264,19 @@
 								var as1 = _q_appendData("station", "", true);
 								if (as1[0] != undefined) {
 									if(as1[0].partno.length>0){
-										q_gt('qphr', "where=^^part='"+as1[0].partno+"'^^", 0, 0, 0, "getqphr",r_accy,1);
-										var as2 = _q_appendData("qphr", "", true);
+										q_gt('reason', "where=^^partno='"+as1[0].partno+"' and typea='workg'^^ ", 0, 0, 0, "getreason",r_accy,1);
+										var as2 = _q_appendData("reasons", "", true);
 										var t_item = "@";
 										for (var i = 0; i < as2.length; i++) {
-					                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as2[i].phr + '@' + as2[i].phr;
+					                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as2[i].reason;
 					                    }
 					                    q_cmbParse("cmbWmemo", t_item);
 									}else{
-										q_gt('qphr', "where=^^part=''^^", 0, 0, 0, "getqphr",r_accy,1);
-										var as2 = _q_appendData("qphr", "", true);
+										q_gt('reason', "where=^^partno='' and typea='workg' ^^", 0, 0, 0, "getreason",r_accy,1);
+										var as2 = _q_appendData("reasons", "", true);
 										var t_item = "@";
 										for (var i = 0; i < as2.length; i++) {
-					                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as2[i].phr + '@' + as2[i].phr;
+					                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as2[i].reason;
 					                    }
 					                    q_cmbParse("cmbWmemo", t_item);
 									}

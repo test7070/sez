@@ -160,7 +160,14 @@
             function btnIns() {
                 curData.copy();
                 _btnIns();
-                curData.paste();
+                switch(q_getPara('sys.project').toUpperCase()){
+                	case 'ES':
+                		//新增時保持空白
+                		break;
+                	default:
+                		curData.paste();
+                		break;
+                }
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();

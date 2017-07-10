@@ -46,7 +46,10 @@
             }
 
             function mainPost() {
-                $('#txtAcc1').change(function() {
+                $('#txtAcc1').blur(function() {
+                	if(!(q_cur==1 || q_cur==2))
+                		return;
+                	//避免存檔後才觸發到	
                 	var patt = /^(\d{4})([^\.,.]*)$/g;
                     $(this).val($(this).val().replace(patt,"$1.$2"));
                     var t_acc1 = $.trim($(this).val());
@@ -76,11 +79,13 @@
                     	try{
                     		t_para = JSON.parse(t_name);
                     		if(t_para.action=='change'){
-                    			var as = _q_appendData('acc', "", true);
-                    			if(as[0]!=undefined){
-                    				alert('【'+as[0].acc1+' '+as[0].acc2 +'】 已存在!');
+                    			if(q_cur==1 || q_cur==2){
+                    				var as = _q_appendData('acc', "", true);
+	                    			if(as[0]!=undefined){
+	                    				alert('【'+as[0].acc1+' '+as[0].acc2 +'】 已存在!');
+	                    			}
+	                    			Unlock(1);
                     			}
-                    			Unlock(1);
                     		}else{t_para.action=='save';
                     			var t_acc1 = t_para.acc1;
                     			var as = _q_appendData('acc', "", true);
@@ -126,9 +131,6 @@
             function btnOk() {
             	Lock(1,{opacity:0});
             	
-            	//var patt = /^(\d{4})([^\.,.]*)$/g;
-                //$('#txtAcc1').val($('#txtAcc1').val().replace(patt,"$1.$2"));
-                $('#txtAcc1').change();
             	var t_acc1 = $.trim($('#txtAcc1').val());
             	if(t_acc1.length==0){
             		alert('請輸入'+q_getMsg('lblAcc1'));
