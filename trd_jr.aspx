@@ -815,14 +815,18 @@
 							<span style="float:left;display: block;width:3%;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
 							<input id="txtEdate" type="text" style="float:left; width:45%;"/>
 						</td>
-						<td><span> </span><a id="lblStraddr" class="lbl btn"> </a></td>
+						<!--<td><span> </span><a id="lblStraddr" class="lbl btn"> </a></td>
 						<td colspan="3">
 							<input id="txtStraddrno" type="text"  class="txt" style="float:left;width:25%;"/>
 							<input id="txtStraddr" type="text"  class="txt" style="float:left;width:20%;"/>
 							<span style="float:left; display:block; width:3%;">~</span>
 							<input id="txtEndaddrno" type="text"  class="txt" style="float:left;width:25%;"/>
 							<input id="txtEndaddr" type="text"  class="txt" style="float:left;width:20%;"/>
-						</td>
+						</td>-->
+						<td class="tdZ"> </td>
+						<td class="tdZ"> </td>
+						<td class="tdZ"> </td>
+						<td class="tdZ"> </td>
 						<td class="tdZ"> </td>
 					</tr>
 					<tr class="trX">
@@ -854,13 +858,13 @@
 						<td><input type="button" id="btnCustchg" class="txt c1"/></td>
 						<td class="tdZ"> </td>
 					</tr>
-					<tr class="trY">
+					<!--<tr class="trY">
 						<td><span> </span><a id="lblVccano" class="lbl btn"> </a></td>
 						<td colspan="5"><input id="txtVccano" type="text" class="txt c1"/></td>
 						<td> </td>
 						<td><input type="button" id="btnVcca" class="txt c1"/></td>
 						<td class="tdZ"> </td>
-					</tr>
+					</tr>-->
 					<tr>
 						<td><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
 						<td colspan="3">
@@ -870,7 +874,7 @@
 						<td><span> </span><a id="lblMon" class="lbl"> </a></td>
 						<td><input id="txtMon" type="text"  class="txt c1"/></td>
 					</tr>
-					<tr>
+					<!--<tr>
 						<td><span> </span><a id="lblBoat" class="lbl btn"> </a></td>
 						<td colspan="3">
 							<input id="txtBoatno" type="text" style="float:left; width:30%;"/>
@@ -881,7 +885,7 @@
 							<input id="txtBoatname" type="text" style="float:left; width:50%;" />
 							<input id="txtShip" type="text" style="float:left; width:50%;"/>
 						</td>
-					</tr>
+					</tr>-->
 					<tr>
 						<td><span> </span><a id="lblMoney" class="lbl"> </a></td>
 						<td><input id="txtMoney" type="text"  class="txt c1 num"/></td>
