@@ -486,17 +486,13 @@
 					<td align="center" style="width:90px"><a>處理廠噸數</a></td>
 					<td align="center" style="width:60px"><a>單位</a></td>
 					<td align="center" style="width:90px"><a>處理單價</a></td>
-					<td align="center" style="width:90px"><a>應收金額</a></td>
-					<td align="center" style="width:90px"><a>應付金額</a></td>
+					<td align="center" style="width:90px"><a>應收運費</a></td>
+					<td align="center" style="width:90px"><a>應付運費</a></td>
 					<td align="center" style="width:160px"><a>聯單編號</a></td>
 					<td align="center" style="width:80px"><a>出車車號</a></td>
-<<<<<<< HEAD
-=======
-					<!--<td align="center" style="width:80px"><a>車隊</a></td>-->
->>>>>>> 116a6a6f3b475e73b7a7347eec6f54c0cb61eb05
 					<td align="center" style="width:150px"><a>處理廠</a></td>
 					<td align="center" style="width:150px"><a>派車單號</a></td>
-					<td align="center" style="width:60px"><a>已申報</a></td>
+					<!--<td align="center" style="width:60px"><a>已申報</a></td>-->
 					<td align="center" style="width:150px"><a>備註</a></td>
 				</tr>
 				<tr class="data" style='background:#cad3ff;'>
@@ -537,7 +533,7 @@
 						<input type="button" id="btnStraddr.*" style="display:none;"/>
 					</td>
 					<td><input type="text" id="txtOrdeno.*" style="width:95%;"/></td>
-					<td align="center"><input id="chkChk1.*" type="checkbox"/></td>
+					<!--<td align="center"><input id="chkChk1.*" type="checkbox"/></td>-->
 					<td><input type="text" id="txtMemo.*" style="width:95%;"/></td>
 				</tr>
 			</table>
