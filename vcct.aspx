@@ -443,6 +443,7 @@
 				$('#txtMoney').val(FormatNumber(t_money));
 				$('#txtTax').val(FormatNumber(t_tax));
 				$('#txtTotal').val(FormatNumber(t_total));
+				field_change();
 			}
 			
 			function FormatNumber(n) {
@@ -483,8 +484,6 @@
                 q_cmbParse("cmbKind", t_kind);
                 $('#cmbKind').val(x_kind);
                 
-                $('.passtype').hide();
-                $('#cmbPasstype').val('');
                 $('#chkIsnondeductible').prop('checked',false);
                 $('.nondeductible').hide();//目前不開放抵扣
                 
@@ -519,6 +518,9 @@
                 		$('#txtDutymemo').val('').attr('disabled', 'disabled').css('background','RGB(237,237,237)');
                 	}
                 	
+                	//106/07/13 開啟使用 XY有零稅率海關問題
+                	$('.passtype').hide();
+                	$('#cmbPasstype').val('');
                 }else{
                 	$('.typea1').hide();
                 	
@@ -546,6 +548,14 @@
                 		$('.two').hide();
                 		$('#chkIstwo').prop('checked',false);
                 		$('#lblSerial').text(q_getMsg("lblSerial"));
+                	}
+                	
+                	//106/07/13 開啟使用 XY有零稅率海關問題
+                	if($('#cmbTaxtype').val()=='2' && $('#cmbKind').val()!='33' && $('#cmbKind').val()!='34'){
+	                	$('.passtype').show();
+                	}else{
+                		$('.passtype').hide();
+                		$('#cmbPasstype').val('');
                 	}
                 }
             }
