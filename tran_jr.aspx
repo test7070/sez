@@ -489,7 +489,6 @@
 					<td align="center" style="width:90px"><a>金額</a></td>
 					<td align="center" style="width:160px"><a>聯單編號</a></td>
 					<td align="center" style="width:80px"><a>出車車號</a></td>
-					<td align="center" style="width:80px"><a>車隊</a></td>
 					<td align="center" style="width:150px"><a>處理廠</a></td>
 					<td align="center" style="width:150px"><a>派車單號</a></td>
 					<td align="center" style="width:60px"><a>已申報</a></td>
@@ -526,8 +525,6 @@
 						<input type="text" id="txtDriver.*" style="display:none;"/>
 						<input type="button" id="btnCarno.*" style="display:none;"/>
 					</td>
-					<td>
-                    </td>
 					<td>
 						<input type="text" id="txtStraddrno.*" style="float:left;width:40%;"/>
 						<input type="text" id="txtStraddr.*" style="float:left;width:53%;"/>
