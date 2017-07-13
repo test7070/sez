@@ -104,13 +104,13 @@
                 	}else{
                 		//單筆匯入
                 		var t_noa = $.trim($('#txtNoa').val());
-						var t_carteamno = $.trim($('#cmbCarteamno').val());
+						var t_carteamno = '';//$.trim($('#cmbCarteamno').val());
 						var t_bdate = $.trim($('#txtBdate').val());
 						var t_edate = $.trim($('#txtEdate').val());
 						var t_carno = $.trim($('#txtCarno').val());
-						var t_driverno = $.trim($('#txtDriverno').val());
+						var t_driverno = '';//$.trim($('#txtDriverno').val());
 						
-						if(t_carteamno.length==0){
+						/*if(t_carteamno.length==0){
 							alert('請選擇車隊!');
 							return;
 						}else if(t_carno.length==0){
@@ -119,8 +119,8 @@
 						}if(t_driverno.length==0){
 							alert('請輸入司機!');
 							return;
-						}
-                		q_func('qtxt.query.tre_dc', 'tre.txt,tre_dc,' + encodeURI(t_noa) + ';' + encodeURI(t_carteamno)
+						}*/
+                		q_func('qtxt.query.tre_jr', 'tre.txt,tre_jr,' + encodeURI(t_noa) + ';' + encodeURI(t_carteamno)
                 			+ ';' + encodeURI(t_bdate)+ ';' + encodeURI(t_edate)+ ';' + encodeURI(t_carno)+ ';' + encodeURI(t_driverno)); 	
                 	}
                 });
@@ -139,7 +139,7 @@
             
             function q_funcPost(t_func, result) {
                 switch(t_func) {
-            		case 'qtxt.query.tre_dc':
+            		case 'qtxt.query.tre_jr':
             			var as = _q_appendData("tmp0", "", true, true);
                         if (as[0] != undefined) {
                             q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtComp,txtStraddr,txtProduct,txtMount,txtPrice,txtDiscount,txtMoney,txtTranno,txtTrannoq,txtCasetype,txtCaseno,txtCaseno2,txtOrdeno'
