@@ -19,7 +19,7 @@
             var q_readonly = ['txtNoa', 'txtWeight','txtTotal', 'txtWorker', 'txtWorker2'];
             var q_readonlys = [];
             var bbmNum = [['txtMount', 10, 2, 1],['txtWeight', 10, 2, 1],['txtTotal', 10, 0, 1]];
-            var bbsNum = [['txtWeight', 10, 2, 1],['txtWeight2', 10, 2, 1],['txtPrice', 10, 0, 1],['txtTotal', 10, 0, 1]];
+            var bbsNum = [['txtWeight', 10, 2, 1],['txtWeight2', 10, 2, 1],['txtPrice', 10, 0, 1],['txtTotal', 10, 0, 1],['txtTotal2', 10, 0, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -486,9 +486,11 @@
 					<td align="center" style="width:90px"><a>處理廠噸數</a></td>
 					<td align="center" style="width:60px"><a>單位</a></td>
 					<td align="center" style="width:90px"><a>處理單價</a></td>
-					<td align="center" style="width:90px"><a>金額</a></td>
+					<td align="center" style="width:90px"><a>應收金額</a></td>
+					<td align="center" style="width:90px"><a>應付金額</a></td>
 					<td align="center" style="width:160px"><a>聯單編號</a></td>
 					<td align="center" style="width:80px"><a>出車車號</a></td>
+					<!--<td align="center" style="width:80px"><a>車隊</a></td>-->
 					<td align="center" style="width:150px"><a>處理廠</a></td>
 					<td align="center" style="width:150px"><a>派車單號</a></td>
 					<td align="center" style="width:60px"><a>已申報</a></td>
@@ -513,11 +515,12 @@
 						<input type="text" id="txtProduct.*" style="float:left;width:53%;"/>
 						<input type="button" id="btnProduct.*" style="display:none;"/>
 					</td>
-					<td><input type="text" id="txtUnit.*" style="width:95%;"/></td>
 					<td><input type="text" id="txtWeight.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtWeight2.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtUnit.*" style="width:95%;"/></td>
 					<td><input type="text" id="txtPrice.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtTotal.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtTotal2.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtPo.*" style="width:95%;"/></td>
 					<td>
 						<input type="text" id="txtCarno.*" style="width:95%;"/>
@@ -532,10 +535,10 @@
 					</td>
 					<td><input type="text" id="txtOrdeno.*" style="width:95%;"/></td>
 					<td align="center"><input id="chkChk1.*" type="checkbox"/></td>
-					<td><input type="text" id="txtMemo.*" style="width:95%;" /></td>
+					<td><input type="text" id="txtMemo.*" style="width:95%;"/></td>
 				</tr>
 			</table>
 		</div>
-		<input id="q_sys" type="hidden" />
+		<input id="q_sys" type="hidden"/>
 	</body>
 </html>

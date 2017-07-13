@@ -105,7 +105,7 @@
                 _bbtAssign();
             }
 			function bbsSave(as) {
-				if (!as['addrno2']) {
+				if (!as['productno']) {
 					as[bbsKey[1]] = '';
 					return;
 				}
@@ -160,8 +160,12 @@
 				    if ($('#txtProductno_'+i).val().length != 0 || $('#txtAddrno_'+i).val().length != 0 ){
 				        $('#txtAddrno2_'+i).val($('#txtCustno').val());
                         $('#txtAddr2_'+i).val($('#txtNick').val());
-                        if($('#chkEnda').prop('checked'))
-                           $('#chkChk3_'+i).prop('checked',true);
+                        if($('#chkEnda').prop('checked')){
+                            $('#chkChk3_'+i).prop('checked',true);
+                        }else{
+                            $('#chkChk3_'+i).prop('checked',false);
+                        }
+                           
 				    }
                 }
 				if(q_cur ==1){
@@ -556,7 +560,6 @@
 		<datalist id="listUnit"> </datalist>
 		<datalist id="listUnit2"> </datalist>
 		<datalist id="listTypea"> </datalist>
-		
 		<input id="q_sys" type="hidden" />
 		<div id="dbbt" style="position: absolute;top:250px; left:450px; display:none;width:400px;">
 			<table id="tbbt">
