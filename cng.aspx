@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -143,6 +143,27 @@
 					case 'txtTranstartno':
 						GetTranPrice();
 						break;	
+					case 'txtProductno_':
+						if (q_getPara('sys.project').toUpperCase()=='XY'){
+							
+							//規格前面放版別
+							q_gt('ucc_xy', "where=^^noa='" +$('#txtProductno_'+b_seq).val() + "'^^", 0, 0, 0, "getuccspec",r_accy,1);
+							var as = _q_appendData("ucc", "", true);
+							if (as[0] != undefined) {
+								$('#txtSpec_'+b_seq).val(as[0].style+' '+as[0].spec);
+							}
+							
+							if($('#txtProductno_'+b_seq).val().indexOf('-')==5){//非便品
+								//備註放客戶名稱
+								var t_custno=$('#txtProductno_'+b_seq).val().substr(0,5)
+								q_gt('cust', "where=^^noa='" +t_custno + "'^^", 0, 0, 0, "getcust",r_accy,1);
+								var as = _q_appendData("cust", "", true);
+								if (as[0] != undefined) {
+									$('#txtMemo_'+b_seq).val(as[0].nick);
+								}
+							}
+						}
+						break;
 				}
 			}
 
@@ -244,6 +265,11 @@
 					if (!$('#btnMinus_' + i).hasClass('isAssign')) {
 						$('#txtMount_' + i).click(function() {
 							sum();
+						});
+						$('#txtProductno_'+i).change(function() {
+							_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
 						});
 					}
 				}
@@ -618,7 +644,7 @@
 				<table class="tbbm" id="tbbm" border="0" cellpadding='2' cellspacing='0'>
 					<tr class="tr1">
 						<td class='td1'><span> </span><a id="lblType" class="lbl" > </a></td>
-						<td class="td2"><select id="cmbTypea" class="txt c1"></select></td>
+						<td class="td2"><select id="cmbTypea" class="txt c1"> </select></td>
 						<td class='td3'><span> </span><a id="lblDatea" class="lbl" > </a></td>
 						<td class="td4"><input id="txtDatea" type="text" class="txt c1"/></td>
 						<td class='td5'><span> </span><a id="lblNoa" class="lbl" > </a></td>
@@ -648,7 +674,7 @@
 						<td class="td2"><input id="txtTggno" type="text" class="txt c1"/></td>
 						<td class="td2" colspan="2"><input id="txtTgg" type="text" class="txt c1"/></td>
 						<td class='td1'><span> </span><a id="lblTrantype" class="lbl" > </a></td>
-						<td class="td2"><select id="cmbTrantype" class="txt c1"></select></td>
+						<td class="td2"><select id="cmbTrantype" class="txt c1"> </select></td>
 					</tr>
 					<tr class="tr4">
 						<td class='td1'><span> </span><a id="lblCardeal" class="lbl btn"> </a></td>
@@ -683,10 +709,10 @@
 						<td class="td6"><input id="txtTranadd" type="text" class="txt c1 num"/></td>
 					</tr>
 					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
 						<td class='td5'><span> </span><a id="lblTranmoney" class="lbl" > </a></td>
 						<td class="td6"><input id="txtTranmoney" type="text" class="txt c1 num"/></td>
 					</tr>
