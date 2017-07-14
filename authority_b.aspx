@@ -98,6 +98,13 @@
 	                	}
 	                }
 	                qf_qlang=false;
+	                
+	                for(var i = 0; i < q_bbsCount; i++) {
+	                	if(emp($('#textTitle_'+i).val())){
+	                		$('#textTitle_'+i).val($('#txtNoa_'+i).val());
+	                	}
+	                }
+	                
 				}
 			}
 
