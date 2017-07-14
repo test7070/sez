@@ -115,6 +115,7 @@
                         return;
                     }
                 	var t_noa = $.trim($('#txtNoa').val());
+                	var t_cno = $.trim($('#txtCno').val());
                 	var t_custno = $.trim($('#txtCustno').val());
                 	var t_bdate = $.trim($('#txtBdate').val());
                 	var t_edate = $.trim($('#txtEdate').val());
@@ -122,16 +123,16 @@
                 	var t_etrandate = $.trim($('#txtEtrandate').val());
                 	var t_baddrno = $.trim($('#txtStraddrno').val());
                 	var t_eaddrno = $.trim($('#txtEndaddrno').val());
-                	var t_carteamno = $.trim($('#cmbCarteamno').val());
+                	//var t_carteamno = $.trim($('#cmbCarteamno').val());
                 	var t_where = "(b.noa is null or b.noa='"+t_noa+"')";
-                	t_where += " and a.custno='"+t_custno+"'";
+                	t_where += " and a.cno='"+t_cno+"' and a.custno='"+t_custno+"'";
                 	t_where += t_bdate.length>0?" and a.datea>='"+t_bdate+"'":"";
                 	t_where += t_edate.length>0?" and a.datea<='"+t_edate+"'":"";
                 	t_where += t_btrandate.length>0?" and a.trandate>='"+t_btrandate+"'":"";
                 	t_where += t_etrandate.length>0?" and a.trandate<='"+t_etrandate+"'":"";
                 	t_where += t_baddrno.length>0?" and a.straddrno>='"+t_baddrno+"'":"";
                 	t_where += t_eaddrno.length>0?" and a.straddrno<='"+t_eaddrno+"'":"";
-                	if(t_carteamno.length>0){
+                	/*if(t_carteamno.length>0){
                    		t_where += " and a.carteamno='"+t_carteamno+"'";
                    	}else{
                    		//alert('立帳單中的資料，車隊需一致。');
@@ -144,7 +145,7 @@
                         t_po += (i == 0 ? '' : ' or ') + "a.po='" + tmp[i] + "'";
                         t_po += ')';
                         t_where += t_po;
-                    }
+                    }*/
                 	t_where = "where=^^"+t_where+"^^";
                 	q_gt('trd_tran', t_where, 0, 0, 0, "", r_accy);
                 	
@@ -836,8 +837,12 @@
 							<span style="float:left;display: block;width:3%;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
 							<input id="txtEtrandate" type="text" style="float:left; width:45%;"/>
 						</td>
-						<td><span> </span><a id="lblPo" class="lbl"> </a></td>
-						<td colspan="3"><input id="txtPo" type="text"  class="txt c1"/></td>
+						<td style="display:none;"><span> </span><a id="lblPo" class="lbl"> </a></td>
+						<td colspan="3" style="display:none;"><input id="txtPo" type="text"  class="txt c1"/></td>
+						<td class="tdZ"> </td>
+						<td class="tdZ"> </td>
+						<td class="tdZ"> </td>
+						<td class="tdZ"> </td>
 						<td class="tdZ"> </td>
 					</tr>
 					<tr class="trX">
