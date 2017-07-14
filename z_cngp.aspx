@@ -54,6 +54,10 @@
 						type : '0', //[12] //判斷顯示小數點
 						name : 'xacomp',
 						value : q_getPara('sys.comp')
+					}, {
+						type : '0', //[13] //判斷顯示規格
+						name : 'isspec',
+						value : q_getPara('sys.isspec')
 					}]
 				});
                 q_popAssign();
