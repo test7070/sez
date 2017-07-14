@@ -163,6 +163,7 @@
             }
             function btnOk() {
 				Lock(); 
+				$('#txtDriver').val($.trim($('#txtNamea').val()));
             	$('#txtNoa').val($.trim($('#txtNoa').val()));   	
             	if((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())){
 				}else{
@@ -467,7 +468,8 @@
 						</td>
 						<td class="td3"><span> </span><a id="lblNamea" class="lbl"></a></td>
 						<td class="td4">
-						<input id="txtNamea" type="text" class="txt c1"/>
+							<input id="txtNamea" type="text" class="txt c1"/>
+							<input id="txtDriver" type="text" style="display:none;"/>
 						</td>
 						<td class="td5"><span> </span><a id="lblSex" class="lbl"></a></td>
 						<td class="td6">
