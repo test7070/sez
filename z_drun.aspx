@@ -21,7 +21,7 @@
                 q_gf('', 'z_drun');
             });
             function q_gfPost() {
-            	var action_type = "insert@新增,delete@刪除,update@修改,apv@核准,paper@報表,form@執行";
+            	var action_type = "insert@新增,delete@刪除,update@修改,apv@核准,paper@報表,form@執行,Login@登入,Logout@登出";
                 $('#q_report').q_report({
                     fileName : 'z_drun',
                     options : [{
@@ -63,6 +63,26 @@
 	                $('#txtSssno1a').attr('disabled', 'disabled');
 	                $('#txtSssno2a').attr('disabled', 'disabled');
 	            }
+	            
+	            //106/07/14 未限制使用者，未限制單據編號 ，日期區間最大兩個月
+	            var tmp = document.getElementById("btnOk");
+                var tmpbtn = document.createElement("input");
+                tmpbtn.id = "btnOk2"
+                tmpbtn.type = "button"
+                tmpbtn.value = "查詢"
+                tmpbtn.style.cssText = "font-size: 16px; font-weight: bold; color: blue; cursor: pointer;";
+                tmp.parentNode.insertBefore(tmpbtn, tmp);
+                $('#btnOk').hide();
+	            
+	            $('#btnOk2').click(function() {
+	            	if(emp($('#txtXnoa').val()) && emp($('#txtSssno1a').val()) && emp($('#txtSssno2a').val())
+	            	&& emp($('#txtDate1').val()) && emp($('#txtDate2').val())
+	            	){
+	            		$('#txtDate1').val(q_cdn(q_date(),-60));
+	            		$('#txtDate2').val(q_date());
+	            	}
+	            	$('#btnOk').click();
+				});
             }
            
             function q_boxClose(s2) {
