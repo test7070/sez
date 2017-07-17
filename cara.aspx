@@ -222,6 +222,9 @@
                 			var s2=new Array('cara_s',"where=^^carno='"+as[0].noa+"' and mon<='"+as[0].mon+"' ^^ ");
 		                	q_boxClose2(s2);
                 		}else{
+                			$('#txtWorker').val(r_name)
+	                		sum();
+	                		
                 			isbtnok=true;
 			                var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
 			                if(s1.length == 0 || s1 == "AUTO")
