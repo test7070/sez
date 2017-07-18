@@ -27,8 +27,8 @@
             brwCount2 = 13;
             //ajaxPath = ""; //  execute in Root
             aPop = [['txtInsurerno', 'lblInsurer', 'insurer', 'noa,comp', 'txtInsurerno,txtInsurer', 'insurer_b.aspx']
-            ,['txtDriver', 'lblDriver', 'carowner', 'namea,idno,birthday', '0txtDriver,txtId,txtBirthday,txtId', 'carowner_b.aspx']
-            ,['txtCarno', 'lblCarno', 'car2', 'a.noa', 'txtCarno', 'car2_b.aspx']
+	            ,['txtDriver', 'lblDriver', 'carowner', 'namea,idno,birthday', '0txtDriver,txtId,txtBirthday,txtId', 'carowner_b.aspx']
+	            ,['txtCarno', 'lblCarno', 'car2', 'a.noa,a.cardealno,a.cardeal', 'txtCarno,cmbCardealno,txtCardeal', 'car2_b.aspx']
             ];
 
             $(document).ready(function() {
@@ -230,7 +230,59 @@
             function btnCancel() {
                 _btnCancel();
             }
-
+			
+			function q_popPost(s1) {
+		    	switch (s1) {
+		    		case 'txtCarno':
+		    			if(!emp($('#txtCarno').val())){
+			    			var t_where = "where=^^ a.noa ='"+$('#txtCarno').val()+"' ^^";
+						    q_gt('car2', t_where , 0, 0, 0, "getcar2", r_accy,1);
+						    var as = _q_appendData("car2", "", true);
+						    if(as[0]!=undefined){
+						    	//DC素娟
+						    	if(as[0].driverno.length>0){
+						    		//有司機
+						    		$('#txtDriver').val(as[0].driver);
+						    		var t_where = "where=^^ noa ='"+as[0].driverno+"' ^^";
+						    		q_gt('driver', t_where , 0, 0, 0, "getdriver", r_accy,1);
+						    		var asd = _q_appendData("driver", "", true);
+						    		if(asd[0]!=undefined){
+						    			$('#txtId').val(asd[0].idno);
+						    			$('#txtBirthday').val(asd[0].birthday);
+						    		}
+						    	}else{
+						    		//沒司機抓車主
+						    		$('#txtDriver').val(as[0].carowner);
+						    		var t_where = "where=^^ noa ='"+as[0].carownerno+"' ^^";
+						    		q_gt('carowner', t_where , 0, 0, 0, "getcarowner", r_accy,1);
+						    		var aso = _q_appendData("carowner", "", true);
+						    		if(aso[0]!=undefined){
+						    			$('#txtId').val(aso[0].idno);
+						    			$('#txtBirthday').val(aso[0].birthday);
+						    		}
+						    	}
+						    	
+						    	//抓最後投保
+						    	var t_where = "where=^^ noa='"+$('#txtCarno').val()+"' ^^";
+						    	q_gt('carinsure', t_where , 0, 0, 0, "getcarinsure", r_accy,1);
+						    	var asi = _q_appendData("carinsure", "", true);
+						    	var maxmon='',t_insurerno='',t_insurer='';
+						    	for(var i=0;i<asi.length;i++){
+						    		if(maxmon<asi[i].inmon){
+						    			t_insurerno=asi[i].insurerno;
+						    			t_insurer=asi[i].insurer;
+						    		}
+						    	}
+						    	$('#txtInsurerno').val(t_insurerno);
+						    	$('#txtInsurer').val(t_insurer);
+						    }else{
+						    	alert('車牌不存在!!');
+						    }
+					    
+					    }
+			        	break;
+		    	}
+			}
 		</script>
 		<style type="text/css">
             #dmain {
