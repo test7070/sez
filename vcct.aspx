@@ -484,21 +484,19 @@
                 q_cmbParse("cmbKind", t_kind);
                 $('#cmbKind').val(x_kind);
                 
-                $('#chkIsnondeductible').prop('checked',false);
-                $('.nondeductible').hide();//目前不開放抵扣
+                //106/07/20 開放
+                //$('#chkIsnondeductible').prop('checked',false);
+                //$('.nondeductible').hide();//目前不開放抵扣
                 
                 if($('#cmbTypea').val()=='1'){
                 	$('.typea1').show();
                 	if(q_getPara('sys.project').toUpperCase()=='RB'){
                 		$('.rb').hide();
-                		$('.rbnobook').show();
                 	}
                 	$('.typea2').hide();
                 	$('#cmbSpecialfood').val('');
                 	$('#cmbNotaxnote').val('');
-                	/*$('#txtMount').show();
-                	$('#txtDutymemo').show();
-                	$('#txtBook').show();*/
+                	$('.nondeductible').show();
                 	
                 	$('.two').hide();
                 	$('#chkIstwo').prop('checked',false);
@@ -512,9 +510,26 @@
                 		$('#txtMount').val('').attr('disabled', 'disabled').css('background','RGB(237,237,237)');
                 	}
                 	
-                	if('28,29'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!='' && (q_cur==1 || q_cur==2)){
-                		$('#txtDutymemo').removeAttr('disabled').css('background','white');
+                	if($('#cmbKind').val()=='25' && (q_cur==1 || q_cur==2)){ //分攤
+                		$('.share').show();
                 	}else{
+                		$('.share').hide();
+                		$('#chkIsshare').prop('checked',false);
+                	}
+                	//22,24,27 其他憑證
+                	//23,25 載具流水號
+                	//28,29 海關繳納證號碼
+                	if('22,23,24,25,27,28,29'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!='' && (q_cur==1 || q_cur==2)){
+                		$('#txtDutymemo').removeAttr('disabled').css('background','white');
+                		if('22,24,27'.indexOf($('#cmbKind').val())>-1){
+                			$('#lblDutymemo').text('其他憑證');
+                		}else if('23,25'.indexOf($('#cmbKind').val())>-1){
+                			$('#lblDutymemo').text('載具流水號');
+                		}else{
+                			$('#lblDutymemo').text('海關繳納憑證');
+                		}
+                	}else{
+                		$('#lblDutymemo').text('憑證/流水號');
                 		$('#txtDutymemo').val('').attr('disabled', 'disabled').css('background','RGB(237,237,237)');
                 	}
                 	
@@ -526,13 +541,12 @@
                 	
                 	if(q_getPara('sys.project').toUpperCase()=='RB'){
 	                	$('.typea2').hide();
-	                	$('.typea1').show();
-	                	$('.rbnobook').hide();
 	                	$('.rb').show();
 	                }else{
                 		$('.typea2').show();
                 	}
                 	
+                	$('.nondeductible').hide();
                 	$('#cmbSpecialfood').show();
                 	$('#cmbNotaxnote').show();
                 	/*$('#txtMount').val('').hide();
@@ -540,6 +554,7 @@
                 	$('#txtBook').val('').hide();*/
                 	$('.carrier').hide();
                 	$('.self').show();
+                	$('.share').hide();
                 	
                 	if('32,34'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!=''){
                 		$('.two').show();
@@ -756,6 +771,7 @@
 						</td>
 						<td> </td>
 						<td><input id="btnVcca" type="button"/></td>
+						<td style="width:1%;"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
@@ -780,6 +796,7 @@
 							<a id='lblIsasset' class="lbl asset" style="float: left;"> </a><span style="float: left;" class="asset"> </span><input id="chkIsasset" type="checkbox" style="float: left;" class="asset"/>
 							<a id='lblIsself' class="lbl self" style="float: left;"> </a><span style="float: left;" class="self"> </span><input id="chkIsself" type="checkbox" style="float: left;" class="self"/>
 							<a id='lblIsnondeductible' class="lbl nondeductible" style="float: left;"> </a><span style="float: left;" class="nondeductible"> </span><input id="chkIsnondeductible" type="checkbox" style="float: left;" class="nondeductible"/>
+							<a id='lblIsshare' class="lbl share" style="float: left;"> </a><span style="float: left;" class="share"> </span><input id="chkIsshare" type="checkbox" style="float: left;" class="share"/>
 						</td>
 					</tr>
 					<tr>
@@ -793,12 +810,10 @@
 						<td><input id="txtTotal"  type="text" class="txt num c1" /></td>
 					</tr>
 					<tr class="typea1">
-						<td class="rbnobook"><span> </span><a id='lblMount' class="lbl"> </a></td>
-						<td class="rbnobook"><input id="txtMount"  type="text" class="txt num c1" /></td>
-						<td class="rbnobook"><span> </span><a id='lblDutymemo' class="lbl"> </a></td>
-						<td class="rbnobook"><input id="txtDutymemo"  type="text" class="txt c1" /></td>
-						<td><span> </span><a id='lblBook' class="lbl"> </a></td>
-						<td><input id="txtBook"  type="text" class="txt num c1" /></td>
+						<td><span> </span><a id='lblDutymemo' class="lbl"> </a></td>
+						<td><input id="txtDutymemo"  type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblMount' class="lbl"> </a></td>
+						<td><input id="txtMount"  type="text" class="txt num c1" /></td>
 					</tr>
 					<tr class="typea2">
 						<td><span> </span><a id='lblSpecialfood' class="lbl"> </a></td>
@@ -816,7 +831,9 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td colspan="7"><input id="txtMemo"  type="text" class="txt c1" /></td>
+						<td colspan="5"><input id="txtMemo"  type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblBook' class="lbl"> </a></td>
+						<td><input id="txtBook"  type="text" class="txt num c1" /></td>
 					</tr>
 				</table>
 			</div>
