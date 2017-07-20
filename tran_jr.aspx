@@ -132,7 +132,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)
                     return;
-                q_box('tran_s.aspx', q_name + '_s', "500px", "600px", q_getMsg("popSeek"));
+                q_box('tran_jr_s.aspx', q_name + '_s', "500px", "600px", '查詢視窗');
             }
 
             function bbsAssign() {
@@ -193,6 +193,8 @@
                 }
                 q_nowf();
                 as['date'] = abbm2['date'];
+                as['cno'] = abbm2['cno'];
+                as['acomp'] = abbm2['acomp'];
                 return true;
             }
 
@@ -527,7 +529,6 @@
 					<td><input type="text" id="txtTrandate.*" style="width:95%;"/></td>
 					<td>
 						<input type="text" id="txtCustno.*" style="float:left;width:39%;" />
-						<input type="text" id="txtComp.*" style="display:none;" />
 						<input type="text" id="txtNick.*" style="float:left;width:40%;">
 						<input type="button" id="btnCust.*" value='.' style=" font-weight: bold;">
 					</td>
