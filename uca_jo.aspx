@@ -579,8 +579,8 @@
 				if(!emp($('#txtGroupino').val()))
 					t_engpro=t_engpro+(t_engpro.length>0?',':'')+'座管:'+$('#textGroupimon').val();
 				
-				$('#txtProduct').val(t_prdouct);
-				$('#txtEngpro').val(t_engpro);
+				//$('#txtProduct').val(t_prdouct);
+				//$('#txtEngpro').val(t_engpro);
 				
 				// 檢查空白
 				if (t_noa.length == 0) {
@@ -1559,14 +1559,18 @@
 						<td><span> </span><a id="lblWdate" class="lbl"> </a></td>
 						<td><input id="txtWdate" type="text" class="txt c1" style="width:55%;"/></td>
 					</tr>
-					<tr style="display: none;">
+					<!--106/07/21 先隱藏 開放產品名稱和英文-->
+					<tr>
 						<td><span> </span><a id="lblProduct" class="lbl"> </a></td>
-						<td><input id="txtProduct" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblEngpro" class="lbl"> </a></td>
-						<td><input id="txtEngpro" type="text" class="txt c1"/></td>
+						<td colspan="6"><input id="txtProduct" type="text" class="txt c1"/></td>
 						<!--<td><span> </span><a id="lblEngprono" class="lbl"> </a></td>
 						<td><input id="txtEngprono" type="text" class="txt c1"/></td>-->
 					</tr>
+					<tr>
+						<td><span> </span><a id="lblEngpro" class="lbl"> </a></td>
+						<td colspan="6"><input id="txtEngpro" type="text" class="txt c1"/></td>
+					</tr>
+					<!--106/07/21 先隱藏 開放產品名稱和英文-->
 					<tr>
 						<td><span> </span><a id="lblType" class="lbl"> </a></td>
 						<td><select id="cmbTypea" class="txt c1" style="font-size: medium;"> </select></td>
@@ -1583,13 +1587,14 @@
 						<td><span> </span><a id="lblGroupbno" class="lbl">次產線代碼</a></td>
 						<td><select id="cmbGroupbno" class="txt c1" style="font-size: medium;"> </select></td>
 					</tr>
-					<tr>
+					<!--106/07/21 先隱藏 開放產品名稱和英文-->
+					<tr style="display: none;">
 						<td style="text-align: center;"><span> </span><a class="lbl" style="float: none;"> </a></td>
 						<td style="text-align: center;"><span> </span><a class="lbl" style="float: none;">編號/中文</a></td>
 						<td colspan="2" style="text-align: center;"><span> </span><a class="lbl" style="float: none;">英文</a></td>
 						<td colspan="2" style="text-align: center;"><span> </span><a class="lbl" style="float: none;">越文</a></td>
 					</tr>
-					<tr>
+					<tr style="display: none;">
 						<td><span> </span><a id="lblGroupeno" class="lbl" style="text-align: right;">車縫<br>Đường may</a></td>
 						<td>
 							<input id="txtGroupeno" type="text" class="txt c1" style="width: 45%;"/>
@@ -1598,7 +1603,7 @@
 						<td colspan="2"><input id="textGroupememo1" type="text" class="txt c1"/></td>
 						<td colspan="2"><input id="textGroupememo2" type="text" class="txt c1"/></td>
 					</tr>
-					<tr>
+					<tr style="display: none;">
 						<td><span> </span><a id="lblGroupfno" class="lbl" style="text-align: right;">護片<br>Phụ kiện</a></td>
 						<td>
 							<input id="txtGroupfno" type="text" class="txt c1" style="width: 45%;"/>
@@ -1607,7 +1612,7 @@
 						<td colspan="2"><input id="textGroupfmemo1" type="text" class="txt c1"/></td>
 						<td colspan="2"><input id="textGroupfmemo2" type="text" class="txt c1"/></td>
 					</tr>
-					<tr>
+					<tr style="display: none;">
 						<td><span> </span><a id="lblGroupgno" class="lbl" style="text-align: right;">大弓<br>Gọng</a></td>
 						<td>
 							<input id="txtGroupgno" type="text" class="txt c1" style="width: 45%;"/>
@@ -1616,7 +1621,7 @@
 						<td colspan="2"><input id="textGroupgmemo1" type="text" class="txt c1"/></td>
 						<td colspan="2"><input id="textGroupgmemo2" type="text" class="txt c1"/></td>
 					</tr>
-					<tr>
+					<tr style="display: none;">
 						<td><span> </span><a id="lblGrouphno" class="lbl" style="text-align: right;">中束<br>Bông</a></td>
 						<td>
 							<input id="txtGrouphno" type="text" class="txt c1" style="width: 45%;"/>
@@ -1625,7 +1630,7 @@
 						<td colspan="2"><input id="textGrouphmemo1" type="text" class="txt c1"/></td>
 						<td colspan="2"><input id="textGrouphmemo2" type="text" class="txt c1"/></td>
 					</tr>
-					<tr>
+					<tr style="display: none;">
 						<td><span> </span><a id="lblGroupino" class="lbl" style="text-align: right;">座管<br>Ống yên</a></td>
 						<td>
 							<input id="txtGroupino" type="text" class="txt c1" style="width: 45%;"/>
@@ -1634,6 +1639,7 @@
 						<td colspan="2"><input id="textGroupimemo1" type="text" class="txt c1"/></td>
 						<td colspan="2"><input id="textGroupimemo2" type="text" class="txt c1"/></td>
 					</tr>
+					<!--106/07/21 先隱藏 開放產品名稱和英文-->
 					<tr>
 						<td><span> </span><a id="lblSize" class="lbl">尺寸</a></td>
 						<td><input id="txtSize" type="text" class="txt c1"/></td>
