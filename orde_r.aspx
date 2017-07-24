@@ -201,9 +201,10 @@
 				});
 				
 				$('#txtGdate').change(function() {
-					for(var i=0;i<q_bbsCount;i++){
+					//106/07/24 暫時不使用
+					/*for(var i=0;i<q_bbsCount;i++){
 						getpdate(i);
-					}
+					}*/
 				});
 				
 				$('#cmbCasetype').change(function() {
@@ -1248,10 +1249,11 @@
 					return;
 				}
 				
-				for(var k=0;k<q_bbsCount;k++){
+				//106/07/24 暫時不使用
+				/*for(var k=0;k<q_bbsCount;k++){
 					if(emp($('#txtDatea_'+k).val()))
 						getpdate(k);
-				}
+				}*/
 				
 				//106/01/12 預交日空 抓期望交期 沒有寫入3個月後
 				for(var k=0;k<q_bbsCount;k++){
@@ -1374,8 +1376,9 @@
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-							if (q_cur == 1 || q_cur == 2) 
-								getpdate(b_seq);
+							if (q_cur == 1 || q_cur == 2)
+								//106/07/24 暫時不使用 
+								//getpdate(b_seq);
 							sum();
 						});
 						$('#txtTotal_' + j).focusout(function() {

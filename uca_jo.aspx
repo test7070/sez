@@ -633,12 +633,12 @@
 						return;
 					}else{
 						var t_noa='D'+$('#cmbGroupbno').val().substr(0,2)+$('#cmbGroupbno').val().substr(2,2);
-						var t_where = "where=^^noa=(select MAX(noa) from uca where noa like '"+t_noa+"%') ^^";
+						var t_where = "where=^^noa=(select MAX(noa) from uca where noa like '"+t_noa+"%' and noa like 'D[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]' ^^";
 						q_gt('uca', t_where, 0, 0, 0, "getnoa", r_accy,1);
 						var as = _q_appendData("uca", "", true);
 						if (as[0] != undefined) {
 							t_num=('00000'+(dec(as[0].noa.slice(-5))+1).toString()).slice(-5);
-							$('#txtNoa').val(t_noa);
+							$('#txtNoa').val(t_noa+t_num);
 						}else{
 							$('#txtNoa').val(t_noa+'00001');
 						}
