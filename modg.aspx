@@ -44,14 +44,9 @@
 			$('#txtNoa').change(function(e){
 			   	$(this).val($.trim($(this).val()).toUpperCase());		
 				if($(this).val().length>0){
-					if((/^(\w+|\w+\u002D\w+)$/g).test($(this).val())){
-						t_where="where=^^ noa='"+$(this).val()+"'^^";
-				   		q_gt('modg', t_where, 0, 0, 0, "checkNoa_change", r_accy);
-					}else{
-						Lock();
-						alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
-						Unlock();
-					}
+					Lock();
+					t_where="where=^^ noa='"+$(this).val()+"'^^";
+				   	q_gt('modg', t_where, 0, 0, 0, "checkNoa_change", r_accy);
 				}
 			});
 		}
@@ -81,12 +76,10 @@
 					var as = _q_appendData("modg", "", true);
 					if (as[0] != undefined){
 						alert('已存在 '+as[0].noa+' '+as[0].namea);
-						Unlock();
-						return;
 					}else{
 						wrServer($('#txtNoa').val());
-						Unlock();
 					}
+					Unlock();
 					break;
 				case q_name: if (q_cur == 4)   
 						q_Seek_gtPost();
@@ -121,13 +114,9 @@
 		function btnOk() {
 			Lock(); 
 			$('#txtNoa').val($.trim($('#txtNoa').val()));   	
-			if((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())){
-			}else{
-				alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
-				Unlock();
-				return;
-			}
+			
 			$('#txtWorker').val(r_name);
+			
 			if(q_cur==1){
 				t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
 				q_gt('modg', t_where, 0, 0, 0, "checkNoa_btnOk", r_accy);

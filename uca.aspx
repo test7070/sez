@@ -593,7 +593,7 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
 					return;
-				q_box('uca_s.aspx', q_name + '_s', "500px", "450px", q_getMsg("popSeek"));
+				q_box('uca_s.aspx', q_name + '_s', "500px", "480px", q_getMsg("popSeek"));
 			}
 			
 			function bbsAssign() {

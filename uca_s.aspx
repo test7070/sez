@@ -16,7 +16,8 @@
 				['txtNoa', '', 'uca', 'noa,product', 'txtNoa,txtProduct', "uca_b.aspx"],
 				['txtTggno', 'lblTgg', 'tgg', 'noa,nick', 'txtTggno,txtComp', 'tgg_b.aspx'],
 				['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
-				['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx']
+				['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx'],
+				['txtModelno', 'lblModelno', 'model', 'noa,model', 'txtModelno,txtModel', 'model_b.aspx']
 			);
 
 			$(document).ready(function() {	
@@ -108,13 +109,17 @@
 				t_comp = $('#txtComp').val();
 				t_groupano = $('#cmbGroupano').val();
 				t_style = $('#txtStyle').val();
+				
+				t_modelno = $('#txtModelno').val();
+				t_model = $('#txtModel').val();
 
 				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +
 										q_sqlPara2("stationno", t_stationno) +
 										q_sqlPara2("processno", t_processno) +
 										q_sqlPara2("typea", t_typea) +
 										q_sqlPara2("groupano", t_groupano) +
-										q_sqlPara2("tggno", t_tggno);
+										q_sqlPara2("tggno", t_tggno)+
+										q_sqlPara2("modelno", t_modelno);
 				
 				if (t_product.length > 0)
 					t_where += " and charindex('" + t_product + "',product)>0";
@@ -126,6 +131,9 @@
 					t_where += " and charindex('" + t_process + "',process)>0";
 				if (t_comp.length > 0)
 					t_where += " and charindex('" + t_comp + "',comp)>0";
+				if (t_model.length > 0)
+					t_where += " and charindex('" + t_model + "',model)>0";
+					
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
@@ -160,11 +168,11 @@
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek' style="width:20%;"><a id='lblTypea'> </a></td>
-					<td><select id="cmbTypea" class="c1" ></select></td>
+					<td><select id="cmbTypea" class="c1" > </select></td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek' style="width:20%;"><a id='lblGroupano'> </a></td>
-					<td><select id="cmbGroupano" class="c1" ></select></td>
+					<td><select id="cmbGroupano" class="c1" > </select></td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek' style="width:20%;"><a id='lblStationno'> </a></td>
@@ -178,6 +186,13 @@
 					<td>
 						<input class="txt" id="txtProcessno" type="text" style="width:90px; font-size:medium;" />
 						<input class="txt" id="txtProcess" type="text" style="width:115px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek' style="width:20%;"><a id='lblModelno'> </a></td>
+					<td>
+						<input class="txt" id="txtModelno" type="text" style="width:90px; font-size:medium;" />
+						<input class="txt" id="txtModel" type="text" style="width:115px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>

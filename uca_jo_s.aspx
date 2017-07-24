@@ -29,9 +29,10 @@
 				['txtHard','','addime','noa,mon,memo1,memo2','0txtHard',''],
 				['txtSpec','','adsec','noa,memo','0txtSpec',''],
 				['txtStyle','','adpro2','memo','0txtStyle',''],
-				
+				['txtModelno', 'lblModelno', 'model', 'noa,model', 'txtModelno,txtModel', 'model_b.aspx'],
 				['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx'],
 				['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx']
+				
 			);
 			$(document).ready(function() {
 				main();
@@ -140,6 +141,9 @@
 				t_comp = $('#txtComp').val();
 				t_groupano = $('#cmbGroupano').val();
 				t_style = $('#txtStyle').val();
+				
+				t_modelno = $('#txtModelno').val();
+				t_model = $('#txtModel').val();
 
 				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +
 										q_sqlPara2("groupdno", t_groupdno) +
@@ -147,7 +151,10 @@
 										q_sqlPara2("station", t_stationno) +
 										q_sqlPara2("typea", t_typea) +
 										q_sqlPara2("groupano", t_groupano) +
-										q_sqlPara2("tggno", t_tggno);
+										q_sqlPara2("tggno", t_tggno) +
+										q_sqlPara2("modelno", t_modelno)
+										
+										;
 				
 				if (t_product.length > 0 && t_spec.length==0)
 					t_where += " and charindex('" + t_product + "',product)>0";
@@ -185,6 +192,9 @@
 					t_where += " and charindex('" + t_style + "',style)>0";
 				/*if (t_size.length > 0)
 					t_where += " and charindex('" + t_size + "',size)>0";*/	
+					
+				if (t_model.length > 0)
+					t_where += " and charindex('" + t_model + "',model)>0";
 				
 				if(t_size1.length>0 || t_size2.length>0){
 					if(t_size2.length==0){
@@ -294,8 +304,11 @@
 				<tr class='seek_tr'>
 					<td class='seek'><a id='lblStyle_jo'>車種</a></td>
 					<td><input class="txt c1" id="txtStyle" type="text" /></td>
-					<td> </td>
-					<td> </td>
+					<td class='seek'><a id='lblModelno_jo'>模具</a></td>
+					<td>
+						<input class="txt" id="txtModelno" type="text" style="width:80px; font-size:medium;" />
+						<input class="txt" id="txtModel" type="text" style="width:105px; font-size:medium;" />
+					</td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'><a id='lblTypea'> </a></td>
