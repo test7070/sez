@@ -143,8 +143,8 @@
 				q_cmbParse("cmbGroupdno", ',ODM,OBM,OEM');
 				
 				q_cmbParse("cmbMtype", q_getPara('uca.mtype'), 's');
-				q_gt('uccga', '', 0, 0, 0, "");
-				q_gt('uccgb', '', 0, 0, 0, "");
+				q_gt('uccga', "where=^^noa < '50' ^^", 0, 0, 0, "");
+				q_gt('uccgb', "where=^^noa < '50' ^^", 0, 0, 0, "");
 				//q_gt('uccgc', '', 0, 0, 0, "");
 				
 				$('#btnUploadimg').click(function() {
@@ -349,7 +349,7 @@
 						if (as[0] != undefined) {
 							var t_item = " @ ";
 							for ( i = 0; i < as.length; i++) {
-								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].namea;
+								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa + ' . ' + as[i].namea;
 							}
 							q_cmbParse("cmbGroupano", t_item);
 							if (abbm[q_recno] != undefined) {
@@ -362,7 +362,7 @@
 						if (as[0] != undefined) {
 							var t_item = " @ ";
 							for ( i = 0; i < as.length; i++) {
-								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].namea;
+								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa + ' . ' + as[i].namea;
 							}
 							q_cmbParse("cmbGroupbno", t_item);
 							if (abbm[q_recno] != undefined) {
@@ -633,7 +633,7 @@
 						return;
 					}else{
 						var t_noa='D'+$('#cmbGroupbno').val().substr(0,2)+$('#cmbGroupbno').val().substr(2,2);
-						var t_where = "where=^^noa=(select MAX(noa) from uca where noa like '"+t_noa+"%' and noa like 'D[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]' ^^";
+						var t_where = "where=^^noa=(select MAX(noa) from uca where noa like '"+t_noa+"%' and noa like 'D[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]') ^^";
 						q_gt('uca', t_where, 0, 0, 0, "getnoa", r_accy,1);
 						var as = _q_appendData("uca", "", true);
 						if (as[0] != undefined) {
@@ -1100,11 +1100,12 @@
 				} else {
 				}
 				
+				//106/07/24 Groupb鎖定拿掉
 				if(q_cur==1){
-					$('#cmbGroupbno').removeAttr('disabled');
+					//$('#cmbGroupbno').removeAttr('disabled');
 					//$('#cmbGroupcno').removeAttr('disabled');
 				}else{
-					$('#cmbGroupbno').attr('disabled', 'disabled');
+					//$('#cmbGroupbno').attr('disabled', 'disabled');
 					//$('#cmbGroupcno').attr('disabled', 'disabled');
 				}
 				
@@ -1582,9 +1583,9 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblGroupano" class="lbl">產品屬性</a></td>
+						<td><span> </span><a id="lblGroupano" class="lbl"> </a></td>
 						<td><select id="cmbGroupano" class="txt c1" style="font-size: medium;"> </select></td>
-						<td><span> </span><a id="lblGroupbno" class="lbl">次產線代碼</a></td>
+						<td><span> </span><a id="lblGroupbno" class="lbl"> </a></td>
 						<td><select id="cmbGroupbno" class="txt c1" style="font-size: medium;"> </select></td>
 					</tr>
 					<!--106/07/21 先隱藏 開放產品名稱和英文-->

@@ -11,7 +11,10 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
             var q_name = "ucc_s";
-            aPop = new Array(['txtNoa', '', 'ucc', 'noa,product,spec', 'txtNoa,txtProduct', "ucc_b.aspx"]);
+            aPop = new Array(
+            	['txtNoa', '', 'ucc', 'noa,product,spec', 'txtNoa,txtProduct', "ucc_b.aspx"],
+            	['txtTggno', 'lblTgg', 'tgg', 'noa,nick', 'txtTggno', 'tgg_b.aspx']
+            );
             $(document).ready(function() {
                 main();
             });
@@ -30,7 +33,15 @@
                 q_mask(bbmMask);
 
                 q_cmbParse("cmbTypea", '@全部,' + q_getPara('uca.typea'));
-                q_gt('uccga', '', 0, 0, 0, "");
+                
+                if(q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO'){
+					q_gt('uccga', "where=^^noa >= '50' ^^", 0, 0, 0, "");
+					q_gt('uccgb', "where=^^noa >= '50' ^^", 0, 0, 0, "");
+				}else{
+	                q_gt('uccga', '', 0, 0, 0, "");
+	                q_gt('uccgb', '', 0, 0, 0, "");
+	             }
+	             q_gt('uccgc', '', 0, 0, 0, "");
 
                 $('#txtBdate').focus();
                 
@@ -48,12 +59,21 @@
                 var t_spec = $('#txtSpec').val();
                 var t_typea = $('#cmbTypea').val();
                 var t_groupano = $('#cmbGroupano').val();
+                var t_groupbno = $('#cmbGroupbno').val();
+                var t_groupcno = $('#cmbGroupcno').val();
+                var t_tggno = $('#txtTggno').val();
+				var t_tgg = $('#txtTgg').val();
 
-                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("style", t_style) + q_sqlPara2("typea", t_typea) + q_sqlPara2("groupano", t_groupano);
+                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("style", t_style) + q_sqlPara2("typea", t_typea) 
+                + q_sqlPara2("groupano", t_groupano)+ q_sqlPara2("groupbno", t_groupbno)+ q_sqlPara2("groupcno", t_groupcno)
+                + q_sqlPara2("tggno", t_tggno);
+                
                 if (t_product.length > 0)
                     t_where = t_where + " and charindex('" + t_product + "',product)>0 ";
                 if (t_spec.length > 0)
                     t_where = t_where + " and charindex('" + t_spec + "',spec)>0 ";
+                if (t_tgg.length > 0)
+					t_where += " and charindex('" + t_tgg + "',tgg)>0";
                 
                 if (q_getPara('sys.project').toUpperCase()=='XY' && $('#cmbStyle').val().length>0){
                 	t_where = t_where + " and style='"+$('#cmbStyle').val()+"' ";
@@ -70,12 +90,29 @@
                         if (as[0] != undefined) {
                             var t_item = "@";
                             for ( i = 0; i < as.length; i++) {
-                                t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].namea;
+                                t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa + ' . ' + as[i].namea;
                             }
                             q_cmbParse("cmbGroupano", t_item);
-                            if (abbm[q_recno] != undefined) {
-                                $("#cmbGroupano").val(abbm[q_recno].groupano);
+                        }
+                        break;
+					case 'uccgb':
+                        var as = _q_appendData("uccgb", "", true);
+                        if (as[0] != undefined) {
+                            var t_item = "@";
+                            for ( i = 0; i < as.length; i++) {
+                                t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa + ' . ' + as[i].namea;
                             }
+                            q_cmbParse("cmbGroupbno", t_item);
+                        }
+                        break;
+					case 'uccgc':
+                        var as = _q_appendData("uccgc", "", true);
+                        if (as[0] != undefined) {
+                            var t_item = "@";
+                            for ( i = 0; i < as.length; i++) {
+                                t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa + ' . ' + as[i].namea;
+                            }
+                            q_cmbParse("cmbGroupcno", t_item);
                         }
                         break;
                 }
@@ -119,6 +156,21 @@
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblGroupano'> </a></td>
 					<td><select id="cmbGroupano" style="width:215px; font-size:medium;"> </select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblGroupbno'> </a></td>
+					<td><select id="cmbGroupbno" style="width:215px; font-size:medium;"> </select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblGroupcno'> </a></td>
+					<td><select id="cmbGroupcno" style="width:215px; font-size:medium;"> </select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'><a id='lblTggno'> </a></td>
+					<td>
+						<input class="txt" id="txtTggno" type="text" style="width:80px; font-size:medium;" />
+						<input class="txt" id="txtTgg" type="text" style="width:105px; font-size:medium;" />
+					</td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->

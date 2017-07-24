@@ -100,8 +100,14 @@
 
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				//q_cmbParse("cmbCoin", q_getPara('sys.coin'));
-				q_gt('uccga', '', 0, 0, 0, "");
-				q_gt('uccgb', '', 0, 0, 0, "");
+				
+				if(q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO'){
+					q_gt('uccga', "where=^^noa >= '50' ^^", 0, 0, 0, "");
+					q_gt('uccgb', "where=^^noa >= '50' ^^", 0, 0, 0, "");
+				}else{
+					q_gt('uccga', '', 0, 0, 0, "");
+					q_gt('uccgb', '', 0, 0, 0, "");
+				}
 				q_gt('uccgc', '', 0, 0, 0, "");
 				
 				$('#btnUploadimg').click(function() {
@@ -574,7 +580,7 @@
 				if (q_cur > 0 && q_cur < 4)// 1-3
 					return;
 
-				q_box('ucc_s.aspx', q_name + '_s', "500px", "410px", q_getMsg("popSeek"));
+				q_box('ucc_s.aspx', q_name + '_s', "500px", "500px", q_getMsg("popSeek"));
 			}
 
 			function combPay_chg() {

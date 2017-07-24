@@ -55,7 +55,7 @@
 						$('#btnSearch').click();
 					}
 				});
-				q_gt('uccga', '', 0, 0, 0, "");
+				q_gt('uccga', "where=^^noa < '50' ^^", 0, 0, 0, "");
 			}
 
 			function q_gfPost() {
@@ -94,7 +94,7 @@
 						if (as[0] != undefined) {
 							var t_item = "@";
 							for ( i = 0; i < as.length; i++) {
-								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].namea;
+								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa + ' . ' + as[i].namea;
 							}
 							q_cmbParse("cmbGroupano", t_item);
 							if (abbm[q_recno] != undefined) {
