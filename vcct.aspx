@@ -47,7 +47,7 @@
 
             function mainPost() {
             	//強制民國年
-            	bbmMask = [['txtDatea', '999/99/99'],['txtMon', '999/99'],['textBdate', '999/99/99'],['textEdate', '999/99/99'],['textMon', '999/99']];
+            	bbmMask = [['txtDatea', '999/99/99'],['txtMon', '999/99'],['textBdate', '999/99/99'],['textEdate', '999/99/99'],['textMon', '999/99'],['txtSerial', '99999999']];
                 q_mask(bbmMask);
                 
                 q_cmbParse("cmbTypea", q_getPara('vcct.typea'));
@@ -56,6 +56,7 @@
                 q_cmbParse("cmbSpecialfood", q_getPara('vcct.specialfood'));
                 q_cmbParse("cmbNotaxnote", q_getPara('vcct.notaxnote'));
                 q_cmbParse("cmbPasstype", q_getPara('vcct.passtype'));
+                q_cmbParse("cmbSpecialtax", q_getPara('vcct.specialtax'));
                 
                 if(q_getPara('sys.project').toUpperCase()=='RB'){
                 	$('.typea2').hide();
@@ -104,6 +105,22 @@
 							$('#txtMon').val(q_cdn($(this).val().substr(0,6)+'/01',62).substr(0,6));
 						else
 							$('#txtMon').val(q_cdn($(this).val().substr(0,6)+'/01',45).substr(0,6));
+					}
+				});
+				
+				$('#chkIsadd').click(function() {
+					if(q_cur==1 || q_cur==2){
+						if($('#chkIsadd').prop('checked'))
+							$('#chkIsshare').prop('checked',false);
+						field_change();
+					}
+				});
+				
+				$('#chkIsshare').click(function() {
+					if(q_cur==1 || q_cur==2){
+						if($('#chkIsshare').prop('checked'))
+							$('#chkIsadd').prop('checked',false);
+						field_change();
 					}
 				});
 				
@@ -189,7 +206,7 @@
                            }
                         } else {
                         	$('#txtNoq').val('001');
-                        	if($('#cmbTypea').val()=='2' && ($('#cmbKind').val()!='33' && $('#cmbKind').val()!='34')){
+                        	if($('#cmbTypea').val()=='2' && ($('#cmbKind').val()!='33' && $('#cmbKind').val()!='34' && $('#cmbKind').val()!='36' && $('#cmbKind').val()!='38')){
                         		var t_where = "where=^^ cno='" + $('#txtCno').val() + "' and ('" + $('#txtDatea').val() + "' between bdate and edate) " + " and exists(select noa from vccars where vccars.noa=vccar.noa and ('" + $('#txtNoa').val() + "' between binvono and einvono)) ^^";
                         		q_gt('vccar', t_where, 0, 0, 0, "", r_accy);
                         		break;
@@ -265,6 +282,19 @@
 					opacity : 0
 				});
 				
+				if(q_cur==1){
+					if(emp($('#txtNoa').val()) && (($('#cmbKind').val()=='22' && $('#chkIsadd').prop('checked')) 
+						|| $('#cmbKind').val()=='28' || $('#cmbKind').val()=='29' || $('#cmbKind').val()=='36')){
+						if($('#txtDutymemo').val().length>0){
+							$('#txtNoa').val($('#txtDutymemo').val());
+						}else{
+							alert($('#lblDutymemo').text()+'禁止空白!!');
+							Unlock(1);
+							return;
+						}
+					}
+				}
+				
             	var t_err = '';
 				t_err = q_chkEmpField([['cmbKind', q_getMsg('lblKind')], ['txtNoa', q_getMsg('lblNoa')], ['txtMon', q_getMsg('lblMon')], ['txtDatea', q_getMsg('lblDatea')], ['txtCno', q_getMsg('lblAcomp')]]);
 				if (t_err.length > 0) {
@@ -276,7 +306,10 @@
                 $('#txtNoa').val($.trim($('#txtNoa').val()));
                 $('#txtTotal').val(dec($('#txtTax').val())+dec($('#txtMoney').val()));
                 
-                if ($('#txtNoa').val().length > 0 && !(/^[a-z,A-Z]{2}[0-9]{8}$/g).test($('#txtNoa').val())) {
+                if ($('#txtNoa').val().length > 0 && !(/^[a-z,A-Z]{2}[0-9]{8}$/g).test($('#txtNoa').val())
+                && !(($('#cmbKind').val()=='22' && $('#chkIsadd').prop('checked')) 
+				|| $('#cmbKind').val()=='28' || $('#cmbKind').val()=='29' || $('#cmbKind').val()=='36')
+                ) {
 					alert(q_getMsg('lblNoa') + '錯誤。');
 					Unlock(1);
 					return;
@@ -467,7 +500,6 @@
             	}catch(e){
             		
             	}
-            	
             		
             	$('#cmbKind').text('');
             	var kind=q_getPara('vcct.kind').split(',');
@@ -488,8 +520,14 @@
                 //$('#chkIsnondeductible').prop('checked',false);
                 //$('.nondeductible').hide();//目前不開放抵扣
                 
+                //106/07/25 自我開立 二聯收銀機 隱藏 
+                $('.self').hide();
+                $('.two').hide();
+                
                 if($('#cmbTypea').val()=='1'){
+                	$('.asset').show();
                 	$('.typea1').show();
+                	$('#lblSerial').text('銷售人統編');
                 	if(q_getPara('sys.project').toUpperCase()=='RB'){
                 		$('.rb').hide();
                 	}
@@ -498,15 +536,40 @@
                 	$('#cmbNotaxnote').val('');
                 	$('.nondeductible').show();
                 	
-                	$('.two').hide();
-                	$('#chkIstwo').prop('checked',false);
-                	$('.self').hide();
-                	$('#chkIsself').prop('checked',false);
+                	//$('.two').hide();
+                	//$('#chkIstwo').prop('checked',false);
                 	$('.carrier').show();
                 	
-                	if('22,25,26,27'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!='' && (q_cur==1 || q_cur==2)){ //彙加張數
+                	if('22,25,26,27'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!=''){
+                		$('.isadd').show();
+                		if($('#cmbKind').val()=='26' || $('#cmbKind').val()=='27'){
+                			$('#chkIsadd').prop('checked',true);
+                		}
+                	}else{
+                		$('.isadd').hide();
+                		$('#chkIsadd').prop('checked',false);
+                	}
+                	
+                	if($('#chkIsadd').prop('checked') && '22,25,26,27'.indexOf($('#cmbKind').val())>-1){
+                		$('#txtSerial').val('').attr('disabled', 'disabled').css('background','RGB(237,237,237)');
+                		if($('#cmbKind').val()=='22'){
+                			$('#txtNoa').attr('disabled', 'disabled').css('background','RGB(237,237,237)');
+                			if(q_cur==1){$('#txtNoa').val('');}
+                		}else{
+                			$('#txtNoa').removeAttr('disabled').css('background','white');
+                		}
                 		$('#txtMount').removeAttr('disabled').css('background','white');
                 	}else{
+                		$('#txtSerial').removeAttr('disabled').css('background','white');
+                		$('#txtNoa').removeAttr('disabled').css('background','white');
+                		$('#txtMount').val('').attr('disabled', 'disabled').css('background','RGB(237,237,237)');
+                	}
+                	
+                	//海關
+                	if('28,29'.indexOf($('#cmbKind').val())>-1){
+                		$('#txtSerial').val('').attr('disabled', 'disabled').css('background','RGB(237,237,237)');
+                		$('#txtNoa').attr('disabled', 'disabled').css('background','RGB(237,237,237)');
+                		if(q_cur==1){$('#txtNoa').val('');}
                 		$('#txtMount').val('').attr('disabled', 'disabled').css('background','RGB(237,237,237)');
                 	}
                 	
@@ -537,13 +600,20 @@
                 	$('.passtype').hide();
                 	$('#cmbPasstype').val('');
                 }else{
-                	$('.typea1').hide();
+                	$('.asset').hide();
+                	$('#txtSerial').removeAttr('disabled').css('background','white');
+                	$('#txtNoa').removeAttr('disabled').css('background','white');
+                	$('#txtMount').val('').attr('disabled', 'disabled').css('background','RGB(237,237,237)');
                 	
                 	if(q_getPara('sys.project').toUpperCase()=='RB'){
 	                	$('.typea2').hide();
 	                	$('.rb').show();
 	                }else{
-                		$('.typea2').show();
+	                	if('37,38'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!=''){
+                			$('.typea2').show();
+                		}else{
+                			$('.typea2').hide();
+                		}
                 	}
                 	
                 	$('.nondeductible').hide();
@@ -551,18 +621,47 @@
                 	$('#cmbNotaxnote').show();
                 	/*$('#txtMount').val('').hide();
                 	$('#txtDutymemo').val('').hide();
-                	$('#txtBook').val('').hide();*/
+                	$('#txtBook').val('')	.hide();*/
                 	$('.carrier').hide();
-                	$('.self').show();
+                	//$('.self').show();
                 	$('.share').hide();
                 	
-                	if('32,34'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!=''){
+                	if('31,32,35,36'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!=''){
+                		$('.isadd').show();
+                	}else{
+                		$('.isadd').hide();
+                		$('#chkIsadd').prop('checked',false);
+                	}
+                	
+                	if($('#chkIsadd').prop('checked') && $('#cmbKind').val()!='36'){
+                		$('#lblSerial').text('發票訖號');
+                	}else{
+                		$('#lblSerial').text('買受人統編');
+                	}
+                	
+                	if($('#cmbKind').val()=='36'){
+                		$('#txtNoa').attr('disabled', 'disabled').css('background','RGB(237,237,237)');
+                		if(q_cur==1){$('#txtNoa').val('');}
+                	}else{
+                		$('#txtNoa').removeAttr('disabled').css('background','white');
+                	}
+                	
+                	/*if('32,34'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!=''){
                 		$('.two').show();
-                		$('#lblSerial').text('二聯收銀訖號');
                 	}else{
                 		$('.two').hide();
                 		$('#chkIstwo').prop('checked',false);
-                		$('#lblSerial').text(q_getMsg("lblSerial"));
+                	}*/
+                	
+                	//其他憑證
+                	if('34,36,37,38'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!=''){
+                		$('.typea1').show();
+                		$('#lblDutymemo').text('其他憑證');
+                		$('#txtDutymemo').removeAttr('disabled').css('background','white');
+                	}else{
+                		$('.typea1').hide();
+                		$('#lblDutymemo').text('憑證/流水號');
+                		$('#txtDutymemo').val('').attr('disabled', 'disabled').css('background','RGB(237,237,237)');
                 	}
                 	
                 	//106/07/13 開啟使用 XY有零稅率海關問題
@@ -787,16 +886,22 @@
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td><input id="txtNoa"  type="text" class="txt c1" /></td>
+						<td colspan="4">
+							<span style="float: left;"> </span><span style="float: left;"> </span>
+							<a id='lblIsadd' class="lbl isadd" style="float: left;"> </a><span style="float: left;" class="isadd"> </span><input id="chkIsadd" type="checkbox" style="float: left;" class="isadd"/> 
+							<a id='lblIsshare' class="lbl share" style="float: left;"> </a><span style="float: left;" class="share"> </span><input id="chkIsshare" type="checkbox" style="float: left;" class="share"/>
+						</td>
+					</tr>
+					<tr>
 						<td><span> </span><a id='lblSerial' class="lbl"> </a></td>
 						<td><input id="txtSerial"  type="text" class="txt c1" /></td>
 						<td colspan="4"> 
 							<span style="float: left;"> </span><span style="float: left;"> </span>
-							<a id='lblIscarrier' class="lbl carrier" style="float: left;"> </a><span style="float: left;" class="carrier"> </span><input id="chkIscarrier" type="checkbox" style="float: left;" class="carrier"/>
 							<a id='lblIstwo' class="lbl two" style="float: left;"> </a><span style="float: left;" class="two"> </span><input id="chkIstwo" type="checkbox" style="float: left;" class="two"/>
 							<a id='lblIsasset' class="lbl asset" style="float: left;"> </a><span style="float: left;" class="asset"> </span><input id="chkIsasset" type="checkbox" style="float: left;" class="asset"/>
 							<a id='lblIsself' class="lbl self" style="float: left;"> </a><span style="float: left;" class="self"> </span><input id="chkIsself" type="checkbox" style="float: left;" class="self"/>
 							<a id='lblIsnondeductible' class="lbl nondeductible" style="float: left;"> </a><span style="float: left;" class="nondeductible"> </span><input id="chkIsnondeductible" type="checkbox" style="float: left;" class="nondeductible"/>
-							<a id='lblIsshare' class="lbl share" style="float: left;"> </a><span style="float: left;" class="share"> </span><input id="chkIsshare" type="checkbox" style="float: left;" class="share"/>
+							<a id='lblIscarrier' class="lbl carrier" style="float: left;"> </a><span style="float: left;" class="carrier"> </span><input id="chkIscarrier" type="checkbox" style="float: left;" class="carrier"/>
 						</td>
 					</tr>
 					<tr>
@@ -816,6 +921,8 @@
 						<td><input id="txtMount"  type="text" class="txt num c1" /></td>
 					</tr>
 					<tr class="typea2">
+						<td><span> </span><a id='lblSpecialtax' class="lbl"> </a></td>
+						<td><select id="cmbSpecialtax" class="txt c1"> </select></td>
 						<td><span> </span><a id='lblSpecialfood' class="lbl"> </a></td>
 						<td><select id="cmbSpecialfood" class="txt c1" onchange="calTax();"> </select></td>
 						<td><span> </span><a id='lblNotaxnote' class="lbl"> </a></td>
