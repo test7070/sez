@@ -20,7 +20,7 @@
             var q_readonlys = [];
             var bbmNum = [['txtMount', 10, 2, 1],['txtWeight', 10, 2, 1],['txtTotal', 10, 0, 1]];
             var bbsNum = [['txtWeight', 10, 2, 1],['txtWeight2', 10, 2, 1],['txtPrice', 10, 3, 1],['txtTotal', 10, 2, 1],['txtTotal2', 10, 2, 1]];
-            var bbmMask = [];
+            var bbmMask = [['txtDatea','999/99/99'],['textMon','999/99']];
             var bbsMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -60,7 +60,8 @@
              	for(var i=0;i<q_bbsCount;i++){
 					t_tweight = q_add(t_tweight,q_float('txtWeight_'+i));
 					t_tweight2 = q_add(t_tweight2,q_float('txtWeight2_'+i));
-					$('#txtTotal_'+i).val(q_mul(q_float('txtWeight2_'+i),q_float('txtPrice_'+i)));
+					$('#txtTotal_'+i).val(q_mul(q_float('txtWeight_'+i),q_float('txtPrice_'+i)));
+					$('#txtPrice3_'+i).val(q_mul(q_float('txtWeight2_'+i),q_float('txtPrice2_'+i)));
 					t_total = round(q_add(t_total,q_float('txtTotal_'+i)),0);
 					t_total2 = round(q_add(t_total2,q_float('txtTotal2_'+i)),0);
              	}
@@ -71,7 +72,7 @@
             }
 
             function mainPost() {
-                q_getFormat();
+                q_mask(bbmMask);
                 bbsMask = [['txtDatea', r_picd],['txtTrandate', r_picd],['txtLtime','99:99'],['txtStime','99:99'],['txtDtime','99:99']];
                 
                 $('#btnOrde').click(function(e){
@@ -81,6 +82,39 @@
                     q_box("tranvcce_jr_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'tranvcce_tran', "95%", "650px");
                 });
                 
+                $('#btnImport').click(function() {
+                    $('#divImport').toggle();
+                    $('#textBdate').focus();
+                });
+                $('#btnCancel_import').click(function() {
+                    $('#divImport').toggle();
+                });
+                
+                $('#btnImport_trans').click(function() {
+                   if(q_cur != 1 && q_cur != 2){
+                        var t_key = q_getPara('sys.key_payb');
+                        var t_mon = $('#textMon').val();
+                        t_key = (t_key.length==0?'FC':t_key);//一定要有值
+                        if(t_mon.length==0){
+                            alert('請先輸入月份'+q_getMsg('lblMon')+'!!');
+                            return;
+                        }else{
+                            q_func('qtxt.query.tranpayb_jr', 'tran.txt,tranpaybjr,' + encodeURI(t_key) + ';'+ encodeURI(t_mon)); 
+                        }    
+                   }
+                });
+                
+            }
+            
+            function q_funcPost(t_func, result) {
+                switch(t_func) {
+                    case 'qtxt.query.tranpayb_jr':
+                        var as = _q_appendData("tmp0", "", true, true);
+                        alert(as[0].msg);
+                        break;
+                    default:
+                        break;
+                }
             }
 
             function q_boxClose(s2) {
@@ -92,8 +126,8 @@
                             if (!b_ret || b_ret.length == 0)
                                 return;
                                 ret = q_gridAddRow(bbsHtm, 'tbbs', 
-                                'txtOrdeno,txtCaseno,txtDatea,txtTrandate,txtCustno,txtNick,txtUccno,txtProduct,txtWeight,txtWeight2,txtUnit,txtPrice,txtTotal,txtPo,txtCarno,txtDriverno,txtDriver,txtMemo,txtStraddrno,txtStraddr,txtCardealno,txtCardeal', b_ret.length, b_ret, 
-                                'noa,noq,time1,time2,custno,cust,productno,product,weight,uweight,unit,volume,total,memo2,carno,driverno,driver,memo,addrno,addr,addrno2,addr2', 'txtUccno,txtProduct');
+                                'txtOrdeno,txtCaseno,txtDatea,txtTrandate,txtCustno,txtNick,txtUccno,txtProduct,txtWeight,txtWeight2,txtUnit,txtPrice,txtTotal,txtPo,txtCarno,txtDriverno,txtDriver,txtMemo,txtStraddrno,txtStraddr,txtCardealno,txtCardeal,txtPrice2,txtPrice3', b_ret.length, b_ret, 
+                                'noa,noq,time1,time2,custno,cust,productno,product,weight,uweight,unit,volume,total,memo2,carno,driverno,driver,memo,addrno,addr,addrno2,addr2,height,tvolume', 'txtUccno,txtProduct');
                             }
                         break;
                     case q_name + '_s':
@@ -147,6 +181,9 @@
                         sum();
                     });
                     $('#txtPrice_' + i).change(function() {
+                        sum();
+                    });
+                    $('#txtPrice2_' + i).change(function() {
                         sum();
                     });
                 }
@@ -354,7 +391,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 1850px;
+                width: 2200px;
             }
             .tbbs a {
                 font-size: medium;
@@ -399,6 +436,30 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
+	<div id="divImport" style="position:absolute; top:250px; left:600px; display:none; width:400px; height:200px; background-color: #cad3ff; border: 5px solid gray;">
+            <table style="width:100%;">
+                <tr style="height:1px;">
+                    <td style="width:150px;"></td>
+                    <td style="width:80px;"></td>
+                    <td style="width:80px;"></td>
+                    <td style="width:80px;"></td>
+                    <td style="width:80px;"></td>
+                </tr>
+                <tr style="height:35px;">
+                    <td><span> </span><a id="lblMon" style="float:right; color: blue; font-size: medium;">月份</a></td>
+                    <td colspan="4">
+                    <input id="textMon"  type="text" style="float:left; width:100px; font-size: medium;"/>
+                    </td>
+                </tr>               
+                <tr style="height:35px;">
+                    <td> </td>
+                    <td><input id="btnImport_trans" type="button" value="付款"/></td>
+                    <td></td>
+                    <td></td>
+                    <td><input id="btnCancel_import" type="button" value="關閉"/></td>
+                </tr>
+            </table>
+        </div>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id="dmain" >
 			<div class="dview" id="dview">
@@ -490,8 +551,8 @@
 						<td>
 						<input id="txtWorker2" type="text" class="txt c1" />
 						</td>
-						<td></td>
 						<td><input id="btnOrde" type="button" value="派車匯入" style="width:100%;"/></td>
+						<td><input id="btnImport" type="button" value="付款立帳" style="width:100%;"/></td>
 					</tr>
 				</table>
 			</div>
@@ -508,8 +569,10 @@
 					<td align="center" style="width:90px"><a>事業噸數</a></td>
 					<td align="center" style="width:90px"><a>處理廠噸數</a></td>
 					<td align="center" style="width:60px"><a>單位</a></td>
+					<td align="center" style="width:90px"><a>請款單價</a></td>
 					<td align="center" style="width:90px"><a>處理單價</a></td>
 					<td align="center" style="width:90px"><a>應收運費</a></td>
+					<td align="center" style="width:90px"><a>處理金額</a></td>
 					<td align="center" style="width:90px"><a>應付運費</a></td>
 					<td align="center" style="width:160px"><a>聯單編號</a></td>
 					<td align="center" style="width:100px"><a>出車車號</a></td>
@@ -541,7 +604,9 @@
 					<td><input type="text" id="txtWeight2.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtUnit.*" style="width:95%;"/></td>
 					<td><input type="text" id="txtPrice.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtPrice2.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtTotal.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtPrice3.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtTotal2.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtPo.*" style="width:95%;"/></td>
 					<td>
