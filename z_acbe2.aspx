@@ -175,7 +175,12 @@
 
                     t_part = "zzz@全部";
                     var as = _q_appendData("acpart", "", true);
-                    if (q_getPara('acc.lockPart') == '1' && r_rank < 8) {
+                    for ( i = 0; i < as.length; i++) {
+                        t_part = t_part + (t_part.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
+                        t_acpart = t_acpart + ('<input type="checkbox" value="' + as[i].noa + '" style="width:25px;height:15px;float:left;"><span style="width:100px;height:25px;display:block;float:left;">' + as[i].part + '</span>');
+                    }
+                        
+                    /*if (q_getPara('acc.lockPart') == '1' && r_rank < 8) {
                         t_part = "";
                         for ( i = 0; i < as.length; i++) {
                             if (r_partno == as[i].noa) {
@@ -195,7 +200,7 @@
                             t_part = t_part + (t_part.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
                             t_acpart = t_acpart + ('<input type="checkbox" value="' + as[i].noa + '" style="width:25px;height:15px;float:left;"><span style="width:100px;height:25px;display:block;float:left;">' + as[i].part + '</span>');
                         }
-                    }
+                    }*/
                     q_cmbParse("combPart1", t_part);
                     q_cmbParse("combPart2", t_part);
                     q_cmbParse("combPart3", t_part);
