@@ -20,7 +20,7 @@
             }
             q_tables = 's';
             var q_name = "trd";
-            var q_readonly = ['txtTax', 'txtNoa', 'txtMoney', 'txtTotal','txtWorker2','txtWorker', 'txtMount', 'txtStraddr', 'txtEndaddr', 'txtPlusmoney', 'txtMinusmoney', 'txtVccano', 'txtCustchgno','txtAccno','txtAccno2','txtYear2','txtYear1'];
+            var q_readonly = ['txtNoa', 'txtMoney', 'txtTotal','txtWorker2','txtWorker', 'txtMount', 'txtStraddr', 'txtEndaddr', 'txtPlusmoney', 'txtMinusmoney', 'txtVccano', 'txtCustchgno','txtAccno','txtAccno2','txtYear2','txtYear1'];
             var q_readonlys = [ 'txtTranno','txtTrannoq','txtTrandate','txtStraddr','txtProduct','txtCarno','txtCustorde','txtCaseno','txtMount','txtPrice','txtTotal','txtTranmoney'];
             var bbmNum = [['txtPlus', 10, 0,1],['txtDiscount', 10, 0,1],['txtMoney', 10, 0,1], ['txtTax', 10, 0,1], ['txtTotal', 10, 0,1], ['txtMount', 10, 3,1], ['txtPlusmoney', 10, 0,1], ['txtMinusmoney', 10, 0,1]];
             var bbsNum = [['txtTranmoney', 10, 0,1], ['txtOverweightcost', 10, 0,1], ['txtOthercost', 10, 0,1], ['txtMount', 10, 3,1], ['txtPrice', 10, 3,1], ['txtTotal', 10, 0,1]];
@@ -63,6 +63,8 @@
                 bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtBtrandate', r_picd], ['txtEtrandate', r_picd], ['txtVccadate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbCarteamno", t_carteam);
+                
+                $('#lblCust').text('客戶');
                 
 				$('#txtBdate').datepicker();
 				$('#txtEdate').datepicker();
@@ -271,7 +273,7 @@
                     case 'trd_tran':
                         var as = _q_appendData("view_trans", "", true);
                         q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtTranno,txtTrannoq,txtCarno,txtStraddr,txtTranmoney,txtCaseno,txtMount,txtPrice,txtTotal,txtCustorde,txtProduct'
-                        , as.length, as, 'trandate,noa,noq,carno,straddr,total,caseno,mount,price,total,custorde,product', '','');
+                        , as.length, as, 'trandate,noa,noq,carno,straddr,total,caseno,weight,price,total,po,product', '','');
                         for ( i = 0; i < q_bbsCount; i++) {
                             if (i < as.length) {
                             }else{
@@ -756,15 +758,15 @@
 						<td align="center" style="width:20px; color:black;"><a id="vewChk"> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id="vewDatea"> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewCarteam'>車隊</a></td>
-						<td align="center" style="width:100px; color:black;"><a id="vewComp"> </a></td>
-						<td align="center" style="width:120px; color:black;"><a id="vewPo">P/O</a></td>
+						<td align="center" style="width:100px; color:black;"><a id="">客戶</a></td>
+						<!--<td align="center" style="width:120px; color:black;"><a id="vewPo">P/O</a></td>-->
 						<td align="center" style="width:70px; color:black;"><a id="vewMoney"> </a></td>
 						<td align="center" style="width:70px; color:black;"><a id="vewPlusmoney"> </a></td>
 						<td align="center" style="width:70px; color:black;"><a id="vewMinusmoney"> </a></td>
 						<td align="center" style="width:70px; color:black;"><a id="vewTax"> </a></td>
 						<td align="center" style="width:70px; color:black;"><a id="vewTotal"> </a> </td>
-						<td align="center" style="width:70px; color:black;"><a id="vewMount"> </a> </td>
-						<td align="center" style="width:100px; color:black;"><a id="vewVccano"> </a></td>
+						<td align="center" style="width:70px; color:black;"><a id="">噸數</a> </td>
+						<!--<td align="center" style="width:100px; color:black;"><a id="vewVccano"> </a></td>-->
 						<td align="center" style="width:70px; color:black;"><a id="vewUnpay"> </a></td>
 					</tr>
 					<tr>
@@ -772,14 +774,14 @@
 						<td id="datea" style="text-align: center;">~datea</td>
 						<td id="carteamno=cmbCarteamno" style="text-align: center;">~carteamno=cmbCarteamno</td>
 						<td id="nick" style="text-align: center;">~nick</td>
-						<td id="po" style="text-align: center;">~po</td>
+						<!--<td id="po" style="text-align: center;">~po</td>-->
 						<td id="money,0,1" style="text-align: right;">~money,0,1</td>
 						<td id="plusmoney,0,1" style="text-align: right;">~plusmoney,0,1</td>
 						<td id="minusmoney,0,1" style="text-align: right;">~minusmoney,0,1</td>
 						<td id="tax,0,1" style="text-align: right;">~tax,0,1</td>
 						<td id="total,0,1" style="text-align: right;">~total,0,1</td>
 						<td id="mount" style="text-align: right;">~mount</td>
-						<td id="vccano,10" style="text-align: left;" >~vccano,10</td>
+						<!--<td id="vccano,10" style="text-align: left;" >~vccano,10</td>-->
 						<td id="unpay,0,1" style="text-align: right;">~unpay,0,1</td>
 					</tr>
 				</table>
@@ -938,13 +940,13 @@
 					</td>
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:100px;"><a id='lblTrandate_s'> </a></td>
-					<td align="center" style="width:200px;"><a id='lblStraddr'>處理廠</a></td>
+					<td align="center" style="width:200px;"><a id=''></a>處理廠</td>
 					<td align="center" style="width:80px;"><a id='lblProduct_s'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblMount_s'> </a></td>
+					<td align="center" style="width:80px;"><a id=''>噸數</a></td>
 					<td align="center" style="width:80px;"><a id='lblPrice_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblTotal_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblCarno_s'> </a></td>
-					<td align="center" style="width:150px;"><a id='lblCustorde_s'> </a></td>
+					<td align="center" style="width:150px;"><a id=''>聯單編號</a></td>
 					<td align="center" style="width:150px;"><a id='lblTranno_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblTranmoney_s'> </a></td>
 				</tr>
