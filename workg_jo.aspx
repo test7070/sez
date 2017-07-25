@@ -1481,7 +1481,7 @@
 						<td style="width:102px; color:black;"><a id='vewNoa'> </a></td>
 						<!--<td style="width:80px; color:black;"><a id='vewStype'> </a></td>-->
 						<!--<td style="color:black;"><a id='vewProduct'> </a></td>-->
-						<td style="width:150px; color:black;"><a id='vewRang'> </a></td>
+						<td style="width:150px; color:black;"><a id='vewWrang'> </a></td>
 						<td style="width:50px; color:black;"><a id='vewUnwork'> </a></td>
 						<td style="width:50px; color:black;"><a id='vewUnordb'> </a></td>
 						<td style="width:50px; color:black;"><a id='vewUnorda'> </a></td>
@@ -1491,7 +1491,7 @@
 						<td id='noa' style="text-align: center;">~noa</td>
 						<!--<td align="center" id='stype=workg.stype'>~stype=workg.stype</td>-->
 						<!--<td id='product' style="text-align: center;">~product</td>-->
-						<td id='bdate edate' style="text-align: center;">~bdate - ~edate</td>
+						<td id='wbdate wedate' style="text-align: center;">~wbdate - ~wedate</td>
 						<td id='unwork' style="text-align: center;">~unwork</td>
 						<td id='unordb' style="text-align: center;">~unordb</td>
 						<td id='unorda' style="text-align: center;">~unorda</td>
@@ -1665,7 +1665,7 @@
 						<td style="width:90px;">
 							<a id='lblUindate_s'> </a>/<a id='lblIndate_s'> </a>
 						</td>
-						<td style="width:90px;"><a id='lblPlanpdate_s'>生管預交日</a></td>
+						<td style="width:90px;"><a id='lblCompdate_s'> </a></td>
 						<td style="width:80px;"><a id='lblInmount_s'> </a></td>
 						<td style="width:100px;"><a id='lblWmount_s'> </a></td>
 						<td><a id='lblMemo_s'> </a></td>

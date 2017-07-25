@@ -715,7 +715,7 @@
 						$('.orde').attr('disabled', 'disabled');
 						$('.odm').val('');
 					}
-					$('.dbbs').css('width','3400px');
+					$('.dbbs').css('width','3500px');
 					$('#lblMount_s').css('color','white');
 				}else{
 					$('.sf').hide();
@@ -727,7 +727,7 @@
 						$('.safo').attr('disabled', 'disabled');
 						$('.sam').val('');
 					}
-					$('.dbbs').css('width','2850px');
+					$('.dbbs').css('width','2950px');
 					$('#lblMount_s').css('color','red');
 				}
 				var hasStyle = q_getPara('sys.isstyle');
@@ -937,8 +937,9 @@
 					else
 						$('#txtMount_' + seq).val(0);*/
 					//沒有訂單號碼指定開工日寫入明天的日期
-					if(emp($('#txtOrdeno_' + seq).val())&&q_float('txtMount_'+ seq)>0)
-						$('#txtCuadate_' + seq).val(q_cdn(q_date(),1));
+					/*if(emp($('#txtOrdeno_' + seq).val())&&q_float('txtMount_'+ seq)>0)
+						$('#txtCuadate_' + seq).val(q_cdn(q_date(),1));*/
+					//bbs.Cuadate原指定開工日 改為 指定完工日
 				}
 			}
 
@@ -1151,7 +1152,7 @@
 				font-size: medium;
 			}
 			.dbbs {
-				width: 3400px;
+				width: 3500px;
 			}
 			.dbbs .tbbs {
 				margin: 0;
@@ -1206,9 +1207,9 @@
 					<tr>
 						<td style="width:24px; color:black;"><a id='vewChk'> </a></td>
 						<td style="width:102px; color:black;"><a id='vewNoa'> </a></td>
-						<td style="width:80px; color:black;"><a id='vewStype'> </a></td>
+						<td style="width:70px; color:black;"><a id='vewStype'> </a></td>
 						<!--<td style="color:black;"><a id='vewProduct'> </a></td>-->
-						<td style="width:150px; color:black;"><a id='vewRang'> </a></td>
+						<td style="width:160px; color:black;"><a id='vewWrang'> </a></td>
 						<td style="width:50px; color:black;"><a id='vewUnwork'> </a></td>
 						<td style="width:50px; color:black;"><a id='vewUnordb'> </a></td>
 						<td style="width:50px; color:black;"><a id='vewUnorda'> </a></td>
@@ -1218,7 +1219,7 @@
 						<td id='noa' style="text-align: center;">~noa</td>
 						<td align="center" id='stype=workg.stype'>~stype=workg.stype</td>
 						<!--<td id='product' style="text-align: center;">~product</td>-->
-						<td id='bdate edate' style="text-align: center;">~bdate - ~edate</td>
+						<td id='wbdate wedate' style="text-align: center;">~wbdate - ~wedate</td>
 						<td id='unwork' style="text-align: center;">~unwork</td>
 						<td id='unordb' style="text-align: center;">~unordb</td>
 						<td id='unorda' style="text-align: center;">~unorda</td>
@@ -1360,7 +1361,6 @@
 						<td style="width:110px;">
 							<a id='lblMount_s' style="color: red;font-weight: bold;"> </a>
 						</td>
-						<!--<td style="width:80px;"><a id='lblCuadate_s'> </a></td>-->
 						<td style="width:130px;"><a id='lblStation_s'> </a></td>
 						<td style="width:100px;"><a id='lblDayborn_s'> </a></td>
 						<td style="width:180px;"><a id='lblWorkno_s'> </a></td>
@@ -1369,6 +1369,7 @@
 						<td style="width:90px;">
 							<a id='lblUindate_s'> </a>/<a id='lblIndate_s'> </a>
 						</td>
+						<td style="width:90px;"><a id='lblCompdate_s'> </a></td>
 						<td style="width:80px;"><a id='lblInmount_s'> </a></td>
 						<td style="width:100px;"><a id='lblWmount_s'> </a></td>
 						<td><a id='lblMemo_s'> </a></td>
@@ -1411,7 +1412,6 @@
 						<td><input id="txtSalemount.*" type="text" class="txt c1 num orde"/></td>
 						<td style="display: none;"><input id="txtPlanmount.*" type="text" class="txt c1 num orde"/></td>
 						<td><input id="txtMount.*" type="text" class="txt c1 num orde odm"/></td>
-						<!--<td><input id="txtCuadate.*" type="text" class="txt c1"/></td>-->
 						<td>
 							<input id="txtStationno.*" type="text" class="txt c1" style="width: 70%"/>
 							<input id="btnStation.*" type="button" style="float:left;font-size: medium; font-weight: bold;" value="."/>
@@ -1425,6 +1425,7 @@
 							<input id="txtUindate.*" type="text" class="txt c1 orde odm"/>
 							<input id="txtIndate.*" type="text" class="txt c1"/>
 						</td>
+						<td><input id="txtCuadate.*" type="text" class="txt c1"/></td>
 						<td><input id="txtInmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtWmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
