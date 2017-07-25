@@ -55,9 +55,12 @@
 
             function sum() {
                 for(var i=0;i<q_bbsCount;i++){
+                    t_weight = q_float('txtWeight_'+i);
                     t_uweight = q_float('txtUweight_'+i);
                     t_volume = q_float('txtVolume_'+i);
-                    $('#txtTotal_'+i).val(q_mul(t_uweight,t_volume));
+                    t_height = q_float('txtHeight_'+i);
+                    $('#txtTotal_'+i).val(q_mul(t_weight,t_volume));
+                    $('#txtTvolume_'+i).val(q_mul(t_uweight,t_height));
                 }
             }
 
@@ -119,12 +122,16 @@
                     $('#txtWeight_' + i).change(function() {
                         sum();
                     });
-                    $('#txtWeight2_' + i).change(function() {
+                    $('#txtUweight_' + i).change(function() {
                         sum();
                     });
                     $('#txtPrice_' + i).change(function() {
                         sum();
                     });
+                     $('#txtHeight_' + i).change(function() {
+                        sum();
+                    });
+                    
                 }
                 _bbsAssign();
                 $('#tbbs').find('tr.data').children().hover(function(e){
@@ -329,7 +336,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 1700px;
+                width: 1900px;
             }
             .tbbs a {
                 font-size: medium;
@@ -450,8 +457,10 @@
 					<td align="center" style="width:80px"><a>事業噸數</a></td>
 					<td align="center" style="width:90px"><a>處理廠噸數</a></td>
 					<td align="center" style="width:60px"><a>單位</a></td>
+					<td align="center" style="width:80px"><a>請款單價</a></td>
 					<td align="center" style="width:80px"><a>處理單價</a></td>
-					<td align="center" style="width:90px"><a>金額</a></td>
+					<td align="center" style="width:90px"><a>請款金額</a></td>
+					<td align="center" style="width:90px"><a>處理金額</a></td>
 					<td align="center" style="width:160px"><a>聯單編號</a></td>
 					<td align="center" style="width:100px"><a>出車車號</a></td>
 					<td align="center" style="width:100px"><a>板台</a></td>
@@ -481,7 +490,9 @@
 					<td><input type="text" id="txtUweight.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtUnit.*" style="width:95%;"/></td>
 					<td><input type="text" id="txtVolume.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtHeight.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtTotal.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtTvolume.*" class="num" style="width:95%;"/></td>
 					<!--<td><input type="text" id="txtTotal2.*" class="num" style="width:95%;"/></td>-->
 					<td><input type="text" id="txtMemo2.*" style="width:95%;"/></td>
 					<td>

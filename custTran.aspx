@@ -95,8 +95,11 @@
             			q_cmbParse("cmbTypea", q_getPara('cust.typea'));
             			break;
             	}
-                
-                
+            	
+            	if (q_getPara('sys.project').toUpperCase()=='JR'){
+                    $('#btnCustm').show();
+                }
+
                 switch(q_getPara('sys.project').toUpperCase()){
                 	case 'WH':
                 		$('#combPaytype').hide();
@@ -203,6 +206,19 @@
 	                	q_gt('credit_sum', t_where, 1, 1, 0, '', r_accy);
                 	}
                 });*/
+                $('#btnCustm').click(function() {
+                    if (q_cur == 1) {
+                        return;
+                    } else {
+                        t_where = "noa='" + $('#txtNoa').val() + "'";
+                        if (q_getPara('sys.project').toUpperCase()=='JR'){
+                            q_box("custm_jr.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'custm', "600px", "700px", $('#btnCustm').val());
+                        }else{
+                            q_box("custm_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'custm', "700px", "700px", $('#btnCustm').val());
+                        }
+                    }
+                });
+               
             }
             
             function q_boxClose(s2) {
@@ -637,7 +653,9 @@
 						<td colspan="2"><input id="txtTel" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblFax' class="lbl"> </a></td>
 						<td><input id="txtFax" type="text" class="txt c1"/></td>
-						<td><input id="btnConn" type="button" /></td>
+						<td><input id="btnConn" type="button" />
+						    <input id="btnCustm" type="button" value="帳戶" style="display: none;"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMobile' class="lbl"> </a></td>

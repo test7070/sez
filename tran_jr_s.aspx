@@ -19,7 +19,8 @@
 				['txtDriverno', 'lblDriverno', 'driver', 'noa,namea', 'txtDriverno', 'driver_b.aspx']
 				,['txtCustno', 'lblCustno', 'cust', 'noa,comp,nick', 'txtCustno', 'cust_b.aspx']
                 ,['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno', 'acomp_b.aspx']
-				,['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno', 'car2_b.aspx']);
+				,['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno', 'car2_b.aspx']
+				,['txtStraddrno', 'lblStraddrno', 'addr', 'noa,addr', 'txtStraddrno,txtStraddr', 'addr_b.aspx']);
 				
 			$(document).ready(function() {
 				main();
@@ -56,9 +57,10 @@
                 t_vccano = $.trim($('#txtVccano').val());
 				
 				t_noa = $.trim($('#txtNoa').val());
-				t_driverno = $.trim($('#txtDriverno').val());
-				t_driver = $.trim($('#txtDriver').val());
 				t_carno = $.trim($('#txtCarno').val());
+				t_po = $.trim($('#txtPo').val());
+				t_straddrno = $.trim($('#txtStraddrno').val());
+				t_straddr = $.trim($('#txtStraddr').val());
 				
 				var t_where = " 1=1 "
 					+q_sqlPara2("datea", t_bdate, t_edate)
@@ -69,13 +71,16 @@
 					+q_sqlPara2("addrno", t_custno)
 					+q_sqlPara2("addr", t_cust)
 					+q_sqlPara2("departure", t_vccano)
-					+q_sqlPara2("driverno", t_driverno);
 					
-				if(t_driver.length>0)	
-					t_where += " and charindex('"+t_driver+"',driver)>0";
 				if(t_carno.length>0)	
-					t_where += " and charindex('"+t_carno+"',carno)>0";
-					
+					t_where +=  " and exists(select noa from view_trans"+r_accy+" where view_trans"+r_accy+".noa=view_tran"+r_accy+".noa and view_trans"+r_accy+".carno='"+t_carno+"')";
+				if(t_po.length>0)    
+                    t_where +=  " and exists(select noa from view_trans"+r_accy+" where view_trans"+r_accy+".noa=view_tran"+r_accy+".noa and view_trans"+r_accy+".po='"+t_po+"')";
+                if(t_straddrno.length>0)    
+                    t_where +=  " and exists(select noa from view_trans"+r_accy+" where view_trans"+r_accy+".noa=view_tran"+r_accy+".noa and view_trans"+r_accy+".straddrno='"+t_straddrno+"')";
+                if(t_straddr.length>0)    
+                    t_where +=  " and exists(select noa from view_trans"+r_accy+" where view_trans"+r_accy+".noa=view_tran"+r_accy+".noa and view_trans"+r_accy+".straddr='"+t_straddr+"')";
+				
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
@@ -132,18 +137,22 @@
                     <td class='seek'  style="width:20%;"><a id='lblVccano'>發票號碼</a></td>
                     <td><input class="txt" id="txtVccano" type="text" style="width:215px; font-size:medium;" /></td>
                 </tr>
-				<tr class='seek_tr' style="display:none;">
-					<td class='seek'  style="width:20%;"><a id='lblDriverno'>司機編號</a></td>
-					<td><input class="txt" id="txtDriverno" type="text" style="width:215px; font-size:medium;" /></td>
-				</tr>
-				<tr class='seek_tr' style="display:none;">
-					<td class='seek'  style="width:20%;"><a id='lblDriver'>司機名稱</a></td>
-					<td><input class="txt" id="txtDriver" type="text" style="width:215px; font-size:medium;" /></td>
-				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblCarno'>車牌</a></td>
 					<td><input class="txt" id="txtCarno" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
+				<tr class='seek_tr'>
+                    <td class='seek'  style="width:20%;"><a id='lblPo'>聯單號碼</a></td>
+                    <td><input class="txt" id="txtPo" type="text" style="width:215px; font-size:medium;" /></td>
+                </tr>
+                <tr class='seek_tr'>
+                    <td class='seek'  style="width:20%;"><a id='lblStraddrno'>處理廠編號</a></td>
+                    <td><input class="txt" id="txtStraddrno" type="text" style="width:215px; font-size:medium;" /></td>
+                </tr>
+                <tr class='seek_tr'>
+                    <td class='seek'  style="width:20%;"><a id='lblStraddr'>處理廠</a></td>
+                    <td><input class="txt" id="txtStraddr" type="text" style="width:215px; font-size:medium;" /></td>
+                </tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
 		</div>

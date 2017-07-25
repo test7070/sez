@@ -132,6 +132,8 @@
                         <input id="txtMemo2.*" type="text" style="display:none;" />
                         <input id="txtAddrno2.*" style="display:none;"  />
                         <input id="txtAddr2.*" type="text" style="display:none;" />
+                        <input id="txtHeight.*" type="text" style="display:none;" />
+                        <input id="txtTvolume.*" type="text" style="display:none;" />
                     </td>
 				</tr>
 			</table>
