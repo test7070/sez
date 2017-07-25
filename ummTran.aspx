@@ -59,6 +59,15 @@
 			function mainPost() {
 				q_getFormat();
 				
+				if (q_getPara('sys.project').toUpperCase()=='JR'){
+                    aPop = new Array(
+                        ['txtCustno', 'lblCust', 'cust_sssall', 'noa,comp', 'txtCustno,txtComp', 'cust_sssall_b.aspx'],
+                        ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_,txtMoney_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+                        ['txtBankno_', 'btnBankno_', 'bank', 'noa,bank,account', 'txtBankno_,txtBank_,txtAccount_', 'custm_jr_b.aspx'],
+                        ['txtUmmaccno_', '', 'ummacc', 'noa,typea', 'txtUmmaccno_,txtTypea_', 'ummacc_b.aspx']
+                    );
+                }
+				
 				if(t_acomp.length>0)
 					q_cmbParse("cmbCno", t_acomp);
 				if(t_part.length>0)
@@ -165,6 +174,7 @@
 							break;
 					}
 				});
+				
 			}
 
 			/*function umm_trd() {
@@ -749,6 +759,12 @@
 						}*/
 						
 					});
+					if (q_getPara('sys.project').toUpperCase()=='JR'){
+    					$('#btnBankno_'+ i).click(function(e) {
+                             t_where = "noa='" + $('#txtCustno').val() + "'";
+                             q_box("custm_jr_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'custms', "600px", "700px", $('#btnBankno_'+ i).val());
+                        });
+                    }
 					$('#txtVccno_' + i).bind('contextmenu', function(e) {
 						/*滑鼠右鍵*/
 						e.preventDefault();
