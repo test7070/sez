@@ -125,6 +125,13 @@
                     if (q_cur == 1 || q_cur == 2)
                         q_popPost('txtCarno');
                 });
+                $('#cmbProduct').change(function(e){
+                	if ($('#txtOilstationno').val().length > 0){
+	                	var t_product = $.trim($('#cmbProduct').val());
+	                	var t_oilstationno = $.trim($('#txtOilstationno').val());
+	                    q_gt('oilorg', "where=^^oilstationno='" + t_oilstationno + "' and product='"+t_product+"'^^", 0, 0, 0, "");
+	                }
+                });
             }
 			
             function q_boxClose(s2) {
@@ -224,8 +231,11 @@
                 $('#chkIscustom2').prop('checked', false);
                 $('#txtOrgmount').val($('#txtMount').val());
                 $('#txtOrgmoney').val($('#txtMoney').val());
-                if ($('#txtOilstationno').val().length > 0)
-                    q_gt('oilorg', "where=^^oilstationno='" + $.trim($('#txtOilstationno').val()) + "'^^", 0, 0, 0, "");
+                if ($('#txtOilstationno').val().length > 0){
+                	var t_product = $.trim($('#cmbProduct').val());
+                	var t_oilstationno = $.trim($('#txtOilstationno').val());
+                    q_gt('oilorg', "where=^^oilstationno='" + t_oilstationno + "' and product='"+t_product+"'^^", 0, 0, 0, "");
+                }
                 sum();
                 if(window.parent.q_name=='tran'){
                 		var wParent = window.parent.document;
@@ -303,8 +313,11 @@
                 _refresh(recno);
                 $("#txtCurmount").removeClass('finish');
                 $("#txtCurmoney").removeClass('finish');
-                if ($('#txtOilstationno').val().length > 0)
-                    q_gt('oilorg', "where=^^oilstationno='" + $.trim($('#txtOilstationno').val()) + "'^^", 0, 0, 0, "");
+                if ($('#txtOilstationno').val().length > 0){
+                	var t_product = $.trim($('#cmbProduct').val());
+                	var t_oilstationno = $.trim($('#txtOilstationno').val());
+                    q_gt('oilorg', "where=^^oilstationno='" + t_oilstationno + "' and product='"+t_product+"'^^", 0, 0, 0, "");
+                }
                 if (q_cur == 1 || q_cur == 2) {
                     if ($('#chkIscustom').prop('checked')) {
                         $('#txtMiles').removeAttr('readonly').css('color', 'black').css('background-color', 'white');
@@ -413,9 +426,11 @@
             function q_popFunc(id, key_value) {
                 switch(id) {
                     case 'txtOilstationno':
-                        if (key_value > 0)
-                            q_gt('oilorg', "where=^^oilstationno='" + $.trim(key_value) + "'^^", 0, 0, 0, "");
-
+                        if (key_value > 0){
+                        	var t_product = $.trim($('#cmbProduct').val());
+                			var t_oilstationno = key_value;
+                    		q_gt('oilorg', "where=^^oilstationno='" + t_oilstationno + "' and product='"+t_product+"'^^", 0, 0, 0, "");
+                        }
                         break;
                 }
             }
