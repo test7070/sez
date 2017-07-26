@@ -58,10 +58,6 @@
                 q_cmbParse("cmbPasstype", q_getPara('vcct.passtype'));
                 q_cmbParse("cmbSpecialtax", q_getPara('vcct.specialtax'));
                 
-                if(q_getPara('sys.project').toUpperCase()=='RB'){
-                	$('.typea2').hide();
-                }
-                
                 $('#txtNoa').change(function(e) {
                     $(this).val($.trim($(this).val()).toUpperCase());
                     if ($(this).val().length > 0) {
@@ -428,51 +424,82 @@
             }
             
             function calTax(){
+            	if($('#cmbKind').val()=='37' || $('#cmbKind').val()=='38'){
+            		switch ($('#cmbSpecialtax').val()){
+            			case '1':
+            				$('#cmbSpecialfood').val('25');
+            				break;
+            			case '2':
+            				$('#cmbSpecialfood').val('15');
+            				break;
+            			case '3':
+            				$('#cmbSpecialfood').val('2');
+            				break;
+            			case '4':
+            				$('#cmbSpecialfood').val('1');
+            				break;
+            			case '5':
+            				$('#cmbSpecialfood').val('5');
+            				break;
+            			case '6':
+            				$('#cmbSpecialfood').val('5');
+            				break;
+            			case '7':
+            				$('#cmbSpecialfood').val('5');
+            				break;
+            			default:
+            				$('#cmbSpecialfood').val('5');
+            			//查定課徵 1%
+            			//農產品0.1 %
+            		}
+            	}
+            	
 				var t_money=dec($('#txtMoney').val()),t_tax=0,t_total=dec($('#txtTotal').val());
 				var t_taxrate = q_div(parseFloat(q_getPara('sys.taxrate')) , 100);
-				if(!emp($('#cmbSpecialfood').val()))
+				if(!emp($('#cmbSpecialfood').val()) && ($('#cmbKind').val()=='37' || $('#cmbKind').val()=='38')){
 					t_taxrate = q_div(parseFloat($('#cmbSpecialfood').val()) , 100);
-					switch ($('#cmbTaxtype').val()) {
-						case '0':
-	                    	// 無
-							t_tax = 0;
-							t_total = q_add(t_money,t_tax);
-							break;
-	                    case '1':
-	                        // 應稅
-	                        t_tax = round(q_mul(t_money,t_taxrate), 0);
-	                        t_total = q_add(t_money,t_tax);
-	                        break;
-	                    case '2':
-	                        //零稅率
-	                        t_tax = 0;
-	                        t_total = q_add(t_money,t_tax);
-	                        break;
-	                    case '3':
-	                        // 內含
-	                        t_tax = round(q_mul(q_div(t_money,q_add(1,t_taxrate)),t_taxrate), 0);
-	                        t_total = t_money;
-	                        t_money = q_sub(t_total,t_tax);
-	                        break;
-	                    case '4':
-	                        // 免稅
-	                        t_tax = 0;
-	                        t_total = q_add(t_money,t_tax);
-	                        break;
-	                    case '5':
-	                        // 自定
-	                        //$('#txtTax').attr('readonly', false);
-	                        //$('#txtTax').css('background-color', 'white').css('color', 'black');
-	                        t_tax = round(q_float('txtTax'), 0);
-	                        t_total = q_add(t_money,t_tax);
-	                        break;
-	                    case '6':
-	                        // 作廢-清空資料
-	                        t_money = 0, t_tax = 0, t_total = 0;
-	                        break;
-	                    default:
-					}
-				
+				}
+				switch ($('#cmbTaxtype').val()) {
+					case '0':
+	                   	// 無
+						t_tax = 0;
+						t_total = q_add(t_money,t_tax);
+						break;
+					case '1':
+                        // 應稅
+                        t_tax = round(q_mul(t_money,t_taxrate), 0);
+                        t_total = q_add(t_money,t_tax);
+                        break;
+                    case '2':
+                        //零稅率
+                        t_tax = 0;
+                        t_total = q_add(t_money,t_tax);
+                        break;
+                    case '3':
+                        // 內含
+                        t_tax = round(q_mul(q_div(t_money,q_add(1,t_taxrate)),t_taxrate), 0);
+                        t_total = t_money;
+                        t_money = q_sub(t_total,t_tax);
+                        break;
+                    case '4':
+                        // 免稅
+                        t_tax = 0;
+                        t_total = q_add(t_money,t_tax);
+                        break;
+                    case '5':
+                        // 自定
+                        //$('#txtTax').attr('readonly', false);
+                        //$('#txtTax').css('background-color', 'white').css('color', 'black');
+                        t_tax = round(q_float('txtTax'), 0);
+                        t_total = q_add(t_money,t_tax);
+                        break;
+                    case '6':
+                        // 作廢-清空資料
+                        t_money = 0, t_tax = 0, t_total = 0;
+                        break;
+                    default:
+				}
+			
 				$('#txtMoney').val(FormatNumber(t_money));
 				$('#txtTax').val(FormatNumber(t_tax));
 				$('#txtTotal').val(FormatNumber(t_total));
@@ -606,14 +633,13 @@
                 	$('#txtMount').val('').attr('disabled', 'disabled').css('background','RGB(237,237,237)');
                 	
                 	if(q_getPara('sys.project').toUpperCase()=='RB'){
-	                	$('.typea2').hide();
 	                	$('.rb').show();
-	                }else{
-	                	if('37,38'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!=''){
-                			$('.typea2').show();
-                		}else{
-                			$('.typea2').hide();
-                		}
+	                }
+	                
+	                if('37,38'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!=''){
+                		$('.typea2').show();
+                	}else{
+                		$('.typea2').hide();
                 	}
                 	
                 	$('.nondeductible').hide();
@@ -922,11 +948,11 @@
 					</tr>
 					<tr class="typea2">
 						<td><span> </span><a id='lblSpecialtax' class="lbl"> </a></td>
-						<td><select id="cmbSpecialtax" class="txt c1"> </select></td>
-						<td><span> </span><a id='lblSpecialfood' class="lbl"> </a></td>
-						<td><select id="cmbSpecialfood" class="txt c1" onchange="calTax();"> </select></td>
-						<td><span> </span><a id='lblNotaxnote' class="lbl"> </a></td>
-						<td><select id="cmbNotaxnote" class="txt c1"> </select></td>
+						<td><select id="cmbSpecialtax" class="txt c1" onchange="calTax();"> </select></td>
+						<td style="display: none;"><span> </span><a id='lblSpecialfood' class="lbl"> </a></td>
+						<td style="display: none;"><select id="cmbSpecialfood" class="txt c1" onchange="calTax();"> </select></td>
+						<td style="display: none;"><span> </span><a id='lblNotaxnote' class="lbl"> </a></td>
+						<td style="display: none;"><select id="cmbNotaxnote" class="txt c1"> </select></td>
 					</tr>
 					<tr class="passtype">
 						<td><span> </span><a id='lblPasstype' class="lbl"> </a></td>

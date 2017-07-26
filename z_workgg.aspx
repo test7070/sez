@@ -1200,12 +1200,17 @@
 							var DiffDays = ((myEndDate - myStartDate)/ 86400000);
 							var DateList = [];
 							var DateObj = [];
+							var SdateObj = []; //工作線別小計
 							for(var j=0;j<=DiffDays;j++){
 								var thisDay = q_cdn(t_bdate,j);
 								var thisADday = r_len==3?dec(thisDay.substring(0,3))+1911+thisDay.substr(3):thisDay;
 								if((new Date(thisADday).getDay())!=0){
 									DateList.push(thisDay);
 									DateObj.push({
+										datea:thisDay,
+										mount:0
+									});
+									SdateObj.push({
 										datea:thisDay,
 										mount:0
 									});
@@ -1217,6 +1222,10 @@
 											datea:'週小計',
 											mount:0,
 										});
+										SdateObj.push({
+											datea:'週小計',
+											mount:0,
+										});
 									}
 								}
 							}
@@ -1225,13 +1234,15 @@
 							for(var i=0;i<as.length;i++){
 								var isFind = false;
 								for(var j=0;j<TL.length;j++){
-									if((as[i].modelno==TL[j].modelno)){
+									if((as[i].modelno==TL[j].modelno) && (as[i].stationno==TL[j].stationno)){
 										TL[j].days = q_add(dec(TL[j].days),1);
 										isFind = true;
 									}
 								}
 								if(!isFind){
 									TL.push({
+										stationno : as[i].stationno,
+										station : as[i].station,
 										modelno : as[i].modelno,
 										model : as[i].model,
 										gen : (dec(as[i].gen)==0?dec($('#txtXdayclass').val()):dec(as[i].gen)),
@@ -1246,7 +1257,7 @@
 								for(var j=0;j<DateList.length;j++){
 									var thisDateGen = TL[k].gen;
 									for(var i=0;i<as.length;i++){
-										if((as[i].modelno==TL[k].modelno) && (as[i].datea==DateList[j])){
+										if((as[i].modelno==TL[k].modelno) && (as[i].stationno==TL[k].stationno) && (as[i].datea==DateList[j])){
 											thisDateGen = as[i].gen;
 											break;
 										}
@@ -1258,7 +1269,7 @@
 								isFind = false;
 								for(var j=0;j<TL.length;j++){
 									if(isFind) break;
-									if((as[k].modelno==TL[j].modelno)){
+									if((as[k].modelno==TL[j].modelno) && (as[k].stationno==TL[j].stationno)){
 										var TLDatea = TL[j].datea;
 										for(var h=0;h<TLDatea.length;h++){
 											if(as[k].datea==TLDatea[h][0]){
@@ -1272,7 +1283,8 @@
 							}
 							
 							OutHtml += '<tr>';
-							OutHtml += "<td class='tTitle' style='width:240px;' colspan='2' rowspan='2'>模具</td>" +
+							OutHtml += "<td class='tTitle' style='width:240px;' colspan='2' rowspan='2'>工作線別</td>" +
+									   "<td class='tTitle' style='width:240px;' colspan='2' rowspan='2'>模具</td>" +
 									   "<td class='tTitle' style='width:60px;' rowspan='2'>模具數</td>" +
 									   "<td class='tTitle' style='width:80px;' rowspan='2'>最大日產能</td>";
 							var tmpTd = '<tr>';
@@ -1289,14 +1301,34 @@
 							OutHtml += "<td class='tTitle tWidth' rowspan='2'>小計</td>";
 							tmpTd += "</tr>"
 							OutHtml += '</tr>' + tmpTd;
-							var ATotal = 0;
+							var ATotal = 0,STotal = 0,t_stationno='#non';
 							for(var k=0;k<TL.length;k++){
+								
+								if(t_stationno!=TL[k].stationno){
+									if(t_stationno!='#non'){
+										OutHtml += "<tr><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[k-1].stationno + "</td><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[k-1].station + "</td>" 
+													+"<td colspan='4' class='tTotal num' style='background:antiquewhite;'>小計：</td>";
+										for(var s=0;s<SdateObj.length;s++){
+											OutHtml += "<td class='tTotal num'style='background:antiquewhite;'>"+ (round(SdateObj[s].mount,0)==0 && SdateObj[s].mount>0?round(SdateObj[s].mount,2):Zerospaec(FormatNumber(round(SdateObj[s].mount,0)))) + "</td>";
+										}
+										OutHtml += "<td class='tTotal num' style='background:antiquewhite;'>" + (round(STotal,0)==0 && STotal>0?round(STotal,2):Zerospaec(FormatNumber(round(STotal,0)))) + "</td></tr>";
+									}
+									
+									for(var s=0;s<SdateObj.length;s++){
+										SdateObj[s].mount=0;
+									}
+									t_stationno=TL[k].stationno;
+									STotal=0;
+								}
+								
 								OutHtml += '<tr>';
-								OutHtml += "<td class='Lproduct' style='width:120px;'>" + TL[k].modelno + "</td><td class='Lproduct' style='width:120px;'>" + TL[k].model + "</td>" +
+								OutHtml += "<td class='Lproduct' style='width:120px;'>" + TL[k].stationno + "</td><td class='Lproduct' style='width:120px;'>" + TL[k].station + "</td>" +
+										   "<td class='Lproduct' style='width:120px;'>" + TL[k].modelno + "</td><td class='Lproduct' style='width:120px;'>" + TL[k].model + "</td>" +
 										   "<td class='num'>" + FormatNumber(TL[k].mmount) + "</td>" +
 										   "<td class='num'>" + FormatNumber(TL[k].gen) + "</td>";
 								var TTD = TL[k].datea;
 								var tTotal = 0,wtotal=0;
+								
 								for(var j=0;j<TTD.length;j++){
 									var thisValue = round(TTD[j][1],3);
 									if(t_xshowover=='1'){
@@ -1305,11 +1337,13 @@
 									var thisGen = dec(TTD[j][2]);
 									tTotal = q_add(tTotal,round(TTD[j][1],3));
 									DateObj[j].mount = q_add(dec(DateObj[j].mount),round(TTD[j][1],3));
+									SdateObj[j].mount = q_add(dec(SdateObj[j].mount),round(TTD[j][1],3));
 									
 									wtotal= q_add(wtotal,round(TTD[j][1],3));
 									if(TTD[j][0]=='週小計'){
 										OutHtml += "<td class='num'><font title='週小計:"+wtotal+"'>"+ Zerospaec(FormatNumber(round(wtotal,0)))+"</font></td>";
 										DateObj[j].mount = q_add(dec(DateObj[j].mount),wtotal);
+										SdateObj[j].mount = q_add(dec(SdateObj[j].mount),wtotal);
 										wtotal=0;
 									}else{
 										//OutHtml += "<td class='num'"+(thisValue>thisGen?' style="color:red;"':'')+"><font title='日產能:"+thisGen+"'>"
@@ -1324,13 +1358,15 @@
 									}
 								}
 								ATotal = q_add(ATotal,tTotal);
+								STotal = q_add(STotal,tTotal);
 								//OutHtml += "<td class='num'>" + Zerospaec(FormatNumber(round(tTotal,0))) + "</td>";
 								OutHtml += "<td class='num'>" + (round(tTotal,0)==0 && tTotal>0?round(tTotal,2):Zerospaec(round(tTotal,0))) + "</td>";
 								OutHtml += '</tr>';
 								
 								if(k%27==0 && k!=0){
 									OutHtml += '<tr>';
-									OutHtml += "<td class='tTitle' style='width:240px;' colspan='2' rowspan='2'>模具</td>" +
+									OutHtml += "<td class='tTitle' style='width:240px;' colspan='2' rowspan='2'>工作線別</td>" +
+											   "<td class='tTitle' style='width:240px;' colspan='2' rowspan='2'>模具</td>" +
 											   "<td class='tTitle' style='width:60px;' rowspan='2'>模具數</td>" +
 											   "<td class='tTitle' style='width:80px;' rowspan='2'>最大日產能</td>";
 									tmpTd = '<tr>';
@@ -1349,9 +1385,20 @@
 									OutHtml += '</tr>' + tmpTd;
 								}
 							}
-							OutHtml += "<tr><td colspan='4' class='tTotal num'>總計：</td>";
+							
+							//最後一個工作線別小計
+							OutHtml += "<tr><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[TL.length-1].stationno + "</td><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[TL.length-1].station + "</td>" 
+										+"<td colspan='4' class='tTotal num' style='background:antiquewhite;'>小計：</td>";
+							for(var s=0;s<SdateObj.length;s++){
+								OutHtml += "<td class='tTotal num'style='background:antiquewhite;'>"+ (round(SdateObj[s].mount,0)==0 && SdateObj[s].mount>0?round(SdateObj[s].mount,2):Zerospaec(FormatNumber(round(SdateObj[s].mount,0)))) + "</td>";
+							}
+							OutHtml += "<td class='tTotal num' style='background:antiquewhite;'>" + (round(STotal,0)==0 && STotal>0?round(STotal,2):Zerospaec(FormatNumber(round(STotal,0)))) + "</td></tr>";
+							
+							//總計
+							OutHtml += "<tr><td colspan='6' class='tTotal num'>總計：</td>";
 							for(var k=0;k<DateObj.length;k++){
-								OutHtml += "<td class='tTotal num' "+((round(DateObj[k].mount,0)>dec($('#txtXmaxgen').val()) && DateObj[k].datea!='週小計')?' style="color:red;"':'')+">" 
+								//OutHtml += "<td class='tTotal num' "+((round(DateObj[k].mount,0)>dec($('#txtXmaxgen').val()) && DateObj[k].datea!='週小計')?' style="color:red;"':'')+">" 
+								OutHtml += "<td class='tTotal num'>"
 								//+ Zerospaec(FormatNumber(round(DateObj[k].mount,0))) + "</td>";
 								+ (round(DateObj[k].mount,0)==0 && DateObj[k].mount>0?round(DateObj[k].mount,2):Zerospaec(FormatNumber(round(DateObj[k].mount,0)))) + "</td>";
 							}

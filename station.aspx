@@ -21,7 +21,8 @@
 			var q_readonly = ['txtGen'];
 			var q_readonlys = [];
 			var bbmNum = [['txtMount',10,0,1],['txtHours',10,2,1],['txtWages',10,2,1],['txtGen',10,2,1]
-			,['txtMaxgen',10,2,1],['txtMovmount',10,2,1],['txtMovtime',10,2,1],['txtMovmin',10,2,1],['txtMechcost',10,2,1]];
+			,['txtMaxgen',10,2,1],['txtMovmount',10,2,1],['txtMovtime',10,2,1]
+			,['txtMovmin',10,2,1],['txtMechcost',10,2,1],['txtMaxop',10,0,1],['txtMaxmod',10,0,1]];
 			var bbsNum = [['txtGen',10,2,1],['txtLoadrate',10,2,1]];
 			var bbmMask = [];
 			var bbsMask = [];
@@ -56,7 +57,7 @@
 			function mainPost() {
 				q_getFormat();
 				
-				q_cmbParse("cmbGensel", '1@'+q_getMsg('lblMachinehour')+','+'2@'+q_getMsg('lblManhour'));
+				q_cmbParse("cmbGensel", '1@'+q_getMsg('lblMachinehour')+','+'2@'+q_getMsg('lblManhour')+','+'3@'+q_getMsg('lblMachinehour')+'+'+q_getMsg('lblManhour'));
 				ChangeMUnit();
 				
 				$('#txtNoa').change(function(e) {
@@ -279,9 +280,12 @@
 				if($('#cmbGensel').val()=='1'){
 					$('#lblManunit').text(q_getMsg('lblMachinehour'));
 					$('#lblMachunit').text(q_getMsg('lblMachinehour'));
-				}else{
+				}else if($('#cmbGensel').val()=='2'){
 					$('#lblManunit').text(q_getMsg('lblManhour'));
 					$('#lblMachunit').text(q_getMsg('lblManhour'));
+				}else{
+					$('#lblManunit').text($('#cmbGensel').find("option:selected").text());
+					$('#lblMachunit').text($('#cmbGensel').find("option:selected").text());
 				}
 			}
 		</script>
@@ -529,22 +533,34 @@
 						<td class="td3"><a id='lblMaxgenunit' class="lbl" style="float: left;"> </a></td>
 						<td class="td4"> </td>
 					</tr>
-					<tr>
+					<tr style="display: none;"> <!--106/07/26 隱藏-->
 						<td class="td1"><span> </span><a id='lblMovmount' class="lbl"> </a></td>
 						<td class="td2"><input id="txtMovmount" type="text" class="txt c1 num"/></td>
 						<td class="td3">Pcs</td>
 						<td class="td4"> </td>
 					</tr>
-					<tr>
+					<tr style="display: none;"> <!--106/07/26 隱藏-->
 						<td class="td1"><span> </span><a id='lblMovtime' class="lbl"> </a></td>
 						<td class="td2"><input id="txtMovtime" type="text" class="txt c1 num"/></td>
 						<td class="td3">HR</td>
 						<td class="td4"> </td>
 					</tr>
-					<tr>
+					<tr style="display: none;"> <!--106/07/26 隱藏-->
 						<td class="td1"><span> </span><a id='lblMovmin' class="lbl"> </a></td>
 						<td class="td2"><input id="txtMovmin" type="text" class="txt c1 num"/></td>
 						<td class="td3">Min.</td>
+						<td class="td4"> </td>
+					</tr>
+					<tr> <!--106/07/26 增加-->
+						<td class="td1"><span> </span><a id='lblMaxop' class="lbl"> </a></td>
+						<td class="td2"><input id="txtMaxop" type="text" class="txt c1 num"/></td>
+						<td class="td3"> </td>
+						<td class="td4"> </td>
+					</tr>
+					<tr> <!--106/07/26 增加-->
+						<td class="td1"><span> </span><a id='lblMaxmod' class="lbl"> </a></td>
+						<td class="td2"><input id="txtMaxmod" type="text" class="txt c1 num"/></td>
+						<td class="td3">Pcs</td>
 						<td class="td4"> </td>
 					</tr>
 					<tr style="display: none;">

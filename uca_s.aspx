@@ -15,9 +15,9 @@
 			aPop = new Array(
 				['txtNoa', '', 'uca', 'noa,product', 'txtNoa,txtProduct', "uca_b.aspx"],
 				['txtTggno', 'lblTgg', 'tgg', 'noa,nick', 'txtTggno,txtComp', 'tgg_b.aspx'],
-				['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
-				['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx'],
-				['txtModelno', 'lblModelno', 'model', 'noa,model', 'txtModelno,txtModel', 'model_b.aspx']
+				['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno', 'station_b.aspx'],
+				['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno', 'process_b.aspx'],
+				['txtModelno', 'lblModelno', 'modg', 'noa,namea', 'txtModelno', 'modg_b.aspx']
 			);
 
 			$(document).ready(function() {	

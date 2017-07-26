@@ -29,9 +29,9 @@
 				['txtHard','','addime','noa,mon,memo1,memo2','0txtHard',''],
 				['txtSpec','','adsec','noa,memo','0txtSpec',''],
 				['txtStyle','','adpro2','memo','0txtStyle',''],
-				['txtModelno', 'lblModelno', 'model', 'noa,model', 'txtModelno,txtModel', 'model_b.aspx'],
-				['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx'],
-				['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx']
+				['txtModelno', 'lblModelno', 'modg', 'noa,namea', 'txtModelno', 'modg_b.aspx'],
+				['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno', 'process_b.aspx'],
+				['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno', 'station_b.aspx']
 				
 			);
 			$(document).ready(function() {
@@ -148,7 +148,7 @@
 				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +
 										q_sqlPara2("groupdno", t_groupdno) +
 										q_sqlPara2("processno", t_processno) +
-										q_sqlPara2("station", t_stationno) +
+										q_sqlPara2("stationno", t_stationno) +
 										q_sqlPara2("typea", t_typea) +
 										q_sqlPara2("groupano", t_groupano) +
 										q_sqlPara2("tggno", t_tggno) +
@@ -304,7 +304,7 @@
 				<tr class='seek_tr'>
 					<td class='seek'><a id='lblStyle_jo'>車種</a></td>
 					<td><input class="txt c1" id="txtStyle" type="text" /></td>
-					<td class='seek'><a id='lblModelno_jo'>模具</a></td>
+					<td class='seek'><a id='lblModelno_jo'>模具群組</a></td>
 					<td>
 						<input class="txt" id="txtModelno" type="text" style="width:80px; font-size:medium;" />
 						<input class="txt" id="txtModel" type="text" style="width:105px; font-size:medium;" />
