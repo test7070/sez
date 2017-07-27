@@ -16,7 +16,7 @@
             }
 
             var q_name = "lcs";
-            var q_readonly = ['txtUnpay', 'txtPay', 'txtLcaccno', 'txtPayno', 'txtAccno', 'txtChgaccno', 'txtTgg', 'textAcc1','txtBank'];
+            var q_readonly = ['txtUnpay', 'txtPay', 'txtLcaccno', 'txtPayno', 'txtAccno', 'txtChgaccno', 'txtTgg', 'textAcc1','txtBank','textNoa','textNoq'];
             var bbmNum = [['txtMoney', 15, 0, 1], ['txtLcmoney', 15, 0, 1], ['txtRate', 15, 4, 1], ['txtConrate1', 15, 4, 1], ['txtConrate2', 15, 4, 1], ['txtFloat', 15, 4, 1], ['txtUnpay', 15, 0, 1], ['txtPay', 15, 0, 1], ['txtLch', 15, 0, 1], ['txtChgmoney', 15, 0, 1], ['txtChgfloat', 15, 4, 1]];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -98,22 +98,22 @@
 		        
 		        $('#btnLoan').click(function () {
 		        	//lc.genAccc( noa, 4)  // 借款
-		        	q_func('lc.genAccc.4',$('#txtNoa').val()+",4");
+		        	q_func('lc.genAccc.4',$('#txtNoa').val()+','+$('#txtNoq').val()+",4");
 		        });
 		        
 		        $('#btnLch').click(function () {
 		        	//lc.genAccc( noa, 1)  // 開狀
-		        	q_func('lc.genAccc.1',$('#txtNoa').val()+",1");
+		        	q_func('lc.genAccc.1',$('#txtNoa').val()+','+$('#txtNoq').val()+",1");
 		        });
 		        
 		        $('#btnPay').click(function () {
 		        	//lc.genAccc( noa, 2)  // 付款
-		        	q_func('lc.genAccc.2',$('#txtNoa').val()+",2");
+		        	q_func('lc.genAccc.2',$('#txtNoa').val()+','+$('#txtNoq').val()+",2");
 		        });
 		        
 		        $('#btnChg').click(function () {
 		        	//lc.genAccc( noa, 3)  // 改貸
-		        	q_func('lc.genAccc.3',$('#txtNoa').val()+",3");
+		        	q_func('lc.genAccc.3',$('#txtNoa').val()+','+$('#txtNoq').val()+",3");
 		        });
 		        
 		        $('#btnSeek').hide();
@@ -123,6 +123,7 @@
 		        $('#btnPrevPage').hide();
 		        $('#btnNextPage').hide();
 		        $('#dview').hide();
+
             }
 			
 			var qbox=false;
@@ -273,6 +274,9 @@
                 if (window.parent.q_name == 'lc') {
                 	$('#textAcc1').val(window.parent.document.getElementById('txtAcc1').value);
                 }
+                
+                $('#textNoa').val($('#txtNoa').val());
+                $('#textNoq').val($('#txtNoq').val());
             }
 
             function readonly(t_para, empty) {
@@ -357,8 +361,9 @@
 						abbm[q_recno]['chgaccno'] = result;
                 		break;
                 	case 'lc.genAccc.4':// 借款
-						$('#txtAccno').val(result);
-						abbm[q_recno]['accno'] = result;
+                	    var s2=result.split(';');
+						$('#txtAccno').val(s2[3]);
+						abbm[q_recno]['accno'] = s2[3];
 						break;
                 }
 			}
@@ -602,6 +607,8 @@
 										<td class="td2"><input id="txtAccno" type="text" class="txt c1" /></td>
 										<td class="td3"><input id="btnLoan" type="button"/></td>
 									</tr>
+									<tr class="tr18">
+                                    </tr>
 								</table>
 							</div> 
 						</td>
@@ -688,6 +695,13 @@
 										<td class="td5"><input id="btnLct" type="button"/></td>
 										<td class="td6"> </td>
 									</tr>
+									<tr class="tr18">
+                                        <td class="td4"></td>
+                                        <td class="td5"><span> </span><a id="lblNoa_sh" class="lbl">電腦編號</a></td>
+                                        <td class="td6"><input id="textNoa" type="text" class="txt c1" style="width:45%"/>
+                                                        <input id="textNoq" type="text" class="txt c1" style="width:52%"/>
+                                        </td>
+                                    </tr>
 								</table>
 							</div>
 						</td>
