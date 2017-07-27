@@ -86,6 +86,12 @@
 				});
 				
 				$('#txtTax').change(function(e) {
+					if('32,37,38'.indexOf($('#cmbKind').val())>-1
+					|| ('22,27'.indexOf($('#cmbKind').val())>-1  && $('#txtDutymemo').val().length==0)
+					){
+						$('#txtTax').val(0);
+					}
+					
                 	$('#txtTotal').val(dec($('#txtTax').val())+dec($('#txtMoney').val()));
 				});
                  
@@ -152,6 +158,15 @@
 				
 				$('#btnClose_div_vcca').click(function() {
 					$('#div_vcca').hide();
+				});
+				
+				$('#txtDutymemo').change(function() {
+					if('32,37,38'.indexOf($('#cmbKind').val())>-1
+					|| ('22,27'.indexOf($('#cmbKind').val())>-1  && $('#txtDutymemo').val().length==0)
+					){
+						$('#txtTax').val(0);
+						$('#txtTotal').val(dec($('#txtTax').val())+dec($('#txtMoney').val()));
+					}
 				});
 				
 				if(dec(q_date().substr(4,2))%2==1)
@@ -456,8 +471,10 @@
             	
 				var t_money=dec($('#txtMoney').val()),t_tax=0,t_total=dec($('#txtTotal').val());
 				var t_taxrate = q_div(parseFloat(q_getPara('sys.taxrate')) , 100);
-				if(!emp($('#cmbSpecialfood').val()) && ($('#cmbKind').val()=='37' || $('#cmbKind').val()=='38')){
-					t_taxrate = q_div(parseFloat($('#cmbSpecialfood').val()) , 100);
+				if('32,37,38'.indexOf($('#cmbKind').val())>-1
+				 || ('22,27'.indexOf($('#cmbKind').val())>-1 && $('#txtDutymemo').val().length==0)
+				){
+					t_taxrate = 0;
 				}
 				switch ($('#cmbTaxtype').val()) {
 					case '0':
@@ -565,7 +582,6 @@
                 	
                 	//$('.two').hide();
                 	//$('#chkIstwo').prop('checked',false);
-                	$('.carrier').show();
                 	
                 	if('22,25,26,27'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!=''){
                 		$('.isadd').show();
@@ -575,6 +591,13 @@
                 	}else{
                 		$('.isadd').hide();
                 		$('#chkIsadd').prop('checked',false);
+                	}
+                	
+                	if('23,25'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!=''){
+                		$('.carrier').show();
+                	}else{
+                		$('.carrier').hide();
+                		$('#chkIscarrier').prop('checked',false);
                 	}
                 	
                 	if($('#chkIsadd').prop('checked') && '22,25,26,27'.indexOf($('#cmbKind').val())>-1){
