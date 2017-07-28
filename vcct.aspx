@@ -577,6 +577,7 @@
                 	}
                 	$('.typea2').hide();
                 	$('#cmbSpecialfood').val('');
+                	$('.notaxnote').hide();
                 	$('#cmbNotaxnote').val('');
                 	$('.nondeductible').show();
                 	
@@ -654,6 +655,7 @@
                 	$('#txtSerial').removeAttr('disabled').css('background','white');
                 	$('#txtNoa').removeAttr('disabled').css('background','white');
                 	$('#txtMount').val('').attr('disabled', 'disabled').css('background','RGB(237,237,237)');
+                	$('.notaxnote').show();
                 	
                 	if(q_getPara('sys.project').toUpperCase()=='RB'){
 	                	$('.rb').show();
@@ -666,8 +668,6 @@
                 	}
                 	
                 	$('.nondeductible').hide();
-                	$('#cmbSpecialfood').show();
-                	$('#cmbNotaxnote').show();
                 	/*$('#txtMount').val('').hide();
                 	$('#txtDutymemo').val('').hide();
                 	$('#txtBook').val('')	.hide();*/
@@ -952,16 +952,8 @@
 							<a id='lblIsnondeductible' class="lbl nondeductible" style="float: left;"> </a><span style="float: left;" class="nondeductible"> </span><input id="chkIsnondeductible" type="checkbox" style="float: left;" class="nondeductible"/>
 							<a id='lblIscarrier' class="lbl carrier" style="float: left;"> </a><span style="float: left;" class="carrier"> </span><input id="chkIscarrier" type="checkbox" style="float: left;" class="carrier"/>
 						</td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
-						<td><input id="txtMoney"  type="text" class="txt num c1" /></td>
-						<td><span> </span><a id='lblTaxtype' class="lbl"> </a></td>
-						<td><select id="cmbTaxtype" class="txt c1" onchange="calTax();"> </select></td>
-						<td><span> </span><a id='lblTax' class="lbl"> </a></td>
-						<td><input id="txtTax"  type="text" class="txt num c1" /></td>
-						<td><span> </span><a id='lblTotal' class="lbl"> </a></td>
-						<td><input id="txtTotal"  type="text" class="txt num c1" /></td>
+						<td class="notaxnote"><span> </span><a id='lblNotaxnote' class="lbl"> </a></td>
+						<td class="notaxnote"><select id="cmbNotaxnote" class="txt c1"> </select></td>
 					</tr>
 					<tr class="typea1">
 						<td><span> </span><a id='lblDutymemo' class="lbl"> </a></td>
@@ -974,12 +966,20 @@
 						<td><select id="cmbSpecialtax" class="txt c1" onchange="calTax();"> </select></td>
 						<td style="display: none;"><span> </span><a id='lblSpecialfood' class="lbl"> </a></td>
 						<td style="display: none;"><select id="cmbSpecialfood" class="txt c1" onchange="calTax();"> </select></td>
-						<td style="display: none;"><span> </span><a id='lblNotaxnote' class="lbl"> </a></td>
-						<td style="display: none;"><select id="cmbNotaxnote" class="txt c1"> </select></td>
 					</tr>
 					<tr class="passtype">
 						<td><span> </span><a id='lblPasstype' class="lbl"> </a></td>
 						<td><select id="cmbPasstype" class="txt c1"> </select></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
+						<td><input id="txtMoney"  type="text" class="txt num c1" /></td>
+						<td><span> </span><a id='lblTaxtype' class="lbl"> </a></td>
+						<td><select id="cmbTaxtype" class="txt c1" onchange="calTax();"> </select></td>
+						<td><span> </span><a id='lblTax' class="lbl"> </a></td>
+						<td><input id="txtTax"  type="text" class="txt num c1" /></td>
+						<td><span> </span><a id='lblTotal' class="lbl"> </a></td>
+						<td><input id="txtTotal"  type="text" class="txt num c1" /></td>
 					</tr>
 					<tr class="rb">
 						<td><span> </span><a id='lblSono' class="lbl"> </a></td>
