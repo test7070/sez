@@ -166,11 +166,18 @@
 						break;
                 	case 'getnoq':
                 		var t_noq='000';
+                		var t_mon=$('#txtDatea').val().substring(0,3)+$('#txtDatea').val().substring(4,6);
                 		var as = _q_appendData("lcs", "", true);
                 		if (as[0] != undefined) {
-                			t_noq=as[0].noq
+                		    if(t_mon==as[0].noq.substring(0,5)){
+                		        t_noq=as[0].noq.substring(5,8)
+                		    }else{
+                		        t_noq='000';
+                		    }
+                			     
+                			
                 		}
-                		t_noq=('000'+(dec(t_noq)+1)).toString().substr(-3);
+                		t_noq=t_mon+('000'+(dec(t_noq)+1)).toString().substr(-3);
                 		$('#txtNoq').val(t_noq);
                 		var t_lcnoa = window.parent.document.getElementById('txtNoa').value;
                     	t_lcnoa = trim(t_lcnoa);
