@@ -88,9 +88,6 @@
 			}
 
 			function mainPost() {
-				if(q_getPara('sys.comp').substring(0,2)=="傑期"){
-					
-				}
 				
 				if (q_getPara('sys.project').toUpperCase()=='FE'){
 					q_readonly = ['txtCredit','txtWorker', 'txtKdate', 'txtSales', 'txtGrpname', 'txtUacc1', 'txtUacc2', 'txtUacc3','txtCust2'];
@@ -110,6 +107,8 @@
 				
 				q_mask(bbmMask);
 				q_gt('custtype', '', 0, 0, 0, "custtype");
+				//預設A0401,買方也要有申請電子發票才能用A0101
+				q_cmbParse("cmbMessagetype", "A0401@A0401_平台存證,A0101@A0101_發票");
 				
 				switch(q_getPara('sys.project').toUpperCase()){
 					case 'RK':
@@ -1186,6 +1185,8 @@
 					<tr>
 						<td><span> </span><a id='lblInvoicetitle' class="lbl"> </a></td>
 						<td colspan='3'><input id="txtInvoicetitle" type="text" class="txt c7"/></td>
+						<td><span> </span><a class="lbl">訊息編號</a></td>
+						<td><select id="cmbMessagetype" class="txt c1"> </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAddr_comp' class="lbl"> </a></td>

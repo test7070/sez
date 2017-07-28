@@ -62,6 +62,10 @@
                         dbf : 'driver',
                         index : 'noa,namea',
                         src : 'driver_b.aspx'
+                    }, {
+                        type : '0', //[15]
+                        name : 'xacomp',
+                        value : q_getPara('sys.comp')
                     }]
                     });
                 q_popAssign();
