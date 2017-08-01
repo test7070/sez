@@ -323,7 +323,7 @@
             }
             .dbbm {
                 float: left;
-                width: 630px;
+                width: 680px;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -552,7 +552,7 @@
 						<input id="txtWorker2" type="text" class="txt c1" />
 						</td>
 						<td><input id="btnOrde" type="button" value="派車匯入" style="width:100%;"/></td>
-						<td><input id="btnImport" type="button" value="付款立帳" style="width:100%;"/></td>
+						<td><input id="btnImport" type="button" value="處理廠付款立帳" style="width:100%;"/></td>
 					</tr>
 				</table>
 			</div>
