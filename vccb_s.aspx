@@ -33,6 +33,7 @@
 
                 bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
                 q_mask(bbmMask);
+                q_cmbParse("cmbTypea", " @全部,"+q_getPara('vccb.typea'));
                 $('#txtNoa').focus();
 				$('#txtBdate').datepicker();
 				$('#txtEdate').datepicker();
@@ -47,17 +48,19 @@
                 t_custno = $('#txtCustno').val();
                 t_cust = $('#txtCust').val();
              	t_invoice = $('#txtInvoice').val();
+             	t_typea = $('#cmbTypea').val();
              	
                 var t_where = " 1=1 " 
                 	+ q_sqlPara2("noa", t_noa) 
                 	+ q_sqlPara2("tggno", t_tggno) 
                 	+ q_sqlPara2("custno", t_custno) 
                 	+ q_sqlPara2("datea", t_bdate, t_edate);
-				
+				if(t_typea.length>0)
+					t_where += " and typea='"+t_typea+"'";
 				if(t_tgg.length>0)
-					t_where += " and charindex('"+t_tgg+"',tgg)>0";
+					t_where += " and charindex(N'"+t_tgg+"',tgg)>0";
 				if(t_cust.length>0)
-					t_where += " and charindex('"+t_cust+"',comp)>0";
+					t_where += " and charindex(N'"+t_cust+"',comp)>0";
 				if (t_invoice.length>0)
                 	t_where += " and exists(select noa from vccbs where vccbs.noa=vccb.noa and charindex('" + t_invoice + "',vccbs.invono)>0)";
                 		
@@ -77,6 +80,12 @@
 	<body>
 		<div style='width:400px; text-align:center;padding:15px;' >
 			<table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
+				<tr class='seek_tr'>
+					<td style="width:35%;" ><a>類別</a></td>
+					<td style="width:65%;  ">
+						<select id="cmbTypea" style="width:215px; font-size:medium;"> </select>
+					</td>
+				</tr>
 				<tr class='seek_tr'>
 					<td   style="width:35%;" ><a id='lblDatea'> </a></td>
 					<td style="width:65%;  ">
