@@ -36,7 +36,7 @@
 			brwKey = 'datea';
 
 			aPop = new Array(
-				['txtCustno', 'lblCust', 'cust', 'noa,nick,tel,fax,zip_comp,addr_comp', 'txtCustno,txtComp,txtTel,txtFax,txtPost,txtAddr', 'cust_b.aspx'],
+				['txtCustno', 'lblCust', 'cust', 'noa,nick,tel,fax,zip_comp,addr_comp', 'txtCustno,txtComp', 'cust_b.aspx'],
 				['txtCustno_', 'btnCustno_', 'cust', 'nick', 'txtCustno_', 'cust_b.aspx'],
 				['txtSpec_', 'btnSpec_', 'view_ucaucc', 'spec', 'txtSpec_', 'ucaucc_b.aspx'],
 				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
@@ -123,15 +123,11 @@
 				$('#btnOrdes').click(function() {
 					var t_custno = trim($('#txtCustno').val());
 					var t_where = '';
-					if (t_custno.length > 0) {
 						t_where = "isnull(notv,0)>0  && isnull(enda,0)!=1 && isnull(cancel,0)!=1 &&" + (t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "");
 						if (!emp($('#txtOrdeno').val()))
 							t_where += " && charindex(noa,'" + $('#txtOrdeno').val() + "')>0";
 						t_where = t_where;
-					} else {
-						alert(q_getMsg('msgCustEmp'));
-						return;
-					}
+
 					q_box("uploadsa.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'uploadsa', "95%", "650px", q_getMsg('popOrde'));
 				});
 
@@ -624,13 +620,13 @@
 				//判斷起算日,寫入帳款月份
 				//104/09/30 如果備註沒有*字就重算帳款月份
 				//if(!check_startdate && emp($('#txtMon').val())){
-				if(!check_startdate && $('#txtMemo').val().substr(0,1)!='*'){	
+				/*if(!check_startdate && $('#txtMemo').val().substr(0,1)!='*'){	
 					var t_where = "where=^^ noa='"+$('#txtCustno').val()+"' ^^";
 					q_gt('cust', t_where, 0, 0, 0, "startdate", r_accy);
 					return;
-				}
+				}*/
 				if (emp($('#txtMon').val()))
-					$('#txtMon').val($('#txtDatea').val().substr(0, 5));
+					$('#txtMon').val($('#txtDatea').val().substr(0, 6));
 				
 				check_startdate=false;
 					
@@ -651,7 +647,7 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)// 1-3
 					return;
-				q_box('vcc_s.aspx', q_name + '_s', "500px", "630px", q_getMsg("popSeek"));
+				q_box('vcc_sa_s.aspx', q_name + '_s', "500px", "630px", q_getMsg("popSeek"));
 			}
 			
 			function coin_chg() {
@@ -797,12 +793,7 @@
 			}
 
 			function btnPrint() {
-				var hasStyle = q_getPara('sys.isstyle');
-				if(hasStyle=='1'){
-					q_box('z_vcc_ra.aspx' + "?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
-				}else{
-					q_box('z_vccp.aspx' + "?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
-				}
+				q_box('z_vcc_sa.aspx' + "?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
 			}
 
 			function wrServer(key_value) {
@@ -1167,44 +1158,21 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm" style="width: 872px;">
 					<tr>
-						<td class="td1" style="width: 108px;"><span> </span><a id='lblDatea' class="lbl"> </a></td>
+						<td class="td1" style="width: 108px;"><span> </span><a id='lblDateb' class="lbl">登錄日期</a></td>
 						<td class="td2" style="width: 108px;"><input id="txtDatea" type="text"  class="txt c1"/></td>
-						<td class="td7"><span> </span><a id='lblMon' class="lbl"> </a></td>
-						<td class="td8"><input id="txtMon" type="text" class="txt c1"/></td>
 						<td class="td3" style="width: 108px;"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td class="td4" style="width: 108px;"><input id="txtNoa" type="text" class="txt c1" /></td>
-						<td class="td5" style="width: 108px;"></td>
+						<td class="td7"><span> </span><a id='lblMon' class="lbl"> </a></td>
+						<td class="td8"><input id="txtMon" type="text" class="txt c1"/></td>
 						<td class="td6" style="width: 108px;"></td>
+						<td class="td5" style="width: 108px;"></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
-						<td class="td2"><input id="txtCno" type="text" class="txt c1"/></td>
-						<td class="td2"><input id="txtAcomp" type="text" class="txt c1"/></td>
-					</tr>
-					<tr>
-						<td class="td1"><span> </span><a id="lblCust" class="lbl btn"> </a></td>
-						<td class="td2"><input id="txtCustno" type="text" class="txt c1"/></td>
-						<td class="td2"><input id="txtComp" type="text" class="txt c1"/></td>
-						<td class="td4"></td>
-												<td class="td6"align="right"><input id="btnOrdes" type="button"/></td>
-						<td class="td5"></td>
-						
-						<td class="td6"></td>
-					</tr>
-					<tr>
-						<td class="td1"><span> </span><a id="lblTel" class="lbl"> </a></td>
-						<td class="td2" colspan='2'><input id="txtTel" type="text" class="txt c1"/></td>
-						<td class="td1"><span> </span><a id="lblFax" class="lbl"> </a></td>
-						<td class="td2" colspan='2'><input id="txtFax" type="text" class="txt c1"/></td>
-						<td class="td4"></td>
-						<td class="td5"></td>
-					</tr>
-					<tr>
-						<td class="td1"><span> </span><a id="lblAddr" class="lbl"> </a></td>
-						<td class="td2"><input id="txtPost" type="text" class="txt c1"/></td>
-						<td class="td3" colspan='4'><input id="txtAddr" type="text" class="txt c1"/></td>
-						<td class="td7"></td>
-						<td class="td8"></td>
+						<td class="td7"><span> </span><a id='lblCust' class="lbl btn"> </a></td>
+						<td class="td8"><input id="txtCustno" type="text" class="txt c1"/></td>
+						<td class="td8"><input id="txtComp" type="text" class="txt c1"/></td>
+						<td class="td6" style="width: 108px;"></td>
+						<td class="td5" style="width: 108px;"><button id='btnOrdes'>訂單匯入</button></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
