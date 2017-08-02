@@ -352,8 +352,8 @@
 						week_bdate=q_cdn(week_edate,-13);
 					}
 					
-					$('#div_cugtweek').css('top', $('#div_cugt').offset().top);
-					$('#div_cugtweek').css('left', $('#div_cugt').offset().left-$('#div_cugtweek').width()-5);
+					$('#div_cugtweek').css('top', $('#div_cugt').offset().top+$('#div_cugt').height()+5);
+					$('#div_cugtweek').css('left', $('#div_cugt').offset().left);
 					
 					var tmp_checkbox='',t_week=1;
 					if(q_holiday==undefined)
@@ -2063,7 +2063,13 @@
 			}
 			
 			function getweek(t_date) {
-            	switch (new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()) {
+				var t_week;
+				if(r_len=4)
+					t_week=new Date(dec(t_date.substr(0,r_len)),dec(t_date.substr(r_len+1,2))-1,dec(t_date.substr(r_lenm+1,2))).getDay();
+				else
+					t_week=new Date(dec(t_date.substr(0,r_len))+1911,dec(t_date.substr(r_len+1,2))-1,dec(t_date.substr(r_lenm+1,2))).getDay();
+				
+            	switch (t_week) {
             		case 0:
             			return '日'; 
             			break;
