@@ -299,10 +299,6 @@
 				}
             }
 			function typea_chg(){
-				/*if($('#chkCancel').prop('checked'))
-					$('.Cancel').show();
-				else
-					$('.Cancel').hide();*/
 				
 				if($('#cmbTypea').val() == 1 || $('#cmbTypea').val() == 2){
 					$('#Cust').show();
