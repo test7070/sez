@@ -52,7 +52,17 @@
 					},{
 						type : '6', //[11]
 						name : 'x014'
-					}]
+					},{
+						type : '6', //[12]
+						name : 'x105'
+					},{
+						type : '6', //[13]
+						name : 'x109'
+					}, {
+                        type : '5',//[14]
+                        name : 'xtype',
+                        value : '1@401,3@403'.split(',') //4@404
+                    }]
 				});
 				q_popAssign();
                 q_getFormat();
@@ -101,7 +111,7 @@
 				});
 
 				$('#report').css('width','420px');
-				$('.q_report .report div').css('width','200px');
+				$('.q_report .report div').css('width','300px');
 				
 				$('.option .a1').css('width','300px');
 				$('.q_report .option div .c3').css('width','70px');
