@@ -204,6 +204,10 @@
 		    function btnOk() {
 		        for (var i = 0; i < q_bbsCount; i++) {
 		            $('#txtPart_' + i).val($('#cmbPartno_' + i).find(":selected").text());
+		            //106/08/04 去除第一行換行
+		            if($('#txtMemo_'+i).val().indexOf('\n')==0){
+		            	$('#txtMemo_'+i).val($('#txtMemo_'+i).val().substr(1));
+		            }
 		        }
 		        
 		        if ($('#txtSssno').val().length == 0)

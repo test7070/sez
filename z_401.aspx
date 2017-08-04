@@ -132,7 +132,9 @@
 				$('#MediaCtrl').hide();
 				
 				$('#q_report').click(function(){
-					if($('#q_report').data('info').radioIndex==1){
+					var t_index = $('#q_report').data('info').radioIndex;
+					var txtreport = $('#q_report').data('info').reportData[t_index].report;
+					if(txtreport=='media'){
 						$('.prt').hide();
 						$('#MediaCtrl').show();
 					}else{
@@ -148,7 +150,7 @@
 						alert('請輸入月份!!');
 						return;
 					}
-					if(t_index==1){
+					if(txtreport=='media'){
 						var t_bmon=emp($('#txtXmon1').val())?'#non':$('#txtXmon1').val();
 						var t_emon=emp($('#txtXmon2').val())?'#non':$('#txtXmon2').val();
 						var t_datea=emp($('#txtXdate').val())?'#non':$('#txtXdate').val();

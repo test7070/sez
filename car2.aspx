@@ -108,6 +108,11 @@
                 	$(".btns").show();
                 }
                 
+                //106/08/04
+                if(q_getPara('sys.project').toUpperCase()=="NW"){
+                	$(".btns").show();
+                }
+                
                 q_gt('carbrand', '', 0, 0, 0, "");
                 q_gt('carkind', '', 0, 0, 0, "");
                 q_gt('carspec', '', 0, 0, 0, "");
