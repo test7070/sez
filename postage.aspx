@@ -34,7 +34,7 @@
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
-                brwCount2 = 17
+                brwCount2 = 18
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1)
                 $('#txtNoa').focus
