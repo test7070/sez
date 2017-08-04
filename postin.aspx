@@ -17,7 +17,7 @@
 
             var q_name = "postin";
             var q_readonly = ['txtNoa'];
-            var bbmNum = [['txtTotal', 14, 1, 1], ['txtP20', 14, 0, 1], ['txtP35', 14, 0, 1], ['txtP50', 14, 0, 1], ['txtP100', 14, 0, 1], ['txtP120', 14, 0, 1], ['txtP130', 14, 0, 1], ['txtP150', 14, 0, 1], ['txtP200', 14, 0, 1], ['txtP250', 14, 0, 1], ['txtP320', 14, 0, 1]];
+            var bbmNum = [['txtTotal',14 , 1, 1],['txtP10',14 , 0, 1],['txtP20',14 , 0, 1],['txtP30',14 , 0, 1],['txtP35',14 , 0, 1],['txtP50',14 , 0, 1],['txtP60',14 , 0, 1],['txtP70',14 , 0, 1],['txtP80',14 , 0, 1],['txtP90',14 , 0, 1],['txtP100',14 , 0, 1],['txtP120',14 , 0, 1],['txtP130',14 , 0, 1],['txtP150',14 , 0, 1],['txtP200',14 , 0, 1],['txtP250',14 , 0, 1],['txtP320',14 , 0, 1],['txtP340',14 , 0, 1]]; 
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -47,13 +47,31 @@
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd]];
                 q_mask(bbmMask);
+				$('#txtP10').change(function() {
+                    sum();
+                });
                 $('#txtP20').change(function() {
                     sum();
                 });
-                $('#txtP35').change(function() {
+                $('#txtP30').change(function() {
+                    sum();
+                });
+				$('#txtP35').change(function() {
                     sum();
                 });
                 $('#txtP50').change(function() {
+                    sum();
+                });
+			    $('#txtP60').change(function() {
+                    sum();
+                });
+				$('#txtP70').change(function() {
+                    sum();
+                });
+				$('#txtP80').change(function() {
+                    sum();
+                });
+				$('#txtP90').change(function() {
                     sum();
                 });
                 $('#txtP100').change(function() {
@@ -77,6 +95,10 @@
                 $('#txtP320').change(function() {
                     sum();
                 });
+				$('#txtP340').change(function() {
+                    sum();
+                });
+				
             }
 
             function txtCopy(dest, source) {
@@ -171,8 +193,8 @@
             }
 
             function sum() {
-                q_tr('txtTotal', Math.round((q_float('txtP20') * 2) + (q_float('txtP35') * 3.5) + (q_float('txtP50') * 5) + (q_float('txtP100') * 10) + (q_float('txtP120') * 12) + (q_float('txtP130') * 13) + (q_float('txtP150') * 15) + (q_float('txtP200') * 20) + (q_float('txtP250') * 25) + (q_float('txtP320') * 32)));
-            }
+				q_tr('txtTotal',round((q_float('txtP10')*1)+(q_float('txtP20')*2)+(q_float('txtP30')*3)+(q_float('txtP35')*3.5)+(q_float('txtP50')*5)+(q_float('txtP60')*6)+(q_float('txtP70')*7)+(q_float('txtP80')*8)+(q_float('txtP90')*9)+(q_float('txtP100')*10)+(q_float('txtP120')*12)+(q_float('txtP130')*13)+(q_float('txtP150')*15)+(q_float('txtP200')*20)+(q_float('txtP250')*25)+(q_float('txtP320')*32)+(q_float('txtP340')*34),1));
+			}
 
             function refresh(recno) {
                 _refresh(recno);
@@ -388,39 +410,59 @@
 						<!--<td class="td7"><span> </span><a id="lblChgcashno" class="lbl btn"></a></td>
 						<td class="td8"><input id="txtChgcashno" type="text" class="txt c1" /></td>-->
 					</tr>
-					<tr class="tr3">
-						<td class="td1"><span> </span><a id="lblPosts" class="lbl"> </a></td>
-						<td class="td2"><span> </span><a id="lblP20" class="lbl"> </a></td>
-						<td class="td3"><input id="txtP20" type="text"  class="txt num c3" /></td>
-						<td class="td4"><span> </span><a id="lblP35" class="lbl"> </a></td>
-						<td class="td5"><input id="txtP35" type="text"  class="txt num c3" /></td>
-						<td class="td6"><span> </span><a id="lblP50" class="lbl"> </a></td>
-						<td class="td7"><input id="txtP50" type="text" class="txt num c3" /></td>
-						<td class="td8"><span> </span><a id="lblP100" class="lbl"> </a></td>
-						<td class="td9"><input id="txtP100" type="text" class="txt num c3" /></td>
-					</tr>
-					<tr class="tr4">
-						<td class="td1"> </td>
-						<td class="td2"><span> </span><a id="lblP120" class="lbl"> </a></td>
-						<td class="td3"><input id="txtP120" type="text" class="txt num c3" /></td>
-						<td class="td4"><span> </span><a id="lblP130" class="lbl"> </a></td>
-						<td class="td5"><input id="txtP130" type="text" class="txt num c3" /></td>
-						<td class="td6"><span> </span><a id="lblP150" class="lbl"> </a></td>
-						<td class="td7"><input id="txtP150" type="text" class="txt num c3" /></td>
-						<td class="td8"><span> </span><a id="lblP200" class="lbl"> </a></td>
-						<td class="td9"><input id="txtP200" type="text" class="txt num c3" /></td>
-					</tr>
-					<tr class="tr5">
-						<td class="td1"> </td>
-						<td class="td2"><span> </span><a id="lblP250" class="lbl"> </a></td>
-						<td class="td3"><input id="txtP250" type="text" class="txt num c3" /></td>
-						<td class="td4"><span> </span><a id="lblP320" class="lbl"> </a></td>
-						<td class="td5"><input id="txtP320" type="text" class="txt num c3" /></td>
-						<td class="td6"> </td>
-						<td class="td7"> </td>
-						<td class="td8"><span> </span><a id="lblTotal" class="lbl"> </a></td>
-						<td class="td9"><input id="txtTotal" type="text" class="txt num c1" /></td>
-					</tr>
+			<tr class="tr6">
+               <td class="td1"><span> </span><a id="lblPosts" class="lbl"> </a></td>
+			   <td class="td2"><span> </span><a id="lblP10a" class="lbl">1.0</a></td>
+               <td class="td3"><input id="txtP10" type="text"  class="txt num c3" /></td>
+               <td class="td2"><span> </span><a id="lblP20" class="lbl"> </a></td>
+               <td class="td3"><input id="txtP20" type="text"  class="txt num c3" /></td>
+			   <td class="td2"><span> </span><a id="lblP30" class="lbl">3.0</a></td>
+               <td class="td3"><input id="txtP30" type="text"  class="txt num c3" /></td>
+               <td class="td4"><span> </span><a id="lblP35" class="lbl"> </a></td>
+               <td class="td5"><input id="txtP35" type="text"  class="txt num c3" /></td>
+            </tr>      
+             <tr class="tr7">
+               <td class="td1"> </td>
+			   <td class="td6"><span> </span><a id="lblP50" class="lbl"> </a></td>
+			   <td class="td7"><input id="txtP50" type="text" class="txt num c3" /></td>
+			   <td class="td6"><span> </span><a id="lblP60" class="lbl">6.0</a></td>
+               <td class="td7"><input id="txtP60" type="text" class="txt num c3" /></td>
+			   <td class="td6"><span> </span><a id="lblP70" class="lbl">7.0</a></td>
+               <td class="td7"><input id="txtP70" type="text" class="txt num c3" /></td>
+			   <td class="td6"><span> </span><a id="lblP80" class="lbl">8.0</a></td>
+               <td class="td7"><input id="txtP80" type="text" class="txt num c3" /></td>      
+            </tr>
+            <tr class="tr8">
+               <td class="td1"> </td>
+			   <td class="td6"><span> </span><a id="lblP90" class="lbl">9.0</a></td>
+               <td class="td7"><input id="txtP90" type="text" class="txt num c3" /></td>    
+			   <td class="td8"><span> </span><a id="lblP100" class="lbl"> </a></td>
+               <td class="td9"><input id="txtP100" type="text" class="txt num c3" /></td>
+               <td class="td2"><span> </span><a id="lblP120" class="lbl"> </a></td>
+               <td class="td3"><input id="txtP120" type="text" class="txt num c3" /></td>
+               <td class="td4"><span> </span><a id="lblP130" class="lbl"> </a></td>
+               <td class="td5"><input id="txtP130" type="text" class="txt num c3" /></td>              
+            </tr>
+			<tr class = "tr9">
+			   <td class="td1"> </td>
+			   <td class="td6"><span> </span><a id="lblP150" class="lbl"> </a></td>
+               <td class="td7"><input id="txtP150" type="text" class="txt num c3" /></td> 
+			   <td class="td8"><span> </span><a id="lblP200" class="lbl"> </a></td>
+               <td class="td9"><input id="txtP200" type="text" class="txt num c3" /></td>  
+               <td class="td2"><span> </span><a id="lblP250" class="lbl"> </a></td>
+               <td class="td3"><input id="txtP250" type="text" class="txt num c3" /></td>
+               <td class="td4"><span> </span><a id="lblP320" class="lbl"> </a></td>
+               <td class="td5"><input id="txtP320" type="text" class="txt num c3" /></td>
+			</tr>
+			<tr class ="tr10">
+			   <td class="td1"> </td>
+			   <td class="td4"><span> </span><a id="lblP340" class="lbl">34.0</a></td>
+               <td class="td5"><input id="txtP340" type="text" class="txt num c3" /></td>
+			   <td class="td6"> </td>
+               <td class="td7"><input id="txtWorker" type="hidden" class="txt c1" /></td>
+               <td class="td8"><span> </span><a id="lblTotal" class="lbl"> </a></td>
+               <td class="td9"><input id="txtTotal" type="text" class="txt num c1" /></td>  
+			</tr>
 				</table>
 			</div>
 		</div>
