@@ -16,7 +16,7 @@
         }
         var q_name="postout";
         var q_readonly = ['txtNoa','txtChecker'];
-        var bbmNum = [['txtTotal',14 , 1, 1],['txtP20',14 , 0, 1],['txtP35',14 , 0, 1],['txtP50',14 , 0, 1],['txtP100',14 , 0, 1],['txtP120',14 , 0, 1],['txtP130',14 , 0, 1],['txtP150',14 , 0, 1],['txtP200',14 , 0, 1],['txtP250',14 , 0, 1],['txtP320',14 , 0, 1]]; 
+        var bbmNum = [['txtTotal',14 , 1, 1],['txtP10',14 , 0, 1],['txtP20',14 , 0, 1],['txtP30',14 , 0, 1],['txtP35',14 , 0, 1],['txtP50',14 , 0, 1],['txtP60',14 , 0, 1],['txtP70',14 , 0, 1],['txtP80',14 , 0, 1],['txtP90',14 , 0, 1],['txtP100',14 , 0, 1],['txtP120',14 , 0, 1],['txtP130',14 , 0, 1],['txtP150',14 , 0, 1],['txtP200',14 , 0, 1],['txtP250',14 , 0, 1],['txtP320',14 , 0, 1],['txtP340',14 , 0, 1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
@@ -58,12 +58,24 @@
 			$('#btnCheck').click(function () {
 	           $('#txtChecker').val(r_name);
 	           var totalstr='';
+			   	if(p10<=10)
+	           		totalstr+='<BR>郵資1.0庫存剩'+p10+'張';
 	          	if(p20<=10)
 	           		totalstr+='<BR>郵資2.0庫存剩'+p20+'張';
+				if(p30<=10)
+	           		totalstr+='<BR>郵資3.0庫存剩'+p30+'張';
 	           	if(p35<=10)
 	           		totalstr+='<BR>郵資3.5庫存剩'+p35+'張';
 	           	if(p50<=10)
 	           		totalstr+='<BR>郵資5.0庫存剩'+p50+'張';
+				if(p60<=10)
+	           		totalstr+='<BR>郵資6.0庫存剩'+p60+'張';
+				if(p70<=10)
+	           		totalstr+='<BR>郵資7.0庫存剩'+p70+'張';
+				if(p80<=10)
+	           		totalstr+='<BR>郵資8.0庫存剩'+p80+'張';
+				if(p90<=10)
+	           		totalstr+='<BR>郵資9.0庫存剩'+p90+'張';
 	           	if(p100<=10)
 	           		totalstr+='<BR>郵資10.0庫存剩'+p100+'張';
 	           	if(p120<=10)
@@ -78,6 +90,8 @@
 	           		totalstr+='<BR>郵資25.0庫存剩'+p250+'張';
 	           	if(p320<=10)
 	           		totalstr+='<BR>郵資32.0庫存剩'+p320+'張';
+				if(p340<=10)
+	           		totalstr+='<BR>郵資34.0庫存剩'+p340+'張';
 	           totalstr=totalstr.substr(4)
 	           q_msg( $(this), totalstr); 
 	        }).blur(function () {
@@ -88,7 +102,19 @@
 	        	if(!emp($('#txtStoreno').val()))
 					q_gt('postage_stk', "where=^^ a.storeno='"+$('#txtStoreno').val()+"' ^^" , 0, 0, 0, "postagestk", r_accy);//讀出庫存
 	        });
-	        
+	        $('#txtP10').change(function () {
+				if(p10<dec($('#txtP1').val())){
+					alert('郵資庫存數量不足');
+	           		$('#txtP10').val(p10);
+	           	}
+	           	sum();
+	        }).focus(function () {
+				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				q_msg( $(this), '郵資1.0庫存剩'+p10+'張');
+	        }).blur(function () {
+				q_msg();
+	        });
+			
 			$('#txtP20').change(function () {
 				if(p20<dec($('#txtP20').val())){
 					alert('郵資庫存數量不足');
@@ -101,6 +127,20 @@
 	        }).blur(function () {
 				q_msg();
 	        });
+			
+			$('#txtP30').change(function () {
+				if(p30<dec($('#txtP30').val())){
+					alert('郵資庫存數量不足');
+	           		$('#txtP30').val(p30);
+	           	}
+	           	sum();
+	        }).focus(function () {
+				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				q_msg( $(this), '郵資3.0庫存剩'+p30+'張');
+	        }).blur(function () {
+				q_msg();
+	        });
+			
 			$('#txtP35').change(function () {
 	           if(p35<dec($('#txtP35').val())){
 	           		alert('郵資庫存數量不足');
@@ -125,6 +165,72 @@
 	        }).blur(function () {
 				q_msg();
 	        });
+			
+			$('#txtP50').change(function () {
+				if(p50<dec($('#txtP50').val())){
+					alert('郵資庫存數量不足');
+	           		$('#txtP50').val(p50);
+	           	}
+	           	sum();
+	        }).focus(function () {
+				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				q_msg( $(this), '郵資5.0庫存剩'+p50+'張');
+	        }).blur(function () {
+				q_msg();
+	        });
+			
+			$('#txtP60').change(function () {
+				if(p60<dec($('#txtP60').val())){
+					alert('郵資庫存數量不足');
+	           		$('#txtP60').val(p60);
+	           	}
+	           	sum();
+	        }).focus(function () {
+				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				q_msg( $(this), '郵資6.0庫存剩'+p60+'張');
+	        }).blur(function () {
+				q_msg();
+	        });
+			
+			$('#txtP70').change(function () {
+				if(p70<dec($('#txtP70').val())){
+					alert('郵資庫存數量不足');
+	           		$('#txtP70').val(p70);
+	           	}
+	           	sum();
+	        }).focus(function () {
+				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				q_msg( $(this), '郵資7.0庫存剩'+p70+'張');
+	        }).blur(function () {
+				q_msg();
+	        });
+			
+			$('#txtP80').change(function () {
+				if(p80<dec($('#txtP80').val())){
+					alert('郵資庫存數量不足');
+	           		$('#txtP80').val(p80);
+	           	}
+	           	sum();
+	        }).focus(function () {
+				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				q_msg( $(this), '郵資8.0庫存剩'+p80+'張');
+	        }).blur(function () {
+				q_msg();
+	        });
+			
+			$('#txtP90').change(function () {
+				if(p90<dec($('#txtP90').val())){
+					alert('郵資庫存數量不足');
+	           		$('#txtP90').val(p90);
+	           	}
+	           	sum();
+	        }).focus(function () {
+				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				q_msg( $(this), '郵資9.0庫存剩'+p90+'張');
+	        }).blur(function () {
+				q_msg();
+	        });
+			
 	        $('#txtP100').change(function () {
 	           if(p100<dec($('#txtP100').val())){
 	           		alert('郵資庫存數量不足');
@@ -206,6 +312,19 @@
 	        }).focus(function () {
 				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 				q_msg( $(this), '郵資32.0庫存剩'+p320+'張');
+	        }).blur(function () {
+				q_msg();
+	        });
+			
+			$('#txtP340').change(function () {
+	           if(p340<dec($('#txtP340').val())){
+	           		alert('郵資庫存數量不足');
+	           		$('#txtP340').val(p340);
+	           	}
+	           	sum();
+	        }).focus(function () {
+				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				q_msg( $(this), '郵資34.0庫存剩'+p340+'張');
 	        }).blur(function () {
 				q_msg();
 	        });
@@ -291,7 +410,7 @@
         }
 		
 		var ischecker=false;
-		var p20=0,p35=0,p50=0,p100=0,p120=0,p130=0,p150=0,p200=0,p250=0,p320=0;//郵資庫存
+		var p10=0,p20=0,p30=0,p35=0,p50=0,p60=0,p70=0,p80=0,p90=0,p100=0,p120=0,p130=0,p150=0,p200=0,p250=0,p320=0,p340=0;//郵資庫存
         function q_gtPost(t_name) {  
             switch (t_name) {
             	case 'authority':
@@ -302,14 +421,20 @@
 		                    ischecker = false;
 		                break;
             	case 'postagestk':
-            		p20=0,p35=0,p50=0,p100=0,p120=0,p130=0,p150=0,p200=0,p250=0,p320=0;
+            		p10=0,p20=0,p30=0,p35=0,p50=0,p60=0,p70=0,p80=0,p90=0,p100=0,p120=0,p130=0,p150=0,p200=0,p250=0,p320=0,p340=0;
             		var as = _q_appendData("postages", "", true);
             		if(as[0]!=undefined){
             			for (var i = 0; i < as.length; i++) {
             				if(as[i].storeno==$('#txtStoreno').val() || $('#txtStoreno').val().length==0){
+								p10+=dec(as[i].p10)
 	            				p20+=dec(as[i].p20)
+								p30+=dec(as[i].p30)
 	            				p35+=dec(as[i].p35)
 	            				p50+=dec(as[i].p50)
+								p60+=dec(as[i].p60)
+								p70+=dec(as[i].p70)
+								p80+=dec(as[i].p80)
+								p90+=dec(as[i].p90)
 	            				p100+=dec(as[i].p100)
 	            				p120+=dec(as[i].p120)
 	            				p130+=dec(as[i].p130)
@@ -317,6 +442,7 @@
 	            				p200+=dec(as[i].p200)
 	            				p250+=dec(as[i].p250)
 	            				p320+=dec(as[i].p320)
+								p340+=dec(as[i].p340)
             				}
             			}
             		}
@@ -443,7 +569,7 @@
         }
 		
 		function sum() {
-			q_tr('txtTotal',round((q_float('txtP20')*2)+(q_float('txtP35')*3.5)+(q_float('txtP50')*5)+(q_float('txtP100')*10)+(q_float('txtP120')*12)+(q_float('txtP130')*13)+(q_float('txtP150')*15)+(q_float('txtP200')*20)+(q_float('txtP250')*25)+(q_float('txtP320')*32),1));
+			q_tr('txtTotal',round((q_float('txtP10')*1)+(q_float('txtP20')*2)+(q_float('txtP30')*3)+(q_float('txtP35')*3.5)+(q_float('txtP50')*5)+(q_float('txtP60')*6)+(q_float('txtP70')*7)+(q_float('txtP80')*8)+(q_float('txtP90')*9)+(q_float('txtP100')*10)+(q_float('txtP120')*12)+(q_float('txtP130')*13)+(q_float('txtP150')*15)+(q_float('txtP200')*20)+(q_float('txtP250')*25)+(q_float('txtP320')*32)+(q_float('txtP340')*34),1));
         }
 		
         function btnSeek(){
@@ -676,37 +802,57 @@
             </tr> 
             <tr class="tr6">
                <td class="td1"><span> </span><a id="lblPosts" class="lbl"> </a></td>
+			   <td class="td2"><span> </span><a id="lblP10a" class="lbl">1.0</a></td>
+               <td class="td3"><input id="txtP10" type="text"  class="txt num c3" /></td>
                <td class="td2"><span> </span><a id="lblP20" class="lbl"> </a></td>
                <td class="td3"><input id="txtP20" type="text"  class="txt num c3" /></td>
+			   <td class="td2"><span> </span><a id="lblP30" class="lbl">3.0</a></td>
+               <td class="td3"><input id="txtP30" type="text"  class="txt num c3" /></td>
                <td class="td4"><span> </span><a id="lblP35" class="lbl"> </a></td>
                <td class="td5"><input id="txtP35" type="text"  class="txt num c3" /></td>
-               <td class="td6"><span> </span><a id="lblP50" class="lbl"> </a></td>
-               <td class="td7"><input id="txtP50" type="text" class="txt num c3" /></td>
-               <td class="td8"><span> </span><a id="lblP100" class="lbl"> </a></td>
-               <td class="td9"><input id="txtP100" type="text" class="txt num c3" /></td>
             </tr>      
              <tr class="tr7">
-             	<td class="td1"> </td>
-             	<td class="td2"><span> </span><a id="lblP120" class="lbl"> </a></td>
-               <td class="td3"><input id="txtP120" type="text" class="txt num c3" /></td>
-               <td class="td4"><span> </span><a id="lblP130" class="lbl"> </a></td>
-               <td class="td5"><input id="txtP130" type="text" class="txt num c3" /></td>
-               <td class="td6"><span> </span><a id="lblP150" class="lbl"> </a></td>
-               <td class="td7"><input id="txtP150" type="text" class="txt num c3" /></td>
-             	<td class="td8"><span> </span><a id="lblP200" class="lbl"> </a></td>
-               <td class="td9"><input id="txtP200" type="text" class="txt num c3" /></td>              
+               <td class="td1"> </td>
+			   <td class="td6"><span> </span><a id="lblP50" class="lbl"> </a></td>
+			   <td class="td7"><input id="txtP50" type="text" class="txt num c3" /></td>
+			   <td class="td6"><span> </span><a id="lblP60" class="lbl">6.0</a></td>
+               <td class="td7"><input id="txtP60" type="text" class="txt num c3" /></td>
+			   <td class="td6"><span> </span><a id="lblP70" class="lbl">7.0</a></td>
+               <td class="td7"><input id="txtP70" type="text" class="txt num c3" /></td>
+			   <td class="td6"><span> </span><a id="lblP80" class="lbl">8.0</a></td>
+               <td class="td7"><input id="txtP80" type="text" class="txt num c3" /></td>      
             </tr>
             <tr class="tr8">
-             	<td class="td1"> </td>
+               <td class="td1"> </td>
+			   <td class="td6"><span> </span><a id="lblP90" class="lbl">9.0</a></td>
+               <td class="td7"><input id="txtP90" type="text" class="txt num c3" /></td>    
+			   <td class="td8"><span> </span><a id="lblP100" class="lbl"> </a></td>
+               <td class="td9"><input id="txtP100" type="text" class="txt num c3" /></td>
+               <td class="td2"><span> </span><a id="lblP120" class="lbl"> </a></td>
+               <td class="td3"><input id="txtP120" type="text" class="txt num c3" /></td>
+               <td class="td4"><span> </span><a id="lblP130" class="lbl"> </a></td>
+               <td class="td5"><input id="txtP130" type="text" class="txt num c3" /></td>              
+            </tr>
+			<tr class = "tr9">
+			   <td class="td1"> </td>
+			   <td class="td6"><span> </span><a id="lblP150" class="lbl"> </a></td>
+               <td class="td7"><input id="txtP150" type="text" class="txt num c3" /></td> 
+			   <td class="td8"><span> </span><a id="lblP200" class="lbl"> </a></td>
+               <td class="td9"><input id="txtP200" type="text" class="txt num c3" /></td>  
                <td class="td2"><span> </span><a id="lblP250" class="lbl"> </a></td>
                <td class="td3"><input id="txtP250" type="text" class="txt num c3" /></td>
                <td class="td4"><span> </span><a id="lblP320" class="lbl"> </a></td>
                <td class="td5"><input id="txtP320" type="text" class="txt num c3" /></td>
-               <td class="td6"> </td>
+			</tr>
+			<tr class ="tr10">
+			   <td class="td1"> </td>
+			   <td class="td4"><span> </span><a id="lblP340" class="lbl">34.0</a></td>
+               <td class="td5"><input id="txtP340" type="text" class="txt num c3" /></td>
+			   <td class="td6"> </td>
                <td class="td7"><input id="txtWorker" type="hidden" class="txt c1" /></td>
                <td class="td8"><span> </span><a id="lblTotal" class="lbl"> </a></td>
-               <td class="td9"><input id="txtTotal" type="text" class="txt num c1" /></td>                 
-            </tr> 
+               <td class="td9"><input id="txtTotal" type="text" class="txt num c1" /></td>  
+			</tr>
         </table>
         </div>
         </div> 
