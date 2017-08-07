@@ -18,7 +18,7 @@
             q_tables = 's';
             var q_name = "cara";
             var q_readonly = ['txtNoa','txtIprev','txtInterest','txtItotal','txtTotal','txtPaytotal','txtBprev','txtBin','txtBtotal','txtAccno','textUnpay','txtOldcarno'];
-            var q_readonlys = ['txtCaritem','txtUmmnoa','txtUdate','txtInmoney','txtCarcaccno'];
+            var q_readonlys = ['txtCaritem','txtUmmnoa','txtUdate','txtCarcaccno'];
             var bbmNum = [['txtIprev', 15, 0, 1],['txtIset', 15, 0, 1],['txtBprev', 15, 0, 1],['txtInterest', 15, 0, 1],['txtBin', 15, 0, 1],['txtItotal', 15, 0, 1],['txtBtotal', 15, 0, 1],['txtTotal', 15, 0, 1],['txtPaytotal', 15, 0, 1]];
             var bbsNum = [['txtOutmoney', 15, 0, 1],['txtInmoney', 15, 0, 1],['txtCost', 15, 0, 1]];
             var bbmMask = [];
@@ -66,6 +66,10 @@
                 $('#textNextmon').mask(r_picm);
                 $('#textDiscount').mask('99');
                 q_cmbParse("cmbIsource", q_getPara('cara.isource'));
+                
+                if(q_getPara('sys.project').toUpperCase()=='DC'){
+                	q_readonlys = ['txtCaritem','txtUmmnoa','txtUdate','txtInmoney','txtCarcaccno'];
+                }
                 
                 q_gt('sss', "where=^^ partno='07'^^" , 0, 0, 0, "", r_accy);	
                 
