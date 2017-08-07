@@ -16,7 +16,7 @@
 		<script type="text/javascript">
             q_tables = 's';
             var q_name = "tran";
-            var q_readonly = ['txtNoa', 'txtWeight','txtTotal', 'txtWorker', 'txtWorker2'];
+            var q_readonly = ['txtNoa', 'txtMount', 'txtVolume', 'txtWeight','txtTotal','txtTotal2', 'txtWorker', 'txtWorker2'];
             var q_readonlys = [];
             var bbmNum = [['txtMount', 10, 2, 1],['txtWeight', 10, 2, 1],['txtTotal', 10, 0, 1]];
             var bbsNum = [['txtWeight', 10, 2, 1],['txtWeight2', 10, 2, 1],['txtPrice', 10, 3, 1],['txtTotal', 10, 2, 1],['txtTotal2', 10, 2, 1]];
@@ -56,10 +56,11 @@
             }
 
             function sum() {
-            	var t_tweight=0,t_tweight2=0,t_total=0,t_total2=0
+            	var t_tweight=0,t_tweight2=0,t_tweight3=0,t_total=0,t_total2=0
              	for(var i=0;i<q_bbsCount;i++){
 					t_tweight = q_add(t_tweight,q_float('txtWeight_'+i));
 					t_tweight2 = q_add(t_tweight2,q_float('txtWeight2_'+i));
+					t_tweight3 = q_add(t_tweight3,q_float('txtWeight3_'+i));
 					$('#txtTotal_'+i).val(q_mul(q_float('txtWeight_'+i),q_float('txtPrice_'+i)));
 					$('#txtPrice3_'+i).val(q_mul(q_float('txtWeight2_'+i),q_float('txtPrice2_'+i)));
 					t_total = round(q_add(t_total,q_float('txtTotal_'+i)),0);
@@ -67,6 +68,7 @@
              	}
              	$('#txtMount').val(t_tweight);
              	$('#txtWeight').val(t_tweight2);
+             	$('#txtVolume').val(t_tweight3);
              	$('#txtTotal').val(t_total);
              	$('#txtTotal2').val(t_total2);
             }
@@ -126,8 +128,8 @@
                             if (!b_ret || b_ret.length == 0)
                                 return;
                                 ret = q_gridAddRow(bbsHtm, 'tbbs', 
-                                'txtOrdeno,txtCaseno,txtDatea,txtTrandate,txtCustno,txtNick,txtUccno,txtProduct,txtWeight,txtWeight2,txtUnit,txtPrice,txtTotal,txtPo,txtCarno,txtDriverno,txtDriver,txtMemo,txtStraddrno,txtStraddr,txtCardealno,txtCardeal,txtPrice2,txtPrice3', b_ret.length, b_ret, 
-                                'noa,noq,time1,time2,custno,cust,productno,product,weight,uweight,unit,volume,total,memo2,carno,driverno,driver,memo,addrno,addr,addrno2,addr2,height,tvolume', 'txtUccno,txtProduct');
+                                'txtOrdeno,txtCaseno,txtDatea,txtTrandate,txtCustno,txtNick,txtUccno,txtProduct,txtWeight,txtWeight3,txtWeight2,txtUnit,txtPrice,txtTotal,txtPo,txtCarno,txtDriverno,txtDriver,txtMemo,txtStraddrno,txtStraddr,txtCardealno,txtCardeal,txtPrice2,txtPrice3', b_ret.length, b_ret, 
+                                'noa,noq,time1,time2,custno,cust,productno,product,weight,weight,uweight,unit,volume,total,memo2,carno,driverno,driver,memo,addrno,addr,addrno2,addr2,height,tvolume', 'txtUccno,txtProduct');
                             }
                         break;
                     case q_name + '_s':
@@ -519,10 +521,14 @@
                         </td>
                     </tr>
 					<tr>
-						<td><span> </span><a id="lbl" class="lbl" >事業總噸數</a></td>
+						<td><span> </span><a id="lbl" class="lbl" >請款總噸數</a></td>
 						<td>
 						<input id="txtMount" type="text" class="txt c1 num" />
 						</td>
+						<td><span> </span><a id="lbl" class="lbl" >事業總噸數</a></td>
+                        <td>
+                        <input id="txtVolume" type="text" class="txt c1 num" />
+                        </td>
 						<td><span> </span><a id="lbl" class="lbl" >處理廠總噸數</a></td>
 						<td><input id="txtWeight" type="text" class="txt c1 num" /></td>
 					</tr>
@@ -566,6 +572,7 @@
 					<td align="center" style="width:90px"><a>進場日期</a></td>
 					<td align="center" style="width:150px"><a>常態事業單位</a></td>
 					<td align="center" style="width:150px"><a>廢棄物</a></td>
+					<td align="center" style="width:90px"><a>請款噸數</a></td>
 					<td align="center" style="width:90px"><a>事業噸數</a></td>
 					<td align="center" style="width:90px"><a>處理廠噸數</a></td>
 					<td align="center" style="width:60px"><a>單位</a></td>
@@ -601,6 +608,7 @@
 						<input type="button" id="btnProduct.*" value='.' style=" font-weight: bold;"/>
 					</td>
 					<td><input type="text" id="txtWeight.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtWeight3.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtWeight2.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtUnit.*" style="width:95%;"/></td>
 					<td><input type="text" id="txtPrice.*" class="num" style="width:95%;"/></td>

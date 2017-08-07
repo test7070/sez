@@ -511,6 +511,7 @@
                     $('#btnTrans').removeAttr('disabled');
                     $('#btnCustchg').removeAttr('disabled');
                     $('#btnVcca').removeAttr('disabled');
+                    $('#txtTax').css('color','black').css('background','white').removeAttr('readonly');
                 } else {
                     $('#btnTrans').attr('disabled', 'disabled');
                     $('#btnCustchg').attr('disabled', 'disabled');
@@ -812,7 +813,7 @@
 						</td>
 					</tr>
 					<tr class="trX">
-						<td><span> </span><a id="lblDate2" class="lbl"> </a></td>
+						<td><span> </span><a id="lblDate2_jr" class="lbl">請款日期區間</a></td>
 						<td colspan="3">
 							<input id="txtBdate" type="text" style="float:left; width:45%;"/>
 							<span style="float:left;display: block;width:3%;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
@@ -832,13 +833,17 @@
 						<td class="tdZ"> </td>
 						<td class="tdZ"> </td>
 					</tr>
-					<tr class="trX">
+					<!--<tr class="trX">
 						<td><span> </span><a id="lblTrandate" class="lbl"> </a></td>
 						<td colspan="3">
 							<input id="txtBtrandate" type="text" style="float:left; width:45%;"/>
 							<span style="float:left;display: block;width:3%;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
 							<input id="txtEtrandate" type="text" style="float:left; width:45%;"/>
 						</td>
+						<td class="tdZ"> </td>
+						<td class="tdZ"> </td>
+						<td class="tdZ"> </td>
+						<td class="tdZ"> </td>
 						<td style="display:none;"><span> </span><a id="lblPo" class="lbl"> </a></td>
 						<td colspan="3" style="display:none;"><input id="txtPo" type="text"  class="txt c1"/></td>
 						<td class="tdZ"> </td>
@@ -846,7 +851,7 @@
 						<td class="tdZ"> </td>
 						<td class="tdZ"> </td>
 						<td class="tdZ"> </td>
-					</tr>
+					</tr>-->
 					<tr class="trX">
 						<td><span> </span><a id="lblCarteam" class="lbl">車隊</a></td>
 						<td><select id="cmbCarteamno" class="txt c1"> </select></td>

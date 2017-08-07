@@ -36,11 +36,14 @@
 			aPop = new Array(['txtDriverno_', '', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx'],
 							 ['txtBdriverno', '', 'driver', 'noa,namea', 'txtBdriverno,txtBdriver', 'driver_b.aspx'],
 							 ['txtEdriverno', '', 'driver', 'noa,namea', 'txtEdriverno,txtEdriver', 'driver_b.aspx']);
+			
+			var t_part = "";
+			
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
 				q_brwCount();
-				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+				q_gt('part', '', 0, 1, 0);
 			});
 			function main() {
 				if (dataErr) {
@@ -55,6 +58,9 @@
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd], ['txtNoa', r_picm], ['txtMon', r_picm]];
 				q_mask(bbmMask);
+				
+				q_cmbParse("cmbPartno", t_part,'s');
+				
 				 $('#btnCarsal').click(function(e) {
 				 	if($('#txtMon').val().length==0){
 				 		alert('請輸入月份。');
@@ -92,7 +98,14 @@
             }
 			function q_gtPost(t_name) {
 				switch (t_name) {
-					
+					case 'part':
+						t_part = " @";
+                        var as = _q_appendData("part", "", true);
+                        for ( i = 0; i < as.length; i++) {
+                            t_part += (t_part.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
+                        }
+						q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
+						break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
@@ -660,13 +673,14 @@
 		</div>
 		<div id="box">
 		<div class='dbbs'>
-			<table id="tbbs" class='tbbs' style="width: 1340px;background:#cad3ff;">
+			<table id="tbbs" class='tbbs' style="width: 1420px;background:#cad3ff;">
 				<tr style='color:white; background:#003366;' >
 					<td  align="center" style="width:30px;">
 						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width: 26px;"><a id='vewChks'></a></td>
 					<td align="center" style="width:20px;"> </td>
+					<td align="center" style="width:80px;">部門</td>
 					<td align="center" style="width:120px;"><a id='lblDriver_s'></a></td>
 					<td align="center" style="width:30px;"><a id='lblDay_s'></a></td>
 					<td align="center" style="width:80px;"><a id='lblTranmoney_s'></a></td>
@@ -692,6 +706,7 @@
 					</td>
 					<td ><input id="checkSel.*" type="checkbox"/></td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+					<td ><select id="cmbPartno.*" style="width:95%;"> </select></td>
 					<td  align="center"><input type="text" id="txtDriverno.*" style="width:40%; float:left;" />
 						<input type="text" id="txtDriver.*" style="width:50%; float:left;" />
 					</td>
