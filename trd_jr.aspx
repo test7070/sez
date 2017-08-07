@@ -501,6 +501,7 @@
                 $('#txtMoney').val(FormatNumber(t_money));
                 $('#txtTotal').val(FormatNumber(t_total));
                 $('#txtMount').val(FormatNumber(t_mount));
+                $('#txtTax').val(FormatNumber(t_money*0.05));
             }
             function refresh(recno) {
                 _refresh(recno);

@@ -577,8 +577,8 @@
 					<td align="center" style="width:90px"><a>處理廠噸數</a></td>
 					<td align="center" style="width:60px"><a>單位</a></td>
 					<td align="center" style="width:90px"><a>請款單價</a></td>
-					<td align="center" style="width:90px"><a>處理單價</a></td>
 					<td align="center" style="width:90px"><a>應收運費</a></td>
+					<td align="center" style="width:90px"><a>處理單價</a></td>
 					<td align="center" style="width:90px"><a>處理金額</a></td>
 					<td align="center" style="width:90px"><a>應付運費</a></td>
 					<td align="center" style="width:160px"><a>聯單編號</a></td>
@@ -612,8 +612,8 @@
 					<td><input type="text" id="txtWeight2.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtUnit.*" style="width:95%;"/></td>
 					<td><input type="text" id="txtPrice.*" class="num" style="width:95%;"/></td>
-					<td><input type="text" id="txtPrice2.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtTotal.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtPrice2.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtPrice3.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtTotal2.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtPo.*" style="width:95%;"/></td>
