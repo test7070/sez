@@ -70,16 +70,10 @@
 				if(r_len==4){//西元年
 					r_1911=0;
 					$.datepicker.r_len=4;
-					$('#txtDate1').mask(r_picd);
-                    $('#txtDate2').mask(r_picd);
-                    $('#txtXdate').mask(r_picd);
                     $('#txtDate1').datepicker();
                     $('#txtDate2').datepicker();
                     $('#txtXdate').datepicker();
 				}else{
-				    $('#txtDate1').mask('999/99/99');
-                    $('#txtDate2').mask('999/99/99');
-                    $('#txtXdate').mask('999/99/99');
 	                $('#txtDate1').datepicker();
 	                $('#txtDate2').datepicker();
 	                $('#txtXdate').datepicker();

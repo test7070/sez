@@ -56,13 +56,15 @@
             }
 
             function sum() {
-            	var t_tweight=0,t_tweight2=0,t_tweight3=0,t_total=0,t_total2=0
+            	var t_tweight=0,t_tweight2=0,t_tweight3=0,t_total=0,t_total2=0,t_total3=0
              	for(var i=0;i<q_bbsCount;i++){
 					t_tweight = q_add(t_tweight,q_float('txtWeight_'+i));
 					t_tweight2 = q_add(t_tweight2,q_float('txtWeight2_'+i));
 					t_tweight3 = q_add(t_tweight3,q_float('txtWeight3_'+i));
+					t_tweight3 = q_add(t_tweight3,q_float('txtWeight3_'+i));
 					$('#txtTotal_'+i).val(q_mul(q_float('txtWeight_'+i),q_float('txtPrice_'+i)));
 					$('#txtPrice3_'+i).val(q_mul(q_float('txtWeight2_'+i),q_float('txtPrice2_'+i)));
+					$('#txtTotal2_'+i).val(round(q_mul(q_float('txtWeight_'+i),q_float('txtMount3_'+i)),0));
 					t_total = round(q_add(t_total,q_float('txtTotal_'+i)),0);
 					t_total2 = round(q_add(t_total2,q_float('txtTotal2_'+i)),0);
              	}
@@ -186,6 +188,9 @@
                         sum();
                     });
                     $('#txtPrice2_' + i).change(function() {
+                        sum();
+                    });
+                    $('#txtMount3_' + i).change(function() {
                         sum();
                     });
                 }
@@ -580,6 +585,7 @@
 					<td align="center" style="width:90px"><a>應收運費</a></td>
 					<td align="center" style="width:90px"><a>處理單價</a></td>
 					<td align="center" style="width:90px"><a>處理金額</a></td>
+					<td align="center" style="width:90px"><a>司機單價</a></td>
 					<td align="center" style="width:90px"><a>應付運費</a></td>
 					<td align="center" style="width:160px"><a>聯單編號</a></td>
 					<td align="center" style="width:100px"><a>出車車號</a></td>
@@ -615,6 +621,7 @@
 					<td><input type="text" id="txtTotal.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtPrice2.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtPrice3.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtMount3.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtTotal2.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtPo.*" style="width:95%;"/></td>
 					<td>
