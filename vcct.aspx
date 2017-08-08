@@ -258,14 +258,14 @@
                 $('#txtCno').val(z_cno);
 				$('#txtAcomp').val(z_acomp);
 				
+                refreshBbm();
+                $('#txtNoa').focus();
+                
+                $('#cmbTypea').val('1').change();
                 if(t_noa.length>0 && $('#chekQcopy').prop('checked')){
                 	t_noa=t_noa.substr(0,7);
                 	$('#txtNoa').val(t_noa);
                 }
-                refreshBbm();
-                $('#txtNoa').focus();
-                
-                $('#cmbTypea').val('1');
                 $('#cmbKind').val('21');
                 field_change();
             }
@@ -294,14 +294,11 @@
 				});
 				
 				if(q_cur==1){
-					if(emp($('#txtNoa').val()) && (($('#cmbKind').val()=='22' && $('#chkIsadd').prop('checked')) 
-						|| $('#cmbKind').val()=='28' || $('#cmbKind').val()=='29' || $('#cmbKind').val()=='36')){
+					if(emp($('#txtNoa').val()) && ($('#cmbKind').val()=='22' || $('#cmbKind').val()=='23' ||$('#cmbKind').val()=='24'
+						|| $('#cmbKind').val()=='25' || $('#cmbKind').val()=='27' || $('#cmbKind').val()=='28' || $('#cmbKind').val()=='29' 
+						|| $('#cmbKind').val()=='36' || $('#cmbKind').val()=='34' || $('#cmbKind').val()=='37' || $('#cmbKind').val()=='38'   )){
 						if($('#txtDutymemo').val().length>0){
 							$('#txtNoa').val($('#txtDutymemo').val());
-						}else{
-							alert($('#lblDutymemo').text()+'禁止空白!!');
-							Unlock(1);
-							return;
 						}
 					}
 				}
@@ -312,6 +309,14 @@
 					alert(t_err);
 					Unlock(1);
 					return;
+				}
+				
+				if(($('#cmbKind').val()=='22' && $('#chkIsadd').prop('checked'))|| $('#cmbKind').val()=='28' || $('#cmbKind').val()=='29' || $('#cmbKind').val()=='36'){
+					if($('#txtDutymemo').val().length==0){
+						alert($('#lblDutymemo').text()+'禁止空白!!');
+						Unlock(1);
+						return;
+					}
 				}
             	
                 $('#txtNoa').val($.trim($('#txtNoa').val()));
@@ -707,10 +712,15 @@
                 		$('.typea1').show();
                 		$('#lblDutymemo').text('其他憑證');
                 		$('#txtDutymemo').removeAttr('disabled').css('background','white');
+                		if($('#cmbKind').val()=='36')
+                			$('.carrier').hide();
+                		else
+                			$('.carrier').show();
                 	}else{
                 		$('.typea1').hide();
                 		$('#lblDutymemo').text('憑證/流水號');
                 		$('#txtDutymemo').val('').attr('disabled', 'disabled').css('background','RGB(237,237,237)');
+                		$('.carrier').hide();
                 	}
                 	
                 	//106/07/13 開啟使用 XY有零稅率海關問題
