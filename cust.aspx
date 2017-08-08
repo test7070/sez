@@ -298,7 +298,7 @@
 						t_comp=replaceAll(t_comp,"%","");
 						t_comp=replaceAll(t_comp,"^","");
 						t_comp=replaceAll(t_comp,"&","");
-						var t_where = "where=^^ ['"+t_comp +"')  ^^";
+						var t_where = "where=^^ [N'"+t_comp +"')  ^^";
 						q_gt('cust_xy', t_where, 0, 0, 0, "XY_cust_getpy", r_accy);
 					}
 				});
@@ -306,7 +306,7 @@
 				/*$('#btnTmpcustno_xy').click(function(){
 					xy_newnoa='';
 					//讀羅馬拼音>產生最新編號>最後更換noa
-					var t_where = "where=^^ ['"+$('#txtComp').val() +"')  ^^";
+					var t_where = "where=^^ [N'"+$('#txtComp').val() +"')  ^^";
 					q_gt('cust_xy', t_where, 0, 0, 0, "XY_newcust_getpy", r_accy);
 				});*/
 			}

@@ -178,7 +178,7 @@
 				$('#txtComp').change(function() {
 					if (q_cur==1 && q_getPara('sys.project').toUpperCase()=='XY'){
 						//讀羅馬拼音
-						var t_where = "where=^^ ['"+$('#txtComp').val() +"')  ^^";
+						var t_where = "where=^^ [N'"+$('#txtComp').val() +"')  ^^";
 						q_gt('cust_xy', t_where, 0, 0, 0, "XY_getpy", r_accy);	
 						return;
 					}

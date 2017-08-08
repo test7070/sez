@@ -175,7 +175,7 @@
 				$('#txtProduct').change(function(){
 					if (q_cur==1 && q_getPara('sys.project').toUpperCase()=='XY' && !$('#xy_isprint').prop('checked')){
 						//讀羅馬拼音
-						var t_where = "where=^^ ['"+$('#txtProduct').val() +"')  ^^";
+						var t_where = "where=^^ [N'"+$('#txtProduct').val() +"')  ^^";
 						q_gt('cust_xy', t_where, 0, 0, 0, "XY_getpy", r_accy);	
 						return;
 					}
@@ -183,7 +183,7 @@
 				$('#txtSpec').change(function(){
 					if (q_cur==1 && q_getPara('sys.project').toUpperCase()=='XY' && !$('#xy_isprint').prop('checked')){
 						//讀羅馬拼音
-						var t_where = "where=^^ ['"+$('#txtProduct').val() +"')  ^^";
+						var t_where = "where=^^ [N'"+$('#txtProduct').val() +"')  ^^";
 						q_gt('cust_xy', t_where, 0, 0, 0, "XY_getpy", r_accy);	
 						return;
 					}
@@ -192,7 +192,7 @@
 				$('#txtStyle').change(function(){
 					if (q_cur==1 && q_getPara('sys.project').toUpperCase()=='XY' && !$('#xy_isprint').prop('checked')){
 						//讀羅馬拼音
-						var t_where = "where=^^ ['"+$('#txtProduct').val() +"')  ^^";
+						var t_where = "where=^^ [N'"+$('#txtProduct').val() +"')  ^^";
 						q_gt('cust_xy', t_where, 0, 0, 0, "XY_getpy", r_accy);	
 						return;
 					}
@@ -202,7 +202,7 @@
 					if (q_cur==1 && q_getPara('sys.project').toUpperCase()=='XY' && !$('#xy_isprint').prop('checked')){
 						$('#txtStyle').val($('#combStyle_xy').val());
 						//讀羅馬拼音
-						var t_where = "where=^^ ['"+$('#txtProduct').val() +"')  ^^";
+						var t_where = "where=^^ [N'"+$('#txtProduct').val() +"')  ^^";
 						q_gt('cust_xy', t_where, 0, 0, 0, "XY_getpy", r_accy);	
 						return;
 					}
