@@ -85,9 +85,15 @@
                 	calTax();
 				});
 				
+				$('#txtSerial').change(function() {
+					calTax();
+				});
+				
 				$('#txtTax').change(function(e) {
 					if('32,37,38'.indexOf($('#cmbKind').val())>-1
 					|| ('22,27'.indexOf($('#cmbKind').val())>-1  && $('#txtDutymemo').val().length==0)
+					|| ('31,35,36'.indexOf($('#cmbKind').val())>-1 && $('#txtSerial').val().length==0)
+					|| $('#cmbTaxtype').val()=='2' || $('#cmbTaxtype').val()=='3' || $('#cmbTaxtype').val()=='6' || $('#cmbTaxtype').val()=='D'
 					){
 						$('#txtTax').val(0);
 					}
@@ -478,6 +484,7 @@
 				var t_taxrate = q_div(parseFloat(q_getPara('sys.taxrate')) , 100);
 				if('32,37,38'.indexOf($('#cmbKind').val())>-1
 				 || ('22,27'.indexOf($('#cmbKind').val())>-1 && $('#txtDutymemo').val().length==0)
+				 || ('31,35,36'.indexOf($('#cmbKind').val())>-1 && $('#txtSerial').val().length==0)
 				){
 					t_taxrate = 0;
 				}
