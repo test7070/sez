@@ -72,7 +72,11 @@
 							type : '8', //select
 							name : 'xcarteam',
 							value : t_item.split(',')
-						}]
+						}, {
+                            type : '0',
+                            name : 'project',
+                            value : q_getPara('sys.project')
+                        }]
 					});
 					q_popAssign();
 	                q_langShow();

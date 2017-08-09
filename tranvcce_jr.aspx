@@ -458,8 +458,8 @@
 					<td align="center" style="width:90px"><a>處理廠噸數</a></td>
 					<td align="center" style="width:60px"><a>單位</a></td>
 					<td align="center" style="width:80px"><a>請款單價</a></td>
-					<td align="center" style="width:80px"><a>處理單價</a></td>
 					<td align="center" style="width:90px"><a>請款金額</a></td>
+					<td align="center" style="width:80px"><a>處理單價</a></td>
 					<td align="center" style="width:90px"><a>處理金額</a></td>
 					<td align="center" style="width:160px"><a>聯單編號</a></td>
 					<td align="center" style="width:100px"><a>出車車號</a></td>
@@ -490,8 +490,8 @@
 					<td><input type="text" id="txtUweight.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtUnit.*" style="width:95%;"/></td>
 					<td><input type="text" id="txtVolume.*" class="num" style="width:95%;"/></td>
-					<td><input type="text" id="txtHeight.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtTotal.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtHeight.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtTvolume.*" class="num" style="width:95%;"/></td>
 					<!--<td><input type="text" id="txtTotal2.*" class="num" style="width:95%;"/></td>-->
 					<td><input type="text" id="txtMemo2.*" style="width:95%;"/></td>
