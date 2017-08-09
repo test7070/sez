@@ -56,6 +56,7 @@
 					}
 				});
 				q_gt('uccga', "where=^^noa < '50' ^^", 0, 0, 0, "");
+				q_gt('uccgb', "where=^^noa < '50' ^^", 0, 0, 0, "");
 			}
 
 			function q_gfPost() {
@@ -97,9 +98,16 @@
 								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa + ' . ' + as[i].namea;
 							}
 							q_cmbParse("cmbGroupano", t_item);
-							if (abbm[q_recno] != undefined) {
-								$("#cmbGroupano").val(abbm[q_recno].groupano);
+						}
+						break;
+					case 'uccgb':
+						var as = _q_appendData("uccgb", "", true);
+						if (as[0] != undefined) {
+							var t_item = "@";
+							for ( i = 0; i < as.length; i++) {
+								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa + ' . ' + as[i].namea;
 							}
+							q_cmbParse("cmbGroupbno", t_item);
 						}
 						break;
 				}
@@ -140,6 +148,7 @@
 				t_tggno = $('#txtTggno').val();
 				t_comp = $('#txtComp').val();
 				t_groupano = $('#cmbGroupano').val();
+				t_groupbno = $('#cmbGroupbno').val();
 				t_style = $('#txtStyle').val();
 				
 				t_modelno = $('#txtModelno').val();
@@ -151,6 +160,7 @@
 										q_sqlPara2("stationno", t_stationno) +
 										q_sqlPara2("typea", t_typea) +
 										q_sqlPara2("groupano", t_groupano) +
+										q_sqlPara2("groupbno", t_groupbno) +
 										q_sqlPara2("tggno", t_tggno) +
 										q_sqlPara2("modelno", t_modelno)
 										
@@ -313,8 +323,14 @@
 				<tr class='seek_tr'>
 					<td class='seek'><a id='lblTypea'> </a></td>
 					<td><select id="cmbTypea" class="c1" > </select></td>
+					<td class='seek'> </td>
+					<td> </td>
+				</tr>
+				<tr class='seek_tr'>
 					<td class='seek'><a id='lblGroupano'> </a></td>
 					<td><select id="cmbGroupano" class="c1" > </select></td>
+					<td class='seek'><a id='lblGroupbno'> </a></td>
+					<td><select id="cmbGroupbno" class="c1" > </select></td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'><a id='lblGroupdno_jo'>銷售屬性</a></td>
