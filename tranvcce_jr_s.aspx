@@ -36,7 +36,7 @@
 				$('#txtBdate').datepicker();
 				$('#txtEdate').datepicker(); 
 				$('#txtNoa').focus();
-				
+				q_cmbParse("cmbChk1",' @全部,0@未申報,1@已申報');
 				var t_type = q_getPara('trans.typea').split(',');
 				for(var i=0;i<t_type.length;i++){
 					$('#listTypea').append('<option value="'+t_type[i]+'"></option>');
@@ -55,10 +55,12 @@
 				t_cust = $.trim($('#txtCust').val());
 				t_productno = $.trim($('#txtProductno').val());
 				t_product = $.trim($('#txtProduct').val());
+				t_chk1 = $.trim($('#cmbChk1').val());
 				
 				var t_where = " 1=1 "
 					+q_sqlPara2("datea", t_bdate, t_edate)
-					+q_sqlPara2("noa", t_noa);
+					+q_sqlPara2("noa", t_noa)
+					;
 				if(t_ordeno.length>0 && t_no2.length>0){
 					t_where += " and exists(select noa from view_tranvcces"+r_accy+" where view_tranvcces"+r_accy+".noa=view_tranvcce"+r_accy+".noa and view_tranvcces"+r_accy+".ordeno='"+t_ordeno+"' and view_tranvcces"+r_accy+".no2='"+t_no2+"' )";
 				}else if(t_ordeno.length>0){
@@ -78,6 +80,8 @@
 					t_where += " and exists(select noa from view_tranvcces"+r_accy+" where view_tranvcces"+r_accy+".noa=view_tranvcce"+r_accy+".noa and view_tranvcces"+r_accy+".productno='"+t_productno+"')";
 				if(t_product.length>0)
 					t_where += " and exists(select noa from view_tranvcces"+r_accy+" where view_tranvcces"+r_accy+".noa=view_tranvcce"+r_accy+".noa and view_tranvcces"+r_accy+".product=N'"+t_product+"')";		
+				if(t_chk1.length>0)
+                    t_where += " and exists(select noa from view_tranvcces"+r_accy+" where view_tranvcces"+r_accy+".noa=view_tranvcce"+r_accy+".noa and view_tranvcces"+r_accy+".chk1=N'"+t_chk1+"')";
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
@@ -140,6 +144,11 @@
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblProduct'>廢棄物名稱</a></td>
 					<td><input class="txt" id="txtProduct" type="text" style="width:220px;float:left; font-size:medium;" /></td>
+				</tr>
+				</tr>
+                <tr class='seek_tr'>
+                    <td class='seek'  style="width:20%;"><a id='lblChk1'>申報</a></td>
+				    <td><select id="cmbChk1"   style="width:220px;float:left; font-size:medium;"> </select></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
