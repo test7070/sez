@@ -1245,8 +1245,14 @@
 										station : as[i].station,
 										modelno : as[i].modelno,
 										model : as[i].model,
-										gen : (dec(as[i].gen)==0?dec($('#txtXdayclass').val()):dec(as[i].gen)),
-										mmount : dec(as[i].mmount),
+										gen : (dec(as[i].gen)==0?dec($('#txtXdayclass').val()):dec(as[i].gen)), //最大日產能
+										mmount : dec(as[i].mmount), //模具數
+										modmounts : dec(as[i].modmounts),//模具穴數
+										smaxop : dec(as[i].smaxop),//最大圈數
+										smaxmod : dec(as[i].smaxmod),//最大模數
+										smount : q_mul(dec(as[i].smaxop),dec(as[i].smaxmod)),//最大生產模數/日
+										smodmounts : dec(as[i].smodmounts),//機器模數
+										maxmodmount : dec(as[i].maxmodmount),//模具每圈可生產最大數量
 										maxgen : dec(as[i].maxgen),
 										days : 1,
 										datea : []
@@ -1284,9 +1290,10 @@
 							
 							OutHtml += '<tr>';
 							OutHtml += "<td class='tTitle' style='width:240px;' colspan='2' rowspan='2'>工作線別</td>" +
-									   "<td class='tTitle' style='width:240px;' colspan='2' rowspan='2'>模具</td>" +
-									   "<td class='tTitle' style='width:60px;' rowspan='2'>模具數</td>" +
-									   "<td class='tTitle' style='width:80px;' rowspan='2'>最大日產能</td>";
+									   "<td class='tTitle' style='width:240px;background: #FDB;' colspan='2' rowspan='2'>模具</td>" +
+									   "<td class='tTitle' style='width:60px;background: #FDB;' rowspan='2'>模具數</td>" +
+									   "<td class='tTitle' style='width:60px;background: #FDB;' rowspan='2'>穴數</td>" +
+									   "<td class='tTitle' style='width:120px;' rowspan='2'>最大生產模數/日</td>";
 							var tmpTd = '<tr>';
 							for(var j=0;j<DateList.length;j++){
 								var thisDay = DateList[j];
@@ -1303,15 +1310,46 @@
 							OutHtml += '</tr>' + tmpTd;
 							var ATotal = 0,STotal = 0,t_stationno='#non';
 							for(var k=0;k<TL.length;k++){
-								
 								if(t_stationno!=TL[k].stationno){
 									if(t_stationno!='#non'){
 										OutHtml += "<tr><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[k-1].stationno + "</td><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[k-1].station + "</td>" 
-													+"<td colspan='4' class='tTotal num' style='background:antiquewhite;'>小計：</td>";
+													+"<td colspan='5' class='tTotal num' style='background:antiquewhite;'>小計：</td>";
 										for(var s=0;s<SdateObj.length;s++){
 											OutHtml += "<td class='tTotal num'style='background:antiquewhite;'>"+ (round(SdateObj[s].mount,0)==0 && SdateObj[s].mount>0?round(SdateObj[s].mount,2):Zerospaec(FormatNumber(round(SdateObj[s].mount,0)))) + "</td>";
 										}
 										OutHtml += "<td class='tTotal num' style='background:antiquewhite;'>" + (round(STotal,0)==0 && STotal>0?round(STotal,2):Zerospaec(FormatNumber(round(STotal,0)))) + "</td></tr>";
+										
+										//106/08/10 使用率
+										OutHtml += "<tr><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[k-1].stationno + "</td><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[k-1].station + "</td>" 
+													+"<td colspan='5' class='tTotal num' style='background:antiquewhite;'>使用率：</td>";
+										for(var s=0;s<SdateObj.length;s++){
+											if(SdateObj[s].datea=="週小計")
+												OutHtml += "<td class='tTotal num' style='background:antiquewhite;'> </td>";
+											else
+												OutHtml += "<td class='tTotal num' style='background:antiquewhite;'>"+ (dec(TL[k-1].smount)==0?0:FormatNumber((round(q_div(SdateObj[s].mount,dec(TL[k-1].smount))*100,2)))+'%') + "</td>";
+										}
+										OutHtml += "<td class='tTotal num' style='background:antiquewhite;'> </td></tr>";
+										
+										OutHtml += '<tr>';
+										OutHtml += "<td class='tTitle' style='width:240px;' colspan='2' rowspan='2'>工作線別</td>" +
+												   "<td class='tTitle' style='width:240px;background: #FDB;' colspan='2' rowspan='2'>模具</td>" +
+												   "<td class='tTitle' style='width:60px;background: #FDB;' rowspan='2'>模具數</td>" +
+												   "<td class='tTitle' style='width:60px;background: #FDB;' rowspan='2'>穴數</td>" +
+												   "<td class='tTitle' style='width:120px;' rowspan='2'>最大生產模數/日</td>";
+										tmpTd = '<tr>';
+										for(var j=0;j<DateList.length;j++){
+											var thisDay = DateList[j];
+											if(thisDay=='週小計'){
+												OutHtml += "<td class='tTitle' style='width:80px;' rowspan='2'>"+thisDay+"</td>";
+											}else{
+												var thisADday = r_len==3?dec(thisDay.substring(0,3))+1911+thisDay.substr(3):thisDay;
+												OutHtml += "<td class='tTitle tWidth'>" + thisDay.substr(r_len+1) + "</td>";
+												tmpTd += "<td class='tTitle tWidth'>" + DayName[(new Date(thisADday).getDay())] + "</td>";
+											}
+										}
+										OutHtml += "<td class='tTitle tWidth' rowspan='2'>小計</td>";
+										tmpTd += "</tr>"
+										OutHtml += '</tr>' + tmpTd;
 									}
 									
 									for(var s=0;s<SdateObj.length;s++){
@@ -1325,7 +1363,8 @@
 								OutHtml += "<td class='Lproduct' style='width:120px;'>" + TL[k].stationno + "</td><td class='Lproduct' style='width:120px;'>" + TL[k].station + "</td>" +
 										   "<td class='Lproduct' style='width:120px;'>" + TL[k].modelno + "</td><td class='Lproduct' style='width:120px;'>" + TL[k].model + "</td>" +
 										   "<td class='num'>" + FormatNumber(TL[k].mmount) + "</td>" +
-										   "<td class='num'>" + FormatNumber(TL[k].gen) + "</td>";
+										   "<td class='num'>" + FormatNumber(TL[k].modmounts) + "</td>" +
+										   "<td class='num'>" + FormatNumber(TL[k].smount)+ "</td>";
 								var TTD = TL[k].datea;
 								var tTotal = 0,wtotal=0;
 								
@@ -1346,67 +1385,53 @@
 										SdateObj[j].mount = q_add(dec(SdateObj[j].mount),wtotal);
 										wtotal=0;
 									}else{
-										//OutHtml += "<td class='num'"+(thisValue>thisGen?' style="color:red;"':'')+"><font title='日產能:"+thisGen+"'>"
-										//+(thisValue>thisGen?"<a style='color:red;' href=JavaScript:q_box('work.aspx',\";cuadate='"+DateObj[j].datea+"'&&isnull(modelno,'')='"+TL[k].modelno+"';106\",'95%','95%','106')>":'') + FormatNumber(round(thisValue,0)) +(thisValue>thisGen?'</a>':'')+ "</font></td>";
-										
 										OutHtml += "<td class='num'"+(thisValue>(thisGen+1)?' style="color:red;"':'')+"><font title='日產能:"+thisGen+"'>"
-										//+(thisValue>thisGen?"<a style='color:red;' href=JavaScript:q_box('work.aspx',&quot;;noa%20in%20(select%20workno%20from%20view_cugu%20where%20datea='"+DateObj[j].datea+"')&amp;&amp;isnull(modelno,'')='"+TL[k].modelno+"';106&quot;,'95%','95%','106')>":'') + Zerospaec(FormatNumber(round(thisValue,0))) +(thisValue>thisGen?'</a>':'')+ "</font></td>";
 										+"<a "+(thisValue>(thisGen+1)?"style='color:red;'":"")+" href=JavaScript:q_box('z_workgg.aspx',\";cuadate='"+DateObj[j].datea+"'&&modelno='"+TL[k].modelno+"'&&xaction='z_workgg4';106\",'95%','95%','106')>" 
-										//+ Zerospaec(round(thisValue,0))+ "</font></td>";
 										+(round(thisValue,0)==0 && thisValue>0?round(thisValue,2):Zerospaec(round(thisValue,0))) + "</font></td>";
 										//106/07/05 負荷大於1才顯示紅色
 									}
 								}
 								ATotal = q_add(ATotal,tTotal);
 								STotal = q_add(STotal,tTotal);
-								//OutHtml += "<td class='num'>" + Zerospaec(FormatNumber(round(tTotal,0))) + "</td>";
 								OutHtml += "<td class='num'>" + (round(tTotal,0)==0 && tTotal>0?round(tTotal,2):Zerospaec(round(tTotal,0))) + "</td>";
 								OutHtml += '</tr>';
 								
-								if(k%27==0 && k!=0){
-									OutHtml += '<tr>';
-									OutHtml += "<td class='tTitle' style='width:240px;' colspan='2' rowspan='2'>工作線別</td>" +
-											   "<td class='tTitle' style='width:240px;' colspan='2' rowspan='2'>模具</td>" +
-											   "<td class='tTitle' style='width:60px;' rowspan='2'>模具數</td>" +
-											   "<td class='tTitle' style='width:80px;' rowspan='2'>最大日產能</td>";
-									tmpTd = '<tr>';
-									for(var j=0;j<DateList.length;j++){
-										var thisDay = DateList[j];
-										if(thisDay=='週小計'){
-											OutHtml += "<td class='tTitle' style='width:80px;' rowspan='2'>"+thisDay+"</td>";
-										}else{
-											var thisADday = r_len==3?dec(thisDay.substring(0,3))+1911+thisDay.substr(3):thisDay;
-											OutHtml += "<td class='tTitle tWidth'>" + thisDay.substr(r_len+1) + "</td>";
-											tmpTd += "<td class='tTitle tWidth'>" + DayName[(new Date(thisADday).getDay())] + "</td>";
-										}
-									}
-									OutHtml += "<td class='tTitle tWidth' rowspan='2'>小計</td>";
-									tmpTd += "</tr>"
-									OutHtml += '</tr>' + tmpTd;
-								}
+								
 							}
 							
 							//最後一個工作線別小計
 							OutHtml += "<tr><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[TL.length-1].stationno + "</td><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[TL.length-1].station + "</td>" 
-										+"<td colspan='4' class='tTotal num' style='background:antiquewhite;'>小計：</td>";
+										+"<td colspan='5' class='tTotal num' style='background:antiquewhite;'>小計：</td>";
 							for(var s=0;s<SdateObj.length;s++){
 								OutHtml += "<td class='tTotal num'style='background:antiquewhite;'>"+ (round(SdateObj[s].mount,0)==0 && SdateObj[s].mount>0?round(SdateObj[s].mount,2):Zerospaec(FormatNumber(round(SdateObj[s].mount,0)))) + "</td>";
 							}
 							OutHtml += "<td class='tTotal num' style='background:antiquewhite;'>" + (round(STotal,0)==0 && STotal>0?round(STotal,2):Zerospaec(FormatNumber(round(STotal,0)))) + "</td></tr>";
 							
-							//總計
+							//106/08/10 使用率
+							
+							OutHtml += "<tr><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[k-1].stationno + "</td><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[k-1].station + "</td>" 
+										+"<td colspan='5' class='tTotal num' style='background:antiquewhite;'>使用率：</td>";
+							for(var s=0;s<SdateObj.length;s++){
+								if(SdateObj[s].datea=="週小計")
+									OutHtml += "<td class='tTotal num' style='background:antiquewhite;'> </td>";
+								else
+									OutHtml += "<td class='tTotal num' style='background:antiquewhite;'>"+ (dec(TL[k-1].smount)==0?0:FormatNumber((round((SdateObj[s].mount/dec(TL[k-1].smount))*100,2)))+'%') + "</td>";
+								}
+							OutHtml += "<td class='tTotal num' style='background:antiquewhite;'> </td></tr>";
+							
+							//總計 106/08/10 拿掉總計
+							/*
 							OutHtml += "<tr><td colspan='6' class='tTotal num'>總計：</td>";
 							for(var k=0;k<DateObj.length;k++){
-								//OutHtml += "<td class='tTotal num' "+((round(DateObj[k].mount,0)>dec($('#txtXmaxgen').val()) && DateObj[k].datea!='週小計')?' style="color:red;"':'')+">" 
 								OutHtml += "<td class='tTotal num'>"
-								//+ Zerospaec(FormatNumber(round(DateObj[k].mount,0))) + "</td>";
 								+ (round(DateObj[k].mount,0)==0 && DateObj[k].mount>0?round(DateObj[k].mount,2):Zerospaec(FormatNumber(round(DateObj[k].mount,0)))) + "</td>";
 							}
-							//OutHtml += "<td class='tTotal num'>" + Zerospaec(FormatNumber(round(ATotal,0))) + "</td>";
 							OutHtml += "<td class='tTotal num'>" + (round(ATotal,0)==0 && ATotal>0?round(ATotal,2):Zerospaec(FormatNumber(round(ATotal,0)))) + "</td>";
+							*/
+							
 							OutHtml += "</table>"
 							var t_totalWidth = 0;
-							t_totalWidth = 670+((70+2)*(DateObj.length+1+2))+10;
+							t_totalWidth = 770+((70+2)*(DateObj.length+1+2))+10;
 							$('#chart').css('width',t_totalWidth+'px').html(OutHtml);
 						}
 					

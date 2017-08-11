@@ -577,16 +577,16 @@
 						<td class="td3">Min.</td>
 						<td class="td4"> </td>
 					</tr>
-					<tr> <!--106/07/26 增加-->
+					<tr style="background-color: antiquewhite;"> <!--106/07/26 增加-->
 						<td class="td1"><span> </span><a id='lblMaxop' class="lbl"> </a></td>
 						<td class="td2"><input id="txtMaxop" type="text" class="txt c1 num"/></td>
-						<td class="td3"> </td>
+						<td class="td3"><a id='lblMaxopunit' class="lbl" style="float: left;"> </a></td>
 						<td class="td4"> </td>
 					</tr>
-					<tr> <!--106/07/26 增加-->
+					<tr style="background-color: antiquewhite;"> <!--106/07/26 增加-->
 						<td class="td1"><span> </span><a id='lblMaxmod' class="lbl"> </a></td>
 						<td class="td2"><input id="txtMaxmod" type="text" class="txt c1 num"/></td>
-						<td class="td3">Pcs</td>
+						<td class="td3"><a id='lblMaxmodunit' class="lbl" style="float: left;"> </a></td>
 						<td class="td4"> </td>
 					</tr>
 					<tr style="display: none;">
@@ -595,16 +595,16 @@
 						<td class="td3"> </td>
 						<td class="td4"> </td>
 					</tr>
-					<tr> <!--106/08/10 增加-->
+					<tr style="background-color: antiquewhite;"> <!--106/08/10 增加-->
 						<td class="td1"><span> </span><a id='lblModmounts' class="lbl"> </a></td>
 						<td class="td2"><input id="txtModmounts" type="text" class="txt c1 num"/></td>
-						<td class="td3"> </td>
+						<td class="td3"><a id='lblModmountsunit' class="lbl" style="float: left;"> </a> </td>
 						<td class="td4"> </td>
 					</tr>
-					<tr>
+					<tr style="background-color: antiquewhite;">
 						<td class="td1"><span> </span><a id='lblMaxmodmount' class="lbl"> </a></td>
 						<td class="td2"><input id="txtMaxmodmount" type="text" class="txt c1 num"/></td>
-						<td class="td3">Pcs</td>
+						<td class="td3"><a id='lblMaxmodmountunit' class="lbl" style="float: left;"> </a> </td>
 						<td class="td4"> </td>
 					</tr>
 				</table>
