@@ -22,13 +22,14 @@
 			var q_readonlys = [];
 			var bbmNum = [['txtMount',10,0,1],['txtHours',10,2,1],['txtWages',10,2,1],['txtGen',10,2,1]
 			,['txtMaxgen',10,2,1],['txtMovmount',10,2,1],['txtMovtime',10,2,1]
-			,['txtMovmin',10,2,1],['txtMechcost',10,2,1],['txtMaxop',10,0,1],['txtMaxmod',10,0,1]];
+			,['txtMovmin',10,2,1],['txtMechcost',10,2,1],['txtMaxop',10,0,1],['txtMaxmod',10,0,1]
+			,['txtModmounts',10,0,1],['txtMaxmodmount',10,0,1]];
 			var bbsNum = [['txtGen',10,2,1],['txtLoadrate',10,2,1]];
 			var bbmMask = [];
 			var bbsMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
-			brwCount2 = 15;
+			brwCount2 = 16;
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'noa';
@@ -149,6 +150,7 @@
 				_btnIns();
 				refreshBbm();
 				$('#txtNoa').focus();
+				$('#txtModmounts').val(1);
 			}
 
 			function btnModi() {
@@ -567,6 +569,18 @@
 						<td class="td1"><span> </span><a id='lblMechcost' class="lbl"> </a></td>
 						<td class="td2"><input id="txtMechcost" type="text" class="txt c1 num"/></td>
 						<td class="td3"> </td>
+						<td class="td4"> </td>
+					</tr>
+					<tr> <!--106/08/10 增加-->
+						<td class="td1"><span> </span><a id='lblModmounts' class="lbl"> </a></td>
+						<td class="td2"><input id="txtModmounts" type="text" class="txt c1 num"/></td>
+						<td class="td3"> </td>
+						<td class="td4"> </td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblMaxmodmount' class="lbl"> </a></td>
+						<td class="td2"><input id="txtMaxmodmount" type="text" class="txt c1 num"/></td>
+						<td class="td3">Pcs</td>
 						<td class="td4"> </td>
 					</tr>
 				</table>
