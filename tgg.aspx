@@ -105,7 +105,7 @@
 					q_cmbParse("cmbTypea", q_getPara('tgg.typea'));
 				}*/
 				if(q_getPara('sys.project').toUpperCase()=='XY'){
-					q_cmbParse("cmbConn", q_getPara('sys.taxtype'));
+					q_cmbParse("combConn", q_getPara('sys.taxtype'));
 				}
 				if (q_getPara('sys.project').toUpperCase()=='FE'){	
 					if (r_rank<=7)
@@ -368,6 +368,7 @@
 					$('#txtConntel').val($('#textGqbtitle').val())
 					$('#txtExt').val($('#textInvo').val())
 					$('#txtPost').val($('#textPost').val())
+					$('#txtConn').val($('#combConn').val());
 				}
 				
 				if (q_cur==1 && q_getPara('sys.project').toUpperCase()=='XY'){
@@ -729,7 +730,7 @@
 							<input id="txtSales" type="text" style="float:left; width:60%;"/>
 						</td>
 						<td class="isXY"><span> </span><a class="lbl isXY" >稅別</a></td>
-						<td class="isXY"><select id="cmbConn" class="txt c1 isXY"> </select></td>
+						<td class="isXY"><select id="combConn" class="txt c1 isXY"> </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblService' class="lbl"> </a></td>
