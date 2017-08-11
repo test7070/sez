@@ -319,6 +319,7 @@
 				refreshBbm();
 				$('#txtNoa').attr('readonly', 'readonly');
 				$('#txtComp').focus();
+				refreshBbm_Xy();
 			}
 
 			function btnPrint() {
@@ -405,6 +406,7 @@
 				}else{
 					$('.isXY').hide();
 				}
+				refreshBbm_Xy();
 			}
 
 			function refreshBbm() {
@@ -433,6 +435,9 @@
 					if (q_getPara('sys.project').toUpperCase()=='FE'){
 						$('#txtUacc1').css('color', 'black').css('background', 'white').removeAttr('readonly');
 					}
+					$('#combConn').removeAttr('disabled');
+				}else{
+					$('#combConn').attr('disabled', 'disabled');
 				}
 			}
 
@@ -489,6 +494,12 @@
 			function btnCancel() {
 				_btnCancel();
 			}
+			
+			function refreshBbm_Xy() {
+				if (q_getPara('sys.project').toUpperCase()=='XY'){
+                	$('#combConn').val($('#txtConn').val());
+               }
+            }
 		</script>
 		<style type="text/css">
 			#dmain {
