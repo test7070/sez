@@ -66,6 +66,10 @@
                         type : '0', //[15]
                         name : 'xacomp',
                         value : q_getPara('sys.comp')
+                    },{
+                        type : '5', //[16]
+                        name : 'xchk1',
+                        value : (' @全部,0@未申報,1@已申報').split(',')
                     }]
                     });
                 q_popAssign();

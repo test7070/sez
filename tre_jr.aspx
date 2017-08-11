@@ -143,7 +143,7 @@
             			var as = _q_appendData("tmp0", "", true, true);
                         if (as[0] != undefined) {
                             q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtComp,txtStraddr,txtProduct,txtMount,txtPrice,txtDiscount,txtMoney,txtTranno,txtTrannoq,txtCasetype,txtCaseno,txtCaseno2,txtOrdeno'
-                        	, as.length, as, 'trandate,nick,straddr,product,mount2,price3,discount,total2,noa,noq,casetype,caseno,caseno2,ordeno', '','');
+                        	, as.length, as, 'trandate,nick,straddr,product,weight,mount3,discount,total2,noa,noq,casetype,caseno,caseno2,ordeno', '','');
                         	sum();
                         } else {
                             alert('無資料!');
@@ -746,9 +746,9 @@
 					<td align="center" style="width:200px;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblPrice_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblDiscount_s'> </a></td>
+					<!--<td align="center" style="width:100px;"><a id='lblDiscount_s'> </a></td>-->
 					<td align="center" style="width:100px;"><a id='lblMoney_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblTolls_s'> </a></td>
+					<!--<td align="center" style="width:100px;"><a id='lblTolls_s'> </a></td>-->
 					<td align="center" style="width:100px;"><a id='lblMemo_s'> </a></td>
 					<td align="center" style="width:170px;"><a id='lblTranno_s'> </a></td>
 					<!--<td align="center" style="width:100px;"><a id='lblRs_s'> </a></td>-->
@@ -760,7 +760,7 @@
 					<td align="center" style="width:100px;"><a id='lblBoat_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblBoatname_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblShip_s'> </a></td>-->
-					<td align="center" style="width:100px;"><a id='lblOverweightcost_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblOverweightcost_s_jr'>過磅費用</a></td>
 					<td align="center" style="width:100px;"><a id='lblOthercost_s'> </a></td>
 					<!--<td align="center" style="width:150px;"><a id='lblOrdeno_s'> </a></td>-->
 				</tr>
@@ -784,15 +784,15 @@
 					<td >
 					<input type="text" id="txtPrice.*" style="width:95%;text-align: right;" />
 					</td>
-					<td >
+					<!--<td >
 					<input type="text" id="txtDiscount.*" style="width:95%;text-align: right;" />
-					</td>
+					</td>-->
 					<td >
 					<input type="text" id="txtMoney.*" style="width:95%;text-align: right;" />
 					</td>
-					<td >
+					<!--<td >
 					<input type="text" id="txtTolls.*" style="width:95%;text-align: right;" />
-					</td>
+					</td>-->
 					<td >
 					<input type="text" id="txtMemo.*" style="width:95%;" />
 					</td>
