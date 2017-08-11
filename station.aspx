@@ -18,7 +18,7 @@
 
 			q_tables = 's';
 			var q_name = "station";
-			var q_readonly = ['txtGen'];
+			var q_readonly = ['txtGen','txtMaxmodmount'];
 			var q_readonlys = [];
 			var bbmNum = [['txtMount',10,0,1],['txtHours',10,2,1],['txtWages',10,2,1],['txtGen',10,2,1]
 			,['txtMaxgen',10,2,1],['txtMovmount',10,2,1],['txtMovtime',10,2,1]
@@ -83,6 +83,27 @@
 				
 				$('#cmbGensel').change(function(){
 					ChangeMUnit();
+				});
+				
+				$('#txtMaxop').change(function() {
+					var t_maxop=dec($('#txtMaxop').val());
+					var t_maxmod=dec($('#txtMaxmod').val());
+					var t_modmounts=dec($('#txtModmounts').val());
+					$('#txtMaxmodmount').val(q_mul(q_mul(t_maxop,t_maxmod),t_modmounts))
+				});
+				
+				$('#txtMaxmod').change(function() {
+					var t_maxop=dec($('#txtMaxop').val());
+					var t_maxmod=dec($('#txtMaxmod').val());
+					var t_modmounts=dec($('#txtModmounts').val());
+					$('#txtMaxmodmount').val(q_mul(q_mul(t_maxop,t_maxmod),t_modmounts))
+				});
+				
+				$('#txtModmounts').change(function() {
+					var t_maxop=dec($('#txtMaxop').val());
+					var t_maxmod=dec($('#txtMaxmod').val());
+					var t_modmounts=dec($('#txtModmounts').val());
+					$('#txtMaxmodmount').val(q_mul(q_mul(t_maxop,t_maxmod),t_modmounts))
 				});
 			}
 
@@ -150,7 +171,10 @@
 				_btnIns();
 				refreshBbm();
 				$('#txtNoa').focus();
+				$('#txtMaxop').val(1);
+				$('#txtMaxmod').val(1);
 				$('#txtModmounts').val(1);
+				$('#txtMaxmodmount').val(1);
 			}
 
 			function btnModi() {

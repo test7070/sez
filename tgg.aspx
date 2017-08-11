@@ -105,7 +105,7 @@
 					q_cmbParse("cmbTypea", q_getPara('tgg.typea'));
 				}*/
 				if(q_getPara('sys.project').toUpperCase()=='XY'){
-					q_cmbParse("cmbConn", q_getPara('sys.taxtype'));
+					q_cmbParse("combConn", q_getPara('sys.taxtype'));
 				}
 				if (q_getPara('sys.project').toUpperCase()=='FE'){	
 					if (r_rank<=7)
@@ -319,6 +319,7 @@
 				refreshBbm();
 				$('#txtNoa').attr('readonly', 'readonly');
 				$('#txtComp').focus();
+				refreshBbm_Xy();
 			}
 
 			function btnPrint() {
@@ -368,6 +369,7 @@
 					$('#txtConntel').val($('#textGqbtitle').val())
 					$('#txtExt').val($('#textInvo').val())
 					$('#txtPost').val($('#textPost').val())
+					$('#txtConn').val($('#combConn').val());
 				}
 				
 				if (q_cur==1 && q_getPara('sys.project').toUpperCase()=='XY'){
@@ -404,6 +406,7 @@
 				}else{
 					$('.isXY').hide();
 				}
+				refreshBbm_Xy();
 			}
 
 			function refreshBbm() {
@@ -432,6 +435,9 @@
 					if (q_getPara('sys.project').toUpperCase()=='FE'){
 						$('#txtUacc1').css('color', 'black').css('background', 'white').removeAttr('readonly');
 					}
+					$('#combConn').removeAttr('disabled');
+				}else{
+					$('#combConn').attr('disabled', 'disabled');
 				}
 			}
 
@@ -488,6 +494,12 @@
 			function btnCancel() {
 				_btnCancel();
 			}
+			
+			function refreshBbm_Xy() {
+				if (q_getPara('sys.project').toUpperCase()=='XY'){
+                	$('#combConn').val($('#txtConn').val());
+               }
+            }
 		</script>
 		<style type="text/css">
 			#dmain {
@@ -729,7 +741,7 @@
 							<input id="txtSales" type="text" style="float:left; width:60%;"/>
 						</td>
 						<td class="isXY"><span> </span><a class="lbl isXY" >稅別</a></td>
-						<td class="isXY"><select id="cmbConn" class="txt c1 isXY"> </select></td>
+						<td class="isXY"><select id="combConn" class="txt c1 isXY"> </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblService' class="lbl"> </a></td>
