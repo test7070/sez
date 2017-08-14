@@ -67,6 +67,7 @@
             function mainPost() {
                 q_getFormat();
                 bbsMask = [['txtTime1', r_picd],['txtTime2', r_picd]];
+                $('#txtDatea').datepicker();
             }
 
             function q_boxClose(s2) {

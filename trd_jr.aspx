@@ -23,7 +23,7 @@
             var q_readonly = ['txtNoa', 'txtMoney', 'txtTotal','txtWorker2','txtWorker', 'txtMount', 'txtStraddr', 'txtEndaddr', 'txtPlusmoney', 'txtMinusmoney', 'txtVccano', 'txtCustchgno','txtAccno','txtAccno2','txtYear2','txtYear1'];
             var q_readonlys = [ 'txtTranno','txtTrannoq','txtTrandate','txtStraddr','txtProduct','txtCarno','txtCustorde','txtCaseno','txtMount','txtPrice','txtTotal','txtTranmoney'];
             var bbmNum = [['txtPlus', 10, 0,1],['txtDiscount', 10, 0,1],['txtMoney', 10, 0,1], ['txtTax', 10, 0,1], ['txtTotal', 10, 0,1], ['txtMount', 10, 3,1], ['txtPlusmoney', 10, 0,1], ['txtMinusmoney', 10, 0,1]];
-            var bbsNum = [['txtTranmoney', 10, 0,1], ['txtOverweightcost', 10, 0,1], ['txtOthercost', 10, 0,1], ['txtMount', 10, 3,1], ['txtPrice', 10, 3,1], ['txtTotal', 10, 0,1]];
+            var bbsNum = [['txtTranmoney', 10, 0,1], ['txtOverweightcost', 10, 0,1], ['txtOthercost', 10, 0,1], ['txtMount', 10, 3,1], ['txtPrice', 10, 0,1], ['txtTotal', 10, 0,1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;

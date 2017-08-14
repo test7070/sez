@@ -63,7 +63,9 @@
 					t_tweight3 = q_add(t_tweight3,q_float('txtWeight3_'+i));
 					$('#txtTotal_'+i).val(q_mul(q_float('txtWeight_'+i),q_float('txtPrice_'+i)));
 					$('#txtPrice3_'+i).val(q_mul(q_float('txtWeight2_'+i),q_float('txtPrice2_'+i)));
-					$('#txtTotal2_'+i).val(round(q_mul(q_float('txtWeight_'+i),q_float('txtMount3_'+i)),0));
+					if($('#txtMount3_'+i).val()!=0){
+					   $('#txtTotal2_'+i).val(round(q_mul(q_float('txtWeight_'+i),q_float('txtMount3_'+i)),0)); 
+					}
 					t_total = round(q_add(t_total,q_float('txtTotal_'+i)),0);
 					t_total2 = round(q_add(t_total2,q_float('txtTotal2_'+i)),0);
              	}
@@ -77,6 +79,7 @@
             function mainPost() {
                 q_mask(bbmMask);
                 bbsMask = [['txtDatea', r_picd],['txtTrandate', r_picd],['txtLtime','99:99'],['txtStime','99:99'],['txtDtime','99:99']];
+                $('#txtDatea').datepicker();
                 
                 $('#btnOrde').click(function(e){
                     t_custno=$('#txtAddrno').val();
@@ -604,6 +607,7 @@
 					<td><input type="text" id="txtTrandate.*" style="width:95%;"/></td>
 					<td>
 						<input type="text" id="txtCustno.*" style="float:left;width:39%;" />
+						<input type="text" id="txtComp.*" style="display:none;">
 						<input type="text" id="txtNick.*" style="float:left;width:40%;">
 						<input type="button" id="btnCust.*" value='.' style=" font-weight: bold;">
 					</td>
