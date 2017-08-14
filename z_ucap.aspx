@@ -280,6 +280,10 @@
 						type : '0', //[57]
 						name : 'ucctypastr',
 						value : q_getPara('ucc.typea')
+					}, {
+						type : '8',
+						name : 'ximgshow',//[58]
+						value : '1@顯示圖片'.split(',')
 					}]
 				});
 				q_popAssign();
@@ -358,6 +362,14 @@
 				$('#chkXsbcost span').css('width','200px');
 				$('#Xsbcost .label').css('width','0px');
 				$('#Xsbcost').css('height','30px');
+				
+				$('#Ximgshow').css('width','340px');
+				$('#chkXimgshow').css('width','250px');
+				$('#chkXimgshow span').css('width','200px');
+				$('#Ximgshow .label').css('width','0px');
+				$('#Ximgshow').css('height','30px');
+				
+				$('#chkXimgshow input').prop('checked',true);
 				
 				$('#Xrate').css('width','340px');
 				$('#txtXrate1').css('width','110px');
