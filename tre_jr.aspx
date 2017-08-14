@@ -71,6 +71,10 @@
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd],['txtDate2', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtPaydate', r_picd], ['txtMon', r_picm]];
                 q_mask(bbmMask);
+                $('#txtDatea').datepicker();
+                $('#txtBdate').datepicker();
+                $('#txtEdate').datepicker();
+                
 				
 				q_gt('carteam', '', 0, 0, 0, "");
 				$('#lblAccno').click(function () {
