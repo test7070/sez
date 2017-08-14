@@ -167,44 +167,44 @@
 										;
 				
 				if (t_product.length > 0 && t_spec.length==0)
-					t_where += " and charindex('" + t_product + "',product)>0";
+					t_where += " and charindex(N'" + t_product + "',product)>0";
 				if (t_spec.length > 0)
-					t_where += " and charindex('" + t_spec + "',spec)>0 ";//106/03/23 不查詢品名 or charindex('" + t_spec + "',product)>0)
+					t_where += " and charindex(N'" + t_spec + "',spec)>0 ";//106/03/23 不查詢品名 or charindex('" + t_spec + "',product)>0)
 				if (t_groupeno.length > 0)
-					t_where += " and (charindex('" + t_groupeno + "',groupeno)>0 or charindex('" + t_groupeno + "',product)>0) ";
+					t_where += " and (charindex(N'" + t_groupeno + "',groupeno)>0 or charindex('" + t_groupeno + "',product)>0) ";
 				if (t_groupfno.length > 0)
-					t_where += " and (charindex('" + t_groupfno + "',groupfno)>0 or charindex('" + t_groupfno + "',product)>0) ";
+					t_where += " and (charindex(N'" + t_groupfno + "',groupfno)>0 or charindex('" + t_groupfno + "',product)>0) ";
 				if (t_groupgno.length > 0)
-					t_where += " and (charindex('" + t_groupgno + "',groupgno)>0 or charindex('" + t_groupgno + "',product)>0) ";
+					t_where += " and (charindex(N'" + t_groupgno + "',groupgno)>0 or charindex('" + t_groupgno + "',product)>0) ";
 				if (t_grouphno.length > 0)
-					t_where += " and (charindex('" + t_grouphno + "',grouphno)>0 or charindex('" + t_grouphno + "',product)>0) ";
+					t_where += " and (charindex(N'" + t_grouphno + "',grouphno)>0 or charindex('" + t_grouphno + "',product)>0) ";
 				if (t_groupino.length > 0)
-					t_where += " and (charindex('" + t_groupino + "',groupino)>0 or charindex('" + t_groupino + "',product)>0) ";
+					t_where += " and (charindex(N'" + t_groupino + "',groupino)>0 or charindex('" + t_groupino + "',product)>0) ";
 					
 				if (t_ucolor.length > 0)
-					t_where += " and charindex('" + t_ucolor + "',product)>0 ";
+					t_where += " and charindex(N'" + t_ucolor + "',product)>0 ";
 				if (t_scolor.length > 0)
-					t_where += " and charindex('" + t_scolor + "',product)>0 ";
+					t_where += " and charindex(N'" + t_scolor + "',product)>0 ";
 				if (t_class.length > 0)
-					t_where += " and charindex('" + t_class + "',product)>0 ";
+					t_where += " and charindex(N'" + t_class + "',product)>0 ";
 				if (t_classa.length > 0)
-					t_where += " and charindex('" + t_classa + "',product)>0 ";
+					t_where += " and charindex(N'" + t_classa + "',product)>0 ";
 				if (t_zinc.length > 0)
-					t_where += " and charindex('" + t_zinc + "',product)>0 ";
+					t_where += " and charindex(N'" + t_zinc + "',product)>0 ";
 				if (t_sizea.length > 0)
-					t_where += " and charindex('" + t_sizea + "',product)>0 ";
+					t_where += " and charindex(N'" + t_sizea + "',product)>0 ";
 				if (t_sourcer.length > 0)
-					t_where += " and charindex('" + t_sourcer + "',product)>0 ";
+					t_where += " and charindex(N'" + t_sourcer + "',product)>0 ";
 				if (t_hard.length > 0)
-					t_where += " and charindex('" + t_hard + "',product)>0 ";				
+					t_where += " and charindex(N'" + t_hard + "',product)>0 ";				
 				
 				if (t_style.length > 0)
-					t_where += " and charindex('" + t_style + "',style)>0";
+					t_where += " and charindex(N'" + t_style + "',style)>0";
 				/*if (t_size.length > 0)
-					t_where += " and charindex('" + t_size + "',size)>0";*/	
+					t_where += " and charindex(N'" + t_size + "',size)>0";*/	
 					
 				if (t_model.length > 0)
-					t_where += " and charindex('" + t_model + "',model)>0";
+					t_where += " and charindex(N'" + t_model + "',model)>0";
 				
 				if(t_size1.length>0 || t_size2.length>0){
 					if(t_size2.length==0){
@@ -223,11 +223,11 @@
 				}
 					
 				if (t_process.length > 0)
-					t_where += " and charindex('" + t_process + "',process)>0";
+					t_where += " and charindex(N'" + t_process + "',process)>0";
 				if (t_station.length > 0)
-					t_where += " and charindex('" + t_station + "',station)>0";
+					t_where += " and charindex(N'" + t_station + "',station)>0";
 				if (t_comp.length > 0)
-					t_where += " and charindex('" + t_comp + "',comp)>0";
+					t_where += " and charindex(N'" + t_comp + "',comp)>0";
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}

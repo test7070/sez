@@ -69,11 +69,11 @@
                 + q_sqlPara2("tggno", t_tggno);
                 
                 if (t_product.length > 0)
-                    t_where = t_where + " and charindex('" + t_product + "',product)>0 ";
+                    t_where = t_where + " and charindex(N'" + t_product + "',product)>0 ";
                 if (t_spec.length > 0)
-                    t_where = t_where + " and charindex('" + t_spec + "',spec)>0 ";
+                    t_where = t_where + " and charindex(N'" + t_spec + "',spec)>0 ";
                 if (t_tgg.length > 0)
-					t_where += " and charindex('" + t_tgg + "',tgg)>0";
+					t_where += " and charindex(N'" + t_tgg + "',tgg)>0";
                 
                 if (q_getPara('sys.project').toUpperCase()=='XY' && $('#cmbStyle').val().length>0){
                 	t_where = t_where + " and style='"+$('#cmbStyle').val()+"' ";

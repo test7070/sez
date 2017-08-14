@@ -1201,6 +1201,7 @@
 							var DateList = [];
 							var DateObj = [];
 							var SdateObj = []; //工作線別小計
+							var MdateObj = []; //模具小計
 							for(var j=0;j<=DiffDays;j++){
 								var thisDay = q_cdn(t_bdate,j);
 								var thisADday = r_len==3?dec(thisDay.substring(0,3))+1911+thisDay.substr(3):thisDay;
@@ -1214,6 +1215,10 @@
 										datea:thisDay,
 										mount:0
 									});
+									MdateObj.push({
+										datea:thisDay,
+										mount:0
+									});
 								}else{
 									//小計欄
 									if(j!=0){
@@ -1223,6 +1228,10 @@
 											mount:0,
 										});
 										SdateObj.push({
+											datea:'週小計',
+											mount:0,
+										});
+										MdateObj.push({
 											datea:'週小計',
 											mount:0,
 										});
@@ -1315,18 +1324,22 @@
 										OutHtml += "<tr><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[k-1].stationno + "</td><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[k-1].station + "</td>" 
 													+"<td colspan='5' class='tTotal num' style='background:antiquewhite;'>小計：</td>";
 										for(var s=0;s<SdateObj.length;s++){
-											OutHtml += "<td class='tTotal num'style='background:antiquewhite;'>"+ (round(SdateObj[s].mount,0)==0 && SdateObj[s].mount>0?round(SdateObj[s].mount,2):Zerospaec(FormatNumber(round(SdateObj[s].mount,0)))) + "</td>";
+											if(TL[k-1].modmounts>1 && SdateObj[s].mount!=0 && SdateObj[s].datea!='週小計'){
+												OutHtml += "<td class='tTotal num'style='background:antiquewhite;'>"+ (round(SdateObj[s].mount,0)==0 && SdateObj[s].mount>0?round(SdateObj[s].mount,2):Zerospaec(FormatNumber(round(SdateObj[s].mount,0))))+'/'+MdateObj[s].mount + "</td>";
+											}else{
+												OutHtml += "<td class='tTotal num'style='background:antiquewhite;'>"+ (round(SdateObj[s].mount,0)==0 && SdateObj[s].mount>0?round(SdateObj[s].mount,2):Zerospaec(FormatNumber(round(SdateObj[s].mount,0)))) + "</td>";
+											}
 										}
 										OutHtml += "<td class='tTotal num' style='background:antiquewhite;'>" + (round(STotal,0)==0 && STotal>0?round(STotal,2):Zerospaec(FormatNumber(round(STotal,0)))) + "</td></tr>";
 										
 										//106/08/10 使用率
 										OutHtml += "<tr><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[k-1].stationno + "</td><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[k-1].station + "</td>" 
 													+"<td colspan='5' class='tTotal num' style='background:antiquewhite;'>使用率：</td>";
-										for(var s=0;s<SdateObj.length;s++){
-											if(SdateObj[s].datea=="週小計")
+										for(var s=0;s<MdateObj.length;s++){
+											if(MdateObj[s].datea=="週小計" || MdateObj[s].mount==0)
 												OutHtml += "<td class='tTotal num' style='background:antiquewhite;'> </td>";
 											else
-												OutHtml += "<td class='tTotal num' style='background:antiquewhite;'>"+ (dec(TL[k-1].smount)==0?0:FormatNumber((round(q_div(SdateObj[s].mount,dec(TL[k-1].smount))*100,2)))+'%') + "</td>";
+												OutHtml += "<td class='tTotal num' style='background:antiquewhite;'>"+ (dec(TL[k-1].smount)==0?0:FormatNumber((round(q_div(MdateObj[s].mount,dec(TL[k-1].smount))*100,2)))+'%') + "</td>";
 										}
 										OutHtml += "<td class='tTotal num' style='background:antiquewhite;'> </td></tr>";
 										
@@ -1355,6 +1368,9 @@
 									for(var s=0;s<SdateObj.length;s++){
 										SdateObj[s].mount=0;
 									}
+									for(var s=0;s<MdateObj.length;s++){
+										MdateObj[s].mount=0;
+									}
 									t_stationno=TL[k].stationno;
 									STotal=0;
 								}
@@ -1367,6 +1383,7 @@
 										   "<td class='num'>" + FormatNumber(TL[k].smount)+ "</td>";
 								var TTD = TL[k].datea;
 								var tTotal = 0,wtotal=0;
+								var t_modmounts=TL[k].modmounts;
 								
 								for(var j=0;j<TTD.length;j++){
 									var thisValue = round(TTD[j][1],3);
@@ -1374,21 +1391,34 @@
 										thisValue = (thisValue==0?'':thisValue);
 									}
 									var thisGen = dec(TTD[j][2]);
-									tTotal = q_add(tTotal,round(TTD[j][1],3));
-									DateObj[j].mount = q_add(dec(DateObj[j].mount),round(TTD[j][1],3));
-									SdateObj[j].mount = q_add(dec(SdateObj[j].mount),round(TTD[j][1],3));
+									tTotal = q_add(tTotal,thisValue);
+									DateObj[j].mount = q_add(dec(DateObj[j].mount),thisValue);
+									SdateObj[j].mount = q_add(dec(SdateObj[j].mount),thisValue);
+									
+									if(t_modmounts>1 && thisValue!=0){
+										MdateObj[j].mount = q_add(dec(MdateObj[j].mount),Math.ceil(thisValue/t_modmounts));
+									}else{
+										MdateObj[j].mount = q_add(dec(MdateObj[j].mount),thisValue);
+									}
 									
 									wtotal= q_add(wtotal,round(TTD[j][1],3));
 									if(TTD[j][0]=='週小計'){
 										OutHtml += "<td class='num'><font title='週小計:"+wtotal+"'>"+ Zerospaec(FormatNumber(round(wtotal,0)))+"</font></td>";
 										DateObj[j].mount = q_add(dec(DateObj[j].mount),wtotal);
 										SdateObj[j].mount = q_add(dec(SdateObj[j].mount),wtotal);
+										MdateObj[j].mount = q_add(dec(MdateObj[j].mount),wtotal);
 										wtotal=0;
 									}else{
-										OutHtml += "<td class='num'"+(thisValue>(thisGen+1)?' style="color:red;"':'')+"><font title='日產能:"+thisGen+"'>"
-										+"<a "+(thisValue>(thisGen+1)?"style='color:red;'":"")+" href=JavaScript:q_box('z_workgg.aspx',\";cuadate='"+DateObj[j].datea+"'&&modelno='"+TL[k].modelno+"'&&xaction='z_workgg4';106\",'95%','95%','106')>" 
-										+(round(thisValue,0)==0 && thisValue>0?round(thisValue,2):Zerospaec(round(thisValue,0))) + "</font></td>";
 										//106/07/05 負荷大於1才顯示紅色
+										if(t_modmounts>1 && thisValue!=0){
+											OutHtml += "<td class='num'"+(thisValue>(thisGen+1)?' style="color:red;"':'')+"><font title='日產能:"+thisGen+"'>"
+											+"<a "+(thisValue>(thisGen+1)?"style='color:red;'":"")+" href=JavaScript:q_box('z_workgg.aspx',\";cuadate='"+DateObj[j].datea+"'&&modelno='"+TL[k].modelno+"'&&xaction='z_workgg4';106\",'95%','95%','106')>" 
+											+(round(thisValue,0)==0 && thisValue>0?round(thisValue,2):Zerospaec(round(thisValue,0)))+'/'+Math.ceil(thisValue/t_modmounts) + "</font></td>";
+										}else{
+											OutHtml += "<td class='num'"+(thisValue>(thisGen+1)?' style="color:red;"':'')+"><font title='日產能:"+thisGen+"'>"
+											+"<a "+(thisValue>(thisGen+1)?"style='color:red;'":"")+" href=JavaScript:q_box('z_workgg.aspx',\";cuadate='"+DateObj[j].datea+"'&&modelno='"+TL[k].modelno+"'&&xaction='z_workgg4';106\",'95%','95%','106')>" 
+											+(round(thisValue,0)==0 && thisValue>0?round(thisValue,2):Zerospaec(round(thisValue,0))) + "</font></td>";
+										}
 									}
 								}
 								ATotal = q_add(ATotal,tTotal);
@@ -1403,7 +1433,11 @@
 							OutHtml += "<tr><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[TL.length-1].stationno + "</td><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[TL.length-1].station + "</td>" 
 										+"<td colspan='5' class='tTotal num' style='background:antiquewhite;'>小計：</td>";
 							for(var s=0;s<SdateObj.length;s++){
-								OutHtml += "<td class='tTotal num'style='background:antiquewhite;'>"+ (round(SdateObj[s].mount,0)==0 && SdateObj[s].mount>0?round(SdateObj[s].mount,2):Zerospaec(FormatNumber(round(SdateObj[s].mount,0)))) + "</td>";
+								if(TL[TL.length-1].modmounts>1 && SdateObj[s].mount!=0 && SdateObj[s].datea!='週小計'){
+									OutHtml += "<td class='tTotal num'style='background:antiquewhite;'>"+ (round(SdateObj[s].mount,0)==0 && SdateObj[s].mount>0?round(SdateObj[s].mount,2):Zerospaec(FormatNumber(round(SdateObj[s].mount,0))))+'/'+MdateObj[s].mount + "</td>";
+								}else{
+									OutHtml += "<td class='tTotal num'style='background:antiquewhite;'>"+ (round(SdateObj[s].mount,0)==0 && SdateObj[s].mount>0?round(SdateObj[s].mount,2):Zerospaec(FormatNumber(round(SdateObj[s].mount,0)))) + "</td>";
+								}
 							}
 							OutHtml += "<td class='tTotal num' style='background:antiquewhite;'>" + (round(STotal,0)==0 && STotal>0?round(STotal,2):Zerospaec(FormatNumber(round(STotal,0)))) + "</td></tr>";
 							
@@ -1411,11 +1445,11 @@
 							
 							OutHtml += "<tr><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[k-1].stationno + "</td><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[k-1].station + "</td>" 
 										+"<td colspan='5' class='tTotal num' style='background:antiquewhite;'>使用率：</td>";
-							for(var s=0;s<SdateObj.length;s++){
-								if(SdateObj[s].datea=="週小計")
+							for(var s=0;s<MdateObj.length;s++){
+								if(MdateObj[s].datea=="週小計" || MdateObj[s].mount==0)
 									OutHtml += "<td class='tTotal num' style='background:antiquewhite;'> </td>";
 								else
-									OutHtml += "<td class='tTotal num' style='background:antiquewhite;'>"+ (dec(TL[k-1].smount)==0?0:FormatNumber((round((SdateObj[s].mount/dec(TL[k-1].smount))*100,2)))+'%') + "</td>";
+									OutHtml += "<td class='tTotal num' style='background:antiquewhite;'>"+ (dec(TL[k-1].smount)==0?0:FormatNumber((round((MdateObj[s].mount/dec(TL[k-1].smount))*100,2)))+'%') + "</td>";
 								}
 							OutHtml += "<td class='tTotal num' style='background:antiquewhite;'> </td></tr>";
 							
