@@ -37,12 +37,12 @@
                         index : 'noa,product',
                         src : 'ucca_b.aspx'
                     }, {
-                        type : '8',//[6]
+                        type : '6',//[6]
+                        name : 'xdate'
+                    }, {
+                        type : '8',//[7]
                         name : 'aberrant',
                         value : ('異常').split(',')
-                    }, {
-                        type : '6',//[7]
-                        name : 'xdate'
                     }, {
                         type : '8',//[8]
                         name : 'moneymeau',
