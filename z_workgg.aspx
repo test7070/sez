@@ -1323,7 +1323,7 @@
 									if(t_stationno!='#non'){
 										OutHtml += "<tr><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[k-1].stationno + "</td><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[k-1].station + "</td>" 
 													+"<td colspan='3' class='tTotal num' style='background:antiquewhite;'>小計：</td>"
-													+"<td colspan='2' class='Lproduct' style='background:antiquewhite;'>最大生產"+TL[k-1].smount+"模/日</td>";
+													+"<td colspan='2' class='Lproduct' style='background:antiquewhite;text-align: center;'>最大生產"+TL[k-1].smount+"模/日</td>";
 										//106/08/15 超荷變紅字
 										for(var s=0;s<SdateObj.length;s++){
 											if(TL[k-1].modmounts>1 && SdateObj[s].mount!=0 && SdateObj[s].datea!='週小計'){
@@ -1447,7 +1447,7 @@
 							//最後一個工作線別小計
 							OutHtml += "<tr><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[TL.length-1].stationno + "</td><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[TL.length-1].station + "</td>"
 										+"<td colspan='3' class='tTotal num' style='background:antiquewhite;'>小計：</td>"
-										+"<td colspan='2' class='Lproduct' style='background:antiquewhite;'>最大生產"+TL[TL.length-1].smount+"模/日</td>";
+										+"<td colspan='2' class='Lproduct' style='background:antiquewhite;text-align: center;'>最大生產"+TL[TL.length-1].smount+"模/日</td>";
 							//106/08/15 超荷變紅字
 							for(var s=0;s<SdateObj.length;s++){
 								if(TL[TL.length-1].modmounts>1 && SdateObj[s].mount!=0 && SdateObj[s].datea!='週小計'){
