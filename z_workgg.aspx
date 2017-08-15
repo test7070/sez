@@ -1302,7 +1302,7 @@
 									   "<td class='tTitle' style='width:240px;background: #FDB;' colspan='2' rowspan='2'>模具</td>" +
 									   "<td class='tTitle' style='width:60px;background: #FDB;' rowspan='2'>模具數</td>" +
 									   "<td class='tTitle' style='width:60px;background: #FDB;' rowspan='2'>穴數</td>" +
-									   "<td class='tTitle' style='width:120px;' rowspan='2'>最大生產模數/日</td>";
+									   "<td class='tTitle' style='width:120px;background: #FDB;' rowspan='2'>最大生產數/日</td>";
 							var tmpTd = '<tr>';
 							for(var j=0;j<DateList.length;j++){
 								var thisDay = DateList[j];
@@ -1322,12 +1322,22 @@
 								if(t_stationno!=TL[k].stationno){
 									if(t_stationno!='#non'){
 										OutHtml += "<tr><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[k-1].stationno + "</td><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[k-1].station + "</td>" 
-													+"<td colspan='5' class='tTotal num' style='background:antiquewhite;'>小計：</td>";
+													+"<td colspan='3' class='tTotal num' style='background:antiquewhite;'>小計：</td>"
+													+"<td colspan='2' class='Lproduct' style='background:antiquewhite;'>最大生產"+TL[k-1].smount+"模/日</td>";
+										//106/08/15 超荷變紅字
 										for(var s=0;s<SdateObj.length;s++){
 											if(TL[k-1].modmounts>1 && SdateObj[s].mount!=0 && SdateObj[s].datea!='週小計'){
-												OutHtml += "<td class='tTotal num'style='background:antiquewhite;'>"+ (round(SdateObj[s].mount,0)==0 && SdateObj[s].mount>0?round(SdateObj[s].mount,2):Zerospaec(FormatNumber(round(SdateObj[s].mount,0))))+'/'+MdateObj[s].mount + "</td>";
+												if((dec(TL[k-1].smount)==0?0:MdateObj[s].mount/dec(TL[k-1].smount))>1 && SdateObj[s].datea!='週小計'){
+													OutHtml += "<td class='tTotal num'style='background:antiquewhite;color:red;'>"+ (round(SdateObj[s].mount,0)==0 && SdateObj[s].mount>0?round(SdateObj[s].mount,2):Zerospaec(FormatNumber(round(SdateObj[s].mount,0))))+'/'+MdateObj[s].mount + "</td>";
+												}else{
+													OutHtml += "<td class='tTotal num'style='background:antiquewhite;'>"+ (round(SdateObj[s].mount,0)==0 && SdateObj[s].mount>0?round(SdateObj[s].mount,2):Zerospaec(FormatNumber(round(SdateObj[s].mount,0))))+'/'+MdateObj[s].mount + "</td>";
+												}
 											}else{
-												OutHtml += "<td class='tTotal num'style='background:antiquewhite;'>"+ (round(SdateObj[s].mount,0)==0 && SdateObj[s].mount>0?round(SdateObj[s].mount,2):Zerospaec(FormatNumber(round(SdateObj[s].mount,0)))) + "</td>";
+												if((dec(TL[k-1].smount)==0?0:MdateObj[s].mount/dec(TL[k-1].smount))>1  && SdateObj[s].datea!='週小計'){
+													OutHtml += "<td class='tTotal num'style='background:antiquewhite;color:red;'>"+ (round(SdateObj[s].mount,0)==0 && SdateObj[s].mount>0?round(SdateObj[s].mount,2):Zerospaec(FormatNumber(round(SdateObj[s].mount,0)))) + "</td>";
+												}else{
+													OutHtml += "<td class='tTotal num'style='background:antiquewhite;'>"+ (round(SdateObj[s].mount,0)==0 && SdateObj[s].mount>0?round(SdateObj[s].mount,2):Zerospaec(FormatNumber(round(SdateObj[s].mount,0)))) + "</td>";
+												}
 											}
 										}
 										OutHtml += "<td class='tTotal num' style='background:antiquewhite;'>" + (round(STotal,0)==0 && STotal>0?round(STotal,2):Zerospaec(FormatNumber(round(STotal,0)))) + "</td></tr>";
@@ -1336,10 +1346,15 @@
 										OutHtml += "<tr><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[k-1].stationno + "</td><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[k-1].station + "</td>" 
 													+"<td colspan='5' class='tTotal num' style='background:antiquewhite;'>使用率：</td>";
 										for(var s=0;s<MdateObj.length;s++){
-											if(MdateObj[s].datea=="週小計" || MdateObj[s].mount==0)
+											if(MdateObj[s].datea=="週小計" || MdateObj[s].mount==0){
 												OutHtml += "<td class='tTotal num' style='background:antiquewhite;'> </td>";
-											else
-												OutHtml += "<td class='tTotal num' style='background:antiquewhite;'>"+ (dec(TL[k-1].smount)==0?0:FormatNumber((round(q_div(MdateObj[s].mount,dec(TL[k-1].smount))*100,2)))+'%') + "</td>";
+											}else{
+												if((dec(TL[k-1].smount)==0?0:MdateObj[s].mount/dec(TL[k-1].smount))>1){
+													OutHtml += "<td class='tTotal num' style='background:antiquewhite;color:red;'>"+ (dec(TL[k-1].smount)==0?0:FormatNumber((round(q_div(MdateObj[s].mount,dec(TL[k-1].smount))*100,2)))+'%') + "</td>";
+												}else{
+													OutHtml += "<td class='tTotal num' style='background:antiquewhite;'>"+ (dec(TL[k-1].smount)==0?0:FormatNumber((round(q_div(MdateObj[s].mount,dec(TL[k-1].smount))*100,2)))+'%') + "</td>";
+												}
+											}
 										}
 										OutHtml += "<td class='tTotal num' style='background:antiquewhite;'> </td></tr>";
 										
@@ -1348,7 +1363,7 @@
 												   "<td class='tTitle' style='width:240px;background: #FDB;' colspan='2' rowspan='2'>模具</td>" +
 												   "<td class='tTitle' style='width:60px;background: #FDB;' rowspan='2'>模具數</td>" +
 												   "<td class='tTitle' style='width:60px;background: #FDB;' rowspan='2'>穴數</td>" +
-												   "<td class='tTitle' style='width:120px;' rowspan='2'>最大生產模數/日</td>";
+												   "<td class='tTitle' style='width:120px;background: #FDB;' rowspan='2'>最大生產數/日</td>";
 										tmpTd = '<tr>';
 										for(var j=0;j<DateList.length;j++){
 											var thisDay = DateList[j];
@@ -1380,7 +1395,7 @@
 										   "<td class='Lproduct' style='width:120px;'>" + TL[k].modelno + "</td><td class='Lproduct' style='width:120px;'>" + TL[k].model + "</td>" +
 										   "<td class='num'>" + FormatNumber(TL[k].mmount) + "</td>" +
 										   "<td class='num'>" + FormatNumber(TL[k].modmounts) + "</td>" +
-										   "<td class='num'>" + FormatNumber(TL[k].smount)+ "</td>";
+										   "<td class='num'>" + FormatNumber(TL[k].mmount*TL[k].smaxop)+ "</td>";
 								var TTD = TL[k].datea;
 								var tTotal = 0,wtotal=0;
 								var t_modmounts=TL[k].modmounts;
@@ -1430,27 +1445,42 @@
 							}
 							
 							//最後一個工作線別小計
-							OutHtml += "<tr><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[TL.length-1].stationno + "</td><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[TL.length-1].station + "</td>" 
-										+"<td colspan='5' class='tTotal num' style='background:antiquewhite;'>小計：</td>";
+							OutHtml += "<tr><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[TL.length-1].stationno + "</td><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[TL.length-1].station + "</td>"
+										+"<td colspan='3' class='tTotal num' style='background:antiquewhite;'>小計：</td>"
+										+"<td colspan='2' class='Lproduct' style='background:antiquewhite;'>最大生產"+TL[TL.length-1].smount+"模/日</td>";
+							//106/08/15 超荷變紅字
 							for(var s=0;s<SdateObj.length;s++){
 								if(TL[TL.length-1].modmounts>1 && SdateObj[s].mount!=0 && SdateObj[s].datea!='週小計'){
-									OutHtml += "<td class='tTotal num'style='background:antiquewhite;'>"+ (round(SdateObj[s].mount,0)==0 && SdateObj[s].mount>0?round(SdateObj[s].mount,2):Zerospaec(FormatNumber(round(SdateObj[s].mount,0))))+'/'+MdateObj[s].mount + "</td>";
+									if((dec(TL[TL.length-1].smount)==0?0:MdateObj[s].mount/dec(TL[TL.length-1].smount))>1 && SdateObj[s].datea!='週小計'){
+										OutHtml += "<td class='tTotal num'style='background:antiquewhite;color:red;'>"+ (round(SdateObj[s].mount,0)==0 && SdateObj[s].mount>0?round(SdateObj[s].mount,2):Zerospaec(FormatNumber(round(SdateObj[s].mount,0))))+'/'+MdateObj[s].mount + "</td>";
+									}else{
+										OutHtml += "<td class='tTotal num'style='background:antiquewhite;'>"+ (round(SdateObj[s].mount,0)==0 && SdateObj[s].mount>0?round(SdateObj[s].mount,2):Zerospaec(FormatNumber(round(SdateObj[s].mount,0))))+'/'+MdateObj[s].mount + "</td>";
+									}
 								}else{
-									OutHtml += "<td class='tTotal num'style='background:antiquewhite;'>"+ (round(SdateObj[s].mount,0)==0 && SdateObj[s].mount>0?round(SdateObj[s].mount,2):Zerospaec(FormatNumber(round(SdateObj[s].mount,0)))) + "</td>";
+									if((dec(TL[TL.length-1].smount)==0?0:MdateObj[s].mount/dec(TL[TL.length-1].smount))>1  && SdateObj[s].datea!='週小計'){
+										OutHtml += "<td class='tTotal num'style='background:antiquewhite;color:red;'>"+ (round(SdateObj[s].mount,0)==0 && SdateObj[s].mount>0?round(SdateObj[s].mount,2):Zerospaec(FormatNumber(round(SdateObj[s].mount,0)))) + "</td>";
+									}else{
+										OutHtml += "<td class='tTotal num'style='background:antiquewhite;'>"+ (round(SdateObj[s].mount,0)==0 && SdateObj[s].mount>0?round(SdateObj[s].mount,2):Zerospaec(FormatNumber(round(SdateObj[s].mount,0)))) + "</td>";
+									}
 								}
 							}
 							OutHtml += "<td class='tTotal num' style='background:antiquewhite;'>" + (round(STotal,0)==0 && STotal>0?round(STotal,2):Zerospaec(FormatNumber(round(STotal,0)))) + "</td></tr>";
 							
 							//106/08/10 使用率
 							
-							OutHtml += "<tr><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[k-1].stationno + "</td><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[k-1].station + "</td>" 
+							OutHtml += "<tr><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[TL.length-1].stationno + "</td><td class='Lproduct' style='width:120px;background:antiquewhite;'>" + TL[TL.length-1].station + "</td>" 
 										+"<td colspan='5' class='tTotal num' style='background:antiquewhite;'>使用率：</td>";
 							for(var s=0;s<MdateObj.length;s++){
-								if(MdateObj[s].datea=="週小計" || MdateObj[s].mount==0)
+								if(MdateObj[s].datea=="週小計" || MdateObj[s].mount==0){
 									OutHtml += "<td class='tTotal num' style='background:antiquewhite;'> </td>";
-								else
-									OutHtml += "<td class='tTotal num' style='background:antiquewhite;'>"+ (dec(TL[k-1].smount)==0?0:FormatNumber((round((MdateObj[s].mount/dec(TL[k-1].smount))*100,2)))+'%') + "</td>";
+								}else{
+									if((dec(TL[TL.length-1].smount)==0?0:MdateObj[s].mount/dec(TL[TL.length-1].smount))>1){
+										OutHtml += "<td class='tTotal num' style='background:antiquewhite;color:red;'>"+ (dec(TL[TL.length-1].smount)==0?0:FormatNumber((round((MdateObj[s].mount/dec(TL[k-1].smount))*100,2)))+'%') + "</td>";
+									}else{
+										OutHtml += "<td class='tTotal num' style='background:antiquewhite;'>"+ (dec(TL[TL.length-1].smount)==0?0:FormatNumber((round((MdateObj[s].mount/dec(TL[k-1].smount))*100,2)))+'%') + "</td>";
+									}
 								}
+							}
 							OutHtml += "<td class='tTotal num' style='background:antiquewhite;'> </td></tr>";
 							
 							//總計 106/08/10 拿掉總計
