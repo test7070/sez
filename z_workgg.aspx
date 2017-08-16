@@ -1302,7 +1302,7 @@
 									   "<td class='tTitle' style='width:240px;background: #FDB;' colspan='2' rowspan='2'>模具</td>" +
 									   "<td class='tTitle' style='width:60px;background: #FDB;' rowspan='2'>模具數</td>" +
 									   "<td class='tTitle' style='width:60px;background: #FDB;' rowspan='2'>穴數</td>" +
-									   "<td class='tTitle' style='width:120px;background: #FDB;' rowspan='2'>最大生產數/日</td>";
+									   "<td class='tTitle' style='width:120px;background: #FDB;' rowspan='2'>最大生產模數/日</td>";
 							var tmpTd = '<tr>';
 							for(var j=0;j<DateList.length;j++){
 								var thisDay = DateList[j];
@@ -1363,7 +1363,7 @@
 												   "<td class='tTitle' style='width:240px;background: #FDB;' colspan='2' rowspan='2'>模具</td>" +
 												   "<td class='tTitle' style='width:60px;background: #FDB;' rowspan='2'>模具數</td>" +
 												   "<td class='tTitle' style='width:60px;background: #FDB;' rowspan='2'>穴數</td>" +
-												   "<td class='tTitle' style='width:120px;background: #FDB;' rowspan='2'>最大生產數/日</td>";
+												   "<td class='tTitle' style='width:120px;background: #FDB;' rowspan='2'>最大生產模數/日</td>";
 										tmpTd = '<tr>';
 										for(var j=0;j<DateList.length;j++){
 											var thisDay = DateList[j];
