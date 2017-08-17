@@ -55,6 +55,9 @@
                         type : '8',//[10]
                         name : 'gro',
                         value : ('毛利率').split(',')
+                    }, {
+                        type : '6',//[11]
+                        name : 'xmon'
                     }]
                 });
                 
@@ -65,6 +68,7 @@
                 $('#txtDate1').mask(r_picd);
                 $('#txtDate2').mask(r_picd);
                 $('#txtXdate').mask(r_picd);
+                $('#txtXmon').mask('999/99');
                 
                 var r_1911=1911;
 				if(r_len==4){//西元年
@@ -89,7 +93,7 @@
                 t_day = t_date.getUTCDate();
                 t_day = t_day > 9 ? t_day + '' : '0' + t_day;
                 $('#txtDate1').val(t_year + '/' + t_month + '/' + t_day);
-                $('#txtXmon1').val(t_year + '/' + t_month);
+                $('#txtXmon').val(t_year + '/' + t_month);
 
                 t_date = new Date();
                 t_date.setDate(35);
