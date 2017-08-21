@@ -16,7 +16,7 @@
 		<script type="text/javascript">
             q_tables = 't';
             var q_name = "acost";
-            var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
+            var q_readonly = ['txtNoa', 'txtAccno','txtWorker','txtWorker2'];
             var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [['txtMoney1',10,0,1],['txtMoney2',10,0,1],['txtMoney3',10,0,1]];
@@ -63,6 +63,10 @@
                 }else{
                     q_cmbParse("cmbTypea", "1@查帳,2@書審,3@工程業,4@建設業");
                 }
+                
+                $('#lblAccno').click(function() {
+                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('lblAccc'), true);
+                });
 
                 $('#btnImport').click(function(e){
                 	var t_mon = $('#txtMon').val();
@@ -471,6 +475,10 @@
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td colspan="3"><input id="txtMemo" type="text"  class="txt c1"/></td>
 					</tr>
+					<tr>
+                        <td><span> </span><a id="lblAccno" class="lbl btn">會計傳票</a></td>
+                        <td><input id="txtAccno" type="text"  class="txt c1"/></td>
+                    </tr>
 					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
 						<td><input id="txtWorker" type="text"  class="txt c1"/></td>
