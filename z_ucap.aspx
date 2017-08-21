@@ -63,6 +63,16 @@
 							$(this).children().removeClass('select').addClass('nonselect');
 						}
 					});
+					
+					$('#q_report .report ').click(function() {
+						//106/08/21 不預設 產品類別
+						/*if($('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report=='z_ucap1'){
+							$('#Xtypea select').val('2');
+						}else{
+							$('#Xtypea select').val('#non');
+						}*/
+					});
+					
 				});
 				
 				
@@ -308,7 +318,8 @@
 					$('#txtXproductno').val(q_getHref()[1]);
 					$('#btnOk').click();
 				}else{
-					$('#Xtypea select').val('2');
+					//106/08/21 不預設 產品類別
+					//$('#Xtypea select').val('2');
 				}
 				
 				firstRun = false;
