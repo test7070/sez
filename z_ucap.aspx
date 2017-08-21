@@ -63,6 +63,15 @@
 							$(this).children().removeClass('select').addClass('nonselect');
 						}
 					});
+					
+					$('#q_report .report ').click(function() {
+						if($('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report=='z_ucap1'){
+							$('#Xtypea select').val('2');
+						}else{
+							$('#Xtypea select').val('#non');
+						}
+					});
+					
 				});
 				
 				

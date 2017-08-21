@@ -1399,6 +1399,7 @@
 								var TTD = TL[k].datea;
 								var tTotal = 0,wtotal=0;
 								var t_modmounts=TL[k].modmounts;
+								var t_msmaxgen=TL[k].mmount*TL[k].smaxop;
 								
 								for(var j=0;j<TTD.length;j++){
 									var thisValue = round(TTD[j][1],3);
@@ -1426,12 +1427,12 @@
 									}else{
 										//106/07/05 負荷大於1才顯示紅色
 										if(t_modmounts>1 && thisValue!=0){
-											OutHtml += "<td class='num'"+(thisValue>(thisGen+1)?' style="color:red;"':'')+"><font title='日產能:"+thisGen+"'>"
-											+"<a "+(thisValue>(thisGen+1)?"style='color:red;'":"")+" href=JavaScript:q_box('z_workgg.aspx',\";cuadate='"+DateObj[j].datea+"'&&modelno='"+TL[k].modelno+"'&&xaction='z_workgg4';106\",'95%','95%','106')>" 
+											OutHtml += "<td class='num'"+(Math.ceil(thisValue/t_modmounts)>(t_msmaxgen+1)?' style="color:red;"':'')+"><font title='日產能:"+t_msmaxgen+"'>"
+											+"<a "+(Math.ceil(thisValue/t_modmounts)>(t_msmaxgen+1)?"style='color:red;'":"")+" href=JavaScript:q_box('z_workgg.aspx',\";cuadate='"+DateObj[j].datea+"'&&modelno='"+TL[k].modelno+"'&&xaction='z_workgg4';106\",'95%','95%','106')>" 
 											+(round(thisValue,0)==0 && thisValue>0?round(thisValue,2):Zerospaec(round(thisValue,0)))+'/'+Math.ceil(thisValue/t_modmounts) + "</font></td>";
 										}else{
-											OutHtml += "<td class='num'"+(thisValue>(thisGen+1)?' style="color:red;"':'')+"><font title='日產能:"+thisGen+"'>"
-											+"<a "+(thisValue>(thisGen+1)?"style='color:red;'":"")+" href=JavaScript:q_box('z_workgg.aspx',\";cuadate='"+DateObj[j].datea+"'&&modelno='"+TL[k].modelno+"'&&xaction='z_workgg4';106\",'95%','95%','106')>" 
+											OutHtml += "<td class='num'"+(thisValue>(t_msmaxgen+1)?' style="color:red;"':'')+"><font title='日產能:"+t_msmaxgen+"'>"
+											+"<a "+(thisValue>(t_msmaxgen+1)?"style='color:red;'":"")+" href=JavaScript:q_box('z_workgg.aspx',\";cuadate='"+DateObj[j].datea+"'&&modelno='"+TL[k].modelno+"'&&xaction='z_workgg4';106\",'95%','95%','106')>" 
 											+(round(thisValue,0)==0 && thisValue>0?round(thisValue,2):Zerospaec(round(thisValue,0))) + "</font></td>";
 										}
 									}
