@@ -58,8 +58,12 @@
                 q_getFormat();
                 q_mask(bbmMask);      
                 
-                q_cmbParse("cmbTypea", "1@查帳,2@書審,3@工程業,4@建設業"); 
-                
+                if(q_getPara('sys.project').toUpperCase()=="SA"){
+                    q_cmbParse("cmbTypea", "1@製造業,2@書審,3@工程業,4@建設業");
+                }else{
+                    q_cmbParse("cmbTypea", "1@查帳,2@書審,3@工程業,4@建設業");
+                }
+
                 $('#btnImport').click(function(e){
                 	var t_mon = $('#txtMon').val();
                 	var t_typea = $('#cmbTypea').val();

@@ -354,83 +354,44 @@
 	                        type : '5', //select
 	                        name : 'vorder',
 	                        value : ('車行,年份,廠牌').split(',')
-                    	}]
+                    	},{/*-[47]*/
+							type : '0',
+							name : 'xproj',
+							value : q_getPara('sys.project').toUpperCase()
+						}]
                     });
                     t_init=true;
                     q_getFormat();
 	                q_langShow();
 	                q_popAssign();
-	                $('#textYear').mask('999');
-	            	$('#textBdate').mask('999/99/99');
-	                $('#textEdate').mask('999/99/99');
-					$('#txtMon1').mask('999/99');
-	                $('#txtMon2').mask('999/99');
-	                $('#txtXmon').mask('999/99');
-	                $('#txtDate1').mask('999/99/99');
+	                $('#textYear').mask(r_pic);
+	            	$('#textBdate').mask(r_picd);
+	                $('#textEdate').mask(r_picd);
+					$('#txtMon1').mask(r_picm);
+	                $('#txtMon2').mask(r_picm);
+	                $('#txtXmon').mask(r_picm);
+	                $('#txtDate1').mask(r_picd);
 	                $('#txtDate1').datepicker();
-	                $('#txtDate2').mask('999/99/99');
+	                $('#txtDate2').mask(r_picd);
 	                $('#txtDate2').datepicker(); 
 	                t_item = "";
 	                $('#chkXcarteamno').children('input').attr('checked','checked')
-	                $('#txtEnddate').mask('999/99/99');
+	                $('#txtEnddate').mask(r_picd);
 	                $('#txtEnddate').datepicker(); 
 	                $('#txtEnddate').val(q_date());
 	                $('#txtXmoney1').val(-99999999);
 	                $('#txtXmoney2').val(99999999);
-	                $('#txtXyear').mask('999');
-					$('#txtXyear').val(q_date().substr(0,3));
-					
-	                var t_date,t_year,t_month,t_day;
-	                t_date = new Date();
-	                t_date.setDate(1);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                $('#txtMon1').val(t_year+'/'+t_month);
+	                $('#txtXyear').mask(r_pic);
+					$('#txtXyear').val(q_date().substr(0,r_len));
+	                $('#txtMon1').val(q_date().substr(0,r_lenm));
+	                $('#txtMon2').val(q_date().substr(0,r_lenm));
+	                $('#txtXmon').val(q_date().substr(0,r_lenm));
 	                
-	                t_date = new Date();
-	                t_date.setDate(35);
-	                t_date.setDate(0);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                $('#txtMon2').val(t_year+'/'+t_month);
+	                $('#txtDate1').val(q_date().substr(0,r_lenm)+'/01');
+	                $('#textBdate').val(q_date().substr(0,r_lenm)+'/01');
 	                
-	                t_date = new Date();
-	                t_date.setDate(35);
-	                t_date.setDate(0);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                $('#txtXmon').val(t_year+'/'+t_month);
-	                
-	                
-	                var t_date,t_year,t_month,t_day;
-	                t_date = new Date();
-	                t_date.setDate(1);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                t_day = t_date.getUTCDate();
-	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
-	                $('#textBdate').val(t_year+'/'+t_month+'/'+t_day);
-	                
-	                t_date = new Date();
-	                t_date.setDate(35);
-	                t_date.setDate(0);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                t_day = t_date.getUTCDate();
-	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
-	                $('#textEdate').val(t_year+'/'+t_month+'/'+t_day);
+	                $('#txtDate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',35).substr(0,r_lenm)+'/01',-1));
+	                $('#textEdate').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',35).substr(0,r_lenm)+'/01',-1));
 	                
 	                //$('#chkSssno').children('input').attr('checked', 'checked');
 	                
