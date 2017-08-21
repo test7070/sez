@@ -17,7 +17,7 @@
 
             var q_name = "postin";
             var q_readonly = ['txtNoa'];
-            var bbmNum = [['txtTotal',14 , 1, 1],['txtP10',14 , 0, 1],['txtP20',14 , 0, 1],['txtP30',14 , 0, 1],['txtP35',14 , 0, 1],['txtP50',14 , 0, 1],['txtP60',14 , 0, 1],['txtP70',14 , 0, 1],['txtP80',14 , 0, 1],['txtP90',14 , 0, 1],['txtP100',14 , 0, 1],['txtP120',14 , 0, 1],['txtP130',14 , 0, 1],['txtP150',14 , 0, 1],['txtP200',14 , 0, 1],['txtP250',14 , 0, 1],['txtP320',14 , 0, 1],['txtP340',14 , 0, 1]]; 
+            var bbmNum = [['txtTotal',14 , 1, 1],['txtP10',14 , 0, 1],['txtP20',14 , 0, 1],['txtP30',14 , 0, 1],['txtP35',14 , 0, 1],['txtP50',14 , 0, 1],['txtP60',14 , 0, 1],['txtP70',14 , 0, 1],['txtP80',14 , 0, 1],['txtP90',14 , 0, 1],['txtP100',14 , 0, 1],['txtP120',14 , 0, 1],['txtP130',14 , 0, 1],['txtP150',14 , 0, 1],['txtP200',14 , 0, 1],['txtP250',14 , 0, 1],['txtP280',14 , 0, 1],['txtP320',14 , 0, 1],['txtP340',14 , 0, 1]]; 
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -90,6 +90,9 @@
                     sum();
                 });
                 $('#txtP250').change(function() {
+                    sum();
+                });
+				$('#txtP280').change(function() {
                     sum();
                 });
                 $('#txtP320').change(function() {
@@ -193,7 +196,7 @@
             }
 
             function sum() {
-				q_tr('txtTotal',round((q_float('txtP10')*1)+(q_float('txtP20')*2)+(q_float('txtP30')*3)+(q_float('txtP35')*3.5)+(q_float('txtP50')*5)+(q_float('txtP60')*6)+(q_float('txtP70')*7)+(q_float('txtP80')*8)+(q_float('txtP90')*9)+(q_float('txtP100')*10)+(q_float('txtP120')*12)+(q_float('txtP130')*13)+(q_float('txtP150')*15)+(q_float('txtP200')*20)+(q_float('txtP250')*25)+(q_float('txtP320')*32)+(q_float('txtP340')*34),1));
+				q_tr('txtTotal',round((q_float('txtP10')*1)+(q_float('txtP20')*2)+(q_float('txtP30')*3)+(q_float('txtP35')*3.5)+(q_float('txtP50')*5)+(q_float('txtP60')*6)+(q_float('txtP70')*7)+(q_float('txtP80')*8)+(q_float('txtP90')*9)+(q_float('txtP100')*10)+(q_float('txtP120')*12)+(q_float('txtP130')*13)+(q_float('txtP150')*15)+(q_float('txtP200')*20)+(q_float('txtP250')*25)+(q_float('txtP280')*28)+(q_float('txtP320')*32)+(q_float('txtP340')*34),1));
 			}
 
             function refresh(recno) {
@@ -451,11 +454,13 @@
                <td class="td9"><input id="txtP200" type="text" class="txt num c3" /></td>  
                <td class="td2"><span> </span><a id="lblP250" class="lbl"> </a></td>
                <td class="td3"><input id="txtP250" type="text" class="txt num c3" /></td>
-               <td class="td4"><span> </span><a id="lblP320" class="lbl"> </a></td>
-               <td class="td5"><input id="txtP320" type="text" class="txt num c3" /></td>
+			   <td class="td2"><span> </span><a id="lblP280" class="lbl">28.0</a></td>
+               <td class="td3"><input id="txtP280" type="text" class="txt num c3" /></td>
 			</tr>
 			<tr class ="tr10">
 			   <td class="td1"> </td>
+			   <td class="td4"><span> </span><a id="lblP320" class="lbl"> </a></td>
+               <td class="td5"><input id="txtP320" type="text" class="txt num c3" /></td>
 			   <td class="td4"><span> </span><a id="lblP340" class="lbl">34.0</a></td>
                <td class="td5"><input id="txtP340" type="text" class="txt num c3" /></td>
 			   <td class="td6"> </td>
