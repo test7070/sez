@@ -46,7 +46,8 @@
                 
                 switch(q_getPara('sys.project').toUpperCase()){
                 	case 'LN':
-                		$('#lblBoat').val('船名');
+                		$('#lblBoat').text('船名');
+                		$('#vewBoat').text('船名');
                 		$('#lblConn').hide();
                 		$('#txtConn').hide();
                 		$('#lblTel').hide();

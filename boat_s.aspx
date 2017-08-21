@@ -19,16 +19,26 @@
     function main() {
         mainSeek();
         q_gf('', q_name);
+        
     }
 
     function q_gfPost() {
         q_getFormat();
         q_langShow();
-
+		
+		switch(q_getPara('sys.project').toUpperCase()){
+        	case 'LN':
+        		$('#lblBoat').text('船名');
+        		break;
+        	default:
+        		break;
+        }
       /* bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
         q_mask(bbmMask);
 
         $('#txtBdate').focus();*/
+       
+       
     }
 
     function q_seekStr() {   

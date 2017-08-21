@@ -32,6 +32,14 @@
 
         function refresh() {
             _refresh();
+            
+            switch(q_getPara('sys.project').toUpperCase()){
+            	case 'LN':
+            		$('#lblBoat').text('船名');
+            		break;
+            	default:
+            		break;
+            }
         }
     </script>
     <style type="text/css">
