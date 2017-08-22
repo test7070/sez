@@ -47,13 +47,13 @@
                 t_boat = $.trim($('#txtBoat').val());
                 t_conn = $.trim($('#txtConn').val());
 
-                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("boat", t_boat) + q_sqlPara2("conn", t_conn);
+                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) ;
 				
 				if(t_boat.length>0){
-					t_where += " and charindex('"+t_boat+"',boat)>0";
+					t_where += " and charindex(N'"+t_boat+"',boat)>0";
 				}
 				if(t_conn.length>0){
-					t_where += " and charindex('"+t_conn+"',conn)>0";
+					t_where += " and charindex(N'"+t_conn+"',conn)>0";
 				}				
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
