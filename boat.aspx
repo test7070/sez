@@ -47,9 +47,7 @@
                 switch(q_getPara('sys.project').toUpperCase()){
                 	case 'LN':
                 		$('#lblBoat').text('船名');
-                		$('#vewBoat').text('船名');
-                		$('#lblConn').hide();
-                		$('#txtConn').hide();
+                		$('#lblConn').text('中文船名');
                 		$('#lblTel').hide();
                 		$('#txtTel').hide();
                 		$('#lblAddr').hide();
@@ -98,6 +96,7 @@
                 case q_name:
                     if (q_cur == 4)
                         q_Seek_gtPost();
+                    
                     break;
                 } 
             }
@@ -159,6 +158,12 @@
             function refresh(recno) {
                 _refresh(recno);
                 refreshBbm();
+                switch(q_getPara('sys.project').toUpperCase()){
+                	case 'LN':
+                		$('#vewBoat').text('船名');
+                		$('#vewConn').text('中文船名');
+                		break;
+                }
             }
 
             function refreshBbm() {
@@ -226,129 +231,121 @@
             }
 		</script>
 		<style type="text/css">
-            #dmain {
-                overflow: hidden;
-            }
-            .dview {
-                float: left;
-                width: 38%;
-            }
-            .tview {
-                margin: 0;
-                padding: 2px;
-                border: 1px black double;
-                border-spacing: 0;
-                font-size: medium;
-                background-color: #FFFF66;
-                color: blue;
-            }
-            .tview td {
-                padding: 2px;
-                text-align: center;
-                border: 1px black solid;
-            }
-            .dbbm {
-                float: left;
-                width: 60%;
-                margin: -1px;
-                border: 1px black solid;
-                border-radius: 5px;
-            }
-            .tbbm {
-                padding: 0px;
-                border: 1px white double;
-                border-spacing: 0;
-                border-collapse: collapse;
-                font-size: medium;
-                color: blue;
-                background: #cad3ff;
-                width: 100%;
-            }
-            .tbbm tr {
-                height: 35px;
-            }
-            .tbbm tr td {
-                width: 9%;
-            }
-            .tbbm .tdZ {
-                width: 2%;
-            }
-            .tbbm tr td span {
-                float: right;
-                display: block;
-                width: 5px;
-                height: 10px;
-            }
-            .tbbm tr td .lbl {
-                float: right;
-                color: blue;
-                font-size: medium;
-            }
-            .tbbm tr td .lbl.btn {
-                color: #4297D7;
-                font-weight: bolder;
-                font-size: medium;
-            }
-            .tbbm tr td .lbl.btn:hover {
-                color: #FF8F19;
-            }
-            .txt.c1 {
-                width: 98%;
-                float: left;
-            }
-            .txt.c2 {
-                width: 38%;
-                float: left;
-            }
-            .txt.c3 {
-                width: 60%;
-                float: left;
-            }
-            .txt.c4 {
-                width: 18%;
-                float: left;
-            }
-            .txt.c5 {
-                width: 80%;
-                float: left;
-            }
-            .txt.c6 {
-                width: 49%;
-                float: left;
-            }
-            .txt.num {
-                text-align: right;
-            }
-            .tbbm td {
-                margin: 0 -1px;
-                padding: 0;
-            }
-            .tbbm td input[type="text"] {
-                border-width: 1px;
-                padding: 0px;
-                margin: -1px;
-                float: left;
-            }
-            .tbbm select {
-                border-width: 1px;
-                padding: 0px;
-                margin: -1px;
-            }
-
-            input[type="text"], input[type="button"] {
-                font-size: medium;
-            }
+			#dmain {
+				overflow: auto;
+				width: 1600px;
+			}
+			.dview {
+				float: left;
+				width: 430px;
+				border-width: 0px;
+			}
+			.tview {
+				border: 5px solid gray;
+				font-size: medium;
+				background-color: black;
+			}
+			.tview tr {
+				height: 30px;
+			}
+			.tview td {
+				padding: 2px;
+				text-align: center;
+				border-width: 0px;
+				background-color: #FFFF66;
+				color: blue;
+			}
+			.dbbm {
+				float: left;
+				width: 400px;
+				/*margin: -1px;
+				 border: 1px black solid;*/
+				border-radius: 5px;
+			}
+			.tbbm {
+				padding: 0px;
+				border: 1px white double;
+				border-spacing: 0;
+				border-collapse: collapse;
+				font-size: medium;
+				color: blue;
+				background: #cad3ff;
+				width: 100%;
+			}
+			.tbbm tr {
+				height: 35px;
+			}
+			.tbbm tr td {
+				width: 12%;
+			}
+			.tbbm .tdZ {
+				width: 1%;
+			}
+			.tbbm tr td span {
+				float: right;
+				display: block;
+				width: 5px;
+				height: 10px;
+			}
+			.tbbm tr td .lbl {
+				float: right;
+				color: blue;
+				font-size: medium;
+			}
+			.tbbm tr td .lbl.btn {
+				color: #4297D7;
+				font-weight: bolder;
+			}
+			.tbbm tr td .lbl.btn:hover {
+				color: #FF8F19;
+			}
+			.txt.c1 {
+				width: 100%;
+				float: left;
+			}
+			.txt.num {
+				text-align: right;
+			}
+			.tbbm td {
+				margin: 0 -1px;
+				padding: 0;
+			}
+			.tbbm td input[type="text"] {
+				border-width: 1px;
+				padding: 0px;
+				margin: -1px;
+				float: left;
+			}
+			.tbbm select {
+				border-width: 1px;
+				padding: 0px;
+				margin: -1px;
+			}
+			.tbbs a {
+				font-size: medium;
+			}
+			input[type="text"], input[type="button"] {
+				font-size: medium;
+			}
+			.num {
+				text-align: right;
+			}
+			select {
+				font-size: medium;
+			}
+			
 		</style>
 	</head>
 	<body>
 		<!--#include file="../inc/toolbar.inc"-->
-		<div id='dmain' style="overflow:hidden;">
-			<div class="dview" id="dview" style="float: left;  width:25%;"  >
-				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
+		<div id='dmain' >
+			<div class="dview" id="dview">
+				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
-						<td align="center" style="width:25%"><a id='vewNoa'></a></td>
+						<td align="center" style="width:15%"><a id='vewNoa'></a></td>
 						<td align="center" style="width:40%"><a id='vewBoat'></a></td>
+						<td align="center" style="width:30%"><a id='vewConn'></a></td>
 					</tr>
 					<tr>
 						<td >
@@ -356,58 +353,38 @@
 						</td>
 						<td align="center" id='noa'>~noa</td>
 						<td align="center" id='boat'>~boat</td>
+						<td align="center" id='conn'>~conn</td>
 					</tr>
 				</table>
 			</div>
-			<div class='dbbm' style="width: 70%;float: left;">
-				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
+			<div class='dbbm'>
+				<table class="tbbm"  id="tbbm">
+					<tr class="tr0" style="height:1px;">
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"> </td>
+					</tr>
 					<tr class="tr1">
-						<td class="td1"><span> </span><a id="lblNoa" class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtNoa" type="text" class="txt c1"/>
-						</td>
-						<td class="td3"></td>
-						<td class="td4"></td>
-						<td class="td5"></td>
-						<td class="td6"></td>
+						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
+						<td colspan="3"><input id="txtNoa" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr2">
-						<td class="td1"><span> </span><a id="lblBoat" class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtBoat" type="text" class="txt c1"/>
-						</td>
-						<td class="td3"></td>
-						<td class="td4"></td>
-						<td class="td5"></td>
-						<td class="td6"></td>
+						<td><span> </span><a id="lblBoat" class="lbl"> </a></td>
+						<td colspan="3"><input id="txtBoat" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr3">
-						<td class="td1"><span> </span><a id="lblConn" class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtConn" type="text" class="txt c1"/>
-						</td>
-						<td class="td3"></td>
-						<td class="td4"></td>
-						<td class="td5"></td>
-						<td class="td6"></td>
+						<td><span> </span><a id="lblConn" class="lbl"> </a></td>
+						<td colspan="3"><input id="txtConn" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr4">
-						<td class="td1"><span> </span><a id="lblTel" class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtTel" type="text" class="txt c1"/>
-						</td>
-						<td class="td3"></td>
-						<td class="td4"></td>
-						<td class="td5"></td>
-						<td class="td6"></td>
+						<td><span> </span><a id="lblTel" class="lbl"></a></td>
+						<td colspan="3"><input id="txtTel" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr5">
-						<td class="td1"><span> </span><a id="lblAddr" class="lbl"></a></td>
-						<td class="td2" colspan="3">
-						<input id="txtAddr" type="text" class="txt c1"/>
-						</td>
-						<td class="td5"></td>
-						<td class="td6"></td>
+						<td><span> </span><a id="lblAddr" class="lbl"></a></td>
+						<td colspan="3"><input id="txtAddr" type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
