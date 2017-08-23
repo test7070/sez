@@ -32,6 +32,15 @@
 
         function refresh() {
             _refresh();
+            
+            switch(q_getPara('sys.project').toUpperCase()){
+            	case 'LN':
+            		$('#lblBoat').text('船名');
+            		$('#lblConn').text('中文船名');
+            		break;
+            	default:
+            		break;
+            }
         }
     </script>
     <style type="text/css">
@@ -55,13 +64,15 @@
        <table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style='width:98%' >
            <tr>
                 <th align="center" ></th>
-                <th align="center" style='color:Blue;width: 20%;' ><a id='lblNoa'></a></th>
-                <th align="center" style='color:Blue;width: 40%; '><a id='lblBoat'></a></th>
+                <th align="center" style='color:blue;width: 15%;' ><a id='lblNoa'> </a></th>
+                <th align="center" style='color:blue;width: 35%; '><a id='lblBoat'> </a></th>
+                <th align="center" style='color:blue;width: 35%; '><a id='lblConn'> </a></th>
             </tr>
             <tr>
                 <td style="width:2%;"><input name="sel"  id="radSel.*" type="radio" /></td>
-                <td ><input class="txt c1" id="txtNoa.*" type="text"   readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtBoat.*" type="text"   readonly="readonly" /></td>
+                <td ><input class="txt c1" id="txtNoa.*" type="text" readonly="readonly" /></td>
+                <td ><input class="txt c1" id="txtBoat.*" type="text" readonly="readonly" /></td>
+                <td ><input class="txt c1" id="txtConn.*" type="text" readonly="readonly" /></td>
             </tr>
         </table>
   <!--#include file="../inc/brow_ctrl.inc"--> 
