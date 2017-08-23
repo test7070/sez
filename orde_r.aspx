@@ -1256,13 +1256,13 @@
 				}*/
 				
 				//106/01/12 預交日空 抓期望交期 沒有寫入3個月後
-				for(var k=0;k<q_bbsCount;k++){
+				/*for(var k=0;k<q_bbsCount;k++){
 					if(emp($('#txtDatea_'+k).val()) && !emp($('#txtDate1').val())){
 							$('#txtDatea_'+k).val($('#txtDate1').val());
 					}else{
 						$('#txtDatea_'+k).val(q_cdn($('#txtOdate').val(),90));
 					}
-				}
+				}*/
 								
 				//106/03/16 限制 訂單交期 106/03/17後面等確定再改抓orde.dodate
 				//var t_where="where=^^noa='qsys.orde.dodate'^^"

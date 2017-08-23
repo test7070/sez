@@ -200,13 +200,22 @@
 							return;
 						}*/
 						
+						var t_where = "where=^^ cuano='" + $('#txtNoa').val() + "' and isnull(inmount,0)>0 ^^";
+						q_gt('view_work', t_where, 0, 0, 0, "review_work", r_accy,1);
+						
+						t_inmount = 0;
+						t_work = _q_appendData("view_work", "", true);
+						for (var i = 0; i < t_work.length; i++) {
+							t_inmount = t_inmount + dec(t_work[i].inmount);
+						}
+						
 						var worked = false;
 						for (var i = 0; i < q_bbsCount; i++) {
 							if (!emp($('#txtWorkno_' + i).val()))
 								worked = true;
 						}
 						if (worked && t_inmount > 0)
-							alert('製令單已入庫-禁止重新產生製令單!!');
+							alert('製令單已入庫/領料-禁止重新產生製令單!!');
 						else {
 							q_func('workg.genWork', r_accy + ',' + $('#txtNoa').val() + ',' + r_name);
 							$('#btnWork').val('產生中...').attr('disabled', 'disabled');
