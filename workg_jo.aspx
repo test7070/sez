@@ -1588,11 +1588,11 @@
 							<input id="txtFactno" type="text" class="txt c3"/>
 							<input id="txtFact" type="text" class="txt c4"/>
 						</td>
+						<td><input id="btnWorkg2ordb" type="button" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl" > </a></td>
 						<td colspan="4"><input id="txtMemo" type="text" class="txt c1"/></td>
-						<td><input id="btnWorkg2ordb" type="button" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblOrdbno" class="lbl btn"> </a></td>
@@ -1600,10 +1600,7 @@
 							<input id="txtOrdbno" type="text" class="txt c1"/>
 							<input id="txtOrdano" type="text" class="txt c1" style="display: none;"/>
 						</td>
-						<td>
-							<input id="btnWorkPrint" type="button" />
-							<input id="btnWorkg_jo" type="button"/>
-						</td>
+						<td><input id="btnWork" type="button"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
@@ -1611,7 +1608,7 @@
 						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
 						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
 						<td> </td>
-						<td><input id="btnWork" type="button"/></td>
+						<td colspan="2"><input id="btnWorkReal" type="button"/></td>
 					</tr>
 					<tr>
 						<!--<td><span> </span><a class="lbl">每日製品入庫數</a></td>
@@ -1625,12 +1622,13 @@
 							<span> </span><a id="lblRealwork" class="lbl"> </a>
 							<input id="chkIscugu" type="checkbox" style="float: right;"/>
 						</td>
-						<td colspan="2"><input id="btnWorkReal" type="button"/></td>
+						<td><input id="btnWorkPrint" type="button" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMount" class="lbl"> </a></td>
 						<td><input id="txtMount" type="text" class="txt num c1"/></td>
-						<td colspan="2"><input id="btnBbscut" type="button"/></td>
+						<td colspan="3"><input id="btnBbscut" type="button"/></td>
+						<td><input id="btnWorkg_jo" type="button"/></td>
 					</tr>
 				</table>
 			</div>

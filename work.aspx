@@ -78,7 +78,7 @@
 				
 				$('#btnUnfreeze').click(function() {
 					if($('#chkIsfreeze').prop('checked')){
-						q_func('qtxt.query','workunfreeze.txt,unfreeze,'+ encodeURI($('#txtNoa').val()));
+						q_func('qtxt.query.unfreeze','workunfreeze.txt,unfreeze,'+ encodeURI($('#txtNoa').val()));
 						abbm[q_recno].isfreeze='false';
 						$('#chkIsfreeze').prop('checked',false);
 					}else
@@ -299,7 +299,8 @@
 			}
 			
 			function q_funcPost(t_func, result) {
-		        alert('凍結已取消!!');
+				if(t_func=='qtxt.query.unfreeze')
+		        	alert('凍結已取消!!');
 		    } //endfunction
 		</script>
 		<style type="text/css">

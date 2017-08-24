@@ -821,6 +821,7 @@
 									
 								var TTD = TL[k].datea;
 								var tTotal = 0,itTotal = 0;
+								wtotal=0,iwtotal=0;
 								for(var j=0;j<TTD.length;j++){
 									if(TTD[j][0]=='週小計'){
 										if(t_xshownowork=='1'){
@@ -835,11 +836,9 @@
 											
 										DateObj[j].value = q_add(dec(DateObj[j].value),wtotal);
 										DateObj[j].stotal = q_add(dec(DateObj[j].stotal),wtotal);
-										wtotal=0;
 										
 										DateObj[j].ivalue = q_add(dec(DateObj[j].ivalue),iwtotal);
 										DateObj[j].itotal = q_add(dec(DateObj[j].itotal),iwtotal);
-										iwtotal=0;
 										
 									}else{
 										wtotal= q_add(wtotal,round(TTD[j][1],3));

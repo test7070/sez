@@ -115,7 +115,15 @@
 					if(isNaN(t_mount))
 						t_mount=0;
 					$('#txtInmount2').val(t_mount);
-					
+
+				});
+				
+				$('#txtQcmount').change(function() {
+					var t_mount=dec($('#txtQcmount').val());
+					if(isNaN(t_mount))
+						t_mount=0;
+					$('#txtQcmount').val(t_mount);
+
 				});
 				
 				$('#txtWmount').change(function() {
@@ -150,9 +158,15 @@
 					var t_inmount2=dec($('#txtInmount2').val());
 					if(isNaN(t_inmount2))
 						t_inmount2=0;
+						
+					var t_qcmount=dec($('#txtQcmount').val());
+					if(isNaN(t_qcmount))
+						t_qcmount=0;
+						
 					var t_wmount=dec($('#txtWmount').val());
 					if(isNaN(t_wmount))
 						t_wmount=0;
+						
 					var t_fixmount=dec($('#txtFixmount').val());
 					if(isNaN(t_fixmount))
 						t_fixmount=0;
@@ -160,7 +174,7 @@
 					if($('#txtWorkno').val().substr(1,1).replace(/[^\d]/g,'')!=''){
 						var t_timea=padL(new Date().getHours(), '0', 2)+':'+padL(new Date().getMinutes(),'0',2);
 						q_func('qtxt.query.workg_jo_put', 'z_workg_jo.txt,workg_jo_put,' + encodeURI($('#txtWorkno').val()) + ';'+ encodeURI(t_mount) + ';' + encodeURI(q_date()) + ';' + encodeURI(t_timea) + ';'+ encodeURI(r_accy) + ';' + encodeURI(r_userno) + ';' + encodeURI(r_name) 
-						+ ';' + encodeURI(t_team)+ ';' + encodeURI(t_inmount2)+ ';' + encodeURI(t_wmount)+ ';' + encodeURI(t_fixmount));
+						+ ';' + encodeURI(t_team)+ ';' + encodeURI(t_inmount2)+ ';' + encodeURI(t_wmount)+ ';' + encodeURI(t_fixmount)+ ';' + encodeURI(t_qcmount) );
 						$('#div_in').hide();	
 					}else{
 						alert("【"+$('#txtWorkno').val()+"】是模擬製令不得入庫!!");
@@ -356,31 +370,33 @@
 					<td style="background-color: #f8d463;width: 105px;" align="center" >製令編號</td>
 					<td style="background-color: #f8d463;width: 295px;"><input id="txtWorkno" style="font-size: medium;width: 98%;" disabled="disabled"></td>
 					<td style="background-color: #ffddff;width: 105px;" align="center">完工組別</td>
-					<td style="background-color: #ffddff;width: 295px;"><input id="txtTeam" style="font-size: medium;width: 60%;text-align: left;"></td>
+					<td style="background-color: #ffddff;width: 295px;" colspan="3"><input id="txtTeam" style="font-size: medium;width: 60%;text-align: left;"></td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">製品編號</td>
 					<td style="background-color: #f8d463;"><input id="txtProductno" style="font-size: medium;width: 98%;" disabled="disabled"></td>
-					<td style="background-color: #99eeee;" align="center">上工段移入數</td>
-					<td style="background-color: #99eeee;"><input id="txtInmount2" style="font-size: medium;width:50%;text-align: right;"></td>
+					<td style="background-color: #99eeee;width: 105px;" align="center">上工段移入數</td>
+					<td style="background-color: #99eeee;width: 95px;"><input id="txtInmount2" style="font-size: medium;width:95%;text-align: right;"></td>
+					<td style="background-color: #99eeee;width: 105px;" align="center">上工段QC數</td>
+					<td style="background-color: #99eeee;width: 95px;"><input id="txtQcmount" style="font-size: medium;width:95%;text-align: right;"></td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">製品名稱</td>
 					<td style="background-color: #f8d463;"><input id="txtProduct" style="font-size: medium;width: 98%;" disabled="disabled"></td>
 					<td style="background-color: #99eeee;" align="center">報廢數</td>
-					<td style="background-color: #99eeee;"><input id="txtWmount" style="font-size: medium;width:50%;text-align: right;"></td>
+					<td style="background-color: #99eeee;" colspan="3"><input id="txtWmount" style="font-size: medium;width:50%;text-align: right;"></td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">工作線號</td>
 					<td style="background-color: #f8d463;"><input id="txtStationno" style="font-size: medium;width: 98%;" disabled="disabled"></td>
 					<td style="background-color: #99eeee;" align="center">維修入庫數</td>
-					<td style="background-color: #99eeee;"><input id="txtFixmount" style="font-size: medium;width:50%;text-align: right;"></td>
+					<td style="background-color: #99eeee;" colspan="3"><input id="txtFixmount" style="font-size: medium;width:50%;text-align: right;"></td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">工作線名</td>
 					<td style="background-color: #f8d463;"><input id="txtStation" style="font-size: medium;width: 98%;" disabled="disabled"></td>
 					<td style="background-color: #99eeee;" align="center" >本次入庫數量</td>
-					<td style="background-color: #99eeee;">
+					<td style="background-color: #99eeee;" colspan="3">
 						<input id="txtMount" style="font-size: medium;width:50%;text-align: right;">
 						<input id="btnOK_div_in" type="button" value="入庫" style="font-size: medium;">
 					</td>
@@ -389,7 +405,7 @@
 					<td style="background-color: #f8d463;" align="center">排程數量</td>
 					<td style="background-color: #f8d463;"><input id="txtWorkmount" style="font-size: medium;width: 50%;text-align: right;" disabled="disabled"></td>
 					<td style="background-color: #ffffaa;" align="center">本次退件數量</td>
-					<td style="background-color: #ffffaa;">
+					<td style="background-color: #ffffaa;" colspan="3">
 						<input id="txtBmount" style="font-size: medium;width:50%;text-align: right;">
 						<input id="btnOK2_div_in" type="button" value="退件" style="font-size: medium;">
 					</td>
@@ -398,7 +414,7 @@
 					<td style="background-color: #f8d463;" align="center">已入庫量</td>
 					<td style="background-color: #f8d463;"><input id="txtInmount" style="font-size: medium;width: 50%;text-align: right;" disabled="disabled"></td>
 					<td style="background-color: #ffffaa;" align="center">退件原因</td>
-					<td style="background-color: #ffffaa;">
+					<td style="background-color: #ffffaa;" colspan="3">
 						<input id="txtWmemo" style="font-size: medium;width:260px;">
 						<select id="cmbWmemo" style="font-size: medium;width:20px;"> </select>
 					</td>
@@ -406,7 +422,7 @@
 				<tr>
 					<td style="background-color: #f8d463;" align="center">未入庫量</td>
 					<td style="background-color: #f8d463;"><input id="txtUnmount" style="font-size: medium;width: 50%;text-align: right;" disabled="disabled"></td>
-					<td colspan="2" style="text-align: center;"><input id="btnClose_div_in" type="button" value="關閉視窗" style="font-size: medium;"></td>
+					<td colspan="4" style="text-align: center;"><input id="btnClose_div_in" type="button" value="關閉視窗" style="font-size: medium;"></td>
 				</tr>
 			</table>
 		</div>
