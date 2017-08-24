@@ -59,8 +59,9 @@
             }
 
             function mainPost() {
+                bbmMask = [['txtDatea', r_picd]];
                 q_getFormat();
-                bbsMask = [['txtTime1', r_picd],['txtTime2', r_picd]];
+                q_mask(bbmMask);
                 $('#txtDatea').datepicker();
             }
 
