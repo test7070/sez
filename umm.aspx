@@ -326,11 +326,8 @@
             function sum() {
                 var t_money = 0, t_pay = 0, t_sale = 0;
                 for (var j = 0; j < q_bbsCount; j++) {
-                	//$('#txtAcc1_' + j).val().indexOf('2121') == 0 ||
-                    /*if ( $('#txtAcc1_' + j).val().indexOf('7149') == 0 || $('#txtAcc1_' + j).val().indexOf('7044') == 0)
-                        t_money -= q_float('txtMoney_' + j);
-                    else*/
-                        t_money += emp($('#cmbCoin').val())?q_float('txtMoney_' + j):q_float('txtMoneyus_' + j);
+                    t_money = q_add(t_money,emp($('#cmbCoin').val())?q_float('txtMoney_' + j):q_float('txtMoneyus_' + j));
+                    
 					//104/04/29費用不算在收款金額//0601恢復並改為-
                     t_money -= q_float('txtChgs_' + j);
                     t_sale += q_float('txtUnpayorg_' + j);
@@ -347,13 +344,13 @@
                 q_tr('txtSale', t_sale);
                 q_tr('txtTotal', t_money);
                 q_tr('txtPaysale', t_pay);
-                q_tr('txtUnpay', q_float('txtSale') - q_float('txtPaysale'));
-                if (q_float('txtTotal') - q_float('txtPaysale') > 0) {
-                    q_tr('txtOpay', q_float('txtTotal') - q_float('txtPaysale'));
+                q_tr('txtUnpay', q_sub(q_float('txtSale'),q_float('txtPaysale')));
+                if (q_sub(q_float('txtTotal'),q_float('txtPaysale')) > 0) {
+                    q_tr('txtOpay', q_sub(q_float('txtTotal'),q_float('txtPaysale')));
                 } else {
                     q_tr('txtOpay', 0);
                 }
-                q_tr('textOpay', q_float('textOpayOrg') + q_float('txtOpay') - q_float('txtUnopay'));
+                q_tr('textOpay', q_sub(q_add(q_float('textOpayOrg'),q_float('txtOpay')),q_float('txtUnopay')));
             }
 			
 			var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
@@ -379,7 +376,7 @@
                 		for (var i = 0; i < as.length; i++) {
                 			if(q_getPara('sys.project').toUpperCase()=='XY'){
                 				as[i].tablea='vcc_xy';
-                				as[i].memo=as[i].comp+' '+as[i].memo
+                				as[i].memo=as[i].comp+' '+as[i].memo;
                 			}else if(q_getPara('sys.project').toUpperCase()=='RB'){
 								as[i].tablea='vcc_rb';
 							}else if(q_getPara('sys.project').toUpperCase()=='IT'){
