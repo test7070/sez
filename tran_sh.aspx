@@ -17,7 +17,7 @@
             q_tables = 's';
             var q_name = "tran";
             var q_readonly = ['txtNoa', 'txtMount', 'txtVolume', 'txtWeight','txtTotal','txtTotal2', 'txtWorker', 'txtWorker2'];
-            var q_readonlys = [];
+            var q_readonlys = ['txtOrdeno', 'txtCaseno',];
             var bbmNum = [['txtTotal', 10, 2, 1],['txtTotal2', 10, 0, 1]];
             var bbsNum = [['txtMount', 10, 2, 1],['txtTotal', 10, 0, 1],['txtTotal2', 10, 0, 1]];
             var bbmMask = [['txtDatea','999/99/99'],['textMon','999/99']];

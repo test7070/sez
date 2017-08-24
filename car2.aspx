@@ -443,6 +443,8 @@
 
 				//1020904 車牌新增時判斷是否已存在
 				$('#txtNoa').change(function() {
+				    //1060824 車牌自動轉大寫
+				    $('#txtNoa').val($('#txtNoa').val().toUpperCase());
                     var t_where = "where=^^ a.noa ='"+$('#txtNoa').val()+"' ^^";
 					q_gt('car2', t_where, 0, 0, 0, "inscar2");
                 });
