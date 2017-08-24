@@ -16,8 +16,8 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             var q_name = "dmess";
-            var q_readonly = ['txtDatea', 'txtTime', 'txtSender', 'txtOk', 'txtTeam','txtFilenamea'];
-            var bbmNum = [];
+            var q_readonly = ['txtDatea', 'txtTime', 'txtSender', 'txtOk', 'txtTeam', 'txtFilenamea'];
+            var bbmNum = [['txtDays', 10, 0, 1]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -26,8 +26,8 @@
             brwNowPage = 0;
             brwKey = 'noa';
             aPop = new Array();
-			
-			var t_file = new Array();
+
+            var t_file = new Array();
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -44,77 +44,81 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [];
+                bbmMask = [['txtDatea', r_picd],['txtSdate', r_picd]];
                 q_mask(bbmMask);
                 $('#lblReceiver').click(function() {
                     q_box("sss_b2.aspx", 'sss', "510px", "", q_getMsg("lblReceiver"));
                 });
-				
+
                 $('#btnModi').hide();
                 $('#btnDele').hide();
                 $('#btnSeek').hide();
                 $('#btnPrint').hide();
-                
-				if(window.FileReader) {
-				 
-				} else {
-					$('#btnFile').attr('disabled','disabled');
-				   	alert( q_getPara("sys.filereader"));
-				}	
-                $('#btnFile').change(function(e){
-					event.stopPropagation(); 
-				    event.preventDefault();
-					file = $('#btnFile')[0].files[0];
-					if(file){
-						fr = new FileReader();
-						fr.fileName = file.name;
-					    fr.readAsDataURL(file);
-					    fr.onprogress = function(e){
-					    	 if ( e.lengthComputable ) { 
-		                        var per = Math.round( (e.loaded * 100) / e.total) ; 
-		                        $('#FileList').children().last().find('progress').eq(0).attr('value',per);
-		                    }; 
-					    }
-					    fr.onloadstart = function(e){
-					    	$('#FileList').append('<div styly="width:100%;"><progress id="progress" max="100" value="0" ></progress><progress id="progress" max="100" value="0" ></progress><a>'+fr.fileName+'</a></div>');
-					    	$('#btnFile').attr('disabled','disabled');
-					    }
-					    fr.onloadend = function(e){
-					    	$('#FileList').children().last().find('progress').eq(0).attr('value',100);
-					    	
-							console.log(fr.fileName+':'+fr.result.length);
-					    	var oReq = new XMLHttpRequest();
-					    	
-					    	oReq.upload.addEventListener("progress",function(e) {
-						    	if (e.lengthComputable) {
-							    	percentComplete = Math.round((e.loaded / e.total) * 100,0);
-							     	$('#FileList').children().last().find('progress').eq(1).attr('value',percentComplete);
-							    }
-							}, false);
-					    	oReq.upload.addEventListener("load",function(e) {
-							    $('#btnFile').val('');
-							    $('#btnFile').removeAttr('disabled');
-							    t_file.push(fr.fileName);
-							}, false);
 
-							oReq.open("POST", 'dmess_upload.aspx', true);
-							oReq.setRequestHeader("Content-type", "text/plain");
-						    oReq.timeout = 60000;
-						    oReq.ontimeout = function () { alert("Timed out!!!"); }
-							oReq.setRequestHeader("FileName", escape(fr.fileName));
-							oReq.send(fr.result);
-					    };
-					}
-				});
+                if (window.FileReader) {
+
+                } else {
+                    $('#btnFile').attr('disabled', 'disabled');
+                    alert(q_getPara("sys.filereader"));
+                }
+                $('#btnFile').change(function(e) {
+                    event.stopPropagation();
+                    event.preventDefault();
+                    file = $('#btnFile')[0].files[0];
+                    if (file) {
+                        fr = new FileReader();
+                        fr.fileName = file.name;
+                        fr.readAsDataURL(file);
+                        fr.onprogress = function(e) {
+                            if (e.lengthComputable) {
+                                var per = Math.round((e.loaded * 100) / e.total);
+                                $('#FileList').children().last().find('progress').eq(0).attr('value', per);
+                            };
+                        }
+                        fr.onloadstart = function(e) {
+                            $('#FileList').append('<div styly="width:100%;"><progress id="progress" max="100" value="0" ></progress><progress id="progress" max="100" value="0" ></progress><a>' + fr.fileName + '</a></div>');
+                            $('#btnFile').attr('disabled', 'disabled');
+                        }
+                        fr.onloadend = function(e) {
+                            $('#FileList').children().last().find('progress').eq(0).attr('value', 100);
+
+                            console.log(fr.fileName + ':' + fr.result.length);
+                            var oReq = new XMLHttpRequest();
+
+                            oReq.upload.addEventListener("progress", function(e) {
+                                if (e.lengthComputable) {
+                                    percentComplete = Math.round((e.loaded / e.total) * 100, 0);
+                                    $('#FileList').children().last().find('progress').eq(1).attr('value', percentComplete);
+                                }
+                            }, false);
+                            oReq.upload.addEventListener("load", function(e) {
+                                $('#btnFile').val('');
+                                $('#btnFile').removeAttr('disabled');
+                                t_file.push(fr.fileName);
+                            }, false);
+
+                            oReq.open("POST", 'dmess_upload.aspx', true);
+                            oReq.setRequestHeader("Content-type", "text/plain");
+                            oReq.timeout = 60000;
+                            oReq.ontimeout = function() {
+                                alert("Timed out!!!");
+                            }
+                            oReq.setRequestHeader("FileName", escape(fr.fileName));
+                            oReq.send(fr.result);
+                        };
+                    }
+                });
             }
-            
-            function uploadInit(){
-            	t_file = new Array();
-            	$('#FileList').html('');
+
+            function uploadInit() {
+                t_file = new Array();
+                $('#FileList').html('');
             }
-			function q_stPost(){
-				uploadInit();
-			}
+
+            function q_stPost() {
+                uploadInit();
+            }
+
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
@@ -161,7 +165,7 @@
                 _btnIns();
                 $('#txtDatea').val(q_date());
                 var t_time = new Date();
-                $('#txtTime').val(t_time.getHours() + ':' + ('00' + t_time.getMinutes()).slice(-2));
+                $('#txtTime').val(('00' + t_time.getHours()).slice(-2) + ':' + ('00' + t_time.getMinutes()).slice(-2));
                 $('#txtSender').val(r_userno);
                 $('#txtMessage').focus();
                 uploadInit();
@@ -180,7 +184,7 @@
             }
 
             function btnOk() {
-            	$('#txtFilenamea').val(t_file.toString());
+                $('#txtFilenamea').val(t_file.toString());
                 q_gtnoa(q_name, replaceAll(r_userno + q_date(), '/', ''));
             }
 
@@ -199,19 +203,19 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
-				if (t_para) {
-					if(window.FileReader) {
-					   $('#btnFile').attr('disabled','disabled');
-					} else {
-					   //the browser doesn't support the FileReader Object, so do this
-					}
-                    
+                if (t_para) {
+                    if (window.FileReader) {
+                        $('#btnFile').attr('disabled', 'disabled');
+                    } else {
+                        //the browser doesn't support the FileReader Object, so do this
+                    }
+
                 } else {
-                	if(window.FileReader) {
-					  $('#btnFile').removeAttr('disabled');
-					} else {
-					   //the browser doesn't support the FileReader Object, so do this
-					}	
+                    if (window.FileReader) {
+                        $('#btnFile').removeAttr('disabled');
+                    } else {
+                        //the browser doesn't support the FileReader Object, so do this
+                    }
                 }
             }
 
@@ -313,10 +317,10 @@
                 height: 35px;
             }
             .tbbm tr td {
-                width: 15%;
+              /* width: 15%;**/
             }
             .tbbm .tdZ {
-                width: 1%;
+                /*width: 1%;*/
             }
             .tbbm tr td span {
                 float: right;
@@ -422,15 +426,13 @@
 			<div class="dview" id="dview" >
 				<table class="tview" id="tview" >
 					<tr>
-						<td style="width:2%"><a id='vewChk'></a></td>
-						<td style="width:10%"><a id='vewDatea'></a></td>
-						<td style="width:20%"><a id='vewReceiver'></a></td>
-						<td class="style1"><a id='vewMessage'></a></td>
+						<td style="width:2%"><a id='vewChk'> </a></td>
+						<td style="width:10%"><a id='vewDatea'> </a></td>
+						<td style="width:20%"><a id='vewReceiver'> </a></td>
+						<td class="style1"><a id='vewMessage'> </a></td>
 					</tr>
 					<tr>
-						<td>
-						<input id="chkBrow.*" type="checkbox" style=''/>
-						</td>
+						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
 						<td id='datea'>~datea</td>
 						<td id='receiver'>~receiver</td>
 						<td id='message,25' class="style1">~message,25</td>
@@ -438,53 +440,47 @@
 				</table>
 			</div>
 			<div class='dbbm'>
-				<table class="tbbm"  id="tbbm">
+				<table class="tbbm" id="tbbm">
 					<tr style="height:1px;">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td class="tdZ"></td>
+						<td style="width: 110px;"> </td>
+						<td style="width: 150px;"> </td>
+						<td style="width: 110px;"> </td>
+						<td style="width: 150px;"> </td>
+						<td style="width: 110px;"> </td>
+						<td style="width: 150px;"> </td>
+						<td style="width: 20px;"> </td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblDatea' class="lbl"></a></td>
+						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td>
-						<input id="txtNoa" style="display:none;"/>
-						<input id="txtSender" style="display:none;"/>
-						<input id="txtDatea"  type="text" class="txt" style="width:50%;"/>
-						<input id="txtTime"  type="text" class="txt" style="width:50%;"/>
+							<input id="txtNoa" style="display:none;"/>
+							<input id="txtSender" style="display:none;"/>
+							<input id="txtDatea" type="text" class="txt" style="width:65%;"/>
+							<input id="txtTime" type="text" class="txt" style="width:33%;"/>
 						</td>
-						<td><span> </span><a id='lblSdate' class="lbl"></a></td>
-						<td>
-						<input id="txtSdate"  type="text" class="txt c1"/>
-						</td>
-						<td><span> </span><a id='lblDays' class="lbl"></a></td>
-						<td>
-						<input id="txtDays"  type="text" class="txt c1"/>
-						</td>
+						<td><span> </span><a id='lblSdate' class="lbl"> </a></td>
+						<td><input id="txtSdate" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblDays' class="lbl"> </a></td>
+						<td><input id="txtDays" type="text" class="txt c1"/></td>
 					</tr>
 					<tr >
-						<td><span> </span><a id='lblReceiver' class="lbl btn"></a></td>
-						<td colspan="5">
-						<input id="txtReceiver"  type="text" class="txt c1"/>
-						</td>
+						<td><span> </span><a id='lblReceiver' class="lbl btn"> </a></td>
+						<td colspan="5"><input id="txtReceiver" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblMessage' class="lbl"></a></td>
-						<td colspan="5">						<textarea id="txtMessage" cols="10" rows="5" style="width: 100%; height: 50px;"></textarea></td>
+						<td><span> </span><a id='lblMessage' class="lbl"> </a></td>
+						<td colspan="5"><textarea id="txtMessage" cols="10" rows="5" style="width: 100%; height: 50px;"> </textarea></td>
 					</tr>
 					<tr >
 						<td><span> </span><a id='lblFilenamea' class="lbl">檔案</a></td>
-						<td colspan="5"><input id="txtFilenamea"  type="text" class="txt c1"/></td>
+						<td colspan="5"><input id="txtFilenamea" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td></td>
+						<td> </td>
 						<td colspan="5"><input type="file" id="btnFile" value="上傳"/></td>
 					</tr>
 					<tr>
-						<td></td>
+						<td> </td>
 						<td colspan="5" id="FileList"> </td>
 					</tr>
 				</table>
