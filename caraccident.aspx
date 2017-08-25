@@ -65,7 +65,74 @@
 				$('#txtReparationmoney').change(function() {
                 	q_tr('txtConciliatorymoney',q_add(q_add(q_float('txtClaimmoney'),q_float('txtSelfmoney')),q_float('txtReparationmoney')));
 				});
+				
+                $('#btnUpload').change(function() {
+                    if(!(q_cur==1 || q_cur==2)){
+                        return;
+                    }
+                    var file = $(this)[0].files[0];
+                    if(file){
+                        Lock(1);
+                        var ext = '';
+                        var extindex = file.name.lastIndexOf('.');
+                        if(extindex>=0){
+                            ext = file.name.substring(extindex,file.name.length);
+                        }
+                        $('#txtImages').val(file.name);
+                        //$('#txtGtime').val(guid()+Date.now()+ext);
+                        //106/05/22 不再使用亂數編碼
+                        $('#txtGtime').val(file.name);
+                        
+                        fr = new FileReader();
+                        fr.fileName = $('#txtGtime').val();
+                        fr.readAsDataURL(file);
+                        fr.onprogress = function(e){
+                            if ( e.lengthComputable ) { 
+                                var per = Math.round( (e.loaded * 100) / e.total) ; 
+                                $('#FileList').children().last().find('progress').eq(0).attr('value',per);
+                            }; 
+                        }
+                        fr.onloadstart = function(e){
+                            $('#FileList').append('<div styly="width:100%;"><progress id="progress" max="100" value="0" ></progress><progress id="progress" max="100" value="0" ></progress><a>'+fr.fileName+'</a></div>');
+                        }
+                        fr.onloadend = function(e){
+                            $('#FileList').children().last().find('progress').eq(0).attr('value',100);
+                            console.log(fr.fileName+':'+fr.result.length);
+                            var oReq = new XMLHttpRequest();
+                            oReq.upload.addEventListener("progress",function(e) {
+                                if (e.lengthComputable) {
+                                    percentComplete = Math.round((e.loaded / e.total) * 100,0);
+                                    $('#FileList').children().last().find('progress').eq(1).attr('value',percentComplete);
+                                }
+                            }, false);
+                            oReq.upload.addEventListener("load",function(e) {
+                                Unlock(1);
+                            }, false);
+                            oReq.upload.addEventListener("error",function(e) {
+                                alert("資料上傳發生錯誤!");
+                            }, false);
+                                
+                            oReq.timeout = 360000;
+                            oReq.ontimeout = function () { alert("Timed out!!!"); }
+                            oReq.open("POST", 'caraccident_upload.aspx', true);
+                            oReq.setRequestHeader("Content-type", "text/plain");
+                            oReq.setRequestHeader("FileName", escape(fr.fileName));
+                            oReq.send(fr.result);//oReq.send(e.target.result);
+                        };
+                    }
+                    ShowDownlbl();
+                });
             }
+            
+            $('#lblDownload').click(function(){
+                    if($('#txtImages').val().length>0 && $('#txtGtime').val().length>0){
+                        $('#xdownload').attr('src','caraccident_download.aspx?FileName='+$('#txtImages').val()+'&TempName='+$('#txtGtime').val());
+                    }else if($('#txtGtime').val().length>0){
+                        $('#xdownload').attr('src','caraccident_download.aspx?FileName='+$('#txtNoa').val()+'&TempName='+$('#txtGtime').val());
+                    }else{    
+                        alert('無資料...!!');
+                    }
+            });
 
             function q_boxClose(s2) {
                 var ret;
@@ -508,6 +575,16 @@
 						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr10">
+					    <td> </td>
+                        <td colspan="3">
+                            <input type="file" multiple="multiple" id="btnUpload" value="選擇檔案" style="width: 70%;"/>
+                            <input id="txtImages" type="hidden" class="txt c1"/><!--原檔名-->
+                            <input id="txtGtime" type="hidden" class="txt c1"/><!--上傳檔名-->
+                            <a id="lblDownload" class='lbl btn'> </a>
+                            <td style="display: none;"><div style="width:100%;" id="FileList"> </div></td>
+                        </td>
+                    </tr>
+					<tr class="tr10">
 						<td><span> </span><a id="lblMemo2" class="lbl"> </a></td>
 						<td colspan="3"><textarea id="txtMemo2" rows="5" cols="10" style="width:95%; height: 50px;"> </textarea></td>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
@@ -516,6 +593,7 @@
 				</table>
 			</div>
 		</div>
+		<div class='images' style="float: left;"> </div>
 		<input id="q_sys" type="hidden" />
 	</body>
 </html>
