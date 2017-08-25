@@ -1711,7 +1711,7 @@
 	            	$('#btnWork').attr('disabled', 'disabled');
 	            	$('#btnCug').attr('disabled', 'disabled');
 	            	$('#btnSplit').attr('disabled', 'disabled');
-	            	$('#btnCugt').attr('disabled', 'disabled');
+	            	$('#btnCugt').removeAttr('disabled');
 	            	$('#btnWorkReal').removeAttr('disabled');
 	            	$('#btnWorkRealAll').removeAttr('disabled');
 	            	$('#btnCugt2').removeAttr('disabled');
@@ -1721,7 +1721,7 @@
 	            	$('#btnWork').removeAttr('disabled');
 	            	$('#btnCug').removeAttr('disabled');
 	            	$('#btnSplit').removeAttr('disabled');
-	            	$('#btnCugt').removeAttr('disabled');
+	            	$('#btnCugt').attr('disabled', 'disabled');
 	            	$('#btnWorkReal').attr('disabled', 'disabled');
 	            	$('#btnWorkRealAll').attr('disabled', 'disabled');
 	            	$('#btnCugt2').attr('disabled', 'disabled');
