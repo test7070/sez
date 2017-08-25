@@ -1580,7 +1580,6 @@
 							<input id="txtProductno" type="text" class="txt c3"/>
 							<input id="txtProduct" type="text" class="txt c4"/>
 						</td>
-						<td><input id="btnWorkgg" type="button"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblFactno" class="lbl btn"> </a></td>
@@ -1588,11 +1587,12 @@
 							<input id="txtFactno" type="text" class="txt c3"/>
 							<input id="txtFact" type="text" class="txt c4"/>
 						</td>
-						<td><input id="btnWorkg2ordb" type="button" /></td>
+						<td><input id="btnWork" type="button"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl" > </a></td>
 						<td colspan="4"><input id="txtMemo" type="text" class="txt c1"/></td>
+						<td><input id="btnWorkg2ordb" type="button" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblOrdbno" class="lbl btn"> </a></td>
@@ -1600,7 +1600,7 @@
 							<input id="txtOrdbno" type="text" class="txt c1"/>
 							<input id="txtOrdano" type="text" class="txt c1" style="display: none;"/>
 						</td>
-						<td><input id="btnWork" type="button"/></td>
+						<td><input id="btnWorkgg" type="button"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>

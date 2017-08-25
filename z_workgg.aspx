@@ -139,6 +139,10 @@
 						dbf : 'model',
 						index : 'noa,model',
 						src : 'model_b.aspx'
+					}, {
+						type : '8', //[29]
+						name : 'xshowatotal',
+						value : ('1@顯示小計').split(',')
 					}]
 				});
 				
@@ -230,6 +234,11 @@
 				$('#chkXshownowork').css('width','250px');
 				$('#chkXshownowork span').css('width','200px');
 				$('#Xshownowork .label').css('width','5px');
+				
+				$('#Xshowatotal').css('width','300px');
+				$('#chkXshowatotal').css('width','250px');
+				$('#chkXshowatotal span').css('width','200px');
+				$('#Xshowatotal .label').css('width','5px');
 				
 				$('#txtXmaxgen').change(function() {
 					var t_mount=dec($('#txtXmaxgen').val());
@@ -425,6 +434,10 @@
 							var tmp=replaceAll(tpara[i].split('=')[1],"'",'');
 							$('#txtXmodelno1a').val(tmp).change();
 							$('#txtXmodelno2a').val(tmp).change();
+						}else if(tpara[i].indexOf('productno')>-1){
+							var tmp=replaceAll(tpara[i].split('=')[1],"'",'');
+							$('#txtXproductno1a').val(tmp).change();
+							$('#txtXproductno2a').val(tmp).change();
 						}else if(tpara[i].indexOf('xaction')>-1){
 							var tmp=replaceAll(tpara[i].split('=')[1],"'",'');
 							txaction=tmp;
@@ -637,6 +650,8 @@
 						if (as[0] == undefined) {
 							alert('沒有資料!!');
 						}else{
+							//106/08/25 顯示週小計
+							var showatotal=$("#chkXshowatotal [type=checkbox]").prop('checked');
 							var t_bdate = $.trim($('#txtXdate1').val());
 							var t_edate = $.trim($('#txtXdate2').val());
 							t_bdate = (t_bdate.length>=9?t_bdate:q_date());
@@ -667,8 +682,8 @@
 										itotal:0
 									});
 								}else{
-									//小計欄
-									if(j!=0){
+									//禮拜日 當成周小計欄
+									if(j!=0 && showatotal){
 										DateList.push('週小計');
 										DateObj.push({
 											datea:'週小計',
@@ -752,7 +767,7 @@
 							var rowline=0;
 							for(var k=0;k<TL.length;k++){
 								//插入工作線別小計
-								if(t_stationno!='#non' && t_stationno!=TL[k].stationno){
+								if(t_stationno!='#non' && t_stationno!=TL[k].stationno && showatotal){
 									OutHtml += "<tr><td colspan='2' class='sTotal num'></td>";
 									OutHtml += "<td class='sTotal stationno'>" + t_stationno + "</td><td class='sTotal station'>" + t_station + "</td>" ;
 									OutHtml += "<td class='sTotal num'>小計：</td>";
@@ -853,10 +868,10 @@
 										
 										if(t_xshownowork=='1'){
 											//OutHtml += "<td class='num'>" + Zerospaec(round(TTD[j][1],0)) +"<BR><a style='color:red;'>"+Zerospaec(round(TTD[j][2],0)) + "</a></td>";
-											OutHtml += "<td class='num'>" + (round(TTD[j][1],0)==0 && TTD[j][1]>0?round(TTD[j][1],2):Zerospaec(round(TTD[j][1],0))) +"<BR><a style='color:red;'>"+(round(TTD[j][2],0)==0 && TTD[j][2]>0?round(TTD[j][2],2):Zerospaec(round(TTD[j][2],0))) + "</a></td>";
+											OutHtml += "<td class='num'><a href=JavaScript:q_box('z_workgg.aspx',\";cuadate='"+DateObj[j].datea+"'&&stationno='"+TL[k].stationno+"'&&productno='"+TL[k].productno+"'&&xaction='z_workgg4';106\",'95%','95%','106')>" + (round(TTD[j][1],0)==0 && TTD[j][1]>0?round(TTD[j][1],2):Zerospaec(round(TTD[j][1],0))) +"</a><BR><a style='color:red;'>"+(round(TTD[j][2],0)==0 && TTD[j][2]>0?round(TTD[j][2],2):Zerospaec(round(TTD[j][2],0))) + "</a></td>";
 										}else{
 											//OutHtml += "<td class='num'>" + Zerospaec(round(TTD[j][1],0)) + "</td>";
-											OutHtml += "<td class='num'>" + (round(TTD[j][1],0)==0 && TTD[j][1]>0?round(TTD[j][1],2):Zerospaec(round(TTD[j][1],0))) + "</td>";
+											OutHtml += "<td class='num'><a href=JavaScript:q_box('z_workgg.aspx',\";cuadate='"+DateObj[j].datea+"'&&stationno='"+TL[k].stationno+"'&&productno='"+TL[k].productno+"'&&xaction='z_workgg4';106\",'95%','95%','106')>" + (round(TTD[j][1],0)==0 && TTD[j][1]>0?round(TTD[j][1],2):Zerospaec(round(TTD[j][1],0))) + "</a></td>";
 										}
 									}
 								}
@@ -876,7 +891,7 @@
 								rowline++;
 							}
 							//插入最後一筆工作線別小計
-							if(t_stationno!='#non'){
+							if(t_stationno!='#non' && showatotal){
 								OutHtml += "<tr><td colspan='2' class='sTotal num'></td>";
 								OutHtml += "<td class='sTotal stationno'>" + t_stationno + "</td><td class='sTotal station'>" + t_station + "</td>" ;
 								OutHtml += "<td class='sTotal num'>小計：</td>";
@@ -1049,6 +1064,22 @@
 								//OutHtml += "<td class='num'>" + Zerospaec(round(wTotal,0)) + "</td>";
 								OutHtml += "<td class='num'>" + (round(wTotal,0)==0 && wTotal>0?round(wTotal,2):Zerospaec(round(wTotal,0))) + "</td>";
 								OutHtml += '</tr>';
+								
+								if(k%20==0 && k!=0){
+									OutHtml += '<tr>';
+									OutHtml += "<td class='tTitle' style='width:370px;' colspan='2' rowspan='2'>物品</td>";
+									OutHtml += "<td class='tTitle' style='width:80px;' rowspan='2'></td>";
+									var tmpTd = '<tr>';
+									for(var j=0;j<DateList.length;j++){
+										var thisDay = DateList[j];
+										var thisADday = r_len==3?dec(thisDay.substring(0,3))+1911+thisDay.substr(3):thisDay;
+										OutHtml += "<td class='tTitle tWidth'>" + thisDay.substr(r_len+1) + "</td>";
+										tmpTd += "<td class='tTitle tWidth'>" + DayName[(new Date(thisADday).getDay())] + "</td>";
+									}
+									OutHtml += "<td class='tTitle tWidth' rowspan='2'>小計</td>";
+									tmpTd += "</tr>"
+									OutHtml += '</tr>' + tmpTd;
+								}
 
 							}
 							OutHtml += "<tr><td colspan='2' rowspan='2' class='tTotal num'>總計：</td>";
@@ -1168,6 +1199,21 @@
 								//OutHtml += "<td class='num'>" + Zerospaec(round(tTotal,0)) + "</td>";
 								OutHtml += "<td class='num'>" + (round(tTotal,0)==0 && tTotal>0?round(tTotal,2):Zerospaec(round(tTotal,0))) + "</td>";
 								OutHtml += '</tr>';
+								
+								if(k%20==0 && k!=0){
+									OutHtml += '<tr>';
+									OutHtml += "<td class='tTitle' style='width:370px;' colspan='2' rowspan='2'>物品</td>";
+									var tmpTd = '<tr>';
+									for(var j=0;j<DateList.length;j++){
+										var thisDay = DateList[j];
+										var thisADday = r_len==3?dec(thisDay.substring(0,3))+1911+thisDay.substr(3):thisDay;
+										OutHtml += "<td class='tTitle tWidth'>" + thisDay.substr(r_len+1) + "</td>";
+										tmpTd += "<td class='tTitle tWidth'>" + DayName[(new Date(thisADday).getDay())] + "</td>";
+									}
+									OutHtml += "<td class='tTitle tWidth' rowspan='2'>小計</td>";
+									tmpTd += "</tr>"
+									OutHtml += '</tr>' + tmpTd;
+								}
 							}
 							OutHtml += "<tr><td colspan='2' class='tTotal num'>總計：</td>";
 							for(var k=0;k<DateObj.length;k++){
