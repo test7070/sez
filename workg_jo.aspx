@@ -1591,7 +1591,10 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl" > </a></td>
-						<td colspan="4"><input id="txtMemo" type="text" class="txt c1"/></td>
+						<td colspan="4">
+							<!--<input id="txtMemo" type="text" class="txt c1"/>-->
+							<textarea id="txtMemo" rows='5' cols='10' style="width:97%; height: 50px;"> </textarea>
+						</td>
 						<td><input id="btnWorkg2ordb" type="button" /></td>
 					</tr>
 					<tr>
