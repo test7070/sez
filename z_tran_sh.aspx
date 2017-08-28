@@ -22,6 +22,14 @@
             	q_getId();
                 q_gf('', 'z_tran_sh');
             });
+            
+            aPop = new Array(
+                ['txtXaddr1b', '', 'addr', 'noa,addr', 'txtXaddr1a,txtXaddr1b', 'addr_b.aspx'],
+                ['txtXaddr2b', '', 'addr', 'noa,addr', 'txtXaddr2a,txtXaddr2b', 'addr_b.aspx'],
+                ['txtXaddr21b', '', 'addr', 'noa,addr', 'txtXaddr21a,txtXaddr21b', 'addr_b.aspx'],
+                ['txtXaddr22b', '', 'addr', 'noa,addr', 'txtXaddr22a,txtXaddr22b', 'addr_b.aspx']
+            );
+            
             function q_gfPost() {
                $('#q_report').q_report({
                         fileName : 'z_tran_sh',
@@ -50,7 +58,7 @@
                     },{
                         type : '2', //[10][11]
                         name : 'xaddr2',
-                        dbf : 'addr2',
+                        dbf : 'addr',
                         index : 'noa,addr',
                         src : 'addr_b.aspx'
                     },{
@@ -101,7 +109,43 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtXdate2').val(t_year+'/'+t_month+'/'+t_day);
-	                }
+                
+                    $('#txtXaddr1b').removeAttr('disabled');
+                    $('#txtXaddr2b').removeAttr('disabled');
+                    $('#txtXaddr21b').removeAttr('disabled');
+                    $('#txtXaddr22b').removeAttr('disabled');
+
+                    $('#txtXaddr1b').change(function() {
+                        if($('#txtXaddr1a').val().length==0){
+                            $('#txtXaddr1a').val($('#txtXaddr1b').val());
+                        }
+                        
+                    });
+                    
+                    $('#txtXaddr2b').change(function() {
+                        if($('#txtXaddr2a').val().length==0){
+                            $('#txtXaddr2a').val($('#txtXaddr2b').val());
+                        }
+                        
+                    });
+                    
+                    $('#txtXaddr21b').change(function() {
+                        if($('#txtXaddr21a').val().length==0){
+                            $('#txtXaddr21a').val($('#txtXaddr21b').val());
+                        }
+                        
+                    });
+                    
+                    $('#txtXaddr22b').change(function() {
+                        if($('#txtXaddr22a').val().length==0){
+                            $('#txtXaddr22a').val($('#txtXaddr22b').val());
+                        }
+                        
+                    });
+
+   
+	        }
+
 
             function q_boxClose(s2) {
             }

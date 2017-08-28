@@ -90,11 +90,29 @@
 							$('#txtNoa').focus();
                 		 }
                 		break;
+                	case 'btnDele':
+                        var as = _q_appendData("car2", "", true);
+                        if (as[0] != undefined) {
+                            var t_msg = "",t_carownerno=0;
+                            for(var i=0;i<as.length;i++){
+                                t_carownerno = parseFloat(as[i].carownerno.length==0?"0":as[i].carownerno);
+                                if(t_carownerno!=0)
+                                    t_msg += String.fromCharCode(13)+'車牌號碼【'+as[i].noa+'】 ';
+                            }
+                            if(t_msg.length>0){
+                                alert('尚有車籍資料:'+ t_msg);
+                                Unlock(1);
+                                return;
+                            }
+                        }
+                        _btnDele();
+                        Unlock(1);
+                        break;
                     case q_name:
                         if (q_cur == 1) {
                             var as = _q_appendData("carowner", "", true);
                             if (as[0] != undefined) {
-                                $('#txtNoa').val(as[0].noa.substr(0, 1) + (dec(as[0].noa.substr(1)) + 1));
+                                $('#txtNoa').val(as[0].noa.substr(0, 1) + (('000'+((isNaN(dec(as[as.length-1].noa.slice(-3)))?0:dec(as[as.length-1].noa.slice(-3)))+1)).slice(-3)));
                             }else{
                             	$('#txtNoa').val('H001');
                             }
@@ -216,7 +234,14 @@
             }
 
             function btnDele() {
-                _btnDele();
+                if(q_getPara('sys.project').toUpperCase()!="EFB"){
+                    _btnDele();
+                }else{
+                    Lock(1,{opacity:0});
+                    var t_where =" where=^^ carownerno='"+ $('#txtNoa').val()+"'^^";
+                    q_gt('car2', t_where, 0, 0, 0, 'btnDele',r_accy);
+                }
+                
             }
 
             function btnCancel() {

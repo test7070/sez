@@ -122,9 +122,7 @@
                     }
                     ShowDownlbl();
                 });
-            }
-            
-            $('#lblDownload').click(function(){
+                $('#lblDownload').click(function(){
                     if($('#txtImages').val().length>0 && $('#txtGtime').val().length>0){
                         $('#xdownload').attr('src','caraccident_download.aspx?FileName='+$('#txtImages').val()+'&TempName='+$('#txtGtime').val());
                     }else if($('#txtGtime').val().length>0){
@@ -132,7 +130,8 @@
                     }else{    
                         alert('無資料...!!');
                     }
-            });
+                });
+            }
 
             function q_boxClose(s2) {
                 var ret;
@@ -193,6 +192,7 @@
                     return;
 
                 _btnModi();
+                ShowDownlbl();
                 $('#txtDatea').focus();
             }
 
@@ -239,6 +239,8 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                ShowDownlbl();
+                $('#btnUpload').val('');
 
             }
 
@@ -350,6 +352,13 @@
 			        	break;
 		    	}
 			}
+			function ShowDownlbl() {             
+                $('#lblDownload').text('').hide();
+                if(!emp($('#txtGtime').val()))
+                    $('#lblDownload').text('下載').show();
+            }
+
+			
 		</script>
 		<style type="text/css">
             #dmain {
@@ -575,14 +584,14 @@
 						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr10">
-					    <td> </td>
+					    <td><span> </span><a  id="lblUpload" class="lbl">圖片上傳</a></td>
                         <td colspan="3">
                             <input type="file" multiple="multiple" id="btnUpload" value="選擇檔案" style="width: 70%;"/>
                             <input id="txtImages" type="hidden" class="txt c1"/><!--原檔名-->
                             <input id="txtGtime" type="hidden" class="txt c1"/><!--上傳檔名-->
                             <a id="lblDownload" class='lbl btn'> </a>
-                            <td style="display: none;"><div style="width:100%;" id="FileList"> </div></td>
                         </td>
+                        <td style="display: none;"><div style="width:100%;" id="FileList"> </div></td>
                     </tr>
 					<tr class="tr10">
 						<td><span> </span><a id="lblMemo2" class="lbl"> </a></td>
@@ -593,7 +602,7 @@
 				</table>
 			</div>
 		</div>
-		<div class='images' style="float: left;"> </div>
+		<iframe id="xdownload" style="display:none;"> </iframe>
 		<input id="q_sys" type="hidden" />
 	</body>
 </html>
