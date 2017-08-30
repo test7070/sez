@@ -114,8 +114,12 @@
 							alert(q_chkEmpField([['txtTggno', q_getMsg('lblTgg')],['txtStoreinno', q_getMsg('lblStoreinno')]]));
 							return;
 						}
-						
-						var t_where = "where=^^ ['" + q_date() + "','" + $('#txtStoreinno').val() + "','') where productno=b.productno ^^";
+						//106/08/30 改用txt 匯入
+						q_func('qtxt.query.worklimport', 'workl.txt,worklimport,' + encodeURI(q_date()) + ';' + encodeURI($('#txtStoreno').val()) 
+						+ ';' + encodeURI($('#txtStoreinno').val()) + ';' + encodeURI($('#txtStationno').val()) + ';' + encodeURI($('#txtTggno').val())
+						+ ';' + encodeURI($('#txtBdate').val()) + ';' + encodeURI($('#txtEdate').val()) );
+												
+						/*var t_where = "where=^^ ['" + q_date() + "','" + $('#txtStoreinno').val() + "','') where productno=b.productno ^^";
 						
 						var t_where1 = "1=1 and isnull(a.enda,0)!='1' and isnull(a.isfreeze,0)!= '1'";
 						t_where1+=" and a.tggno='"+$('#txtTggno').val()+"' ";
@@ -128,7 +132,7 @@
 							t_where1+=" and a.cuadate between '"+t_bdate+"' and '"+t_edate+"' and a.noa like 'W[0-9]%' ";
 						}
 						t_where1 = "where[1]=^^ "+t_where1+" ^^";
-						q_gt('workk_works', t_where+t_where1, 0, 0, 0, "", r_accy);
+						q_gt('workk_works', t_where+t_where1, 0, 0, 0, "", r_accy);*/
 					}
 				});
 				
@@ -889,6 +893,15 @@
 						break;
 					case 'qtxt.query.c2':
 						_btnOk($('#txtNoa').val(), bbmKey[0], ( bbsHtm ? bbsKey[1] : ''), '', 3)
+						break;
+					case 'qtxt.query.worklimport':
+						var as = _q_appendData("tmp0", "", true, true);
+						if (as[0] != undefined) {
+							for (var i = 0; i < q_bbsCount; i++) {
+								$('#btnMinus_' + i).click()
+							}						
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtStyle,txtUnit,txtMount', as.length, as, 'productno,product,spec,style,unit,diffmount', '');
+						}
 						break;
 					default:
 						break;
