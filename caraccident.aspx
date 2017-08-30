@@ -583,7 +583,7 @@
 						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
 						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
 					</tr>
-					<tr class="tr10">
+					<tr class="tr10" style="display:none;">
 					    <td><span> </span><a  id="lblUpload" class="lbl">圖片上傳</a></td>
                         <td colspan="3">
                             <input type="file" multiple="multiple" id="btnUpload" value="選擇檔案" style="width: 70%;"/>

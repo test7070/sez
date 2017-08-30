@@ -32,7 +32,9 @@
             aPop = new Array(['txtInsurerno', 'lblInsurer', 'insurer', 'noa,comp', 'txtInsurerno,txtInsurer', 'Insurer_b.aspx'],
             ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'Cardeal_b.aspx'],
             ['txtBankno2', 'lblBank2', 'bank', 'noa,bank', 'txtBankno2,txtBank2', 'Bank_b.aspx'],
-            ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp', 'acomp_b.aspx']);
+            ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp', 'acomp_b.aspx'],
+            ['txtZip_home', '', 'addpost', 'noa,county', '0txtZip_home,txtAddr_home', 'addpost_b.aspx'],
+            ['txtZip_conn', '', 'addpost', 'noa,county', '0txtZip_conn,txtAddr_conn', 'addpost_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -50,6 +52,9 @@
             }///  end Main()
 
             function mainPost() {
+                if(q_getPara('sys.project').toUpperCase()=='EFB'){
+                    bbmMask = [['txtIndate', '999/99/99'],['txtBirthday','999/99/99'],['txtTakeofficedate','999/99/99'],['txtLeaveofficedate','999/99/99'],['txtStrdate','999/99/99'],['txtEnddate','999/99/99']];
+                }
             	q_cmbParse("cmbSex",q_getPara('sys.sex'));
             	q_cmbParse("cmbCartype",q_getPara('driver.cartype'));
             	//q_cmbParse("cmbRate",q_getPara('driver.rate'));

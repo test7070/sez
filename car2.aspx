@@ -77,6 +77,7 @@
                 q_cmbParse("cmbCartype", q_getPara('car2.cartype'));
                 q_cmbParse("cmbIsprint", q_getPara('car2.isprint'));
                 q_cmbParse("cmbAuto", q_getPara('car2.auto'));
+                q_cmbParse("cmbOiltype","汽油@汽油,柴油@柴油");
                 
                 if(q_getPara('sys.project').toUpperCase()!="DC"){
                 	$(".btns").hide();
@@ -440,6 +441,31 @@
 				$("#txtCarownerno").change(function() {
                 	sendsignmemo();
 				});
+				
+				$("#cmbCarspecno").change(function() {
+                       var t_cmbCarspecno=$("#cmbCarspecno").val();
+                       var t_oiltype=$("#cmbOiltype").val();
+                       t_where="where=^^ 1=1 and noa=(select top 1 noa from taxfire where carspecno='"+t_cmbCarspecno+"' order by datea desc) ^^";
+                       q_gt('taxfire', 't_where', 0, 0, 0, "taxfire");
+                       t_where1="where=^^ 1=1 and noa=(select top 1 noa from taxbrand where carspecno='"+t_cmbCarspecno+"' and oiltype='"+t_oiltype+"' order by datea desc) ^^";
+                       q_gt('taxbrand', 't_where1', 0, 0, 0, "taxbrand");
+                });
+                
+                $("#txtCc").change(function() {
+                       var t_cmbCarspecno=$("#cmbCarspecno").val();
+                       var t_oiltype=$("#cmbOiltype").val();
+                       t_where="where=^^ 1=1 and noa=(select top 1 noa from taxfire where carspecno='"+t_cmbCarspecno+"' order by datea desc) ^^";
+                       q_gt('taxfire', 't_where', 0, 0, 0, "taxfire");
+                       t_where1="where=^^ 1=1 and noa=(select top 1 noa from taxbrand where carspecno='"+t_cmbCarspecno+"' and oiltype='"+t_oiltype+"' order by datea desc) ^^";
+                       q_gt('taxbrand', 't_where1', 0, 0, 0, "taxbrand");
+                });
+                
+                $("#cmbOiltype").change(function() {
+                       var t_cmbCarspecno=$("#cmbCarspecno").val();
+                       var t_oiltype=$("#cmbOiltype").val();
+                       t_where="where=^^ 1=1 and noa=(select top 1 noa from taxbrand where carspecno='"+t_cmbCarspecno+"' and oiltype='"+t_oiltype+"' order by datea desc) ^^";
+                       q_gt('taxbrand', 't_where', 0, 0, 0, "taxbrand");
+                });
 
 				//1020904 車牌新增時判斷是否已存在
 				$('#txtNoa').change(function() {
@@ -624,6 +650,32 @@
 	                    	alert('車牌重覆!!');
 	                    }
 						break;
+					case 'taxfire':
+                        var as = _q_appendData("taxfire", "", true);
+                        if(as[0]!=undefined){
+                            var taxfires = _q_appendData("taxfires", "", true);
+                            for (var i = 0; i < taxfires.length; i++) {
+                                if(dec(taxfires[i].cc1)<=dec($('#txtCc').val())&&dec(taxfires[i].cc2)>=dec($('#txtCc').val())){
+                                    $('#txtUlicense').val(taxfires[i].ptax);
+                                    $('#txtDlicense').val(taxfires[i].ptax);
+                                }  
+                            }
+                        }
+                        break;
+                    case 'taxbrand':
+                        var as = _q_appendData("taxbrand", "", true);
+                        if(as[0]!=undefined){
+                            var taxbrands = _q_appendData("taxbrands", "", true);
+                            for (var i = 0; i < taxbrands.length; i++) {
+                                if(taxbrands[i].oiltype==$('#cmbOiltype').val()&&dec(taxbrands[i].cc1)<=dec($('#txtCc').val())&&dec(taxbrands[i].cc2)>=dec($('#txtCc').val())){
+                                    $('#txtSpring').val(taxbrands[i].ptax);
+                                    $('#txtSummer').val(taxbrands[i].ptax);
+                                    $('#txtFalla').val(taxbrands[i].ptax);
+                                    $('#txtWinter').val(taxbrands[i].ptax);
+                                }  
+                            }
+                        }
+                        break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -1383,8 +1435,8 @@
 						<td><select id="cmbAuto" style="width:95%;"> </select>	</td>
 						<td><span> </span><a id="lblIrange" class="lbl"> </a></td>
 						<td><input id="txtIrange" type="text"  class="txt c1 num"/>	</td>	
-						<td> </td>
-						<td> </td>
+						<td><span> </span><a id="lblOiltype" class="lbl">油品</a></td>
+                        <td><select id="cmbOiltype" class="txt c1"> </select> </td>
 						<td> </td>
 					</tr>
 					<tr class="carexpense">
