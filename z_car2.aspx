@@ -112,6 +112,35 @@
                 		 'car2', "90%", "600px", $('#btnNotice').val());
                 });
                 
+                $('#btnPassnotice').click(function() {
+                    var xbdate=!emp($('#textBdate').val())?$('#textBdate').val():'';
+                    var xedate=!emp($('#textEdate').val())?$('#textEdate').val():'999/99/99';
+                    var xsssno=!emp($('#textSSSno').val())?$('#textSSSno').val():sssno;
+                    var sss_sql='';
+                    var sssno_count=0;
+                    //檢查最後一個是否有.
+                    if(xsssno.substr(xsssno.length-1,xsssno.length)=='.')
+                        xsssno=xsssno.substr(0,xsssno.length-1);
+                        
+                    while(xsssno.indexOf('.')>-1){
+                        if(sssno_count==0)
+                            sss_sql+="and (sssno='"+xsssno.substr(0,xsssno.indexOf('.'))+"' "
+                        else
+                            sss_sql+="or sssno='"+xsssno.substr(0,xsssno.indexOf('.'))+"' "
+                        sssno_count++;
+                        xsssno=xsssno.substr(xsssno.indexOf('.')+1,xsssno.length);
+                    }
+                    
+                    if(sssno_count>0)
+                        sss_sql+="or sssno='"+xsssno+"')";
+                    else
+                        sss_sql+="and sssno='"+xsssno+"'"
+                        
+                    //婉容說不要顯示報停20130603
+                    q_box("passnotice.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";(a.edate between '"+xbdate+"' and '"+xedate+"' ) "+sss_sql+";"+r_accy,
+                         'car2', "90%", "600px", $('#btnPassnotice').val());
+                });
+                
                 $('#q_report').click(function(e) {
                 	if($(".select")[0].nextSibling.innerText=='監理稅金收單表'){
                 		$('#cartax').show();
@@ -120,8 +149,14 @@
                 	}
                 	if($(".select")[0].nextSibling.innerText=='驗車查詢'){
                 		$('#carnotice').show();
-                	}else{
-                		$('#carnotice').hide();
+                		$('#btnNotice').show();
+                		$('#btnPassnotice').hide();
+                	}else if($(".select")[0].nextSibling.innerText=='通行證查詢'){
+                	    $('#carnotice').show();
+                	    $('#btnPassnotice').show();
+                        $('#btnNotice').hide();
+                	}else{	
+                	    $('#carnotice').hide();
                 	}
                 	
                 	now_report=$('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report;
@@ -358,7 +393,10 @@
 							type : '0',
 							name : 'xproj',
 							value : q_getPara('sys.project').toUpperCase()
-						}]
+						},{/*-[48]*/
+                            type : '6',
+                            name : 'xinsuresheet'
+                        }]
                     });
                     t_init=true;
                     q_getFormat();
@@ -499,6 +537,7 @@
                 $('#btnMontax').val('監理稅金收單作業');
                 
                 $('#btnNotice').val('驗車通知作業');
+                $('#btnPassnotice').val('通行證通知作業');
                 if(iscarno<4){
 	                if(window.parent.q_name=='cara' || window.parent.q_name=='car2'){
 	                	var wParent = window.parent.document;
@@ -689,8 +728,9 @@
 					<tr>
 						<td align="center" colspan="2">
 							<input id="btnNotice" type="button" />
+							<input id="btnPassnotice" type="button" />
 						</td>
-					</tr>
+					</tr>	
 				</table>
 			</div>
 			<div class="prt" style="margin-left: -40px;">

@@ -17,10 +17,14 @@
         }
         var decbbm = [];
         var q_name="passport";
-        var q_readonly = [];
+        var q_readonly = ['txtNoa'];
         var bbmNum = []; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
+
+        aPop = [['txtCarno', 'lblCarno', 'car2', 'carno,carownerno,carowner', 'txtCarno,txtCarownerno,txtCarowner', 'car2_b.aspx']
+            , ['txtTggno', 'lblTgg', 'Tgg', 'noa,nick', 'txtTggno,txtTgg', 'tgg_b.aspx']
+            ];
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -29,7 +33,42 @@
             q_gt(q_name, q_content, q_sqlCount, 1)
             $('#txtNoa').focus
         });
+        
+            function currentData() {
+            }
 
+            currentData.prototype = {
+                data : [],
+                /*排除的欄位,新增時不複製*/
+                exclude : ['txtNoa', 'txtDatea', 'txtBdate', 'txtEdate', 'txtMemo'],
+                /*記錄當前的資料*/
+                copy : function() {
+                    curData.data = new Array();
+                    for (var i in fbbm) {
+                        var isExclude = false;
+                        for (var j in curData.exclude) {
+                            if (fbbm[i] == curData.exclude[j]) {
+                                isExclude = true;
+                                break;
+                            }
+                        }
+                        if (!isExclude) {
+                            curData.data.push({
+                                field : fbbm[i],
+                                value : $('#' + fbbm[i]).val()
+                            });
+                        }
+                    }
+                },
+                /*貼上資料*/
+                paste : function() {
+                    for (var i in curData.data) {
+                        $('#' + curData.data[i].field).val(curData.data[i].value);
+                    }
+                }
+            };
+            var curData = new currentData();
+            
        function main() {
            if (dataErr)   
            {
@@ -42,7 +81,8 @@
         }  ///  end Main()
 
 
-        function mainPost() { 
+        function mainPost() {
+            bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtBtime', '99:99'], ['txtEtime', '99:99']]; 
             q_mask(bbmMask);
            
         }
@@ -76,9 +116,17 @@
         }
 
         function btnIns() {
-            _btnIns();
-            refreshBbm();
-            $('#txtNoa').focus();
+                if ($('#Copy').is(':checked')) {
+                    curData.copy();
+                }
+                _btnIns();
+                if ($('#Copy').is(':checked')) {
+                    curData.paste();
+                }
+                $('#txtNoa').val('AUTO'); 
+                $('#txtDatea').val(q_date()).focus();
+                
+      
         }
 
         function btnModi() {
@@ -118,15 +166,8 @@
         
         function refresh(recno) {
             _refresh(recno);
-           refreshBbm();
+
         }
-		function refreshBbm(){
-            	if(q_cur==1){
-            		$('#txtNoa').css('color','black').css('background','white').removeAttr('readonly');
-            	}else{
-            		$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
-            	}
-            }
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
         }
@@ -308,13 +349,13 @@
 	<body>
 			<!--#include file="../inc/toolbar.inc"-->
 			<div id='dmain' style="overflow:hidden;">
-				<div class="dview" id="dview" style="float: left;  width:25%;"  >
+				<div class="dview" id="dview" style="float: left;  width:35%;"  >
 					<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 						<tr>
                             <td align="center" style="width:5%"><a id='vewChk'> </a></td>
                             <td align="center" style="width:25%"><a id='vewCarno'> </a></td>
-                            <td align="center" style="width:22%"><a id='tgg'> </a></td>
-                            <td align="center" style="width:43%"><a id='vewBdate'> </a></td>
+                            <td align="center" style="width:25%"><a id='vewTgg'> </a></td>
+                            <td align="center" style="width:40%"><a id='vewBdate'> </a></td>
                         </tr>
                         <tr>
                             <td >
@@ -326,27 +367,30 @@
                         </tr>
 					</table>
 				</div>
-				<div class='dbbm' style="width: 50%;float: left;">
+				<div class='dbbm' style="width: 55%;float: left;">
 					<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
 						<tr>
 							<td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
 							<td class="td2"><input id="txtNoa"  type="text" class="txt c1" /></td>
 							<td class="td3"><span> </span><a id='lblDatea' class="lbl"></a></td>
                             <td class="td4"><input id="txtDatea"  type="text" class="txt c1" /></td>
-                            <td class="td4"></td>
+                            <td class="td5" style="text-align: center;">
+                                <input id="Copy" type="checkbox" />
+                                <span> </span><a id="lblCopy">複製</a>
+                            </td>
 						</tr>
 						<tr>
-                            <td class="td1"><span> </span><a id='lblCarno' class="lbl"></a></td>
+                            <td class="td1"><span> </span><a id='lblCarno' class="lbl btn"></a></td>
                             <td class="td2"><input id="txtCarno"  type="text"  class="txt c1"/></td>
-                            <td class="td3"><span> </span><a id='lblDriver' class="lbl"></a></td>
-                            <td class="td4" colspan="2"><input id="txtDriverno"  type="text"  class="txt c1" style="width: 40%"/>
-                                            <input id="txtDriver"  type="text"  class="txt c1" style="width: 50%"/> </td>
+                            <td class="td3"><span> </span><a id='lblCarowner' class="lbl"></a></td>
+                            <td class="td4" colspan="2"><input id="txtCarownerno"  type="text"  class="txt c1" style="width: 40%"/>
+                                            <input id="txtCarowner"  type="text"  class="txt c1" style="width: 50%"/> </td>
 
                         </tr>
                         <tr>
-                            <td class="td1"><span> </span><a id='lblTgg' class="lbl"></a></td>
-                            <td class="td2" colspan="2"><input id="txtTggno"  type="text"  class="txt c1" style="width: 40%"/>
-                                            <input id="txtTgg"  type="text"  class="txt c1" style="width: 50%"/> </td>
+                            <td class="td1"><span> </span><a id='lblTgg' class="lbl btn"></a></td>
+                            <td class="td2" colspan="3"><input id="txtTggno"  type="text"  class="txt c1" style="width: 30%"/>
+                                            <input id="txtTgg"  type="text"  class="txt c1" style="width: 70%"/> </td>
                         </tr>
                         <tr>
                             <td class="td1"><span> </span><a id='lblProductno' class="lbl"></a></td>
@@ -362,19 +406,29 @@
                         </tr>
                         <tr>
                             <td class="td1"><span> </span><a id='lblRoute' class="lbl"></a></td>
-                            <td class="td2" colspan="4"><input id="txtRoute"  type="text"  class="txt num c1"/></td>
+                            <td class="td2" colspan="4">
+                                <textarea id="txtRoute" rows='5' cols='10' style="width:99%; height: 50px;"> </textarea>
+                            </td>
                         </tr>
                         <tr>
-                            <td class="td1" ><span> </span><a id='lblBtime' class="lbl"> </a></td>
+                            <td class="td1" ><span> </span><a id='lblBdate' class="lbl"> </a></td>
                             <td class="td2" colspan="2">
-                                <input id="txtBtime"  type="text" class="txt" style="width: 100px;"/>
+                                <input id="txtBdate"  type="text" class="txt" style="width: 120px;"/>
                                 <a style="float:left;">~</a>
-                                <input id="txtEtime"  type="text" class="txt" style="width: 100px;"/>
+                                <input id="txtEdate"  type="text" class="txt" style="width: 120px;"/>
+                            </td>
+                            <td class="td4" ><span> </span><a id='lblBtime' class="lbl"> </a></td>
+                            <td class="td5">
+                                <input id="txtBtime"  type="text" class="txt" style="width: 55px;"/>
+                                <a style="float:left;">~</a>
+                                <input id="txtEtime"  type="text" class="txt" style="width: 55px;"/>
                             </td>
                         </tr>
                         <tr>
                             <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
-                            <td class="td2" colspan="4"><input id="txtMemo"  type="text"  class="txt num c1"/></td>
+                            <td class="td2" colspan="4">
+                                <textarea id="txtMemo" rows='5' cols='10' style="width:99%; height: 50px;"> </textarea>
+                            </td>
                         </tr>
 			</table>
 			</div>
