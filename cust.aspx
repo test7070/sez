@@ -309,6 +309,12 @@
 					var t_where = "where=^^ [N'"+$('#txtComp').val() +"')  ^^";
 					q_gt('cust_xy', t_where, 0, 0, 0, "XY_newcust_getpy", r_accy);
 				});*/
+				
+				$('#txtComp').change(function() {
+					if (q_getPara('sys.project').toUpperCase()=='SF'){
+						$('#txtNick').val($('#txtComp').val().substr(0,6));
+					}
+				});
 			}
 			
 			var xy_newnoa=''; 

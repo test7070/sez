@@ -182,6 +182,9 @@
 						q_gt('cust_xy', t_where, 0, 0, 0, "XY_getpy", r_accy);	
 						return;
 					}
+					if (q_getPara('sys.project').toUpperCase()=='SF'){
+						$('#txtNick').val($('#txtComp').val().substr(0,6));
+					}
 				});
 			}
 
