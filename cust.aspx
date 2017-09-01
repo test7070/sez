@@ -311,7 +311,7 @@
 				});*/
 				
 				$('#txtComp').change(function() {
-					if (q_getPara('sys.project').toUpperCase()=='SF'){
+					if (q_getPara('sys.project').toUpperCase()=='SF'){ //106/09/01
 						$('#txtNick').val($('#txtComp').val().substr(0,6));
 					}
 				});

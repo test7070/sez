@@ -182,7 +182,7 @@
 						q_gt('cust_xy', t_where, 0, 0, 0, "XY_getpy", r_accy);	
 						return;
 					}
-					if (q_getPara('sys.project').toUpperCase()=='SF'){
+					if (q_getPara('sys.project').toUpperCase()=='SF'){ //106/09/01
 						$('#txtNick').val($('#txtComp').val().substr(0,6));
 					}
 				});
