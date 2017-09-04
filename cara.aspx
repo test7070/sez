@@ -69,9 +69,10 @@
                 
                 if(q_getPara('sys.project').toUpperCase()=='DC'){
                 	q_readonlys = ['txtCaritem','txtUmmnoa','txtUdate','txtInmoney','txtCarcaccno'];
+                	q_gt('sss', "where=^^ partno='07'^^" , 0, 0, 0, "", r_accy);
+                }else{
+                	q_gt('sss', "where=^^ exists(select * from car2 where sssno=sss.noa) ^^" , 0, 0, 0, "", r_accy);
                 }
-                
-                q_gt('sss', "where=^^ partno='07'^^" , 0, 0, 0, "", r_accy);	
                 
                 /*$('#btnImport').click(function () {
                 	if(emp($('#txtCarno').val())){
