@@ -66,67 +66,95 @@
                 	q_tr('txtConciliatorymoney',q_add(q_add(q_float('txtClaimmoney'),q_float('txtSelfmoney')),q_float('txtReparationmoney')));
 				});
 				
+				var t_i=0;
                 $('#btnUpload').change(function() {
                     if(!(q_cur==1 || q_cur==2)){
                         return;
                     }
-                    var file = $(this)[0].files[0];
-                    if(file){
-                        Lock(1);
-                        var ext = '';
-                        var extindex = file.name.lastIndexOf('.');
-                        if(extindex>=0){
-                            ext = file.name.substring(extindex,file.name.length);
-                        }
-                        $('#txtImages').val(file.name);
-                        //$('#txtGtime').val(guid()+Date.now()+ext);
-                        //106/05/22 不再使用亂數編碼
-                        $('#txtGtime').val(file.name);
-                        
-                        fr = new FileReader();
-                        fr.fileName = $('#txtGtime').val();
-                        fr.readAsDataURL(file);
-                        fr.onprogress = function(e){
-                            if ( e.lengthComputable ) { 
-                                var per = Math.round( (e.loaded * 100) / e.total) ; 
-                                $('#FileList').children().last().find('progress').eq(0).attr('value',per);
-                            }; 
-                        }
-                        fr.onloadstart = function(e){
-                            $('#FileList').append('<div styly="width:100%;"><progress id="progress" max="100" value="0" ></progress><progress id="progress" max="100" value="0" ></progress><a>'+fr.fileName+'</a></div>');
-                        }
-                        fr.onloadend = function(e){
-                            $('#FileList').children().last().find('progress').eq(0).attr('value',100);
-                            console.log(fr.fileName+':'+fr.result.length);
-                            var oReq = new XMLHttpRequest();
-                            oReq.upload.addEventListener("progress",function(e) {
-                                if (e.lengthComputable) {
-                                    percentComplete = Math.round((e.loaded / e.total) * 100,0);
-                                    $('#FileList').children().last().find('progress').eq(1).attr('value',percentComplete);
+                    var files = document.getElementById('btnUpload').files;
+                    var file ='';
+                    var t_txt = '';
+                    t_i=0;
+                    for(var i = 0; i < files.length; i++){
+                        file = files[i];
+                        t_txt += ';'+file.name
+                        if(file){
+                            Lock(1);
+                            var ext = '';
+                            var extindex = file.name.lastIndexOf('.');
+                            if(extindex>=0){
+                                ext = file.name.substring(extindex,file.name.length);
+                            }
+                            $('#txtImages').val(file.name);
+                            //$('#txtGtime').val(guid()+Date.now()+ext);
+                            //106/05/22 不再使用亂數編碼
+                            $('#txtGtime').val(file.name);
+                            
+                            fr = new FileReader();
+                            fr.fileName = $('#txtGtime').val();
+                            fr.readAsDataURL(file);
+                            fr.onprogress = function(e){
+                                if ( e.lengthComputable ) { 
+                                    var per = Math.round( (e.loaded * 100) / e.total) ; 
+                                    $('#FileList').children().last().find('progress').eq(0).attr('value',per);
+                                }; 
+                            }
+                            fr.onloadstart = function(e){
+                                $('#FileList').append('<div styly="width:100%;"><progress id="progress" max="100" value="0" ></progress><progress id="progress" max="100" value="0" ></progress><a>'+fr.fileName+'</a></div>');
+                            }
+                            //多檔案上傳
+                            fr.onloadend = (function(file){
+                                return function (e) {
+                                    $('#FileList').children().last().find('progress').eq(0).attr('value',100);
+                                    console.log(fr.fileName+':'+fr.result.length);
+                                    console.log(e.target.result);
+                                    var oReq = new XMLHttpRequest();
+                                    oReq.upload.addEventListener("progress",function(e) {
+                                        if (e.lengthComputable) {
+                                            percentComplete = Math.round((e.loaded / e.total) * 100,0);
+                                            $('#FileList').children().last().find('progress').eq(1).attr('value',percentComplete);
+                                        }
+                                    });
+                                    oReq.upload.addEventListener("load",function(e) {
+                                        Unlock(1);
+                                    });
+                                    oReq.upload.addEventListener("error",function(e) {
+                                        alert("資料上傳發生錯誤!");
+                                    });
+                                        
+                                    oReq.timeout = 360000;
+                                    oReq.ontimeout = function () { alert("Timed out!!!"); }
+                                    oReq.open("POST", 'caraccident_upload.aspx', true);
+                                    oReq.setRequestHeader("Content-type", "text/plain");
+                                    oReq.setRequestHeader("FileName", escape(file.name));
+                                    oReq.send(e.target.result);//oReq.send(e.target.result);
                                 }
-                            }, false);
-                            oReq.upload.addEventListener("load",function(e) {
-                                Unlock(1);
-                            }, false);
-                            oReq.upload.addEventListener("error",function(e) {
-                                alert("資料上傳發生錯誤!");
-                            }, false);
-                                
-                            oReq.timeout = 360000;
-                            oReq.ontimeout = function () { alert("Timed out!!!"); }
-                            oReq.open("POST", 'caraccident_upload.aspx', true);
-                            oReq.setRequestHeader("Content-type", "text/plain");
-                            oReq.setRequestHeader("FileName", escape(fr.fileName));
-                            oReq.send(fr.result);//oReq.send(e.target.result);
-                        };
+                            })(file);
+                        }
                     }
                     ShowDownlbl();
+                    $('#txtImages').val(t_txt);
+                            //$('#txtGtime').val(guid()+Date.now()+ext);
+                            //106/05/22 不再使用亂數編碼
+                    $('#txtGtime').val(t_txt);
                 });
                 $('#lblDownload').click(function(){
+                    var t_images=$('#txtImages').val().substring(1,$('#txtImages').val().length).split(";");
+                    var t_gtime=$('#txtGtime').val().substring(1,$('#txtGtime').val().length).split(";");
                     if($('#txtImages').val().length>0 && $('#txtGtime').val().length>0){
-                        $('#xdownload').attr('src','caraccident_download.aspx?FileName='+$('#txtImages').val()+'&TempName='+$('#txtGtime').val());
+                            for(i=0;i<t_images.length;i++){
+                                var iframe = document.createElement('iframe');
+                                iframe.src='caraccident_download.aspx?FileName='+t_images[i]+'&TempName='+t_gtime[i];
+                                iframe.style='display: none;'
+                                document.body.appendChild(iframe);
+                            }   
                     }else if($('#txtGtime').val().length>0){
-                        $('#xdownload').attr('src','caraccident_download.aspx?FileName='+$('#txtNoa').val()+'&TempName='+$('#txtGtime').val());
+                            for(i=0;i<t_gtime.length;i++){
+                                var iframe = document.createElement('iframe');
+                                iframe.src='caraccident_download.aspx?FileName='+t_gtime[i]+'&TempName='+t_gtime[i];
+                                iframe.style='display: none;'
+                                document.body.appendChild(iframe);
+                            } 
                     }else{    
                         alert('無資料...!!');
                     }
@@ -246,6 +274,11 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                if(t_para){
+                    $('#btnUpload').attr('disabled', 'disabled');
+                }else{
+                    $('#btnUpload').removeAttr('disabled', 'disabled');
+                }
             }
 
             function btnMinus(id) {
@@ -583,7 +616,7 @@
 						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
 						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
 					</tr>
-					<tr class="tr10" style="display:none;">
+					<tr class="tr10">
 					    <td><span> </span><a  id="lblUpload" class="lbl">圖片上傳</a></td>
                         <td colspan="3">
                             <input type="file" multiple="multiple" id="btnUpload" value="選擇檔案" style="width: 70%;"/>
@@ -593,12 +626,44 @@
                         </td>
                         <td style="display: none;"><div style="width:100%;" id="FileList"> </div></td>
                     </tr>
-					<tr class="tr10">
+					<tr class="tr11">
 						<td><span> </span><a id="lblMemo2" class="lbl"> </a></td>
 						<td colspan="3"><textarea id="txtMemo2" rows="5" cols="10" style="width:95%; height: 50px;"> </textarea></td>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td colspan="3"><textarea id="txtMemo" rows="5" cols="10" style="width:95%; height: 50px;"> </textarea></td>
 					</tr>
+					<tr class="tr12">
+                        <td><span> </span><a id="lblLitigant" class="lbl">(一)當事人</a></td>
+                        <td><input id="txtLitigant" type="text" class="txt c1"/></td>
+                        <td><span> </span><a id="lblLitel" class="lbl">電話</a></td>
+                        <td><input id="txtLitel" type="text" class="txt c1"/></td>
+                        <td><span> </span><a id="lblLicarno" class="lbl">車牌號碼</a></td>
+                        <td><input id="txtLicarno" type="text" class="txt c1"/></td>
+                    </tr>
+                    <tr class="tr13">
+                        <td><span> </span><a id="lblLitigant2" class="lbl">(二)當事人</a></td>
+                        <td><input id="txtLitigant2" type="text" class="txt c1"/></td>
+                        <td><span> </span><a id="lblLitel2" class="lbl">電話</a></td>
+                        <td><input id="txtLitel2" type="text" class="txt c1"/></td>
+                        <td><span> </span><a id="lblLicarno2" class="lbl">車牌號碼</a></td>
+                        <td><input id="txtLicarno2" type="text" class="txt c1"/></td>
+                    </tr>
+                    <tr class="tr14">
+                        <td><span> </span><a id="lblLitigant3" class="lbl">(三)當事人</a></td>
+                        <td><input id="txtLitigant3" type="text" class="txt c1"/></td>
+                        <td><span> </span><a id="lblLitel3" class="lbl">電話</a></td>
+                        <td><input id="txtLitel3" type="text" class="txt c1"/></td>
+                        <td><span> </span><a id="lblLicarno3" class="lbl">車牌號碼</a></td>
+                        <td><input id="txtLicarno3" type="text" class="txt c1"/></td>
+                    </tr>
+                    <tr class="tr15">
+                        <td><span> </span><a id="lblLitigant4" class="lbl">(四)當事人</a></td>
+                        <td><input id="txtLitigant4" type="text" class="txt c1"/></td>
+                        <td><span> </span><a id="lblLitel4" class="lbl">電話</a></td>
+                        <td><input id="txtLitel4" type="text" class="txt c1"/></td>
+                        <td><span> </span><a id="lblLicarno4" class="lbl">車牌號碼</a></td>
+                        <td><input id="txtLicarno4" type="text" class="txt c1"/></td>
+                    </tr>
 				</table>
 			</div>
 		</div>
