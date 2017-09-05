@@ -1333,8 +1333,8 @@
 			        			if(q_getPara('sys.comp').indexOf('祥興')>-1){
 			        				q_tr('txtOstand_'+j,Math.round((dec($('#txtDaymoney_'+j).val())/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
 			        			}else{
-			        				//勞基法加班費基數=日薪+主管津貼+工作津貼+其他津貼+全勤
-			        				q_tr('txtOstand_'+j,Math.round(((dec($('#txtDaymoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtBo_full_'+j).val()))/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
+			        				//勞基法加班費基數=日薪+主管津貼+工作津貼+其他津貼+全勤+伙食費
+			        				q_tr('txtOstand_'+j,Math.round(((dec($('#txtDaymoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtBo_full_'+j).val())+dec($('#txtMeals_'+j).val()))/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
 			        			}
 		        			}
 	        			
@@ -1342,8 +1342,8 @@
 			        			if(q_getPara('sys.comp').indexOf('祥興')>-1){
 			        				q_tr('txtOstand_'+j,Math.round((dec($('#txtDaymoney_'+j).val()))*100)/100);//加班費基數(取小數點兩位並四捨五入)
 			        			}else{
-			        				//勞基法加班費基數=日薪+主管津貼+工作津貼+其他津貼+全勤
-			        				q_tr('txtOstand_'+j,Math.round(((dec($('#txtDaymoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtBo_full_'+j).val())))*100)/100);//加班費基數(取小數點兩位並四捨五入)
+			        				//勞基法加班費基數=日薪+主管津貼+工作津貼+其他津貼+全勤+伙食費
+			        				q_tr('txtOstand_'+j,Math.round(((dec($('#txtDaymoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtBo_full_'+j).val())+dec($('#txtMeals_'+j).val())))*100)/100);//加班費基數(取小數點兩位並四捨五入)
 			        			}
 		        			}
 	        			}
@@ -1371,11 +1371,11 @@
 		        				else
 		        					q_tr('txtOstand_'+j,Math.round((dec($('#txtMoney_'+j).val())/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
 		        			}else{
-		        				//勞基法加班費基數=本俸+主管津貼+工作津貼+其他津貼+全勤
+		        				//勞基法加班費基數=本俸+主管津貼+工作津貼+其他津貼+全勤+伙食費
 		        				if(inday>0)
-		        					q_tr('txtOstand_'+j,Math.round(((dec($('#txtMoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtBo_full_'+j).val()))/inday/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
+		        					q_tr('txtOstand_'+j,Math.round(((dec($('#txtMoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtBo_full_'+j).val())+dec($('#txtMeals_'+j).val()))/inday/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
 		        				else
-			        				q_tr('txtOstand_'+j,Math.round(((dec($('#txtMoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtBo_full_'+j).val()))/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
+			        				q_tr('txtOstand_'+j,Math.round(((dec($('#txtMoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtBo_full_'+j).val())+dec($('#txtMeals_'+j).val()))/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
 		        			}
 	        			}
 	        			
@@ -1445,11 +1445,11 @@
 		        				else
 		        					q_tr('txtOstand_'+j,Math.round((dec($('#txtMoney_'+j).val())/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
 		        			}else{
-		        				//勞基法加班費基數=本俸+主管津貼+工作津貼+其他津貼+全勤
+		        				//勞基法加班費基數=本俸+主管津貼+工作津貼+其他津貼+全勤+伙食費
 		        				if(inday>0)
-			        				q_tr('txtOstand_'+j,Math.round(((dec($('#txtMoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtBo_full_'+j).val()))/inday/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
+			        				q_tr('txtOstand_'+j,Math.round(((dec($('#txtMoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtBo_full_'+j).val())+dec($('#txtMeals_'+j).val()))/inday/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
 			        			else
-			        				q_tr('txtOstand_'+j,Math.round(((dec($('#txtMoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtBo_full_'+j).val()))/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
+			        				q_tr('txtOstand_'+j,Math.round(((dec($('#txtMoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtBo_full_'+j).val())+dec($('#txtMeals_'+j).val()))/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
 		        			}
 	        			}
 	        			//當有核取時扣薪時數和扣薪金額可以直接修改
@@ -1806,16 +1806,16 @@
 			        		if(q_getPara('sys.comp').indexOf('祥興')>-1){
 			        			q_tr('textOstand',Math.round((dec($('#textDaymoney').val())/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
 			        		}else{
-			        			//勞基法加班費基數=日薪+主管津貼+工作津貼+其他津貼+全勤
-			        			q_tr('textOstand',Math.round(((dec($('#textDaymoney').val())+dec($('#textBo_admin').val())+dec($('#textBo_special').val())+dec($('#textBo_oth').val())+dec($('#textBo_full').val()))/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
+			        			//勞基法加班費基數=日薪+主管津貼+工作津貼+其他津貼+全勤+伙食費
+			        			q_tr('textOstand',Math.round(((dec($('#textDaymoney').val())+dec($('#textBo_admin').val())+dec($('#textBo_special').val())+dec($('#textBo_oth').val())+dec($('#textBo_full').val())+dec($('#textMeals').val()))/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
 			        		}
 		        		}
 		        		if($('#cmbPerson').find("option:selected").text().indexOf('時薪')>-1){
 			        		if(q_getPara('sys.comp').indexOf('祥興')>-1){
 			        			q_tr('textOstand',Math.round((dec($('#textDaymoney').val()))*100)/100);//加班費基數(取小數點兩位並四捨五入)
 			        		}else{
-			        			//勞基法加班費基數=日薪+主管津貼+工作津貼+其他津貼+全勤
-			        			q_tr('textOstand',Math.round(((dec($('#textDaymoney').val())+dec($('#textBo_admin').val())+dec($('#textBo_special').val())+dec($('#textBo_oth').val())+dec($('#textBo_full').val())))*100)/100);//加班費基數(取小數點兩位並四捨五入)
+			        			//勞基法加班費基數=日薪+主管津貼+工作津貼+其他津貼+全勤+伙食費
+			        			q_tr('textOstand',Math.round(((dec($('#textDaymoney').val())+dec($('#textBo_admin').val())+dec($('#textBo_special').val())+dec($('#textBo_oth').val())+dec($('#textBo_full').val())+dec($('#textMeals').val())))*100)/100);//加班費基數(取小數點兩位並四捨五入)
 			        		}
 		        		}
 	        		}
@@ -1845,11 +1845,11 @@
 		        			else
 		        				q_tr('textOstand',Math.round((dec($('#textMoney').val())/2/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
 		        		}else{
-		        			//勞基法加班費基數=本俸+主管津貼+工作津貼+其他津貼+全勤
+		        			//勞基法加班費基數=本俸+主管津貼+工作津貼+其他津貼+全勤+伙食費
 		        			if(inday>0)
-		        				q_tr('textOstand',Math.round(((dec($('#textMoney').val())+dec($('#textBo_admin').val())+dec($('#textBo_special').val())+dec($('#textBo_oth').val())+dec($('#textBo_full').val()))/2/inday/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
+		        				q_tr('textOstand',Math.round(((dec($('#textMoney').val())+dec($('#textBo_admin').val())+dec($('#textBo_special').val())+dec($('#textBo_oth').val())+dec($('#textBo_full').val())+dec($('#textMeals').val()))/2/inday/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
 		        			else
-			        			q_tr('textOstand',Math.round(((dec($('#textMoney').val())+dec($('#textBo_admin').val())+dec($('#textBo_special').val())+dec($('#textBo_oth').val())+dec($('#textBo_full').val()))/2/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
+			        			q_tr('textOstand',Math.round(((dec($('#textMoney').val())+dec($('#textBo_admin').val())+dec($('#textBo_special').val())+dec($('#textBo_oth').val())+dec($('#textBo_full').val())+dec($('#textMeals').val()))/2/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
 		        		}
 	        		}
 	        		
@@ -1915,11 +1915,11 @@
 		        			else
 		        				q_tr('textOstand',Math.round((dec($('#textMoney').val())/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
 		        		}else{
-		        			//勞基法加班費基數=本俸+主管津貼+工作津貼+其他津貼+全勤
+		        			//勞基法加班費基數=本俸+主管津貼+工作津貼+其他津貼+全勤+伙食費
 		        			if(inday>0)
-			        			q_tr('textOstand',Math.round(((dec($('#textMoney').val())+dec($('#textBo_admin').val())+dec($('#textBo_special').val())+dec($('#textBo_oth').val())+dec($('#textBo_full').val()))/inday/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
+			        			q_tr('textOstand',Math.round(((dec($('#textMoney').val())+dec($('#textBo_admin').val())+dec($('#textBo_special').val())+dec($('#textBo_oth').val())+dec($('#textBo_full').val())+dec($('#textMeals').val()))/inday/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
 			        		else
-			        			q_tr('textOstand',Math.round(((dec($('#textMoney').val())+dec($('#textBo_admin').val())+dec($('#textBo_special').val())+dec($('#textBo_oth').val())+dec($('#textBo_full').val()))/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
+			        			q_tr('textOstand',Math.round(((dec($('#textMoney').val())+dec($('#textBo_admin').val())+dec($('#textBo_special').val())+dec($('#textBo_oth').val())+dec($('#textBo_full').val())+dec($('#textMeals').val()))/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
 		        		}
 	        		}
 	        		
