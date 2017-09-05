@@ -33,8 +33,8 @@
             ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'Cardeal_b.aspx'],
             ['txtBankno2', 'lblBank2', 'bank', 'noa,bank', 'txtBankno2,txtBank2', 'Bank_b.aspx'],
             ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp', 'acomp_b.aspx'],
-            ['txtZip_home', '', 'addpost', 'noa,county', '0txtZip_home,txtAddr_home', 'addpost_b.aspx'],
-            ['txtZip_conn', '', 'addpost', 'noa,county', '0txtZip_conn,txtAddr_conn', 'addpost_b.aspx']);
+            ['txtZip_home', '', 'view_road', 'zipcode,memo', '0txtZip_home,txtAddr_home', 'road_b.aspx'],
+            ['txtZip_conn', '', 'view_road', 'zipcode,memo', '0txtZip_conn,txtAddr_conn', 'road_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
