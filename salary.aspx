@@ -79,7 +79,7 @@
 	            	q_cmbParse("cmbMonkind", ('').concat(new Array( '本月','上期', '下期')));
 	            }
 	            
-	            if(q_getPara('sys.project').toUpperCase()=='SAL')
+	            if(q_getPara('sys.project').toUpperCase()=='NV')
 	            	q_cmbParse("cmbTypea", ('').concat(new Array('薪資','獎金')));
 	            else
 	            	q_cmbParse("cmbTypea", ('').concat(new Array('薪資')));
@@ -1333,8 +1333,8 @@
 			        			if(q_getPara('sys.comp').indexOf('祥興')>-1){
 			        				q_tr('txtOstand_'+j,Math.round((dec($('#txtDaymoney_'+j).val())/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
 			        			}else{
-			        				//勞基法加班費基數=日薪+主管津貼+工作津貼+其他津貼+全勤+伙食費
-			        				q_tr('txtOstand_'+j,Math.round(((dec($('#txtDaymoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtBo_full_'+j).val())+dec($('#txtMeals_'+j).val()))/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
+			        				//勞基法加班費基數=日薪+主管津貼+工作津貼+其他津貼+全勤 //日薪 與 時薪 應於其他津貼內含 伙食費
+			        				q_tr('txtOstand_'+j,Math.round(((dec($('#txtDaymoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtBo_full_'+j).val()))/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
 			        			}
 		        			}
 	        			
@@ -1342,8 +1342,8 @@
 			        			if(q_getPara('sys.comp').indexOf('祥興')>-1){
 			        				q_tr('txtOstand_'+j,Math.round((dec($('#txtDaymoney_'+j).val()))*100)/100);//加班費基數(取小數點兩位並四捨五入)
 			        			}else{
-			        				//勞基法加班費基數=日薪+主管津貼+工作津貼+其他津貼+全勤+伙食費
-			        				q_tr('txtOstand_'+j,Math.round(((dec($('#txtDaymoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtBo_full_'+j).val())+dec($('#txtMeals_'+j).val())))*100)/100);//加班費基數(取小數點兩位並四捨五入)
+			        				//勞基法加班費基數=日薪+主管津貼+工作津貼+其他津貼+全勤 //日薪 與 時薪 應於其他津貼內含 伙食費
+			        				q_tr('txtOstand_'+j,Math.round(((dec($('#txtDaymoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtBo_full_'+j).val())))*100)/100);//加班費基數(取小數點兩位並四捨五入)
 			        			}
 		        			}
 	        			}
@@ -1806,16 +1806,16 @@
 			        		if(q_getPara('sys.comp').indexOf('祥興')>-1){
 			        			q_tr('textOstand',Math.round((dec($('#textDaymoney').val())/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
 			        		}else{
-			        			//勞基法加班費基數=日薪+主管津貼+工作津貼+其他津貼+全勤+伙食費
-			        			q_tr('textOstand',Math.round(((dec($('#textDaymoney').val())+dec($('#textBo_admin').val())+dec($('#textBo_special').val())+dec($('#textBo_oth').val())+dec($('#textBo_full').val())+dec($('#textMeals').val()))/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
+			        			//勞基法加班費基數=日薪+主管津貼+工作津貼+其他津貼+全勤 //日薪 與 時薪 應於其他津貼內含 伙食費
+			        			q_tr('textOstand',Math.round(((dec($('#textDaymoney').val())+dec($('#textBo_admin').val())+dec($('#textBo_special').val())+dec($('#textBo_oth').val())+dec($('#textBo_full').val()))/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
 			        		}
 		        		}
 		        		if($('#cmbPerson').find("option:selected").text().indexOf('時薪')>-1){
 			        		if(q_getPara('sys.comp').indexOf('祥興')>-1){
 			        			q_tr('textOstand',Math.round((dec($('#textDaymoney').val()))*100)/100);//加班費基數(取小數點兩位並四捨五入)
 			        		}else{
-			        			//勞基法加班費基數=日薪+主管津貼+工作津貼+其他津貼+全勤+伙食費
-			        			q_tr('textOstand',Math.round(((dec($('#textDaymoney').val())+dec($('#textBo_admin').val())+dec($('#textBo_special').val())+dec($('#textBo_oth').val())+dec($('#textBo_full').val())+dec($('#textMeals').val())))*100)/100);//加班費基數(取小數點兩位並四捨五入)
+			        			//勞基法加班費基數=日薪+主管津貼+工作津貼+其他津貼+全勤 //日薪 與 時薪 應於其他津貼內含 伙食費
+			        			q_tr('textOstand',Math.round(((dec($('#textDaymoney').val())+dec($('#textBo_admin').val())+dec($('#textBo_special').val())+dec($('#textBo_oth').val())+dec($('#textBo_full').val())))*100)/100);//加班費基數(取小數點兩位並四捨五入)
 			        		}
 		        		}
 	        		}
