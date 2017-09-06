@@ -68,8 +68,100 @@
                 		}
                 	}
                 });
+                var t_i=0;
+                $('#btnUpload').change(function() {
+                    if(!(q_cur==1 || q_cur==2)){
+                        return;
+                    }
+                    var files = document.getElementById('btnUpload').files;
+                    var file ='';
+                    var t_txt = '';
+                    t_i=0;
+                    for(var i = 0; i < files.length; i++){
+                        file = files[i];
+                        t_txt += ';'+file.name
+                        if(file){
+                            Lock(1);
+                            var ext = '';
+                            var extindex = file.name.lastIndexOf('.');
+                            if(extindex>=0){
+                                ext = file.name.substring(extindex,file.name.length);
+                            }
+                            $('#txtImages').val(file.name);
+                            //$('#txtGtime').val(guid()+Date.now()+ext);
+                            //106/05/22 不再使用亂數編碼
+                            $('#txtGtime').val(file.name);
+                            
+                            fr = new FileReader();
+                            fr.fileName = $('#txtGtime').val();
+                            fr.readAsDataURL(file);
+                            fr.onprogress = function(e){
+                                if ( e.lengthComputable ) { 
+                                    var per = Math.round( (e.loaded * 100) / e.total) ; 
+                                    $('#FileList').children().last().find('progress').eq(0).attr('value',per);
+                                }; 
+                            }
+                            fr.onloadstart = function(e){
+                                $('#FileList').append('<div styly="width:100%;"><progress id="progress" max="100" value="0" ></progress><progress id="progress" max="100" value="0" ></progress><a>'+fr.fileName+'</a></div>');
+                            }
+                            //多檔案上傳
+                            fr.onloadend = (function(file){
+                                return function (e) {
+                                    $('#FileList').children().last().find('progress').eq(0).attr('value',100);
+                                    console.log(fr.fileName+':'+fr.result.length);
+                                    console.log(e.target.result);
+                                    var oReq = new XMLHttpRequest();
+                                    oReq.upload.addEventListener("progress",function(e) {
+                                        if (e.lengthComputable) {
+                                            percentComplete = Math.round((e.loaded / e.total) * 100,0);
+                                            $('#FileList').children().last().find('progress').eq(1).attr('value',percentComplete);
+                                        }
+                                    });
+                                    oReq.upload.addEventListener("load",function(e) {
+                                        Unlock(1);
+                                    });
+                                    oReq.upload.addEventListener("error",function(e) {
+                                        alert("資料上傳發生錯誤!");
+                                    });
+                                        
+                                    oReq.timeout = 360000;
+                                    oReq.ontimeout = function () { alert("Timed out!!!"); }
+                                    oReq.open("POST", 'ticket_upload.aspx', true);
+                                    oReq.setRequestHeader("Content-type", "text/plain");
+                                    oReq.setRequestHeader("FileName", escape(file.name));
+                                    oReq.send(e.target.result);//oReq.send(e.target.result);
+                                }
+                            })(file);
+                        }
+                    }
+                    ShowDownlbl();
+                    $('#txtImages').val(t_txt);
+                            //$('#txtGtime').val(guid()+Date.now()+ext);
+                            //106/05/22 不再使用亂數編碼
+                    $('#txtGtime').val(t_txt);
+                });
+                $('#lblDownload').click(function(){
+                    var t_images=$('#txtImages').val().substring(1,$('#txtImages').val().length).split(";");
+                    var t_gtime=$('#txtGtime').val().substring(1,$('#txtGtime').val().length).split(";");
+                    if($('#txtImages').val().length>0 && $('#txtGtime').val().length>0){
+                            for(i=0;i<t_images.length;i++){
+                                var iframe = document.createElement('iframe');
+                                iframe.src='ticket_download.aspx?FileName='+t_images[i]+'&TempName='+t_gtime[i];
+                                iframe.style='display: none;'
+                                document.body.appendChild(iframe);
+                            }   
+                    }else if($('#txtGtime').val().length>0){
+                            for(i=0;i<t_gtime.length;i++){
+                                var iframe = document.createElement('iframe');
+                                iframe.src='ticket_download.aspx?FileName='+t_gtime[i]+'&TempName='+t_gtime[i];
+                                iframe.style='display: none;'
+                                document.body.appendChild(iframe);
+                            } 
+                    }else{    
+                        alert('無資料...!!');
+                    }
+                });
             }
-
 
             function q_boxClose(s2) {
                 var ret;
@@ -140,14 +232,22 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                ShowDownlbl();
+                $('#btnUpload').val('');
             }
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                if(t_para){
+                    $('#btnUpload').attr('disabled', 'disabled');
+                }else{
+                    $('#btnUpload').removeAttr('disabled', 'disabled');
+                }
             }
 
             function btnMinus(id) {
                 _btnMinus(id);
+                ShowDownlbl();
             }
 
             function btnPlus(org_htm, dest_tag, afield) {
@@ -218,6 +318,13 @@
 					 }
 				}
             }
+            
+             function ShowDownlbl() {             
+                $('#lblDownload').text('').hide();
+                if(!emp($('#txtGtime').val()))
+                    $('#lblDownload').text('下載').show();
+            }
+
 		</script>
 		<style type="text/css">
             #dmain {
@@ -445,6 +552,14 @@
 						<td class="td8">
 						<input id="txtWorker" type="text"  class="txt c1"/>
 						</td>
+						<td><span> </span><a  id="lblUpload" class="lbl">圖片上傳</a></td>
+                        <td colspan="3">
+                            <input type="file" multiple="multiple" id="btnUpload" value="選擇檔案" style="width: 70%;"/>
+                            <input id="txtImages" type="hidden" class="txt c1"/><!--原檔名-->
+                            <input id="txtGtime" type="hidden" class="txt c1"/><!--上傳檔名-->
+                            <a id="lblDownload" class='lbl btn'> </a>
+                        </td>
+                        <td style="display: none;"><div style="width:100%;" id="FileList"> </div></td>
 					</tr>
 				</table>
 			</div>
