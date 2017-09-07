@@ -72,6 +72,7 @@
                     if($('#txtAddrno').val().length>0){
                         $('#txtAddrno_'+i).val($('#txtAddrno').val());
                         $('#txtAddr_'+i).val($('#txtAddr').val());
+                        $('#txtMemo2_'+i).val($('#txtBoat').val());
                     }
                     if($('#txtPo').val().length>0){
                         $('#txtCaseno_'+i).val($('#txtPo').val());
@@ -518,7 +519,7 @@
 				margin: -1px;
 			}
 			.dbbs {
-				width: 2400px;
+				width: 1900px;
 			}
 			.tbbs a {
 				font-size: medium;
@@ -668,26 +669,27 @@
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:80px"><a>危險等級</a></td>
+					<td align="center" style="width:70px"><a>危險等級</a></td>
 					<td align="center" style="width:150px"><a>品名</a></td>
-					<td align="center" style="width:60px"><a>長cm</a></td>
-					<td align="center" style="width:60px"><a>寬cm</a></td>
-					<td align="center" style="width:60px;"><a>高cm</a></td>
-					<td align="center" style="width:80px"><a id="lblVolume1">體積</a></td>
+					<td align="center" style="width:50px"><a>單位</a></td>
+					<!--<td align="center" style="width:70px"><a>長cm</a></td>
+					<td align="center" style="width:70px"><a>寬cm</a></td>
+					<td align="center" style="width:70px;"><a>高cm</a></td>
+					<td align="center" style="width:80px"><a id="lblVolume1">體積</a></td>-->
 					<td align="center" style="width:70px"><a>單位淨<br/>重(KG)</a></td>
-					<td align="center" style="width:80px"><a>毛重(KG)</a></td>
-					<td align="center" style="width:80px"><a>淨重(KG)</a></td>
+					<td align="center" style="width:100px"><a>毛重(KG)</a></td>
+					<td align="center" style="width:100px"><a>淨重(KG)</a></td>
 					<td align="center" style="width:70px"><a>數量</a></td>
-                    <td align="center" style="width:70px"><a>單價</a></td>
-                    <td align="center" style="width:80px"><a>金額</a></td>
+                    <!--<td align="center" style="width:70px"><a>單價</a></td>
+                    <td align="center" style="width:80px"><a>金額</a></td>-->
                     <td align="center" style="width:80px"><a>人工裝費</a></td>
                     <td align="center" style="width:80px"><a>管理收入</a></td>
                     <td align="center" style="width:150px"><a>地點</a></td>
                     <td align="center" style="width:200px"><a>地址</a></td>
                     <td align="center" style="width:80px"><a>車牌</a></td>
-                    <td align="center" style="width:120px"><a>司機</a></td>
-					<td align="center" style="width:120px"><a>提貨日期</a></td>
-					<td align="center" style="width:120px"><a>卸貨日期</a></td>
+                    <td align="center" style="width:140px"><a>司機</a></td>
+					<td align="center" style="width:140px"><a>提貨日期</a></td>
+					<td align="center" style="width:140px"><a>卸貨日期</a></td>
 					<td align="center" style="width:80px"><a>出單日期</a></td>
 					<td align="center" style="width:100px"><a>注意事項</a></td>
 				</tr>
@@ -703,16 +705,17 @@
 						<input type="text" id="txtProduct.*" style="width:55%;" />
 						<input type="button" id="btnProduct.*" style="display:none;">
 					</td>
-					<td><input type="text" id="txtLengthb.*" class="num" style="width:95%;" /> </td>
+					<td><input type="text" id="txtUnit.*" class="num" style="width:95%;" /> </td>
+					<!--<td><input type="text" id="txtLengthb.*" class="num" style="width:95%;" /> </td>
 					<td><input type="text" id="txtWidth.*" class="num" style="width:95%;" /> </td>
 					<td><input type="text" id="txtHeight.*" class="num" style="width:95%;" /> </td>
-					<td><input type="text" id="txtVolume.*" class="num" style="width:95%;" /> </td>
+					<td><input type="text" id="txtVolume.*" class="num" style="width:95%;" /> </td>-->
 					<td><input type="text" id="txtWeight.*" class="num" style="width:95%;" /> </td>
 					<td><input type="text" id="txtTheight.*" class="num" style="width:95%;" /> </td>
 					<td><input type="text" id="txtTvolume.*" class="num" style="width:95%;" /> </td>
 					<td><input type="text" id="txtMount.*" class="num" style="width:95%;" /></td>
-                    <td><input type="text" id="txtPrice.*" class="num" style="width:95%;" /></td>
-                    <td><input type="text" id="txtMoney.*" class="num" style="width:95%;" /></td>
+                    <!--<td><input type="text" id="txtPrice.*" class="num" style="width:95%;" /></td>
+                    <td><input type="text" id="txtMoney.*" class="num" style="width:95%;" /></td>-->
                     <td><input type="text" id="txtTotal2.*" class="num" style="width:95%;" /></td>
                     <td><input type="text" id="txtTotal3.*" class="num" style="width:95%;" /></td>
 					<td>
@@ -721,6 +724,7 @@
                         <input type="button" id="btnAddr.*" style="display:none;">
                         <input type="text" id="txtAddrno.*" style="display:none;">
                         <input type="text" id="txtAddr.*" style="display:none;">
+                        <input type="text" id="txtMemo2.*" style="display:none;">
                         <input type="text" id="txtCaseno.*" style="display:none;">
                         <input type="text" id="txtAddrno3.*" style="display:none;">
                         <input type="text" id="txtAddr3.*" style="display:none;">

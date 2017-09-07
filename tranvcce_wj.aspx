@@ -34,7 +34,6 @@
             , ['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
             , ['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx']
             , ['txtAddrno_', 'btnStraddr_', 'addr', 'noa,addr', 'txtAddrno_,txtAddr_', 'addr_b.aspx']
-            , ['txtAddrno2_', 'btnCardeal_', 'carplate', 'noa,carplate', 'txtAddrno2_,txtAddr2_', 'carplate_b.aspx']
             );
 
             $(document).ready(function() {
@@ -55,12 +54,7 @@
 
             function sum() {
                 for(var i=0;i<q_bbsCount;i++){
-                    t_weight = q_float('txtWeight_'+i);
-                    t_uweight = q_float('txtUweight_'+i);
-                    t_volume = q_float('txtVolume_'+i);
-                    t_height = q_float('txtHeight_'+i);
-                    $('#txtTotal_'+i).val(q_mul(t_weight,t_volume));
-                    $('#txtTvolume_'+i).val(q_mul(t_uweight,t_height));
+
                 }
             }
 
@@ -121,15 +115,6 @@
                     if($('#btnMinus_' + i).hasClass('isAssign'))
                     	continue;
                     $('#txtWeight_' + i).change(function() {
-                        sum();
-                    });
-                    $('#txtUweight_' + i).change(function() {
-                        sum();
-                    });
-                    $('#txtPrice_' + i).change(function() {
-                        sum();
-                    });
-                     $('#txtHeight_' + i).change(function() {
                         sum();
                     });
                     
@@ -337,7 +322,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 1900px;
+                width: 2600px;
             }
             .tbbs a {
                 font-size: medium;
@@ -429,6 +414,14 @@
                             <input type="text" id="txtAcomp" class="txt" style="float:left;width:60%;"/>
                         </td>
                     </tr>
+                    <tr>
+                        <td><span> </span><a id="lblCust" class="lbl btn"> </a></td>
+                        <td colspan="3">
+                            <input type="text" id="txtCustno" class="txt" style="width:30%;float: left; " />
+                            <input type="text" id="txtComp" class="txt" style="width:70%;float: left; " />
+                            <input type="text" id="txtNick" class="txt" style="display:none; " />
+                        </td>
+                    </tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl" > </a></td>
 						<td colspan="5"><textarea id="txtMemo" style="height:40px;" class="txt c1"> </textarea></td>
@@ -451,23 +444,33 @@
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:90px"><a>出車日期</a></td>
-					<td align="center" style="width:90px"><a>進場日期</a></td>
-					<td align="center" style="width:150px"><a>常態事業單位</a></td>
-					<td align="center" style="width:150px"><a>廢棄物</a></td>
-					<td align="center" style="width:80px"><a>事業噸數</a></td>
-					<td align="center" style="width:90px"><a>處理廠噸數</a></td>
-					<td align="center" style="width:60px"><a>單位</a></td>
-					<td align="center" style="width:80px"><a>請款單價</a></td>
-					<td align="center" style="width:90px"><a>請款金額</a></td>
-					<td align="center" style="width:80px"><a>處理單價</a></td>
-					<td align="center" style="width:90px"><a>處理金額</a></td>
-					<td align="center" style="width:160px"><a>聯單編號</a></td>
-					<td align="center" style="width:100px"><a>出車車號</a></td>
-					<td align="center" style="width:100px"><a>板台</a></td>
-					<td align="center" style="width:150px"><a>處理廠</a></td>
-					<td align="center" style="width:60px"><a>已申報</a></td>
-					<td align="center" style="width:150px"><a>備註</a></td>
+					<td align="center" style="width:150px"><a>運輸單號</a></td>
+					<td align="center" style="width:80px"><a>裝貨日期</a></td>
+					<td align="center" style="width:80px"><a>卸貨日期</a></td>
+					<td align="center" style="width:70px"><a>危險等級</a></td>
+					<td align="center" style="width:150px"><a>品名</a></td>
+					<td align="center" style="width:150px"><a>批號</a></td>
+					<td align="center" style="width:50px"><a>單位</a></td>
+					<td align="center" style="width:80px"><a>品重(KG)</a></td>
+                    <td align="center" style="width:100px"><a>毛重(KG)</a></td>
+					<td align="center" style="width:80px"><a>數量</a></td>
+					<td align="center" style="width:80px"><a>計費類別</a></td>
+					<td align="center" style="width:80px"><a>單價</a></td>
+					<td align="center" style="width:80px"><a>人工裝費</a></td>
+                    <td align="center" style="width:80px"><a>管理收入</a></td>
+                    <td align="center" style="width:80px"><a>應收金額</a></td>
+					<td align="center" style="width:80px"><a>應付金額</a></td>
+					<td align="center" style="width:80px"><a>車牌</a></td>
+                    <td align="center" style="width:80px"><a>司機</a></td>
+                    <td align="center" style="width:80px"><a>板台</a></td>
+					<td align="center" style="width:180px"><a>裝貨地點</a></td>
+                    <td align="center" style="width:180px"><a>卸貨地點</a></td>
+                    <td align="center" style="width:100px"><a>中繼站</a></td>
+                    <td align="center" style="width:80px"><a>出車日期</a></td>
+                    <td align="center" style="width:80px"><a>結關日期</a></td>
+                    <td align="center" style="width:30px"><a>提貨</a></td>
+                    <td align="center" style="width:30px"><a>卸貨</a></td>
+					<td align="center" style="width:100px"><a>注意事項</a></td>
 				</tr>
 				<tr class="data" style='background:#cad3ff;'>
 					<td align="center">
@@ -475,44 +478,72 @@
 						<input type="text" id="txtNoq.*" style="display:none;"/>
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-					<td><input type="text" id="txtTime1.*" style="width:95%;"/></td>
-					<td><input type="text" id="txtTime2.*" style="width:95%;"/></td>
+					<td><input type="text" id="txtPo.*" class="num" style="width:95%;"/></td>
+					
 					<td>
-						<input type="text" id="txtCustno.*" style="float:left;width:40%;" />
-						<input type="text" id="txtCust.*" style="float:left;width:40%;">
-						<input type="button" id="btnCust.*" value='.' style=" font-weight: bold;">
-					</td>
+                        <input type="text" id="txtDate1.*" style="width:95%;" />
+                        <input type="text" id="txtTime1.*" style="width:95%;" />
+                    </td>
+                    <td>
+                        <input type="text" id="txtDate2.*" style="width:95%;" />
+                        <input type="text" id="txtTime2.*" style="width:95%;" />
+                    </td>
+                    <td><input type="text" id="txtTypea.*" style="width:95%;"/></td>
 					<td>
-						<input type="text" id="txtProductno.*" style="float:left;width:40%;"/>
-						<input type="text" id="txtProduct.*" style="float:left;width:40%;"/>
-						<input type="button" id="btnProduct.*" value='.' style=" font-weight: bold;"/>
-					</td>
-					<td><input type="text" id="txtWeight.*" class="num" style="width:95%;"/></td>
+                        <input type="text" id="txtProductno.*" style="width:95%;" />
+                        <input type="text" id="txtProduct.*" style="width:95%;" />
+                        <input type="button" id="btnProduct.*" style="display:none;">
+                    </td>
+                    <td><input type="text" id="txtUno.*" style="width:95%;"/></td>
+                    <td><input type="text" id="txtUnit.*" style="width:95%;"/></td>
 					<td><input type="text" id="txtUweight.*" class="num" style="width:95%;"/></td>
-					<td><input type="text" id="txtUnit.*" style="width:95%;"/></td>
+					<td><input type="text" id="txtWeight.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtMount.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtUnit2.*" style="width:95%;"/></td>
 					<td><input type="text" id="txtVolume.*" class="num" style="width:95%;"/></td>
-					<td><input type="text" id="txtTotal.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtWidth.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtHeight.*" class="num" style="width:95%;"/></td>
-					<td><input type="text" id="txtTvolume.*" class="num" style="width:95%;"/></td>
-					<!--<td><input type="text" id="txtTotal2.*" class="num" style="width:95%;"/></td>-->
-					<td><input type="text" id="txtMemo2.*" style="width:95%;"/></td>
+					<td><input type="text" id="txtTotal.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtTotal2.*" class="num" style="width:95%;"/></td>
 					<td>
-						<input type="text" id="txtCarno.*" style="width:70%;"/>
-						<input type="text" id="txtDriverno.*" style="display:none;"/>
-						<input type="text" id="txtDriver.*" style="display:none;"/>
-						<input type="button" id="btnCarno.*" value='.' style=" font-weight: bold;"/>
-					</td>
-					<td>
-                        <input type="text" id="txtAddrno2.*" style="float:left;width:75%;"/>
-                        <input type="text" id="txtAddr2.*" style="display:none;"/>
-                        <input type="button" id="btnCardeal.*" value='.' style=" font-weight: bold;"/>
+                        <input type="text" id="txtCarno.*" style="width:95%;"/>
+                        <input type="button" id="btnCarno.*" style="display:none;"/>
+                    </td>
+                    <td>
+                        <input type="text" id="txtDriverno.*" style="width:95%"/>
+                        <input type="text" id="txtDriver.*" style="width:95%"/>
+                        <input type="button" id="btnDriver.*" style="display:none;"/>
+                    </td>
+                    <td>
+                        <input type="text" id="txtCarplateno.*" style="width:95%;"/>
+                        <input type="button" id="btnCarplate.*" style="display:none;"/>
+                    </td>
+					<td style="display:none;">
+                        <input type="text" id="txtCustno.*" style="float:left;width:40%;" />
+                        <input type="text" id="txtCust.*" style="float:left;width:40%;">
+                        <input type="button" id="btnCust.*" value='.' style=" font-weight: bold;">
+                    </td>
+                    <td>
+                        <input type="text" id="txtAddrno.*" style="width:45%;" />
+                        <input type="text" id="txtAddr.*" style="width:45%;" />
+                        <input type="text" id="txtAddress.*" style="width:95%;" />
+                        <input type="button" id="btnAddr.*" style="display:none;">
                     </td>
 					<td>
-						<input type="text" id="txtAddrno.*" style="float:left;width:40%;"/>
-						<input type="text" id="txtAddr.*" style="float:left;width:40%;"/>
-						<input type="button" id="btnStraddr.*" value='.' style=" font-weight: bold;"/>
-					</td>
+                        <input type="text" id="txtAddrno2.*" style="width:45%;" />
+                        <input type="text" id="txtAddr2.*" style="width:45%;" />
+                        <input type="text" id="txtAddress2.*" style="width:95%;" />
+                        <input type="button" id="btnAddr2.*" style="display:none;">
+                    </td>
+                    <td>
+                        <input type="text" id="txtAddrno3.*" style="width:95%;" />
+                        <input type="text" id="txtAddr3.*" style="width:95%;" />
+                        <input type="button" id="btnAddr3.*" style="display:none;">
+                    </td>
+					<td><input type="text" id="txtTime3.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtDate3.*" class="num" style="width:95%;"/></td>
 					<td align="center"><input id="chkChk1.*" type="checkbox"/></td>
+					<td align="center"><input id="chkChk2.*" type="checkbox"/></td>
 					<td><input type="text" id="txtMemo.*" style="width:95%;"/></td>
 				</tr>
 			</table>
