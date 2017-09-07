@@ -218,6 +218,10 @@
                         }
                     }
                 });
+                
+                if(q_getPara('sys.project').toUpperCase()!='WJ'){
+                    $('.isWJ').hide();
+                }
                
             }
             
@@ -805,6 +809,10 @@
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td colspan="5"><textarea id="txtMemo" style="width:100%; height:100px;"> </textarea></td>
 					</tr>
+					<tr class="isWJ">
+                        <td><span> </span><a id='lblMemo2' class="lbl">送貨注意事項</a></td>
+                        <td colspan="5"><textarea id="txtMemo2" style="width:100%; height:100px;"> </textarea></td>
+                    </tr>
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker" type="text" class="txt c1"/></td>

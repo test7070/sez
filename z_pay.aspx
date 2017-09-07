@@ -152,6 +152,23 @@
 				$('#txtDate2').val(q_cdn(q_cdn(q_date().substr(0, r_lenm)+'/01',35).substr(0,r_lenm)+'/01',-1));
 				$('#txtXdate2').val(q_cdn(q_cdn(q_date().substr(0, r_lenm)+'/01',35).substr(0,r_lenm)+'/01',-1).substr(r_len+1));
                	
+               	 $('#txtXacc11a').change(function(e) {
+                    var patt = /^(\d{4})([^\.,.]*)$/g;
+                    if (patt.test($(this).val()))
+                        $(this).val($(this).val().replace(patt, "$1.$2"));
+                    else if ((/^(\d{4})$/).test($(this).val())) {
+                        $(this).val($(this).val() + '.');
+                    }
+                });
+                $('#txtXacc12a').change(function(e) {
+                    var patt = /^(\d{4})([^\.,.]*)$/g;
+                    if (patt.test($(this).val()))
+                        $(this).val($(this).val().replace(patt, "$1.$2"));
+                    else if ((/^(\d{4})$/).test($(this).val())) {
+                        $(this).val($(this).val() + '.');
+                    }
+                });
+               	
 				if(q_getPara('sys.isAcccUs')!='1')
 					$('#Xcoin').hide();
 			}

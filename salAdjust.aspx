@@ -205,7 +205,7 @@
 	            	$('.vuhide').hide();
 	            }
 	            
-	            var t_proj='DC,SF,VU,VU2,DJ,RB,XY,FE,IT,ST2,AMD,RK,TN'.split(',');
+	            var t_proj='DC,SF,VU,VU2,DJ,RB,XY,FE,IT,ST2,AMD,RK,TN,NV'.split(',');
 	            for(var i = 0; i < t_proj.length; i++) {
 	            	if (q_getPara('sys.project').toUpperCase()==t_proj[i]){
 		            	$('.labor').hide();	

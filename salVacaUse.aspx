@@ -26,7 +26,7 @@
             brwKey = 'noa';
             q_desc = 1;
             //ajaxPath = ""; //  execute in Root
-            aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea,partno,part,id,job,jobno', 'txtSssno,txtNamea,txtPartno,txtPart,txtId,txtJob,txtJobno', 'sss_b.aspx']
+            aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea,partno,part,job,jobno', 'txtSssno,txtNamea,txtPartno,txtPart,txtJob,txtJobno', 'sss_b.aspx']
             , ['txtHtype', 'lblHtype', 'salhtype', 'noa,namea', 'txtHtype,txtHname', 'salhtype_b.aspx']
             ,['txtAgent', '', 'sss', 'noa,namea', '0txtAgent,txtAgent', '']
             );
@@ -139,12 +139,40 @@
                     }
                     if ($('#txtHname').val().indexOf('特休') > -1)
                         q_tr('txtTot_special', t_tot_special - q_float('txtHr_used'));
+                        
+                    if ($('#txtHname').val().indexOf('抵工時') > -1)
+                    	$("#btnCarryforwards").removeAttr("disabled");
                 });
 
                 $('#lblAgent').click(function() {
                     q_box("sss_b2.aspx", 'sss', "450px", "700px", $('#lblAgent').text());
                 });
-
+                
+                if(q_getPara('sys.project').toUpperCase()=='NV'){
+                	$('#btnCarryforwards').show();
+                }
+				$('#btnCarryforwards').click(function() {
+					var t_err = '';
+					t_err = q_chkEmpField([['txtSssno', q_getMsg('lblSss')], ['txtBdate', q_getMsg('lblBdate')], ['txtHr_used', q_getMsg('lblHr_used')]]);
+					if (t_err.length > 0) {
+						alert(t_err);
+						return;
+					}
+					/*if(dec($('#txtHr_used').val())<=0){
+						alert('請先輸入請假時數!!');
+						return;
+					}*/
+					
+					var t_carryforwards=dec(q_getPara('salvacause.carryforwards'));//換休期限
+					
+					if(q_getPara('sys.project').toUpperCase()=='NV'){
+						var t_where="sssno='"+$('#txtSssno').val()+"' and exists (select datea from dbo.carryforwards("+t_carryforwards+",'"+$('#txtSssno').val()+"','"+$('#txtNoa').val()+"') where ('"+$('#txtEdate').val()+"' between datea and enddate) and special-used!=0 and datea=saladd.datea)";
+						q_box("saladd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where , 'salpresents', "600px", "95%", $('#btnCarryforwards').val());
+					}else{
+						var t_where="sssno='"+$('#txtSssno').val()+"' and exists (select datea from dbo.carryforwards("+t_carryforwards+",'"+$('#txtSssno').val()+"','"+$('#txtNoa').val()+"') where ('"+$('#txtEdate').val()+"' between datea and enddate) and special-used!=0 and datea=salpresents.noa)";
+						q_box("salpresents_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where , 'salpresents', "600px", "95%", $('#btnCarryforwards').val());
+					}
+				});
             }
 
             function q_boxClose(s2) {
@@ -247,6 +275,15 @@
                         else
                             $('#txtSendboss').val('0');
                         break;
+					case 'txtHtype':
+                        if ($('#txtHname').val().indexOf('特休') > -1)
+                        q_tr('txtTot_special', t_tot_special - q_float('txtHr_used'));
+                    
+	                    if ($('#txtHname').val().indexOf('抵工時') > -1)
+	                    	$("#btnCarryforwards").removeAttr("disabled");
+	                    else
+	                    	$("#btnCarryforwards").attr("disabled", "disabled");
+                        break;
                 }
             }
 
@@ -300,6 +337,21 @@
                 		}
                 	}
                 }*/
+               
+				//判斷抵工時
+                if($('#txtHname').val().indexOf('抵工時')>-1){
+                	//判斷抵扣工時與請假時數是否相等
+                	var c_used=0,c_memo=$('#txtCarryforwards').val().split(',');//抵扣時數
+                	for (var i = 0; i < c_memo.length; i=i+2) {
+	            		c_used=q_add(c_used,dec(c_memo[i+1]));
+					}
+                	if(c_used!=dec($('#txtHr_used').val())){
+                		alert("抵扣工時與請假時數不符!!");
+                		return;
+                	}
+                }else{
+                	$('#txtCarryforwards').val('');
+                }
                 	
                 var t_noa = trim($('#txtNoa').val());
 
@@ -325,6 +377,14 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                if (q_cur == 1 || q_cur == 2) {
+                	if($('#txtHname').val().indexOf('抵工時') > -1)
+						$("#btnCarryforwards").removeAttr("disabled");
+					else
+						$("#btnCarryforwards").attr("disabled", "disabled");
+				} else {
+					$("#btnCarryforwards").attr("disabled", "disabled");
+				}
             }
 
             function btnMinus(id) {
@@ -520,7 +580,7 @@
                 height: 35px;
             }
             .tbbm tr td {
-                width: 9%;
+                /*width: 9%;*/
             }
             .tbbm .tdZ {
                 width: 2%;
@@ -625,75 +685,76 @@
 			<div class='dbbm' style="width: 68%;float: left;">
 				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
 					<tr>
-						<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
-						<td class="td3" ><!--<input id="btnAuto"  type="button" />--></td>
-						<td class="td4"> </td>
-						<td class="td5"> </td>
-						<td class="td6"> </td>
+						<td style="width: 110px;"><span> </span><a id='lblNoa' class="lbl"> </a></td>
+						<td style="width: 170px;"><input id="txtNoa"  type="text"  class="txt c1"/></td>
+						<td style="width: 140px;"><!--<input id="btnAuto"  type="button" />--></td>
+						<td style="width: 140px;"> </td>
+						<td style="width: 140px;"> </td>
+						<td style="width: 140px;"> </td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td class="td2"><input id="txtDatea"  type="text" class="txt c1" /></td>
-						<td class="td3" ><span> </span><a id='lblBdate' class="lbl"> </a></td>
-						<td class="td4" colspan="2">
+						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
+						<td><input id="txtDatea"  type="text" class="txt c1" /></td>
+						<td ><span> </span><a id='lblBdate' class="lbl"> </a></td>
+						<td colspan="2">
 							<input id="txtBdate"  type="text" class="txt" style="width: 120px;"/>
 							<a style="float:left;">~</a>
 							<input id="txtEdate"  type="text" class="txt" style="width: 120px;"/>
 						</td>
 					</tr>
 					<tr>
-						<td class="td1" ><span> </span><a id='lblSss' class="lbl btn"> </a></td>
-						<td class="td2">
+						<td ><span> </span><a id='lblSss' class="lbl btn"> </a></td>
+						<td>
 							<input id="txtSssno"  type="text"  class="txt c2"/>
 							<input id="txtNamea"  type="text"  class="txt c3"/>
 						</td>
-						<td class="td3" ><span> </span><a id='lblPart' class="lbl"> </a></td>
-						<td class="td4">
+						<td ><span> </span><a id='lblPart' class="lbl"> </a></td>
+						<td>
 							<input id="txtPartno"  type="text"  class="txt c2"/>
 							<input id="txtPart"  type="text"  class="txt c3"/>
 						</td>
-						<td class="td5"><span> </span><a id='lblId' class="lbl"> </a></td>
-						<td class="td6"><input id="txtId"  type="text" class="txt c1" /></td>
+						<!--106/09/05 暫時先將身分證拿掉避免個資外洩-->
+						<!--<td><span> </span><a id='lblId' class="lbl"> </a></td>
+						<td><input id="txtId"  type="text" class="txt c1" /></td>-->
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblJob' class="lbl"> </a></td>
-						<td class="td2">
+						<td><span> </span><a id='lblJob' class="lbl"> </a></td>
+						<td>
 						<input id="txtJob"  type="text" class="txt c1" />
 						<input id="txtJobno"  type="text" style="display:none;" />
 						<input id="txtSendboss"  type="text" style="display:none;" />
 						</td>
 					</tr>
 					<tr>
-						<td class="td1" ><span> </span><a id='lblHtype' class="lbl btn" > </a></td>
-						<td class="td2">
+						<td ><span> </span><a id='lblHtype' class="lbl btn" > </a></td>
+						<td>
 							<input id="txtHtype"  type="text"  class="txt c2"/>
 							<input id="txtHname"  type="text"  class="txt c3"/>
 						</td>
-						<td class="td3" ><span> </span><a id='lblHr_special' class="lbl"> </a></td>
-						<td class="td4"><input id="txtHr_special"  type="text" class="txt num c1" /></td>
-						<td class="td5"><span> </span><a id='lblTot_special' class="lbl"> </a></td>
-						<td class="td6"><input id="txtTot_special"  type="text" class="txt num c1" /></td>
+						<td ><span> </span><a id='lblHr_special' class="lbl"> </a></td>
+						<td><input id="txtHr_special"  type="text" class="txt num c1" /></td>
+						<td><span> </span><a id='lblTot_special' class="lbl"> </a></td>
+						<td><input id="txtTot_special"  type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
-						<td class="td1" ><span> </span><a id='lblBtime' class="lbl"> </a></td>
-						<td class="td2">
+						<td ><span> </span><a id='lblBtime' class="lbl"> </a></td>
+						<td>
 							<input id="txtBtime"  type="text" class="txt" style="width: 65px;"/>
 							<a style="float:left;">~</a>
 							<input id="txtEtime"  type="text" class="txt" style="width: 65px;"/>
 						</td>
-						<td class="td3"><span> </span><a id='lblHr_used' class="lbl"> </a></td>
-						<td class="td4"><input id="txtHr_used"  type="text" class="txt num c1"/></td>
-						<td class="td5"> </td>
-						<td class="td6"> </td>
+						<td><span> </span><a id='lblHr_used' class="lbl"> </a></td>
+						<td><input id="txtHr_used"  type="text" class="txt num c1"/></td>
+						<td style="text-align: center;"><input id="btnCarryforwards"  type="button" style="display: none;float: none;"/></td>
+						<td><input id="txtCarryforwards"  type="hidden" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td class="td2" colspan="5"><input id="txtMemo"  type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
+						<td colspan="5"><input id="txtMemo"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblAgent' class="lbl btn"> </a></td>
-						<td class="td2" colspan="5"><input id="txtAgent"  type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblAgent' class="lbl btn"> </a></td>
+						<td colspan="5"><input id="txtAgent"  type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>

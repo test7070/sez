@@ -61,9 +61,9 @@
                 bbmMask = [['txtDatea', r_picd],['txtMon', r_picm]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('rc2.typea'));
-                q_cmbParse("cmbStype", q_getPara('rc2.stype'));
+                /*q_cmbParse("cmbStype", q_getPara('rc2.stype'));*/
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
-                q_cmbParse("combPay", q_getPara('rc2.pay'));
+                q_cmbParse("combPay", q_getPara('rc2.paytype'));
                 q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
                $('#btnAccc').click(function () {
 		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "97%", "1054px", q_getMsg('btnAccc'), true);
@@ -577,7 +577,7 @@
 						<input type="text" id="txtTggno" style="float:left;width:30%;"/>
 						<input type="text" id="txtComp" style="float:left;width:70%;"/>
 						</td>
-						<td class="td3"><span> </span><a id='lblPay' class="lbl"> </a></td>
+						<td class="td3"><span> </span><a id='lblPaytype' class="lbl"> </a></td>
 						<td class="td4">
 						<input id="txtPay" type="text" class="txt c4"/>
 						<select id="combPay" class="txt c4" > </select></td>
