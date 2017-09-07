@@ -630,7 +630,7 @@
 							as[j].rc2smount=0;
 							for (var i = 0; i < rc2soverrate.length; i++) {
 								if(as[j].noa==rc2soverrate[i].ordeno && as[j].no2==rc2soverrate[i].no2){
-									as[j].rc2smount=q_add(dec(as[j].rc2smount),(rc2soverrate[0].typea=='2'?-1:1)*dec(rc2soverrate[i].mount));			
+									as[j].rc2smount=q_add(dec(as[j].rc2smount),(rc2soverrate[i].typea=='2'?-1:1)*dec(rc2soverrate[i].mount));			
 								}
 							}
 						}
