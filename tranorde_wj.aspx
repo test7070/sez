@@ -18,7 +18,7 @@
 			var q_name = "tranorde";
 			var q_readonly = ['txtNoa','txtWorker', 'txtWorker2','txtBoat'];
 			var q_readonlys = ['txtAddress'];
-			var bbsNum = new Array(['txtLengthb', 10, 2, 1],['txtWidth', 10, 2, 1],['txtHeight', 10, 2, 1],['txtVolume', 10, 2, 1],['txtWeight', 10, 2, 1],['txtTheight', 10, 2, 1],['txtTvolume', 10, 2, 1],['txtMount', 10, 0, 1],['txtPrice', 10, 0, 1],['txtMoney', 10, 0, 1],['txtTotal2', 10, 0, 1],['txtTotal3', 10, 0, 1]);
+			var bbsNum = new Array(['txtLengthb', 10, 2, 1],['txtWidth', 10, 2, 1],['txtHeight', 10, 2, 1],['txtVolume', 10, 2, 1],['txtWeight', 10, 2, 1],['txtTheight', 10, 3, 1],['txtTvolume', 10, 3, 1],['txtMount', 10, 0, 1],['txtPrice', 10, 0, 1],['txtMoney', 10, 0, 1],['txtTotal2', 10, 0, 1],['txtTotal3', 10, 0, 1]);
 			var bbsMask = new Array(['txtTrandate', '999/99/99'],['txtDate1', '999/99/99'],['txtDate2', '999/99/99'],['txtTime1', '99:99'],['txtTime2', '99:99']);
 			var bbtMask = new Array(); 
 			var bbmNum = new Array();
@@ -34,8 +34,8 @@
 			brwCount2 = 5;
 			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'] 
 				,['txtAddrno', 'lblAddr_js', 'addr2', 'noa,addr,address', 'txtAddrno,txtAddr,txtBoat', 'addr2_b.aspx']
-				,['txtProductno_', 'btnProduct_', 'ucc', 'noa,product,lengthb,width,height,stkmount,theight,tvolume', 'txtProductno_,txtProduct_,txtLengthb_,txtWidth_,txtHeight_,txtVolume_,txtTheight_,txtTvolume_,txtMount_', 'ucc_b.aspx']
-				,['txtAddrno2_', 'btnAddr_', 'addr2', 'noa,addr,address,conn,tel,memo', 'txtAddrno2_,txtAddr2_,txtAddress_,txtConn_,txtTel_,txtMemo_', 'addr2_b.aspx']
+				,['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
+				,['txtAddrno2_', 'btnAddr_', 'addr2', 'noa,addr,address', 'txtAddrno2_,txtAddr2_,txtAddress_', 'addr2_b.aspx']
 				,['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
 				,['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx']
 				,['txtDriverno_', 'btnDriver_', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx']);
@@ -55,7 +55,7 @@
 					return;
 				var cuft=0,t_mount;
     			for(var i=0;i<q_bbsCount;i++){
-    				$('#txtMount_'+i).val(round(q_div(q_float('txtTvolume_'+i), q_float('txtWeight_'+i)),2));
+    				$('#txtMount_'+i).val(round(q_div(q_float('txtTvolume_'+i), q_float('txtWeight_'+i)),0));
 					$('#txtMoney_'+i).val(round(q_mul(q_float('txtMount_'+i),q_float('txtPrice_'+i)),0));
 					if($('#txtDate1').val().length>0 && $('#txtDate1_'+i).val().length==0){
 						$('#txtDate1_'+i).val($('#txtDate1').val());
@@ -76,6 +76,10 @@
                     }
                     if($('#txtPo').val().length>0){
                         $('#txtCaseno_'+i).val($('#txtPo').val());
+                    }
+                    if($('#txtCustno').val().length>0){
+                        $('#txtConn_'+i).val($('#txtCustno').val());
+                        $('#txtTel_'+i).val($('#txtComp').val());
                     }
                 }
 			}
@@ -105,7 +109,7 @@
                         var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
                         $('#btnProduct_'+n).click();
                     });
-                    $('#txtAddrno_' + i).bind('contextmenu', function(e) {
+                    $('#txtAddrno2_' + i).bind('contextmenu', function(e) {
                         /*滑鼠右鍵*/
                         e.preventDefault();
                         var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
@@ -258,7 +262,6 @@
                     Unlock(1);
                     return;
                 }
-				sum();
 				if(q_cur ==1){
 					$('#txtWorker').val(r_name);
 				}else if(q_cur ==2){
@@ -373,7 +376,7 @@
                         if (q_cur == 4)
                             q_Seek_gtPost();
                         break;
-                    default:
+                    /*default:
                     	try{
                     		var t_para = JSON.parse(t_name);
                     		if(t_para.action=="getUcc"){
@@ -396,7 +399,7 @@
 							sum();
                     	}catch(e){
                     		Unlock(1);
-                    	}
+                    	}*/
                         break;
                 }
             }
@@ -519,7 +522,7 @@
 				margin: -1px;
 			}
 			.dbbs {
-				width: 1900px;
+				width: 2000px;
 			}
 			.tbbs a {
 				font-size: medium;
@@ -691,6 +694,7 @@
 					<td align="center" style="width:140px"><a>提貨日期</a></td>
 					<td align="center" style="width:140px"><a>卸貨日期</a></td>
 					<td align="center" style="width:80px"><a>出單日期</a></td>
+					<td align="center" style="width:100px"><a>送(提)貨單號</a></td>
 					<td align="center" style="width:100px"><a>注意事項</a></td>
 				</tr>
 				<tr class="data" style='background:#cad3ff;'>
@@ -728,6 +732,8 @@
                         <input type="text" id="txtCaseno.*" style="display:none;">
                         <input type="text" id="txtAddrno3.*" style="display:none;">
                         <input type="text" id="txtAddr3.*" style="display:none;">
+                        <input type="text" id="txtConn.*" style="display:none;">
+                        <input type="text" id="txtTel.*" style="display:none;">
                     </td>
                     <td><input type="text" id="txtAddress.*" style="width:95%;" /></td>
                     <td>
@@ -748,6 +754,7 @@
 						<input type="text" id="txtTime2.*" style="width:35%;" />
 					</td>
 					<td><input type="text" id="txtTrandate.*" style="width:95%;" /></td>
+					<td><input type="text" id="txtTranno.*" style="width:95%;" /></td>
 					<td><input type="text" id="txtMemo.*" style="width:95%;" /></td>
 				</tr>
 
