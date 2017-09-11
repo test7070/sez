@@ -38,7 +38,7 @@
              ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'],
              ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'], 
              ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], 
-             ['txtProductno_', 'btnProductno_', 'uccdc', 'noa,item', 'txtProductno_,txtProduct_', 'uccdc_b.aspx']);
+             ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -199,7 +199,7 @@
             }
 
             function btnPrint() {
-			q_box("z_rc2p.aspx?" , '', "95%", "650px", m_print);
+			q_box("z_rc2.aspx?" , '', "95%", "650px", m_print);
             }
 
             function wrServer(key_value) {
