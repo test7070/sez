@@ -161,13 +161,16 @@
 						var t_074=emp($('#txtX074').val())?'#non':$('#txtX074').val();
 						var t_082=emp($('#txtX082').val())?'#non':$('#txtX082').val();
 						var t_013=emp($('#txtX013').val())?'#non':$('#txtX013').val();
-						var t_014=emp($('#txtX014').val())?'#non':$('#txtX014').val();
+						var t_014=emp($('#txtX109').val())?'#non':$('#txtX109').val();
+						var t_105=emp($('#txtX105').val())?'#non':$('#txtX105').val();
+						var t_109=emp($('#txtX014').val())?'#non':$('#txtX014').val();
+						var t_4013=emp($('#Xtype select').val())?'#non':$('#Xtype select').val();
 						
 						q_func('qtxt.query.'+txtreport,'z_401.txt,'+txtreport+','+
 							t_bmon + ';' +t_emon + ';' + t_datea + ';' +
 							t_048 + ';' +t_049 + ';' +t_108 + ';' +
 							t_073 + ';' +t_074 + ';' +t_082 + ';' +
-							t_013 + ';'+t_014 + ';'
+							t_013 + ';'+t_014 + ';'+t_105 + ';'+t_109 + ';'+t_4013 + ';'
 						);
 					}
 				});
