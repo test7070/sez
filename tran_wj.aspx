@@ -19,11 +19,11 @@
 			q_tables = 's';
 			var q_name = "tran";
 			var q_readonly = ['txtNoa','txtWorker', 'txtWorker2','txtTotal','txtTotal2','txtTotal3','txtMount','txtVolume','txtWeight','txtPrice','txtBmiles','txtEmiles','txtVoyage'];
-			var q_readonlys = ['txtOrdeno','txtNo2'];
+			var q_readonlys = ['txtOrdeno','txtSo'];
 			var q_readonlyt = [];
 			var bbmNum = new Array();
 			var bbmMask = new Array(['txtDatea', '999/99/99'],['txtTrandate', '999/99/99']);
-			var bbsNum = new Array();
+			var bbsNum = new Array(['txtTotal', 10, 0, 1],['txtTotal2', 10, 0, 1],['txtPrice', 10, 0, 1],['txtPrice2', 10, 0, 1],['txtPrice3', 10, 0, 1],['txtMount', 10, 0, 1]);
 			var bbsMask = new Array(['txtTrandate', '999/99/99'],['txtltime', '99:99'],['txtstime', '99:99']);
 			var bbtNum  = new Array(); 
 			var bbtMask = new Array();
@@ -547,7 +547,7 @@
 				margin: -1px;
 			}
 			.dbbs {
-				width: 2000px;
+				width: 2200px;
 			}
 			.dbbt {
 				width: 2000px;
@@ -732,6 +732,7 @@
 					<td align="center" style="width:80px;"><a>人工裝費</a></td>
 					<td align="center" style="width:80px;"><a>管理收入</a></td>
 					<td align="center" style="width:80px;"><a>應付運費</a></td>
+					<td align="center" style="width:180px;"><a>派車單號</a></td>
 				</tr>
 				<tr class="data" style='background:#cad3ff;'>
 					<td align="center">
@@ -743,14 +744,14 @@
 					<td><input type="text" id="txtTrandate.*" style="width:95%;"/></td> 
 					<td>	
 						<input type="text" id="txtCustno.*" style="width:40%;"/>
-						<input type="text" id="txtComp.*" style="width:45%;"/>
+						<input type="text" id="txtComp.*" style="width:50%;"/>
 						<input type="text" id="txtNick.*"  style ="display:none;"/>
 						<input type="button" id="btnCust.*" style="display:none;">
 					</td>
 					<td>
 						<input type="text" id="txtUccno.*" style="float:left;width:40%;"/>
 						<input type="button" id="btnProduct.*" style="display:none;">
-						<input type="text" id="txtProduct.*" style="float:left;width:45%;"/>	
+						<input type="text" id="txtProduct.*" style="float:left;width:50%;"/>	
 					</td>
 						<td><input type="text" id="txtPrice.*" class="num" style="float:left;width:95%;"/></td>
 						<td><input type="text" id="txtMount.*" class="num" style="float:left;width:95%;"/></td>
@@ -775,11 +776,13 @@
 					<td><input type="text" id="txtMiles.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtReserve.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtltime.*"  style="float:left;width:95%;"/></td>
-					<td><input type="text" id="txtstime.*"  style="float:left;width:95%;"/></td>
+					<td><input type="text" id="txtStime.*"  style="float:left;width:95%;"/></td>
 					<td><input type="text" id="txtTotal.*" class="num" style="float:center;width:95%;"/></td>
 					<td><input type="text" id="txtPrice2.*" class="num" style="float:center;width:95%;"/></td>
 					<td><input type="text" id="txtPrice3.*" class="num" style="float:center;width:95%;"/></td>
 					<td><input type="text" id="txtTotal2.*" class="num" style="float:center;width:95%;"/></td>
+					<td><input type="text" id="txtOrdeno.*"  style="float:left;width:65%;"/>
+                        <input type="text" id="txtSo.*"  style="float:left;width:30%;"/></td>
 				</tr>
 			</table>
 		</div>

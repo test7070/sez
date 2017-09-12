@@ -230,7 +230,7 @@
                 			$('#txtWorker').val(r_name)
 	                		sum();
 	                		
-                			isbtnok=true;
+                			isbtn=true;
 			                var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
 			                if(s1.length == 0 || s1 == "AUTO")
 			                    wrServer($('#txtCarno').val()+'-'+$('#txtMon').val());
@@ -411,8 +411,8 @@
 				if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
 					alert(q_getMsg('lblMon')+'錯誤。');   
 					return;
-				}         	
-	
+				}  
+				                
 				t_err = q_chkEmpField([['txtCarno', q_getMsg('lblCarno')],['txtCarownerno', '車主編號'],['txtCarowner', '車主名稱'],['txtMon', q_getMsg('lblMon')]]);
 				if(t_err.length > 0) {
 					alert(t_err);
@@ -544,10 +544,24 @@
                 			if(q_cur==0 || q_cur==4)
            						q_msg( $(this), $(this).val());
 						});
+						
+						$('#textDate_'+j).change(function() {   
+						    for(var i = 0; i < q_bbsCount; i++) {
+						        if ($('#textDate_'+i).val().length!=0){
+						              $('#txtDatea_'+i).val($('#txtMon').val()+'/'+$('#textDate_'+i).val());  
+						        }	
+                            }
+                        });
            			}
            		}
 
                 _bbsAssign();
+                
+                if(q_getPara('sys.project').toUpperCase()=='DC'){
+                     $('.isNDC').hide();
+                }else{
+                     $('.isDC').hide();       
+                }
                 
                 if(isbtnok){
                 	//location.href = (location.origin==undefined?'':location.origin)+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";carno='"+$('#txtCarno').val()+"' and mon<='"+$('#txtMon').val()+"' ;"+r_accy;
@@ -613,6 +627,7 @@
 							$('#btnMinus_'+j).attr('disabled', 'disabled');
 							$('#txtNoq_'+j).attr('disabled', 'disabled');
 							$('#txtDatea_'+j).attr('disabled', 'disabled');
+							$('#textDate_'+j).attr('disabled', 'disabled');
 							//$('#txtCaritemno_'+j).attr('disabled', 'disabled');
 							$('#txtOutmoney_'+j).attr('disabled', 'disabled');
 							$('#txtInmoney_'+j).attr('disabled', 'disabled');
@@ -631,6 +646,7 @@
 							$('#btnMinus_'+j).attr('disabled', 'disabled');
 							$('#txtNoq_'+j).attr('disabled', 'disabled');
 							$('#txtDatea_'+j).attr('disabled', 'disabled');
+							$('#textDate_'+j).attr('disabled', 'disabled');
 							$('#txtCaritemno_'+j).attr('disabled', 'disabled');
 							$('#btnCaritem_'+j).attr('disabled', 'disabled');
 							$('#txtOutmoney_'+j).attr('disabled', 'disabled');
@@ -733,6 +749,7 @@
 						$('#btnMinus_'+j).attr('disabled', 'disabled');
 						$('#txtNoq_'+j).attr('disabled', 'disabled');
 						$('#txtDatea_'+j).attr('disabled', 'disabled');
+						$('#textDate_'+j).attr('disabled', 'disabled');
 						//$('#txtCaritemno_'+j).attr('disabled', 'disabled');
 						$('#txtOutmoney_'+j).attr('disabled', 'disabled');
 						$('#txtInmoney_'+j).attr('disabled', 'disabled');
@@ -751,6 +768,7 @@
 						$('#btnMinus_'+j).attr('disabled', 'disabled');
 						$('#txtNoq_'+j).attr('disabled', 'disabled');
 						$('#txtDatea_'+j).attr('disabled', 'disabled');
+						$('#textDate_'+j).attr('disabled', 'disabled');
 						$('#txtCaritemno_'+j).attr('disabled', 'disabled');
 						$('#btnCaritem_'+j).attr('disabled', 'disabled');
 						$('#txtOutmoney_'+j).attr('disabled', 'disabled');
@@ -858,6 +876,14 @@
             function refresh(recno) {
                 _refresh(recno);
                 endacheck();
+                if(q_getPara('sys.project').toUpperCase()=='DC'){
+                     $('.isNDC').hide();
+                }else{
+                     $('.isDC').hide();       
+                }
+                for(var j = 0; j < q_bbsCount; j++) {
+                    $('#textDate_'+j).val( $('#txtDatea_'+j).val().substr(7,8));
+                }
                 if(r_rank<=7)
             		q_gt('holiday', "where=^^ noa<='"+q_date()+"' and isnull(iswork,0)=0 ^^ stop=10" , 0, 0, 0, "", r_accy);
             }
@@ -1363,8 +1389,9 @@
 						<td align="center">
 							<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 						</td>
-						<td >
-							<input id="txtDatea.*" type="text" class="txt c1" />
+						<td>
+						    <input id="textDate.*" type="text" class="txt c1 isNDC" />
+							<input id="txtDatea.*" type="text" class="txt c1 isDC" />
 							<input id="recno.*" type="hidden" />
 						</td>
 						<td >
