@@ -547,7 +547,7 @@
 				margin: -1px;
 			}
 			.dbbs {
-				width: 1500px;
+				width: 2000px;
 			}
 			.dbbt {
 				width: 2000px;
@@ -712,6 +712,7 @@
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:20px;"> </td>
+					<td align="center" style="width:100px;"><a>運輸單號</a></td>
 					<td align="center" style="width:100px;"><a>承車日期</a></td>
 					<td align="center" style="width:150px;"><a>託運人</a></td>
 					<td align="center" style="width:150px;"><a>品名</a></td>
@@ -727,7 +728,10 @@
 					<td align="center" style="width:60px;"><a>抽成<br>獎金</a></td>
 					<td align="center" style="width:80px;">出發時間</td>
 					<td align="center" style="width:80px;">回場時間</td>
-					<td align="center" style="width:60px;"><a>應收<br>運費</a></td>
+					<td align="center" style="width:80px;"><a>應收運費</a></td>
+					<td align="center" style="width:80px;"><a>人工裝費</a></td>
+					<td align="center" style="width:80px;"><a>管理收入</a></td>
+					<td align="center" style="width:80px;"><a>應付運費</a></td>
 				</tr>
 				<tr class="data" style='background:#cad3ff;'>
 					<td align="center">
@@ -735,6 +739,7 @@
 						<input type="text" id="txtNoq.*" style="display:none;"/>
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>					
+					<td><input type="text" id="txtPo.*" style="width:95%;"/></td> 
 					<td><input type="text" id="txtTrandate.*" style="width:95%;"/></td> 
 					<td>	
 						<input type="text" id="txtCustno.*" style="width:40%;"/>
@@ -772,6 +777,9 @@
 					<td><input type="text" id="txtltime.*"  style="float:left;width:95%;"/></td>
 					<td><input type="text" id="txtstime.*"  style="float:left;width:95%;"/></td>
 					<td><input type="text" id="txtTotal.*" class="num" style="float:center;width:95%;"/></td>
+					<td><input type="text" id="txtPrice2.*" class="num" style="float:center;width:95%;"/></td>
+					<td><input type="text" id="txtPrice3.*" class="num" style="float:center;width:95%;"/></td>
+					<td><input type="text" id="txtTotal2.*" class="num" style="float:center;width:95%;"/></td>
 				</tr>
 			</table>
 		</div>

@@ -25,7 +25,8 @@
             brwKey = 'datea';
             q_desc = 1;
             //ajaxPath = ""; //  execute in Root
-            aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']);
+            aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
+            ,['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', '0txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -499,7 +500,7 @@
 						<td  class="tdZ">  </td>
 					</tr>
 					<tr class="tr3">
-						<td class="td1" ><span> </span><a id='lblCarno' class="lbl"> </a></td>
+						<td class="td1" ><span> </span><a id='lblCarno' class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtCarno" type="text"   class="txt c1"/></td>
 						<td class="td3"><span> </span><a id='lblDriver' class="lbl btn" > </a></td>
 						<td class="td4" colspan="2">
@@ -519,6 +520,10 @@
 						<input id="txtPaydate"  type="text"   class="txt c1"/>
 						</td>
 					</tr>
+					<tr class="tr3">
+                        <td class="td1" ><span> </span><a id='lblIrreguladdr' class="lbl">違規地點</a></td>
+                        <td class="td2" colspan='7'><input id="txtIrreguladdr" type="text" class="txt c1"/></td>
+                    </tr>
 					<tr class="tr3">
 						<td class="td1" ><span> </span><a id='lblIrregularities' class="lbl"> </a></td>
 						<td class="td2" colspan='7'><input id="txtIrregularities" type="text" class="txt c1"/></td>
