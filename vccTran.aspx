@@ -62,9 +62,34 @@
                 bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm],['txtCarno', r_picd]];
                 q_mask(bbmMask);
                 //q_cmbParse("cmbStype", q_getPara('vcc.stype'));
+				
                 q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
                 q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
-                
+                if(q_getPara('sys.project')=='dc'){
+					$('.del').remove();
+					$('.del2').remove();
+					$('#lblWorktd').remove();
+					$('#txtWorktd').remove();
+				}
+				else{
+					$('#lblPart').css('display','none');
+					$('#lblPart2').css('display','none');
+					$('#cmbPartno').css('display','none');
+					$('#cmbPartno2').css('display','none');
+					$('#lblSales').css('display','none');
+					$('#lblSales2').css('display','none');
+					$('#txtSalesno').css('display','none');
+					$('#txtSalesno2').css('display','none');
+					$('#txtSales').css('display','none');
+					$('#txtSales2').css('display','none');
+					$('#lblCarno').css('display','none');
+					$('#txtCarno').css('display','none');
+					$('#lblKindtd').css('display','none');
+					$('#txtKindtd').css('display','none');
+					$('#dctr1').css('display','none');
+					$('#dctr2').css('display','none');
+					$('#dctr3').css('display','none');
+				}
                 q_gt('acomp', '', 0, 0, 0, "");
                 q_gt('part', '', 0, 0, 0, "");
                 $('#txtDatea').blur(function(e){
@@ -669,7 +694,7 @@
 							<input type="text" id="txtAddr" style="float:left;width:90%;"/>
 						</td>
 					</tr>
-					<tr>
+					<tr id='dctr1'>
 						<td><span> </span><a id="lblPart" class="lbl btn"> </a></td>
 						<td>
 							<select id="cmbPartno" class="txt c1"> </select>
@@ -681,7 +706,7 @@
 							<input type="text" id="txtSales" style="float:left;width:60%;"/>
 						</td>
 					</tr>
-					<tr>
+					<tr id='dctr2'>
 						<td><span> </span><a id="lblPart2" class="lbl btn"> </a></td>
 						<td>
 							<select id="cmbPartno2" class="txt c1"> </select>
@@ -721,12 +746,14 @@
 					<tr>
 						<td><span> </span><a id='lblAccno' class="lbl btn"> </a></td>
 						<td><input type="text" id="txtAccno" class="txt c1"/></td>
-						<td><span> </span><a id='lblKind' class="lbl"> </a></td>
-						<td><input type="text" id="txtKind" class="txt c1"/></td>
+						<td id='lblKindtd'><span> </span><a id='lblKind' class="lbl"></a></td>
+						<td id='txtKindtd'><input type="text" id="txtKind" class="txt c1"/></td>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input type="text" id="txtWorker" class="txt c1"/></td>
+						<td id='lblWorktd'><span> </span><a class="lbl del">修改者</a></td>
+						<td id='txtWorktd'><input type="text" id="txtWorker2" class="txt c1 del2"/></td>
 					</tr>
-					<tr>
+					<tr id='dctr3'>
 						<td> </td>
 						<td> </td>
 						<td> </td>
