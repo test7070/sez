@@ -53,7 +53,7 @@
 			function sum() {
 				if (!(q_cur == 1 || q_cur == 2))
 					return;
-				var cuft=0,t_mount;
+				var cuft=0,t_mount,t_weight=0;
     			for(var i=0;i<q_bbsCount;i++){
     				$('#txtMount_'+i).val(round(q_div(q_float('txtTvolume_'+i), q_float('txtWeight_'+i)),0));
 					$('#txtMoney_'+i).val(round(q_mul(q_float('txtMount_'+i),q_float('txtPrice_'+i)),0));
@@ -81,7 +81,9 @@
                         $('#txtConn_'+i).val($('#txtCustno').val());
                         $('#txtTel_'+i).val($('#txtComp').val());
                     }
+                    t_weight=q_add(t_weight,q_float('txtTheight_'+i))  
                 }
+                $('#txtTweight2').val(t_weight);
 			}
 
 			function main() {
@@ -650,6 +652,10 @@
                         <td colspan="2"><input id="txtCbconn" type="text"  class="txt c1"/></td>
                         <td><span> </span><a id="lblCbtel" class="lbl">連絡電話</a></td>
                         <td colspan="2"><input id="txtCbtel" type="text"  class="txt c1"/></td>
+                    </tr>
+                    <tr>
+                        <td><span> </span><a id="lbl" class="lbl">總毛重</a></td>
+                        <td colspan="2"><input id="txtTweight2" type="text"  class="txt c1 num"/></td>
                     </tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>

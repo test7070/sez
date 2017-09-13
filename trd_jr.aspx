@@ -484,6 +484,7 @@
                 if (!(q_cur == 1 || q_cur == 2))
                     return;
                	//小數 可能會有問題需注意
+               	//2017/09/13 盧小姐 未用折扣欄位 把折扣欄位改成應收總計未稅  稅額要四捨五入
                 var t_money = 0,t_mount = 0;
                 for ( i = 0; i < q_bbsCount; i++) {
                     t_money = t_money.add(q_float('txtTranmoney_' + i));
@@ -495,13 +496,14 @@
 				var t_minusmoney = q_float('txtMinusmoney');
 				var t_tax = q_float('txtTax'); 
 				var t_plus = q_float('txtPlus');
-				var t_discount = q_float('txtDiscount'); 
-				var t_total = t_money.add(t_plusmoney).sub(t_minusmoney).add(t_tax).add(t_plus).sub(t_discount);
+				/*var t_discount = q_float('txtDiscount');*/
+				var t_total = t_money.add(t_plusmoney).sub(t_minusmoney).add(t_tax).add(t_plus);
                
                 $('#txtMoney').val(FormatNumber(t_money));
                 $('#txtTotal').val(FormatNumber(t_total));
                 $('#txtMount').val(FormatNumber(t_mount));
-                $('#txtTax').val(FormatNumber(t_money*0.05));
+                $('#txtDiscount').val(FormatNumber(t_money.add(t_plusmoney).sub(t_minusmoney).add(t_plus)));
+                $('#txtTax').val(round(FormatNumber((t_money.add(t_plusmoney).sub(t_minusmoney).add(t_plus))*0.05),0));
             }
             function refresh(recno) {
                 _refresh(recno);
@@ -904,7 +906,7 @@
 						<td><input id="txtMoney" type="text"  class="txt c1 num"/></td>
 						<td><span> </span><a id="lblPlus" class="lbl"> </a></td>
 						<td><input id="txtPlus" type="text"  class="txt c1 num"/></td>
-						<td><span> </span><a id="lblDiscount" class="lbl"> </a></td>
+						<td><span> </span><a id="lbl" class="lbl">應收總計(未稅)</a></td>
 						<td><input id="txtDiscount" type="text"  class="txt c1 num"/></td>
 						<td><span> </span><a id="lblTax" class="lbl"> </a></td>
 						<td><input id="txtTax" type="text"  class="txt c1 num"/></td>
