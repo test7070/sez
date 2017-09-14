@@ -58,6 +58,9 @@
             var t_weight=0;
             function sum() {
                 for(var i=0;i<q_bbsCount;i++){
+                    if($('#txtLat').val().length>0){
+                        $('#txtConn_'+i).val($('#txtLat').val());
+                    }
                     if($('#txtAddrno').val().length>0){
                         $('#txtAddrno_'+i).val($('#txtAddrno').val());
                         $('#txtAddr_'+i).val($('#txtAddr').val());
@@ -113,16 +116,16 @@
                 var ret;
                 switch (b_pop) {
                     case 'tranorde_tranvcce':
-                        if (q_cur > 0 && q_cur < 4) {
-                            b_ret = getb_ret();
-                            if (!b_ret || b_ret.length == 0)
-                                return;
-                                ret = q_gridAddRow(bbsHtm, 'tbbs', 
-                                'txtConn,txtCustno,txtCust,txtBdate,txtTime1,txtEdate,txtTime2,txtTypea,txtProductno,txtProduct,txtUnit,txtWeight,txtMount,txtTvolume,txtTheight,txtCarno,txtDriverno,txtDriver,txtAddrno2,txtAddr2,txtAddress,txtTranno,txtOrdeno,txtNo2,txtMemo', b_ret.length, b_ret, 
-                                'caseno,conn,tel,date1,time1,date2,time2,typea,productno,product,unit,theight,mount,total2,total3,carno,driverno,driver,addrno2,addr2,address,tranno,noa,noq,memo','');
-                            }
-                         sum();
-                         q_gt('addr2', '', 0, 0, 0, "addr2");
+                            if (q_cur > 0 && q_cur < 4) {
+                                b_ret = getb_ret();
+                                if (!b_ret || b_ret.length == 0)
+                                    return;
+                                    ret = q_gridAddRow(bbsHtm, 'tbbs', 
+                                    'txtConn,txtCustno,txtCust,txtBdate,txtTime1,txtEdate,txtTime2,txtTypea,txtProductno,txtProduct,txtUnit,txtWeight,txtMount,txtTvolume,txtTheight,txtCarno,txtDriverno,txtDriver,txtAddrno2,txtAddr2,txtAddress,txtTranno,txtOrdeno,txtNo2,txtMemo', b_ret.length, b_ret, 
+                                    'caseno,conn,tel,date1,time1,date2,time2,typea,productno,product,unit,theight,mount,total2,total3,carno,driverno,driver,addrno2,addr2,address,tranno,noa,noq,memo','');
+                             }
+                             sum();
+                             q_gt('addr2', '', 0, 0, 0, "addr2");
                         break;
                     case q_name + '_s':
                         q_boxClose2(s2);
@@ -146,6 +149,7 @@
                                     }
                                 }
                             }
+                            t_weight=0;
                             break;    
                     case q_name:
                         if (q_cur == 4)
