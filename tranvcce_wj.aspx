@@ -55,7 +55,7 @@
                 }
                 mainForm(0);
             }
-
+            var t_weight=0;
             function sum() {
                 for(var i=0;i<q_bbsCount;i++){
                     if($('#txtAddrno').val().length>0){
@@ -67,7 +67,9 @@
                         $('#txtUweight_'+i).val(q_div($('#txtWeight_'+i).val(),$('#txtMount_'+i).val()));
                     }
                     $('#txtTotal_'+i).val(q_mul(q_div($('#txtWeight_'+i).val(),1000),$('#txtVolume_' + i).val()));
+                    t_weight=q_add(t_weight,q_float('txtWeight_'+i))  
                 }
+                
             }
 
             function mainPost() {
@@ -79,7 +81,8 @@
                 $('#btnOrde').click(function(e){
                     t_custno=$('#txtAddrno').val();
                     t_cno=$('#txtCno').val();
-                    var t_where = "addrno3='"+t_cno+"' and Addrno='"+t_custno+"' and not exists(select noa,noq from view_tranvcces where ordeno=a.noa and no2=a.noq)";
+                    t_po=$('#txtLat').val();
+                    var t_where = "addrno3='"+t_cno+"' and Addrno='"+t_custno+"'and (caseno='"+t_po+"') and not exists(select noa,noq from view_tranvcces where ordeno=a.noa and no2=a.noq)";
                     q_box("tranordewj_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'tranorde_tranvcce', "100%", "100%", "");
                 });
                 
@@ -118,6 +121,7 @@
                                 'txtConn,txtCustno,txtCust,txtBdate,txtTime1,txtEdate,txtTime2,txtTypea,txtProductno,txtProduct,txtUnit,txtWeight,txtMount,txtTvolume,txtTheight,txtCarno,txtDriverno,txtDriver,txtAddrno2,txtAddr2,txtAddress,txtTranno,txtOrdeno,txtNo2,txtMemo', b_ret.length, b_ret, 
                                 'caseno,conn,tel,date1,time1,date2,time2,typea,productno,product,unit,theight,mount,total2,total3,carno,driverno,driver,addrno2,addr2,address,tranno,noa,noq,memo','');
                             }
+                         sum();
                          q_gt('addr2', '', 0, 0, 0, "addr2");
                         break;
                     case q_name + '_s':
@@ -135,7 +139,7 @@
                                 var addr2s = _q_appendData("addr2s", "", true);
                                 for (var j = 0; j< q_bbsCount; j++) {
                                     for (var i = 0; i < addr2s.length; i++) {
-                                        if(addr2s[i].noa==$('#txtAddrno').val() && addr2s[i].carno==$('#txtTypea_'+j).val() && dec(addr2s[i].rate)<=dec(q_div($('#txtWeight_'+j).val(),1000)) && dec(addr2s[i].rate2)>=dec(q_div($('#txtWeight_'+j).val(),1000)) && dec(addr2s[i].lat)<=dec(dec($('#txtAddress_0').val().substring(0,3))) && dec(addr2s[i].lng)>=dec(dec($('#txtAddress_0').val().substring(0,3)))){
+                                        if(addr2s[i].noa==$('#txtAddrno').val() && addr2s[i].carno==$('#txtTypea_'+j).val() && dec(addr2s[i].rate)<=dec(q_div(t_weight,1000)) && dec(addr2s[i].rate2)>=dec(q_div(t_weight,1000)) && dec(addr2s[i].lat)<=dec(dec($('#txtAddress_0').val().substring(0,3))) && dec(addr2s[i].lng)>=dec(dec($('#txtAddress_0').val().substring(0,3)))){
                                             $('#txtVolume_'+j).val(addr2s[i].value);
                                             $('#txtTotal_'+j).val(q_mul(q_div($('#txtWeight_'+j).val(),1000),addr2s[i].value));
                                         }
@@ -224,14 +228,16 @@
                         $('#btnCarplate_'+n).click();
                     });
                     $('#txtTypea_'+i).change(function() {
+                        sum();
                        q_gt('addr2', '', 0, 0, 0, "addr2");
                     });
                     $('#txtAddr2no_'+i).change(function() {
+                       sum();
                        q_gt('addr2', '', 0, 0, 0, "addr2");
                     });
                     $('#txtWeight_' + i).change(function() {
-                        q_gt('addr2', '', 0, 0, 0, "addr2");
                         sum();
+                        q_gt('addr2', '', 0, 0, 0, "addr2");
                     });
                     $('#txtMount_' + i).change(function() {
                         sum();
@@ -595,6 +601,10 @@
                             <input type="text" id="txtAddress" class="c1 txt"/>
                         </td>
                     </tr>
+                    <tr>
+                        <td><span> </span><a id="lblPo" class="lbl">運輸單號</a></td>
+                        <td colspan="2"><input type="text" id="txtLat" class="c1 txt"/></td>
+                    </tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl" > </a></td>
 						<td colspan="5"><textarea id="txtMemo" style="height:40px;" class="txt c1"> </textarea></td>
@@ -619,7 +629,6 @@
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:100px"><a>運輸單號</a></td>
 					<td align="center" style="width:80px"><a>客戶</a></td>
 					<td align="center" style="width:80px"><a>裝貨日期</a></td>
 					<td align="center" style="width:80px"><a>卸貨日期</a></td>
@@ -653,8 +662,8 @@
 						<input type="text" id="txtNoq.*" style="display:none;"/>
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-					<td><input type="text" id="txtConn.*" style="width:95%;"/></td>
 					<td>
+					    <input type="text" id="txtConn.*" style="display:none;" />
                         <input type="text" id="txtCustno.*" style="float:left;width:95%;" />
                         <input type="text" id="txtCust.*" style="float:left;width:95%;">
                         <input type="button" id="btnCust.*" style="display:none;">

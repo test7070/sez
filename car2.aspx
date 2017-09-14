@@ -1226,15 +1226,18 @@
 						<td><select id="cmbCartype" class="txt c1"> </select> </td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblCarkind" class="lbl"> </a></td>
-						<td><select id="cmbCarkindno" class="txt c1"> </select></td>
-						
+						<td><span> </span><a id="lblCarbono" class="lbl">車身號碼</a></td>
+						<td><input id="txtCarbono" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblCarmode" class="lbl"> </a></td>
 						<td><input id="txtCarmode" type="text" class="txt c1"/> </td>
 						<!--<select id="cmbCarstyleno" class="txt c1"> </select>-->
 						<td><span> </span><a id="lblCarspec" class="lbl btn"> </a></td>
 						<td><select id="cmbCarspecno" class="txt c1"> </select></td>
 					</tr>
+					<tr>
+                        <td><span> </span><a id="lblCarkind" class="lbl"> </a></td>
+                        <td><select id="cmbCarkindno" class="txt c1"> </select></td>
+                    </tr>
 					<tr>
 						<td><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
 						<td colspan="2">
