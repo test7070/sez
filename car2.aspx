@@ -114,6 +114,11 @@
                 	$(".btns").show();
                 }
                 
+                //106/09/14
+                if(q_getPara('sys.project').toUpperCase()=="WA" || q_getPara('sys.project').toUpperCase()=="SH"){
+                	$(".btns").show();
+                }
+                
                 q_gt('carbrand', '', 0, 0, 0, "");
                 q_gt('carkind', '', 0, 0, 0, "");
                 q_gt('carspec', '', 0, 0, 0, "");
