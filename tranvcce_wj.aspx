@@ -30,13 +30,13 @@
             q_alias = '';
             q_desc = 1;
             aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
-            ,['txtAddrno', 'lblAddr_js', 'addr2', 'noa,addr,address', 'txtAddrno,txtAddr,txtAddress', 'addr2_b.aspx']
+            ,['txtAddrno', 'lblAddr_js', 'addr2', 'custno,cust,address', 'txtAddrno,txtAddr,txtAddress', 'addr2_b2.aspx']
             , ['txtCustno', 'btnCust', 'cust', 'noa,nick', 'txtCustno,txtComp', 'cust_b.aspx']
             , ['txtCustno_', 'btnCust_', 'cust', 'noa,nick', 'txtCustno_,txtCust_', 'cust_b.aspx']
             , ['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
             , ['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx']
-            , ['txtAddrno2_', 'btnAddr2_', 'addr2', 'noa,addr,address', 'txtAddrno2_,txtAddr2_,txtAddress_', 'addr2_b.aspx']
-            , ['txtAddrno3_', 'btnAddr3_', 'addr2', 'noa,addr', 'txtAddrno3_,txtAddr3_', 'addr2_b.aspx']
+            , ['txtAddrno2_', 'btnAddr2_', 'addr2', 'custno,cust,address,memo', 'txtAddrno2_,txtAddr2_,txtAddress_,txtMemo_', 'addr2_b2.aspx']
+            , ['txtAddrno3_', 'btnAddr3_', 'addr2', 'custno,cust', 'txtAddrno3_,txtAddr3_', 'addr2_b2.aspx']
             , ['txtDriverno_', 'btnDriver_', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx']
             , ['txtLng2_', 'btnCarplate_', 'carplate', 'noa', 'txtLng2_', 'carplate_b.aspx']);
 
@@ -85,7 +85,11 @@
                     t_custno=$('#txtAddrno').val();
                     t_cno=$('#txtCno').val();
                     t_po=$('#txtLat').val();
-                    var t_where = "addrno3='"+t_cno+"' and Addrno='"+t_custno+"'and (caseno='"+t_po+"') and not exists(select noa,noq from view_tranvcces where ordeno=a.noa and no2=a.noq)";
+                    if (t_po.length>0){
+                        var t_where = "addrno3='"+t_cno+"' and Addrno='"+t_custno+"' and (caseno='"+t_po+"') and not exists(select noa,noq from view_tranvcces where ordeno=a.noa and no2=a.noq)";
+                    }else{
+                        var t_where = "addrno3='"+t_cno+"' and Addrno='"+t_custno+"' and not exists(select noa,noq from view_tranvcces where ordeno=a.noa and no2=a.noq)";
+                    }
                     q_box("tranordewj_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'tranorde_tranvcce', "100%", "100%", "");
                 });
                 
@@ -97,7 +101,7 @@
                     $('#divImport').toggle();
                 });
                 $('#txtAddrno').change(function() {
-                     q_gt('addr2', '', 0, 0, 0, "addr2");
+                     q_gt('addr2', t_where, 0, 0, 0, "addr2");
                 });
                 $('#btnImport_trans').click(function() {
                    if(q_cur != 1 && q_cur != 2){
@@ -556,14 +560,14 @@
 						<td align="center" style="width:5%"><a id="vewChk"> </a></td>
 						<td align="center" style="display:none;"><a> </a></td>
 						<td align="center" style="width:20%"><a>日期</a></td>
-						<td align="center" style="width:20%"><a>電腦編號</a></td>
+						<td align="center" style="width:20%"><a>提貨地點</a></td>
 					</tr>
 					<tr>
 						<td>
 						<input id="chkBrow.*" type="checkbox"/>
 						</td>
 						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='noa'>~noa</td>
+						<td align="center" id='addr'>~addr</td>
 					</tr>
 				</table>
 			</div>
@@ -636,7 +640,7 @@
 					<td align="center" style="width:80px"><a>客戶</a></td>
 					<td align="center" style="width:80px"><a>裝貨日期</a></td>
 					<td align="center" style="width:80px"><a>卸貨日期</a></td>
-					<td align="center" style="width:180px"><a>卸貨地點</a></td>
+					<td align="center" style="width:180px"><a>收貨人/地點</a></td>
 					<td align="center" style="width:70px"><a>危險等級</a></td>
 					<td align="center" style="width:120px"><a>品名</a></td>
 					<td align="center" style="width:150px"><a>批號</a></td>
@@ -657,6 +661,7 @@
                     <td align="center" style="width:80px"><a>結關日期</a></td>
                     <td align="center" style="width:30px"><a>提貨</a></td>
                     <td align="center" style="width:30px"><a>卸貨</a></td>
+                    <td align="center" style="width:30px"><a>完工</a></td>
                     <td align="center" style="width:120px"><a>訂單編號</a></td>
 					<td align="center" style="width:100px"><a>注意事項</a></td>
 				</tr>
@@ -695,7 +700,7 @@
                         <input type="text" id="txtProduct.*" style="width:95%;" />
                         <input type="button" id="btnProduct.*" style="display:none;">
                     </td>
-                    <td><input type="text" id="txtTel.*" style="width:95%;"/></td>
+                    <td><input type="text" id="txtUno.*" style="width:95%;"/></td>
                     <td><input type="text" id="txtUnit.*" style="width:95%;"/></td>
 					<td><input type="text" id="txtUweight.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtWeight.*" class="num" style="width:95%;"/></td>
@@ -727,6 +732,7 @@
 					<td><input type="text" id="txtLng.*" style="width:95%;"/></td>
 					<td align="center"><input id="chkChk1.*" type="checkbox"/></td>
 					<td align="center"><input id="chkChk2.*" type="checkbox"/></td>
+					<td align="center"><input id="chkChk3.*" type="checkbox"/></td>
 					<td align="center">
                         <input type="text" id="txtOrdeno.*" style="width:95%;" />
                         <input type="text" id="txtNo2.*" style="width:30%;" />

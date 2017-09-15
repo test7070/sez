@@ -32,10 +32,10 @@
 			q_desc = 1;
 			//q_xchg = 1;
 			brwCount2 = 5;
-			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'] 
-				,['txtAddrno', 'lblAddr_js', 'addr2', 'noa,addr,address', 'txtAddrno,txtAddr,txtBoat', 'addr2_b.aspx']
+			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,memo2', 'txtCustno,txtComp,txtNick,txtMemo', 'cust_b.aspx'] 
+				,['txtAddrno', 'lblAddr_js', 'addr2', 'custno,cust,address', 'txtAddrno,txtAddr,txtBoat', 'addr2_b2.aspx']
 				,['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
-				,['txtAddrno2_', 'btnAddr_', 'addr2', 'noa,addr,address', 'txtAddrno2_,txtAddr2_,txtAddress_', 'addr2_b.aspx']
+				,['txtAddrno2_', 'btnAddr_', 'addr2', 'custno,cust,address,memo', 'txtAddrno2_,txtAddr2_,txtAddress_,txtMemo_', 'addr2_b2.aspx']
 				,['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
 				,['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx']
 				,['txtDriverno_', 'btnDriver_', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx']);
@@ -693,14 +693,14 @@
                     <td align="center" style="width:80px"><a>金額</a></td>-->
                     <td align="center" style="width:80px"><a>人工裝費</a></td>
                     <td align="center" style="width:80px"><a>管理收入</a></td>
-                    <td align="center" style="width:150px"><a>地點</a></td>
-                    <td align="center" style="width:200px"><a>地址</a></td>
+                    <td align="center" style="width:200px"><a>收貨人/地點</a></td>
                     <td align="center" style="width:80px"><a>車牌</a></td>
                     <td align="center" style="width:140px"><a>司機</a></td>
 					<td align="center" style="width:140px"><a>提貨日期</a></td>
 					<td align="center" style="width:140px"><a>卸貨日期</a></td>
 					<td align="center" style="width:80px"><a>出單日期</a></td>
 					<td align="center" style="width:100px"><a>送(提)貨單號</a></td>
+					<td align="center" style="width:100px"><a>批號</a></td>
 					<td align="center" style="width:100px"><a>注意事項</a></td>
 				</tr>
 				<tr class="data" style='background:#cad3ff;'>
@@ -740,8 +740,7 @@
                         <input type="text" id="txtAddr3.*" style="display:none;">
                         <input type="text" id="txtConn.*" style="display:none;">
                         <input type="text" id="txtTel.*" style="display:none;">
-                    </td>
-                    <td><input type="text" id="txtAddress.*" style="width:95%;" /></td>
+                        <input type="text" id="txtAddress.*" style="width:95%;" />
                     <td>
                         <input type="text" id="txtCarno.*" style="width:95%;"/>
                         <input type="button" id="btnCarno.*" style="display:none;"/>
@@ -761,6 +760,7 @@
 					</td>
 					<td><input type="text" id="txtTrandate.*" style="width:95%;" /></td>
 					<td><input type="text" id="txtTranno.*" style="width:95%;" /></td>
+					<td><input type="text" id="txtUno.*" style="width:95%;" /></td>
 					<td><input type="text" id="txtMemo.*" style="width:95%;" /></td>
 				</tr>
 

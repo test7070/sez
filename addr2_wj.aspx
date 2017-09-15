@@ -17,7 +17,7 @@
 		<script type="text/javascript">
             q_tables = 's';
             var q_name = "addr2";
-            var q_readonly = [];
+            var q_readonly = ['txtNoa'];
             var bbmNum = [];
             var bbmMask = [];
             var bbsNum = [['txtRate', 10, 2, 1],['txtRate2', 10, 2, 1],['txtValue', 10, 0, 1]];
@@ -42,8 +42,18 @@
                 mainForm(0);
             }
 
+            function sum() {
+                    for(var i=0;i<q_bbsCount;i++){
+                        if($('#txtCustno').val().length>0){
+                            $('#txtAddrno_'+i).val($('#txtCustno').val());
+                        }
+                    } 
+            }
             function mainPost() {
+                q_getFormat();
+                bbmMask = [['txtSdate', r_picd]];
                 q_mask(bbmMask);
+                $('#txtSdate').datepicker();
             }
 
             function q_boxClose(s2) {
@@ -57,16 +67,6 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                    case 'checkAddrno_btnOk':
-                        var as = _q_appendData("addr2", "", true);
-                        if (as[0] != undefined) {
-                            alert('已存在 ' + as[0].noa + ' ' + as[0].addr);
-                            Unlock();
-                            return;
-                        } else {
-                            wrServer($('#txtNoa').val());
-                        }
-                        break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -83,7 +83,8 @@
             function btnIns() {
                 _btnIns();
                 refreshBbm();
-                $('#txtNoa').focus();
+                $('#txtNoa').val('AUTO'); 
+                $('#txtSdate').val(q_date()).focus();
             }
 
             function btnModi() {
@@ -114,19 +115,21 @@
             }
 
             function btnOk() {
-                Lock();
-                $('#txtNoa').val($.trim($('#txtNoa').val()));
-                if (q_cur == 1) {
-                    t_where = "where=^^ noa='" + $('#txtNoa').val() + "'^^";
-                    q_gt('addr2', t_where, 0, 0, 0, "checkAddrno_btnOk", r_accy);
-                } else {
-                    wrServer($('#txtNoa').val());
-                }
+                sum();
+                $('#txtWorker').val(r_name)
+                var t_noa = trim($('#txtNoa').val());
+                var t_date = trim($('#txtSdate').val());
+                if (q_cur ==1)
+                     q_gtnoa(q_name, replaceAll((t_date.length == 0 ? q_date() : t_date), '/', ''));
+                else
+                     wrServer(t_noa);
 
             }
 
             function wrServer(key_value) {
-                _btnOk(key_value, bbmKey[0], '', '', 2);
+                 var i;
+                $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
+                _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
             }
 
             function refresh(recno) {
@@ -150,7 +153,8 @@
                 for (var i = 0; i < q_bbsCount; i++) {
                     $('#lblNo_' + i).text(i + 1);
                     if ($('#btnMinus_' + i).hasClass('isAssign'))
-                        continue; 
+                        continue;
+                    $('#txtAddrno_'+i).val($('#txtCustno').val()); 
                 }
                 _bbsAssign();
 
@@ -338,14 +342,14 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a>編號</a></td>
-						<td align="center" style="width:150px; color:black;"><a>地點</a></td>
+						<td align="center" style="width:150px; color:black;"><a>供應商/收貨人</a></td>
 						<td align="center" style="width:300px; color:black;"><a>地址</a></td>
 						<tr>
 							<td >
 							<input id="chkBrow.*" type="checkbox"/>
 							</td>
-							<td id='noa' style="text-align: left;">~noa</td>
-							<td id='addr' style="text-align:left;">~addr</td>
+							<td id='custno' style="text-align: left;">~custno</td>
+							<td id='cust' style="text-align:left;">~cust</td>
 							<td id='address' style="text-align:left;">~address</td>
 						</tr>
 				</table>
@@ -360,24 +364,32 @@
 						<td class="tdZ"></td>
 					</tr>
 					<tr>
-						<td><span> </span><a class="lbl">編號</a></td>
-						<td>
-						<input id="txtNoa"  type="text"  class="txt c1"/>
-						</td>
-					</tr>
-					<tr>
-						<td><span> </span><a class="lbl">地點</a></td>
-						<td>
-						<input id="txtAddr" type="text"  class="txt c1"/>
-						</td>
-						<td></td>
-					</tr>
+                        <td><span> </span><a class="lbl">編號</a></td>
+                        <td>
+                        <input id="txtCustno"  type="text"  class="txt c1"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span> </span><a class="lbl">供應商/收貨人</a></td>
+                        <td>
+                        <input id="txtCust" type="text"  class="txt c1"/>
+                        </td>
+                    </tr>
 					<tr>
 						<td><span> </span><a class="lbl">地址</a></td>
 						<td colspan="3">
 						<input id="txtAddress" type="text"  class="txt c1"/>
 						</td>
 					</tr>
+					<tr>
+                        <td class="td1"><span> </span><a id="lblSdate" class="lbl" >生效日期</a></td>
+                        <td class="td2"><input id="txtSdate"  type="text" class="txt c1"/></td>
+                        <td class="td2"><input id="txtNoa"  style="display:none;"/></td>
+                    </tr>
+                    <tr>
+                        <td class="td1"><span> </span><a id="lblMemo" class="lbl" >注意事項</a></td>
+                        <td colspan="3"><textarea id="txtMemo" style="height:40px;" class="txt c1"> </textarea></td>
+                    </tr>
 				</table>
 			</div>
 		</div>
@@ -402,6 +414,7 @@
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
                         <input type="text" id="txtCarno.*" style="float:left;width:95%;" />
+                        <input type="text" id="txtAddrno.*"  style="display:none;"/>
                     </td>
 					<td>
     					<input type="text" id="txtLat.*" style="float:left;width:45%;" />
