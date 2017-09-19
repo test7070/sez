@@ -33,7 +33,7 @@
 			//q_xchg = 1;
 			brwCount2 = 5;
 			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,memo2', 'txtCustno,txtComp,txtNick,txtMemo', 'cust_b.aspx'] 
-				,['txtAddrno', 'lblAddr_js', 'addr2', 'custno,cust,address', 'txtAddrno,txtAddr,txtBoat', 'addr2_b2.aspx']
+				,['txtAddrno', 'lblAddr_js', 'addr2_wj', 'custno,cust,address', 'txtAddrno,txtAddr,txtBoat', 'addr2_b2.aspx']
 				,['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
 				,['txtAddrno2_', 'btnAddr_', 'addr2', 'custno,cust,address,memo', 'txtAddrno2_,txtAddr2_,txtAddress_,txtMemo_', 'addr2_b2.aspx']
 				,['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
@@ -96,8 +96,6 @@
 
 			function mainPost() {
 				q_mask(bbmMask);
-				
-				
 			}
 
 			function bbsAssign() {

@@ -131,17 +131,33 @@
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
-                $('#txtXdate1').mask(r_picd);
-                $('#txtXdate2').mask(r_picd);
-                $('#txtXmon1').mask(r_picm);
-                $('#txtXmon2').mask(r_picm);
-                $('#txtXyear').mask(r_pic);
-                $('#txtYyear1').mask(r_pic);
-                $('#txtYyear2').mask(r_pic);
-                if(r_len==3){
-                	$('#txtXdate1').datepicker();
-                	$('#txtXdate2').datepicker();
+                
+                var r_1911=1911;
+                if(r_len==4){
+                    r_1911=0;                  
+                    $.datepicker.r_len=4;
+                    //$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+                    $('#txtXdate1').datepicker();
+                    $('#txtXdate2').datepicker();
+                    $('#txtXmon1').mask(r_picm);
+                    $('#txtXmon2').mask(r_picm);
+                    $('#txtXyear').mask(r_pic);
+                    $('#txtYyear1').mask(r_pic);
+                    $('#txtYyear2').mask(r_pic);
+                    $('#txtXdate1').mask(r_picd);
+                    $('#txtXdate2').mask(r_picd);
+                }else{
+                    $('#txtXdate1').mask('999/99/99');
+                    $('#txtXdate1').datepicker();
+                    $('#txtXdate2').mask('999/99/99');
+                    $('#txtXdate2').datepicker();
+                    $('#txtXmon1').mask('999/99');
+                    $('#txtXmon2').mask('999/99');
+                    $('#txtXyear').mask('999');
+                    $('#txtYyear1').mask('999');
+                    $('#txtYyear2').mask('999');
                 }
+
                 $('#txtXdate1').val(q_date().substr(0,r_lenm)+'/01');
                 $('#txtXdate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1));
                 $('#txtXmon1').val(q_date().substr(0,r_len)+'/01');

@@ -24,6 +24,7 @@
             var bbsMask = [];
             q_sqlCount = 6;
             brwCount = 6;
+            q_desc = 1;
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
@@ -32,14 +33,15 @@
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
+                q_content = ' order=^^datea desc, noa desc ^^';
+                q_gt(q_name, q_content, q_sqlCount, 1, 0, '',r_accy);
             });
             function main() {
                 if (dataErr) {
                     dataErr = false;
                     return;
                 }
-                mainForm(0);
+                mainForm(6, q_content);
             }
 
             function sum() {

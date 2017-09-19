@@ -30,7 +30,7 @@
             q_alias = '';
             q_desc = 1;
             aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
-            ,['txtAddrno', 'lblAddr_js', 'addr2', 'custno,cust,address', 'txtAddrno,txtAddr,txtAddress', 'addr2_b2.aspx']
+            ,['txtAddrno', 'lblAddr_js', 'addr2_wj', 'custno,cust,address', 'txtAddrno,txtAddr,txtAddress', 'addr2_b2.aspx']
             , ['txtCustno', 'btnCust', 'cust', 'noa,nick', 'txtCustno,txtComp', 'cust_b.aspx']
             , ['txtCustno_', 'btnCust_', 'cust', 'noa,nick', 'txtCustno_,txtCust_', 'cust_b.aspx']
             , ['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
@@ -92,7 +92,7 @@
                     }
                     q_box("tranordewj_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'tranorde_tranvcce', "100%", "100%", "");
                 });
-                
+
                 $('#btnImport').click(function() {
                     $('#divImport').toggle();
                     $('#textBdate').focus();
@@ -101,6 +101,11 @@
                     $('#divImport').toggle();
                 });
                 $('#txtAddrno').change(function() {
+                     var t_where = "where=^^ noa in(select max(noa) from addr2 where sdate<='"+$('#txtDatea').val()+"' group by custno,cust)^^ stop=999";
+                     q_gt('addr2', t_where, 0, 0, 0, "addr2");
+                });
+                $('#txtDatea').change(function() {
+                     var t_where = "where=^^ noa in(select max(noa) from addr2 where sdate<='"+$('#txtDatea').val()+"' group by custno,cust)^^ stop=999";
                      q_gt('addr2', t_where, 0, 0, 0, "addr2");
                 });
                 $('#btnImport_trans').click(function() {
@@ -129,7 +134,8 @@
                                     'caseno,conn,tel,date1,time1,date2,time2,typea,productno,product,unit,theight,mount,total2,total3,carno,driverno,driver,addrno2,addr2,address,tranno,noa,noq,memo','');
                              }
                              sum();
-                             q_gt('addr2', '', 0, 0, 0, "addr2");
+                             var t_where = "where=^^ noa in(select max(noa)  from addr2 where sdate<='"+$('#txtDatea').val()+"' group by custno,cust)^^ stop=999";
+                             q_gt('addr2', t_where, 0, 0, 0, "addr2");
                         break;
                     case q_name + '_s':
                         q_boxClose2(s2);
@@ -146,7 +152,7 @@
                                 var addr2s = _q_appendData("addr2s", "", true);
                                 for (var j = 0; j< q_bbsCount; j++) {
                                     for (var i = 0; i < addr2s.length; i++) {
-                                        if(addr2s[i].noa==$('#txtAddrno').val() && addr2s[i].carno==$('#txtTypea_'+j).val() && dec(addr2s[i].rate)<=dec(q_div(t_weight,1000)) && dec(addr2s[i].rate2)>=dec(q_div(t_weight,1000)) && dec(addr2s[i].lat)<=dec(dec($('#txtAddress_0').val().substring(0,3))) && dec(addr2s[i].lng)>=dec(dec($('#txtAddress_0').val().substring(0,3)))){
+                                        if(addr2s[i].addrno==$('#txtAddrno').val() && addr2s[i].carno==$('#txtTypea_'+j).val() && dec(addr2s[i].rate)<=dec(q_div(t_weight,1000)) && dec(addr2s[i].rate2)>=dec(q_div(t_weight,1000)) && dec(addr2s[i].lat)<=dec(dec($('#txtAddress_0').val().substring(0,3))) && dec(addr2s[i].lng)>=dec(dec($('#txtAddress_0').val().substring(0,3)))){
                                             $('#txtVolume_'+j).val(addr2s[i].value);
                                             $('#txtTotal_'+j).val(q_mul(q_div($('#txtWeight_'+j).val(),1000),addr2s[i].value));
                                         }
@@ -237,15 +243,18 @@
                     });
                     $('#txtTypea_'+i).change(function() {
                         sum();
-                       q_gt('addr2', '', 0, 0, 0, "addr2");
+                        var t_where = "where=^^ noa in(select max(noa)  from addr2 where sdate<='"+$('#txtDatea').val()+"' group by custno,cust)^^ stop=999";
+                        q_gt('addr2', t_where, 0, 0, 0, "addr2");
                     });
                     $('#txtAddr2no_'+i).change(function() {
                        sum();
-                       q_gt('addr2', '', 0, 0, 0, "addr2");
+                       var t_where = "where=^^ noa in(select max(noa)  from addr2 where sdate<='"+$('#txtDatea').val()+"' group by custno,cust)^^ stop=999";
+                       q_gt('addr2', t_where, 0, 0, 0, "addr2");
                     });
                     $('#txtWeight_' + i).change(function() {
                         sum();
-                        q_gt('addr2', '', 0, 0, 0, "addr2");
+                        var t_where = "where=^^ noa in(select max(noa)  from addr2 where sdate<='"+$('#txtDatea').val()+"' group by custno,cust)^^ stop=999";
+                        q_gt('addr2', t_where, 0, 0, 0, "addr2");
                     });
                     $('#txtMount_' + i).change(function() {
                         sum();
@@ -291,7 +300,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['time1'] ) {
+                if (!as['custno'] ) {
                     as[bbsKey[1]] = '';
                     return;
                 }
