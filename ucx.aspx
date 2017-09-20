@@ -329,6 +329,18 @@
 					alert(t_err);
 					return;
 				}
+				//檢查表身是否存在NOA
+				var t_nos=-1;
+				for (var i = 0; i < q_bbsCount; i++) {
+					if(!emp($('#txtProductno_'+i).val()) && $('#txtProductno_'+i).val()==$('#txtNoa').val()){
+						t_nos=i+1;
+						break;
+					}
+				}
+				if(t_nos>-1){
+					alert('表身第'+t_nos+'項品號禁止與物品編號相同!!');
+					return;
+				}
 				//判斷bbt是否有值並判斷其一托工流程是否有填寫製成品編號(最後一個托工流程的製成品會是物品編號)
 				var tcount = false, endnoa = false;
 				for (var i = 0; i < q_bbtCount; i++) {
