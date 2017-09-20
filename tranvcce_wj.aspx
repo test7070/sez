@@ -300,7 +300,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['custno'] ) {
+                if (!as['edate']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -485,7 +485,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 2800px;
+                width: 3000px;
             }
             .tbbs a {
                 font-size: medium;
@@ -668,6 +668,9 @@
                     <td align="center" style="width:100px"><a>中繼站</a></td>
                     <td align="center" style="width:100px"><a>送貨單號</a></td>
                     <td align="center" style="width:80px"><a>結關日期</a></td>
+                    <td align="center" style="width:80px"><a>車趟</a></td>
+                    <td align="center" style="width:80px"><a>隨車</a></td>
+                    <td align="center" style="width:120px"><a>派車狀況</a></td>
                     <td align="center" style="width:30px"><a>提貨</a></td>
                     <td align="center" style="width:30px"><a>卸貨</a></td>
                     <td align="center" style="width:30px"><a>完工</a></td>
@@ -739,6 +742,9 @@
                     </td>
                     <td><input type="text" id="txtTranno.*" style="width:95%;"/></td>
 					<td><input type="text" id="txtLng.*" style="width:95%;"/></td>
+					<td><input type="text" id="txtUnit2.*" style="width:95%;"/></td>
+					<td><input type="text" id="txtTel.*" style="width:95%;"/></td>
+					<td><input type="text" id="txtAllowcar.*" style="width:95%;"/></td>
 					<td align="center"><input id="chkChk1.*" type="checkbox"/></td>
 					<td align="center"><input id="chkChk2.*" type="checkbox"/></td>
 					<td align="center"><input id="chkChk3.*" type="checkbox"/></td>

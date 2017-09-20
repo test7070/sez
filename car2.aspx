@@ -123,7 +123,12 @@
                 q_gt('carkind', '', 0, 0, 0, "");
                 q_gt('carspec', '', 0, 0, 0, "");
                 //q_gt('carstyle', '', 0, 0, 0, "");
-                q_gt('cardeal', '', 0, 0, 0, "");
+                if(q_getPara('sys.project').toUpperCase()=="WJ"){
+                    $("#lblCardeal").text("派車歸納");
+                    q_cmbParse("cmbCardealno", ' @ ,01@聯結車,04@卡車,07@外車,08@文揚 ,09@欣城,10@達運,11@中鋼班');
+                }else{
+                    q_gt('cardeal', '', 0, 0, 0, "");
+                }
 
 				$(".carowner").hide();
 
