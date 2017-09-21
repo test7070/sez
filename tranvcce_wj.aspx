@@ -668,7 +668,7 @@
                     <td align="center" style="width:100px"><a>中繼站</a></td>
                     <td align="center" style="width:100px"><a>送貨單號</a></td>
                     <td align="center" style="width:80px"><a>結關日期</a></td>
-                    <td align="center" style="width:80px"><a>車趟</a></td>
+                    <td align="center" style="width:60px"><a>車趟<br/>(1去2回)</a></td>
                     <td align="center" style="width:80px"><a>隨車</a></td>
                     <td align="center" style="width:120px"><a>派車狀況</a></td>
                     <td align="center" style="width:30px"><a>提貨</a></td>
