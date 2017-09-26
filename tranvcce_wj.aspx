@@ -85,11 +85,7 @@
                     t_custno=$('#txtAddrno').val();
                     t_cno=$('#txtCno').val();
                     t_po=$('#txtLat').val();
-                    if (t_po.length>0){
-                        var t_where = "addrno3='"+t_cno+"' and Addrno='"+t_custno+"' and (caseno='"+t_po+"') and not exists(select noa,noq from view_tranvcces where ordeno=a.noa and no2=a.noq)";
-                    }else{
-                        var t_where = "addrno3='"+t_cno+"' and Addrno='"+t_custno+"' and not exists(select noa,noq from view_tranvcces where ordeno=a.noa and no2=a.noq)";
-                    }
+                    var t_where = "(addrno3='"+t_cno+"' or len('"+t_cno+"')=0) and (addrno='"+t_custno+"' or len('"+t_custno+"')=0) and (caseno='"+t_po+"' or len('"+t_po+"')=0)and not exists(select noa,noq from view_tranvcces where ordeno=a.noa and no2=a.noq)";
                     q_box("tranordewj_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'tranorde_tranvcce', "100%", "100%", "");
                 });
 
