@@ -1245,11 +1245,6 @@
 						</td>
 						<td><span> </span><a id='lblUacc4' class="lbl"> </a></td>
 						<td><input id="txtUacc4" type="text" class="txt c1"/></td>
-						<td class='isYC' style="display: none;">
-						    <a id='lbl' class="lbl" style="float:none">扣</a>
-                            <input id="txtPrice"  type="text" class="txt num c1" style="float:none;width: 50%"/>
-                            <a class="lbl" style="float:none">%</a>
-                        </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblChkstatus' class="lbl"> </a></td>
@@ -1281,6 +1276,11 @@
 							<input id="txtPaytype" type="text" class="txt" style="width:95%;"/>
 							<select id="combPaytype" class="txt" style="width:5%;" onchange='combPaytype_chg()'> </select>
 						</td>
+						<td class='isYC' style="display: none;">
+						    <a id='lbl' class="lbl" style="float:none">扣</a>
+                            <input id="txtPrice"  type="text" class="txt num c1" style="float:none;width: 50%"/>
+                            <a class="lbl" style="float:none">%</a>
+                        </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
