@@ -1248,7 +1248,7 @@
 						<td class='isYC' style="display: none;">
 						    <a id='lbl' class="lbl" style="float:none">扣</a>
                             <input id="txtPrice"  type="text" class="txt num c1" style="float:none;width: 50%"/>
-                            <a id='lbl' class="lbl" style="float:none">%</a>
+                            <a class="lbl" style="float:none">%</a>
                         </td>
 					</tr>
 					<tr>
