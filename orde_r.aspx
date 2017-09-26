@@ -1266,7 +1266,8 @@
 								
 				//106/03/16 限制 訂單交期 106/03/17後面等確定再改抓orde.dodate
 				//var t_where="where=^^noa='qsys.orde.dodate'^^"
-				var t_where="where=^^noa='orde.dodate'^^"
+				//106/09/14 不判斷
+				/*var t_where="where=^^noa='orde.dodate'^^"
 				q_gt('qsys', t_where, 0, 0, 0, "getdodate", r_accy, 1);
 				var as = _q_appendData("qsys", "", true);
 				if (as[0] != undefined) {
@@ -1282,7 +1283,7 @@
 				t_err='';
 				if(t_dodate.length>0 && (q_cur==1 || (q_cur==2 && modi_mount!=modi_mount2)) ){
 					for(var k=0;k<q_bbsCount;k++){
-						if($('#txtDatea_'+k).val()<=t_dodate){
+						if($('#txtDatea_'+k).val()<=t_dodate && !emp($('#txtDatea_'+k).val())){
 							t_err=q_getMsg('lblDateas')+"【"+$('#txtDatea_'+k).val()+"】不可低於"+t_dodatename+"【"+t_dodate+"】";
 							break;
 						}	
@@ -1291,7 +1292,7 @@
 				if(t_err.length>0){
 					alert(t_err);
 					return;
-				}
+				}*/
 				
 				//1030419 當專案沒有勾 BBM的取消和結案被打勾BBS也要寫入
 				if(!$('#chkIsproj').prop('checked')){
@@ -2855,7 +2856,7 @@
 						<td colspan="2"><input id="txtAcomp" type="text" class="txt c1"/></td>
 						<td ><span> </span><a id='lblContract_r' class="lbl">Contract</a></td>
 						<td colspan="2"><input id="txtContract" type="text" class="txt c1"/></td>
-						<td align="center"><input id="btnOrdem" type="button"/></td>
+						<td align="center"><input id="btnOrdem" type="button" style="display: none;"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCust_r" class="lbl btn">Cusomer</a></td>
@@ -2976,7 +2977,7 @@
 							<span> </span><a id='lblEnda_r'>Closed</a>
 							<input id="chkCancel" type="checkbox"/>
 							<span> </span><a id='lblCancel_r'>Cancel</a>
-							<input id="btnVccdate" type="button" value="預交日試算">
+							<input id="btnVccdate" type="button" value="預交日試算" style="display: none;">
 							<td><input id="btnOrdc" type="button" value="轉採購單" /></td>
 						</td>
 					</tr>

@@ -67,12 +67,16 @@
 				t_comp = $('#txtComp').val();
 				t_groupano = $('#cmbGroupano').val();
 				t_style = $('#txtStyle').val();
+				t_ucano = $('#txtUcano').val();
+				t_uccno = $('#txtUccno').val();
 
 				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +
 										q_sqlPara2("processno", t_processno) +
 										//q_sqlPara2("typea", t_typea) +
 										q_sqlPara2("groupano", t_groupano) +
-										q_sqlPara2("tggno", t_tggno);
+										q_sqlPara2("tggno", t_tggno) +
+										q_sqlPara2("ucano", t_ucano) +
+										q_sqlPara2("uccno", t_uccno) ;
 				
 				if (t_product.length > 0)
 					t_where += " and charindex('" + t_product + "',product)>0";										
@@ -103,38 +107,46 @@
 		<div style='width:400px; text-align:center;padding:15px;' >
 			<table id="seek" border="1" cellpadding='3' cellspacing='2' style='width:100%;' >
 				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblNoa'> </a></td>
+					<td class='seek' style="width:25%;"><a id='lblNoa'> </a></td>
 					<td><input class="txt c1" id="txtNoa" type="text"/></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblProduct'> </a></td>
+					<td class='seek' style="width:25%;"><a id='lblProduct'> </a></td>
 					<td><input class="txt c1" id="txtProduct" type="text" /></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblStyle'> </a></td>
+					<td class='seek' style="width:25%;"><a id='lblStyle'> </a></td>
 					<td><input class="txt c1" id="txtStyle" type="text" /></td>
 				</tr>
 				<tr class='seek_tr' style="display: none;">
-					<td class='seek' style="width:20%;"><a id='lblTypea'> </a></td>
+					<td class='seek' style="width:25%;"><a id='lblTypea'> </a></td>
 					<td><select id="cmbTypea" class="c1" > </select></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblGroupano'> </a></td>
+					<td class='seek' style="width:25%;"><a id='lblGroupano'> </a></td>
 					<td><select id="cmbGroupano" class="c1" > </select></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblProcessno'> </a></td>
+					<td class='seek' style="width:25%;"><a id='lblProcessno'> </a></td>
 					<td>
 						<input class="txt" id="txtProcessno" type="text" style="width:90px; font-size:medium;" />
 						<input class="txt" id="txtProcess" type="text" style="width:115px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblTggno'> </a></td>
+					<td class='seek' style="width:25%;"><a id='lblTggno'> </a></td>
 					<td>
 						<input class="txt" id="txtTggno" type="text" style="width:90px; font-size:medium;" />
 						<input class="txt" id="txtComp" type="text" style="width:115px; font-size:medium;" />
 					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek' style="width:25%;"><a id='lblUcano'> </a></td>
+					<td><input class="txt c1" id="txtUcano" type="text" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek' style="width:25%;"><a id='lblUccno'> </a></td>
+					<td><input class="txt c1" id="txtUccno" type="text" /></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->

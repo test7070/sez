@@ -38,7 +38,7 @@
              ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'],
              ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'], 
              ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], 
-             ['txtProductno_', 'btnProductno_', 'uccdc', 'noa,item', 'txtProductno_,txtProduct_', 'uccdc_b.aspx']);
+             ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -199,7 +199,7 @@
             }
 
             function btnPrint() {
-			q_box("z_rc2p.aspx?" , '', "95%", "650px", m_print);
+			q_box("z_rc2.aspx?" , '', "95%", "650px", m_print);
             }
 
             function wrServer(key_value) {
@@ -401,7 +401,7 @@
             }
             .dview {
                 float: left;
-                width: 25%;
+                width: 25%;	
             }
             .tview {
                 margin: 0;
@@ -417,6 +417,10 @@
                 text-align: center;
                 border: 1px black solid;
             }
+			.tview tr {
+				height: 38px;
+			}
+
             .dbbm {
                 float: right;
                 width: 75%;
@@ -526,16 +530,14 @@
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
 						<td align="center" style="width:5%"><a id='vewTypea'> </a></td>
 						<td align="center" style="width:25%"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:25%"><a id='vewNoa'> </a></td>
+						<!--<td align="center" style="width:25%"><a id='vewNoa'> </a></td>-->
 						<td align="center" style="width:40%"><a id='vewComp'> </a></td>
 					</tr>
 					<tr>
-						<td >
-						<input id="chkBrow.*" type="checkbox" style=''/>
-						</td>
+						<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
 						<td align="center" id='typea=rc2.typea'>~typea=rc2.typea</td>
 						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='noa'>~noa</td>
+						<!--<td align="center" id='noa'>~noa</td>-->
 						<td align="center" id='tggno comp,4'>~tggno ~comp,4</td>
 					</tr>
 				</table>

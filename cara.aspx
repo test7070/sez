@@ -129,7 +129,16 @@
 						Lock();
 						$('#divNextmon').hide();
 						$('#btnNextmon').attr('disabled', 'disabled').val('資料結轉中...');
-						q_func( 'cara.genNext',$('#textNextmon').val()+','+dec($('#textDiscount').val())+','+$('#textBcarno').val()+','+$('#textEcarno').val()+','+$('#textSssno').val()+','+r_name);//genNext(string t_mon , string t_discount, string t_worker);
+						//q_func( 'cara.genNext',$('#textNextmon').val()+','+dec($('#textDiscount').val())+','+$('#textBcarno').val()+','+$('#textEcarno').val()+','+$('#textSssno').val()+','+r_name);//genNext(string t_mon , string t_discount, string t_worker);
+						
+						//106/09/13改用qtxt呼叫
+						var t_nextmon=emp($('#textNextmon').val())?q_date().substr(0,r_lenm):$('#textNextmon').val();
+						var t_discount=dec($('#textDiscount').val());
+						var t_bcarno=emp($('#textBcarno').val())?'#non':$('#textBcarno').val();
+						var t_ecarno=emp($('#textEcarno').val())?'#non':$('#textEcarno').val();
+						var t_sssno=emp($('#textSssno').val())?'#non':$('#textSssno').val();
+						var t_proj=q_getPara('sys.project').toUpperCase();
+						q_func('qtxt.query.cara', 'cara.txt,cara,' + encodeURI(t_nextmon)+';'+encodeURI(t_discount)+';'+encodeURI(t_bcarno)+';'+encodeURI(t_ecarno)+';'+encodeURI(t_sssno)+';'+encodeURI(t_proj));
 			    	}else{
 			    		alert('次月月份與稅金折扣禁止空白!!');
 			    	}
@@ -161,7 +170,7 @@
             }
 			
 			function q_funcPost(t_func, result) {
-				if(t_func=='cara.genNext'){
+				if(t_func=='qtxt.query.cara'){
 			        //location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";carno='"+$('#txtCarno').val()+"';"+r_accy;
 			        alert('結轉功能執行完畢!!');
 			        $('#btnNextmon').removeAttr('disabled').val(q_getMsg('btnNextmon'));
@@ -230,7 +239,7 @@
                 			$('#txtWorker').val(r_name)
 	                		sum();
 	                		
-                			isbtnok=true;
+                			isbtn=true;
 			                var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
 			                if(s1.length == 0 || s1 == "AUTO")
 			                    wrServer($('#txtCarno').val()+'-'+$('#txtMon').val());
@@ -411,8 +420,8 @@
 				if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
 					alert(q_getMsg('lblMon')+'錯誤。');   
 					return;
-				}         	
-	
+				}  
+				                
 				t_err = q_chkEmpField([['txtCarno', q_getMsg('lblCarno')],['txtCarownerno', '車主編號'],['txtCarowner', '車主名稱'],['txtMon', q_getMsg('lblMon')]]);
 				if(t_err.length > 0) {
 					alert(t_err);
@@ -544,10 +553,24 @@
                 			if(q_cur==0 || q_cur==4)
            						q_msg( $(this), $(this).val());
 						});
+						
+						$('#textDate_'+j).change(function() {   
+						    for(var i = 0; i < q_bbsCount; i++) {
+						        if ($('#textDate_'+i).val().length!=0){
+						              $('#txtDatea_'+i).val($('#txtMon').val()+'/'+$('#textDate_'+i).val());  
+						        }	
+                            }
+                        });
            			}
            		}
 
                 _bbsAssign();
+                
+                if(q_getPara('sys.project').toUpperCase()=='DC'){
+                     $('.isNDC').hide();
+                }else{
+                     $('.isDC').hide();       
+                }
                 
                 if(isbtnok){
                 	//location.href = (location.origin==undefined?'':location.origin)+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";carno='"+$('#txtCarno').val()+"' and mon<='"+$('#txtMon').val()+"' ;"+r_accy;
@@ -613,6 +636,7 @@
 							$('#btnMinus_'+j).attr('disabled', 'disabled');
 							$('#txtNoq_'+j).attr('disabled', 'disabled');
 							$('#txtDatea_'+j).attr('disabled', 'disabled');
+							$('#textDate_'+j).attr('disabled', 'disabled');
 							//$('#txtCaritemno_'+j).attr('disabled', 'disabled');
 							$('#txtOutmoney_'+j).attr('disabled', 'disabled');
 							$('#txtInmoney_'+j).attr('disabled', 'disabled');
@@ -631,6 +655,7 @@
 							$('#btnMinus_'+j).attr('disabled', 'disabled');
 							$('#txtNoq_'+j).attr('disabled', 'disabled');
 							$('#txtDatea_'+j).attr('disabled', 'disabled');
+							$('#textDate_'+j).attr('disabled', 'disabled');
 							$('#txtCaritemno_'+j).attr('disabled', 'disabled');
 							$('#btnCaritem_'+j).attr('disabled', 'disabled');
 							$('#txtOutmoney_'+j).attr('disabled', 'disabled');
@@ -733,6 +758,7 @@
 						$('#btnMinus_'+j).attr('disabled', 'disabled');
 						$('#txtNoq_'+j).attr('disabled', 'disabled');
 						$('#txtDatea_'+j).attr('disabled', 'disabled');
+						$('#textDate_'+j).attr('disabled', 'disabled');
 						//$('#txtCaritemno_'+j).attr('disabled', 'disabled');
 						$('#txtOutmoney_'+j).attr('disabled', 'disabled');
 						$('#txtInmoney_'+j).attr('disabled', 'disabled');
@@ -751,6 +777,7 @@
 						$('#btnMinus_'+j).attr('disabled', 'disabled');
 						$('#txtNoq_'+j).attr('disabled', 'disabled');
 						$('#txtDatea_'+j).attr('disabled', 'disabled');
+						$('#textDate_'+j).attr('disabled', 'disabled');
 						$('#txtCaritemno_'+j).attr('disabled', 'disabled');
 						$('#btnCaritem_'+j).attr('disabled', 'disabled');
 						$('#txtOutmoney_'+j).attr('disabled', 'disabled');
@@ -858,6 +885,14 @@
             function refresh(recno) {
                 _refresh(recno);
                 endacheck();
+                if(q_getPara('sys.project').toUpperCase()=='DC'){
+                     $('.isNDC').hide();
+                }else{
+                     $('.isDC').hide();       
+                }
+                for(var j = 0; j < q_bbsCount; j++) {
+                    $('#textDate_'+j).val( $('#txtDatea_'+j).val().substr(7,8));
+                }
                 if(r_rank<=7)
             		q_gt('holiday', "where=^^ noa<='"+q_date()+"' and isnull(iswork,0)=0 ^^ stop=10" , 0, 0, 0, "", r_accy);
             }
@@ -1363,8 +1398,9 @@
 						<td align="center">
 							<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 						</td>
-						<td >
-							<input id="txtDatea.*" type="text" class="txt c1" />
+						<td>
+						    <input id="textDate.*" type="text" class="txt c1 isNDC" />
+							<input id="txtDatea.*" type="text" class="txt c1 isDC" />
 							<input id="recno.*" type="hidden" />
 						</td>
 						<td >

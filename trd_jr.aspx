@@ -20,9 +20,9 @@
             }
             q_tables = 's';
             var q_name = "trd";
-            var q_readonly = ['txtNoa', 'txtMoney', 'txtTotal','txtWorker2','txtWorker', 'txtMount', 'txtStraddr', 'txtEndaddr', 'txtPlusmoney', 'txtMinusmoney', 'txtVccano', 'txtCustchgno','txtAccno','txtAccno2','txtYear2','txtYear1'];
+            var q_readonly = ['txtNoa','textDiscount', 'txtMoney', 'txtTotal','txtWorker2','txtWorker', 'txtMount', 'txtStraddr', 'txtEndaddr', 'txtPlusmoney', 'txtMinusmoney', 'txtVccano', 'txtCustchgno','txtAccno','txtAccno2','txtYear2','txtYear1'];
             var q_readonlys = [ 'txtTranno','txtTrannoq','txtTrandate','txtStraddr','txtProduct','txtCarno','txtCustorde','txtCaseno','txtMount','txtPrice','txtTotal','txtTranmoney'];
-            var bbmNum = [['txtPlus', 10, 0,1],['txtDiscount', 10, 0,1],['txtMoney', 10, 0,1], ['txtTax', 10, 0,1], ['txtTotal', 10, 0,1], ['txtMount', 10, 3,1], ['txtPlusmoney', 10, 0,1], ['txtMinusmoney', 10, 0,1]];
+            var bbmNum = [['txtPlus', 10, 0,1],['txtMoney', 10, 0,1], ['txtTax', 10, 0,1], ['txtTotal', 10, 0,1], ['txtMount', 10, 3,1], ['txtPlusmoney', 10, 0,1], ['txtMinusmoney', 10, 0,1]];
             var bbsNum = [['txtTranmoney', 10, 0,1], ['txtOverweightcost', 10, 0,1], ['txtOthercost', 10, 0,1], ['txtMount', 10, 3,1], ['txtPrice', 10, 0,1], ['txtTotal', 10, 0,1]];
             var bbmMask = [];
             var bbsMask = [];
@@ -81,9 +81,9 @@
                 $('#txtPlus').change(function(e){
                 	sum();
                 });
-                $('#txtDiscount').change(function(e){
+                /*$('#txtDiscount').change(function(e){
                 	sum();
-                });
+                });*/
 				$('#lblCustchgno').click(function(e){
 					var t_where = "1!=1";
 					var t_custchgno = $('#txtCustchgno').val().split(',');
@@ -484,6 +484,7 @@
                 if (!(q_cur == 1 || q_cur == 2))
                     return;
                	//小數 可能會有問題需注意
+               	//2017/09/13 盧小姐 未用折扣欄位 把折扣欄位改成應收總計未稅  稅額要四捨五入
                 var t_money = 0,t_mount = 0;
                 for ( i = 0; i < q_bbsCount; i++) {
                     t_money = t_money.add(q_float('txtTranmoney_' + i));
@@ -495,16 +496,29 @@
 				var t_minusmoney = q_float('txtMinusmoney');
 				var t_tax = q_float('txtTax'); 
 				var t_plus = q_float('txtPlus');
-				var t_discount = q_float('txtDiscount'); 
-				var t_total = t_money.add(t_plusmoney).sub(t_minusmoney).add(t_tax).add(t_plus).sub(t_discount);
+				/*var t_discount = q_float('txtDiscount');*/
+				var t_total = t_money.add(t_plusmoney).sub(t_minusmoney).add(t_tax).add(t_plus);
                
                 $('#txtMoney').val(FormatNumber(t_money));
                 $('#txtTotal').val(FormatNumber(t_total));
                 $('#txtMount').val(FormatNumber(t_mount));
-                $('#txtTax').val(FormatNumber(t_money*0.05));
+                $('#textDiscount').val(FormatNumber(t_money.add(t_plusmoney).sub(t_minusmoney).add(t_plus)));
+                $('#txtTax').val(round(FormatNumber((t_money.add(t_plusmoney).sub(t_minusmoney).add(t_plus))*0.05),0));
             }
             function refresh(recno) {
                 _refresh(recno);
+                var t_money = 0,t_mount = 0;
+                for ( i = 0; i < q_bbsCount; i++) {
+                    t_money = t_money.add(q_float('txtTranmoney_' + i));
+                    
+                    t_mount = t_mount.add(q_float('txtMount_' + i));
+                }
+                t_mount = t_mount.round(3);
+                var t_plusmoney = q_float('txtPlusmoney');
+                var t_minusmoney = q_float('txtMinusmoney');
+                var t_tax = q_float('txtTax'); 
+                var t_plus = q_float('txtPlus');
+                $('#textDiscount').val(FormatNumber(t_money.add(t_plusmoney).sub(t_minusmoney).add(t_plus)));       
             }
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
@@ -904,8 +918,8 @@
 						<td><input id="txtMoney" type="text"  class="txt c1 num"/></td>
 						<td><span> </span><a id="lblPlus" class="lbl"> </a></td>
 						<td><input id="txtPlus" type="text"  class="txt c1 num"/></td>
-						<td><span> </span><a id="lblDiscount" class="lbl"> </a></td>
-						<td><input id="txtDiscount" type="text"  class="txt c1 num"/></td>
+						<td><span> </span><a id="lbl" class="lbl">應收總計(未稅)</a></td>
+						<td><input id="textDiscount" type="text"  class="txt c1 num"/></td>
 						<td><span> </span><a id="lblTax" class="lbl"> </a></td>
 						<td><input id="txtTax" type="text"  class="txt c1 num"/></td>
 					</tr>

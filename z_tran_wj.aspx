@@ -33,24 +33,29 @@
 					},{//1
 						type : '1',//[2][3]
 						name : 'date'
-					},
-					{//2
+					},{//2
 						type : '6',//[4]
 						name : 'Mon'
-					},
-					{//3
+					},{//3
 						type : '2', //[5][6]
 						name : 'carno',
 						index : 'carno,driverno',
 						src : 'car2_b.aspx'
-					}
-					,{//4
+					},{//4
 						type : '2', //[7][8]
 						name : 'Driver',
 						dbf : 'driver',
 						index : 'noa,namea',
 						src : 'driver_b.aspx'
-					}]
+					},{
+                        type : '8',//[9]
+                        name : 'xshow',
+                        value : '1@已派車'.split(',')
+                    },{
+                        type : '8',//[10]
+                        name : 'xenda',
+                        value : '1@已完工'.split(',')
+                    }]
                     });
                 q_popAssign();
 				 $('#txtMon').mask('999/99');

@@ -173,6 +173,14 @@
 						$('#txtTax').val(0);
 						$('#txtTotal').val(dec($('#txtTax').val())+dec($('#txtMoney').val()));
 					}
+					
+					if($('#cmbKind').val()=='36'){
+						$('#txtDutymemo').val(dec($('#txtDutymemo').val()));
+						if($('#txtDutymemo').val()=='NaN'){
+							$('#txtDutymemo').val('');
+							alert('請輸入憑證號碼，需為數字型態。');
+						}
+					}
 				});
 				
 				if(dec(q_date().substr(4,2))%2==1)
