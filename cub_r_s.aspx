@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -35,8 +35,10 @@
                 q_mask(bbmMask);
 				$('#txtNoa').focus();
 				$('.readonly').attr('readonly',true);
-				q_cmbParse("cmbIsproj", '@全部,Y@Y,N@N');
+				q_cmbParse("cmbIssue", '@全部,Y@Y,N@N');
 				q_cmbParse("cmbEnda", '@全部,Y@Y,N@N');
+				q_cmbParse("cmbChecker", '@全部,Y@Y,N@N');
+				q_cmbParse("cmbApprove", '@全部,Y@Y,N@N');
 			}
 
 			function q_gtPost(t_name) {
@@ -51,7 +53,9 @@
 				var t_custno = $.trim($('#txtCustno').val());
 				var t_pno = $.trim($('#txtProductno').val());
 				var t_enda = $('#cmbEnda').val();
-				var t_isproj = $('#cmbIsproj').val();
+				var t_issue = $('#cmbIssue').val();
+				var t_checker = $('#cmbChecker').val();
+				var t_approve = $('#cmbApprove').val();
 				
 				var t_where = " 1=1 " + q_sqlPara2("datea", t_bdate,t_edate) + q_sqlPara2("noa", t_noa)+
 										q_sqlPara2("custno", t_custno) +
@@ -62,10 +66,20 @@
 				if(t_enda=='N')
 					t_where += " and isnull(enda,0)=0 ";
 					
-				if(t_isproj=='Y')
-					t_where += " and isnull(isproj,0)=1 ";
-				if(t_isproj=='N')
-					t_where += " and isnull(isproj,0)=0 ";
+				if(t_issue=='Y')
+					t_where += " and isnull(issuedate,'')!='' ";
+				if(t_issue=='N')
+					t_where += " and isnull(issuedate,'')='' ";
+					
+				if(t_checker=='Y')
+					t_where += " and isnull(checker,'')!='' ";
+				if(t_checker=='N')
+					t_where += " and isnull(checker,'')='' ";
+				
+				if(t_approve=='Y')
+					t_where += " and isnull(approve,'')!='' ";
+				if(t_approve=='N')
+					t_where += " and isnull(approve,'')='' ";
 				
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
@@ -106,11 +120,11 @@
 					<td><input class="txt" id="txtNoa" type="text" style="width:220px;" /></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblIsproj'>核單</a></td>
-					<td><select id="cmbIsproj" class="txt c1" style="font-size:medium;"> </select></td>
+					<td class='seek' style="width:20%;"><a id='lblIssue'>發行</a></td>
+					<td><select id="cmbIssue" class="txt c1" style="font-size:medium;"> </select></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblEnda'>寄送</a></td>
+					<td class='seek' style="width:20%;"><a id='lblEnda'>寄送</a></td>
 					<td><select id="cmbEnda" class="txt c1" style="font-size:medium;"> </select></td>
 				</tr>
 				<tr class='seek_tr'>
@@ -128,6 +142,14 @@
 						&nbsp;
 						<input class="txt readonly" id="txtProduct" type="text" style="width:120px;" />
 					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek' style="width:20%;"><a id='lblChecker'>業務核准</a></td>
+					<td><select id="cmbChecker" class="txt c1" style="font-size:medium;"> </select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek' style="width:20%;"><a id='lblApprove'>經理核准</a></td>
+					<td><select id="cmbApprove" class="txt c1" style="font-size:medium;"> </select></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
