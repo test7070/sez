@@ -317,7 +317,7 @@
 						var as = _q_appendData("acomp", "", true);
                         var t_item ="@";
                         for (var i = 0; i < as.length; i++) {
-							t_item =(t_item.length > 0 ? ',' : '') + as[i].cno + ','+ as[i].nick;
+							t_item =(t_item.length > 0 ? ',' : '') + as[i].noa + '@'+ as[i].nick;
 						}
 						
 						q_cmbParse("cmbIpto", t_item);
@@ -330,9 +330,9 @@
                         var t_item ="@";
                         for (var i = 0; i < as.length; i++) {
                         	if(i==0){
-                        		z_cno=as[i].cno;
+                        		z_cno=as[i].noa;
                         	}
-							t_item =(t_item.length > 0 ? ',' : '') + as[i].cno + ','+ as[i].nick;
+							t_item =(t_item.length > 0 ? ',' : '') + as[i].noa + '@'+ as[i].nick;
 						}
 						
 						q_cmbParse("cmbIpfrom", t_item);
@@ -545,13 +545,16 @@
                     if (as[0] != undefined) {
                         //同一分鐘內可能會有2筆以上的修改紀錄取最後一筆
                         if(as[as.length-1].usera=='8001'){
-                        	$('#tbbm input').css('color','red')
+                        	$("#tbbm input[type='text']").css('color','red');
+                        	$("#tbbm textarea").css('color','red');
                         }else{
-                        	$('#tbbm input').css('color','blue')
+                        	$("#tbbm input[type='text']").css('color','blue')
+                        	$("#tbbm textarea").css('color','blue');
                         }
                     }else{
                     	//無修改紀錄
-                    	$('#tbbm input').css('color','black')
+                    	$("#tbbm input[type='text']").css('color','black')
+                    	$("#tbbm textarea").css('color','black');
                     }
 				}
 			}
@@ -894,6 +897,8 @@
 						$('#bbtimg').css('width', '100%');
 					}
 					$('#bbtimg').attr('src',$('#txtMemo2__0').val());
+				}else{
+					$('#bbtimg').attr('src','');
 				}
 			}
 		</script>
