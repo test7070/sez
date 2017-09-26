@@ -1236,39 +1236,39 @@
 							<input id="txtSalesno" type="text" class="txt c6"/>
 							<input id="txtSales" type="text" class="txt c6"/>
 						</td>
+						<td><span> </span><a id='lblUacc4' class="lbl"> </a></td>
+						<td><input id="txtUacc4" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblChkstatus' class="lbl"> </a></td>
 						<td colspan='3'><input id="txtChkstatus" type="text" class="txt c7" /></td>
-						<td><span> </span><a id='lblUacc4' class="lbl"> </a></td>
-						<td><input id="txtUacc4" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblUacc1' class="lbl"> </a></td>
+						<td><input id="txtUacc1" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblChkdate' class="lbl"> </a></td>
 						<td><input id="txtChkdate" type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblStartdate' class="lbl"> </a></td>
 						<td><input id="txtStartdate" type="text" class="txt c1" /></td>
-						<td><span> </span><a id='lblUacc1' class="lbl"> </a></td>
-						<td><input id="txtUacc1" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblUacc2' class="lbl"> </a></td>
+						<td><input id="txtUacc2" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblDueday' class="lbl"> </a></td>
 						<td><input id="txtDueday" type="text" class="txt num c1"/></td>
 						<td><span> </span><a id='lblGetdate' class="lbl"> </a></td>
 						<td><input id="txtGetdate" type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblUacc2' class="lbl"> </a></td>
-						<td><input id="txtUacc2" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblUacc3' class="lbl"> </a></td>
+						<td><input id="txtUacc3" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblTrantype' class="lbl"> </a></td>
 						<td><select id="cmbTrantype" class="txt c1"> </select></td>
 						<td><span> </span><a id='lblPaytype' class="lbl"> </a></td>
-						<td>
-							<input id="txtPaytype" type="text" class="txt c6"/>
-							<select id="combPaytype" class="txt c6" onchange='combPaytype_chg()'> </select>
+						<td colspan="2">
+							<input id="txtPaytype" type="text" class="txt" style="width:95%;"/>
+							<select id="combPaytype" class="txt" style="width:5%;" onchange='combPaytype_chg()'> </select>
 						</td>
-						<td><span> </span><a id='lblUacc3' class="lbl"> </a></td>
-						<td><input id="txtUacc3" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
