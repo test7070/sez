@@ -121,6 +121,10 @@
 					}
 				});
 				
+				if (q_getPara('sys.project').toUpperCase()=='GU'){
+				    $('.isGU').show();
+				}
+				
 			}
 
 			function q_boxClose(s2) {
@@ -342,6 +346,9 @@
 			function refresh(recno) {
 				_refresh(recno);
 				HiddenField();
+				if (q_getPara('sys.project').toUpperCase()=='GU'){
+                    $('.isGU').show();
+                }
 			}
 
 			function readonly(t_para, empty) {
@@ -692,6 +699,7 @@
 					<td align="center" style="width:230px;"><a id='lblUno'> </a></td>
 					<td align="center" style="width:95px;" class="isStyle"><a id='lblStyle'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit'> </a></td>
+					<td class="isGU" align="center" style="width:100px;display: none;"><a id='lbl'>最小訂單量</a></td>
 					<td align="center" style="width:100px;"><a id='lblMount'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblPrices'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblTotals'> </a></td>
@@ -713,6 +721,7 @@
 					</td>
 					<td class="isStyle"><input id="txtStyle.*" type="text" class="txt c1"/></td>
 					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
+					<td class="isGU" style="display: none;"><input id="txtOrdeweight.*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtPrice.*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtTotal.*" type="text" class="txt c1 num"/></td>

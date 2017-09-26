@@ -90,6 +90,10 @@
                 q_mask(bbmMask);
                 q_cmbParse("cmbCarteamno", t_carteam);
                 
+                if(q_getPara('sys.project').toUpperCase()=='JR'){
+                    $('#lblPo').text('聯單編號');
+                }
+                
                 $('#txtAcc1').change(function() {
                     var patt = /^(\d{4})([^\.,.]*)$/g;
                     if (patt.test($(this).val()))

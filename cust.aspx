@@ -17,7 +17,7 @@
 			//update date:  2015/11/24
 			var q_name = "cust";
 			var q_readonly = "";
-			var bbmNum = [['txtCredit', 10, 0, 1],['txtProfit', 10, 2, 1]];
+			var bbmNum = [['txtCredit', 10, 0, 1],['txtProfit', 10, 2, 1],['txtPrice', 10, 2, 1]];
 			var bbmMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -197,6 +197,9 @@
 					$('.isUJ').show();
 					$('#lblMemo2').text('加工備註');
 				}
+				if (q_getPara('sys.project').toUpperCase()=='YC'){
+                    $('.isYC').show();
+                }
 				
 				$('#btnUcam').click(function() {
 					t_where = "custno='" + $('#txtNoa').val() + "'";
@@ -797,6 +800,10 @@
 				if (q_getPara('sys.project').toUpperCase()=='UJ'){
 					$('.isUJ').show();
 				}
+				
+				if (q_getPara('sys.project').toUpperCase()=='YC'){
+                    $('.isYC').show();
+                }
 			}
 
 			function refreshBbm() {
@@ -1236,6 +1243,12 @@
 							<input id="txtSalesno" type="text" class="txt c6"/>
 							<input id="txtSales" type="text" class="txt c6"/>
 						</td>
+						<td></td>
+						<td class='isYC' style="display: none;">
+						    <a id='lbl' class="lbl" style="float:none">扣</a>
+                            <input id="txtPrice"  type="text" class="txt num c1" style="float:none;width: 50%"/>
+                            <a id='lbl' class="lbl" style="float:none">%</a>
+                        </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblChkstatus' class="lbl"> </a></td>
