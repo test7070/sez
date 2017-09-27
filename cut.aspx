@@ -388,7 +388,7 @@
 				}  /// end switch
 			}
             function getUno(){
-            	if(q_getPara('sys.project')=='bdv' || q_getPara('sys.project')=='bd' || q_getPara('sys.project')=='rs'){
+            	if(q_getPara('sys.project')=='bdv' || q_getPara('sys.project')=='rs'){
 	            	var t_buno='　';
 	 				var t_datea='　';
 	 				var t_style='　';

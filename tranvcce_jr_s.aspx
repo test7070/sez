@@ -56,6 +56,7 @@
 				t_productno = $.trim($('#txtProductno').val());
 				t_product = $.trim($('#txtProduct').val());
 				t_chk1 = $.trim($('#cmbChk1').val());
+				t_po = $.trim($('#txtPo').val());
 				
 				var t_where = " 1=1 "
 					+q_sqlPara2("datea", t_bdate, t_edate)
@@ -82,6 +83,8 @@
 					t_where += " and exists(select noa from view_tranvcces"+r_accy+" where view_tranvcces"+r_accy+".noa=view_tranvcce"+r_accy+".noa and view_tranvcces"+r_accy+".product=N'"+t_product+"')";		
 				if(t_chk1.length>0)
                     t_where += " and exists(select noa from view_tranvcces"+r_accy+" where view_tranvcces"+r_accy+".noa=view_tranvcce"+r_accy+".noa and view_tranvcces"+r_accy+".chk1=N'"+t_chk1+"')";
+                if(t_po.length>0)
+                    t_where += " and exists(select noa from view_tranvcces"+r_accy+" where view_tranvcces"+r_accy+".noa=view_tranvcce"+r_accy+".noa and view_tranvcces"+r_accy+".memo2=N'"+t_po+"')";
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
@@ -145,7 +148,10 @@
 					<td class='seek'  style="width:20%;"><a id='lblProduct'>廢棄物名稱</a></td>
 					<td><input class="txt" id="txtProduct" type="text" style="width:220px;float:left; font-size:medium;" /></td>
 				</tr>
-				</tr>
+				<tr class='seek_tr'>
+                    <td class='seek'  style="width:20%;"><a id='lblPo'>聯單編號</a></td>
+                    <td><input class="txt" id="txtPo" type="text" style="width:220px;float:left; font-size:medium;" /></td>
+                </tr>
                 <tr class='seek_tr'>
                     <td class='seek'  style="width:20%;"><a id='lblChk1'>申報</a></td>
 				    <td><select id="cmbChk1"   style="width:220px;float:left; font-size:medium;"> </select></td>

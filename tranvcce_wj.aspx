@@ -97,11 +97,11 @@
                     $('#divImport').toggle();
                 });
                 $('#txtAddrno').change(function() {
-                     var t_where = "where=^^ noa in(select max(noa) from addr2 where sdate<='"+$('#txtDatea').val()+"' group by custno,cust)^^ stop=999";
+                     var t_where = "where=^^ noa in(select max(noa) from addr2 where sdate<='"+$('#txtDatea').val()+"' and custno in (select noa from cust) group by custno,cust)^^ stop=999";
                      q_gt('addr2', t_where, 0, 0, 0, "addr2");
                 });
                 $('#txtDatea').change(function() {
-                     var t_where = "where=^^ noa in(select max(noa) from addr2 where sdate<='"+$('#txtDatea').val()+"' group by custno,cust)^^ stop=999";
+                     var t_where = "where=^^ noa in(select max(noa) from addr2 where sdate<='"+$('#txtDatea').val()+"' and custno in (select noa from cust) group by custno,cust)^^ stop=999";
                      q_gt('addr2', t_where, 0, 0, 0, "addr2");
                 });
                 $('#btnImport_trans').click(function() {
@@ -130,7 +130,7 @@
                                     'caseno,conn,tel,date1,time1,date2,time2,typea,productno,product,unit,theight,mount,total2,total3,carno,driverno,driver,addrno2,addr2,address,tranno,noa,noq,memo','');
                              }
                              sum();
-                             var t_where = "where=^^ noa in(select max(noa)  from addr2 where sdate<='"+$('#txtDatea').val()+"' group by custno,cust)^^ stop=999";
+                             var t_where = "where=^^ noa in(select max(noa)  from addr2 where sdate<='"+$('#txtDatea').val()+"' and custno in (select noa from cust) group by custno,cust)^^ stop=999";
                              q_gt('addr2', t_where, 0, 0, 0, "addr2");
                         break;
                     case q_name + '_s':
@@ -156,7 +156,14 @@
                                 }
                             }
                             t_weight=0;
-                            break;    
+                            break;
+                    case 'view_tranvcces':
+                            var as = _q_appendData("view_tranvcces", "", true);
+                            if(as[0]!=undefined){
+                                $('#chk1').prop('checked',true);
+                            }
+                            t_weight=0;
+                            break;   
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -239,17 +246,17 @@
                     });
                     $('#txtTypea_'+i).change(function() {
                         sum();
-                        var t_where = "where=^^ noa in(select max(noa)  from addr2 where sdate<='"+$('#txtDatea').val()+"' group by custno,cust)^^ stop=999";
+                        var t_where = "where=^^ noa in(select max(noa)  from addr2 where sdate<='"+$('#txtDatea').val()+"' and custno in (select noa from cust) group by custno,cust)^^ stop=999";
                         q_gt('addr2', t_where, 0, 0, 0, "addr2");
                     });
                     $('#txtAddr2no_'+i).change(function() {
                        sum();
-                       var t_where = "where=^^ noa in(select max(noa)  from addr2 where sdate<='"+$('#txtDatea').val()+"' group by custno,cust)^^ stop=999";
+                       var t_where = "where=^^ noa in(select max(noa)  from addr2 where sdate<='"+$('#txtDatea').val()+"' and custno in (select noa from cust) group by custno,cust)^^ stop=999";
                        q_gt('addr2', t_where, 0, 0, 0, "addr2");
                     });
                     $('#txtWeight_' + i).change(function() {
                         sum();
-                        var t_where = "where=^^ noa in(select max(noa)  from addr2 where sdate<='"+$('#txtDatea').val()+"' group by custno,cust)^^ stop=999";
+                        var t_where = "where=^^ noa in(select max(noa)  from addr2 where sdate<='"+$('#txtDatea').val()+"' and custno in (select noa from cust) group by custno,cust)^^ stop=999";
                         q_gt('addr2', t_where, 0, 0, 0, "addr2");
                     });
                     $('#txtMount_' + i).change(function() {
@@ -308,6 +315,8 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                t_where="where=^^ noa=(select ordeno from view_trans where ordeno='"+$('#txtNoa').val()+"' group by ordeno)^^ stop=999";
+                q_gt('view_tranvcces', t_where, 0, 0, 0, "view_tranvcces");
             }
 
             function readonly(t_para, empty) {
@@ -596,6 +605,10 @@
 						<td>
 						<input id="txtDatea" type="text" class="txt c1" />
 						</td>
+						<td colspan="2">
+                            <span> </span><a id='lbl' class="lbl">已匯入出車</a>
+                            <input id="chk1" type="checkbox" style="float:right;" disabled="disabled"/>
+                        </td>					
 					</tr>
 					<tr>
                         <td><span> </span><a id="lblCno" class="lbl btn" >公司</a></td>

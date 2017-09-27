@@ -420,7 +420,7 @@
                     </tr>
                     <tr>
                         <td class="td1"><span> </span><a id="lblMemo" class="lbl" >注意事項</a></td>
-                        <td colspan="3"><textarea id="txtMemo" style="height:40px;" class="txt c1"> </textarea></td>
+                        <td colspan="3"><textarea id="txtMemo" cols="10" rows="5" style="height:100px;" class="txt c1"> </textarea></td>
                     </tr>
 				</table>
 			</div>
