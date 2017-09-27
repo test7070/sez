@@ -282,7 +282,7 @@
 						} //end switch
 					} //end for
 				}//end if
-				alert('功能執行完畢');
+				//alert('功能執行完畢');
 			}//endfunction
 
 			function q_boxClose(s2) {
