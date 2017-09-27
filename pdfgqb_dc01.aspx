@@ -238,7 +238,7 @@
             {
                 for (int i = 0; i < gqbLabel.Count; i++)
                 {
-                	shiftY += 1;
+                	shiftY += 2; //2017/09/27  玉蓮換電腦,由 1 改為 2
                     if (i != 0)
                     {
                         //Insert page
