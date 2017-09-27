@@ -138,7 +138,7 @@
 				t_kind = trim($('#combTypea').val());
 				var t_where = " 1=1 " + q_sqlPara2("ordeno", t_ordeno) + 
 							q_sqlPara2("productno", t_productno) + 
-							(q_getPara('sys.project').toUpperCase()=='BD'?(t_storeno.length==0?' and (1=0) ':" and storeno='"+t_storeno+"'"):q_sqlPara2("storeno", t_storeno)) + 
+							(q_getPara('sys.project').toUpperCase()=='BDV' || q_getPara('sys.project').toUpperCase()=='BD'?(t_storeno.length==0?' and (1=0) ':" and storeno='"+t_storeno+"'"):q_sqlPara2("storeno", t_storeno)) + 
 							q_sqlPara2("class", t_class) + 
 							(t_radius>0?' and radius='+t_radius+' ':'') + 
 							(t_dime>0?' and dime='+t_dime+' ':'') + 

@@ -374,13 +374,43 @@
                     <tr>
                         <td><span> </span><a class="lbl">供應商/收貨人</a></td>
                         <td>
-                        <input id="txtCust" type="text"  class="txt c1"/>
+                        <input id="txtCust" type="text" class="txt c1"/>
+                        </td>
+                    </tr>
+					 <tr>
+                        <td><span> </span><a class="lbl">聯絡人</a></td>
+                        <td colspan="3">
+                        <input id="txtConn" type="text"  class="txt c1"/>
+                        </td>
+                    </tr>
+					<tr>
+                        <td><span> </span><a class="lbl">聯絡電話</a></td>
+                        <td colspan="3">
+                        <input id="txtTel" type="text"  class="txt c1"/>
                         </td>
                     </tr>
 					<tr>
 						<td><span> </span><a class="lbl">地址</a></td>
 						<td colspan="3">
 						<input id="txtAddress" type="text"  class="txt c1"/>
+						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a class="lbl">場區限制</a></td>
+						<td>
+						<input id="txtfield" type="text"  class="txt c1"/>
+						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a class="lbl">自裝卸費用</a></td>
+						<td>
+						<input id="txtchg1" type="text"  class="txt c1"/>
+						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a class="lbl">堆高機費用</a></td>
+						<td>
+						<input id="txtchg2" type="text"  class="txt c1"/>
 						</td>
 					</tr>
 					<tr>
