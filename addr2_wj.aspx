@@ -163,7 +163,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['lat']) {
+                if (!as['carno']) {
                     as[bbsKey[1]] = '';
                     return;
                 }

@@ -122,6 +122,9 @@
                         type : '5',//[29]
                         name : 'xmonweek',
                         value : new Array('mon@月','week@周')
+                    }, {
+                        type : '6', //[30]
+                        name : 'xordeno'
                     }]
                 });
                 
