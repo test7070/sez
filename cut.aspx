@@ -142,7 +142,11 @@
 						var t_where = " 1=1 and isnull(enda,0)!=1";
 						t_where += q_sqlPara2('dime', t_bdime, t_edime);
 						if(t_width!=0)
-							t_where += q_sqlPara2('width', 0, t_width+11);
+						   if(q_getPara('sys.project')=='bd'){
+						      t_where += q_sqlPara2('width', 0, t_width+11+t_width*0.2); 
+						   }else{
+						      t_where += q_sqlPara2('width', 0, t_width+11); 
+						   }	
 						if (!emp(t_custno))
 							t_where += q_sqlPara2('custno', t_custno);
 						t_where += " and kind='" +$('#cmbKind').val()+ "'";
@@ -168,6 +172,11 @@
 							bbsClear();
 							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtCust,txtStyle,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtMemo,txtProductno,txtSpec,txtOrdeno,txtNo2,txtClass,txtSize', b_ret.length, b_ret, 'custno,cust,style,radius,width,dime,lengthb,mount,memo,productno,spec,noa,no2,class,size', '');
 							//console.log('q_boxClose: ordes');
+							if(q_getPara('sys.project')=='bd'){
+							    for(var i=0;i<q_bbsCount;i++){
+							        $('#txtMemo_'+i).val($('#txtCust_'+i).val()+$('#txtMemo_'+i).val());
+							    }
+							}
 							sum();
 						}
 						break;
@@ -388,7 +397,7 @@
 				}  /// end switch
 			}
             function getUno(){
-            	if(q_getPara('sys.project')=='bdv' || q_getPara('sys.project')=='bd' || q_getPara('sys.project')=='rs'){
+            	if(q_getPara('sys.project')=='bdv' || q_getPara('sys.project')=='rs'){
 	            	var t_buno='　';
 	 				var t_datea='　';
 	 				var t_style='　';
