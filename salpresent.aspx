@@ -178,7 +178,61 @@
             		q_gt('class5', "where=^^1=1^^" , 0, 0, 0, "getclass5", r_accy,1);
             		var tclass5 = _q_appendData("class5", "", true);
             		
+            		var tweek=1; //星期
+            		var t_date=$('#txtNoa').val();
+            		if(r_len==3){
+            			tweek=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay();
+            		}else{
+            			tweek=new Date(dec(t_date.substr(0,4)),dec(t_date.substr(5,2))-1,dec(t_date.substr(8,2))).getDay();
+            		}
+            		
+            		//班別有設定工作日類別 重新判斷當天工作日
             		for (var j = 0; j < as.length; j++) {
+            			var t_worktype='';
+            			if(as[j].class5.length>0){
+	            			for (var k = 0; k < tclass5.length; k++) {
+	            				if(as[j].class5.split(',')[0]==tclass5[k].noa){
+	            					switch (tweek) {   
+										case 1:
+											t_worktype=tclass5[k].wmon;
+											break;
+										case 2:
+											t_worktype=tclass5[k].wtue;
+											break;
+										case 3:
+											t_worktype=tclass5[k].wwed;
+											break;
+										case 4:
+											t_worktype=tclass5[k].wthu;
+											break;
+										case 5:
+											t_worktype=tclass5[k].wfri;
+											break;
+										case 6:
+											t_worktype=tclass5[k].wsat;
+											break;
+										case 0:
+											t_worktype=tclass5[k].wsun;
+											break;
+									}
+									break;
+	            				}
+	            			}
+	            		}
+	            		
+	            		if(t_worktype=='w'){//工作日
+	            			t_restday=false;//休息日 預設禮拜六
+							t_sumday=false;//例假日 預設禮拜日
+	            		}
+	            		if(t_worktype=='r'){//休息日
+	            			t_restday=true;
+							t_sumday=false;
+	            		}
+	            		if(t_worktype=='h'){//例假日
+	            			t_restday=false;
+							t_sumday=true;
+	            		}
+            			
             			if((r_len==3 && $('#txtNoa').val()>='105/12/23') || (r_len==4 && $('#txtNoa').val()>='2016/12/23')){
 	            			if(!t_workday){
 	            				if(t_sumday || (t_holiday && t_restday)){//例假 或當國定假日在休息日或例假 給予補休
@@ -249,7 +303,7 @@
             		, as.length, as, 'noa,namea,clockin,clockout,w100,w133,w166,special', '');
             		sum()
             		table_change();
-            	break;
+            		break;
                 case q_name: 
                 	if (q_cur == 1){
                 		var as = _q_appendData("salpresent", "", true);
