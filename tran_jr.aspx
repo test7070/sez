@@ -61,11 +61,14 @@
 					t_tweight = q_add(t_tweight,q_float('txtWeight_'+i));
 					t_tweight2 = q_add(t_tweight2,q_float('txtWeight2_'+i));
 					t_tweight3 = q_add(t_tweight3,q_float('txtWeight3_'+i));
-					$('#txtTotal_'+i).val(q_mul(q_float('txtWeight_'+i),q_float('txtPrice_'+i)));
 					$('#txtPrice3_'+i).val(q_mul(q_float('txtWeight2_'+i),q_float('txtPrice2_'+i)));
-					if($('#txtMount3_'+i).val()!=0){
+					//2017/09/29 單價只要打1  應收與司機運費不計算
+					if($('#txtMount3_'+i).val()!=1){
 					   $('#txtTotal2_'+i).val(round(q_mul(q_float('txtWeight_'+i),q_float('txtMount3_'+i)),0)); 
 					}
+					if($('#txtPrice_'+i).val()!=1){
+                       $('#txtTotal_'+i).val(q_mul(q_float('txtWeight_'+i),q_float('txtPrice_'+i))); 
+                    }
 					t_total = round(q_add(t_total,q_float('txtTotal_'+i)),0);
 					t_total2 = round(q_add(t_total2,q_float('txtTotal2_'+i)),0);
              	}
@@ -233,7 +236,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['straddrno'] ) {
+                if (!as['custno'] ) {
                     as[bbsKey[1]] = '';
                     return;
                 }

@@ -20,11 +20,11 @@
 			}
             $(document).ready(function() {
             	q_getId();
-                q_gf('', 'z_tran_nw');
+                q_gf('', 'z_tran_nv');
             });
             function q_gfPost() {
                $('#q_report').q_report({
-                        fileName : 'z_tran_nw',
+                        fileName : 'z_tran_nv',
                         options : [{
 							type : '0',//[1]
 							name : 'accy',
