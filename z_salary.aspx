@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -61,37 +61,39 @@
                     }]
                 });
                 q_popAssign();
-                $('#txtXyear').mask('999');
-                $('#txtXmon').mask('999/99');
-                $('#txtDate1').mask('999/99/99');
+                q_getFormat();
+				q_langShow();
+				
+                if (r_len == 4) {
+					$.datepicker.r_len = 4;
+					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+				}
+                
+                $('#txtXyear').mask(r_pic);
+                $('#txtXmon').mask(r_picm);
+                $('#txtDate1').mask(r_picd);
                 $('#txtDate1').datepicker();
-                $('#txtDate2').mask('999/99/99');
+                $('#txtDate2').mask(r_picd);
                 $('#txtDate2').datepicker();
+                
+                $('#txtDate1').val(q_date().substr(0, r_lenm) + '/01');
+                $('#txtXmon').val(q_date().substr(0, r_lenm));
+                $('#txtXyear').val(q_date().substr(0, r_len));
 
-                var t_date, t_year, t_month, t_day;
-                t_date = new Date();
-                t_date.setDate(1);
-                t_year = t_date.getUTCFullYear() - 1911;
-                t_year = t_year > 99 ? t_year + '' : '0' + t_year;
-                t_month = t_date.getUTCMonth() + 1;
-                t_month = t_month > 9 ? t_month + '' : '0' + t_month;
-                t_day = t_date.getUTCDate();
-                t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-                $('#txtDate1').val(t_year + '/' + t_month + '/' + t_day);
-                $('#txtXmon').val(t_year + '/' + t_month);
-                $('#txtXyear').val(t_year);
-
-                t_date = new Date();
-                t_date.setDate(35);
-                t_date.setDate(0);
-                t_year = t_date.getUTCFullYear() - 1911;
-                t_year = t_year > 99 ? t_year + '' : '0' + t_year;
-                t_month = t_date.getUTCMonth() + 1;
-                t_month = t_month > 9 ? t_month + '' : '0' + t_month;
-                t_day = t_date.getUTCDate();
-                t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-                $('#txtDate2').val(t_year + '/' + t_month + '/' + t_day);
-
+                $('#txtDate2').val(q_cdn(q_cdn(q_date().substr(0, r_lenm) + '/01', 45).substr(0, r_lenm) + '/01', -1));
+				
+				if(q_getPara('sys.project').toUpperCase()!='DC'){
+					var t_index=-1;
+					for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+						if($('#q_report').data('info').reportData[i].report=='z_salary8'){
+							t_index=i;
+							break;	
+						}
+					}
+					if(t_index>-1){
+						$('#q_report div div').eq(i).hide();
+					}
+				}
             }
 
             function q_boxClose(s2) {
