@@ -132,7 +132,7 @@
             				t_restday=false;
             			}
             		}
-	            	q_gt('holiday',"where=^^noa='"+$('#txtNoa')+"' ^^", 0, 0, 0, "", r_accy);
+	            	q_gt('holiday',"where=^^noa='"+$('#txtNoa').val()+"' ^^", 0, 0, 0, "", r_accy);
 	            	
             	}
             });
@@ -513,6 +513,7 @@
             if(q_getPara('sys.project').toUpperCase()=='DC'){
             	$('.cardno').hide();
             	$('.special').hide();
+            	$('.isforget').hide();
             }
             sum();
         }
@@ -774,7 +775,7 @@
                 <!--<td align="center"><a id='lblW300_s'> </a></td>-->
                 <td align="center" class='special'><a id='lblHr_special_s'> </a></td>
                 <td align="center"><a id='lblMemo_s'> </a></td>
-                <td align="center" style="width: 45px;"><a id='lblIsforget_s'> </a></td>
+                <td align="center" style="width: 45px;" class="isforget"><a id='lblIsforget_s'> </a></td>
                 <!--<td align="center"><a id='lblHour_s'> </a></td>
                 <td align="center"><a id='lblAddwork_s'> </a></td>-->
             </tr>
@@ -795,7 +796,7 @@
                 <!--<td ><input class="txt num c1" id="txtW300.*"type="text" /></td>-->
                 <td class='special'><input class="txt num c1" id="txtHr_special.*"type="text" /></td>
                 <td><input class="txt c1" id="txtMemo.*"type="text" /></td>
-                <td align="center"><input id="chkIsforget.*" type="checkbox"></td>
+                <td align="center" class="isforget"><input id="chkIsforget.*" type="checkbox"></td>
                 <!--<td ><input class="txt num c1" id="txtHour.*"type="text" /></td>
                 <td ><input class="txt num c1" id="txtAddwork.*" type="text" /></td>-->
             </tr>
