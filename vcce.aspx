@@ -59,7 +59,7 @@
 
 			function mainPost() {
 				q_getFormat();
-				bbmMask = [['txtDatea', r_picd], ['txtCldate', r_picd]];
+				bbmMask = [['txtDatea', r_picd], ['txtCldate', r_picd],['txtDate1', r_picd],['txtDate2', r_picd],['txtEtcdate', r_picd]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				q_cmbParse("cmbStype", q_getPara('orde.stype'));
@@ -821,13 +821,28 @@
 						<td class="td2" colspan="2"><input id="txtInvo"  type="text" class="txt c1"/></td>
 						<td class="td4 isport" style="display: none;"><input id="btnToinvo" type="button" value="轉Invoice" /></td>
 						<td class="td5 isport" style="display: none;"> </td>
-						<td class="td6"><span> </span><a id="lblLcno" class="lbl"> </a></td>
-						<td class="td7" colspan="2"><input id="txtLcno"  type="text" class="txt c1"/></td>
+						<td class="td6"><span> </span><a id="lblDate1" class="lbl">invoice 寄出日</a></td>
+						<td class="td7"><input id="txtDate1"  type="text" class="txt c1"/></td>
 					</tr>
+					<tr class="isexport">
+					    <td class="td1"><span> </span><a id="lblLcno" class="lbl"> </a></td>
+                        <td class="td2" colspan="2"><input id="txtLcno"  type="text" class="txt c1"/></td>
+                        <td class="td4"><span> </span><a id="lblDate2" class="lbl">packing 寄出日</a></td>
+                        <td class="td5"><input id="txtDate2"  type="text" class="txt c1"/></td>
+                    </tr>
+                    <tr class="isexport">
+                        <td class="td6"><span> </span><a id="lblBill" class="lbl">提單</a></td>
+                        <td class="td7" colspan="2"><input id="txtBill"  type="text" class="txt c1"/></td>
+                        <td class="td6"><span> </span><a id="lblCo" class="lbl">產證</a></td>
+                        <td class="td7" colspan="2"><input id="txtCo"  type="text" class="txt c1"/></td>
+                    </tr>
 					<tr class="isexport isport" style="display: none;">
 						<td class="td1"><span> </span><a id="lblCaseno2" class="lbl btn">出貨單號</a></td>
 						<td class="td2" colspan="2"><input id="txtCaseno2"  type="text" class="txt c1"/></td>
 						<td class="td4"><input id="btnTovcc" type="button" value="轉出貨單" /></td>
+						<td class="td5"></td>
+						<td class="td4"><span> </span><a id="lblEtcdate" class="lbl">結關日</a></td>
+                        <td class="td5"><input id="txtEtcdate"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="isexport">
 						<td class="td1"><span> </span><a id="lblImemo" class="lbl"> </a></td>
