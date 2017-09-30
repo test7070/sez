@@ -163,7 +163,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['carno']) {
+                if (!as['carno'] && !as['lat'] && !as['lng'] && !as['rate'] && !as['rate2'] && !as['value'] && !as['memo']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -459,7 +459,7 @@
                         <input type="text" id="txtRate2.*" style="float:right;width:45%;" class="num"/>
                     </td>
                     <td><input type="text" id="txtValue.*" style="float:left;width:95%;" class="num"/></td>
-					<td><input type="text" id="txtMemo.*" style="float:left;width:95%;" class="num"/></td>
+					<td><input type="text" id="txtMemo.*" style="float:left;width:95%;"/></td>
 				</tr>
 			</table>
 		</div>
