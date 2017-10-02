@@ -231,22 +231,20 @@
             .dview {
                 float: left;
                 width: 40%;
-                border-width: 0px;
             }
             .tview {
-                border: 5px solid gray;
+                margin: 0;
+                padding: 2px;
+                border: 1px black double;
+                border-spacing: 0;
                 font-size: medium;
-                background-color: black;
-            }
-            .tview tr {
-                height: 30px;
+                background-color: #FFFF66;
+                color: blue;
             }
             .tview td {
                 padding: 2px;
                 text-align: center;
-                border-width: 0px;
-                background-color: #FFFF66;
-                color: blue;
+                border: 1px black solid;
             }
             .dbbm {
                 float: left;
@@ -340,21 +338,20 @@
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain'>
 			<div class="dview" id="dview" >
-				<table class="tview" id="tview">
-					<tr>
-						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a>編號</a></td>
-						<td align="center" style="width:150px; color:black;"><a>供應商/收貨人</a></td>
-						<td align="center" style="width:300px; color:black;"><a>地址</a></td>
-						<tr>
-							<td >
-							<input id="chkBrow.*" type="checkbox"/>
-							</td>
-							<td id='custno' style="text-align: left;">~custno</td>
-							<td id='cust' style="text-align:left;">~cust</td>
-							<td id='address' style="text-align:left;">~address</td>
-						</tr>
-				</table>
+				<table class="tview" id="tview"    border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
+                    <tr>
+                        <td align="center" style="width:20px"><a id='vewChk'> </a></td>               
+                        <td align="center" style="width:100px"><a id='vewCustno'>編號</a></td>
+                        <td align="center" style="width:150px"><a id='vewCust'>供應商/收貨人</a></td>
+                        <td align="center" style="width:300px"><a id='vewP_post'>地址</a></td>
+                    </tr>
+                     <tr>
+                            <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
+                            <td align="center" id='custno'>~custno</td>
+                            <td align="center" id='cust'>~cust</td>
+                            <td align="center" id='addrno'>~addrno</td>
+                    </tr>
+                </table>
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
@@ -449,14 +446,14 @@
                         <input type="text" id="txtAddrno.*"  style="display:none;"/>
                     </td>
 					<td>
-    					<input type="text" id="txtLat.*" style="float:left;width:45%;" />
+    					<input type="text" id="txtLat.*" style="float:left;width:42%;" />
     					<span>~</span>
-    					<input type="text" id="txtLng.*" style="float:right;width:45%;" />
+    					<input type="text" id="txtLng.*" style="float:right;width:42%;" />
 					</td>
 					<td>
-                        <input type="text" id="txtRate.*" style="float:left;width:45%;" class="num"/>
+                        <input type="text" id="txtRate.*" style="float:left;width:42%;" class="num"/>
                         <span>~</span>
-                        <input type="text" id="txtRate2.*" style="float:right;width:45%;" class="num"/>
+                        <input type="text" id="txtRate2.*" style="float:right;width:42%;" class="num"/>
                     </td>
                     <td><input type="text" id="txtValue.*" style="float:left;width:95%;" class="num"/></td>
 					<td><input type="text" id="txtMemo.*" style="float:left;width:95%;"/></td>

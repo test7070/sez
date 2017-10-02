@@ -21,7 +21,7 @@
 			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtComp', 'txtAcomp', 'txtSales','textCuft'];
 			var q_readonlys = ['txtStore'];
 			var bbmNum = [['txtWeight', 15, 3, 1], ['txtTotal', 10, 2, 1]];
-			var bbsNum = [['txtMount', 10, 0, 1], ['txtEcount', 10, 0, 1], ['txtAdjcount', 10, 0, 1]];
+			var bbsNum = [['txtMount', 10, 0, 1], ['txtEcount', 10, 0, 1], ['txtAdjcount', 10, 0, 1],];
 			var bbmMask = [];
 			var bbsMask = [];
 			q_sqlCount = 6;
@@ -59,7 +59,7 @@
 
 			function mainPost() {
 				q_getFormat();
-				bbmMask = [['txtDatea', r_picd], ['txtCldate', r_picd],['txtDate1', r_picd],['txtDate2', r_picd],['txtEtcdate', r_picd]];
+				bbmMask = [['txtDatea', r_picd], ['txtCldate', r_picd],['txtDate1', r_picd],['txtDate2', r_picd],['txtEtcdate', r_picd],['txtEtctime','99:99']];
 				q_mask(bbmMask);
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				q_cmbParse("cmbStype", q_getPara('orde.stype'));
@@ -841,8 +841,10 @@
 						<td class="td2" colspan="2"><input id="txtCaseno2"  type="text" class="txt c1"/></td>
 						<td class="td4"><input id="btnTovcc" type="button" value="轉出貨單" /></td>
 						<td class="td5"></td>
-						<td class="td4"><span> </span><a id="lblEtcdate" class="lbl">結關日</a></td>
-                        <td class="td5"><input id="txtEtcdate"  type="text" class="txt c1"/></td>
+						<td class="td4"><span> </span><a id="lblEtcdate" class="lbl">E.T.C</a></td>
+                        <td class="td5" colspan="2"><input id="txtEtcdate"  type="text" class="txt c1" style="width: 50%;"/>
+                                        <input id="txtEtctime"  type="text" class="txt c1" style="width: 30%;"/>
+                        </td>
 					</tr>
 					<tr class="isexport">
 						<td class="td1"><span> </span><a id="lblImemo" class="lbl"> </a></td>

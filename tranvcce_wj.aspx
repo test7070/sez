@@ -69,7 +69,9 @@
                     if($('#txtWeight_'+i).val().length>0 && $('#txtMount_'+i).val().length>0){
                         $('#txtUweight_'+i).val(q_div($('#txtWeight_'+i).val(),$('#txtMount_'+i).val()));
                     }
-                    $('#txtTotal_'+i).val(q_mul(q_div($('#txtWeight_'+i).val(),1000),$('#txtVolume_' + i).val()));
+                    if($('#txtWeight_'+i).val().length>0 && $('#txtVolume_'+i).val().length>0){
+                        $('#txtTotal_'+i).val(q_mul(q_div($('#txtWeight_'+i).val(),1000),$('#txtVolume_' + i).val()));
+                    }
                     t_weight=q_add(t_weight,q_float('txtWeight_'+i))  
                 }
                 
