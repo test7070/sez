@@ -319,6 +319,12 @@
             }
 
             function btnOk() {
+            	if(q_getPara('sys.project').toUpperCase()=='DC'){//106/10/03 070121
+            		if (!confirm('確定要儲存?')) {
+		                return;
+		            }
+            	}
+            	
                 var t_err = '';
                 t_err = q_chkEmpField([['txtDatea', q_getMsg('lblDatea')], ['txtSssno', q_getMsg('lblSss')], ['txtHname', q_getMsg('txtHtype')]]);
 
