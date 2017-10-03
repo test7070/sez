@@ -93,6 +93,10 @@
                         type : '5', //[19]
                         name : 'xgroupano',
                         value : uccgaItem.split(',')
+                    },{
+                        type : '5', //[20]
+                        name : 'xshow',
+                        value : (' @全部,1@國內,2@國外').split(',')
                     }]
                 });
                 

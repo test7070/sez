@@ -232,6 +232,22 @@
 					<td> </td>
 				</tr>
 				<tr class="isport">
+                    <td><a id="lblForwarder2" style="float:right;">Forwarder2</a></td>
+                    <td colspan="3">
+                        <input id="txtForwarderno2" type="text" style='width:30%;'/>
+                        <input id="txtForwarder2" type="text" style='width:68%;'/>
+                    </td>
+                    <td> </td>
+                </tr>
+                <tr class="isport">
+                    <td><a id="lblForwarder3" style="float:right;">Forwarder3</a></td>
+                    <td colspan="3">
+                        <input id="txtForwarderno3" type="text" style='width:30%;'/>
+                        <input id="txtForwarder3" type="text" style='width:68%;'/>
+                    </td>
+                    <td> </td>
+                </tr>
+				<tr class="isport">
 					<td><a id="lblBcomp" style="float:right;"> </a></td>
 					<td colspan="3">
 						<input id="txtBcompno" type="text" style='width:30%;'/>
