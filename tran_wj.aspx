@@ -215,7 +215,7 @@
 			}
 
 			function bbsSave(as) {
-				if (!as['cardeal']) {
+				if (!as['custno'] && !as['straddrno'] && !as['endaddrno']) {
 					as[bbsKey[1]] = '';
 					return;
 				}
