@@ -321,6 +321,10 @@
 					$(this).val(tmp);
 					sum();
 				});
+				
+				if(q_getPara('sys.project').toUpperCase()=='NV'){
+					$('.acomp').show();
+				}
             }
             
             function sum() {
@@ -856,6 +860,13 @@
 						<td><span> </span><a id='lblAccount' class="lbl"> </a></td>
 						<td colspan="2"><input id="txtAccount"  type="text" class="txt c1" /></td>
 					</tr>
+					<tr class="acomp" style="display: none;"><!--公司-->
+						<td><span> </span><a id="lblCno" class="lbl btn"> </a></td>
+						<td colspan="3">
+							<input id="txtCno"  type="text" class="txt c2"/>
+							<input id="txtComp"  type="text" class="txt c3"/>
+						</td>
+					</tr>
 					<tr>
 						<td><span> </span><a id='lblTypea' class="lbl"> </a></td>
 						<td><select id="cmbTypea" class="txt c1"> </select></td>
@@ -896,13 +907,6 @@
 						<td>
 							<select id="cmbJobno" class="txt c1"> </select>
 							<input id="txtJob"  type="text" style="display: none;"/>
-						</td>
-					</tr>
-					<tr style="display: none;"><!--公司-->
-						<td><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
-						<td colspan="3">
-							<input id="txtCno"  type="text" class="txt c2"/>
-							<input id="txtComp"  type="text" class="txt c3"/>
 						</td>
 					</tr>
 					<tr>
