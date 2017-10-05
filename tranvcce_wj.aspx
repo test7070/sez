@@ -305,7 +305,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['edate']) {
+                if (!as['custno'] && !as['addrno2'] && !as['carno']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
