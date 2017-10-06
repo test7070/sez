@@ -142,7 +142,7 @@
                     },{
                         type : '8', //[24]//顯示發票號碼//4000
                         name : 'xshowinvono',
-                        value : "1@顯示發票資料".split(',')
+                        value : "1@".split(',')
                     }, {
                         type : '0', //[25] //判斷是否顯示規格
                         name : 'isspec',
@@ -211,9 +211,9 @@
                 }
                 
                 $('#Xshowinvono').css('width', '300px').css('height', '30px');
-                $('#Xshowinvono .label').css('width','0px');
-                $('#chkXshowinvono').css('width', '220px').css('margin-top', '5px');
-                $('#chkXshowinvono span').css('width','180px')
+                $('#Xshowinvono .label').css('width','100px');
+                $('#chkXshowinvono').css('width', '0px').css('margin-top', '5px');
+                $('#chkXshowinvono span').css('width','0px')
                 
                 if(isinvosystem=='2'){//沒有發票系統
 	                $('#Xshowinvono').hide();

@@ -440,7 +440,7 @@
 			}
 			.dbbm {
 				float: left;
-				width: 630px;
+				width: 750px;
 				/*margin: -1px;
 				 border: 1px black solid;*/
 				border-radius: 5px;
@@ -596,6 +596,8 @@
 						<td> </td>
 						<td> </td>
 						<td> </td>
+						<td> </td>
+						<td> </td>
 						<td class="tdZ"> </td>
 					</tr>
 					<tr>
@@ -623,9 +625,9 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblAddr_js" class="lbl btn">提貨地點</a></td>
-						<td colspan="3">
-							<input type="text" id="txtAddrno" class="txt" style="width:40%;float: left; " />
-							<input type="text" id="txtAddr" class="txt" style="width:60%;float: left; " />
+						<td colspan="4">
+							<input type="text" id="txtAddrno" class="txt" style="width:30%;float: left; " />
+							<input type="text" id="txtAddr" class="txt" style="width:70%;float: left; " />
 						</td>
 						<td colspan="3">
 							<input type="text" id="txtBoat" class="c1 txt"/>
