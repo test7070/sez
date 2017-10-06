@@ -34,7 +34,7 @@
 			brwKey = 'noa';
 			q_desc = 1;
 			q_copy = 1;
-			brwCount2 = 12;
+			brwCount2 = 4;
 			aPop = new Array(
 				['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']
 				//,['txtProductno_', '', 'ucx', 'noa,product', 'txtProductno_,txtProduct_', 'ucx_b.aspx']
@@ -226,6 +226,14 @@
 							}
 						}
 					}
+				});
+				
+				$('#bbtimg').click(function() {
+					var image = new Image();
+			        image.src = document.getElementById("bbtimg").src;
+			
+			        var w = window.open("", "_blank", 'directories=no,location=no,menubar=no,resizable=1,scrollbars=1,status=0,toolbar=1');
+			        w.document.write(image.outerHTML);
 				});
 			}
 			
