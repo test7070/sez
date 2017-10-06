@@ -515,6 +515,13 @@
             	$('.special').hide();
             	$('.isforget').hide();
             }
+            
+            if(q_getPara('sys.project').toUpperCase()=='DJ'){
+            	$('.isforget').hide();
+            	$('.w200').hide();
+				$('.w266').hide();
+            	$('.special').hide();
+            }
             sum();
         }
 
