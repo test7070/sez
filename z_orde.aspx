@@ -121,26 +121,64 @@
                     },{
                     	type : '8',//[20]
 						name : 'xshowenda',
-						value : "1@依單據排序,2@依訂單日期排序,3@依預交日期排序".split(',')
-					}]
+						//value : "1@依單據排序,2@依訂單日期排序,3@依預交日期排序".split(',')
+						value : "1@".split(',')
+					},{
+                        type : '8',//[21]
+                        name : 'xshowenda1',
+                        value : "2@".split(',')
+                    },{
+                        type : '8',//[22]
+                        name : 'xshowenda2',
+                        value : "3@".split(',')
+                    }]
                 });
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
                 
+                $('#Xshowenda').css('width', '300px').css('height', '30px');
+                $('#Xshowenda .label').css('width','90px');
+                $('#chkXshowenda').css('width', '0px').css('margin-top', '5px');
+                $('#chkXshowenda span').css('width','0px');
+                
+                $('#Xshowenda1').css('width', '300px').css('height', '30px');
+                $('#Xshowenda1 .label').css('width','120px');
+                $('#chkXshowenda1').css('width', '0px').css('margin-top', '5px');
+                $('#chkXshowenda1 span').css('width','0px');
+                
+                $('#Xshowenda2').css('width', '300px').css('height', '30px');
+                $('#Xshowenda2 .label').css('width','120px');
+                $('#chkXshowenda2').css('width', '0px').css('margin-top', '5px');
+                $('#chkXshowenda2 span').css('width','0px');
+
                 if(r_len==4){                	
                 	$.datepicker.r_len=4;
 					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
                 }
                               
-                $('#chkXshowenda input').click(function(){ 
+                /*$('#chkXshowenda input').click(function(){ 
 						var tcheck=$(this).val(); 
 						$('#chkXshowenda input').each(function() {
 							if(tcheck!=$(this).val()){ 
 								$(this).prop('checked',false);
 							}
 						});  
+				});*/
+				$('#chkXshowenda input').click(function(){ 
+				    $('#chkXshowenda1 input').prop('checked',false);
+				    $('#chkXshowenda2 input').prop('checked',false);
 				});
+				
+				$('#chkXshowenda1 input').click(function(){ 
+                    $('#chkXshowenda input').prop('checked',false);
+                    $('#chkXshowenda2 input').prop('checked',false);
+                });
+				
+				$('#chkXshowenda2 input').click(function(){ 
+                    $('#chkXshowenda input').prop('checked',false);
+                    $('#chkXshowenda1 input').prop('checked',false);
+                });
 				
 				$('#Xend select').val('0')			
                 

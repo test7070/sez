@@ -105,7 +105,7 @@
 					}, {//[23]
 						type : '8',
 						name : 'xoption01',
-						value : q_getMsg('toption01').split('&')
+						value : "detail@".split(',')
 					}, {
 						type : '5', //[24]
 						name : 'xrc2stype',
@@ -132,6 +132,11 @@
 				q_popAssign();
 				q_getFormat();
                 q_langShow();
+                
+                $('#Xoption01').css('width', '300px').css('height', '30px');
+                $('#Xoption01 .label').css('width','62px');
+                $('#chkXoption01').css('width', '0px').css('margin-top', '5px');
+                $('#chkXoption01 span').css('width','0px');
 				
 				$('#txtDate1').mask(r_picd);
 				$('#txtDate1').datepicker();

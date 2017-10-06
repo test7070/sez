@@ -19,7 +19,7 @@
             var q_readonly = ['txtNoa', 'txtWeight','txtTotal', 'txtWorker', 'txtWorker2','txtAddress'];
             var q_readonlys = ['txtOrdeno', 'txtNo2'];
             var bbmNum = [];
-            var bbsNum = [['txtWeight', 10, 3, 1],['txtUweight', 10, 2, 1],['txtMount', 10, 0, 1],['txtVolume', 10, 0, 1],['txtTvolume', 10, 0, 1],['txtTheight', 10, 0, 1],['txtTotal', 10, 0, 1],['txtTotal2', 10, 0, 1]];
+            var bbsNum = [['txtWeight', 10, 0, 1],['txtUweight', 10, 2, 1],['txtMount', 10, 0, 1],['txtVolume', 10, 0, 1],['txtTvolume', 10, 0, 1],['txtTheight', 10, 0, 1],['txtTotal', 10, 0, 1],['txtTotal2', 10, 0, 1]];
             var bbmMask = [];
             var bbsMask = [['txtTime3', '999/99/99'],['txtLng', '999/99/99'],['txtBdate', '999/99/99'],['txtEdate', '999/99/99'],['txtTime1', '99:99'],['txtTime2', '99:99']];
             q_sqlCount = 6;
@@ -106,6 +106,10 @@
                      var t_where = "where=^^ noa in(select max(noa) from addr2 where sdate<='"+$('#txtDatea').val()+"' and custno in (select noa from cust) group by custno,cust)^^ stop=999";
                      q_gt('addr2', t_where, 0, 0, 0, "addr2");
                 });
+                $('#txtLat').change(function() {
+                     var t_where = "where=^^ po='"+$('#txtLat').val()+"' ^^ stop=999";
+                     q_gt('view_tranorde', t_where, 0, 0, 0, "view_tranorde");
+                });
                 $('#btnImport_trans').click(function() {
                    if(q_cur != 1 && q_cur != 2){
                        var t_accy = r_accy;
@@ -128,8 +132,8 @@
                                 if (!b_ret || b_ret.length == 0)
                                     return;
                                     ret = q_gridAddRow(bbsHtm, 'tbbs', 
-                                    'txtConn,txtCustno,txtCust,txtBdate,txtTime1,txtEdate,txtTime2,txtTypea,txtProductno,txtProduct,txtUnit,txtWeight,txtMount,txtTvolume,txtTheight,txtCarno,txtDriverno,txtDriver,txtAddrno2,txtAddr2,txtAddress,txtTranno,txtOrdeno,txtNo2,txtMemo', b_ret.length, b_ret, 
-                                    'caseno,conn,tel,date1,time1,date2,time2,typea,productno,product,unit,theight,mount,total2,total3,carno,driverno,driver,addrno2,addr2,address,tranno,noa,noq,memo','');
+                                    'txtConn,txtCustno,txtCust,txtBdate,txtTime1,txtEdate,txtTime2,txtTypea,txtProductno,txtProduct,txtUnit,txtWeight,txtMount,txtTvolume,txtTheight,txtCarno,txtDriverno,txtDriver,txtAddrno2,txtAddr2,txtAddress,txtTranno,txtOrdeno,txtNo2,txtMemo,txtUno', b_ret.length, b_ret, 
+                                    'caseno,conn,tel,date1,time1,date2,time2,typea,productno,product,unit,theight,mount,total2,total3,carno,driverno,driver,addrno2,addr2,address,tranno,noa,noq,memo,uno','');
                              }
                              sum();
                              var t_where = "where=^^ noa in(select max(noa)  from addr2 where sdate<='"+$('#txtDatea').val()+"' and custno in (select noa from cust) group by custno,cust)^^ stop=999";
@@ -165,7 +169,18 @@
                                 $('#chk1').prop('checked',true);
                             }
                             t_weight=0;
-                            break;   
+                            break;
+                    case 'view_tranorde':
+                            var as = _q_appendData("view_tranorde", "", true);
+                            if(as[0]!=undefined){
+                                $('#txtAddrno').val(as[0].addrno);
+                                $('#txtAddr').val(as[0].addr);
+                                $('#txtAddress').val(as[0].boat);
+                                $('#txtCno').val(as[0].cno);
+                                $('#txtAcomp').val(as[0].acomp);
+                            }
+                            t_weight=0;
+                            break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
