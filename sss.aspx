@@ -85,6 +85,10 @@
                 	$('#btnSaladjust').show();
                 }
                 
+                if(q_getPara('sys.project').toUpperCase()=='JR'){
+                    $('.isJR').hide();
+                }
+                
                 $('#txtNoa').change(function(e){
                 	$(this).val($.trim($(this).val()).toUpperCase());    	
 					if($(this).val().length>0){
@@ -548,6 +552,10 @@
                 _refresh(recno);
                refreshBbm();
                $('#combClass5').val($('#txtClass5').val().split(','));
+               
+               if(q_getPara('sys.project').toUpperCase()=='JR'){
+                    $('.isJR').hide();
+                }
             }
 			function refreshBbm(){
             	if(q_cur==1){
@@ -932,7 +940,7 @@
 						<td> </td>
 						<td><input id='btnSsspart' type="button"/></td>
 						<td><input id='btnSaladjust' type="button" style="display: none;"/></td>
-						<td><input id='btnLabases' type="button" /></td>
+						<td class='isJR'><input id='btnLabases' type="button" /></td>
 						<td><input id='btnSsschg' type="button" style="display: none;"/></td>
 					</tr>
 					<tr class='issalb' style="display: none;">

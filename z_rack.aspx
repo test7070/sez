@@ -53,9 +53,13 @@
 				q_popAssign();
 				q_getFormat();
 				q_langShow();
-				$('#txtXdatea1').mask('999/99/99');
-				$('#txtXdatea1').val(q_date().substring(0,3)+'/01/01');
-				$('#txtXdatea2').mask('999/99/99');
+				$('#txtXdatea1').mask(r_picd);
+				if(r_len=='4'){
+				    $('#txtXdatea1').val(q_date().substring(0,4)+'/01/01');
+				}else{
+				    $('#txtXdatea1').val(q_date().substring(0,3)+'/01/01');
+				}
+				$('#txtXdatea2').mask(r_picd);
 				$('#txtXdatea2').val(q_date());
 			}
 

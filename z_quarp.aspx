@@ -64,6 +64,12 @@
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
+                
+                if(r_len==4){                 
+                    $.datepicker.r_len=4;
+                    //$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+                }
+                
                 $('#txtXdate1').mask(r_picd);
                 $('#txtXdate1').datepicker();
                 $('#txtXdate2').mask(r_picd);

@@ -38,9 +38,15 @@
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
-                $('#txtDate1').mask('999/99/99');
+                
+                if(r_len==4){                
+                    $.datepicker.r_len=4;
+                    //$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+                }
+                
+                $('#txtDate1').mask(r_picd);
                 $('#txtDate1').datepicker();
-                $('#txtDate2').mask('999/99/99');
+                $('#txtDate2').mask(r_picd);
                 $('#txtDate2').datepicker();
                 var t_key = q_getHref();
                 if(t_key[1] != undefined)

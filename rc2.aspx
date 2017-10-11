@@ -75,7 +75,11 @@
 					t_money = q_add(t_money, q_float('txtTotal_' + j));
 				}
 				if($('#chkAtax').prop('checked')){
-					var t_taxrate = q_div(parseFloat(q_getPara('sys.taxrate')), 100);
+				    if (q_getPara('sys.project').toUpperCase().substr(0,2)=='AD'){
+					   var t_taxrate = q_div(10, 100);
+					}else{
+					   var t_taxrate = q_div(parseFloat(q_getPara('sys.taxrate')), 100);
+					}
 					t_tax = round(q_mul(t_money, t_taxrate), 0);
 					t_total = q_add(t_money, t_tax);
 				}else{
@@ -176,7 +180,12 @@
 				});
 				
 				$('#lblAccc').click(function() {
-					q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0, 3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('lblAccc'), true);
+				    if(r_len=='4'){
+				        var t_datea=$('#txtDatea').val().substring(0, 4)-1911;
+				    }else{
+				        var t_datea=$('#txtDatea').val().substring(0, 3);
+				    }
+					q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + t_datea + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('lblAccc'), true);
 				});
 				
 				$('#lblOrdc').click(function() {
