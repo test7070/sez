@@ -76,7 +76,7 @@
 					}, {
 						type : '8',
 						name : 'allucc',//[15]
-						value : '1@顯示所有物品'.split(',')
+						value : '1@'.split(',')
 					}, {
 						type : '2', //[16][17]
 						name : 'xtgg',
@@ -137,7 +137,8 @@
 				$('.c5').css('width','px');
 				$('.cmb').css('width','150px');*/
 				$('#Allucc').css('width','390px').css('height','30px');
-				$('#Allucc .label').css('width','0px');
+				$('#Allucc .label').css('width','100px');
+				$('#chkAllucc').css('width', '0px').css('margin-top', '5px');
 				$('#txtXuca').css("width","515px");
 				 q_cmbParse('cmbType','0@全部,1@原料,2@製成品')
                 $('#btnCostbcc').click(function(e) {

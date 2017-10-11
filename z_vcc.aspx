@@ -185,8 +185,6 @@
                 $('#Xmemo').removeClass('a2').addClass('a1');
                 $('#txtXmemo').css('width', '85%');
                 $('#Xgroupano select').css('width', '150px');
-                $('.q_report .report').css('width', '420px');
-                $('.q_report .report div').css('width', '200px');
 
                 if (q_getPara('sys.project').toUpperCase()=='IT') {
                     if (issale == 'true' && job.indexOf('經理') < 0 && r_rank <= '5') {//一般業務只能看到自己的業績
