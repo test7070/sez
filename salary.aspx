@@ -143,6 +143,23 @@
 	            		){
 	            			//LOAD 客戶
 	            			q_gt('sssr',"where=^^ '"+$('#txtMon').val()+"' between left(stopdate,"+r_lenm+") and left(dbo.q_cdn(reindate,-1),"+r_lenm+") ^^", 0, 0, 0, "sssr", r_accy);
+	            		}else if (q_getPara('sys.project').toUpperCase()=='JR'){
+	            			//直接匯入 //無計算加班遲到等
+	            			getdtmp();
+			            	var t_mon=$('#txtMon').val();
+			            	var t_len=r_len;
+			            	var t_person=$('#cmbPerson').val();
+			            	var t_monkind=$('#cmbMonkind').val();
+			            	var t_proj=q_getPara('sys.project').toUpperCase();
+			            	var t_date1=date_1;
+			            	var t_date2=date_2;
+			            	
+			            	if(q_cur==1 || q_cur==2){
+				            	q_func('qtxt.query.salaryimport', 'salary.txt,salaryimport2,' 
+				            		+t_mon+';'+t_len+';'+t_person+';'+t_monkind+';'+t_proj+';'+t_date1+';'+t_date2
+				            	);
+				            }
+	            				
 	            		}else{
 	            			$('#textMon').val($('#txtMon').val().substr(0,r_lenm));
 	            			$('#div_select').show();
@@ -1200,6 +1217,9 @@
 	                }
 				});
 	            
+	            if(q_getPara('sys.project').toUpperCase()=='JR'){
+	            	$('.bbsdetail').hide();
+	            }
 	        }
 	
 	        function btnIns() {
@@ -1487,7 +1507,7 @@
 				                	}
 				                }
 			                	q_tr('txtMi_saliday_'+j,Math.round(dec($('#txtHr_sick_'+j).val())+dec($('#txtHr_person_'+j).val())+dec($('#txtHr_nosalary_'+j).val())+dec($('#txtHr_leave_'+j).val())));//扣薪時數=病假+事假+事假+曠工金額
-		        				q_tr('txtMi_total_'+j,Math.round(dec($('#txtMi_sick_'+j).val())+dec($('#txtMi_person_'+j).val())+dec($('#txtMi_nosalary_'+j).val())+dec($('#txtMi_leave_'+j).val())));//扣薪金額=病假+事假+事假+曠工金額	
+		        				q_tr('txtMi_total_'+j,Math.round(dec($('#txtMi_late_'+j).val())+dec($('#txtMi_sick_'+j).val())+dec($('#txtMi_person_'+j).val())+dec($('#txtMi_nosalary_'+j).val())+dec($('#txtMi_leave_'+j).val())));//扣薪金額=病假+事假+事假+曠工金額	
 	        				}
 	        			}
 	        			q_tr('txtTotal2_'+j,Math.round(dec($('#txtTotal1_'+j).val())-dec($('#txtMi_total_'+j).val())+dec($('#txtBo_full_'+j).val())+dec($('#txtBo_born_'+j).val())+dec($('#txtBo_night_'+j).val())+dec($('#txtBo_duty_'+j).val())+dec($('#txtTax_other_'+j).val())));//給付總額
