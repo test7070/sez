@@ -156,7 +156,7 @@
                                     var s6 = $('#txtHeight_' + i).val();
                                     $('#txtHeight_' + b_seq).val(s6);
                                     var s7 = $('#txtVolume_' + i).val();
-                                    $('#txtVolume_' + b_seq).val(s7);
+                                    $('#' + b_seq).val(s7);
                                     var s8 = $('#txtWeight_' + i).val();
                                     $('#txtWeight_' + b_seq).val(s8); 
                                     var s9 = $('#txtTheight_' + i).val();
@@ -683,8 +683,8 @@
 					<td align="center" style="width:50px"><a>單位</a></td>
 					<!--<td align="center" style="width:70px"><a>長cm</a></td>
 					<td align="center" style="width:70px"><a>寬cm</a></td>
-					<td align="center" style="width:70px;"><a>高cm</a></td>
-					<td align="center" style="width:80px"><a id="lblVolume1">體積</a></td>-->
+					<td align="center" style="width:70px;"><a>高cm</a></td>-->
+					<td align="center" style="width:80px"><a>單位毛<br/>重(KG)</a></td>
 					<td align="center" style="width:70px"><a>單位淨<br/>重(KG)</a></td>
 					<td align="center" style="width:100px"><a>毛重(KG)</a></td>
 					<td align="center" style="width:100px"><a>淨重(KG)</a></td>
@@ -718,8 +718,8 @@
 					<td><input type="text" id="txtUnit.*" class="num" style="width:95%;" /> </td>
 					<!--<td><input type="text" id="txtLengthb.*" class="num" style="width:95%;" /> </td>
 					<td><input type="text" id="txtWidth.*" class="num" style="width:95%;" /> </td>
-					<td><input type="text" id="txtHeight.*" class="num" style="width:95%;" /> </td>
-					<td><input type="text" id="txtVolume.*" class="num" style="width:95%;" /> </td>-->
+					<td><input type="text" id="txtHeight.*" class="num" style="width:95%;" /> </td>-->
+					<td><input type="text" id="txtVolume.*" class="num" style="width:95%;" /> </td>
 					<td><input type="text" id="txtWeight.*" class="num" style="width:95%;" /> </td>
 					<td><input type="text" id="txtTheight.*" class="num" style="width:95%;" /> </td>
 					<td><input type="text" id="txtTvolume.*" class="num" style="width:95%;" /> </td>
@@ -762,10 +762,8 @@
 					<td><input type="text" id="txtTranno.*" style="width:95%;" /></td>
 					<td><input type="text" id="txtUno.*" style="width:95%;" /></td>
 					<td><input type="text" id="txtMemo.*" style="width:95%;" /></td>
-				</tr>
-
+					<td bgcolor="white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			</table>
-		</div>
 		<input id="q_sys" type="hidden" />
 		<div id="dbbt" style="position: absolute;top:250px; left:450px; display:none;width:400px;">
 			<table id="tbbt">
