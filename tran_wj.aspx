@@ -23,8 +23,8 @@
 			var q_readonlyt = [];
 			var bbmNum = new Array();
 			var bbmMask = new Array(['txtDatea', '999/99/99'],['txtTrandate', '999/99/99']);
-			var bbsNum = new Array(['txtTotal', 10, 0, 1],['txtTotal2', 10, 0, 1],['txtPrice', 10, 0, 1],['txtPrice2', 10, 0, 1],['txtPrice3', 10, 0, 1],['txtMount', 10, 0, 1]);
-			var bbsMask = new Array(['txtTrandate', '999/99/99'],['txtltime', '99:99'],['txtstime', '99:99']);
+			var bbsNum = new Array(['txtTotal', 10, 0, 1],['txtTotal2', 10, 0, 1],['txtPrice', 10, 0, 1],['txtPrice2', 10, 0, 1],['txtPrice3', 10, 0, 1],['txtMount', 10, 0, 1],['txtPlus', 10, 0, 1]);
+			var bbsMask = new Array(['txtTrandate', '999/99/99'],['txtltime', '99:99'],['txtStime', '99:99']);
 			var bbtNum  = new Array(); 
 			var bbtMask = new Array();
 			q_sqlCount = 6;
@@ -92,6 +92,8 @@
 			function mainPost() {
 				q_mask(bbmMask);
 				q_getFormat();
+				var t_where = "where=^^ 1=1 ^^";
+                q_gt('chgitem', t_where, 0, 0, 0, "");
 
 				/*
 				var t_type = q_getPara('trans.typea').split(',');
@@ -195,6 +197,14 @@
                         var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
                         $('#btnEndaddr_'+n).click();
                    	 });
+                   	 
+                   	$('#combProduct_' + i).change(function() {
+                            t_IdSeq = -1;
+                            q_bodyId($(this).attr('id'));
+                            b_seq = t_IdSeq;
+                            if(q_cur==1 || q_cur==2)
+                                $('#txtTimea_'+b_seq).val($('#combProduct_'+b_seq).find("option:selected").text());
+                    });
 				}
 				_bbsAssign();
 				$('#tbbs').find('tr.data').children().hover(function(e){
@@ -251,6 +261,14 @@
            	}
             function q_gtPost(t_name) {
                 switch (t_name) {
+                    case 'chgitem':
+                        var as = _q_appendData("chgitem", "", true);
+                        var t_chgitem='@';
+                        for ( i = 0; i < as.length; i++) {
+                            t_chgitem+=","+as[i].item;
+                        }
+                        q_cmbParse("combProduct", t_chgitem,'s');
+                        break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -547,7 +565,7 @@
 				margin: -1px;
 			}
 			.dbbs {
-				width: 2200px;
+				width: 2800px;
 			}
 			.dbbt {
 				width: 2000px;
@@ -729,6 +747,8 @@
 					<td align="center" style="width:80px;">出發時間</td>
 					<td align="center" style="width:80px;">回場時間</td>
 					<td align="center" style="width:80px;"><a>應收運費</a></td>
+					<td align="center" style="width:100px;"><a>加項品名</a></td>
+					<td align="center" style="width:80px;"><a>加項金額</a></td>
 					<td align="center" style="width:80px;"><a>人工裝費</a></td>
 					<td align="center" style="width:80px;"><a>管理收入</a></td>
 					<td align="center" style="width:80px;"><a>應付運費</a></td>
@@ -778,6 +798,11 @@
 					<td><input type="text" id="txtltime.*"  style="float:left;width:95%;"/></td>
 					<td><input type="text" id="txtStime.*"  style="float:left;width:95%;"/></td>
 					<td><input type="text" id="txtTotal.*" class="num" style="float:center;width:95%;"/></td>
+					<td>
+                        <input type="text" id="txtTimea.*" type="text" class="txt c1" style="width: 75%;"/>
+                        <select id="combProduct.*" class="txt" style="width: 20px;"> </select>
+                    </td>
+                    <td><input type="text" id="txtPlus.*" class="num" style="float:center;width:95%;"/></td>
 					<td><input type="text" id="txtPrice2.*" class="num" style="float:center;width:95%;"/></td>
 					<td><input type="text" id="txtPrice3.*" class="num" style="float:center;width:95%;"/></td>
 					<td><input type="text" id="txtTotal2.*" class="num" style="float:center;width:95%;"/></td>

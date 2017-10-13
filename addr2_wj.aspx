@@ -386,6 +386,12 @@
                         <input id="txtTel" type="text"  class="txt c1"/>
                         </td>
                     </tr>
+                    <tr>
+                        <td><span> </span><a class="lbl">郵遞區號</a></td>
+                        <td>
+                        <input id="txtSiteno" type="text"  class="txt c1"/>
+                        </td>
+                    </tr>
 					<tr>
 						<td><span> </span><a class="lbl">地址</a></td>
 						<td colspan="3">
