@@ -88,16 +88,23 @@
                 q_getFormat();
                 q_langShow();
                 
+                var r_1911=1911;
+                if(r_len==4){
+                    var r_1911=0;                  
+                    $.datepicker.r_len=4;
+                    //$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+                }
+                
                 $('#txtDate1').mask(r_picd);
                 $('#txtDate2').mask(r_picd);
  				$('#txtOdate1').mask(r_picd);
                 $('#txtOdate2').mask(r_picd);
-                if(r_len==3){
-	                $('#txtDate1').datepicker();
-	                $('#txtDate2').datepicker();
-	                $('#txtOdate1').datepicker();
-	                $('#txtOdate2').datepicker();
-                }
+                
+	            $('#txtDate1').datepicker();
+	            $('#txtDate2').datepicker();
+	            $('#txtOdate1').datepicker();
+	            $('#txtOdate2').datepicker();
+	            
                 $('#txtOdate1').val(q_date().substr(0,r_lenm)+'/01');
                 $('#txtOdate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1));
             }

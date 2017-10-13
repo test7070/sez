@@ -109,6 +109,11 @@
 	                    }]
                     });
                 q_popAssign();
+                
+                if(r_len==4){                 
+                    $.datepicker.r_len=4;
+                    //$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+                }
                 	
                 $('#txtXdate1').mask(r_picd);
                 $('#txtXdate1').datepicker();

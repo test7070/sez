@@ -39,8 +39,14 @@
 				q_popAssign();
                 q_getFormat();
                 q_langShow();
-				$('#txtXyear').mask('999');
-				$('#txtXyear').val(q_date().substr(0,3));
+				
+				if(r_len==4){
+				    $('#txtXyear').mask('9999');
+				    $('#txtXyear').val(q_date().substr(0,4));
+				}else{
+				    $('#txtXyear').mask('999');
+				    $('#txtXyear').val(q_date().substr(0,3));
+				}
             }
 
             function q_boxClose(s2) {

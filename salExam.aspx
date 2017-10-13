@@ -56,7 +56,12 @@
         var person;
         function mainPost() { // 載入資料完，未 refresh 前
             q_getFormat();
-            bbmMask = [['txtDatea', r_picd],['txtYear', '999']];
+            if(r_len=='4'){
+                bbmMask = [['txtDatea', r_picd],['txtYear', '9999']];
+            }else{
+                bbmMask = [['txtDatea', r_picd],['txtYear', '999']];
+            }
+            
             q_mask(bbmMask);
             if(r_rank>=7){
             	$('#checkIsall').show();
@@ -350,7 +355,11 @@
         function btnIns() {
             _btnIns();
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
-            $('#txtYear').val(q_date().substr(0,3));
+            if(r_len=='4'){
+                 $('#txtYear').val(q_date().substr(0,4));
+            }else{
+                 $('#txtYear').val(q_date().substr(0,3));
+            }           
             $('#txtDatea').val(q_date());
             $('#txtPartno').val(r_partno);
             $('#txtPart').val(r_part);
@@ -381,7 +390,6 @@
 
             q_nowf();
             as['year'] = abbm2['year'];
-
             //            t_err ='';
             //            if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
             //                t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
