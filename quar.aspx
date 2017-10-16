@@ -1452,7 +1452,7 @@
 					<td align="center" width="100px"> </td>
 				</tr>
 				<tr>
-					<td align="center"><a class="lbl">Item</a></td>
+					<td align="center"><a class="lbl" id='lblProduct_r'>產品</a></td>
 					<td align="center" colspan="2"><input id="textProductno" type="text" class="txt c1" disabled="disabled"/></td>
 					<td align="center" colspan="3">
 						<input id="textProduct" type="text" class="txt c1" disabled="disabled"/>
@@ -1460,31 +1460,31 @@
 					</td>
 				</tr>
 				<tr>
-					<td align="center"><a class="lbl">Unit</a></td>
+					<td align="center"><a class="lbl" id='lblUnit_r'>單位</a></td>
 					<td align="center"><input id="textUnit" type="text" class="txt c1" disabled="disabled"/></td>
-					<td align="center"><a class="lbl">Quantity</a></td>
+					<td align="center"><a class="lbl" id='lblMount_r'>數量</a></td>
 					<td align="center"><input id="textMount" type="text" class="txt num c1"/></td>
-					<td align="center"><a class="lbl">Cost</a></td>
+					<td align="center"><a class="lbl" id='lblCost_r'>產品成本</a></td>
 					<td align="center"><input id="textCost" type="text" class="txt num c1"/></td>
 				</tr>
 				<tr>
-					<td align="center"><a class="lbl">Unit Weight</a></td>
+					<td align="center"><a class="lbl" id='lblUweight_r'>單位重</a></td>
 					<td align="center"><input id="textUweight" type="text" class="txt num c1"/></td>
 					<td align="center"><a id="div_pack2" class="lbl" style="cursor: pointer;color: #4297D7;font-weight: bolder;">Packing</a></td><!--包裝方式-->
 					<td align="center"><input id="textPackwayno" type="text" class="txt c1" disabled="disabled"/></td>
 					<td align="center" colspan="2"><input id="textPackway" type="text" class="txt c1" disabled="disabled"/></td>
 				</tr>
 				<tr>
-					<td align="center"><a class="lbl">Inner Packaging</a></td>
+					<td align="center"><a class="lbl" id='lblInmount_r'>內包裝</a></td>
 					<td align="center"><input id="textInmount" type="text" class="txt num c1" disabled="disabled"/></td>
-					<td align="center"><a class="lbl">Outer Packaging</a></td>
+					<td align="center"><a class="lbl" id='lblOutmount_r'>外包裝</a></td>
 					<td align="center"><input id="textOutmount" type="text" class="txt num c1" disabled="disabled"/></td>
 					<td colspan="2"> </td>
 				</tr>
 				<tr>
-					<td align="center"><a class="lbl">Inner Packing Weight</a></td>
+					<td align="center"><a class="lbl" id='lblInweight_r'>內包裝重</a></td>
 					<td align="center"><input id="textInweight" type="text" class="txt num c1" disabled="disabled"/></td>
-					<td align="center"><a class="lbl">Outer Packing Weight</a></td>
+					<td align="center"><a class="lbl" id='lblOutweight_r'>外包裝重</a></td>
 					<td align="center"><input id="textOutweight" type="text" class="txt num c1" disabled="disabled"/></td>
 					<td colspan="2"> </td>
 				</tr>
@@ -1493,11 +1493,11 @@
 					<td align="center"><input id="textCbm" type="text" class="txt num c1" disabled="disabled"/></td>
 					<td align="center"><a class="lbl">CUFT/CTN</a></td>
 					<td align="center"><input id="textCuft" type="text" class="txt num c1" disabled="disabled"/></td>
-					<td align="center"><a class="lbl">Trial Total weight</a></td><!--試算總重量-->
+					<td align="center"><a class="lbl" id='lblTrialweight_r'>試算總重量</a></td>
 					<td align="center"><input id="textWeight" type="text" class="txt num c1"/></td>
 				</tr>
 				<tr style="background-color: #E7FFCD; " >
-					<td align="center"><a class="lbl">Shipping Options</a></td><!--運費選擇-->
+					<td align="center"><a class="lbl" id='lblShipopt_r'>運費選擇</a></td>
 					<td align="center" colspan="5"> </td>
 				</tr>
 				<tr style="background-color: #E7FFCD; " >
@@ -1524,16 +1524,16 @@
 					<td align="center" colspan="2"> </td>
 				</tr>
 				<tr style="background-color: #E7CDFF; ">
-					<td align="center"><a class="lbl">Freight Costs</a></td><!--運費成本-->
+					<td align="center"><a class="lbl" id='lblTranprice_r'>運費成本</a></td>
 					<td align="center"><input id="textTranprice" type="text" class="txt num c1"/></td>
-					<td align="center"><a class="lbl">Other Expenses</a></td><!--其他支出-->
+					<td align="center"><a class="lbl" id='lblOtherfee_r'>其他支出</a></td>
 					<td align="center"><input id="textFee" type="text" class="txt num c1"/></td>
-					<td align="center"><a class="lbl">Cost Total</a></td><!--成本合計-->
+					<td align="center"><a class="lbl" id='lblCosttotal_r'>成本合計</a></td>
 					<td align="center"><input id="textCost2" type="text" class="txt num c1"/></td>
 				</tr>
 				
 				<tr style="background-color: #EC7DD2; ">
-					<td align="center">Price1</td>
+					<td align="center"><a class="lbl" id='lblPrice1_r'>單價1</a></td>
 					<td colspan="5"> </td>
 				</tr>
 				<tr style="background-color: #EC7DD2; ">
@@ -1553,16 +1553,16 @@
 					<td align="center"><input id="textProfitmoney" type="text" class="txt num c1"/></td>
 				</tr>
 				<tr style="background-color: #EC7DD2;">
-					<td align="center"><a class="lbl">Price Term</a></td>
+					<td align="center"><a class="lbl" id='lblPayterms_r'>價格條件</a></td>
 					<td align="center"><select id="combPayterms" class="txt c1" disabled="disabled"> </select></td>
-					<td align="center"><a class="lbl">Trial Price</a></td><!--試算單價-->
+					<td align="center"><a class="lbl" id='lblTrialprice_r'>試算單價</a></td>
 					<td align="center"><input id="textCost3" type="text" class="txt num c1"/></td>
 					<td align="center"> </td>
 					<td align="center"> </td>
 				</tr>
 				
 				<tr style="background-color: #52FDAC; " class="payterms2">
-					<td align="center">Price2</td>
+					<td align="center"><a class="lbl" id='lblPrice2_r'>單價2</a></td>
 					<td align="center" colspan="5"> </td>
 				</tr>
 				<tr style="background-color: #52FDAC; " class="payterms2">
@@ -1582,9 +1582,9 @@
 					<td align="center"><input id="textProfitmoney2" type="text" class="txt num c1"/></td>
 				</tr>
 				<tr style="background-color: #52FDAC;" class="payterms2">
-					<td align="center"><a class="lbl">Price Term</a></td>
+					<td align="center"><a class="lbl" id='lblPayterms2_r'>價格條件</a></td>
 					<td align="center"><select id="combPayterms2" class="txt c1" disabled="disabled"> </select></td>
-					<td align="center"><a class="lbl">Trial Price</a></td><!--試算單價-->
+					<td align="center"><a class="lbl" id='lblTrialprice2_r'>試算單價</a></td>
 					<td align="center"><input id="textCost32" type="text" class="txt num c1"/></td>
 					<td align="center"> </td>
 					<td align="center"> </td>
@@ -1592,8 +1592,8 @@
 				
 				<tr style="background-color: #F1A0A2;">
 					<td align="center" colspan='6'>
-						<input id="btnOk_div_getprice" type="button" value="Save"><!--取回單價/重量-->
-						<input id="btnClose_div_getprice" type="button" value="Close"><!--關閉視窗-->
+						<input id="btnOk_div_getprice" type="button" value="取回單價/重量">
+						<input id="btnClose_div_getprice" type="button" value="關閉視窗">
 					</td>
 				</tr>
 			</table>

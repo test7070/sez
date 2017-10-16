@@ -47,7 +47,7 @@
 							$('#q_report div div').eq(i).hide();
 					}
 				 	
-					if(!(q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO')){
+					if(!(q_getPara('sys.project').toUpperCase().substr(0,2)=='AD' || q_getPara('sys.project').toUpperCase()=='JO')){
 						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
 							if($('#q_report').data().info.reportData[i].report=='z_ucap6')
 								$('#q_report div div').eq(i).hide();
@@ -76,7 +76,7 @@
 				});
 				
 				
-				if(q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO'){
+				if(q_getPara('sys.project').toUpperCase().substr(0,2)=='AD' || q_getPara('sys.project').toUpperCase()=='JO'){
 					aPop = new Array(
 						['txtXproductno', '', 'ucaucc', 'noa,product', 'txtXproductno', 'ucaucc_b.aspx'],
 						['txtXgroupe', 'lblGroupeno', 'adsize', 'noa,mon,memo1,memo2', '0txtXgroupe', ''],
