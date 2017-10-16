@@ -161,7 +161,7 @@
                                     for (var i = 0; i < addr2s.length; i++) {
                                         if(addr2s[i].addrno==$('#txtAddrno_'+j).val() && addr2s[i].carno==$('#txtTypea_'+j).val() && dec(addr2s[i].rate)<=dec(q_div(t_weight,1000)) && dec(addr2s[i].rate2)>=dec(q_div(t_weight,1000)) && dec(addr2s[i].lat)<=$('#txtLat_'+j).val() && dec(addr2s[i].lng)>=$('#txtLat_'+j).val()){
                                             $('#txtVolume_'+j).val(addr2s[i].value);
-                                            $('#txtTotal_'+j).val(round(q_mul(q_div($('#txtWeight_'+j).val(),1000),addr2s[i].value),0));
+                                            $('#txtTotal_'+j).val(round(dec(q_mul(q_div($('#txtWeight_'+j).val(),1000),addr2s[i].value)),0));
                                         }
                                     }
                                 }
