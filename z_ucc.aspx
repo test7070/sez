@@ -94,7 +94,7 @@
 					}, {//3-2
 						type : '8',
 						name : 'allucc',//[20]
-						value : '1@顯示零庫存產品'.split(',')
+						value : '1@'.split(',')
 					}, {
                         type : '0', //[21]
                         name : 'mountprecision',
@@ -117,7 +117,7 @@
 					}, {//3-4
 						type : '8',
 						name : 'lowsafe',//[26]
-						value : '1@低於安全存量'.split(',')
+						value : '1@'.split(',')
 					},{/* [27]*/
                         type : '0',
                         name : 'isspec',
@@ -180,9 +180,13 @@
 				$('#txtEdate').val(q_date());
 				
 				$('#Allucc').css('width','300px').css('height','30px');
-				$('#Allucc .label').css('width','0px');
+				$('#Allucc .label').css('width','120px');
+				$('#chkAllucc').css('width','0px').css('margin-top', '5px');
 				$('#Lowsafe').css('width','300px').css('height','30px');
-				$('#Lowsafe .label').css('width','0px');
+				$('#Lowsafe .label').css('width','100px');
+				$('#chkLowsafe').css('width','0px').css('margin-top', '5px');
+				$('#Edate').css('width','300px').css('height','30px');
+                $('#Edate .label').css('width','105px');
 				
 				$('#Xucc').css("width","615px");
 				$('#txtXucc').css("width","515px");
