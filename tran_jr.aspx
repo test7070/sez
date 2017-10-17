@@ -103,12 +103,13 @@
                    if(q_cur != 1 && q_cur != 2){
                         var t_key = q_getPara('sys.key_payb');
                         var t_mon = $('#textMon').val();
+                        var t_tggno = $('#textTggno').val();
                         t_key = (t_key.length==0?'FC':t_key);//一定要有值
                         if(t_mon.length==0){
                             alert('請先輸入月份'+q_getMsg('lblMon')+'!!');
                             return;
                         }else{
-                            q_func('qtxt.query.tranpayb_jr', 'tran.txt,tranpaybjr,' + encodeURI(t_key) + ';'+ encodeURI(t_mon)); 
+                            q_func('qtxt.query.tranpayb_jr', 'tran.txt,tranpaybjr,' + encodeURI(t_key) + ';'+ encodeURI(t_mon)+ ';'+ encodeURI(t_tggno)); 
                         }    
                    }
                 });
@@ -462,7 +463,13 @@
                     <td colspan="4">
                     <input id="textMon"  type="text" style="float:left; width:100px; font-size: medium;"/>
                     </td>
-                </tr>               
+                </tr> 
+                <tr style="height:35px;">
+                    <td><span> </span><a id="lblTggno" style="float:right; color: blue; font-size: medium;">處理廠編號</a></td>
+                    <td colspan="4">
+                    <input id="textTggno"  type="text" style="float:left; width:100px; font-size: medium;"/>
+                    </td>
+                </tr>              
                 <tr style="height:35px;">
                     <td> </td>
                     <td><input id="btnImport_trans" type="button" value="付款"/></td>

@@ -184,7 +184,7 @@
 				$('#Lowsafe').css('width','300px').css('height','30px');
 				$('#Lowsafe .label').css('width','0px');
 				
-				$('#Xucc').css("width","605px");
+				$('#Xucc').css("width","615px");
 				$('#txtXucc').css("width","515px");
 				$('#lblXucc').css("color","#0000ff");
 				$('#lblXucc').click(function(e) {

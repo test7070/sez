@@ -157,11 +157,11 @@
 				var t_where = "where=^^ 1=0 ^^";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
 
-				$('#btnOrdei_r').click(function() {
+				$('#btnOrdei').click(function() {
 					if (q_cur != 1)
 						q_box("ordei.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';" + r_accy + ";" + q_cur, 'ordei', "95%", "95%", q_getMsg('popOrdei'));
 				});
-				$('#btnQuat_r').click(function() {
+				$('#btnQuat').click(function() {
 					btnQuat();
 				});
 				$('#txtFloata').change(function() {
@@ -194,7 +194,7 @@
 					}
 				});
 
-				$('#btnCredit_r').click(function() {
+				$('#btnCredit').click(function() {
 					if (!emp($('#txtCustno').val())) {
 						q_box("z_credit.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";custno='" + $('#txtCustno').val() + "';" + r_accy + ";" + q_cur, 'ordei', "95%", "95%", q_getMsg('btnCredit'));
 					}
@@ -221,7 +221,7 @@
 					}
 				});
 				
-				$('#btnImg_r').click(function() {
+				$('#btnImg').click(function() {
 					if($('.isimg').is(':hidden')){
 						$('.isimg').show();
 						t_imgshow=true;
@@ -1946,7 +1946,7 @@
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
 				if (t_para) {
-					$('#btnOrdei_r').removeAttr('disabled');
+					$('#btnOrdei').removeAttr('disabled');
 					$('#combAddr').attr('disabled', 'disabled');
 					$('#txtOdate').datepicker( 'destroy' );
 					$('#txtDate1').datepicker( 'destroy' );
@@ -1955,7 +1955,7 @@
 					$('#btnOrdem').removeAttr('disabled');
 					$('#btnOrdc_r').removeAttr('disabled');
 				} else {
-					$('#btnOrdei_r').attr('disabled', 'disabled');
+					$('#btnOrdei').attr('disabled', 'disabled');
 					$('#combAddr').removeAttr('disabled');
 					$('#txtOdate').datepicker();
 					$('#txtDate1').datepicker();
@@ -2539,7 +2539,7 @@
 					<td align="center" width="100px"> </td>
 				</tr>
 				<tr>
-					<td align="center"><a class="lbl">Item</a></td>
+					<td align="center"><a class="lbl" id='lblProduct_r'>產品</a></td>
 					<td align="center" colspan="2"><input id="textProductno" type="text" class="txt c1" disabled="disabled"/></td>
 					<td align="center" colspan="3">
 						<input id="textProduct" type="text" class="txt c1" disabled="disabled"/>
@@ -2547,31 +2547,31 @@
 					</td>
 				</tr>
 				<tr>
-					<td align="center"><a class="lbl">Unit</a></td>
+					<td align="center"><a class="lbl" id='lblUnit_r'>單位</a></td>
 					<td align="center"><input id="textUnit" type="text" class="txt c1" disabled="disabled"/></td>
-					<td align="center"><a class="lbl">Quantity</a></td>
+					<td align="center"><a class="lbl" id='lblMount_r'>數量</a></td>
 					<td align="center"><input id="textMount" type="text" class="txt num c1"/></td>
-					<td align="center"><a class="lbl">Cost</a></td>
+					<td align="center"><a class="lbl" id='lblCost_r'>產品成本</a></td>
 					<td align="center"><input id="textCost" type="text" class="txt num c1"/></td>
 				</tr>
 				<tr>
-					<td align="center"><a class="lbl">Unit Weight</a></td>
+					<td align="center"><a class="lbl" id='lblUweight_r'>單位重</a></td>
 					<td align="center"><input id="textUweight" type="text" class="txt num c1"/></td>
-					<td align="center"><a id="div_pack2" class="lbl" style="cursor: pointer;color: #4297D7;font-weight: bolder;">Packing</a></td><!--包裝方式-->
+					<td align="center"><a id="div_pack2" class="lbl" style="cursor: pointer;color: #4297D7;font-weight: bolder;">包裝方式</a></td>
 					<td align="center"><input id="textPackwayno" type="text" class="txt c1" disabled="disabled"/></td>
 					<td align="center" colspan="2"><input id="textPackway" type="text" class="txt c1" disabled="disabled"/></td>
 				</tr>
 				<tr>
-					<td align="center"><a class="lbl">Inner Packaging</a></td>
+					<td align="center"><a class="lbl" id='lblInmount_r'>內包裝</a></td>
 					<td align="center"><input id="textInmount" type="text" class="txt num c1" disabled="disabled"/></td>
-					<td align="center"><a class="lbl">Outer Packaging</a></td>
+					<td align="center"><a class="lbl" id='lblOutmount_r'>外包裝</a></td>
 					<td align="center"><input id="textOutmount" type="text" class="txt num c1" disabled="disabled"/></td>
 					<td colspan="2"> </td>
 				</tr>
 				<tr>
-					<td align="center"><a class="lbl">Inner Packing Weight</a></td>
+					<td align="center"><a class="lbl" id='lblInweight_r'>內包裝重</a></td>
 					<td align="center"><input id="textInweight" type="text" class="txt num c1" disabled="disabled"/></td>
-					<td align="center"><a class="lbl">Outer Packing Weight</a></td>
+					<td align="center"><a class="lbl" id='lblOutweight_r'>外包裝重</a></td>
 					<td align="center"><input id="textOutweight" type="text" class="txt num c1" disabled="disabled"/></td>
 					<td colspan="2"> </td>
 				</tr>
@@ -2583,7 +2583,7 @@
 					<td colspan="2"> </td>
 				</tr>
 				<tr style="background-color: #E7FFCD; " >
-					<td align="center"><a class="lbl">Shipping Options</a></td><!--運費選擇-->
+					<td align="center"><a class="lbl" id='lblShipopt_r'>運費選擇</a></td>
 					<td align="center" colspan="5"> </td>
 				</tr>
 				<tr style="background-color: #E7FFCD; " >
@@ -2610,11 +2610,11 @@
 					<td align="center" colspan="2"> </td>
 				</tr>
 				<tr style="background-color: #E7CDFF; ">
-					<td align="center"><a class="lbl">Freight Costs</a></td><!--運費成本-->
+					<td align="center"><a class="lbl" id='lblTranprice_r'>運費成本</a></td>
 					<td align="center"><input id="textTranprice" type="text" class="txt num c1"/></td>
-					<td align="center"><a class="lbl">Other Expenses</a></td><!--其他支出-->
+					<td align="center"><a class="lbl" id='lblOtherfee_r'>其他支出</a></td>
 					<td align="center"><input id="textFee" type="text" class="txt num c1"/></td>
-					<td align="center"><a class="lbl">Cost Total</a></td><!--成本合計-->
+					<td align="center"><a class="lbl" id='lblCosttotal_r'>成本合計</a></td>
 					<td align="center"><input id="textCost2" type="text" class="txt num c1"/></td>
 				</tr>
 				<tr style="background-color: #EC7DD2; ">
@@ -2634,17 +2634,17 @@
 					<td align="center"><input id="textProfitmoney" type="text" class="txt num c1"/></td>
 				</tr>
 				<tr style="background-color: #52FDAC;">
-					<td align="center"><a class="lbl">Price Term</a></td>
+					<td align="center"><a class="lbl" id='lblPayterms_r'>價格條件</a></td>
 					<td align="center"><select id="combPayterms" class="txt c1" disabled="disabled"> </select></td>
-					<td align="center"><a class="lbl">Trial Price</a></td><!--試算單價-->
+					<td align="center"><a class="lbl" id='lblTrialprice_r'>試算單價</a></td>
 					<td align="center"><input id="textCost3" type="text" class="txt num c1"/></td>
-					<td align="center"><a class="lbl">Trial Total weight</a></td><!--試算總重量-->
+					<td align="center"><a class="lbl" id='lblTrialweight_r'>試算總重量</a></td>
 					<td align="center"><input id="textWeight" type="text" class="txt num c1"/></td>
 				</tr>
 				<tr style="background-color: #F1A0A2;">
 					<td align="center" colspan='6'>
-						<input id="btnOk_div_getprice" type="button" value="Save">
-						<input id="btnClose_div_getprice" type="button" value="Close">
+						<input id="btnOk_div_getprice" type="button" value="取回單價/重量">
+						<input id="btnClose_div_getprice" type="button" value="關閉視窗">
 					</td>
 				</tr>
 			</table>
@@ -2858,7 +2858,7 @@
 						<td><select id="cmbStype" class="txt c1"> </select></td>
 						<td><span> </span><a id='lblNoa_r' class="lbl">S/C No.</a></td>
 						<td colspan="2"><input id="txtNoa" type="text" class="txt c1"/></td>
-						<td align="center"><input id="btnOrdei_r" type="button" value="Export Detail" style="float: left;" /></td>
+						<td align="center"><input id="btnOrdei" type="button" value="Export Detail" style="float: left;" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblAcomp_r" class="lbl btn">Company</a></td>
@@ -2877,7 +2877,7 @@
 						<td>
 							<select id="combPaytype" class="txt c1" onchange='combPaytype_chg()' > </select>
 						</td>
-						<td align="center"><input id="btnCredit_r" type="button" value='Credit' style="float: left;"/></td>
+						<td align="center"><input id="btnCredit" type="button" value='Credit' style="float: left;"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblTel_r' class="lbl">Tel</a></td>
@@ -2888,7 +2888,7 @@
 						<td><input id="txtAgentno" type="text" class="txt c1"/></td>
 						<td><input id="txtAgent" type="text" class="txt c1"/></td>
 						<td align="center">
-							<input id="btnQuat_r" type="button" value='Import Quat' style="float: left;"/>
+							<input id="btnQuat" type="button" value='Import Quat' style="float: left;"/>
 							<input id="txtQuatno" type="hidden" class="txt c1" />
 						</td>
 					</tr>
@@ -2898,7 +2898,7 @@
 						<td colspan='4'><input id="txtAddr" type="text" class="txt c1"/></td>
 						<!--<td><span> </span><a id='lblOrdbno' class="lbl"> </a></td>
 						<td><input id="txtOrdbno" type="text" class="txt c1"/></td>-->
-						<td colspan="2"><input id="btnImg_r" type="button" value="Picture Display / Off" style="float: left;"/></td>
+						<td colspan="2"><input id="btnImg" type="button" value="Picture Display / Off" style="float: left;"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAddr2_r' class="lbl">Delivery Addr.</a></td>
@@ -2925,50 +2925,50 @@
 							<input id="txtSalesno" type="text" class="txt c2"/>
 							<input id="txtSales" type="text" class="txt c3"/>
 						</td>
-							<td><span> </span><a id='lblCasemount_r' class="lbl">Number Of Cabinets</a></td>
+							<td><span> </span><a id='lblCasemount' class="lbl">Number Of Cabinets</a></td>
 						<td><input id="txtCasemount" type="text" class="txt num c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblCuft_r' class="lbl">Total Cuft</a></td>
 						<td colspan="2"><input id="txtCuft" type="text" class="txt num c1"/></td>
-						<td><span> </span><a id='lblCuftnotv_r' class="lbl">Remaining Cuft</a></td>
+						<td><span> </span><a id='lblCuftnotv' class="lbl">Remaining Cuft</a></td>
 						<td colspan="2"><input id="txtCuftnotv" type="text" class="txt num c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblMoney_r' class="lbl">Accounts Receivable</a></td>
+						<td><span> </span><a id='lblMoney' class="lbl">Accounts Receivable</a></td>
 						<td colspan='2'><input id="txtMoney" type="text" class="txt c1" style="text-align: center;"/></td>
-						<td><span> </span><a id='lblTax_r' class="lbl">Sales Tax</a></td>
+						<td><span> </span><a id='lblTax' class="lbl">Sales Tax</a></td>
 						<td><input id="txtTax" type="text" class="txt num c1"/></td>
 						<td><select id="cmbTaxtype" class="txt c1" onchange='sum()' > </select></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblTotal_r' class="lbl">Amount</a></td>
+						<td><span> </span><a id='lblTotal' class="lbl">Amount</a></td>
 						<td colspan='2'><input id="txtTotal" type="text" class="txt num c1"/></td>
-						<td><span> </span><a id='lblFloata_r' class="lbl">Exchange Rate</a></td>
+						<td><span> </span><a id='lblFloata' class="lbl">Exchange Rate</a></td>
 						<td><select id="cmbCoin" class="txt c1" onchange='coin_chg()'> </select></td>
 						<td><input id="txtFloata" type="text" class="txt num c1" /></td>
-						<td class="totalus"><span> </span><a id='lblTotalus_r' class="lbl">Foreign Exchange Total</a></td>
+						<td class="totalus"><span> </span><a id='lblTotalus' class="lbl">Foreign Exchange Total</a></td>
 						<td class="totalus"><input id="txtTotalus" type="text" class="txt num c1"/></td>
 						<!--<td><span> </span><a id="lblApv" class="lbl"> </a></td>
 						<td><input id="txtApv" type="text" class="txt c1" disabled="disabled"/></td>-->
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblAcc1_r' class="lbl btn">Prepares The Subject</a></td>
+						<td><span> </span><a id='lblAcc1' class="lbl btn">Prepares The Subject</a></td>
 						<td><input id="txtAcc1" type="text" class="txt c1" /></td>
 						<td><input id="txtAcc2" type="text" class="txt c1" /></td>
-						<td><span> </span><a id='lblDeposit_r' class="lbl">Advance Payment Amount</a></td>
+						<td><span> </span><a id='lblDeposit' class="lbl">Advance Payment Amount</a></td>
 						<td colspan='2'><input id="txtDeposit" type="text" class="txt num c1"/></td>
-						<td><span> </span><a id='lblUmmno_r' class="lbl">Advance Receipt No.</a></td>
+						<td><span> </span><a id='lblUmmno' class="lbl">Advance Receipt No.</a></td>
 						<td colspan='2'><input id="txtUmmno" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblCust2_r" class="lbl btn">Receiving Customers</a></td>
+						<td><span> </span><a id="lblCust2" class="lbl btn">Receiving Customers</a></td>
 						<td><input id="txtCustno2" type="text" class="txt c1"/></td>
 						<td><input id="txtCust2" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblFactory_r' class="lbl btn">Factory</a></td>
 						<td><input id="txtGdate" type="text" class="txt c1" /></td>
 						<td><input id="txtGtime" type="text" class="txt c1" /></td>
-						<td><span> </span><a id='lblOrdcno_r' class="lbl">Purchase Order No.</a></td>
+						<td><span> </span><a id='lblOrdcno' class="lbl">Purchase Order No.</a></td>
 						<td  colspan="2">
 							<input id="txtOrdcno" type="text" class="txt c1" />
 							<input id="txtMemo2" type="hidden" class="txt c1" /><!--越南訂單號-->
@@ -2998,13 +2998,13 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblExdate_r' class="lbl">Expect Delivery</a></td>
+						<td><span> </span><a id='lblExdate' class="lbl">Expect Delivery</a></td>
 						<td><input id="txtDate1" type="text" class="txt c1" /></td>
-						<td><span> </span><a id='lblIssuedate_r' class="lbl">Billing Date</a></td>
+						<td><span> </span><a id='lblIssuedate' class="lbl">Billing Date</a></td>
 						<td><input id="txtDate2" type="text" class="txt c1" /></td>
-						<td><span> </span><a id='lblWeek_r' class="lbl">Scheduling Week</a></td>
+						<td><span> </span><a id='lblWeek' class="lbl">Scheduling Week</a></td>
 						<td><input id="txtDate3" type="text" class="txt c1" /></td>
-						<td><span> </span><a id='lblSoadate_r' class="lbl">SOA Delivery</a></td>
+						<td><span> </span><a id='lblSoadate' class="lbl">SOA Delivery</a></td>
 						<td><input id="txtDate4" type="text" class="txt c1" /></td>
 					</tr>
 				</table>
@@ -3024,27 +3024,27 @@
 					<td align="center" style="width:55px;"><a id='lblUnit_r'>Unit</a></td>
 					<td align="center" style="width:85px;"><a id='lblMount_r'>Quantity</a></td>
 					<td align="center" style="width:85px;"><a id='lblCost_s_r'>Cost</a></td>
-					<td align="center" style="width:40px;"><a id='lblGetprice_s_r'>Price Trial</a></td>
-					<td align="center" style="width:100px;"><a id='lblPayterms_s_r'>Price Term</a></td>
+					<td align="center" style="width:40px;"><a id='lblGetprice_s'>Price Trial</a></td>
+					<td align="center" style="width:100px;"><a id='lblPayterms_s'>Price Term</a></td>
 					<td align="center" style="width:85px;"><a id='lblPrices_r'>Unit Price</a></td>
 					<td align="center" style="width:85px;"><a id='lblBenifit_s'> </a> %</td>
-					<td align="center" style="width:100px;"><a id='lblPackway_r_s'>Packing</a></td>
+					<td align="center" style="width:100px;"><a id='lblPackway_s'>Packing</a></td>
 					<td align="center" style="width:115px;"><a id='lblTotal_s_r'>Amount</a></td>
 					<td align="center" style="width:85px;"><a id='lblCuft_s'> </a></td>
 					<td align="center" style="width:150px;display: none;" class="isimg"><a id='lblImg_s'> </a></td>
-					<td align="center" style="width:85px;"><a id='lblGemounts_r'>Quantity Delivered / Undelivered</a></td>
+					<td align="center" style="width:85px;"><a id='lblGemounts'>Quantity Delivered / Undelivered</a></td>
 					<td align="center" style="width:175px;"><a id='lblMemos_r'>Remark</a></td>
 					<td align="center" style="width:110px;">
-						<a id='lblDatea_s_r'>Prepaid Day</a><input id='btnGetpdate' type="button" style="width: 80px;font-size: 12px;font-weight: bold;" value="Calculation">
+						<a id='lblDateas'>Prepaid Day</a><input id='btnGetpdate' type="button" style="width: 80px;font-size: 12px;font-weight: bold;" value="計算">
 						<BR><a id='lblPlanpdate_s'>Production Prepaid Day</a>
 					</td>
 					<td align="center" style="width:43px;"><a id='lblEndas_r'>Closed</a></td>
 					<td align="center" style="width:43px;"><a id='lblCancels_r'>Cancel</a></td>
-					<td align="center" style="width:43px;"><a id='lblBorn_r'>Order History</a></td>
-					<td align="center" style="width:43px;"><a id='lblNeed_r'>Production Requirements</a></td>
-					<td align="center" style="width:43px;"><a id='lblVccrecord_r'>Shipping Records</a></td>
-					<td align="center" style="width:43px;"><a id='lblOrdemount_r'>Order</a></td>
-					<td align="center" style="width:43px;"><a id='lblScheduled_r'>Schedule Recceipts</a></td>
+					<td align="center" style="width:43px;"><a id='lblBorn'>Order History</a></td>
+					<td align="center" style="width:43px;"><a id='lblNeed'>Production Requirements</a></td>
+					<td align="center" style="width:43px;"><a id='lblVccrecord'>Shipping Records</a></td>
+					<td align="center" style="width:43px;"><a id='lblOrdemount'>Order</a></td>
+					<td align="center" style="width:43px;"><a id='lblScheduled'>Schedule Recceipts</a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td align="center"><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
