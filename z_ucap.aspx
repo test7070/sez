@@ -138,7 +138,7 @@
 					}, {
 						type : '8', //[9]
 						name : 'isprice',
-						value : '1@顯示單價'.split(',')
+						value : '1@'.split(',')//顯示單價
 					}, {
 						type : '2', //[10][11]
 						name : 'xstationgno',
@@ -224,7 +224,7 @@
 					}, {
 						type : '8', //[39]
 						name : 'xsbcost',
-						value : '1@顯示實際大於標準成本'.split(',')
+						value : '1@'.split(',')//顯示實際大於標準成本
 					}, {
 						type : '5', //[40]
 						name : 'xorder',
@@ -235,7 +235,7 @@
 					}, {
 						type : '8', //[43]
 						name : 'xgno0',
-						value : '1@顯示子階成本'.split(',')
+						value : '1@'.split(',')//顯示子階成本
 					},{
 						type : '0', //[44] //標準成本bdate//抓上上的月-1年
 						name : 'stbdate',
@@ -247,7 +247,7 @@
 					}, {
 						type : '8', //[46]
 						name : 'xproserch',
-						value : '1@模糊查詢*'.split(',')
+						value : '1@'.split(',')//模糊查詢*
 					}, {
 						type : '5', //[47]
 						name : 'xgroupbno',
@@ -293,7 +293,7 @@
 					}, {
 						type : '8',
 						name : 'ximgshow',//[58]
-						value : '1@顯示圖片'.split(',')
+						value : '1@'.split(',')//顯示圖片
 					}]
 				});
 				q_popAssign();
@@ -342,7 +342,7 @@
 						}
 					}
 				});
-				$('.option').css('width','700px');
+				/*$('.option').css('width','700px');
 				$('.option .a1').css('width','690px');
 				$('.option .a2').css('width','340px');
 				$('.q_report .option div .c2').css('width','130px');
@@ -352,55 +352,55 @@
 				$('#Isprice').css('width','340px');
 				$('#chkIsprice').css('width','200px');
 				$('#chkIsprice span').css('width','150px');
-				$('#Isprice').css('height','30px');
+				$('#Isprice').css('height','30px');*/
 				
-				$('#Xsize1').css('width','340px');
+				/*$('#Xsize1').css('width','340px');
 				$('#txtXsize11').css('width','110px');
 				$('#txtXsize12').css('width','110px');
 				$('#Xsize2').css('width','340px');
 				$('#txtXsize21').css('width','110px');
-				$('#txtXsize22').css('width','110px');
+				$('#txtXsize22').css('width','110px');*/
 				
-				$('#txtXrate1').css('text-align','right');
+				/*$('#txtXrate1').css('text-align','right');
 				$('#txtXrate2').css('text-align','right');
 				$('#txtXsize11').css('text-align','right');
 				$('#txtXsize12').css('text-align','right');
 				$('#txtXsize21').css('text-align','right');
-				$('#txtXsize22').css('text-align','right');
+				$('#txtXsize22').css('text-align','right');*/
 				
-				$('#Xsbcost').css('width','340px');
+				/*$('#Xsbcost').css('width','340px');
 				$('#chkXsbcost').css('width','250px');
 				$('#chkXsbcost span').css('width','200px');
 				$('#Xsbcost .label').css('width','0px');
-				$('#Xsbcost').css('height','30px');
+				$('#Xsbcost').css('height','30px');*/
 				
-				$('#Ximgshow').css('width','340px');
+				/*$('#Ximgshow').css('width','340px');
 				$('#chkXimgshow').css('width','250px');
 				$('#chkXimgshow span').css('width','200px');
 				$('#Ximgshow .label').css('width','0px');
-				$('#Ximgshow').css('height','30px');
+				$('#Ximgshow').css('height','30px');*/
 				
 				$('#chkXimgshow input').prop('checked',true);
 				
-				$('#Xrate').css('width','340px');
+				/*$('#Xrate').css('width','340px');
 				$('#txtXrate1').css('width','110px');
-				$('#txtXrate2').css('width','110px');
+				$('#txtXrate2').css('width','110px');*/
 				
-				$('#Xgno0').css('width','340px');
+				/*$('#Xgno0').css('width','340px');
 				$('#chkXgno0').css('width','250px');
 				$('#chkXgno0 span').css('width','200px');
 				$('#Xgno0 .label').css('width','0px');
-				$('#Xgno0').css('height','30px');
+				$('#Xgno0').css('height','30px');*/
 				//$('#Xgno0 [type="checkbox"]').prop('checked',true);
 				
-				$('#Xproserch').css('width','340px');
+				/*$('#Xproserch').css('width','340px');
 				$('#chkXproserch').css('width','250px');
 				$('#chkXproserch span').css('width','200px');
 				$('#Xproserch .label').css('width','0px');
 				$('#Xproserch').css('height','30px');
 				
 				$('#lblXvccnum').css('font-size','12px');
-				$('#txtXvccnum').css('text-align','right');
+				$('#txtXvccnum').css('text-align','right');*/
 				
 				var tmp = document.getElementById("btnOk");
                 var tmpbtn = document.createElement("input");
