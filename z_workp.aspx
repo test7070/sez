@@ -83,7 +83,7 @@
 					}, {
 						type : '8', //[21]
 						name : 'xworkj',
-						value : ('1@含非正式製令').split(',')
+						value : ('1@').split(',')
 					}, {
 						type : '2', //[22] [23] 20
 						name : 'yproduct',
@@ -107,6 +107,10 @@
 				q_popAssign();
 				q_getFormat();
 				q_langShow();
+				
+				$('#Xworkj .label').css('width','120px');
+                $('#chkXworkj').css('width','0px').css('margin-top', '5px');
+                
 				if(r_len==4){                	
                 	$.datepicker.r_len=4;
 					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
