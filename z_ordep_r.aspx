@@ -47,39 +47,46 @@
                         name : 'xtarget',
                         value : new Array('cust@Customer', 'agent@Agent')
                     },{
-	                    type : '2',//[7][8]
+                        type : '1',//[7][8]
+                        name : 'onoa'
+                    },{
+	                    type : '2',//[9][10]
 	                    name : 'cust',
 	                    dbf : 'cust',
 	                    index : 'noa,comp',
 	                    src : 'cust_b.aspx'
-	                }]
+	                },{
+  						type : '2',//[11][12]
+                        name : 'xproduct',
+                        dbf : 'ucx',
+                        index : 'noa,product',
+                        src : 'ucaucc_b.aspx'
+                    },{
+                        type : '1',//[13][14]
+                        name : 'fdate'
+                    }, {
+						type : '0', //[15]
+						name : 'xip',
+						value : location.hostname
+					}]
                 });
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
-                var r_1911=1911;
-                if(r_len==4){
-                    r_1911=0;                  
+                
+                if(r_len==4){                 
                     $.datepicker.r_len=4;
-                    $('#txtXdate1').mask(r_picd);
-                    $('#txtXdate1').datepicker();
-                    $('#txtXdate2').mask(r_picd);
-                    $('#txtXdate2').datepicker();
-                    $('#txtFdate1').mask(r_picd);
-                    $('#txtFdate1').datepicker();
-                    $('#txtFdate2').mask(r_picd);
-                    $('#txtFdate2').datepicker();
-                }else{
-                    $('#txtXdate1').mask('999/99/99');
-                    $('#txtXdate1').datepicker();
-                    $('#txtXdate2').mask('999/99/99');
-                    $('#txtXdate2').datepicker();
-                    $('#txtFdate1').mask('999/99/99');
-                    $('#txtFdate1').datepicker();
-                    $('#txtFdate2').mask('999/99/99');
-                    $('#txtFdate2').datepicker();  
                 }
                 
+                $('#txtXdate1').mask(r_picd);
+                $('#txtXdate1').datepicker();
+                $('#txtXdate2').mask(r_picd);
+                $('#txtXdate2').datepicker();
+                $('#txtFdate1').mask(r_picd);
+                $('#txtFdate1').datepicker();
+                $('#txtFdate2').mask(r_picd);
+                $('#txtFdate2').datepicker();
+                    
                 $('#txtXdate1').val(q_cdn(q_date().substr(0,r_lenm)+'/01',-61));
                 $('#txtXdate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',30).substr(0,r_lenm)+'/01',-1));
                 $('#txtFdate1').val(q_cdn(q_date().substr(0,r_lenm)+'/01',-61));
