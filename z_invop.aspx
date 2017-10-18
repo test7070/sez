@@ -36,6 +36,10 @@
                     },{
                         type : '2',//[5][6]
                         name : 'xboatdate'
+                    }, {
+                        type : '0', //[7]
+                        name : 'xip',
+                        value : location.hostname
                     }]
                 });
                 q_popAssign();
