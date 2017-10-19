@@ -59,7 +59,11 @@
                         dbf : 'cust',
                         index : 'noa,comp',
                         src : 'cust_b.aspx'
-                    }]
+                    }, {
+						type : '0', //[15]
+						name : 'xip',
+						value : location.hostname
+					}]
                 });
                 q_popAssign();
                 q_getFormat();
