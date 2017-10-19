@@ -33,10 +33,10 @@
 			//q_xchg = 1;
 			brwCount2 = 5;
 			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,memo2', 'txtCustno,txtComp,txtNick,txtMemo', 'cust_b.aspx'] 
-				,['txtAddrno', 'lblAddr_js', 'addr2_wj', 'custno,cust,address', 'txtAddrno,txtAddr,txtBoat', 'addr2_b2.aspx']
+				,['txtAddrno', 'lblAddr_js', 'addr2_wj', 'custno,cust,b.address', 'txtAddrno,txtAddr,txtBoat', 'addr2_b2.aspx']
 				,['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
-				,['txtAddrno_', 'btnAddr1_', 'addr2_wj', 'custno,cust,address', 'txtAddrno_,txtAddr_,txtAddress_', 'addr2_b2.aspx']
-				,['txtAddrno2_', 'btnAddr2_', 'addr2_wj', 'custno,cust,siteno,address,memo', 'txtAddrno2_,txtAddr2_,txtContainerno1_,txtAddress2_,txtMemo_', 'addr2_b2.aspx']
+				,['txtAddrno_', 'btnAddr1_', 'addr2_wj', 'custno,cust,b.address', 'txtAddrno_,txtAddr_,txtAddress_', 'addr2_b2.aspx']
+				,['txtAddrno2_', 'btnAddr2_', 'addr2_wj', 'custno,cust,b.siteno,b.address,b.memo', 'txtAddrno2_,txtAddr2_,txtContainerno1_,txtAddress2_,txtMemo_', 'addr2_b2.aspx']
 				,['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
 				,['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx']
 				,['txtDriverno_', 'btnDriver_', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx']);
