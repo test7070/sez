@@ -373,6 +373,10 @@
                         <td>
                         <input id="txtCust" type="text" class="txt c1"/>
                         </td>
+                        <td><span> </span><a class="lbl">簡稱</a></td>
+                        <td>
+                        <input id="txtAddr" type="text" class="txt c1"/>
+                        </td>
                     </tr>
 					 <tr>
                         <td><span> </span><a class="lbl">聯絡人</a></td>

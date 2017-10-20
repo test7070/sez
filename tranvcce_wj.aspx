@@ -35,9 +35,9 @@
             , ['txtCustno_', 'btnCust_', 'cust', 'noa,nick', 'txtCustno_,txtCust_', 'cust_b.aspx']
             , ['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
             , ['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx']
-            , ['txtAddrno_', 'btnAddr1_', 'addr2_wj', 'custno,cust,address', 'txtAddrno_,txtAddr_,txtAddress_', 'addr2_b2.aspx']
-            , ['txtAddrno2_', 'btnAddr2_', 'addr2_wj', 'custno,cust,siteno,address,memo', 'txtAddrno2_,txtAddr2_,txtLat_,txtAddress2_,txtMemo_', 'addr2_b2.aspx']
-            , ['txtAddrno3_', 'btnAddr3_', 'addr2_wj', 'custno,cust', 'txtAddrno3_,txtAddr3_', 'addr2_b2.aspx']
+            , ['txtAddrno_', 'btnAddr1_', 'addr2_wj', 'custno,addr,b.address', 'txtAddrno_,txtAddr_,txtAddress_', 'addr2_b2.aspx']
+            , ['txtAddrno2_', 'btnAddr2_', 'addr2_wj', 'custno,addr,b.siteno,b.address,b.memo', 'txtAddrno2_,txtAddr2_,txtLat_,txtAddress2_,txtMemo_', 'addr2_b2.aspx']
+            , ['txtAddrno3_', 'btnAddr3_', 'addr2_wj', 'custno,addr', 'txtAddrno3_,txtAddr3_', 'addr2_b2.aspx']
             , ['txtDriverno_', 'btnDriver_', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx']
             , ['txtLng2_', 'btnCarplate_', 'carplate', 'noa', 'txtLng2_', 'carplate_b.aspx']);
 
