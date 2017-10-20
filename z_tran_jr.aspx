@@ -70,6 +70,12 @@
                         type : '5', //[16]
                         name : 'xchk1',
                         value : (' @全部,0@未申報,1@已申報').split(',')
+                    },{
+                        type : '1', //[17][18]
+                        name : 'xmon1',
+                    },{
+                        type : '1', //[19][20]
+                        name : 'xinvono',
                     }]
                     });
                 q_popAssign();
@@ -77,12 +83,14 @@
 	             $('#txtDate1').datepicker();
 	             $('#txtDate2').mask('999/99/99');
 	             $('#txtDate2').datepicker();
-	             $('#txtXmon').mask('999/99');  
-               
-                var t_noa=typeof(q_getId()[5])=='undefined'?'':q_getId()[5];
-                t_noa  =  t_noa.replace('noa=','');
-                $('#txtNoa1').val(t_noa);
-                $('#txtNoa2').val(t_noa);
+	             $('#txtXmon').mask('999/99');
+	             $('#txtXmon11').mask('999/99');
+	             $('#txtXmon12').mask('999/99');
+       
+                var t_invono=typeof(q_getId()[3])=='undefined'?'':q_getId()[3];
+                t_invono  =  t_invono.replace("invono='",'').replace("'",'');
+                $('#txtXinvono1').val(t_invono);
+                $('#txtXinvono2').val(t_invono);
                 
                  var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
@@ -95,6 +103,8 @@
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
 	                $('#txtXmon').val(t_year+'/'+t_month);
+	                $('#txtXmon11').val(t_year+'/'+t_month);
+	                $('#txtXmon12').val(t_year+'/'+t_month);
 	                
 	                t_date = new Date();
 	                t_date.setDate(35);

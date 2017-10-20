@@ -121,6 +121,71 @@
                         q_func('qtxt.query.tranvcce2tran_wj', 'tran.txt,tranvccewj2tranwj,' + encodeURI(t_accy) + ';' + encodeURI(t_key) + ';'+ encodeURI(t_bdate) + ';'+ encodeURI(t_edate)+ ';'+ encodeURI(t_carno));
                     }
                 });
+
+                $('#btnShow').click(function() {
+                    if ($('#btnShow').val()=="隱藏欄位") {
+                            $("#hid_po").hide();
+                            $("#hid_price").hide();
+                            $("#hid_total").hide();                 
+                            $("#hid_price2").hide();  
+                            $("#hid_total2").hide();
+                            $("#hid_plusitem").hide();
+                            $("#hid_plusmoney").hide();
+                            $("#hid_price3").hide();
+                            $("#hid_price4").hide();
+                            $("#hid_tranno").hide();
+                            $("#hid_trandate").hide();
+                            $("#hid_ordeno").hide();
+                            for (var j = 0; j < q_bbsCount; j++) {
+                                $("#hid_po_"+ j).hide();
+                                $("#hid_price_"+ j).hide();
+                                $("#hid_total_"+ j).hide();                 
+                                $("#hid_price2_"+ j).hide();  
+                                $("#hid_total2_"+ j).hide();
+                                $("#hid_plusitem_"+ j).hide();
+                                $("#hid_plusmoney_"+ j).hide();
+                                $("#hid_price3_"+ j).hide();
+                                $("#hid_price4_"+ j).hide();
+                                $("#hid_tranno_"+ j).hide();
+                                $("#hid_trandate_"+ j).hide();
+                                $("#hid_ordeno_"+ j).hide();
+                            }
+                        $('#tbbs').css("width", (dec($('#tbbs')[0].offsetWidth)-1200) + "px");
+                        scroll("tbbs", "box", 1);
+                        $("#btnShow").val("顯示欄位");
+                    } else {
+                            $("#hid_po").show();
+                            $("#hid_price").show();
+                            $("#hid_total").show();                 
+                            $("#hid_price2").show();  
+                            $("#hid_total2").show();
+                            $("#hid_plusitem").show();
+                            $("#hid_plusmoney").show();
+                            $("#hid_price3").show();
+                            $("#hid_price4").show();
+                            $("#hid_tranno").show();
+                            $("#hid_trandate").show();
+                            $("#hid_ordeno").show();
+                            for (var j = 0; j < q_bbsCount; j++) {
+                                $("#hid_po_"+ j).show();
+                                $("#hid_price_"+ j).show();
+                                $("#hid_total_"+ j).show();                 
+                                $("#hid_price2_"+ j).show();  
+                                $("#hid_total2_"+ j).show();
+                                $("#hid_plusitem_"+ j).show();
+                                $("#hid_plusmoney_"+ j).show();
+                                $("#hid_price3_"+ j).show();
+                                $("#hid_price4_"+ j).show();
+                                $("#hid_tranno_"+ j).show();
+                                $("#hid_trandate_"+ j).show();
+                                $("#hid_ordeno_"+ j).show();
+                            }
+                        $('#tbbs').css("width", (dec($('#tbbs')[0].offsetWidth)+1200) + "px");
+                        scroll("tbbs", "box", 1);
+                        $("#btnShow").val("隱藏欄位");
+                        
+                    }
+                });
             }
 
             function q_boxClose(s2) {
@@ -308,6 +373,35 @@
 				},function(e){
 					$(this).parent().css('background','#cad3ff');
 				});
+				
+				if ($('#btnShow').val()=='顯示欄位'){
+                            $("#hid_po").hide();
+                            $("#hid_price").hide();
+                            $("#hid_total").hide();                 
+                            $("#hid_price2").hide();  
+                            $("#hid_total2").hide();
+                            $("#hid_plusitem").hide();
+                            $("#hid_plusmoney").hide();
+                            $("#hid_price3").hide();
+                            $("#hid_price4").hide();
+                            $("#hid_tranno").hide();
+                            $("#hid_trandate").hide();
+                            $("#hid_ordeno").hide();
+                            for (var j = 0; j < q_bbsCount; j++) {
+                                $("#hid_po_"+ j).hide();
+                                $("#hid_price_"+ j).hide();
+                                $("#hid_total_"+ j).hide();                 
+                                $("#hid_price2_"+ j).hide();  
+                                $("#hid_total2_"+ j).hide();
+                                $("#hid_plusitem_"+ j).hide();
+                                $("#hid_plusmoney_"+ j).hide();
+                                $("#hid_price3_"+ j).hide();
+                                $("#hid_price4_"+ j).hide();
+                                $("#hid_tranno_"+ j).hide();
+                                $("#hid_trandate_"+ j).hide();
+                                $("#hid_ordeno_"+ j).hide();
+                           }
+                 }
             }
 
             function btnIns() {
@@ -353,6 +447,35 @@
                 _refresh(recno);
                 t_where="where=^^ noa=(select ordeno from view_trans where ordeno='"+$('#txtNoa').val()+"' group by ordeno)^^ stop=999";
                 q_gt('view_tranvcces', t_where, 0, 0, 0, "view_tranvcces");
+                     if ($('#btnShow').val()=='顯示欄位'){
+                            $("#hid_po").hide();
+                            $("#hid_price").hide();
+                            $("#hid_total").hide();                 
+                            $("#hid_price2").hide();  
+                            $("#hid_total2").hide();
+                            $("#hid_plusitem").hide();
+                            $("#hid_plusmoney").hide();
+                            $("#hid_price3").hide();
+                            $("#hid_price4").hide();
+                            $("#hid_tranno").hide();
+                            $("#hid_trandate").hide();
+                            $("#hid_ordeno").hide();
+                            for (var j = 0; j < q_bbsCount; j++) {
+                                $("#hid_po_"+ j).hide();
+                                $("#hid_price_"+ j).hide();
+                                $("#hid_total_"+ j).hide();                 
+                                $("#hid_price2_"+ j).hide();  
+                                $("#hid_total2_"+ j).hide();
+                                $("#hid_plusitem_"+ j).hide();
+                                $("#hid_plusmoney_"+ j).hide();
+                                $("#hid_price3_"+ j).hide();
+                                $("#hid_price4_"+ j).hide();
+                                $("#hid_tranno_"+ j).hide();
+                                $("#hid_trandate_"+ j).hide();
+                                $("#hid_ordeno_"+ j).hide();
+                            }
+                     }
+                
             }
 
             function readonly(t_para, empty) {
@@ -526,7 +649,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 4000px;
+                width: 2400px;
             }
             .tbbs a {
                 font-size: medium;
@@ -685,49 +808,47 @@
 						</td>
 						<td><input id="btnOrde" type="button" value="訂單匯入" style="width:100%;"/></td>
                         <td><input id="btnImport" type="button" value="匯至出車" style="width:100%;"/></td>
+                        <td><input id="btnShow" type="button" value="顯示欄位" style="width:100%;"/></td>
 					</tr>
 				</table>
 			</div>
 		</div>
 		<div class='dbbs' >
-			<table id="tbbs" class='tbbs' >
+			<table id="tbbs" class='tbbs' style="width:1800px;">
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:70px"><a>客戶</a></td>
+					<td align="center" style="width:60px"><a>客戶</a></td>
 					<td align="center" style="width:150px"><a>提貨地點</a></td>
-					<td align="center" style="width:40px"><a>裝貨日期</a></td>
-					<td align="center" style="width:40px"><a>卸貨日期</a></td>
+					<td align="center" style="width:50px"><a>裝貨日期</a></td>
+					<td align="center" style="width:50px"><a>卸貨日期</a></td>
 					<td align="center" style="width:180px"><a>收貨人/地點</a></td>
-					<td align="center" style="width:60px"><a>危險等級</a></td>
-					<td align="center" style="width:120px"><a>品名</a></td>
-					<td align="center" style="width:150px"><a>批號</a></td>
-					<td align="center" style="width:40px"><a>單位</a></td>
-					<td align="center" style="width:60px"><a>品重(KG)</a></td>
-                    <td align="center" style="width:70px"><a>毛重(KG)</a></td>
-					<td align="center" style="width:70px"><a>數量</a></td>
-					<td align="center" style="width:60px"><a>應收單價</a></td>
-                    <td align="center" style="width:70px"><a>應收金額</a></td>
-                    <td align="center" style="width:60px"><a>應付單價</a></td>
-					<td align="center" style="width:70px"><a>應付金額</a></td>
-					<td align="center" style="width:80px"><a>加項品名</a></td>
-                    <td align="center" style="width:70px"><a>加項金額</a></td>
-					<td align="center" style="width:70px"><a>人工裝費</a></td>
-                    <td align="center" style="width:70px"><a>管理收入</a></td>
+					<td align="center" style="width:45px"><a>危險<br/>等級</a></td>
+					<td align="center" style="width:80px"><a>品名</a></td>
+					<td align="center" style="width:30px"><a>單位</a></td>
+					<td align="center" style="width:50px"><a>數量</a></td>
+					<td align="center" style="width:60px"><a>品重(KG)<br/>毛重(KG)</a></td>
+					<td align="center" id='hid_po' style="width:100px"><a>批號</a></td>
+					<td align="center" id='hid_price' style="width:60px"><a>應收單價</a></td>
+                    <td align="center" id='hid_total' style="width:70px"><a>應收金額</a></td>
+                    <td align="center" id='hid_price2' style="width:60px"><a>應付單價</a></td>
+					<td align="center" id='hid_total2' style="width:70px"><a>應付金額</a></td>
+					<td align="center" id='hid_plusitem' style="width:80px"><a>加項品名</a></td>
+                    <td align="center" id='hid_plusmoney' style="width:70px"><a>加項金額</a></td>
+					<td align="center" id='hid_price3' style="width:70px"><a>人工裝費</a></td>
+                    <td align="center" id='hid_price4' style="width:70px"><a>管理收入</a></td>
 					<td align="center" style="width:60px"><a>車牌</a></td>
-                    <td align="center" style="width:60px"><a>司機</a></td>
-                    <td align="center" style="width:60px"><a>板台</a></td>
-                    <td align="center" style="width:80px"><a>中繼站</a></td>
-                    <td align="center" style="width:100px"><a>送貨單號</a></td>
-                    <td align="center" style="width:60px"><a>結關日期</a></td>
-                    <td align="center" style="width:60px"><a>車趟<br/>(1去2回)</a></td>
-                    <td align="center" style="width:60px"><a>隨車</a></td>
-                    <td align="center" style="width:120px"><a>派車狀況</a></td>
+                    <td align="center" style="width:50px"><a>司機</a></td>
+                    <td align="center" style="width:50px"><a>板台</a></td>
+                    <td align="center" style="width:70px"><a>中繼站</a></td>
+                    <td align="center" id='hid_tranno' style="width:100px"><a>送貨單號</a></td>
+                    <td align="center" id='hid_trandate' style="width:60px"><a>結關日期</a></td>
+                    <td align="center" style="width:40px"><a>車趟<br/>(1去2回)</a></td>
+                    <td align="center" style="width:150px"><a>隨車 / 派車狀況<br/>注意事項</a></td>
                     <td align="center" style="width:30px"><a>提貨</a></td>
                     <td align="center" style="width:30px"><a>卸貨</a></td>
                     <td align="center" style="width:30px"><a>完工</a></td>
-                    <td align="center" style="width:120px"><a>訂單編號</a></td>
-					<td align="center" style="width:100px"><a>注意事項</a></td>
+                    <td align="center" id='hid_ordeno' style="width:120px"><a>訂單編號</a></td>
 				</tr>
 				<tr class="data" style='background:#cad3ff;'>
 					<td align="center">
@@ -742,8 +863,8 @@
                         <input type="button" id="btnCust.*" style="display:none;">
                     </td>
                     <td>
-                        <input type="text" id="txtAddrno.*" style="width:35%;" />
-                        <input type="text" id="txtAddr.*" style="width:59%;" />
+                        <input type="text" id="txtAddrno.*" style="width:33%;" />
+                        <input type="text" id="txtAddr.*" style="width:60%;" />
                         <input type="text" id="txtAddress.*" style="width:97%;" />
                         <input type="button" id="btnAddr1.*" style="display:none;">
                     </td>
@@ -769,23 +890,23 @@
                         <input type="text" id="txtProduct.*" style="width:95%;" />
                         <input type="button" id="btnProduct.*" style="display:none;">
                     </td>
-                    <td><input type="text" id="txtUno.*" style="width:95%;"/></td>
                     <td><input type="text" id="txtUnit.*" style="width:95%;"/></td>
-					<td><input type="text" id="txtUweight.*" class="num" style="width:95%;"/></td>
-					<td><input type="text" id="txtWeight.*" class="num" style="width:95%;"/></td>
-					<td><input type="text" id="txtMount.*" class="num" style="width:95%;"/></td>
-					<td><input type="text" id="txtVolume.*" class="num" style="width:95%;"/></td>
-					<td><input type="text" id="txtTotal.*" class="num" style="width:95%;"/></td>
-					<td><input type="text" id="txtWidth.*" class="num" style="width:95%;"/></td>
-					<td><input type="text" id="txtTotal2.*" class="num" style="width:95%;"/></td>
-					<td>
+                    <td><input type="text" id="txtMount.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtUweight.*" class="num" style="width:95%;"/>
+					    <input type="text" id="txtWeight.*" class="num" style="width:95%;"/></td>
+					<td id='hid_po.*'><input type="text" id="txtUno.*" style="width:95%;"/></td>
+					<td id='hid_price.*'><input type="text" id="txtVolume.*" class="num" style="width:95%;"/></td>
+					<td id='hid_total.*'><input type="text" id="txtTotal.*" class="num" style="width:95%;"/></td>
+					<td id='hid_price2.*'><input type="text" id="txtWidth.*" class="num" style="width:95%;"/></td>
+					<td id='hid_total2.*'><input type="text" id="txtTotal2.*" class="num" style="width:95%;"/></td>
+					<td id='hid_plusitem.*'>
                         <input type="text" id="txtProductno2.*" style="display:none;" />
-                        <input type="text" id="txtProduct2.*" type="text" class="txt c1" style="width: 75%;"/>
+                        <input type="text" id="txtProduct2.*" type="text" class="txt c1" style="width: 65%;"/>
                         <select id="combProduct.*" class="txt" style="width: 20px;"> </select>
                     </td>
-                    <td><input type="text" id="txtHeight.*" class="num" style="width:95%;"/></td>
-					<td><input type="text" id="txtTvolume.*" class="num" style="width:95%;"/></td>
-                    <td><input type="text" id="txtTheight.*" class="num" style="width:95%;"/></td>
+                    <td id='hid_plusmoney.*'><input type="text" id="txtHeight.*" class="num" style="width:95%;"/></td>
+					<td id='hid_price3.*'><input type="text" id="txtTvolume.*" class="num" style="width:95%;"/></td>
+                    <td id='hid_price4.*'><input type="text" id="txtTheight.*" class="num" style="width:95%;"/></td>
 					<td>
                         <input type="text" id="txtCarno.*" style="width:95%;"/>
                         <input type="button" id="btnCarno.*" style="display:none;"/>
@@ -804,19 +925,20 @@
                         <input type="text" id="txtAddr3.*" style="width:95%;" />
                         <input type="button" id="btnAddr3.*" style="display:none;">
                     </td>
-                    <td><input type="text" id="txtTranno.*" style="width:95%;"/></td>
-					<td><input type="text" id="txtLng.*" style="width:95%;"/></td>
+                    <td id='hid_tranno.*' ><input type="text" id="txtTranno.*" style="width:95%;"/></td>
+					<td id='hid_trandate.*'><input type="text" id="txtLng.*" style="width:95%;"/></td>
 					<td><input type="text" id="txtUnit2.*" style="width:95%;"/></td>
-					<td><input type="text" id="txtTel.*" style="width:95%;"/></td>
-					<td><input type="text" id="txtAllowcar.*" style="width:95%;"/></td>
+					<td><input type="text" id="txtTel.*" style="width:31%;"/>
+					    <input type="text" id="txtAllowcar.*" style="width:60%;"/>
+					    <input type="text" id="txtMemo.*" style="width:95%;"/>
+					</td>
 					<td align="center"><input id="chkChk1.*" type="checkbox"/></td>
 					<td align="center"><input id="chkChk2.*" type="checkbox"/></td>
 					<td align="center"><input id="chkChk3.*" type="checkbox"/></td>
-					<td align="center">
+					<td align="center"  id='hid_ordeno.*'>
                         <input type="text" id="txtOrdeno.*" style="width:95%;" />
                         <input type="text" id="txtNo2.*" style="width:30%;" />
                     </td>
-					<td><input type="text" id="txtMemo.*" style="width:95%;"/></td>
 				</tr>
 			</table>
 		</div>

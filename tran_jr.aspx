@@ -222,7 +222,8 @@
             }
 
             function btnPrint() {
-            	q_box("z_tran_jr.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({noa:trim($('#txtNoa').val())}) + ";" + r_accy + "_" + r_cno, 'trans_mul', "95%", "95%", q_getMsg("popPrint"));
+                var t_where = "invono='" + $.trim($('#txtDeparture').val()) + "'";
+            	q_box("z_tran_jr.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy + "_" + r_cno, 'trans_mul', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
