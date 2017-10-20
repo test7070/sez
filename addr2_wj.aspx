@@ -343,13 +343,13 @@
                         <td align="center" style="width:20px"><a id='vewChk'> </a></td>               
                         <td align="center" style="width:100px"><a id='vewCustno'>編號</a></td>
                         <td align="center" style="width:150px"><a id='vewCust'>供應商/收貨人</a></td>
-                        <td align="center" style="width:300px"><a id='vewP_post'>地址</a></td>
+                        <td align="center" style="width:300px"><a id='vewAddress'>地址</a></td>
                     </tr>
                      <tr>
                             <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
                             <td align="center" id='custno'>~custno</td>
                             <td align="center" id='cust'>~cust</td>
-                            <td align="center" id='addrno'>~addrno</td>
+                            <td align="center" id='address'>~address</td>
                     </tr>
                 </table>
 			</div>

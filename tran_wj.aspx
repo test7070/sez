@@ -38,8 +38,8 @@
 			brwCount2 = 7;
 			aPop = new Array(	//參數1,2 使用的物件 3,資料表名稱 4,顯示的欄位 5,6寫入的欄位 7,檔案名稱
 				['txtUccno_', 'btnProduct_', 'ucc', 'noa,product', 'txtUccno_,txtProduct_', 'ucc_b.aspx']
-				,['txtStraddrno_', 'btnStraddr_', 'addr2_wj', 'custno,addr', 'txtStraddrno_,txtStraddr_', 'addr_b.aspx']
-				,['txtEndaddrno_', 'btnEndaddr_', 'addr2_wj', 'custno,addr', 'txtEndaddrno_,txtEndaddr_', 'addr_b.aspx']
+				,['txtStraddrno_', 'btnStraddr_', 'addr2_wj', 'custno,addr', 'txtStraddrno_,txtStraddr_', 'addr2_b2.aspx']
+				,['txtEndaddrno_', 'btnEndaddr_', 'addr2_wj', 'custno,addr', 'txtEndaddrno_,txtEndaddr_', 'addr2_b2.aspx']
 				,['txtCardeal_', 'btnCardeal_', 'carplate', 'noa,driver', 'txtCardeal_', 'carplate_b.aspx']
 				,['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
 				,['txtEtime', 'lblCarplateno', 'carplate', 'noa,driver', 'txtEtime', 'carplate_b.aspx']
