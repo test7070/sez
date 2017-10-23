@@ -605,7 +605,7 @@
 					<td align="center" style="width:100px"><a>送貨單號</a></td>
 					<td align="center" style="width:80px"><a>客戶要求時間</a></td>
 					<td align="center" style="width:80px"><a>出廠期間</a></td>
-					<td align="center" style="width:80px"><a>到場時間</a></td>
+					<td align="center" style="width:80px"><a>到廠時間</a></td>
 					<td align="center" style="width:60px"><a>單位</a></td>
 					<td align="center" style="width:80px"><a>出廠重量</a></td>
 					<td align="center" style="width:90px"><a>客戶端總重</a></td>

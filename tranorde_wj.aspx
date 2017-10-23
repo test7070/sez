@@ -57,6 +57,7 @@
                     $('#txtMount_'+i).val(round(q_div(q_float('txtTvolume_'+i), q_float('txtWeight_'+i)),0));
                     $('#txtMoney_'+i).val(round(q_mul(q_div(q_float('txtTheight_'+i),1000),q_float('txtPrice_'+i)),0));
                     $('#txtTotal_'+i).val(round(q_mul(q_div(q_float('txtTheight_'+i),1000),q_float('txtWidth_'+i)),0));
+                    $('#txtVolume_'+i).val(round(q_div(q_float('txtTheight_'+i), q_float('txtMount_'+i)),0));
                     if($('#txtDate1').val().length>0 && $('#txtDate1_'+i).val().length==0){
                         $('#txtDate1_'+i).val($('#txtDate1').val());
                         $('#txtTime1_'+i).val($('#txtTime1').val());
@@ -428,13 +429,7 @@
             }
             function refreshWV(n){
                 var t_productno = $.trim($('#txtProductno_'+n).val());
-                if(t_productno.length==0){
-                    $('#txtWeight_'+n).val(0);
-                    $('#txtVolume_'+n).val(0);
-                    $('#txtTvolume_'+n).val(0);
-                }else{
-                    q_gt('ucc', "where=^^noa='"+t_productno+"'^^", 0, 0, 0, JSON.stringify({action:"getUcc",n:n}));
-                }
+                q_gt('ucc', "where=^^noa='"+t_productno+"'^^", 0, 0, 0, JSON.stringify({action:"getUcc",n:n}));
             }
         </script>
         <style type="text/css">

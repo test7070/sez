@@ -47,7 +47,19 @@
 						dbf : 'car2',
 						index : 'noa,driver',
 						src : 'car2_b.aspx'
-					}]
+					},{
+                        type : '2', //[10][11]
+                        name : 'xstore',
+                        dbf : 'store',
+                        index : 'noa,store',
+                        src : 'store_b.aspx'
+                    },{
+                        type : '2', //[10][11]
+                        name : 'xproduct',
+                        dbf : 'ucc',
+                        index : 'noa,product',
+                        src : 'ucc_b.aspx'
+                    }]
                     });
                 q_popAssign();
                  $('#txtDate1').mask('999/99/99');
