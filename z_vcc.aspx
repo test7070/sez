@@ -259,7 +259,7 @@
                 	q_box("cust_b2.aspx?;;;;", 'cust', "600px", "90%", q_getMsg("popCust"));
                 });
                 $('#Multucc').css("width","605px");
-				$('#txtMultucc').css("width","515px");
+				$('#txtMultucc').css("width","500px");
 				$('#lblMultucc').css("color","#0000ff");
 				$('#lblMultucc').click(function(e) {
                 	q_box("ucaucc_b2.aspx?;;;;", 'ucc', "600px", "990%", q_getMsg("popUcc"));
