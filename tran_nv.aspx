@@ -692,10 +692,10 @@
 					<td><input type="text" id="txtCustprice.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtTotal.*" class="num" style="width:95%;"/></td>
 					<td><select id="cmbStatus.*" class="txt" style="width:95%;"> </select></td>
-					<td><input type="text" id="txtPrice.*" class="num" style="width:95%;"/></td>
-					<td><input type="text" id="txtTotal2.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtPrice2.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtDiscount.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtPrice.*" class="num" style="width:95%;"/></td>
+                    <td><input type="text" id="txtTotal2.*" class="num" style="width:95%;"/></td>
 					<td><select id="cmbTtype.*" class="txt" style="width:95%;"> </select></td>
 					<td><input type="text" id="txtMemo.*" style="width:95%;" /></td>
 				</tr>
