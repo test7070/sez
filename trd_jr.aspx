@@ -70,6 +70,14 @@
 				$('#txtEdate').datepicker();
 				$('#txtBtrandate').datepicker();
 				$('#txtEtrandate').datepicker();
+				
+				if(q_getPara('sys.project').toUpperCase()=='JR'){
+                    $('.isJR').show();
+                    $('#lblStraddr_jr').text('處理廠');
+                }else{
+                    $('.isNJR').show();  
+                }
+                
                 $('#lblAccno').click(function() {
                 	if($('#txtYear1').val().length>0)
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtYear1').val()+ '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
@@ -81,9 +89,12 @@
                 $('#txtPlus').change(function(e){
                 	sum();
                 });
-                /*$('#txtDiscount').change(function(e){
-                	sum();
-                });*/
+                
+                if(q_getPara('sys.project').toUpperCase()!='JR'){
+                    $('#txtDiscount').change(function(e){
+                    	sum();
+                    });
+                }
 				$('#lblCustchgno').click(function(e){
 					var t_where = "1!=1";
 					var t_custchgno = $('#txtCustchgno').val().split(',');
@@ -271,9 +282,15 @@
                         Unlock(1);
                         break;
                     case 'trd_tran':
-                        var as = _q_appendData("view_trans", "", true);
-                        q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtTranno,txtTrannoq,txtCarno,txtStraddr,txtTranmoney,txtCaseno,txtMount,txtPrice,txtTotal,txtCustorde,txtProduct'
-                        , as.length, as, 'trandate,noa,noq,carno,straddr,total,caseno,weight,price,total,po,product', '','');
+                        if(q_getPara('sys.project').toUpperCase()=='NV'){
+                            var as = _q_appendData("view_trans", "", true);
+                            q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtTranno,txtTrannoq,txtCarno,txtStraddr,txtTranmoney,txtCaseno,txtMount,txtPrice,txtTotal,txtCustorde,txtProduct'
+                            , as.length, as, 'datea,noa,noq,carno,straddr,total,caseno,weight,price,total,po,product', '','');
+                        }else{
+                            var as = _q_appendData("view_trans", "", true);
+                            q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtTranno,txtTrannoq,txtCarno,txtStraddr,txtTranmoney,txtCaseno,txtMount,txtPrice,txtTotal,txtCustorde,txtProduct'
+                            , as.length, as, 'trandate,noa,noq,carno,straddr,total,caseno,weight,price,total,po,product', '','');
+                        }
                         for ( i = 0; i < q_bbsCount; i++) {
                             if (i < as.length) {
                             }else{
@@ -439,6 +456,10 @@
                             var n = $(this).attr('id').replace('txtTranno_', '');
                             q_gt('view_trans', "where=^^ noa='"+$(this).val()+"' ^^ stop=1", 0, 0, 0, JSON.stringify({action:"browTrans",n:n})); 
                         });
+                        
+                        $('#txtMount_' + i).focusout(function() {
+                                sum();
+                        });
                     }
                 }
                 _bbsAssign();
@@ -496,13 +517,17 @@
 				var t_minusmoney = q_float('txtMinusmoney');
 				var t_tax = q_float('txtTax'); 
 				var t_plus = q_float('txtPlus');
-				/*var t_discount = q_float('txtDiscount');*/
-				var t_total = t_money.add(t_plusmoney).sub(t_minusmoney).add(t_tax).add(t_plus);
-               
+				if(q_getPara('sys.project').toUpperCase()!='JR'){
+                    var t_discount = q_float('txtDiscount');
+                    var t_total = t_money.add(t_plusmoney).sub(t_minusmoney).add(t_tax).add(t_plus).sub(t_discount);
+                }else{
+                    var t_total = t_money.add(t_plusmoney).sub(t_minusmoney).add(t_tax).add(t_plus);
+                    $('#textDiscount').val(FormatNumber(t_money.add(t_plusmoney).sub(t_minusmoney).add(t_plus)));
+                }
+
                 $('#txtMoney').val(FormatNumber(t_money));
                 $('#txtTotal').val(FormatNumber(t_total));
-                $('#txtMount').val(FormatNumber(t_mount));
-                $('#textDiscount').val(FormatNumber(t_money.add(t_plusmoney).sub(t_minusmoney).add(t_plus)));
+                $('#txtMount').val(FormatNumber(t_mount));    
                 $('#txtTax').val(round(FormatNumber((t_money.add(t_plusmoney).sub(t_minusmoney).add(t_plus))*0.05),0));
             }
             function refresh(recno) {
@@ -518,7 +543,12 @@
                 var t_minusmoney = q_float('txtMinusmoney');
                 var t_tax = q_float('txtTax'); 
                 var t_plus = q_float('txtPlus');
-                $('#textDiscount').val(FormatNumber(t_money.add(t_plusmoney).sub(t_minusmoney).add(t_plus)));       
+                if(q_getPara('sys.project').toUpperCase()=='JR'){
+                    $('#textDiscount').val(FormatNumber(t_money.add(t_plusmoney).sub(t_minusmoney).add(t_plus)));
+                    $('.isJR').show();   
+                }else{
+                    $('.isNJR').show();  
+                }
             }
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
@@ -918,8 +948,10 @@
 						<td><input id="txtMoney" type="text"  class="txt c1 num"/></td>
 						<td><span> </span><a id="lblPlus" class="lbl"> </a></td>
 						<td><input id="txtPlus" type="text"  class="txt c1 num"/></td>
-						<td><span> </span><a id="lbl" class="lbl">應收總計(未稅)</a></td>
-						<td><input id="textDiscount" type="text"  class="txt c1 num"/></td>
+						<td style='display:none;' class="isJR"><span> </span><a id="lblDiscount_jr" class="lbl">應收總計(未稅)</a></td>
+						<td style='display:none;' class="isJR"><input id="textDiscount" type="text"  class="txt c1 num"/></td>
+						<td style='display:none;' class="isNJR"><span> </span><a id="lblDiscount" class="lbl">折扣</a></td>
+                        <td style='display:none;' class="isNJR"><input id="txtDiscount" type="text"  class="txt c1 num"/></td>
 						<td><span> </span><a id="lblTax" class="lbl"> </a></td>
 						<td><input id="txtTax" type="text"  class="txt c1 num"/></td>
 					</tr>
@@ -960,7 +992,7 @@
 					</td>
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:100px;"><a id='lblTrandate_s'> </a></td>
-					<td align="center" style="width:200px;"><a id=''></a>處理廠</td>
+					<td align="center" style="width:200px;"><a id='lblStraddr_jr'>地點</a></td>
 					<td align="center" style="width:80px;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:80px;"><a id=''>噸數</a></td>
 					<td align="center" style="width:80px;"><a id='lblPrice_s'> </a></td>
