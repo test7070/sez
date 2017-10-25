@@ -54,19 +54,36 @@
                         index : 'noa,store',
                         src : 'store_b.aspx'
                     },{
-                        type : '2', //[10][11]
+                        type : '2', //[12][13]
                         name : 'xproduct',
                         dbf : 'ucc',
                         index : 'noa,product',
                         src : 'ucc_b.aspx'
+                    },{
+                        type : '2', //[14][15]
+                        name : 'xcno',
+                        dbf : 'acomp',
+                        index : 'noa,acomp',
+                        src : 'acomp_b.aspx'
+                    },{
+                        type : '1',//[16][17]
+                        name : 'xmon'
+                    },{
+                        type : '2', //[18][19]
+                        name : 'xdriver',
+                        dbf : 'driver',
+                        index : 'noa,namea',
+                        src : 'driver_b.aspx'
                     }]
                     });
                 q_popAssign();
                  $('#txtDate1').mask('999/99/99');
 	             $('#txtDate1').datepicker();
 	             $('#txtDate2').mask('999/99/99');
-	             $('#txtDate2').datepicker();  
-               
+	             $('#txtDate2').datepicker();
+	             $('#txtXmon1').mask(r_picm);
+                 $('#txtXmon2').mask(r_picm);
+                 
                 var t_noa=typeof(q_getId()[5])=='undefined'?'':q_getId()[5];
                 t_noa  =  t_noa.replace('noa=','');
                 $('#txtNoa1').val(t_noa);
@@ -82,6 +99,7 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
+	                $('#txtXmon1').val(t_year+'/'+t_month);
 	                
 	                t_date = new Date();
 	                t_date.setDate(35);
@@ -93,6 +111,7 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
+	                $('#txtXmon2').val(t_year+'/'+t_month);
 	                }
 
             function q_boxClose(s2) {
