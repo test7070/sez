@@ -698,7 +698,7 @@
 				var t_where = " kind!='2' &&";
 				if (t_tggno.length > 0 || q_getPara('sys.project').toUpperCase()=='XY' ){
 					if($('#cmbTypea').val()=='1')
-						t_where = "isnull(b.enda,0)=0 && isnull(b.cancel,'0')='0' && isnull(view_ordcs.enda,0)=0 " + q_sqlPara2("tggno", t_tggno) +  q_sqlPara2("noa", t_ordeno);
+						t_where = "isnull(b.enda,0)=0 && isnull(b.cancel,'0')='0' && isnull(view_ordcs.enda,0)=0 && mount!=0 " + q_sqlPara2("tggno", t_tggno) +  q_sqlPara2("noa", t_ordeno);
 					else
 						t_where = " 1=1 " + q_sqlPara2("tggno", t_tggno) +  q_sqlPara2("noa", t_ordeno);
 					t_where = t_where;
