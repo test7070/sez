@@ -61,16 +61,16 @@
              	var t_mount=0,t_weight=0,t_pton=0,t_total=0,t_total2=0,t_discount;
              	for(var i=0;i<q_bbsCount;i++){
              		t_weight = q_sub(q_float('txtGross_'+i),q_float('txtWeight3_'+i));
-             		t_pton = q_sub(q_float('txtWeight2_'+i),q_float('txtWeight_'+i));
+             		t_pton = q_sub(q_float('txtWeight2_'+i),t_weight);
              		t_mount = q_sub(q_float('txtOutmount_'+i),q_float('txtInmount_'+i));
-             		t_total = q_mul(q_float('txtCustprice_'+i),q_float('txtWeight_'+i));
-             		t_total2 = q_mul(q_float('txtPrice_'+i),q_float('txtWeight_'+i));
-             		t_discount = q_mul(q_float('txtPrice2_'+i),q_float('txtWeight_'+i));
+             		t_total = q_mul(q_float('txtCustprice_'+i),t_weight);
+             		t_total2 = q_mul(q_float('txtPrice_'+i),t_weight);
+             		t_discount = q_mul(q_float('txtPrice2_'+i),q_float('txtGross_'+i));
              		t_tmount = q_add(t_tmount,q_sub(q_float('txtOutmount_'+i),q_float('txtInmount_'+i)));
              		t_tvolume = q_add(t_tvolume,q_float('txtInmount_'+i));
-             		t_tweight = q_add(t_tweight,q_float('txtWeight_'+i));
-             		t_ttotal = q_add(t_ttotal,q_mul(q_float('txtCustprice_'+i),q_float('txtWeight_'+i)));
-             		t_ttotal2 = q_add(t_ttotal2,q_mul(q_float('txtPrice2_'+i),q_float('txtWeight_'+i)));
+             		t_tweight = q_add(t_tweight,t_weight);
+             		t_ttotal = q_add(t_ttotal,t_total);
+             		t_ttotal2 = q_add(t_ttotal2,t_total2);
              		$('#txtWeight_'+i).val(t_weight);
              		$('#txtPton_'+i).val(t_pton);
              		$('#txtMount_'+i).val(t_mount);

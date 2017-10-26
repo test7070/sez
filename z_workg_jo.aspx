@@ -21,6 +21,10 @@
 				q_gf('', 'z_workg_jo');
 			});
 			
+			aPop = new Array(
+				['txtYstation', 'lblYstation', 'station', 'noa,station', 'txtYstation', 'station_b.aspx']
+			);
+			
 			function q_gfPost() {
 				$('#q_report').q_report({
 					fileName : 'z_workg_jo',
@@ -49,7 +53,7 @@
 					}, {
 						type : '8', //[7]
 						name : 'xunenda',
-						value : '1@未完工'.split(',')
+						value : '1@'.split(',')
 					},{
                         type : '2',//[8][9]
                         name : 'xstation',
@@ -59,6 +63,16 @@
                      }, {
 						type : '6', //[10]
 						name : 'xmount'
+					}, {
+						type : '8', //[11]
+						name : 'xrealwork',
+						value : '1@'.split(',')
+					}, {
+						type : '6', //[12]
+						name : 'xdate'
+					}, {
+						type : '6', //[13]
+						name : 'ystation'
 					}]
 				});
 				q_popAssign();
@@ -69,12 +83,15 @@
 					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
                 }
                 
-                $('#Xunenda').css('width','300px');
-                $('#Xunenda').css('height','30px');
-                $('#chkXunenda').css('margin-top','5px');
-                $('#Xunenda .label').css('width','0px');
+                //$('#Xunenda').css('width','300px');
+                //$('#Xunenda').css('height','30px');
+                //$('#chkXunenda').css('margin-top','5px');
+                //$('#Xunenda .label').css('width','0px');
                 
                 $('#txtXcuanoq').val('001');
+                
+                $('#txtXdate').mask(r_picd);
+                $('#txtXdate').val(q_date());
                 
                 //預設值
                 $('#txtXmount').val('600');
@@ -358,6 +375,15 @@
 					q_gt('view_work', "where=^^noa='"+workno.id+"'^^", 0, 0, 0, "");
 				}
 			}
+			
+			function workshow(workno) {
+				if(workno.id.length>0){
+					$('#div_work').css('top', 300);
+					$('#div_work').css('left', $(workno).offset().left+50);
+					$('#div_work').show();
+				}
+			}
+			
 		</script>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -423,6 +449,77 @@
 					<td style="background-color: #f8d463;" align="center">未入庫量</td>
 					<td style="background-color: #f8d463;"><input id="txtUnmount" style="font-size: medium;width: 50%;text-align: right;" disabled="disabled"></td>
 					<td colspan="4" style="text-align: center;"><input id="btnClose_div_in" type="button" value="關閉視窗" style="font-size: medium;"></td>
+				</tr>
+			</table>
+		</div>
+		
+		<div id="div_work" style="position:absolute; top:300px; left:400px; display:none; width:1220px; background-color: #CDFFCE; border: 5px solid gray; z-index: 9;">
+			<table id="table_work" style="width:100%;" border="1" cellpadding='2'  cellspacing='0'>
+				<tr>
+					<td style="font-size: 20px;" colspan="8" align="center">流程卡</td>
+				</tr>
+				<tr>
+					<td style="width: 105px;" align="left">訂單編號<br>SỐ ĐƠN TIÊU</td>
+					<td style="width: 200px;"> </td>
+					<td style="width: 105px;" align="left">訂序<br>SỐ THỨ TỰ</td>
+					<td style="width: 200px;"> </td>
+					<td style="width: 105px;" align="left">預交日<br>DỰ TÍNH NGÀY GIAO</td>
+					<td style="width: 200px;"> </td>
+					<td style="width: 105px;" align="left">客戶編號<br>KHÁCH HÀNG CUỐI</td>
+					<td style="width: 200px;"> </td>
+				</tr>
+				<tr>
+					<td style="width: 105px;" align="left">排產編號<br>MÃ CÔNG LỆNH</td>
+					<td style="width: 200px;"> </td>
+					<td style="width: 105px;" align="left">訂單日期<br>NGÀY KHỞI CÔNG</td>
+					<td style="width: 200px;"> </td>
+					<td style="width: 105px;" align="left">開工日<br>NGÀY HOÀN THÀNH</td>
+					<td style="width: 200px;"> </td>
+					<td style="width: 105px;" align="left">THỨ</td>
+					<td style="width: 200px;"> </td>
+				</tr>
+				<tr>
+					<td style="width: 105px;" align="left">製成品編號<br>SỐ MÃ KIỆN</td>
+					<td style="width: 200px;" colspan="3"> </td>
+					<td style="width: 105px;" align="left">生產數<br>SL KHỞI CÔNG</td>
+					<td style="width: 200px;"> </td>
+					<td style="width: 105px;" align="left">訂單數<br>SL ĐƠN HÀNG</td>
+					<td style="width: 200px;"> </td>
+				</tr>
+				<tr>
+					<td style="width: 105px;" align="left">型號<br>MÃ HÀNG</td>
+					<td style="width: 200px;"> </td>
+					<td style="width: 105px;" align="left">TC CHẤT LƯỢNG</td>
+					<td style="width: 200px;"> </td>
+					<td style="width: 105px;" align="left">SỐ THỨ TỰ ĐƠN</td>
+					<td style="width: 200px;"> </td>
+					<td style="width: 105px;" align="left">TỔNG SỐ ĐƠN TÁCH</td>
+					<td style="width: 200px;"> </td>
+				</tr>
+				<tr>
+					<td style="height: 300px;" colspan="3">件號中文名稱：<BR>件號越文名稱：</td>
+					<td style="" colspan="2">包裝說明及正側嘜：<BR>總工時：</td>
+					<td style="" colspan="3"> </td>
+				</tr>
+				<tr>
+					<td style="width: 105px;" align="right">大生管：<br>CHỦ QUẢN SINH QUẢN</td>
+					<td style="width: 200px;"> </td>
+					<td style="width: 105px;" align="right">小生管：<br>NHÂN VIÊN SINH QUẢN</td>
+					<td style="width: 200px;"> </td>
+					<td style="width: 105px;" align="right">原料倉：<br>KHO NGUYÊN LIỆU</td>
+					<td style="width: 200px;"> </td>
+					<td style="width: 105px;" align="right">備料員：<br>NHÂN VIÊN BỊ LIỆU</td>
+					<td style="width: 200px;"> </td>
+				</tr>
+				<tr>
+					<td style="width: 105px;" align="right">生產組別：<br>TỔ SẢN XUẤT</td>
+					<td style="width: 200px;"> </td>
+					<td style="width: 105px;" align="right">包裝明細：<br>CHI TIẾT ĐÓNG GÓI</td>
+					<td style="width: 200px;"> </td>
+					<td style="width: 105px;" align="right">品保：<br>KCS</td>
+					<td style="width: 200px;"> </td>
+					<td style="width: 105px;" align="right">移轉接收人：<br>NGƯỜI TIẾP NHẬN</td>
+					<td style="width: 200px;"> </td>
 				</tr>
 			</table>
 		</div>
