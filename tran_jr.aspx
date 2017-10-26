@@ -99,6 +99,7 @@
                     $('#divImport').toggle();
                 });
                 
+                //第一次只KEY月分做所有處理廠匯入,後續才能KEY處理廠做BBS變動,否則資料不新增
                 $('#btnImport_trans').click(function() {
                    if(q_cur != 1 && q_cur != 2){
                         var t_key = q_getPara('sys.key_payb');

@@ -30,7 +30,7 @@
             q_alias = '';
             q_desc = 1;
             aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
-            ,['txtAddrno', 'lblAddr_js', 'addr2_wj', 'custno,cust,address', 'txtAddrno,txtAddr,txtAddress', 'addr2_b2.aspx']
+            ,['txtAddrno', 'lblAddr_js', 'cust', 'noa,nick', 'txtAddrno,txtAddr', 'cust_b.aspx']
             , ['txtCustno', 'btnCust', 'cust', 'noa,nick', 'txtCustno,txtComp', 'cust_b.aspx']
             , ['txtCustno_', 'btnCust_', 'cust', 'noa,nick', 'txtCustno_,txtCust_', 'cust_b.aspx']
             , ['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
@@ -87,7 +87,7 @@
                     t_custno=$('#txtAddrno').val();
                     t_cno=$('#txtCno').val();
                     t_po=$('#txtLat').val();
-                    var t_where = "(addrno3='"+t_cno+"' or len('"+t_cno+"')=0) and (caseno='"+t_po+"' or len('"+t_po+"')=0)and not exists(select noa,noq from view_tranvcces where ordeno=a.noa and no2=a.noq)";
+                    var t_where = "(addrno3='"+t_cno+"' or len('"+t_cno+"')=0) and (conn='"+t_custno+"' or len('"+t_custno+"')=0) and (caseno='"+t_po+"' or len('"+t_po+"')=0)and not exists(select noa,noq from view_tranvcces where ordeno=a.noa and no2=a.noq)";
                     q_box("tranordewj_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'tranorde_tranvcce', "100%", "100%", "");
                 });
 
@@ -198,7 +198,7 @@
                                     return;
                                     ret = q_gridAddRow(bbsHtm, 'tbbs', 
                                     'txtConn,txtCustno,txtCust,txtBdate,txtTime1,txtEdate,txtTime2,txtTypea,txtProductno,txtProduct,txtUnit,txtWeight,txtMount,txtTvolume,txtTheight,txtCarno,txtDriverno,txtDriver,txtAddrno,txtAddr,txtAddress,txtAddrno2,txtAddr2,txtAddress2,txtTranno,txtOrdeno,txtNo2,txtMemo,txtUno,txtVolume,txtTotal,txtWidth,txtTotal2,txtProduct2,txtHeight,txtLat', b_ret.length, b_ret, 
-                                    'caseno,conn,tel,date1,time1,date2,time2,typea,productno,product,unit,theight,mount,total2,total3,carno,driverno,driver,addrno,addr,address,addrno2,addr2,address2,tranno,noa,noq,memo,uno,price,money,width,total,product2,height,containerno1','');
+                                    'caseno,conn,tel,date1,time1,date2,time2,typea,productno,product,unit,theight,mount,total2,total3,carno,driverno,driver,addrno,addr,address,addrno2,addr2,address2,tranno,noa,noq,memo,uno,price,money,width,total,product2,height,containerno1','txtCustno,txtAddrno,txtCarno');
                              }
                         break;
                     case q_name + '_s':
@@ -286,86 +286,86 @@
 
             function bbsAssign() {
                 for (var i = 0; i < q_bbsCount; i++) {
-					$('#lblNo_' + i).text(i + 1);
+                    $('#lblNo_' + i).text(i + 1);
                     if($('#btnMinus_' + i).hasClass('isAssign'))
-                    	continue;
-                    $('#txtCustno_' + i).bind('contextmenu', function(e) {
-                        /*滑鼠右鍵*/
-                        e.preventDefault();
-                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
-                        $('#btnCust_'+n).click();
-                    })
-                    $('#txtProductno_' + i).bind('contextmenu', function(e) {
-                        /*滑鼠右鍵*/
-                        e.preventDefault();
-                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
-                        $('#btnProduct_'+n).click();
-                    });
-                    $('#txtAddrno_' + i).bind('contextmenu', function(e) {
-                        /*滑鼠右鍵*/
-                        e.preventDefault();
-                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
-                        $('#btnAddr1_'+n).click();
-                    });
-                     $('#txtAddrno2_' + i).bind('contextmenu', function(e) {
-                        /*滑鼠右鍵*/
-                        e.preventDefault();
-                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
-                        $('#btnAddr2_'+n).click();
-                    });
-                    $('#txtCarno_' + i).bind('contextmenu', function(e) {
-                        /*滑鼠右鍵*/
-                        e.preventDefault();
-                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
-                        $('#btnCarno_'+n).click();
-                    });
-                    $('#txtDriverno_' + i).bind('contextmenu', function(e) {
-                        /*滑鼠右鍵*/
-                        e.preventDefault();
-                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
-                        $('#btnDriver_'+n).click();
-                    });
-                    $('#txtAddrno3_' + i).bind('contextmenu', function(e) {
-                        /*滑鼠右鍵*/
-                        e.preventDefault();
-                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
-                        $('#btnAddr3_'+n).click();
-                    });
-                    $('#txtLng2_' + i).bind('contextmenu', function(e) {
-                        /*滑鼠右鍵*/
-                        e.preventDefault();
-                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
-                        $('#btnCarplate_'+n).click();
-                    });
-                    $('#txtTypea_'+i).change(function() {
-                        sum();
-                        var t_where = "where=^^ noa in(select max(noa)  from addr2 where sdate<='"+$('#txtDatea').val()+"' and custno in (select noa from cust) group by custno,cust)^^ stop=999";
-                        q_gt('addr2', t_where, 0, 0, 0, "addr2");
-                    });
-                    $('#txtAddr2no_'+i).change(function() {
-                       sum();
-                       var t_where = "where=^^ noa in(select max(noa)  from addr2 where sdate<='"+$('#txtDatea').val()+"' and custno in (select noa from cust) group by custno,cust)^^ stop=999";
-                       q_gt('addr2', t_where, 0, 0, 0, "addr2");
-                    });
-                    $('#txtWeight_' + i).change(function() {
-                        sum();
-                        var t_where = "where=^^ noa in(select max(noa)  from addr2 where sdate<='"+$('#txtDatea').val()+"' and custno in (select noa from cust) group by custno,cust)^^ stop=999";
-                        q_gt('addr2', t_where, 0, 0, 0, "addr2");
-                    });
-                    $('#txtMount_' + i).change(function() {
-                        sum();
-                    });
-                    $('#txtVolume_' + i).change(function() {
-                        sum();
-                    }) 
-                    
-                    $('#combProduct_' + i).change(function() {
-                            t_IdSeq = -1;
-                            q_bodyId($(this).attr('id'));
-                            b_seq = t_IdSeq;
-                            if(q_cur==1 || q_cur==2)
-                                $('#txtProduct2_'+b_seq).val($('#combProduct_'+b_seq).find("option:selected").text());
-                    });                
+                        continue;
+                        $('#txtCustno_' + i).bind('contextmenu', function(e) {
+                            /*滑鼠右鍵*/
+                            e.preventDefault();
+                            var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                            $('#btnCust_'+n).click();
+                        })
+                        $('#txtProductno_' + i).bind('contextmenu', function(e) {
+                            /*滑鼠右鍵*/
+                            e.preventDefault();
+                            var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                            $('#btnProduct_'+n).click();
+                        });
+                        $('#txtAddrno_' + i).bind('contextmenu', function(e) {
+                            /*滑鼠右鍵*/
+                            e.preventDefault();
+                            var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                            $('#btnAddr1_'+n).click();
+                        });
+                         $('#txtAddrno2_' + i).bind('contextmenu', function(e) {
+                            /*滑鼠右鍵*/
+                            e.preventDefault();
+                            var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                            $('#btnAddr2_'+n).click();
+                        });
+                        $('#txtCarno_' + i).bind('contextmenu', function(e) {
+                            /*滑鼠右鍵*/
+                            e.preventDefault();
+                            var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                            $('#btnCarno_'+n).click();
+                        });
+                        $('#txtDriverno_' + i).bind('contextmenu', function(e) {
+                            /*滑鼠右鍵*/
+                            e.preventDefault();
+                            var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                            $('#btnDriver_'+n).click();
+                        });
+                        $('#txtAddrno3_' + i).bind('contextmenu', function(e) {
+                            /*滑鼠右鍵*/
+                            e.preventDefault();
+                            var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                            $('#btnAddr3_'+n).click();
+                        });
+                        $('#txtLng2_' + i).bind('contextmenu', function(e) {
+                            /*滑鼠右鍵*/
+                            e.preventDefault();
+                            var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                            $('#btnCarplate_'+n).click();
+                        });
+                        $('#txtTypea_'+i).change(function() {
+                            sum();
+                            var t_where = "where=^^ noa in(select max(noa)  from addr2 where sdate<='"+$('#txtDatea').val()+"' and custno in (select noa from cust) group by custno,cust)^^ stop=999";
+                            q_gt('addr2', t_where, 0, 0, 0, "addr2");
+                        });
+                        $('#txtAddr2no_'+i).change(function() {
+                           sum();
+                           var t_where = "where=^^ noa in(select max(noa)  from addr2 where sdate<='"+$('#txtDatea').val()+"' and custno in (select noa from cust) group by custno,cust)^^ stop=999";
+                           q_gt('addr2', t_where, 0, 0, 0, "addr2");
+                        });
+                        $('#txtWeight_' + i).change(function() {
+                            sum();
+                            var t_where = "where=^^ noa in(select max(noa)  from addr2 where sdate<='"+$('#txtDatea').val()+"' and custno in (select noa from cust) group by custno,cust)^^ stop=999";
+                            q_gt('addr2', t_where, 0, 0, 0, "addr2");
+                        });
+                        $('#txtMount_' + i).change(function() {
+                            sum();
+                        });
+                        $('#txtVolume_' + i).change(function() {
+                            sum();
+                        }) 
+                        
+                        $('#combProduct_' + i).change(function() {
+                                t_IdSeq = -1;
+                                q_bodyId($(this).attr('id'));
+                                b_seq = t_IdSeq;
+                                if(q_cur==1 || q_cur==2)
+                                    $('#txtProduct2_'+b_seq).val($('#combProduct_'+b_seq).find("option:selected").text());
+                        });              
                 }
                 _bbsAssign();
                 $('#tbbs').find('tr.data').children().hover(function(e){
@@ -407,7 +407,7 @@
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').val('AUTO');
-                $('#txttrandate').val(q_date());
+                $('#txtTrandate').val(q_date());
                 $('#txtDatea').val(q_date()).focus();
             }
 
@@ -440,7 +440,7 @@
                 q_nowf();
                 as['cno'] = abbm2['cno'];
                 as['acomp'] = abbm2['acomp'];
-                return true;n
+                return true;
             }
 
             function refresh(recno) {
@@ -779,16 +779,13 @@
                             <input type="text" id="txtAcomp" class="txt" style="float:left;width:60%;"/>
                         </td>
                     </tr>
-                    <!--<tr>
-                        <td><span> </span><a id="lblAddr_js" class="lbl btn">提貨地點</a></td>
+                    <tr>
+                        <td><span> </span><a id="lblAddr_js" class="lbl btn">客戶</a></td>
                         <td colspan="4">
                             <input type="text" id="txtAddrno" class="txt" style="width:30%;float: left; " />
                             <input type="text" id="txtAddr" class="txt" style="width:70%;float: left; " />
-                        </td>
-                        <td colspan="3">
-                            <input type="text" id="txtAddress" class="c1 txt"/>
-                        </td>
-                    </tr>-->
+                        </td> 
+                    </tr>
                     <tr>
                         <td><span> </span><a id="lblPo" class="lbl">運輸單號</a></td>
                         <td colspan="2"><input type="text" id="txtLat" class="c1 txt"/></td>
