@@ -21,6 +21,8 @@
 				q_gf('', 'z_workg_jo');
 			});
 			
+			var intervalupdate; //自動更新
+			
 			aPop = new Array(
 				['txtYstation', 'lblYstation', 'station', 'noa,station', 'txtYstation', 'station_b.aspx']
 			);
@@ -229,10 +231,6 @@
 					$('#div_in').hide();
 				});
 				
-				$('#btnOk').click(function() {
-					$('#div_in').hide();
-				});
-				
 				$("#chkXunenda [type='checkbox']").click(function() {
 					if($(this).prop('checked')){
 						$('#txtXcuanoa').val('');
@@ -245,6 +243,64 @@
 					}
 					
 				});
+				
+				$('#btnOk').click(function() {
+					var radind=$('#q_report').data('info').radioIndex;
+					var t_report=$('#q_report').data('info').reportData[radind].report;
+					
+					//解除自動更新
+					intervalupdate = setInterval(";");
+					for (var i = 0 ; i < intervalupdate ; i++) {
+					    clearInterval(i); 
+					}
+					
+					if(t_report=='z_workg_jo03' && !emp($('#txtXdate').val()) && !emp($('#txtYstation').val())){
+						intervalupdate=setInterval("autoOk()",1000*60); //1分鐘
+					}else{
+						$('#div_in').hide();
+						$('#div_work').hide();
+					}
+					
+				});
+				
+				$('#frameReport').bind('DOMSubtreeModified', function() { 
+					var radind=$('#q_report').data('info').radioIndex;
+					var t_report=$('#q_report').data('info').reportData[radind].report;
+					if(t_report=='z_workg_jo03' && $('#frameReport table').length>0){ //有表再執行
+						updatework();
+					}
+				});
+			}
+			
+			function autoOk() {
+				$('#btnOk').click();
+			}
+			
+			var d_workshow=false;
+			function updatework() {
+				//取得目前時間
+				var t_timea=padL(new Date().getHours(), '0', 2)+':'+padL(new Date().getMinutes(),'0',2)+':'+padL(new Date().getSeconds() ,'0',2);
+				d_workshow=false;
+				$('#frameReport table button').each(function(index) {
+					var t_id=$(this).attr('id');
+					var t_workno=t_id.split('##')[0];
+					var t_datea=t_id.split('##')[1];
+					var t_nos=t_id.split('##')[2];
+					var t_nom=t_id.split('##')[3];
+					var t_noq=t_id.split('##')[4];
+					var t_btime=t_id.split('##')[5];
+					var t_etime=t_id.split('##')[6];
+					
+					if(t_timea>=t_btime && t_timea<=t_etime && !d_workshow){
+						workshow($(this)[0]);
+						d_workshow=true;
+						/*$(this).parent().parent().css('background','lightpink');*/
+					}else{
+						//$(this).parent().parent().css('background','');
+					}
+				});
+				
+				
 			}
 
 			function q_boxClose(s2) {
@@ -367,20 +423,70 @@
 			}
 			
 			function workin(workno) {
+				var radind=$('#q_report').data('info').radioIndex;
+				var t_report=$('#q_report').data('info').reportData[radind].report;
+				
 				if(workno.id.length>0){
 					$('#txtWorkno').val(workno.id);
 					$('#div_in').css('top', $(workno).offset().top+60);
 					$('#div_in').css('left', $(workno).offset().left);
+					
+					if(t_report=='z_workg_jo03'){
+						$('#div_in').css('top', $(workno).offset().top+30);
+						$('#div_in').css('left', $(workno).offset().left-$('#div_in').width());
+						
+						if(workno.id!=$('#tdOrdeno').text()){
+							workshow($(workno).parent().next().children()[0]);
+						}
+					}
 					
 					q_gt('view_work', "where=^^noa='"+workno.id+"'^^", 0, 0, 0, "");
 				}
 			}
 			
 			function workshow(workno) {
-				if(workno.id.length>0){
-					$('#div_work').css('top', 300);
+				var t_workno=workno.id.split('##')[0];
+				var t_datea=workno.id.split('##')[1];
+				var t_nos=workno.id.split('##')[2];
+				var t_nom=workno.id.split('##')[3];
+				var t_noq=workno.id.split('##')[4];
+				
+				$('#frameReport table button').each(function(index) {
+					$(this).parent().parent().css('background','');
+				});
+				
+				$(workno).parent().parent().css('background','lightpink');
+				
+				if(t_workno.length>0 && t_workno != undefined){
+					$('#div_work').css('top', 242);
 					$('#div_work').css('left', $(workno).offset().left+50);
-					$('#div_work').show();
+					
+					q_func('qtxt.query.showworkg', 'z_workg_jo.txt,showworkg,' 
+					+ encodeURI(t_workno) + ';'
+					+ encodeURI(t_datea) + ';' 
+					+ encodeURI(t_nos) + ';' 
+					+ encodeURI(t_nom) + ';'
+					+ encodeURI(t_noq) + ';'
+					+ encodeURI(r_userno) + ';' + encodeURI(r_name),r_accy,1);
+					var as = _q_appendData("tmp0", "", true, true);
+					if (as[0] != undefined) {
+						$('#tdOrdeno').text(as[0].ordeno);
+						$('#tdOrdeno2').text(as[0].no2);
+						$('#tdOrdedatea').text(as[0].ordedatea);
+						$('#tdCustno').text(as[0].custno);
+						$('#tdCuano').text(as[0].cuano);
+						$('#tdOrdeodate').text(as[0].ordeodate);
+						$('#tdWdatea').text(as[0].wdate);
+						$('#tdProductno').text(as[0].productno);
+						$('#tdBmount').text(as[0].bmount);
+						$('#tdOmount').text(as[0].omount);
+						$('#tdSpec').text(as[0].spec);
+						$('#tdUca').html(as[0].uca);
+						$('#tdMemo1').html(as[0].memo1);
+						$('#tdMemo2').html(as[0].memo2);
+						
+						$('#div_work').show();
+					}
 				}
 			}
 			
@@ -453,73 +559,73 @@
 			</table>
 		</div>
 		
-		<div id="div_work" style="position:absolute; top:300px; left:400px; display:none; width:1220px; background-color: #CDFFCE; border: 5px solid gray; z-index: 9;">
+		<div id="div_work" style="position:absolute; top:300px; left:400px; display:none; width:1120px; background-color: #CDFFCE; border: 5px solid gray; z-index: 9;font-size: 11pt;">
 			<table id="table_work" style="width:100%;" border="1" cellpadding='2'  cellspacing='0'>
 				<tr>
 					<td style="font-size: 20px;" colspan="8" align="center">流程卡</td>
 				</tr>
 				<tr>
-					<td style="width: 105px;" align="left">訂單編號<br>SỐ ĐƠN TIÊU</td>
-					<td style="width: 200px;"> </td>
-					<td style="width: 105px;" align="left">訂序<br>SỐ THỨ TỰ</td>
-					<td style="width: 200px;"> </td>
-					<td style="width: 105px;" align="left">預交日<br>DỰ TÍNH NGÀY GIAO</td>
-					<td style="width: 200px;"> </td>
-					<td style="width: 105px;" align="left">客戶編號<br>KHÁCH HÀNG CUỐI</td>
-					<td style="width: 200px;"> </td>
+					<td style="width: 130px;" align="left">訂單編號<br>SỐ ĐƠN TIÊU</td>
+					<td style="width: 150px;" id="tdOrdeno"> </td>
+					<td style="width: 130px;" align="left">訂序<br>SỐ THỨ TỰ</td>
+					<td style="width: 150px;" id="tdOrdeno2"> </td>
+					<td style="width: 130px;" align="left">預交日<br>DỰ TÍNH NGÀY GIAO</td>
+					<td style="width: 150px;" id="tdOrdedatea"> </td>
+					<td style="width: 130px;" align="left">客戶編號<br>KHÁCH HÀNG CUỐI</td>
+					<td style="width: 150px;" id="tdCustno"> </td>
 				</tr>
 				<tr>
-					<td style="width: 105px;" align="left">排產編號<br>MÃ CÔNG LỆNH</td>
-					<td style="width: 200px;"> </td>
-					<td style="width: 105px;" align="left">訂單日期<br>NGÀY KHỞI CÔNG</td>
-					<td style="width: 200px;"> </td>
-					<td style="width: 105px;" align="left">開工日<br>NGÀY HOÀN THÀNH</td>
-					<td style="width: 200px;"> </td>
-					<td style="width: 105px;" align="left">THỨ</td>
-					<td style="width: 200px;"> </td>
+					<td align="left">排產編號<br>MÃ CÔNG LỆNH</td>
+					<td id="tdCuano"> </td>
+					<td align="left">訂單日期<br>NGÀY KHỞI CÔNG</td>
+					<td id="tdOrdeodate"> </td>
+					<td align="left">開工日<br>NGÀY HOÀN THÀNH</td>
+					<td id="tdWdatea"> </td>
+					<td align="left">THỨ</td>
+					<td> </td>
 				</tr>
 				<tr>
-					<td style="width: 105px;" align="left">製成品編號<br>SỐ MÃ KIỆN</td>
-					<td style="width: 200px;" colspan="3"> </td>
-					<td style="width: 105px;" align="left">生產數<br>SL KHỞI CÔNG</td>
-					<td style="width: 200px;"> </td>
-					<td style="width: 105px;" align="left">訂單數<br>SL ĐƠN HÀNG</td>
-					<td style="width: 200px;"> </td>
+					<td align="left">製成品編號<br>SỐ MÃ KIỆN</td>
+					<td colspan="3" id="tdProductno"> </td>
+					<td align="left">生產數<br>SL KHỞI CÔNG</td>
+					<td id="tdBmount"> </td>
+					<td align="left">訂單數<br>SL ĐƠN HÀNG</td>
+					<td id="tdOmount"> </td>
 				</tr>
 				<tr>
-					<td style="width: 105px;" align="left">型號<br>MÃ HÀNG</td>
-					<td style="width: 200px;"> </td>
-					<td style="width: 105px;" align="left">TC CHẤT LƯỢNG</td>
-					<td style="width: 200px;"> </td>
-					<td style="width: 105px;" align="left">SỐ THỨ TỰ ĐƠN</td>
-					<td style="width: 200px;"> </td>
-					<td style="width: 105px;" align="left">TỔNG SỐ ĐƠN TÁCH</td>
-					<td style="width: 200px;"> </td>
+					<td align="left">型號<br>MÃ HÀNG</td>
+					<td id="tdSpec"> </td>
+					<td align="left">TC CHẤT LƯỢNG</td>
+					<td> </td>
+					<td align="left">SỐ THỨ TỰ ĐƠN</td>
+					<td> </td>
+					<td align="left">TỔNG SỐ ĐƠN TÁCH</td>
+					<td> </td>
 				</tr>
 				<tr>
-					<td style="height: 300px;" colspan="3">件號中文名稱：<BR>件號越文名稱：</td>
-					<td style="" colspan="2">包裝說明及正側嘜：<BR>總工時：</td>
-					<td style="" colspan="3"> </td>
+					<td style="height: 410px;" colspan="3" id="tdUca">件號中文名稱：<BR>件號越文名稱：</td>
+					<td style="" colspan="2" id="tdMemo1">包裝說明及正側嘜：<BR>總工時：</td>
+					<td style="" colspan="3" id="tdMemo2"> </td>
 				</tr>
 				<tr>
-					<td style="width: 105px;" align="right">大生管：<br>CHỦ QUẢN SINH QUẢN</td>
-					<td style="width: 200px;"> </td>
-					<td style="width: 105px;" align="right">小生管：<br>NHÂN VIÊN SINH QUẢN</td>
-					<td style="width: 200px;"> </td>
-					<td style="width: 105px;" align="right">原料倉：<br>KHO NGUYÊN LIỆU</td>
-					<td style="width: 200px;"> </td>
-					<td style="width: 105px;" align="right">備料員：<br>NHÂN VIÊN BỊ LIỆU</td>
-					<td style="width: 200px;"> </td>
+					<td align="right">大生管：<br>CHỦ QUẢN SINH QUẢN</td>
+					<td> </td>
+					<td align="right">小生管：<br>NHÂN VIÊN SINH QUẢN</td>
+					<td> </td>
+					<td align="right">原料倉：<br>KHO NGUYÊN LIỆU</td>
+					<td> </td>
+					<td align="right">備料員：<br>NHÂN VIÊN BỊ LIỆU</td>
+					<td> </td>
 				</tr>
 				<tr>
-					<td style="width: 105px;" align="right">生產組別：<br>TỔ SẢN XUẤT</td>
-					<td style="width: 200px;"> </td>
-					<td style="width: 105px;" align="right">包裝明細：<br>CHI TIẾT ĐÓNG GÓI</td>
-					<td style="width: 200px;"> </td>
-					<td style="width: 105px;" align="right">品保：<br>KCS</td>
-					<td style="width: 200px;"> </td>
-					<td style="width: 105px;" align="right">移轉接收人：<br>NGƯỜI TIẾP NHẬN</td>
-					<td style="width: 200px;"> </td>
+					<td align="right">生產組別：<br>TỔ SẢN XUẤT</td>
+					<td> </td>
+					<td align="right">包裝明細：<br>CHI TIẾT ĐÓNG GÓI</td>
+					<td> </td>
+					<td align="right">品保：<br>KCS</td>
+					<td> </td>
+					<td align="right">移轉接收人：<br>NGƯỜI TIẾP NHẬN</td>
+					<td> </td>
 				</tr>
 			</table>
 		</div>
