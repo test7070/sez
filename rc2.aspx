@@ -143,7 +143,7 @@
 				}
 				q_cmbParse("cmbTranstyle", q_getPara('sys.transtyle'));
 				q_cmbParse("cmbTypea", q_getPara('rc2.typea'));
-				q_cmbParse("cmbStype", q_getPara('rc2.stype'));
+				q_cmbParse("cmbStype", " ,"+q_getPara('rc2.stype'));
 				//q_cmbParse("cmbCoin", q_getPara('sys.coin'));
 				q_cmbParse("combPaytype", q_getPara('rc2.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
@@ -984,6 +984,7 @@
 				$('#txtAcomp').val(z_acomp);
 				$('#txtDatea').val(q_date());
 				$('#txtDatea').focus();
+				$('#cmbStype').val(1);
 				//$('#cmbTaxtype').val(1);
 				$('#chkAtax').prop('checked',true);
 				if (!emp($('#txtTggno').val())) {
