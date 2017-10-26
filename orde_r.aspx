@@ -747,6 +747,68 @@
 						alert('【訂單日期】和【Factory】禁止空白!!')
 					}
 				});
+				
+				//106/10/25 增加
+				$('#btnUpload').change(function() {
+					if(!(q_cur==1 || q_cur==2)){
+						return;
+					}
+					var file = $(this)[0].files[0];
+					if(file){
+						Lock(1);
+						var ext = '';
+						var extindex = file.name.lastIndexOf('.');
+						if(extindex>=0){
+							ext = file.name.substring(extindex,file.name.length);
+						}
+						$('#txtUpfile').val(file.name);
+						
+						fr = new FileReader();
+						fr.fileName = $('#txtUpfile').val();
+					    fr.readAsDataURL(file);
+					    fr.onprogress = function(e){
+							if ( e.lengthComputable ) { 
+								var per = Math.round( (e.loaded * 100) / e.total) ; 
+								$('#FileList').children().last().find('progress').eq(0).attr('value',per);
+							}; 
+						}
+						fr.onloadstart = function(e){
+							$('#FileList').append('<div styly="width:100%;"><progress id="progress" max="100" value="0" ></progress><progress id="progress" max="100" value="0" ></progress><a>'+fr.fileName+'</a></div>');
+						}
+						fr.onloadend = function(e){
+							$('#FileList').children().last().find('progress').eq(0).attr('value',100);
+							console.log(fr.fileName+':'+fr.result.length);
+							var oReq = new XMLHttpRequest();
+							oReq.upload.addEventListener("progress",function(e) {
+								if (e.lengthComputable) {
+									percentComplete = Math.round((e.loaded / e.total) * 100,0);
+									$('#FileList').children().last().find('progress').eq(1).attr('value',percentComplete);
+								}
+							}, false);
+							oReq.upload.addEventListener("load",function(e) {
+								Unlock(1);
+							}, false);
+							oReq.upload.addEventListener("error",function(e) {
+								alert("資料上傳發生錯誤!");
+							}, false);
+								
+							oReq.timeout = 360000;
+							oReq.ontimeout = function () { alert("Timed out!!!"); }
+							oReq.open("POST", 'orde_upload.aspx', true);
+							oReq.setRequestHeader("Content-type", "text/plain");
+							oReq.setRequestHeader("FileName", escape(fr.fileName));
+							oReq.send(fr.result);//oReq.send(e.target.result);
+						};
+					}
+				});
+				
+				$('#btnDownload').click(function(){
+					if($('#txtUpfile').val().length>0){
+						$('#xdownload').attr('src','orde_download.aspx?FileName='+$('#txtUpfile').val()+'&TempName='+$('#txtUpfile').val());
+                    }else{    
+						alert('No Data!!');
+					}
+				});
 			}
 			
 			function divtrantypechange(){
@@ -1941,6 +2003,7 @@
 				$('#div_getprice').hide();
 				$('#div_ucagroup').hide();
 				$('#div_vccdate').hide();
+				$('#btnUpload').val('');
 			}
 
 			function readonly(t_para, empty) {
@@ -1954,6 +2017,7 @@
 					$('#txtDate4').datepicker( 'destroy' );
 					$('#btnOrdem').removeAttr('disabled');
 					$('#btnOrdc_r').removeAttr('disabled');
+					$('#btnUpload').attr('disabled', 'disabled');
 				} else {
 					$('#btnOrdei').attr('disabled', 'disabled');
 					$('#combAddr').removeAttr('disabled');
@@ -1963,13 +2027,14 @@
 					$('#txtDate4').datepicker();
 					$('#btnOrdem').attr('disabled', 'disabled');
 					$('#btnOrdc_r').attr('disabled', 'disabled');
+					$('#btnUpload').removeAttr('disabled', 'disabled');
 				}	
 				
 				$('#div_addr2').hide();
 				readonly_addr2();
 				HiddenTreat();
 				cufttotal();
-				
+				$('#btnUpload').val('');
 				//$('#cmbStype').attr('disabled', 'disabled');
 			}
 			
@@ -2998,6 +3063,14 @@
 						</td>
 					</tr>
 					<tr>
+						<td><span> </span><a id='lblUpload' class='lbl'> </a></td>
+						<td colspan="4">
+							<input id="btnUpload" type="file"/>
+							<input id="btnDownload" type="button"/>
+							<input id="txtUpfile" type="hidden">
+						</td>
+					</tr>
+					<tr>
 						<td><span> </span><a id='lblExdate' class="lbl">Expect Delivery</a></td>
 						<td><input id="txtDate1" type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblIssuedate' class="lbl">Billing Date</a></td>
@@ -3130,5 +3203,7 @@
 			</table>
 		</div>
 		<input id="q_sys" type="hidden" />
+		<div style="width:100%;display: none;" id="FileList"> </div>
+		<iframe id="xdownload" style="display:none;"> </iframe>
 	</body>
 </html>
