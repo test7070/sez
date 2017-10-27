@@ -266,7 +266,7 @@
 				$('#frameReport').bind('DOMSubtreeModified', function() { 
 					var radind=$('#q_report').data('info').radioIndex;
 					var t_report=$('#q_report').data('info').reportData[radind].report;
-					if(t_report=='z_workg_jo03' && $('#frameReport table').length>0){ //有表再執行
+					if(t_report=='z_workg_jo03' && $('#frameReport table').length>0 && !emp($('#txtYstation').val())){ //有表再執行
 						updatework();
 					}
 				});
