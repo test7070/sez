@@ -42,6 +42,7 @@
                     return;
                 }
                 mainForm(6, q_content);
+				
             }
 
             function sum() {
@@ -56,6 +57,10 @@
                 bbmMask = [['txtSdate', r_picd]];
                 q_mask(bbmMask);
                 $('#txtSdate').datepicker();
+				$('#txtCustno').change(function(e) {
+					var t_where = "where=^^ custno in(select MAX(custno) from addr2 where custno like '"+ $('#txtCustno').val() +"%')^^"
+					q_gt('addr2', t_where, 0, 0, 0, "addr2no");
+			});
             }
 
             function q_boxClose(s2) {
@@ -69,6 +74,13 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+					case "addr2no":
+						var as = _q_appendData("addr2", "", true);
+						if (as.length > 0 && as[0].custno.indexOf("-")>=0){
+							var cno = as[0].custno.substr(as[0].custno.indexOf("-")+1,as[0].custno.length - as[0].custno.indexOf("-"));
+							$('#txtCustno').val($('#txtCustno').val() + '-' + right('000' +(parseInt(cno)+1).toString(),3));
+						}
+						break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -86,7 +98,8 @@
                 _btnIns();
                 refreshBbm();
                 $('#txtNoa').val('AUTO'); 
-                $('#txtSdate').val(q_date()).focus();
+                $('#txtSdate').val(q_date());
+				$('#txtCustno').focus();
             }
 
             function btnModi() {
@@ -125,7 +138,7 @@
                      q_gtnoa(q_name, replaceAll((t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
                      wrServer(t_noa);
-
+		
             }
 
             function wrServer(key_value) {

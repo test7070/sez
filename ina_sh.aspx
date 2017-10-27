@@ -67,14 +67,7 @@
                 
                 $('#btnConn').click(function() {
                     var t_where = "";
-                    switch(q_getPara('sys.project').toUpperCase()){
-                        case 'WH':
-                            t_where = "noa='" + $('#txtNoa').val() + "' and typea='cust'";
-                            break;
-                        default:
-                            t_where = "noa='" + $('#txtNoa').val() + "'";
-                            break;
-                    }
+                    t_where = "noa='" + $('#txtCustno').val() + "'";
                     q_box("conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'conn', "95%", "650px", q_getMsg('btnConn'));
                 });
 
@@ -158,12 +151,7 @@
                         //-------------------------------------------
 
                         $('#txtMount_' + j).change(function() {
-                            t_IdSeq = -1;
-                            /// 要先給  才能使用 q_bodyId()
-                            q_bodyId($(this).attr('id'));
-                            b_seq = t_IdSeq;
-                            var t_where = "where=^^ a.noa = '" + $('#txtProductno_' + b_seq).val() + "' ^^";
-                            q_gt('ucc_style', t_where, 0, 0, 0, "", r_accy);
+                           sum();
                         });
                         //-------------------------------------------------------------------------------------
                     }
@@ -437,7 +425,7 @@
 		<div class='dbbm' style="width: 55%;float:left">
 			<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
 				<tr class="tr1">
-					<td class='td1'><span> </span><a id="lblDatea_sh" class="lbl">登錄日期</a></td>
+					<td class='td1'><span> </span><a id="lblDatea_sh" class="lbl">進貨日期</a></td>
 					<td class="td2"><input id="txtDatea" type="text" class="txt c1"/></td>
 					<td class='td3'><span> </span><a id="lblNoa_sh" class="lbl" >進貨單號</a></td>
                     <td class="td4"><input id="txtNoa" type="text" class="txt c1"/></td>
