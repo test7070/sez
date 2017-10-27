@@ -55,6 +55,9 @@
                         type : '8',//[10]
                         name : 'xenda',
                         value : '1@已完工'.split(',')
+                    },{
+                        type : '6',//[11]
+                        name : 'xnoa',
                     }]
                     });
                 q_popAssign();

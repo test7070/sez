@@ -17,7 +17,7 @@
 
             var q_name = "contdc";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtApv', 'txtWorker2'];
-            var bbmNum = [['txtEarnest', 10, 2, 1],['txtOilbase', 10, 2, 1],['txtTotal',10, 0, 1]];
+            var bbmNum = [['txtEarnest', 10, 2, 1],['txtOilbase', 10, 2, 1]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -92,6 +92,19 @@
                          	$("#cmbCnonick").val(abbm[q_recno].cno);
                          }
                     	break;
+                    case 'btnModi':
+                        var as = _q_appendData("contdc", "", true);
+                        if (as[0] != undefined) {
+                            if(r_rank<=7 && $('#txtDatea').val()<=q_cdn(q_date(),-1*40)){
+                                alert('只能修改40天內資料!');
+                                Unlock(1);
+                                return;
+                            }
+                        }
+                        _btnModi();
+                        Unlock(1);
+                        $('#txtDatea').focus();
+                        break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -126,12 +139,12 @@
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
-                _btnModi();
-                $('#txtDatea').focus();
+                var t_where = " where=^^ noa='" + $('#txtNoa').val() + "'^^";
+                q_gt('contdc', t_where, 0, 0, 0, 'btnModi', r_accy);
             }
 
             function btnPrint() {
-                q_box('z_contdc.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
+                //q_box('z_contdc.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function btnOk() {
@@ -449,8 +462,6 @@
                         <td><input id="txtOilbase" type="text"  class="txt c1 num"/></td>
                         <td><span> </span><a id='lblEarnest_sh' class="lbl">坪數</a></td>
                         <td><input id="txtEarnest" type="text"  class="txt c1 num"/></td>
-                        <td><span> </span><a id='lblTotal' class="lbl"></a></td>
-                        <td><input id="txtTotal" type="text"  class="txt c1 num"/></td>
                     </tr>
 					<tr>
 						<td><span> </span><a id="lblAcomp" class="lbl"> </a></td>

@@ -94,6 +94,19 @@
                             $('#txtUno_' + b_seq).val('');
                         }
                         break;
+                    case 'btnModi':
+                        var as = _q_appendData("ina", "", true);
+                        if (as[0] != undefined) {
+                            if(r_rank<=7 && $('#txtDatea').val()<=q_cdn(q_date(),-1*40)){
+                                alert('只能修改40天內資料!');
+                                Unlock(1);
+                                return;
+                            }
+                        }
+                        _btnModi();
+                        Unlock(1);
+                        $('#txtDatea').focus();
+                        break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -170,13 +183,12 @@
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
-                _btnModi();
-                $('#txtProduct').focus();
-
+                var t_where = " where=^^ noa='" + $('#txtNoa').val() + "'^^";
+                q_gt('ina', t_where, 0, 0, 0, 'btnModi', r_accy);
             }
 
             function btnPrint() {
-                q_box('z_inap.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "650px", q_getMsg("popPrint"));
+                //q_box('z_inap.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "650px", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
@@ -478,8 +490,9 @@
 					<td align="center" style="width:15%;"><a id="lblUno_sh" >條碼</a></td>
 					<td align="center" style="width:10%;"><a id='lblProductno_s'> </a></td>
 					<td align="center" style="width:12%;"><a id='lblProduct_s'> </a></td>
-					<td align="center" style="width:6%;"><a id='lblUnit_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblMount_s'></a></td>
+					<td align="center" style="width:5%;"><a id='lblUnit_s'> </a></td>
+					<td align="center" style="width:5%;"><a id='lblMweight_s'>單量</a></td>
+					<td align="center" style="width:8%;"><a id='lblMount_s'></a></td>
 					<td align="center" style="width:10%;"><a id='lblType_sh'>儲位</a></td>
 					<td align="center"><a id='lblMemo_st'> </a></td>
 				</tr>
@@ -492,6 +505,7 @@
 					</td>
 					<td ><input class="txt c1" id="txtProduct.*" type="text" /></td>
 					<td ><input class="txt c1" id="txtUnit.*" type="text"/></td>
+					<td ><input class="txt num c1" id="txtMweight.*" type="text"  /></td>
 					<td ><input class="txt num c1" id="txtMount.*" type="text"  /></td>
 					<td ><input class="txt c1" id="txtTypea.*" type="text"/></td>
 					<td >

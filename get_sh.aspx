@@ -114,6 +114,19 @@
                         document.all.combAddr.options.length = 0;
                         q_cmbParse("combAddr", t_item);
                         break;
+                    case 'btnModi':
+                        var as = _q_appendData("get", "", true);
+                        if (as[0] != undefined) {
+                            if(r_rank<=7 && $('#txtDatea').val()<=q_cdn(q_date(),-1*40)){
+                                alert('只能修改40天內資料!');
+                                Unlock(1);
+                                return;
+                            }
+                        }
+                        _btnModi();
+                        Unlock(1);
+                        $('#txtDatea').focus();
+                        break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
@@ -171,12 +184,12 @@
 			function btnModi() {
 				if (emp($('#txtNoa').val()))
 					return;
-				_btnModi();
-				$('#txtProduct').focus();
+				var t_where = " where=^^ noa='" + $('#txtNoa').val() + "'^^";
+                q_gt('get', t_where, 0, 0, 0, 'btnModi', r_accy);
 			}
 
 			function btnPrint() {
-				q_box('z_getp.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
+				//q_box('z_getp.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
 			}
 
 			function wrServer(key_value) {
@@ -414,12 +427,12 @@
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
 						<td align="center" style="width:20%"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:25%"><a id='vewStation'> </a></td>
+						<td align="center" style="width:25%"><a id='vewCust'>客戶</a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='station'>~station</td>
+						<td align="center" id='comp'>~comp</td>
 					</tr>
 				</table>
 			</div>
