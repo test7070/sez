@@ -408,7 +408,7 @@
                 font-size:medium;
             }
             .dbbs {
-                width: 1560px;
+                width: 1860px;
             }
             .tbbs a {
                 font-size: medium;
@@ -485,9 +485,9 @@
 					</td>
 					<td align="center" style="width:80px;"><a id='lblPackway_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblPack_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblPk1_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblPk2_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblPk3_s'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblPk1_s'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblPk2_s'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblPk3_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblInmount_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblOutmount_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblInweight_s'> </a></td>
