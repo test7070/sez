@@ -188,8 +188,8 @@
 				$('#Edate').css('width','300px').css('height','30px');
                 $('#Edate .label').css('width','105px');
 				
-				$('#Xucc').css("width","615px");
-				$('#txtXucc').css("width","515px");
+				$('#Xucc').css("width","605px");
+				$('#txtXucc').css("width","505px");
 				$('#lblXucc').css("color","#0000ff");
 				$('#lblXucc').click(function(e) {
                 	q_box("ucc_b2.aspx?;;;;", 'ucc', "40%", "620px", q_getMsg("popUcc"));

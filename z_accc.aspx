@@ -121,7 +121,7 @@
                 	q_box("proj_b2.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno , 'proj', "450px", "600px", q_getMsg("popProj"));
                 });
                 $('#Yproject').css('width','98%');
-                $('#txtYproject').css('width','85%');
+                $('#txtYproject').css('width','83%');
                 
                 if(r_len==4){                	
                 	$.datepicker.r_len=4;

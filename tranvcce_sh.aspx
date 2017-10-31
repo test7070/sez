@@ -21,7 +21,7 @@
             var bbmNum = [];
             var bbsNum = [['txtWeight', 10, 2, 1],['txtUweight', 10, 2, 1],['txtHeight', 10, 3, 1],['txtVolume', 10, 3, 1],['txtTvolume', 10, 0, 1],['txtTotal', 10, 2, 1]];
             var bbmMask = [];
-            var bbsMask = [];
+            var bbsMask = [['txtTime1','999/99/99'],];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -35,6 +35,7 @@
             , ['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx']
             , ['txtAddrno_', 'btnStraddr_', 'addr', 'noa,addr', 'txtAddrno_,txtAddr_', 'addr_b.aspx']
             , ['txtAddrno2_', 'btnEndaddr_',  'addr', 'noa,addr', 'txtAddrno2_,txtAddr2_', 'addr_b.aspx']
+            , ['txtAddrno3_', 'btnAddr3_', 'cust', 'noa,nick', 'txtAddrno3_,txtAddr3_', 'cust_b.aspx']
             , ['txtDriverno_', 'btnDriver_', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx']);
 
             $(document).ready(function() {
@@ -145,6 +146,48 @@
                                     $('#txtVolume_' + b_seq).val(s9);                                     
                                 }
                             }
+                  });
+                  $('#txtCustno_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnCust_'+n).click();
+                  });
+                  $('#txtProductno_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnProduct_'+n).click();
+                  });
+                  $('#txtAddrno_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnStraddr_'+n).click();
+                  });
+                  $('#txtAddrno2_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnEndaddr_'+n).click();
+                  });
+                  $('#txtAddrno3_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnAddr3_'+n).click();
+                  });
+                  $('#txtCarno_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnCarno_'+n).click();
+                  });
+                  $('#txtDriverno_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnDriver_'+n).click();
                   });
                   $('#txtTime1_' + i).focus(function () {
                             if (!$(this).val())
@@ -461,22 +504,27 @@
 				</table>
 			</div>
 		</div>
+		<!--2017/10/31 于小姐討論後 數量跟材積都是數字 貨櫃的櫃型打在品名 多櫃號、S/O、貨主-->
 		<div class='dbbs' >
 			<table id="tbbs" class='tbbs' >
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:70px"><a>出車日期</a></td>
-					<td align="center" style="width:100px"><a>客戶</a></td>
-					<td align="center" style="width:70px"><a>數量</a></td>
-					<td align="center" style="width:40px"><a>單位</a></td>
-					<td align="center" style="width:70px"><a>材積</a></td>
+					<td align="center" style="width:90px"><a>出車日期</a></td>
+					<td align="center" style="width:90px"><a>客戶</a></td>
+					<td align="center" style="width:100px"><a>品項</a></td>
+					<td align="center" style="width:75px"><a>數量</a></td>
+					<td align="center" style="width:50px"><a>單位</a></td>
+					<td align="center" style="width:75px"><a>材積</a></td>
 					<td align="center" style="width:100px"><a>起點</a></td>
 					<td align="center" style="width:100px"><a>迄點</a></td>
-					<td align="center" style="width:70px"><a>金額</a></td>
-					<td align="center" style="width:80px"><a>車牌</a></td>
-					<td align="center" style="width:100px"><a>司機</a></td>
-					<td align="center" style="width:70px"><a>司機運費</a></td>
+					<td align="center" style="width:120px"><a>櫃號</a></td>
+					<td align="center" style="width:120px"><a>S/O</a></td>
+					<td align="center" style="width:100px"><a>貨主</a></td>
+					<td align="center" style="width:80px"><a>金額</a></td>
+					<td align="center" style="width:100px"><a>車牌</a></td>
+					<td align="center" style="width:80px"><a>司機</a></td>
+					<td align="center" style="width:80px"><a>司機運費</a></td>
 					<td align="center" style="width:20px"><a>登錄</a></td>
 					<td align="center" style="width:20px"><a>確認</a></td>
 					<td align="center" style="width:100px"><a>備註</a></td>
@@ -489,32 +537,44 @@
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td><input type="text" id="txtTime1.*" style="width:95%;"/></td>
 					<td>
-						<input type="text" id="txtCustno.*" style="float:left;width:40%;" />
-						<input type="text" id="txtCust.*" style="float:left;width:40%;">
-						<input type="button" id="btnCust.*" value='.' style=" font-weight: bold;">
+						<input type="text" id="txtCustno.*" style="float:left;width:95%;" />
+						<input type="text" id="txtCust.*" style="float:left;width:95%;">
+						<input type="button" id="btnCust.*" style="display:none;">
 					</td>
+					<td>
+                        <input type="text" id="txtProductno.*" style="float:left;width:95%;" />
+                        <input type="text" id="txtProduct.*" style="float:left;width:95%;">
+                        <input type="button" id="btnProduct.*" style="display:none;">
+                    </td>
 					<td><input type="text" id="txtMount.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtUnit.*" style="width:95%;"/></td>
 					<td><input type="text" id="txtVolume.*" class="num" style="width:95%;"/></td>
 					<td>
-                        <input type="text" id="txtAddrno.*" style="float:left;width:39%;"/>
-                        <input type="text" id="txtAddr.*" style="float:left;width:40%;"/>
-                        <input type="button" id="btnStraddr.*" value='.' style=" font-weight: bold;"/>
+                        <input type="text" id="txtAddrno.*" style="float:left;width:95%;"/>
+                        <input type="text" id="txtAddr.*" style="float:left;width:95%;"/>
+                        <input type="button" id="btnStraddr.*" style="display:none;"/>
                     </td>
                     <td>
-                        <input type="text" id="txtAddrno2.*" style="float:left;width:39%;"/>
-                        <input type="text" id="txtAddr2.*" style="float:left;width:40%;"/>
-                        <input type="button" id="btnEndaddr.*" value='.' style=" font-weight: bold;"/>
+                        <input type="text" id="txtAddrno2.*" style="float:left;width:95%;"/>
+                        <input type="text" id="txtAddr2.*" style="float:left;width:95%;"/>
+                        <input type="button" id="btnEndaddr.*" style="display:none;"/>
+                    </td>
+                    <td><input type="text" id="txtTranno.*" style="float:left;width:95%;"/></td>
+                    <td><input type="text" id="txtProductno2.*" style="float:left;width:95%;"/></td>
+                    <td>
+                        <input type="text" id="txtAddrno3.*" style="float:left;width:95%;"/>
+                        <input type="text" id="txtAddr3.*" style="float:left;width:95%;"/>
+                        <input type="button" id="btnAddr3.*" style="display:none;"/>
                     </td>
 					<td><input type="text" id="txtTotal.*" class="num" style="width:95%;"/></td>
 					<td>
-						<input type="text" id="txtCarno.*" style="width:70%;"/>
-						<input type="button" id="btnCarno.*" value='.' style=" font-weight: bold;"/>
+						<input type="text" id="txtCarno.*" style="width:95%;"/>
+						<input type="button" id="btnCarno.*" style="display:none;"/>
 					</td>
 					<td>
-					    <input type="text" id="txtDriverno.*" style="float:left;width:40%;"/>
-                        <input type="text" id="txtDriver.*" style="float:left;width:40%;"/>
-                        <input type="button" id="btnDriver.*" value='.' style=" font-weight: bold;"/>
+					    <input type="text" id="txtDriverno.*" style="float:left;width:95%;"/>
+                        <input type="text" id="txtDriver.*" style="float:left;width:95%;"/>
+                        <input type="button" id="btnDriver.*" style="display:none;"/>
                     </td>
                     <td><input type="text" id="txtTotal2.*" class="num" style="width:95%;"/></td>
 					<td align="center"><input id="chkChk1.*" type="checkbox"/></td>

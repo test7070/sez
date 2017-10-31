@@ -139,7 +139,7 @@
 				$('#Allucc').css('width','390px').css('height','30px');
 				$('#Allucc .label').css('width','100px');
 				$('#chkAllucc').css('width', '0px').css('margin-top', '5px');
-				$('#txtXuca').css("width","515px");
+				$('#txtXuca').css("width","505px");
 				 q_cmbParse('cmbType','0@全部,1@原料,2@製成品')
                 $('#btnCostbcc').click(function(e) {
                     $('#divExport').toggle();

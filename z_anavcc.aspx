@@ -131,14 +131,14 @@
 				//$('#Xuccgroupano select').css('width','150px');
 				
 				$('#Multcust').css("width","607px");
-				$('#txtMultcust').css("width","515px");
+				$('#txtMultcust').css("width","505px");
 				$('#lblMultcust').css("color","#0000ff");
 				$('#lblMultcust').click(function(e) {
 	                q_box("cust_b2.aspx?;;;;", 'cust', "600px", "90%", q_getMsg("popCust"));
 	            });
 	            
 	            $('#Multucc').css("width","607px");
-				$('#txtMultucc').css("width","515px");
+				$('#txtMultucc').css("width","505px");
 				$('#lblMultucc').css("color","#0000ff");
 				$('#lblMultucc').click(function(e) {
 	                q_box("ucc_b2.aspx?;;;;", 'ucc', "600px", "90%", q_getMsg("popUcc"));
