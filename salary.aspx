@@ -1464,6 +1464,12 @@
 		        					q_tr('txtOstand_'+j,Math.round((dec($('#txtMoney_'+j).val())/30/inday)*100)/100);//加班費基數(取小數點兩位並四捨五入)
 		        				else
 		        					q_tr('txtOstand_'+j,Math.round((dec($('#txtMoney_'+j).val())/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
+		        			}else if(q_getPara('sys.project').toUpperCase()=='NV'){
+		        				//勞基法加班費基數=本俸+主管津貼+工作津貼+其他津貼+全勤 //不加伙食費
+		        				if(inday>0)
+			        				q_tr('txtOstand_'+j,Math.round(((dec($('#txtMoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtBo_full_'+j).val()))/inday/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
+			        			else
+			        				q_tr('txtOstand_'+j,Math.round(((dec($('#txtMoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtBo_full_'+j).val()))/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
 		        			}else{
 		        				//勞基法加班費基數=本俸+主管津貼+工作津貼+其他津貼+全勤+伙食費
 		        				if(inday>0)
