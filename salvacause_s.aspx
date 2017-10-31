@@ -32,7 +32,7 @@
 
             }
 
-            var ssspartno = '';
+            var ssspartno = '',seekwhere = "";
             function q_gtPost(t_name) {
                 switch (t_name) {
                     case 'authority':
@@ -49,7 +49,7 @@
 
                     case 'sss':
                         var as = _q_appendData('sss', '', true);
-                        if (as[0]) {
+                        if (as[0]!=undefined) {
                             ssspartno = as[0].partno;
                             q_gt('authority', "where=^^a.noa='salvacause' and a.sssno='" + r_userno + "'^^", 0, 0, 0, "");
                         }

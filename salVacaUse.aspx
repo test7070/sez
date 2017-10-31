@@ -232,6 +232,8 @@
 								$('#txtHr_used').val(as[0].hr_used);
 								abbm[q_recno]['apv'] = as[0].apv;
 								abbm[q_recno]['hr_used'] = as[0].hr_used;
+								//更新特休假作業
+								q_func('salvacause_post.post', r_accy + ',' + $('#txtNoa').val() + ',1');
 							}
 						}
                     }

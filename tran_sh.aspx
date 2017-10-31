@@ -517,6 +517,7 @@
 				</table>
 			</div>
 		</div>
+		<!--數量與材積會打中文與英文-->
 		<div class='dbbs' >
 			<table id="tbbs" class='tbbs' >
 				<tr style='color:white; background:#003366;' >
@@ -549,9 +550,9 @@
 						<input type="text" id="txtNick.*" style="float:left;width:40%;">
 						<input type="button" id="btnCust.*" value='.' style=" font-weight: bold;">
 					</td>
-					<td><input type="text" id="txtMount.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtUcnno.*" style="width:95%;"/></td>
 					<td><input type="text" id="txtUnit.*" style="width:95%;"/></td>
-					<td><input type="text" id="txtVolume.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtProduct.*" style="width:95%;"/></td>
 					<td>
                         <input type="text" id="txtStraddrno.*" style="display:none;"/>
                         <input type="text" id="txtStraddr.*" style="float:left;width:78%;"/>

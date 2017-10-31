@@ -103,7 +103,7 @@
                 	q_box("tgg_b2.aspx?;;;;", 'tgg', "40%", "620px", q_getMsg("popTgg"));
                 });
                 $('#Multucc').css("width","605px");
-				$('#txtMultucc').css("width","515px");
+				$('#txtMultucc').css("width","500px");
 				$('#lblMultucc').css("color","#0000ff");
 				$('#lblMultucc').click(function(e) {
                 	q_box("ucc_b2.aspx?;;;;", 'ucc', "40%", "620px", q_getMsg("popUcc"));
