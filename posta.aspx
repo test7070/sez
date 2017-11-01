@@ -113,14 +113,30 @@
             }
 
             function q_boxClose(s2) {///   q_boxClose 2/4
-                var
-                ret;
+                var ret;
                 switch (b_pop) {
                     case q_name + '_s':
                         q_boxClose2(s2);
                         ///   q_boxClose 3/4
                         break;
                 }/// end Switch
+                
+                if(q_cur==1 || q_cur==2){
+                	if( b_pop == '' && s2[0]!=undefined){
+                		if(tbseq.toString()!='' && b_seq==""){
+                			b_seq=tbseq;
+                		}
+                		if (q_getPara('sys.project').toUpperCase() == 'XY' && !emp($('#txtUseno_' + b_seq).val())) {
+                            if ($('#cmbKind').val() != '廠商') {
+                            	//1050302 不管附回郵 都顯示出來 and charindex('附回郵',postmemo)>0
+                                t_where = "where=^^ noa='" + $('#txtUseno_' + b_seq).val() + "' ^^";
+                                q_gt('custm', t_where, 0, 0, 0, "cust_post_xy", r_accy);
+                            }
+                            t_where = "where=^^ noa='" + $('#txtUseno_' + b_seq).val() + "' and isnull(bill,0)=1^^";
+                            q_gt('conn', t_where, 0, 0, 0, "conn_xy", r_accy);
+                        }
+                	}
+                }
                 b_pop = '';
             }
 
@@ -219,18 +235,28 @@
                     return;
                 q_box('posta_s.aspx', q_name + '_s', "550px", "440px", q_getMsg("popSeek"));
             }
-
+			
+			var tbseq='',tpseq='';
             function bbsAssign() {
                 for (var i = 0; i < q_bbsCount; i++) {
                     $('#lblNo_' + i).text(i + 1);
                     if (!$('#btnMinus_' + i).hasClass('isAssign')) {
                     	
                     }
-                    /*$('#txtUseno_' + i).click(function() {
+                    $('#txtUseno_' + i).change(function() {
                         t_IdSeq = -1;
                         q_bodyId($(this).attr('id'));
                         b_seq = t_IdSeq;
-                    });*/
+                        tbseq=b_seq;
+                        tpseq=b_seq;
+                    });
+                    $('#btnUseno_' + i).change(function() {
+                        t_IdSeq = -1;
+                        q_bodyId($(this).attr('id'));
+                        b_seq = t_IdSeq;
+                        tbseq=b_seq;
+                        tpseq=b_seq;
+                    });
                 }
                 _bbsAssign();
                 
@@ -386,7 +412,10 @@
             function q_popPost(s1) {
                 switch (s1) {
                     case 'txtUseno_':
-                        if (q_getPara('sys.project').toUpperCase() == 'XY') {
+                    	if(tpseq.toString()!='' && b_seq==""){
+                			b_seq=tpseq;
+                		}
+                        if (q_getPara('sys.project').toUpperCase() == 'XY' && !emp($('#txtUseno_' + b_seq).val())) {
                             if ($('#cmbKind').val() != '廠商') {
                             	//1050302 不管附回郵 都顯示出來 and charindex('附回郵',postmemo)>0
                                 t_where = "where=^^ noa='" + $('#txtUseno_' + b_seq).val() + "' ^^";
