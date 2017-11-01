@@ -452,6 +452,8 @@
                     }
                 }
                 _bbsAssign();
+                for(var i=0;i<q_bbsCount;i++)
+                	$('#txtDatea_'+i).css('color','red');
             }
 
             function btnIns() {
@@ -524,8 +526,7 @@
             }
             function refresh(recno) {
                 _refresh(recno);
-                for(var i=0;i<q_bbsCount;i++)
-                	$('#txtDatea_'+i).css('color','red');
+                
             }
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
