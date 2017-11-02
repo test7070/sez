@@ -34,7 +34,7 @@
             , ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']
             , ['txtAddrno', 'lblAddrno', 'store', 'noa,store', 'txtAddrno,txtAddr', 'store_b.aspx']
             , ['txtUccno_', 'btnProduct_', 'ucc', 'noa,product', 'txtUccno_,txtProduct_', 'ucc_b.aspx']
-            , ['txtStraddrno_', 'btnStraddr_', 'addr', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr_b.aspx']
+            , ['txtStraddrno_', 'btnStraddr_', 'addr', 'noa,addr,productno,product,custprice', 'txtStraddrno_,txtStraddr_,txtUccno_,txtProduct_,txtCustprice_,', 'addr_b.aspx']
             , ['txtEndaddrno_', 'btnEndaddr_', 'addr', 'noa,addr', 'txtEndaddrno_,txtEndaddr_', 'addr_b.aspx']
             , ['txtCustno_', 'btnCust_', 'cust', 'noa,comp,nick,addr_home,memo2,salesno2,typea,custno2', 'txtCustno_,txtComp_,txtNick_,txtSaddr_,txtAaddr_,txtCaseno2_,cmbUnit2_,cmbStatus_', 'cust_b.aspx']
             , ['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx']);
@@ -588,7 +588,7 @@
 					<td align="center" style="width:100px"><a>日期</a></td>
 					<td align="center" style="width:80px"><a>貨源</a></td>
 					<td align="center" style="width:100px"><a>合約規格</a></td>
-					<td align="center" style="width:100px"><a>客戶</a></td>
+					<td align="center" style="width:80px"><a>客戶</a></td>
 					<td align="center" style="width:100px"><a>地點</a></td>
 					<td align="center" style="width:120px"><a>場地限制</a></td>
 					<td align="center" style="width:80px"><a>桶槽容量</a></td>
@@ -638,14 +638,14 @@
 					<td><input type="text" id="txtCaseno.*" style="width:95%;"/></td>
 					<td><input type="text" id="txtSaddr.*" style="width:95%;"/></td>
 					<td>
-						<input type="text" id="txtCustno.*" style="float:left;width:40%;" />
+						<input type="text" id="txtCustno.*" style="float:left;width:95%;" />
 						<input type="text" id="txtComp.*" style="display:none;" />
-						<input type="text" id="txtNick.*" style="float:left;width:50%;">
+						<input type="text" id="txtNick.*" style="float:left;width:95%;">
 						<input type="button" id="btnCust.*" style="display:none;">
 					</td>
 					<td>
-						<input type="text" id="txtStraddrno.*" style="float:left;width:40%;"/>
-						<input type="text" id="txtStraddr.*" style="float:left;width:50%;"/>
+						<input type="text" id="txtStraddrno.*" style="float:left;width:95%;"/>
+						<input type="text" id="txtStraddr.*" style="float:left;width:95%;"/>
 						<input type="button" id="btnStraddr.*" style="display:none;"/>
 					</td>
 					<td><input type="text" id="txtAaddr.*" style="width:95%;"/></td>
@@ -668,8 +668,8 @@
 					<td><input type="text" id="txtTraceno.*" style="width:95%;"/></td>
 					<td><input type="text" id="txtSender.*" style="width:95%;"/></td>
 					<td>
-						<input type="text" id="txtUccno.*" style="float:left;width:40%;"/>
-						<input type="text" id="txtProduct.*" style="float:left;width:50%;"/>
+						<input type="text" id="txtUccno.*" style="float:left;width:95%;"/>
+						<input type="text" id="txtProduct.*" style="float:left;width:95%;"/>
 						<input type="button" id="btnProduct.*" style="display:none;"/>
 					</td>
 					<td><input type="text" id="txtPo.*" style="width:95%;"/></td>

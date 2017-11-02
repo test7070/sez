@@ -702,6 +702,18 @@
 						<td colspan="5"><input id="txtEmail" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
+                        <td><span> </span><a id="lblSales" class="lbl btn" > </a></td>
+                        <td colspan="2">
+                            <input id="txtSalesno" type="text" style="float:left; width:40%;"/>
+                            <input id="txtSales" type="text" style="float:left; width:60%;"/>
+                        </td>
+                        <td><span> </span><a id="lblSales2" class="lbl btn" > </a></td>
+                        <td colspan="2">
+                            <input id="txtSalesno2" type="text" style="float:left; width:40%;"/>
+                            <input id="txtSales2" type="text" style="float:left; width:60%;"/>
+                        </td>
+                    </tr>
+					<tr>
                         <td class="trX"><span> </span><a id='lblMprice' class="lbl">M3單價</a></td>
                         <td class="trX"><input id="txtMprice"  type="text" class="txt num c1"/></td>
                         <td class="trX"><span> </span><a id='lblPprice' class="lbl">材單價</a></td>
