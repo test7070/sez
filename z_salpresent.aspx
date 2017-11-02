@@ -67,6 +67,10 @@
                         type : '5',
                         name : 'xorder',
                         value : ('sssno@員工編號,partno@部門-員工,datea@日期').split(',')
+                    },{
+                    	type : '0',
+                    	name : 'r_proj',
+                    	value : q_getPara('sys.project').toUpperCase()
                     }]
                 });
                 q_popAssign();
