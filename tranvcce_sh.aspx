@@ -142,8 +142,20 @@
                                     $('#txtAddrno2_' + b_seq).val(s8); 
                                     var s9 = $('#txtAddr2_' + i).val();
                                     $('#txtAddr2_' + b_seq).val(s9);
-                                    var s9 = $('#txtVolume_' + i).val();
-                                    $('#txtVolume_' + b_seq).val(s9);                                     
+                                    var s10 = $('#txtVolume_' + i).val();
+                                    $('#txtVolume_' + b_seq).val(s10);
+                                    var s11 = $('#txtTranno_' + i).val();
+                                    $('#txtTranno_' + b_seq).val(s11); 
+                                    var s12 = $('#txtProductno2_' + i).val();
+                                    $('#txtProductno2_' + b_seq).val(s12);
+                                    var s13 = $('#txtProductno_' + i).val();
+                                    $('#txtProductno_' + b_seq).val(s13); 
+                                    var s14 = $('#txtProduct_' + i).val();
+                                    $('#txtProduct_' + b_seq).val(s14);
+                                    var s15 = $('#txtAddrno3_' + i).val();
+                                    $('#txtAddrno3_' + b_seq).val(s15); 
+                                    var s16 = $('#txtAddr3_' + i).val();
+                                    $('#txtAddr3_' + b_seq).val(s16);                                      
                                 }
                             }
                   });
