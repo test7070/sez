@@ -97,12 +97,12 @@
                 $('#cmbKind').change(function() {
                     if ($('#cmbKind').val() == '廠商') {
                         if (q_getPara('sys.project').toUpperCase() == 'XY')
-                            aPop = new Array(['txtUseno_', 'btnUseno_', 'tgg', 'noa,nick,addr_invo,zip_invo', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'tgg_b.aspx'], ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']);
+                            aPop = new Array(['txtUseno_', 'btnUseno_', 'tgg', 'noa,nick,addr_invo,zip_invo,comp,tel,conntel,serial', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'tgg_b.aspx'], ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']);
                         else
                             aPop = new Array(['txtUseno_', 'btnUseno_', 'tgg', 'noa,comp,addr_home,zip_home', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'tgg_b.aspx']);
                     } else {
                         if (q_getPara('sys.project').toUpperCase() == 'XY')
-                            aPop = new Array(['txtUseno_', 'btnUseno_', 'cust', 'noa,nick,addr_invo,zip_invo', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'cust_b.aspx'], ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']);
+                            aPop = new Array(['txtUseno_', 'btnUseno_', 'cust', 'noa,nick,addr_invo,zip_invo,comp,tel,invoicetitle,serial', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'cust_b.aspx'], ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']);
                         else
                             aPop = new Array(['txtUseno_', 'btnUseno_', 'cust', 'noa,comp,addr_home,zip_home', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'cust_b.aspx']);
                     }

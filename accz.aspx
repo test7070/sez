@@ -465,7 +465,7 @@
 				height: 35px;
 			}
 			.tbbm tr td {
-				width: 9%;
+				width: 20%;
 			}
 			.tbbm .tdZ {
 				width: 2%;
