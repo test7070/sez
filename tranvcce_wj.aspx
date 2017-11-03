@@ -365,7 +365,64 @@
                                 b_seq = t_IdSeq;
                                 if(q_cur==1 || q_cur==2)
                                     $('#txtProduct2_'+b_seq).val($('#combProduct_'+b_seq).find("option:selected").text());
-                        });              
+                        });
+                         $('#txtCust_' + i).focusout(function (){
+                                var s1 = $(this).val();
+                                if (s1.length == 1 && s1 == "=") {
+                                t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+                                q_bodyId($(this).attr('id'));
+                                b_seq = t_IdSeq;
+                                if (b_seq > 0) {
+                                    var i = b_seq - 1;
+                                    var s1 = $('#txtCustno_' + i).val();
+                                    $('#txtCustno_' + b_seq).val(s1);
+                                    var s2 = $('#txtCust_' + i).val();
+                                    $('#txtCust_' + b_seq).val(s2); 
+                                    var s3 = $('#txtAddrno_' + i).val();
+                                    $('#txtAddrno_' + b_seq).val(s3);
+                                    var s4 = $('#txtAddr_' + i).val();
+                                    $('#txtAddr_' + b_seq).val(s4);
+                                    var s5 = $('#txtAddress_' + i).val();
+                                    $('#txtAddress_' + b_seq).val(s5); 
+                                    var s6 = $('#txtBdate_' + i).val();
+                                    $('#txtBdate_' + b_seq).val(s6);
+                                    var s7 = $('#txtEdate_' + i).val();
+                                    $('txtEdate_' + b_seq).val(s7);
+                                    var s8 = $('#txtAddrno2_' + i).val();
+                                    $('#txtAddrno2_' + b_seq).val(s8); 
+                                    var s9 = $('#txtAddr2_' + i).val();
+                                    $('#txtAddr2_' + b_seq).val(s9); 
+                                    var s10 = $('#txtLat_' + i).val();
+                                    $('#txtLat_' + b_seq).val(s10);
+                                    var s11 = $('#txtAddress2_' + i).val();
+                                    $('#txtAddress2_' + b_seq).val(s11);
+                                    var s12 = $('#txtTypea_' + i).val();
+                                    $('#txtTypea_' + b_seq).val(s12);
+                                    var s13 = $('#txtProductno_' + i).val();
+                                    $('#txtProductno_' + b_seq).val(s13);
+                                    var s14 = $('#txtProduct_' + i).val();
+                                    $('#txtProduct_' + b_seq).val(s14);
+                                    var s15 = $('#txtCarno_' + i).val();
+                                    $('#txtCarno_' + b_seq).val(s15);
+                                    var s16 = $('#txtDriverno_' + i).val();
+                                    $('#txtDriverno_' + b_seq).val(s16);
+                                    var s17 = $('#txtDriver_' + i).val();
+                                    $('#txtDriver_' + b_seq).val(s17);
+                                    var s18 = $('#txtLng2_' + i).val();
+                                    $('#txtLng2_' + b_seq).val(s18);
+                                    var s19 = $('#txtAddrno3_' + i).val();
+                                    $('#txtAddrno3_' + b_seq).val(s19);
+                                    var s20 = $('#txtAddr3_' + i).val();
+                                    $('#txtAddr3_' + b_seq).val(s20);
+                                    var s21 = $('#txtMemo_' + i).val();
+                                    $('#txtMemo_' + b_seq).val(s21);
+                                }
+                            }
+                         });  
+                         $('#txtCust_' + i).focus(function () {
+                            if (!$(this).val())
+                                q_msg($(this), '=號複製上一筆摘要');
+                         });           
                 }
                 _bbsAssign();
                 $('#tbbs').find('tr.data').children().hover(function(e){
