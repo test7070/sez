@@ -3,7 +3,8 @@
         string msg = "", currentPageName = "";
         public void Page_Load()
         {
-            currentPageName = HttpContext.Current.Request.Url.Segments[HttpContext.Current.Request.Url.Segments.Length-1];
+            //currentPageName = HttpContext.Current.Request.Url.Segments[HttpContext.Current.Request.Url.Segments.Length-1];
+            currentPageName = HttpContext.Current.Request.Url.AbsoluteUri;
             if (Request.Files.Count == 0)
                 return;
             string savepath = @"D:\t\";
