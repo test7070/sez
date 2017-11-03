@@ -175,6 +175,20 @@
 					}
 				});
 				
+				$('.option').css('width','620px');
+				$('#Xmon').css('width','300px');
+				$('#Xdate').css('width','300px');
+				$('#X048').css('width','300px');
+				$('#X049').css('width','300px');
+				$('#X108').css('width','300px');
+				$('#X073').css('width','300px');
+				$('#X074').css('width','300px');
+				$('#X082').css('width','300px');
+				$('#X013').css('width','300px');
+				$('#X014').css('width','300px');
+				$('#X105').css('width','300px');
+				$('#X109').css('width','300px');
+				$('#Xtype').css('width','300px');
 			}
 
 			function q_boxClose(s2) {
