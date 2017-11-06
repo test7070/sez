@@ -164,7 +164,7 @@
                                     var s6 = $('#txtHeight_' + i).val();
                                     $('#txtHeight_' + b_seq).val(s6);
                                     var s7 = $('#txtVolume_' + i).val();
-                                    $('#' + b_seq).val(s7);
+                                    $('#txtVolume_' + b_seq).val(s7);
                                     var s8 = $('#txtWeight_' + i).val();
                                     $('#txtWeight_' + b_seq).val(s8); 
                                     var s9 = $('#txtTheight_' + i).val();

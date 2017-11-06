@@ -3,16 +3,28 @@
         string msg = "", currentPageName = "";
         public void Page_Load()
         {
-            currentPageName = HttpContext.Current.Request.Url.Segments[HttpContext.Current.Request.Url.Segments.Length-1];
+            //currentPageName = HttpContext.Current.Request.Url.Segments[HttpContext.Current.Request.Url.Segments.Length-1];
+            currentPageName = HttpContext.Current.Request.Url.AbsoluteUri;
             if (Request.Files.Count == 0)
                 return;
             string savepath = @"D:\t\";
             HttpFileCollection MyFileCollection = Request.Files;
             for(int x=0;x<MyFileCollection.Count;x++){
                 HttpPostedFile MyPostedFile = MyFileCollection.Get(x);
-                MyFileCollection[x].SaveAs(savepath+MyPostedFile.FileName);
-                //msg += (msg.Length>0?"<BR>":"") +HttpContext.Current.Server.UrlEncode(MyPostedFile.FileName);
-                msg += "<BR>" + MyPostedFile.FileName;
+                if (MyPostedFile.FileName.Length > 0)
+                {
+                    try
+                    {
+                        MyFileCollection[x].SaveAs(savepath + MyPostedFile.FileName);
+                        //msg += (msg.Length>0?"<BR>":"") +HttpContext.Current.Server.UrlEncode(MyPostedFile.FileName);
+                        msg += "<BR>" + MyPostedFile.FileName;
+                    }
+                    catch (Exception e)
+                    {
+                        msg += "<BR><a style='color:red;'>" + MyPostedFile.FileName +"</a>"
+                            + "<BR><a style='color:red;'>" + e.Message + "</a>";
+                    }
+                }
             }
             if (msg.Length > 0)
                 msg = "<a style='color:darkred;font-weight:bold;'>檔案已上傳：</a>" + msg;
