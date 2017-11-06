@@ -137,6 +137,11 @@
             		Unlock(1);
             		return;
             	}
+            	if(q_getPara('sys.project').toUpperCase()=='VU' && t_acc1.length>9){
+            	    alert('會計科目編號只可設定8碼數字');
+            	    Unlock(1);
+                    return;
+                }
             	
             	if(q_cur==1){
             		var t_where = "where=^^ acc1='" + t_acc1 + "' ^^";
