@@ -146,8 +146,8 @@
                 }*/
                
                 var t_acc1 = $.trim($('#txtAcc1').val());
-                if(q_getPara('sys.project').toUpperCase()=='VU' && t_acc1.length>9){
-                    alert('會計科目編號只可設定8碼數字');
+                if(q_getPara('sys.project').toUpperCase()=='VU' && (t_acc1.length>10 || t_acc1.length<9)){
+                    alert('會計科目編號只可設定8~9碼數字');
                     Unlock(1);
                     return;
                 }

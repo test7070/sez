@@ -106,8 +106,8 @@
                         var t_mon = $('#textMon').val();
                         var t_tggno = $('#textTggno').val();
                         t_key = (t_key.length==0?'FC':t_key);//一定要有值
-                        if(t_mon.length==0){
-                            alert('請先輸入月份'+q_getMsg('lblMon')+'!!');
+                        if(t_mon.length==0 || t_tggno.length==0){
+                            alert('請輸入月份'+q_getMsg('lblMon')+'或是輸入廠商編號'+q_getMsg('lblTggno')+'!!');
                             return;
                         }else{
                             q_func('qtxt.query.tranpayb_jr', 'tran.txt,tranpaybjr,' + encodeURI(t_key) + ';'+ encodeURI(t_mon)+ ';'+ encodeURI(t_tggno)); 
