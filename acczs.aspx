@@ -72,6 +72,24 @@
 					}
 					sum();
 				});
+				
+				$('#lblAccno').click(function() {
+                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
+                });
+                $('#txtAcc1').blur(function() {
+                    if(!(q_cur==1 || q_cur==2))
+                        return;
+                    //避免存檔後才觸發到 
+                    var patt = /^(\d{4})([^\.,.]*)$/g;
+                    $(this).val($(this).val().replace(patt,"$1.$2"));
+                });
+                $('#txtAcc2').blur(function() {
+                    if(!(q_cur==1 || q_cur==2))
+                        return;
+                    //避免存檔後才觸發到 
+                    var patt = /^(\d{4})([^\.,.]*)$/g;
+                    $(this).val($(this).val().replace(patt,"$1.$2"));
+                });
 			}
 
 			function q_boxClose(s2) {
@@ -476,6 +494,14 @@
 						<td class="td5"></td>
 						<td class="td6"></td>
 					</tr>
+					<tr>
+                        <td class="td1"><span> </span><a id="lblAcc1" class="lbl">收款科目</a></td>
+                        <td class="td2"><input id="txtAcc1"  type="text" class="txt c1" /></td>
+                        <td class="td3"><span> </span><a id="lblAcc2" class="lbl">收款科目2</a></td>
+                        <td class="td4"><input id="txtAcc2"  type="text" class="txt c1" /></td>
+                        <td class="td5"><span> </span><a id="lblAccno" class="lbl btn">傳票號碼</a></td>
+                        <td class="td6"><input id="txtAccno"  type="text" class="txt c1" /></td>
+                    </tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
 						<td class="td2" colspan="5">

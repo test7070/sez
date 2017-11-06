@@ -495,10 +495,15 @@
             	//---------------結尾欄位設定-------------------
             	$('#Xmemo').css("width","410px");
             	$('#txtXmemo').css("width","300px");
+            	$('#txtXmemo').focus(function() {
+            		q_msg( $(this), '使用【單引號】請使用【兩個單引號】；使用【雙引號】請此用【\\"】');
+                }).blur(function () {
+					q_msg();
+	        	});
             	//-----------------------------
             	}
             	
-                $('#textYear').val(q_date().substr(0,3));
+                $('#textYear').val(q_date().substr(0,r_len));
                 $('#btnMontax').val('監理稅金收單作業');
                 
                 $('#btnNotice').val('驗車通知作業');
@@ -582,7 +587,7 @@
                 			t_bmon=t_bmon.substr(0,t_bmon.length-1);
 							
 							$('#txtDate1').val(t_bmon+'/01');
-							$('#txtDate2').val(q_cdn(q_cdn(t_mon+'01',45).substr(0,6)+'/01',-1));
+							$('#txtDate2').val(q_cdn(q_cdn(t_mon+'01',45).substr(0,r_lem)+'/01',-1));
 							
 							$("#chkPrdate input").prop('checked',true)	
 						}
