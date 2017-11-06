@@ -496,7 +496,7 @@
             	$('#Xmemo').css("width","410px");
             	$('#txtXmemo').css("width","300px");
             	$('#txtXmemo').focus(function() {
-            		q_msg( $(this), '使用【單引號】請使用【兩個單引號】；使用【雙引號】請此用【\"】');
+            		q_msg( $(this), '使用【單引號】請使用【兩個單引號】；使用【雙引號】請此用【\\"】');
                 }).blur(function () {
 					q_msg();
 	        	});
