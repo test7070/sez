@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" Debug="true" %>
     <script language="c#" runat="server">
         string msg = "", currentPageName = "";
+        int successCount = 0;
         public void Page_Load()
         {
             //currentPageName = HttpContext.Current.Request.Url.Segments[HttpContext.Current.Request.Url.Segments.Length-1];
@@ -9,6 +10,7 @@
                 return;
             string savepath = @"D:\t\";
             HttpFileCollection MyFileCollection = Request.Files;
+            
             for(int x=0;x<MyFileCollection.Count;x++){
                 HttpPostedFile MyPostedFile = MyFileCollection.Get(x);
                 if (MyPostedFile.FileName.Length > 0)
@@ -18,6 +20,7 @@
                         MyFileCollection[x].SaveAs(savepath + MyPostedFile.FileName);
                         //msg += (msg.Length>0?"<BR>":"") +HttpContext.Current.Server.UrlEncode(MyPostedFile.FileName);
                         msg += "<BR>" + MyPostedFile.FileName;
+                        successCount++;
                     }
                     catch (Exception e)
                     {
@@ -28,6 +31,7 @@
             }
             if (msg.Length > 0)
                 msg = "<a style='color:darkred;font-weight:bold;'>檔案已上傳：</a>" + msg;
+            
           //  string url = Request.UrlReferrer.ToString();
            // int i = url.IndexOf("?");
            // Response.Redirect("uploadWJ_post.aspx" + (i > 0 ? url.Substring(i) : ""));
@@ -49,27 +53,14 @@
 
         <script type="text/javascript">
             var q_name = 'uploaddc';
-            $(document).ready(function () {
-                _q_boxClose();
-                q_getId();
-                q_gf('', 'uploaddc');
-                $('#btnUpload').click(function () {
-                    $('#txtAddr').val(location.href);
-                });
-                $('#btnFile1').click(function () {
-                    $('#txtAddr').val(location.href);
-                    $('#TextBox1').val(location.href);
-                });
-                $('#btnAuthority').click(function () {
-                    btnAuthority(q_name);
-                });
-            });
 
             function q_gfPost() {
                 q_langShow();
                 $('#txtUserno').val(r_userno);
             }
-
+            function q_funcPost(func, result) {
+                $('#txtMessage').text(result + " 已轉入資料庫");
+            }
             function getAddr() {
                 document.getElementsByName('TextBox1').value = location.href;
             }
@@ -91,9 +82,56 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='button' id='btnAuthority' name='btnAuthority' style='font-size:16px;' value='權限'/>
 
 <p>&nbsp;</p>
+<%
+    string tmpString = "";
+    if (successCount > 0)
+    {
+        tmpString = @"<script type=""text/javascript"">
+                $(document).ready(function () {
+                _q_boxClose();
+                q_getId();
+                q_gf('', 'uploaddc');
+                $('#btnUpload').click(function () {
+                    $('#txtAddr').val(location.href);
+                });
+                $('#btnFile1').click(function () {
+                    $('#txtAddr').val(location.href);
+                    $('#TextBox1').val(location.href);
+                });
+                $('#btnAuthority').click(function () {
+                    btnAuthority(q_name);
+                });
+                q_func('etc.watch', ""a"");
+
+            });</script>";
+
+    }
+    else
+    {
+        tmpString = @"<script type=""text/javascript"">
+                $(document).ready(function () {
+                _q_boxClose();
+                q_getId();
+                q_gf('', 'uploaddc');
+                $('#btnUpload').click(function () {
+                    $('#txtAddr').val(location.href);
+                });
+                $('#btnFile1').click(function () {
+                    $('#txtAddr').val(location.href);
+                    $('#TextBox1').val(location.href);
+                });
+                $('#btnAuthority').click(function () {
+                    btnAuthority(q_name);
+                });
+   
+
+            });</script>";
+    }
+    Response.Write(tmpString);
+%>
 <div>
     <% 
-        string tmpString = @"<form id='Form1' name='form1' method='post' action='"+currentPageName+@"' runat='server' enctype='multipart/form-data' style='width:725px'>  
+        tmpString = @"<form id='Form1' name='form1' method='post' action='" + currentPageName + @"' runat='server' enctype='multipart/form-data' style='width:725px'>  
         <input type='file' name='btnFile1' style='font-size:16px;' onclick='getAddr()' multiple />
         <input type='hidden' name='txtAddr' style='font-size:16px;'/>
         <asp:TextBox ID='TextBox1'  name='TextBox1' runat='server' Visible='false'></asp:TextBox>
@@ -105,6 +143,7 @@
 </div>
 <div>
     <% Response.Write(msg); %>
+    <a id="txtMessage"></a>
 </div>
 <div>
     <p class='style1'>台拜訂單 資料上傳 檔名格式 = ORDEWJ*.xls</p>

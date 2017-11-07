@@ -46,10 +46,11 @@
 
             function mainPost() {
                 q_mask(bbmMask);
-                $('#txtAcc1').change(function() {
-                    var str = $.trim($(this).val());
-                    if ((/^[0-9]{4}$/g).test(str))
-                        $(this).val(str + '.');
+                $('#txtAcc1').blur(function() {
+                    if(!(q_cur==1 || q_cur==2))
+                        return;
+                    var patt = /^(\d{4})([^\.,.]*)$/g;
+                    $(this).val($(this).val().replace(patt,"$1.$2"));
                 });
                 $('#txtNoa').change(function(e) {
                     $(this).val($.trim($(this).val()).toUpperCase());
@@ -134,7 +135,8 @@
             }
 
             function btnOk() {
-                Lock();
+                Lock(1,{opacity:0});
+                
                 $('#txtNoa').val($.trim($('#txtNoa').val()));
                 /*if ((/^(\w+|\w+\u002d\w+)$/g).test($('#txtNoa').val())) {
                 } else {
@@ -142,6 +144,13 @@
                     Unlock();
                     return;
                 }*/
+               
+                var t_acc1 = $.trim($('#txtAcc1').val());
+                if(q_getPara('sys.project').toUpperCase()=='VU' && (t_acc1.length>10 || t_acc1.length<9)){
+                    alert('會計科目編號只可設定8~9碼數字');
+                    Unlock(1);
+                    return;
+                }
 
                 var t_err = '';
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
