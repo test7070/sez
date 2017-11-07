@@ -30,7 +30,8 @@
 			brwKey = 'noa';
 			//ajaxPath = ""; //  execute in Root
 			aPop = new Array(
-				['txtAcczno', 'lblAcczno', 'accz', 'noa,namea,mount,money,accumulat', 'txtAcczno,txtNamea,txtMount,txtBuy_money,txtAccumulat', 'accz_b.aspx']
+				  ['txtAcczno', 'lblAcczno', 'accz', 'noa,namea,mount,money,accumulat', 'txtAcczno,txtNamea,txtMount,txtBuy_money,txtAccumulat', 'accz_b.aspx']
+				, ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
 			);
 			SetZero();
 			$(document).ready(function() {
@@ -77,13 +78,6 @@
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
                 });
                 $('#txtAcc1').blur(function() {
-                    if(!(q_cur==1 || q_cur==2))
-                        return;
-                    //避免存檔後才觸發到 
-                    var patt = /^(\d{4})([^\.,.]*)$/g;
-                    $(this).val($(this).val().replace(patt,"$1.$2"));
-                });
-                $('#txtAcc2').blur(function() {
                     if(!(q_cur==1 || q_cur==2))
                         return;
                     //避免存檔後才觸發到 
@@ -180,7 +174,6 @@
 				//取得可以出售的最大值、總金額、累計折舊
 				var t_where = "where=^^ noa='" + $('#txtAcczno').val() + "' ^^";
 				q_gt('accz', t_where, 0, 1, 0, "", r_accy + '_' + r_cno);
-				Lock();
 			}
 
 			function btnPrint() {
@@ -495,10 +488,10 @@
 						<td class="td6"></td>
 					</tr>
 					<tr>
-                        <td class="td1"><span> </span><a id="lblAcc1" class="lbl">收款科目</a></td>
-                        <td class="td2"><input id="txtAcc1"  type="text" class="txt c1" /></td>
-                        <td class="td3"><span> </span><a id="lblAcc2" class="lbl">收款科目2</a></td>
-                        <td class="td4"><input id="txtAcc2"  type="text" class="txt c1" /></td>
+                        <td class="td1"><span> </span><a id="lblAcc1" class="lbl btn">出售/報廢借方科目</a></td>
+                        <td class="td2" colspan="2"><input id="txtAcc1"  type="text" class="txt c1" style="width: 50%;"/>
+                                        <input id="txtAcc2"  type="text" class="txt c1" style="width: 50%;"/></td>
+                        <td class="td4"></td>
                         <td class="td5"><span> </span><a id="lblAccno" class="lbl btn">傳票號碼</a></td>
                         <td class="td6"><input id="txtAccno"  type="text" class="txt c1" /></td>
                     </tr>
