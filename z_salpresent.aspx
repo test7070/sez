@@ -15,6 +15,8 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
+			
+			var t_acomp = '';
             aPop = new Array(['txtNoa', 'lblNoa', 'sssall', 'noa,namea', 'txtNoa,txtNamea,txtBdate', 'sssall_b.aspx']);
 
             if (location.href.indexOf('?') < 0) {
@@ -22,7 +24,7 @@
             }
             $(document).ready(function() {
                 q_getId();
-                q_gf('', 'z_salpresent');
+                q_gt('acomp', '', 0, 0, 0, "");
                 
                 $('#q_report').click(function(e) {
 					now_report=$('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report;
@@ -34,46 +36,55 @@
 					}
 				});
             });
+            
             function q_gfPost() {
                 $('#q_report').q_report({
                     fileName : 'z_salpresent',
-                    options : [{
+                    options : [{/*[1,2]*/
                         type : '1',
                         name : 'date'
-                    }, {
+                    }, {/*[3]*/
                         type : '5',
                         name : 'xperson',
                         value : (('').concat(new Array("本國", "日薪", "外勞"))).split(',')
-                    }, {
+                    }, {/*[4,5]*/
                         type : '2',
                         name : 'sssno',
                         dbf : 'sss',
                         index : 'noa,namea',
                         src : 'sssall_b.aspx'
-                    },{
+                    },{/*[6,7]*/
                         type : '2',
                         name : 'partno',
                         dbf : 'part',
                         index : 'noa,part',
                         src : 'part_b.aspx'
-                    },{
+                    },{/*[8]*/
                     	type : '0',
                     	name : 'r_len',
                     	value : r_len
-                    },{
+                    },{/*[9,10]*/
                         type : '1',
                         name : 'xmon'
-                    },{
+                    },{/*[11]*/
                         type : '5',
                         name : 'xorder',
                         value : ('sssno@員工編號,partno@部門-員工,datea@日期').split(',')
-                    },{
+                    },{/*[12]*/
                     	type : '0',
                     	name : 'r_proj',
                     	value : q_getPara('sys.project').toUpperCase()
-                    }]
+                    }, {/*[13]*/
+						type : '5',
+						name : 'xacomp',
+						value : t_acomp.split(',')
+					}]
                 });
+                
                 q_popAssign();
+                q_getFormat();
+                q_langShow();
+                
                 $('#txtDate1').mask(r_picd);
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask(r_picd);
@@ -127,7 +138,17 @@
             function q_boxClose(s2) {
             }
 
-            function q_gtPost(s2) {
+            function q_gtPost(t_name) {
+            	switch (t_name) {
+                    case 'acomp':
+                        t_acomp = ' @全部';
+                        var as = _q_appendData("acomp", "", true);
+                        for ( i = 0; i < as.length; i++) {
+                            t_acomp += (t_acomp.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
+                        }
+                        q_gf('', 'z_salpresent');
+                        break;
+				}
             }
 		</script>
 	</head>
