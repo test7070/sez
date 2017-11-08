@@ -79,6 +79,16 @@
                         type : '8', //[16]
                         name : 'xdetail',
                         value :"detail@明細".split(',')
+                    },{
+                            type : '2',//[17][18]
+                            name : 'sss',
+                            dbf : 'sss',
+                            index : 'noa,namea',
+                            src : 'sss_b.aspx'
+                    },{
+                            type : '5', //[19]
+                            name : 'details',
+                            value : ('統計,明細').split(',')
                     }]
                     });
                 q_popAssign();

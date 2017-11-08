@@ -147,7 +147,7 @@
             			var as = _q_appendData("tmp0", "", true, true);
                         if (as[0] != undefined) {
                             q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtComp,txtStraddr,txtProduct,txtMount,txtPrice,txtDiscount,txtMoney,txtTranno,txtTrannoq,txtCasetype,txtCaseno,txtCaseno2,txtOrdeno'
-                        	, as.length, as, 'trandate,nick,straddr,product,weight,mount3,discount,total2,noa,noq,casetype,caseno,caseno2,ordeno', '','');
+                        	, as.length, as, 'datea,nick,straddr,product,weight,mount3,discount,total2,noa,noq,casetype,caseno,caseno2,ordeno', '','');
                         	sum();
                         } else {
                             alert('無資料!');
@@ -637,7 +637,7 @@
 
 						<td><span> </span><a id="lblCarteam" class="lbl"> </a></td>
 						<td><select id="cmbCarteamno" class="txt c1">  </select></td>
-						<td class="td3" colspan="2"><span> </span><a id="lblDate3" class="lbl"> </a></td>
+						<td class="td3" colspan="2"><span> </span><a id="lblDate3_jr" class="lbl">出車日期</a></td>
 						<td class="td5" colspan="3">
 						<input id="txtBdate" type="text"  class="txt c2"/>
 						<span id="sign_2" style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
@@ -744,7 +744,7 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:100px;">交運日期</td>
+					<td align="center" style="width:100px;">出車日期</td>
 					<td align="center" style="width:80px;"><a id='lblCustno_s'> </a></td>
 					<td align="center" style="width:200px;">處理廠</td>
 					<td align="center" style="width:200px;"><a id='lblProduct_s'> </a></td>
