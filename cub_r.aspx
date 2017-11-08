@@ -793,7 +793,9 @@
 							
 							if(fr.result.length>0 && ttxtName=='txtPrt__0'){
 								$('#txtMemo2__0').val(fr.result);
-								showbbtimg();
+								$('#bbtimg').attr('src',$('#txtMemo2__0').val());
+								t_zoomimg=true;
+								zoomimg();
 							}
 							
 						};
@@ -801,6 +803,39 @@
 					ShowDownlbl();
 				});
 				ShowDownlbl();
+			}
+			
+			var t_zoomimg=false;
+			function zoomimg() {
+				//106/11/8 縮放
+				var image = document.getElementById('bbtimg');
+				var c = document.getElementById("canvas");
+				image.onload = function() {
+					if(t_zoomimg){
+						$('#bbtimg').hide();
+						$('#bbtimg').css('width','')
+						$('#bbtimg').css('height','')
+						var imgwidth = $('#bbtimg').width();
+			            var imgheight = $('#bbtimg').height();
+			            var t_widh=$('#dview').width();
+			            var x_height=$('.dbbs').offset().top-$('#dview').height()-35;
+			            var t_height=imgheight*(dec(t_widh)/dec(imgwidth));
+			            if(t_height>x_height){
+			            	t_height=x_height;
+			            	t_widh=imgwidth*(dec(t_height)/dec(imgheight));
+			            }
+			            
+			            $('#canvas').width(t_widh).height(t_height);
+						c.width = t_widh;
+						c.height = t_height;
+						$("#canvas")[0].getContext("2d").drawImage($('#bbtimg')[0],0,0,imgwidth,imgheight,0,0,t_widh,t_height);
+						$('#txtMemo2__0').val(c.toDataURL());
+						
+						$('#bbtimg').show();
+						t_zoomimg=false;
+						showbbtimg();
+					}	
+				}
 			}
 
 			function q_appendData(t_Table) {
@@ -1281,6 +1316,7 @@
 					</tr>
 					<tr style="display: none;">
 						<td colspan="3"><div style="width:100%;" id="FileList"> </div></td>
+						<canvas id="canvas" style="display:none"> </canvas>
 					</tr>
 				</table>
 			</div>
