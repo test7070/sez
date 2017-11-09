@@ -62,6 +62,14 @@
                         type : '5',//[14]
                         name : 'xtype',
                         value : '1@401,3@403'.split(',') //4@404
+                    },{
+                        type : '0', //[15] 
+                        name : 'proj',
+                        value : q_getPara('sys.project').toUpperCase()
+                    },{
+                        type : '0', //[16] 
+                        name : 'rlen',
+                        value : r_len
                     }]
 				});
 				q_popAssign();
