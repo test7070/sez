@@ -68,12 +68,12 @@
                 q_getFormat();
                 q_langShow();
 
-				$('#txtXmon1').mask('999/99');
-				$('#txtXmon2').mask('999/99');
-				$('#txtXdate').mask('999/99/99');
-				var t_date=(dec(q_date().substr(4,2))%2==0)?q_cdn(q_date().substr(0,6)+'/28',-45).substr(0,6):q_date().substr(0,6);
-				//$('#txtXmon1').val(q_date().substr(0,6));
-				//$('#txtXmon2').val(q_cdn($('#txtXmon1').val()+'/01',45).substr(0,6)).attr('disabled', 'disabled').css('background','RGB(237,237,237)');
+				$('#txtXmon1').mask(r_picm);
+				$('#txtXmon2').mask(r_picm);
+				$('#txtXdate').mask(r_picd);
+				var t_date=(dec(q_date().substr((r_len+1),2))%2==0)?q_cdn(q_date().substr(0,r_lenm)+'/28',-45).substr(0,r_lenm):q_date().substr(0,r_lenm);
+				//$('#txtXmon1').val(q_date().substr(0,r_lenm));
+				//$('#txtXmon2').val(q_cdn($('#txtXmon1').val()+'/01',45).substr(0,r_lenm)).attr('disabled', 'disabled').css('background','RGB(237,237,237)');
 				$('#txtXdate').val(q_date());
 				$('#txtXmon2').attr('disabled', 'disabled').css('background','RGB(237,237,237)');
 				
@@ -83,15 +83,15 @@
 				
 				$('#txtXmon1').blur(function() {
 					if(!emp($('#txtXmon1').val())){
-						if(dec($('#txtXmon1').val().substr(4,2))%2==0){
+						if(dec($('#txtXmon1').val().substr((r_len+1),2))%2==0){
 							alert('請輸入單月份');
-							$('#txtXmon1').val(q_cdn($('#txtXmon1').val()+'/28',-45).substr(0,6));
+							$('#txtXmon1').val(q_cdn($('#txtXmon1').val()+'/28',-45).substr(0,r_lenm));
 						}
 						
-						$('#txtXmon2').val(q_cdn($('#txtXmon1').val()+'/01',45).substr(0,6));
+						$('#txtXmon2').val(q_cdn($('#txtXmon1').val()+'/01',45).substr(0,r_lenm));
 						
 						//申報日期
-						var t_mon=q_cdn($('#txtXmon2').val()+'/01',45).substr(0,6);
+						var t_mon=q_cdn($('#txtXmon2').val()+'/01',45).substr(0,r_lenm);
 						t_where = "where=^^ out_date='" + t_mon + "'^^";
                         q_gt('z401', t_where, 0, 0, 0, "z401_108", r_accy);
 					}else{
@@ -208,7 +208,7 @@
                             $('#txtX013').val(as[0].t13);
                             $('#txtX014').val(as[0].t14);
                         }else{
-                        	var t_mon=q_cdn($('#txtXmon2').val()+'/01',45).substr(0,6);
+                        	var t_mon=q_cdn($('#txtXmon2').val()+'/01',45).substr(0,r_lenm);
 							t_where = "where=^^ out_date<'" + t_mon + "'^^";
 	                        q_gt('z401', t_where, 0, 0, 0, "z401_115", r_accy);
                         }

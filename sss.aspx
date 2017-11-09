@@ -205,9 +205,9 @@
 					q_gt('payform', '', 0, 0, 0, "");
 					q_gt('paymark', '', 0, 0, 0, "");
 					q_gt('payremark', '', 0, 0, 0, "");
-					$('#issalb').show();
+					$('.issalb').show();
 				}else{
-					$('#issalb').hide();
+					$('.issalb').hide();
 				}
 				
 				$('#btnTax').click(function(e) {
