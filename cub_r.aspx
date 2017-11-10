@@ -96,7 +96,7 @@
 				bbtNum = [['txtMount', 15, q_getPara('vcc.mountPrecision'), 1]];
 				q_mask(bbmMask);
 				q_gt('acomp', "where=^^ dbname!='"+q_db+"' and isnull(dbname,'')!='' and isnull(ip,'')!='' ^^", 0, 0, 0, "getipto");
-				q_gt('acomp', "where=^^ dbname='"+q_db+"' and isnull(dbname,'')!='' and isnull(ip,'')!='' ^^", 0, 0, 0, "getipfrom");
+				q_gt('acomp', "where=^^ isnull(dbname,'')!='' and isnull(ip,'')!='' ^^", 0, 0, 0, "getipfrom");
 				
 				q_cmbParse("cmbItype", ',ODM,OBM,OEM');
 				
@@ -141,14 +141,16 @@
 					if(!(q_cur==1 || q_cur==2) && !emp($('#txtNoa').val())){
 						if(emp($('#txtChecker').val()) && !emp($('#txtUcxno').val()) && !emp($('#cmbIpto').val())){
 							var t_noa=$('#txtNoa').val();							
-							
+							var t_hostname=location.hostname;
 							q_func('qtxt.query.cub_apv', 'cub.txt,cub_apv,' + encodeURI(r_accy)+';'+encodeURI(t_noa)+';'+encodeURI(r_userno)+';'+encodeURI(r_name)+';'+encodeURI('checker'),r_accy,1);
 		                	var as = _q_appendData("tmp0", "", true, true);
 		                	if (as[0] != undefined) {
 		                		$('#txtChecker').val(as[0].checker);
 		                		$('#txtCheckerdate').val(as[0].checkerdate);
+		                		$('#txtUindate').val(as[0].uindate);
 		                		abbm[q_recno]['checker'] = as[0].checker;
                             	abbm[q_recno]['checkerdate'] = as[0].checkerdate;
+                            	abbm[q_recno]['uindate'] = as[0].uindate;
 		                	}
 						}else{
 							if(!emp($('#txtChecker').val()))
@@ -164,6 +166,7 @@
 					if(!(q_cur==1 || q_cur==2) && !emp($('#txtNoa').val())){
 						if(!emp($('#txtChecker').val()) && !emp($('#txtCheckerdate').val())){
 							var t_noa=$('#txtNoa').val();
+							var t_hostname=location.hostname;
 							//t_noa,r_userno,r_name
 							if(q_getPara('sys.project').toUpperCase()=="AD" || q_getPara('sys.project').toUpperCase()=="JO"){
 								if(r_userno=='8001'){
@@ -200,6 +203,7 @@
 						if(!emp($('#txtApprove').val()) && !emp($('#txtApprovedate').val()) && emp($('#txtIssuedate').val())){
 							if(!emp($('#txtUcxno').val()) && !emp($('#cmbIpto').val())){
 								var t_noa=$('#txtNoa').val();
+								var t_hostname=location.hostname;
 								q_func('qtxt.query.cub_apv', 'cub.txt,cub_apv,' + encodeURI(r_accy)+';'+encodeURI(t_noa)+';'+encodeURI(r_userno)+';'+encodeURI(r_name)+';'+encodeURI('issue'),r_accy,1);
 				                var as = _q_appendData("tmp0", "", true, true);
 				                if (as[0] != undefined) {
@@ -340,7 +344,7 @@
 						var as = _q_appendData("acomp", "", true);
                         var t_item ="@";
                         for (var i = 0; i < as.length; i++) {
-                        	if(i==0){
+                        	if(as[i].dbname.toUpperCase()==q_db.toUpperCase() && z_cno.length==0){
                         		z_cno=as[i].noa;
                         	}
 							t_item +=(t_item.length > 0 ? ',' : '') + as[i].noa + '@'+ as[i].nick;
@@ -349,6 +353,7 @@
 						q_cmbParse("cmbIpfrom", t_item);
 						if(abbm[q_recno]){
 							$('#cmbIpfrom').val(abbm[q_recno].ipfrom);
+							bbmdisabled();
 						}
 						break;
 					case 'custprices':
@@ -440,7 +445,15 @@
 
 			function btnIns() {
                 _btnIns();
-				$('#txtNoa').val('AUTO');
+                refreshBbm();
+                //取消變色
+                $("#tbbm input[type='text']").css('color','black')
+                $("#tbbm textarea").css('color','black');
+                
+                //清除圖片
+                $('#bbtimg').attr('src','');
+                
+				$('#txtNoa').val('');
 				$('#txtDatea').val(q_date());
 				$('#txtDatea').focus();
 				$('#txtMount').val(1);
@@ -473,9 +486,10 @@
 					return;
 				}
 				_btnModi();
+				refreshBbm();
 				$('#txtDatea').focus();
-				if(emp($('#cmbIpfrom').val()))
-					$('#cmbIpfrom').val(z_cno);
+				//if(emp($('#cmbIpfrom').val()))
+				//	$('#cmbIpfrom').val(z_cno);
 				
 				//只取消簽核人員性名，保留時間
 				$('#txtChecker').val('');
@@ -520,12 +534,15 @@
 
 				var t_noa = trim($('#txtNoa').val());
 				var t_date = trim($('#txtDatea').val());
-				if (t_noa.length == 0 || t_noa == "AUTO"){
+				if (t_noa.length == 0){
 					//105/05/03 改成S開頭
 					q_gtnoa(q_name, replaceAll('S' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
 					//q_gtnoa(q_name, replaceAll(q_getPara('sys.key_cub') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-				}else
-					wrServer(t_noa);
+				}else{
+					//106/11/09 noa 會自己打 存檔後後面自動加序號
+					/*wrServer(t_noa);*/
+					q_gtnoa(q_name, replaceAll(t_noa, '/', ''));
+				}
 			}
 
 			function wrServer(key_value) {
@@ -555,6 +572,8 @@
 
 			function refresh(recno) {
 				_refresh(recno);
+				refreshBbm();
+				bbmdisabled();
 				bbsdisabled();
 				showbbtimg();
 				//變色
@@ -587,16 +606,41 @@
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
 				if(t_para){
-					$('#btnCheckapv').removeAttr("disabled");
-					$('#btnApproveapv').removeAttr("disabled");
-					$('#btnApproveucx').removeAttr("disabled");
+					
+				}else{
+					
+				}
+				bbmdisabled();
+				$('#cmbIpfrom').attr('disabled', 'disabled');
+				bbsdisabled();
+			}
+			
+			function bbmdisabled() {
+				if(!(q_cur==1 || q_cur==2) && !emp($('#cmbIpfrom').val())){
+					if($('#cmbIpfrom').val().toUpperCase()==z_cno.toUpperCase()){
+						$('#btnCheckapv').removeAttr("disabled");
+					}else{
+						$('#btnCheckapv').attr('disabled', 'disabled');
+					}
+					if($('#cmbIpfrom').val().toUpperCase()!=z_cno.toUpperCase()){
+						$('#btnApproveapv').removeAttr("disabled");
+						$('#btnApproveucx').removeAttr("disabled");
+					}else{
+						$('#btnApproveapv').attr('disabled', 'disabled');
+						$('#btnApproveucx').attr('disabled', 'disabled');
+					}
 				}else{
 					$('#btnCheckapv').attr('disabled', 'disabled');
 					$('#btnApproveapv').attr('disabled', 'disabled');
 					$('#btnApproveucx').attr('disabled', 'disabled');
 				}
 				
-				bbsdisabled();
+				//106/11/09當業務已核准過(時間不會清除) BBM禁止修改
+				if(!emp($('#txtCheckerdate').val())){
+					for (var i=0;i<fbbm.length;i++){
+						$('#'+fbbm[i]).attr('disabled', 'disabled');
+					}
+				}
 			}
 
 			function btnMinus(id) {
@@ -699,6 +743,7 @@
 					}
 				}
 				_bbsAssign();
+				bbmdisabled();
 				bbsdisabled();
 			}
 			
@@ -940,6 +985,9 @@
 						}
 					}
 				}
+				
+				//106/10/09 等流程確定會鎖定固定流程
+				//固定ST4 與 ST2 能改哪些流程
 			}
 			
 			function showbbtimg() {
@@ -1165,17 +1213,19 @@
 					<tr>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td><input id="txtDatea" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
+						<td><span> </span><a id="lblNoa_r" class="lbl">樣品單號</a></td>
 						<td><input id="txtNoa" type="text" class="txt c1"/></td>
 						<td  style="display: none;"><span> </span><a id="lblStatus" class="lbl" > </a>完成狀態</td>
 						<td><input id="txtStatus" type="hidden" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblCust" class="lbl btn" > </a></td>
+						<td><span> </span><a id="lblCust_r" class="lbl">客戶</a></td>
 						<td><input id="txtCustno" type="text" class="txt c1"/></td>
 						<td colspan="2"><input id="txtComp" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblLevel" class="lbl" >服務等級</a></td>
-						<td><input id="txtLevel" type="text" class="txt c1" /></td>						
+						<td><input id="txtLevel" type="text" class="txt c1" /></td>	
+						<td><span> </span><a id="lblUcxno2" class="lbl" >貿易銷售件號</a></td>
+						<td><input id="txtUcxno2" type="text" class="txt c1"/></td>					
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMount_r" class="lbl" >P/0數量</a></td>
@@ -1256,10 +1306,6 @@
 							<select id="cmbIpto" class="txt c1"> </select>
 							<!--<input id="txtIpto" type="text" class="txt c1"/>-->
 						</td>
-						<td><span> </span><a id="lblUcxno" class="lbl" >生產發行件號</a></td>
-						<td><input id="txtUcxno" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblUcxno2" class="lbl" >貿易銷售件號</a></td>
-						<td><input id="txtUcxno2" type="text" class="txt c1"/></td>
 					</tr>
 					<tr style="display: none;"> <!--106/09/25 隱藏 自行打出貨單 開放txt,cub_r需重寫(早期由貿易端寫回製造端 目前改由製造回寫貿易)-->
 						<td><span> </span><a id="lblFactory" class="lbl btn" >工廠</a></td>
@@ -1310,6 +1356,10 @@
 					<tr style="height: 1px;">
 						<td colspan="8"><HR></td>
 					</tr>
+					<tr style="height: 25px;">
+						<td> </td>
+						<td colspan="3" style="color: red;">※有變動時，核准取消，重送簽核。</td>
+					</tr>
 					<tr>
 						<td><span> </span><a id="lblChecker" class="lbl" >業務主管</a></td>
 						<td><input id="txtChecker" type="text" class="txt c1"/></td>
@@ -1318,7 +1368,8 @@
 							<input id="txtCheckerdate" type="text" class="txt c1" style="width: 60%;"/>
 							<input id="btnCheckapv" type="button" value="核准" />
 						</td>
-						<td colspan="3" style="color: red;">※有變動時，核准取消，重送簽核。</td>
+						<td><span> </span><a id="lblUcxno" class="lbl" >生產發行件號</a></td>
+						<td><input id="txtUcxno" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblApprove" class="lbl">開發經理</a></td>
@@ -1355,7 +1406,8 @@
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
-					<td style="width:20px;"><input id="btnPlus" type="button" style="font-size: medium; font-weight: bold;" value="＋"/></td>
+					<td style="width:20px;"><input id="btnPlus" type="button" style="font-size: medium; font-weight: bold;display: none;" value="＋"/></td>
+					<!--106/11/09流程固定plus不顯示-->
 					<td style="width:20px;"> </td>
 					<td style="width:140px;"><a id='lblProcess_r_s'>流程</a></td>
 					<td style="width:140px;"><a id='lblTgg_r_s'>廠商名稱</a></td>
