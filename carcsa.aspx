@@ -85,7 +85,7 @@
 				calctype : new Array(),
 				init : function(){
             		Lock(1,{opacity:0});
-            		q_gt('calctype', '', 0, 0, 0, 'carcsaInit_1');
+            		q_gt('calctype2', '', 0, 0, 0, 'carcsaInit_1');
             	}
 			};
 			var carcsa = new carcsaData();
