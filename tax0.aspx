@@ -45,7 +45,7 @@
             function mainPost() {
             	$('#btnIns').hide();
             	//強制民國年
-            	bbmMask = [['textBdate', '999/99/99'],['textEdate', '999/99/99'],['textMon', '999/99']];
+            	bbmMask = [['textBdate', r_picd],['textEdate', r_picd],['textMon', r_picm]];
                 q_mask(bbmMask);
                 
                 q_cmbParse("cmbStype", ('').concat(new Array('', '直接外銷','其他')));
@@ -74,7 +74,7 @@
 						alert('申報月份禁止空白');
 						return;
 					}
-					if(dec($('#textMon').val().substr(4,2))%2!=1){
+					if(dec($('#textMon').val().substr((r_len+1),2))%2!=1){
 						alert('申報月份只能單數月份');
 						return;
 					}
@@ -87,12 +87,12 @@
 					$('#div_tax0').hide();
 				});
 				
-				if(dec(q_date().substr(4,2))%2==1)
-					$('#textMon').val(q_date().substr(0,6));
+				if(dec(q_date().substr((r_len+1),2))%2==1)
+					$('#textMon').val(q_date().substr(0,r_lenm));
 				else
-					$('#textMon').val(q_cdn(q_date().substr(0,6)+'/01',45).substr(0,6));
+					$('#textMon').val(q_cdn(q_date().substr(0,r_lenm)+'/01',45).substr(0,r_lenm));
 				
-				$('#textBdate').val(q_cdn($('#textMon').val()+'/01',-45).substr(0,6)+'/01');
+				$('#textBdate').val(q_cdn($('#textMon').val()+'/01',-45).substr(0,r_lenm)+'/01');
 				$('#textEdate').val(q_cdn($('#textMon').val()+'/01',-1));
             }
 

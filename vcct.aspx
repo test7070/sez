@@ -46,8 +46,7 @@
             }
 
             function mainPost() {
-            	//強制民國年
-            	bbmMask = [['txtDatea', '999/99/99'],['txtMon', '999/99'],['textBdate', '999/99/99'],['textEdate', '999/99/99'],['textMon', '999/99'],['txtSerial', '99999999']];
+            	bbmMask = [['txtDatea', r_picd],['txtMon', r_picm],['textBdate', r_picd],['textEdate', r_picd],['textMon', r_picm],['txtSerial', '99999999']];
                 q_mask(bbmMask);
                 
                 q_cmbParse("cmbTypea", q_getPara('vcct.typea'));
@@ -109,10 +108,10 @@
 				
 				$('#txtDatea').blur(function() {
 					if(!emp($(this).val()) && (q_cur==1 || q_cur==2)){
-						if(dec($(this).val().substr(4,2))%2==1)
-							$('#txtMon').val(q_cdn($(this).val().substr(0,6)+'/01',62).substr(0,6));
+						if(dec($(this).val().substr((r_len+1),2))%2==1)
+							$('#txtMon').val(q_cdn($(this).val().substr(0,r_lenm)+'/01',62).substr(0,r_lenm));
 						else
-							$('#txtMon').val(q_cdn($(this).val().substr(0,6)+'/01',45).substr(0,6));
+							$('#txtMon').val(q_cdn($(this).val().substr(0,r_lenm)+'/01',45).substr(0,r_lenm));
 					}
 				});
 				
@@ -137,17 +136,17 @@
 						alert('申報月份與發票日期禁止空白');
 						return;
 					}
-					if(dec($('#textMon').val().substr(4,2))%2!=1){
+					if(dec($('#textMon').val().substr((r_len+1),2))%2!=1){
 						alert('申報月份只能單數月份');
 						return;
 					}
 					
-					var b_date=q_cdn($('#textMon').val()+'/01',-45).substr(0,6)+'/01';
+					var b_date=q_cdn($('#textMon').val()+'/01',-45).substr(0,r_lenm)+'/01';
 					var e_date=q_cdn($('#textMon').val()+'/01',-1);
 					if(!(($('#textBdate').val()>=b_date && $('#textBdate').val()<=e_date)
 					&& ($('#textEdate').val()>=b_date && $('#textEdate').val()<=e_date))
 					){
-						alert('資料非'+b_date.substr(0,6)+'-'+e_date.substr(0,6));
+						alert('資料非'+b_date.substr(0,r_lenm)+'-'+e_date.substr(0,r_lenm));
 						return;
 					}
 					
@@ -183,12 +182,12 @@
 					}
 				});
 				
-				if(dec(q_date().substr(4,2))%2==1)
-					$('#textMon').val(q_date().substr(0,6));
+				if(dec(q_date().substr((r_len+1),2))%2==1)
+					$('#textMon').val(q_date().substr(0,r_lenm));
 				else
-					$('#textMon').val(q_cdn(q_date().substr(0,6)+'/01',45).substr(0,6));
+					$('#textMon').val(q_cdn(q_date().substr(0,r_lenm)+'/01',45).substr(0,r_lenm));
 				
-				$('#textBdate').val(q_cdn($('#textMon').val()+'/01',-45).substr(0,6)+'/01');
+				$('#textBdate').val(q_cdn($('#textMon').val()+'/01',-45).substr(0,r_lenm)+'/01');
 				$('#textEdate').val(q_cdn($('#textMon').val()+'/01',-1));
             }
 
@@ -345,10 +344,19 @@
 					return;
 				}
 				
-				if (!(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())) {
-					alert(q_getMsg('lblMon') + '錯誤。');
-					Unlock(1);
-					return;
+				if(r_len==3){
+					if (!(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())) {
+						alert(q_getMsg('lblMon') + '錯誤。');
+						Unlock(1);
+						return;
+					}
+				}
+				if(r_len==4){
+					if (!(/^[0-9]{4}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())) {
+						alert(q_getMsg('lblMon') + '錯誤。');
+						Unlock(1);
+						return;
+					}
 				}
                 
                 if (q_cur == 1) {
