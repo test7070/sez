@@ -65,7 +65,7 @@
 			function mainPost() {
 				bbmMask = [["txtIndate", "999/99/99"], ["txtOutdate", "999/99/99"], ["txtPassdate", "999/99/99"]
 				, ["txtLimitdate", "999/99/99"], ["txtCheckdate", "999/99/99"], ["txtCaryear", "9999/99"]
-				,["txtCaryeartw", "999/99"], ["txtSaledate", "999/99/99"]
+				,["txtCaryeartw", "999/99"], ["txtSaledate", "999/99/99"], ["txtSmokedate", "999/99/99"]
 				, ["txtImprovedate1", "999/99/99"], ["txtImprovedate2", "999/99/99"], ["txtImprovedate3", "999/99/99"]
 				, ["txtDiscountdate", "999/99/99"], ["txtSuspdate", "999/99/99"], ["txtOverdate", "999/99/99"]
 				, ["txtEnddate", "999/99/99"], ["txtWastedate", "999/99/99"], ["txtReissuedate", "999/99/99"]
@@ -1358,8 +1358,10 @@
 						</td>
 						<td><span> </span><a id="lblCarstyle" class="lbl"> </a></td>
 						<td><input id="txtCarstyleno" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblChecktype" class="lbl"> </a></td>
-						<td><select id="cmbChecktype" class="txt c1"> </select></td>
+						<td style="display:none;"><span> </span><a id="lblChecktype" class="lbl"> </a></td>
+						<td style="display:none;"><select id="cmbChecktype" class="txt c1"> </select></td>
+						<td><span> </span><a id="lblSmokedate" class="lbl"> </a></td>
+                        <td><input id="txtSmokedate" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="other">
 						<td><span> </span><a id="lblLengthb" class="lbl"> </a></td>
