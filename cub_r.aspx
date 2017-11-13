@@ -492,8 +492,11 @@
 				//	$('#cmbIpfrom').val(z_cno);
 				
 				//只取消簽核人員性名，保留時間
-				$('#txtChecker').val('');
-				$('#txtApprove').val('');
+				if($('#cmbIpfrom').val().toUpperCase()==z_cno.toUpperCase())
+					$('#txtChecker').val('');
+				else{
+					$('#txtApprove').val('');
+				}
 			}
 
 			function btnPrint() {
@@ -1222,10 +1225,8 @@
 						<td><span> </span><a id="lblCust_r" class="lbl">客戶</a></td>
 						<td><input id="txtCustno" type="text" class="txt c1"/></td>
 						<td colspan="2"><input id="txtComp" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblLevel" class="lbl" >服務等級</a></td>
-						<td><input id="txtLevel" type="text" class="txt c1" /></td>	
 						<td><span> </span><a id="lblUcxno2" class="lbl" >貿易銷售件號</a></td>
-						<td><input id="txtUcxno2" type="text" class="txt c1"/></td>					
+						<td colspan="3"><input id="txtUcxno2" type="text" class="txt c1"/></td>					
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMount_r" class="lbl" >P/0數量</a></td>
@@ -1240,17 +1241,22 @@
 					<tr>
 						<td><span> </span><a id="lblProduct_r" class="lbl" >生產件號</a></td>
 						<td><input id="txtProductno" type="text" class="txt c1"/></td>
-						<td colspan="4"><input id="txtProduct" type="text" class="txt c1"/></td>
+						<td colspan="4">
+							<textarea id="txtProduct" rows='5' cols='10' style="width:99%; height: 35px;"> </textarea>
+							<!--<input id="txtProduct" type="text" class="txt c1"/>-->
+						</td>
 						<td><span> </span><a id="lblNo2" class="lbl" >P/0序</a></td>
 						<td><input id="txtNo2" type="text" class="txt num c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblSpec_r" class="lbl" >型號</a></td>
-						<td colspan="3"><input id="txtSpec" type="text" class="txt c1"/></td>
+						<td><input id="txtSpec" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblUnit" class="lbl" > </a></td>
 						<td><input id="txtUnit" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblItype_r" class="lbl" >銷售類別</a></td>
 						<td><select id="cmbItype" class="txt c1"> </select></td>
+						<td><span> </span><a id="lblLevel" class="lbl" >服務等級</a></td>
+						<td><input id="txtLevel" type="text" class="txt c1" /></td>	
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblM1" class="lbl" >車縫</a></td>
