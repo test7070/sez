@@ -666,7 +666,7 @@
                 	//22,24,27 其他憑證
                 	//23,25 載具流水號
                 	//28,29 海關繳納證號碼
-                	if('22,23,24,25,27,28,29'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!='' && (q_cur==1 || q_cur==2)){
+                	if('22,23,24,25,27,28,29'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!=''){
                 		$('#txtDutymemo').removeAttr('disabled').css('background','white');
                 		if('22,24,27'.indexOf($('#cmbKind').val())>-1){
                 			$('#lblDutymemo').text('其他憑證');
