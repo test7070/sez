@@ -342,6 +342,7 @@
 						if(abbm[q_recno]){
 							$('#cmbIpto').val(abbm[q_recno].ipto);
 							bbmdisabled();
+							bbsdisabled();
 						}
 						break;
 					case 'getipfrom':
@@ -358,6 +359,7 @@
 						if(abbm[q_recno]){
 							$('#cmbIpfrom').val(abbm[q_recno].ipfrom);
 							bbmdisabled();
+							bbsdisabled();
 						}
 						break;
 					case 'custprices':
