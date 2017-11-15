@@ -373,7 +373,6 @@
             .tbbm textarea {
                 font-size: medium;
             }
-
             input[type="text"], input[type="button"] {
                 font-size: medium;
             }
@@ -458,10 +457,22 @@
 						</td>
 					</tr>
 					<tr>
-                        <td><span> </span><a id='lblOilbase_sh' class="lbl">單價</a></td>
+                        <td><span> </span><a id='lblOilbase_sh' class="lbl">坪單價</a></td>
                         <td><input id="txtOilbase" type="text"  class="txt c1 num"/></td>
-                        <td><span> </span><a id='lblEarnest_sh' class="lbl">坪數</a></td>
-                        <td><input id="txtEarnest" type="text"  class="txt c1 num"/></td>
+                        <td><span> </span><a id='lblTotal_sh' class="lbl">坪數</a></td>
+                        <td><input id="txtTotal" type="text"  class="txt c1 num"/></td>
+                        <td><span> </span><a id='lblEarnest_sh' class="lbl">推高機單價</a></td>
+                        <td><input id="txtEarnest" type="text" class="txt num c1"/></td>
+                        <td><span> </span><a id='lblTaprice' class="lbl">理貨費</a></td>
+                        <td><input id="txtTaprice" type="text" class="txt num c1"/></td>
+                    </tr>
+                    <tr>
+                        <td><span> </span><a id='lblMprice' class="lbl">M3單價</a></td>
+                        <td><input id="txtMprice"  type="text" class="txt num c1"/></td>
+                        <td><span> </span><a id='lblPprice' class="lbl">材單價</a></td>
+                        <td><input id="txtPprice"  type="text" class="txt num c1"/></td>
+                        <td><span> </span><a id='lblTprice' class="lbl">噸單價</a></td>
+                        <td><input id="txtTprice" type="text" class="txt num c1"/></td>
                     </tr>
 					<tr>
 						<td><span> </span><a id="lblAcomp" class="lbl"> </a></td>
