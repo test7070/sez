@@ -66,6 +66,11 @@
                         q_gt('view_get', t_where, 0, 0, 0, "custgetaddr", r_accy);
                     }
                 });
+                
+                $('#btnPrice').click(function(e) {//價格
+                      t_where = "custno='" + $('#txtCustno').val() + "'";
+                      q_box("contdc_sh.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'etc', "95%", "95%", q_getMsg('btnPirce'));
+                });
 			}
 
 			function q_boxClose(s2) {
@@ -450,6 +455,7 @@
 							<input id="txtCustno" type="text" class="txt c2"/>
 							<input id="txtComp" type="text" class="txt c3"/>
 						</td>
+						<td colspan="2"><input type="button" id="btnPrice" value="合約價格"/></td>
 					</tr>
 					<!--<tr class="tr4">
 						<td class="td1"><span> </span><a id="lblStore" class="lbl btn"> </a></td>

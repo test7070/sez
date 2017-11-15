@@ -70,6 +70,11 @@
                     t_where = "noa='" + $('#txtCustno').val() + "'";
                     q_box("conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'conn', "95%", "650px", q_getMsg('btnConn'));
                 });
+                
+                $('#btnPrice').click(function(e) {//價格
+                      t_where = "custno='" + $('#txtCustno').val() + "'";
+                      q_box("contdc_sh.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'etc', "95%", "95%", q_getMsg('btnPirce'));
+                });
 
             }
 
@@ -451,8 +456,8 @@
                         <input id="txtCust" type="text"  class="txt c3"/>
                         <input id="txtCustinck" type="text"  class="txt c2" style='display:none;' />
                     </td>
-
-                    <td><input id="btnConn" type="button" value="聯絡人" /></td>
+                    <td colspan="2"><input id="btnConn" type="button" value="聯絡人" />
+                        <input type="button" id="btnPrice" value="合約價格"/></td>
 				</tr>
 				<tr class="tr3">
                     <td class='td4'><span> </span><a id="lbladdress" class="lbl">地址</a></td>
