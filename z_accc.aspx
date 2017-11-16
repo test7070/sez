@@ -218,7 +218,7 @@
                     $('#btnOk').click();
                 });
 				
-                checkPart();
+                //checkPart(); 2017/11/16   改為全不選即為全選
                 //全選
                 $("#chkXpart").children('input').eq(0).click(function(e){
                 	$("#chkXpart").children('input').eq(0).prop('checked',false);
@@ -231,9 +231,9 @@
                 	$("#chkXpart").children('input').prop('checked',false);
                 });
                 
-                if (q_getPara('sys.comp').indexOf('旭暉') >= 0) {
+              /*  if (q_getPara('sys.comp').indexOf('旭暉') >= 0) {
                     $('#chkXpart').children('input').prop('checked', true);
-                }
+                }*/
 
                 var s2 = q_getId2(), s4;
 
