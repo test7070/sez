@@ -27,7 +27,7 @@
 			,'textGroupemon','textGroupfmon','textGroupgmon','textGrouphmon','textGroupimon'
 			,'textGroupememo1','textGroupfmemo1','textGroupgmemo1','textGrouphmemo1','textGroupimemo1'
 			,'textGroupememo2','textGroupfmemo2','textGroupgmemo2','textGrouphmemo2','textGroupimemo2'
-			,'textUcxno','txtIssuedate'];
+			,'textUcxno','txtIssuedate','txtProduct','txtEngpro'];
 			var q_readonlys = [];
 			var q_readonlyt = ['txtAssm'];
 			var bbmNum = [['txtPrice', 15, 5, 1, 1],['txtPreday', 12, 0, 1],['txtHours', 10, 3, 1],['txtMinutes', 10, 3, 1],['txtHminutes', 10, 3, 1],['txtSec', 2, 0, 1],['txtHsec', 2, 0, 1]
@@ -580,8 +580,8 @@
 				if(!emp($('#txtGroupino').val()))
 					t_engpro=t_engpro+(t_engpro.length>0?',':'')+'座管:'+$('#textGroupimon').val();
 				
-				//$('#txtProduct').val(t_prdouct);
-				//$('#txtEngpro').val(t_engpro);
+				$('#txtProduct').val(t_prdouct);
+				$('#txtEngpro').val(t_engpro);
 				
 				// 檢查空白
 				if (t_noa.length == 0) {
@@ -1614,13 +1614,14 @@
 						<td><select id="cmbGroupbno" class="txt c1" style="font-size: medium;"> </select></td>
 					</tr>
 					<!--106/07/21 先隱藏 開放產品名稱和英文-->
-					<tr style="display: none;">
+					<!--106/11/13 恢復顯示-->
+					<tr>
 						<td style="text-align: center;"><span> </span><a class="lbl" style="float: none;"> </a></td>
 						<td style="text-align: center;"><span> </span><a class="lbl" style="float: none;">編號/中文</a></td>
 						<td colspan="2" style="text-align: center;"><span> </span><a class="lbl" style="float: none;">英文</a></td>
 						<td colspan="2" style="text-align: center;"><span> </span><a class="lbl" style="float: none;">越文</a></td>
 					</tr>
-					<tr style="display: none;">
+					<tr>
 						<td><span> </span><a id="lblGroupeno" class="lbl" style="text-align: right;">車縫<br>Đường may</a></td>
 						<td>
 							<input id="txtGroupeno" type="text" class="txt c1" style="width: 45%;"/>
@@ -1629,7 +1630,7 @@
 						<td colspan="2"><input id="textGroupememo1" type="text" class="txt c1"/></td>
 						<td colspan="2"><input id="textGroupememo2" type="text" class="txt c1"/></td>
 					</tr>
-					<tr style="display: none;">
+					<tr>
 						<td><span> </span><a id="lblGroupfno" class="lbl" style="text-align: right;">護片<br>Phụ kiện</a></td>
 						<td>
 							<input id="txtGroupfno" type="text" class="txt c1" style="width: 45%;"/>
@@ -1638,7 +1639,7 @@
 						<td colspan="2"><input id="textGroupfmemo1" type="text" class="txt c1"/></td>
 						<td colspan="2"><input id="textGroupfmemo2" type="text" class="txt c1"/></td>
 					</tr>
-					<tr style="display: none;">
+					<tr>
 						<td><span> </span><a id="lblGroupgno" class="lbl" style="text-align: right;">大弓<br>Gọng</a></td>
 						<td>
 							<input id="txtGroupgno" type="text" class="txt c1" style="width: 45%;"/>
@@ -1647,7 +1648,7 @@
 						<td colspan="2"><input id="textGroupgmemo1" type="text" class="txt c1"/></td>
 						<td colspan="2"><input id="textGroupgmemo2" type="text" class="txt c1"/></td>
 					</tr>
-					<tr style="display: none;">
+					<tr>
 						<td><span> </span><a id="lblGrouphno" class="lbl" style="text-align: right;">中束<br>Bông</a></td>
 						<td>
 							<input id="txtGrouphno" type="text" class="txt c1" style="width: 45%;"/>
@@ -1656,7 +1657,7 @@
 						<td colspan="2"><input id="textGrouphmemo1" type="text" class="txt c1"/></td>
 						<td colspan="2"><input id="textGrouphmemo2" type="text" class="txt c1"/></td>
 					</tr>
-					<tr style="display: none;">
+					<tr>
 						<td><span> </span><a id="lblGroupino" class="lbl" style="text-align: right;">座管<br>Ống yên</a></td>
 						<td>
 							<input id="txtGroupino" type="text" class="txt c1" style="width: 45%;"/>

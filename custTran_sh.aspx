@@ -713,7 +713,7 @@
                             <input id="txtSales2" type="text" style="float:left; width:60%;"/>
                         </td>
                     </tr>
-					<tr>
+					<!--<tr>
                         <td class="trX"><span> </span><a id='lblMprice' class="lbl">M3單價</a></td>
                         <td class="trX"><input id="txtMprice"  type="text" class="txt num c1"/></td>
                         <td class="trX"><span> </span><a id='lblPprice' class="lbl">材單價</a></td>
@@ -730,7 +730,7 @@
                         <td class="trX"><span> </span><a id='lblTaprice' class="lbl">理貨費</a></td>
                         <td class="trX"><input id="txtTaprice" type="text" class="txt num c1"/></td>
                         <td class="tdZ trX"> </td>
-                    </tr>
+                    </tr>-->
 					<tr>
 						<!--<td><span> </span><a id="lblCredit" class="lbl btn"> </a></td>
 						<td><input id="txtCredit" type="text" class="txt num c1" />	</td>

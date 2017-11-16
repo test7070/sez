@@ -173,12 +173,13 @@
 						var t_105=emp($('#txtX105').val())?'#non':$('#txtX105').val();
 						var t_109=emp($('#txtX014').val())?'#non':$('#txtX014').val();
 						var t_4013=emp($('#Xtype select').val())?'#non':$('#Xtype select').val();
+						var t_proj=q_getPara('sys.project').toUpperCase();
 						
 						q_func('qtxt.query.'+txtreport,'z_401.txt,'+txtreport+','+
 							t_bmon + ';' +t_emon + ';' + t_datea + ';' +
 							t_048 + ';' +t_049 + ';' +t_108 + ';' +
 							t_073 + ';' +t_074 + ';' +t_082 + ';' +
-							t_013 + ';'+t_014 + ';'+t_105 + ';'+t_109 + ';'+t_4013 + ';'
+							t_013 + ';'+t_014 + ';'+t_105 + ';'+t_109 + ';'+t_4013 + ';'+t_proj + ';'+r_len
 						);
 					}
 				});
