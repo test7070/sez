@@ -26,10 +26,118 @@
                 q_gf('', 'z_car2');
                 $('#cartax').hide();
                 $('#carnotice').hide();
+          
+                q_cmbParse("combTax", ('').concat(new Array( '01@上期牌照稅','02@下期牌照稅','03@春季燃料稅','04@夏季燃料稅','05@秋季燃料稅','06@冬季燃料稅')));
                 
+                $('#btnWebPrint').click(function(e) {
+					var t_index = $('#q_report').data('info').radioIndex;
+                    var txtreport = $('#q_report').data('info').reportData[t_index].report;
+                    
+                    if(txtreport=='z_cara1' || txtreport=='z_cara3' || txtreport=='z_cara4'){
+                    	var bmon=!emp($('#txtMon1').val())?$('#txtMon1').val():'#non';
+		                var emon=!emp($('#txtMon2').val())?$('#txtMon2').val():'#non';
+		                var bcarowner=!emp($('#txtCarowner1a').val())?$('#txtCarowner1a').val():'#non';
+		                var ecarowner=!emp($('#txtCarowner2a').val())?$('#txtCarowner2a').val():'#non';
+						var bcarno=!emp($('#txtTcarno1').val())?$('#txtTcarno1').val():'#non';
+		                var ecarno=!emp($('#txtTcarno2').val())?$('#txtTcarno2').val():'#non';
+		                var xcarno=!emp($('#txtXcarnos').val())?$('#txtXcarnos').val():'#non';
+		                	
+						var t_where = bmon+ ';' + emon+ ';' + bcarowner+ ';' + ecarowner+ ';' + bcarno+ ';' + ecarno+ ';' + xcarno;
+                    	q_func('qtxt.query', 'caraprint.txt,print,' + t_where);
+                    }
+                    
+				});
+                		
+                $('#btnMontax').click(function() {
+                	if(!emp($('#textYear').val())){
+                		var montaxhtml='1=1';
+                		//1030924 避免早期資料出現的問題 當年度102以上101之前的資料不顯示
+                		var notyear=dec($('#textYear').val())>=102?" and a.mon >='102/01' ":'';
+                		switch ($('#combTax').val()) {
+                			case '01':
+                				//montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('上',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='501' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
+                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('上',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='501' and b.cardealno='"+$('#combCardealno').val()+"'"+notyear+" order by a.carno;"+r_accy;
+                			break;
+                			case '02':
+                				//montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('下',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='501' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
+                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('下',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='501' and b.cardealno='"+$('#combCardealno').val()+"'"+notyear+" order by a.carno;"+r_accy;
+                			break;
+                			case '03':
+                				//montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('春',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
+                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('春',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"'"+notyear+" order by a.carno;"+r_accy;
+                			break;
+                			case '04':
+                				//montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('夏',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
+                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('夏',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"'"+notyear+" order by a.carno;"+r_accy;
+                			break;
+                			case '05':
+                				//montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('秋',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
+                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('秋',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"'"+notyear+" order by a.carno;"+r_accy;
+                			break;
+                			case '06':
+                				//montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('冬',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
+                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('冬',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"'"+notyear+" order by a.carno;"+r_accy;
+                			break;
+                		}
+                		q_box((montaxhtml), 'cartax', "90%", "600px", $('#btnMontax').val());
+                	}
+                });
+                
+                $('#btnNotice').click(function() {
+                	var xbdate=!emp($('#textBdate').val())?$('#textBdate').val():'';
+                	var xedate=!emp($('#textEdate').val())?$('#textEdate').val():'999/99/99';
+                	var xsssno=!emp($('#textSSSno').val())?$('#textSSSno').val():sssno;
+                	var sss_sql='';
+                	var sssno_count=0;
+                	//檢查最後一個是否有.
+                	if(xsssno.substr(xsssno.length-1,xsssno.length)=='.')
+                		xsssno=xsssno.substr(0,xsssno.length-1);
+                		
+                	while(xsssno.indexOf('.')>-1){
+                		if(sssno_count==0)
+			            	sss_sql+="and (sssno='"+xsssno.substr(0,xsssno.indexOf('.'))+"' "
+			            else
+			            	sss_sql+="or sssno='"+xsssno.substr(0,xsssno.indexOf('.'))+"' "
+			            sssno_count++;
+			            xsssno=xsssno.substr(xsssno.indexOf('.')+1,xsssno.length);
+                	}
+                	
+                	if(sssno_count>0)
+		            	sss_sql+="or sssno='"+xsssno+"')";
+		            else
+		            	sss_sql+="and sssno='"+xsssno+"'"
+		            	
+					//婉容說不要顯示報停20130603
+                	q_box("carnotice.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";(a.checkdate between '"+xbdate+"' and '"+xedate+"' ) "+sss_sql+" and (a.enddate='' or a.enddate is null) and (a.outdate='' or a.outdate is null) and (a.wastedate='' or a.wastedate is null) and (a.suspdate='' or a.suspdate is null);"+r_accy,
+                		 'car2', "90%", "600px", $('#btnNotice').val());
+                });
                 
                 $('#q_report').click(function(e) {
-                    if(q_getPara('sys.project').toUpperCase()!='DC' || q_getPara('sys.project').toUpperCase()!='EFB'){
+                	if($(".select")[0].nextSibling.innerText=='監理稅金收單表'){
+                		$('#cartax').show();
+                	}else{
+                		$('#cartax').hide();
+                	}
+                	if($(".select")[0].nextSibling.innerText=='驗車查詢'){
+                		$('#carnotice').show();
+                	}else{	
+                	    $('#carnotice').hide();
+                	}
+                	
+                	now_report=$('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report;
+					if(now_report=='z_car27'){
+						$('#lblXmon').text('截止月份');
+					}else{
+						$('#lblXmon').text(q_getMsg("lblXmon"));
+						if(emp($('#txtXmon').val()))
+							$('#txtXmon').val(q_date().substr(0,6));
+					}
+					
+					if(window.parent.q_name!='z_anacara' && now_report=='z_car27'){
+						$('#Xmon').hide();
+					}
+					
+					 if(q_getPara('sys.project').toUpperCase()!='DC' || q_getPara('sys.project').toUpperCase()!='EFB'){
                         var delete_report=999;
                         for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
                             if($('#q_report').data().info.reportData[i].report=='z_cara1')
@@ -168,117 +276,6 @@
                             $('#q_report div div .radio').first().removeClass('nonselect').addClass('select');
                         }
                     }
-                });
-                
-                q_cmbParse("combTax", ('').concat(new Array( '01@上期牌照稅','02@下期牌照稅','03@春季燃料稅','04@夏季燃料稅','05@秋季燃料稅','06@冬季燃料稅')));
-                
-                $('#btnWebPrint').click(function(e) {
-					var t_index = $('#q_report').data('info').radioIndex;
-                    var txtreport = $('#q_report').data('info').reportData[t_index].report;
-                    
-                    if(txtreport=='z_cara1' || txtreport=='z_cara3' || txtreport=='z_cara4'){
-                    	var bmon=!emp($('#txtMon1').val())?$('#txtMon1').val():'#non';
-		                var emon=!emp($('#txtMon2').val())?$('#txtMon2').val():'#non';
-		                var bcarowner=!emp($('#txtCarowner1a').val())?$('#txtCarowner1a').val():'#non';
-		                var ecarowner=!emp($('#txtCarowner2a').val())?$('#txtCarowner2a').val():'#non';
-						var bcarno=!emp($('#txtTcarno1').val())?$('#txtTcarno1').val():'#non';
-		                var ecarno=!emp($('#txtTcarno2').val())?$('#txtTcarno2').val():'#non';
-		                var xcarno=!emp($('#txtXcarnos').val())?$('#txtXcarnos').val():'#non';
-		                	
-						var t_where = bmon+ ';' + emon+ ';' + bcarowner+ ';' + ecarowner+ ';' + bcarno+ ';' + ecarno+ ';' + xcarno;
-                    	q_func('qtxt.query', 'caraprint.txt,print,' + t_where);
-                    }
-                    
-				});
-                		
-                $('#btnMontax').click(function() {
-                	if(!emp($('#textYear').val())){
-                		var montaxhtml='1=1';
-                		//1030924 避免早期資料出現的問題 當年度102以上101之前的資料不顯示
-                		var notyear=dec($('#textYear').val())>=102?" and a.mon >='102/01' ":'';
-                		switch ($('#combTax').val()) {
-                			case '01':
-                				//montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('上',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='501' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('上',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='501' and b.cardealno='"+$('#combCardealno').val()+"'"+notyear+" order by a.carno;"+r_accy;
-                			break;
-                			case '02':
-                				//montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('下',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='501' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('下',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='501' and b.cardealno='"+$('#combCardealno').val()+"'"+notyear+" order by a.carno;"+r_accy;
-                			break;
-                			case '03':
-                				//montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('春',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('春',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"'"+notyear+" order by a.carno;"+r_accy;
-                			break;
-                			case '04':
-                				//montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('夏',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('夏',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"'"+notyear+" order by a.carno;"+r_accy;
-                			break;
-                			case '05':
-                				//montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('秋',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('秋',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"'"+notyear+" order by a.carno;"+r_accy;
-                			break;
-                			case '06':
-                				//montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('冬',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('冬',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"'"+notyear+" order by a.carno;"+r_accy;
-                			break;
-                		}
-                		q_box((montaxhtml), 'cartax', "90%", "600px", $('#btnMontax').val());
-                	}
-                });
-                
-                $('#btnNotice').click(function() {
-                	var xbdate=!emp($('#textBdate').val())?$('#textBdate').val():'';
-                	var xedate=!emp($('#textEdate').val())?$('#textEdate').val():'999/99/99';
-                	var xsssno=!emp($('#textSSSno').val())?$('#textSSSno').val():sssno;
-                	var sss_sql='';
-                	var sssno_count=0;
-                	//檢查最後一個是否有.
-                	if(xsssno.substr(xsssno.length-1,xsssno.length)=='.')
-                		xsssno=xsssno.substr(0,xsssno.length-1);
-                		
-                	while(xsssno.indexOf('.')>-1){
-                		if(sssno_count==0)
-			            	sss_sql+="and (sssno='"+xsssno.substr(0,xsssno.indexOf('.'))+"' "
-			            else
-			            	sss_sql+="or sssno='"+xsssno.substr(0,xsssno.indexOf('.'))+"' "
-			            sssno_count++;
-			            xsssno=xsssno.substr(xsssno.indexOf('.')+1,xsssno.length);
-                	}
-                	
-                	if(sssno_count>0)
-		            	sss_sql+="or sssno='"+xsssno+"')";
-		            else
-		            	sss_sql+="and sssno='"+xsssno+"'"
-		            	
-					//婉容說不要顯示報停20130603
-                	q_box("carnotice.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";(a.checkdate between '"+xbdate+"' and '"+xedate+"' ) "+sss_sql+" and (a.enddate='' or a.enddate is null) and (a.outdate='' or a.outdate is null) and (a.wastedate='' or a.wastedate is null) and (a.suspdate='' or a.suspdate is null);"+r_accy,
-                		 'car2', "90%", "600px", $('#btnNotice').val());
-                });
-                
-                $('#q_report').click(function(e) {
-                	if($(".select")[0].nextSibling.innerText=='監理稅金收單表'){
-                		$('#cartax').show();
-                	}else{
-                		$('#cartax').hide();
-                	}
-                	if($(".select")[0].nextSibling.innerText=='驗車查詢'){
-                		$('#carnotice').show();
-                	}else{	
-                	    $('#carnotice').hide();
-                	}
-                	
-                	now_report=$('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report;
-					if(now_report=='z_car27'){
-						$('#lblXmon').text('截止月份');
-					}else{
-						$('#lblXmon').text(q_getMsg("lblXmon"));
-						if(emp($('#txtXmon').val()))
-							$('#txtXmon').val(q_date().substr(0,6));
-					}
-					
-					if(window.parent.q_name!='z_anacara' && now_report=='z_car27'){
-						$('#Xmon').hide();
-					}
                 });
             });
             
@@ -504,6 +501,10 @@
 						},{/*-[48]*/
                             type : '6',
                             name : 'xinsuresheet'
+                        }, {/*[49]-檢驗日期*/
+                            type : '5', //select
+                            name : 'checktype',
+                            value : ('驗車,黑煙,行車紀錄器').split(',')
                         }]
                     });
                     t_init=true;

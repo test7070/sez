@@ -230,7 +230,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['straddrno'] ) {
+                if (!as['straddrno'] && !as['trandate']  && !as['custno']  ) {
                     as[bbsKey[1]] = '';
                     return;
                 }
