@@ -27,6 +27,149 @@
                 $('#cartax').hide();
                 $('#carnotice').hide();
                 
+                
+                $('#q_report').click(function(e) {
+                    if(q_getPara('sys.project').toUpperCase()!='DC' || q_getPara('sys.project').toUpperCase()!='EFB'){
+                        var delete_report=999;
+                        for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+                            if($('#q_report').data().info.reportData[i].report=='z_cara1')
+                                delete_report=i;    
+                        }
+                        if($('#q_report div div').text().indexOf('車主欠款明細')>-1){
+                            $('#q_report div div').eq(delete_report).hide();
+                            $('#q_report div div .radio').first().removeClass('nonselect').addClass('select');
+                        }
+                        for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+                            if($('#q_report').data().info.reportData[i].report=='z_cara3')
+                                delete_report=i;
+                        }
+                        if($('#q_report div div').text().indexOf('車主欠款明細(含信封)')>-1){
+                            $('#q_report div div').eq(delete_report).hide();
+                            $('#q_report div div .radio').first().removeClass('nonselect').addClass('select');
+                        }
+                        for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+                            if($('#q_report').data().info.reportData[i].report=='z_cara4')
+                                delete_report=i;
+                        }
+                        if($('#q_report div div').text().indexOf('車主欠款明細(A4)')>-1){
+                            $('#q_report div div').eq(delete_report).hide();
+                            $('#q_report div div .radio').first().removeClass('nonselect').addClass('select');
+                        }
+                        for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+                            if($('#q_report').data().info.reportData[i].report=='z_car25')
+                                delete_report=i;
+                        }
+                        if($('#q_report div div').text().indexOf('高額欠款追蹤依車號')>-1){
+                            $('#q_report div div').eq(delete_report).hide();
+                            $('#q_report div div .radio').first().removeClass('nonselect').addClass('select');
+                        }
+                        for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+                            if($('#q_report').data().info.reportData[i].report=='z_car26')
+                                delete_report=i;
+                        }
+                        if($('#q_report div div').text().indexOf('高額欠款追蹤依車主')>-1){
+                            $('#q_report div div').eq(delete_report).hide();
+                            $('#q_report div div .radio').first().removeClass('nonselect').addClass('select');
+                        }
+                        for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+                            if($('#q_report').data().info.reportData[i].report=='z_car22')
+                                delete_report=i;
+                        }
+                        if($('#q_report div div').text().indexOf('貸款查詢依車行')>-1){
+                            $('#q_report div div').eq(delete_report).hide();
+                            $('#q_report div div .radio').first().removeClass('nonselect').addClass('select');
+                        }
+                        for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+                            if($('#q_report').data().info.reportData[i].report=='z_car24')
+                                delete_report=i;
+                        }
+                        if($('#q_report div div').text().indexOf('貸款查詢依車主')>-1){
+                            $('#q_report div div').eq(delete_report).hide();
+                            $('#q_report div div .radio').first().removeClass('nonselect').addClass('select');
+                        }
+                        for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+                            if($('#q_report').data().info.reportData[i].report=='z_car30')
+                                delete_report=i;
+                        }
+                        if($('#q_report div div').text().indexOf('車行欠款總表')>-1){
+                            $('#q_report div div').eq(delete_report).hide();
+                            $('#q_report div div .radio').first().removeClass('nonselect').addClass('select');
+                        }
+                        for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+                            if($('#q_report').data().info.reportData[i].report=='z_backup1')
+                                delete_report=i;
+                        }
+                        if($('#q_report div div').text().indexOf('車主勞健保費用明細')>-1){
+                            $('#q_report div div').eq(delete_report).hide();
+                            $('#q_report div div .radio').first().removeClass('nonselect').addClass('select');
+                        }
+                        for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+                            if($('#q_report').data().info.reportData[i].report=='z_car33')
+                                delete_report=i;
+                        }
+                        if($('#q_report div div').text().indexOf('車主資產負債估算表')>-1){
+                            $('#q_report div div').eq(delete_report).hide();
+                            $('#q_report div div .radio').first().removeClass('nonselect').addClass('select');
+                        }
+                        for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+                            if($('#q_report').data().info.reportData[i].report=='z_car37')
+                                delete_report=i; 
+                        }
+                        if($('#q_report div div').text().indexOf('監理稅金收單表')>-1){
+                            $('#q_report div div').eq(delete_report).hide();
+                            $('#q_report div div .radio').first().removeClass('nonselect').addClass('select');
+                        }
+                        for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+                            if($('#q_report').data().info.reportData[i].report=='z_car39')
+                                delete_report=i;
+                        }
+                        if($('#q_report div div').text().indexOf('車牌投保薪資表')>-1){
+                            $('#q_report div div').eq(delete_report).hide();
+                            $('#q_report div div .radio').first().removeClass('nonselect').addClass('select');
+                        }
+                        for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+                            if($('#q_report').data().info.reportData[i].report=='z_car2_22')
+                                delete_report=i;
+                        }
+                        if($('#q_report div div').text().indexOf('通行證查詢')>-1){
+                            $('#q_report div div').eq(delete_report).hide();
+                            $('#q_report div div .radio').first().removeClass('nonselect').addClass('select');
+                        }
+                        for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+                            if($('#q_report').data().info.reportData[i].report=='z_carpack')
+                                delete_report=i;
+                        }
+                        if($('#q_report div div').text().indexOf('車輛車位數量統計表')>-1){
+                            $('#q_report div div').eq(delete_report).hide();
+                            $('#q_report div div .radio').first().removeClass('nonselect').addClass('select');
+                        }
+                        for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+                            if($('#q_report').data().info.reportData[i].report=='z_car35')
+                                delete_report=i;  
+                        }
+                        if($('#q_report div div').text().indexOf('收支日報明細表')>-1){
+                            $('#q_report div div').eq(delete_report).hide();
+                            $('#q_report div div .radio').first().removeClass('nonselect').addClass('select');
+                        }
+                        for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+                            if($('#q_report').data().info.reportData[i].report=='z_car38')
+                                delete_report=i;
+                        }
+                        if($('#q_report div div').text().indexOf('車主未兌現票據')>-1){
+                            $('#q_report div div').eq(delete_report).hide();
+                            $('#q_report div div .radio').first().removeClass('nonselect').addClass('select');
+                        }
+                        for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+                            if($('#q_report').data().info.reportData[i].report=='z_car34')
+                                delete_report=i;
+                        }
+                        if($('#q_report div div').text().indexOf('標誌申請表')>-1){
+                            $('#q_report div div').eq(delete_report).hide();
+                            $('#q_report div div .radio').first().removeClass('nonselect').addClass('select');
+                        }
+                    }
+                });
+                
                 q_cmbParse("combTax", ('').concat(new Array( '01@上期牌照稅','02@下期牌照稅','03@春季燃料稅','04@夏季燃料稅','05@秋季燃料稅','06@冬季燃料稅')));
                 
                 $('#btnWebPrint').click(function(e) {
