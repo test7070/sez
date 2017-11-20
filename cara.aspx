@@ -138,7 +138,12 @@
 						var t_ecarno=emp($('#textEcarno').val())?'#non':$('#textEcarno').val();
 						var t_sssno=emp($('#textSssno').val())?'#non':$('#textSssno').val();
 						var t_proj=q_getPara('sys.project').toUpperCase();
-						q_func('qtxt.query.cara', 'cara.txt,cara,' + encodeURI(t_nextmon)+';'+encodeURI(t_discount)+';'+encodeURI(t_bcarno)+';'+encodeURI(t_ecarno)+';'+encodeURI(t_sssno)+';'+encodeURI(t_proj));
+						//106/11/20 
+						if(t_proj=='EFB'){
+							q_func('qtxt.query.cara', 'cara.txt,cara,' + encodeURI(t_nextmon)+';'+encodeURI(t_discount)+';'+encodeURI(t_bcarno)+';'+encodeURI(t_ecarno)+';'+encodeURI(t_sssno)+';'+encodeURI(t_proj));
+						}else{
+							q_func( 'cara.genNext',t_nextmon+','+t_discount+','+t_bcarno+','+t_ecarno+','+t_sssno+','+r_name);//genNext(string t_mon , string t_discount, string t_worker);
+						}
 			    	}else{
 			    		alert('次月月份與稅金折扣禁止空白!!');
 			    	}
