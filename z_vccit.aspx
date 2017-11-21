@@ -124,8 +124,8 @@
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
 				
 				$('#Xgroupano select').css('width','150px');
-				$('.q_report .report').css('width','420px');
-				$('.q_report .report div').css('width','200px');
+				//$('.q_report .report').css('width','420px');
+				//$('.q_report .report div').css('width','200px');
 				
 				var tmp = document.getElementById("txtPaytype");
                 var selectbox = document.createElement("select");
