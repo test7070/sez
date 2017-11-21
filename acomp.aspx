@@ -1,3 +1,69 @@
+<%@ Page Language="C#" Debug="true"%>
+    <script language="c#" runat="server">     
+        static string connString = @"Data Source=127.0.0.1,1799;Persist Security Info=True;User ID=sa;Password=artsql963;Database=DC";
+        bool isAddr2 = false;
+        bool isTel2 = false;
+        bool isFax2 = false;
+        string tmpstring = "";
+        public void Page_Load()
+        {
+            System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+
+            System.Data.DataTable dt = new System.Data.DataTable();
+            using (System.Data.SqlClient.SqlConnection connSource = new System.Data.SqlClient.SqlConnection(connString ))
+            {
+                System.Data.SqlClient.SqlDataAdapter adapter = new System.Data.SqlClient.SqlDataAdapter();
+                connSource.Open();
+                string query = @"
+            declare @tmp table(
+	isAddr2 bit
+	,isTel2 bit
+	,isFax2 bit
+)
+insert into @tmp(isAddr2,isTel2,isFax2)values(0,0,0)
+if exists(
+select * from sys.columns a
+left join(select object_id from sys.tables where [name] = 'acomp') b on a.object_id=b.object_id
+where b.object_id is not null
+and a.[name]='addr2')
+	update @tmp set isAddr2=1
+
+if exists(
+select * from sys.columns a
+left join(select object_id from sys.tables where [name] = 'acomp') b on a.object_id=b.object_id
+where b.object_id is not null
+and a.[name]='tel2')
+	update @tmp set isTel2=1
+
+if exists(
+select * from sys.columns a
+left join(select object_id from sys.tables where [name] = 'acomp') b on a.object_id=b.object_id
+where b.object_id is not null
+and a.[name]='fax2')
+	update @tmp set isFax2=1
+			
+select * from @tmp
+                ";
+                System.Data.SqlClient.SqlCommand cmd = connSource.CreateCommand();
+                //System.Data.SqlClient.SqlTransaction transaction;
+                //transaction = connSource.BeginTransaction("SampleTransaction");
+                cmd.CommandText = query;
+                cmd.Connection = connSource;
+                //cmd.Transaction = transaction;
+                adapter.SelectCommand = cmd;
+                adapter.Fill(dt);
+                connSource.Close();
+            }
+
+            foreach (System.Data.DataRow r in dt.Rows)
+            {
+                isAddr2 = System.DBNull.Value.Equals(r.ItemArray[0]) ? false : (System.Boolean)r.ItemArray[0];
+                isTel2 = System.DBNull.Value.Equals(r.ItemArray[1]) ? false : (System.Boolean)r.ItemArray[1];
+                isFax2 = System.DBNull.Value.Equals(r.ItemArray[2]) ? false : (System.Boolean)r.ItemArray[2];
+            }
+        }
+    </script>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -14,406 +80,406 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-            this.errorHandler = null;
-            function onPageError(error) {
-                alert("An error occurred:\r\n" + error.Message);
-            }
-            var q_name = "acomp";
-            var q_readonly = [];
-            var bbmNum = [];
-            var bbmMask = [];
-     
-            q_sqlCount = 6;
-            brwCount = 6;
-            brwList = [];
-            brwNowPage = 0;
-            brwKey = 'noa';
-			brwCount2 = 20;
-			t_stamp = new Array();//q_getPara('stamp.typea')
-			aPop = new Array(['txtAddr', '', 'view_road', 'memo', '0txtAddr', 'road_b.aspx']);
-            				
-			function acomp(noa,stamp) {
-				try{
-					this.noa = noa;
-					if(stamp.length>0)
-						this.stamp = stamp.split(',');
-					else
-						this.stamp = new Array();
-					this.stampuse = new Array();
-					t_where = "where=^^ cno='"+this.noa+"' and len(isnull(rdate,''))=0 and len(isnull(tdate,''))=0 and len(ltrim(stamp))>0 ^^";		
-					q_gt('stampuse', t_where, 0, 0, 0, "", r_accy);
-				}catch(e){
-					alert('1_'+e.message);
-				}
-			}
-			acomp.prototype = {
-				noa: '',
-				stamp : new Array(),
-				stampuse : new Array()
-			}
-			t_acomp = new Array();
-			
-            $(document).ready(function() {
-                bbmKey = ['noa'];
-                q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1);
-            });
+		    this.errorHandler = null;
+		    function onPageError(error) {
+		        alert("An error occurred:\r\n" + error.Message);
+		    }
+		    var q_name = "acomp";
+		    var q_readonly = [];
+		    var bbmNum = [];
+		    var bbmMask = [];
 
-            function main() {
-                if (dataErr) {
-                    dataErr = false;
-                    return;
-                }
-                mainForm(0);
-            }
+		    q_sqlCount = 6;
+		    brwCount = 6;
+		    brwList = [];
+		    brwNowPage = 0;
+		    brwKey = 'noa';
+		    brwCount2 = 20;
+		    t_stamp = new Array(); //q_getPara('stamp.typea')
+		    aPop = new Array(['txtAddr', '', 'view_road', 'memo', '0txtAddr', 'road_b.aspx']);
 
-            function mainPost() {
-                q_mask(bbmMask);
-                $('#txtNoa').change(function(e){
-                	$(this).val($.trim($(this).val()).toUpperCase());    	
-					if($(this).val().length>0){
-						if((/^(\w+|\w+\u002D\w+)$/g).test($(this).val())){
-							t_where="where=^^ noa='"+$(this).val()+"'^^";
-                    		q_gt('acomp', t_where, 0, 0, 0, "checkAcompno_change", r_accy);
-						}else{
-							Lock();
-							alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
-							Unlock();
-						}
-					}
-                });
-                $('#txtSerial').change(function(e){
-					$('#txtSerial').val($.trim($('#txtSerial').val()));
-					checkId($('#txtSerial').val());
-				});
-				var m,n;
-				t_stamp = q_getPara('stamp.typea').split(',');
-	
-				n = 3;//一行可放幾個
-				for(var i=0;i<t_stamp.length;i++){
-					m = Math.floor(i/n);
-					if(i%n==0){
-						$('.schema_tr').clone().appendTo($('#tbbm tbody')).css('display','').removeClass('schema_tr').addClass('stamp_tr').attr('id','stamp_tr_'+ m);
-					}
-					if(i==0){
-						$('.schema_td').clone().appendTo($('#stamp_tr_'+ m)).removeClass('schema_td').addClass('stamp_td str');
-						$('.schema_span').clone().appendTo($('.stamp_td.str')).removeClass('schema_span').addClass('stamp_span');
-						$('.schema_lbl').clone().appendTo($('.stamp_td.str')).removeClass('schema_lbl').addClass('stamp_lbl').css('float','right').html(q_getMsg('lblStamp'));
-					}
-					else if(i%n==0)
-						$('.schema_td').clone().appendTo($('#stamp_tr_'+ m)).removeClass('schema_td').addClass('stamp_td');
-						
-					$('.schema_chk').clone().appendTo($('.schema_td').clone().appendTo($('#stamp_tr_'+ m)).removeClass('schema_td').attr('id','stamp_td_'+i)).removeClass('schema_chk').addClass('stamp_chk').attr('id','stamp_chk_'+i);	
-					$('#stamp_td_'+ i).append($('.schema_lbl').clone().removeClass('schema_lbl').addClass('stamp_lbl').css('float','left').attr('id','stamp_lbl_'+i).html(t_stamp[i]).css('color','black').css('cursor','pointer').click(function(e){
-						if(q_cur==1 || q_cur==2)
-							$(this).prev().eq(0).prop('checked',!$(this).prev().eq(0).prop('checked'));
-					}));
-				}	
-				
-				if(q_getPara('sys.comp').indexOf('大昌')>-1){ 
-					$('.stamp_tr').show();
-				}else{
-					$('.stamp_tr').hide();
-				}
-				
-				if(q_getPara('sys.salb')=='1'){
-					$('.salb').show();
-				}else{
-					$('.salb').hide();
-				}
-				
-				$('#btnAcompu').click(function () {
-					q_box("acompu.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';"+r_accy+";" + q_cur, 'acompu', "95%", "95%", q_getMsg('popAcompu'));
-				});
-            }
-            function display(){
-            	$('.stamp_chk').prop('checked',false);
-                var t_stamp2 = $('#txtStamp').val().split(',');	
-				for(var i in t_stamp2){
-					n = t_stamp.indexOf(t_stamp2[i]);
-					if(n>=0)
-						$('#stamp_chk_'+ n).prop('checked',true);
-				}
-				for(var i in t_stamp){
-					$('#stamp_lbl_'+i).html(t_stamp[i]).css('color','black');
-				}
-				var t_index = -1;
-				for(var i in t_acomp){
-					if($.trim($('#txtNoa').val())==t_acomp[i].noa){
-						for(var j in t_acomp[i].stampuse){
-							t_index = t_stamp.indexOf(t_acomp[i].stampuse[j].stamp);
-							if(t_index>=0){
-								$('#stamp_lbl_'+t_index).html(t_stamp[t_index]+'('+t_acomp[i].stampuse[j].namea+')').css('color','red').attr('title',t_acomp[i].stampuse[j].datea+' '+t_acomp[i].stampuse[j].memo);
-							}	
-						}
-						break;
-					}
-				}
-            }
-            function checkId(str){
-            	if((/^[a-z,A-Z][0-9]{9}$/g).test(str)){
-            		var key='ABCDEFGHJKLMNPQRSTUVXYWZIO';
-            		var s = (key.indexOf(str.substring(0,1))+10)+str.substring(1,10);
-            		var n = parseInt(s.substring(0,1))*1 
-            			+ parseInt(s.substring(1,2))*9
-            			+ parseInt(s.substring(2,3))*8
-            			+ parseInt(s.substring(3,4))*7
-            			+ parseInt(s.substring(4,5))*6
-            			+ parseInt(s.substring(5,6))*5
-            			+ parseInt(s.substring(6,7))*4
-            			+ parseInt(s.substring(7,8))*3
-            			+ parseInt(s.substring(8,9))*2
-            			+ parseInt(s.substring(9,10))*1
-            			+ parseInt(s.substring(10,11))*1;
-					if ((n%10)!=0)
-            			alert('身分證字號錯誤。') ;       		
-            	}else if((/^[0-9]{8}$/g).test(str)){
-            		var key = '12121241';
-            		var n = 0;
-            		var m = 0;
-            		for(var i=0;i<8;i++){
-            			n = parseInt(str.substring(i,i+1)) * parseInt(key.substring(i,i+1));
-            			m += Math.floor(n/10)+n%10;
-            		}
-            		if( !((m%10)==0 || ((str.substring(6,7)=='7'?m+1:m)%10)==0))
-            			alert('統一編號錯誤。') ; 
-            	}else{
-            		alert('undefined');
-            	}
-            }
+		    function acomp(noa, stamp) {
+		        try {
+		            this.noa = noa;
+		            if (stamp.length > 0)
+		                this.stamp = stamp.split(',');
+		            else
+		                this.stamp = new Array();
+		            this.stampuse = new Array();
+		            t_where = "where=^^ cno='" + this.noa + "' and len(isnull(rdate,''))=0 and len(isnull(tdate,''))=0 and len(ltrim(stamp))>0 ^^";
+		            q_gt('stampuse', t_where, 0, 0, 0, "", r_accy);
+		        } catch (e) {
+		            alert('1_' + e.message);
+		        }
+		    }
+		    acomp.prototype = {
+		        noa: '',
+		        stamp: new Array(),
+		        stampuse: new Array()
+		    }
+		    t_acomp = new Array();
 
-            function q_boxClose(s2) {
-                var ret;
-                switch (b_pop) {
-                    case q_name + '_s':
-                        q_boxClose2(s2);
-                        break;
-                } 
-            }
+		    $(document).ready(function () {
+		        bbmKey = ['noa'];
+		        q_brwCount();
+		        q_gt(q_name, q_content, q_sqlCount, 1);
+		    });
 
-            function q_gtPost(t_name) {
-                switch (t_name) {
-                	case 'checkAcompno_change':
-                		var as = _q_appendData("acomp", "", true);
-                        if (as[0] != undefined){
-                        	alert('已存在 '+as[0].noa+' '+as[0].acomp);
-                        }
-                		break;
-                	case 'checkAcompno_btnOk':
-                		var as = _q_appendData("acomp", "", true);
-                        if (as[0] != undefined){
-                        	alert('已存在 '+as[0].noa+' '+as[0].acomp);
-                            Unlock();
-                            return;
-                        }else{
-                        	wrServer($('#txtNoa').val());
-                        }
-                		break;
-                	case 'stampuse':           		
-                		var as = _q_appendData("stampuse", "", true);
-                        if (as[0] != undefined) {
-                        	if(as[0].cno.length==0)
-                        		return;
-                        	var index_acomp = -1;
-                        	for(var i in t_acomp){
-                        		if(as[0].cno == t_acomp[i].noa){
-                        			index_acomp = i;
-                        			break;
-                        		}
-                        	}
-                        	if(index_acomp==-1)
-                        		return;
-                        	var index_stampuse = -1;           
-                        	for(var i in as) {
-                        		if(as[i].stamp == undefined)
-                        			continue;
-                       			tmp_stamp = $.trim(as[i].stamp).split(',');
-                        		for(var j in tmp_stamp){
-                        			for(var k in t_acomp[index_acomp].stampuse){
-                        				if(tmp_stamp[j]==t_acomp[index_acomp].stampuse[k].stamp){
-                        					index_stampuse = k;
-                        					break;
-                        				}	
-                        			}
-                        			if(index_stampuse==-1){       
-										t_acomp[index_acomp].stampuse.push({
-	                            			stamp : tmp_stamp[j],
-	                            			datea : as[i].datea,
-	                            			sssno : as[i].sssno,
-	                            			namea : as[i].namea,
-	                            			memo : as[i].memo
-	                            		});    				
-                        			}else if(as[i].datea>=t_acomp[index_acomp].stampuse[index_stampuse].datea){
-                        				t_acomp[index_acomp].stampuse[index_stampuse].datea = as[i].datea;
-                        				t_acomp[index_acomp].stampuse[index_stampuse].sssno = as[i].sssno;
-                        				t_acomp[index_acomp].stampuse[index_stampuse].namea = as[i].namea;
-                        				t_acomp[index_acomp].stampuse[index_stampuse].memo = as[i].memo;
-                        			}
-                        		}
-                        	}
-                        }
-                        display();
-                		break;
-                    case q_name:
-                    	var as = _q_appendData("acomp", "", true);
-                        if (as[0] != undefined) {                   
-                            for (var i = 0; i < as.length; i++) {
-                            	isFound = false;
-                            	for(var j in t_acomp){
-                            		if(t_acomp[j].noa == as[i].noa){
-                            			isFound = true;
-                            			break;
-                            		}
-                            	}
-                            	if(!isFound)
-                            		t_acomp.push(new acomp(as[i].noa,$.trim(as[i].stamp)));
-                            }
-                        }
-                    
-                        if (q_cur == 4)
-                            q_Seek_gtPost();
-                        break;
-                }  /// end switch
-            }
+		    function main() {
+		        if (dataErr) {
+		            dataErr = false;
+		            return;
+		        }
+		        mainForm(0);
+		    }
 
-            function _btnSeek() {
-                if (q_cur > 0 && q_cur < 4)// 1-3
-                    return;
-                q_box('acomp_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
-            }
+		    function mainPost() {
+		        q_mask(bbmMask);
+		        $('#txtNoa').change(function (e) {
+		            $(this).val($.trim($(this).val()).toUpperCase());
+		            if ($(this).val().length > 0) {
+		                if ((/^(\w+|\w+\u002D\w+)$/g).test($(this).val())) {
+		                    t_where = "where=^^ noa='" + $(this).val() + "'^^";
+		                    q_gt('acomp', t_where, 0, 0, 0, "checkAcompno_change", r_accy);
+		                } else {
+		                    Lock();
+		                    alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。' + String.fromCharCode(13) + 'EX: A01、A01-001');
+		                    Unlock();
+		                }
+		            }
+		        });
+		        $('#txtSerial').change(function (e) {
+		            $('#txtSerial').val($.trim($('#txtSerial').val()));
+		            checkId($('#txtSerial').val());
+		        });
+		        var m, n;
+		        t_stamp = q_getPara('stamp.typea').split(',');
 
-            function btnIns() {
-                _btnIns();
-                refreshBbm();
-                $('#txtNoa').focus();
-            }
+		        n = 3; //一行可放幾個
+		        for (var i = 0; i < t_stamp.length; i++) {
+		            m = Math.floor(i / n);
+		            if (i % n == 0) {
+		                $('.schema_tr').clone().appendTo($('#tbbm tbody')).css('display', '').removeClass('schema_tr').addClass('stamp_tr').attr('id', 'stamp_tr_' + m);
+		            }
+		            if (i == 0) {
+		                $('.schema_td').clone().appendTo($('#stamp_tr_' + m)).removeClass('schema_td').addClass('stamp_td str');
+		                $('.schema_span').clone().appendTo($('.stamp_td.str')).removeClass('schema_span').addClass('stamp_span');
+		                $('.schema_lbl').clone().appendTo($('.stamp_td.str')).removeClass('schema_lbl').addClass('stamp_lbl').css('float', 'right').html(q_getMsg('lblStamp'));
+		            }
+		            else if (i % n == 0)
+		                $('.schema_td').clone().appendTo($('#stamp_tr_' + m)).removeClass('schema_td').addClass('stamp_td');
 
-            function btnModi() {
-                if (emp($('#txtNoa').val()))
-                    return;
+		            $('.schema_chk').clone().appendTo($('.schema_td').clone().appendTo($('#stamp_tr_' + m)).removeClass('schema_td').attr('id', 'stamp_td_' + i)).removeClass('schema_chk').addClass('stamp_chk').attr('id', 'stamp_chk_' + i);
+		            $('#stamp_td_' + i).append($('.schema_lbl').clone().removeClass('schema_lbl').addClass('stamp_lbl').css('float', 'left').attr('id', 'stamp_lbl_' + i).html(t_stamp[i]).css('color', 'black').css('cursor', 'pointer').click(function (e) {
+		                if (q_cur == 1 || q_cur == 2)
+		                    $(this).prev().eq(0).prop('checked', !$(this).prev().eq(0).prop('checked'));
+		            }));
+		        }
 
-                _btnModi();
-                refreshBbm();
-                $('#txtNoa').attr('readonly', true);
-                $('#txtAcomp').focus();
-            }
+		        if (q_getPara('sys.comp').indexOf('大昌') > -1) {
+		            $('.stamp_tr').show();
+		        } else {
+		            $('.stamp_tr').hide();
+		        }
 
-            function btnPrint() {
+		        if (q_getPara('sys.salb') == '1') {
+		            $('.salb').show();
+		        } else {
+		            $('.salb').hide();
+		        }
 
-            }
-			function q_stPost() {
-                if (!(q_cur == 1 || q_cur == 2))
-                    return false;
-                Unlock();
-            }
-            function btnOk() {
-            	var string = '';
-            	for(var i in t_stamp){
-            		if($('#stamp_chk_'+ i).prop('checked'))
-            			string += (string.length>0?',':'')+t_stamp[i];
-				}
-            	$('#txtStamp').val(string);
-            	
-            	Lock(); 
-            	$('#txtNoa').val($.trim($('#txtNoa').val()));   	
-            	if((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())){
-				}else{
-					alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
-					Unlock();
-					return;
-				}
-        	
-                if(q_cur==1){
-                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
-                    q_gt('acomp', t_where, 0, 0, 0, "checkAcompno_btnOk", r_accy);
-                }else{
-                	wrServer($('#txtNoa').val());
-                }
-            }
+		        $('#btnAcompu').click(function () {
+		            q_box("acompu.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';" + r_accy + ";" + q_cur, 'acompu', "95%", "95%", q_getMsg('popAcompu'));
+		        });
+		    }
+		    function display() {
+		        $('.stamp_chk').prop('checked', false);
+		        var t_stamp2 = $('#txtStamp').val().split(',');
+		        for (var i in t_stamp2) {
+		            n = t_stamp.indexOf(t_stamp2[i]);
+		            if (n >= 0)
+		                $('#stamp_chk_' + n).prop('checked', true);
+		        }
+		        for (var i in t_stamp) {
+		            $('#stamp_lbl_' + i).html(t_stamp[i]).css('color', 'black');
+		        }
+		        var t_index = -1;
+		        for (var i in t_acomp) {
+		            if ($.trim($('#txtNoa').val()) == t_acomp[i].noa) {
+		                for (var j in t_acomp[i].stampuse) {
+		                    t_index = t_stamp.indexOf(t_acomp[i].stampuse[j].stamp);
+		                    if (t_index >= 0) {
+		                        $('#stamp_lbl_' + t_index).html(t_stamp[t_index] + '(' + t_acomp[i].stampuse[j].namea + ')').css('color', 'red').attr('title', t_acomp[i].stampuse[j].datea + ' ' + t_acomp[i].stampuse[j].memo);
+		                    }
+		                }
+		                break;
+		            }
+		        }
+		    }
+		    function checkId(str) {
+		        if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {
+		            var key = 'ABCDEFGHJKLMNPQRSTUVXYWZIO';
+		            var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
+		            var n = parseInt(s.substring(0, 1)) * 1
+            			+ parseInt(s.substring(1, 2)) * 9
+            			+ parseInt(s.substring(2, 3)) * 8
+            			+ parseInt(s.substring(3, 4)) * 7
+            			+ parseInt(s.substring(4, 5)) * 6
+            			+ parseInt(s.substring(5, 6)) * 5
+            			+ parseInt(s.substring(6, 7)) * 4
+            			+ parseInt(s.substring(7, 8)) * 3
+            			+ parseInt(s.substring(8, 9)) * 2
+            			+ parseInt(s.substring(9, 10)) * 1
+            			+ parseInt(s.substring(10, 11)) * 1;
+		            if ((n % 10) != 0)
+		                alert('身分證字號錯誤。');
+		        } else if ((/^[0-9]{8}$/g).test(str)) {
+		            var key = '12121241';
+		            var n = 0;
+		            var m = 0;
+		            for (var i = 0; i < 8; i++) {
+		                n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
+		                m += Math.floor(n / 10) + n % 10;
+		            }
+		            if (!((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0))
+		                alert('統一編號錯誤。');
+		        } else {
+		            alert('undefined');
+		        }
+		    }
 
-            function wrServer(key_value) {
-                var i;
+		    function q_boxClose(s2) {
+		        var ret;
+		        switch (b_pop) {
+		            case q_name + '_s':
+		                q_boxClose2(s2);
+		                break;
+		        }
+		    }
 
-                xmlSql = '';
-                if (q_cur == 2)/// popSave
-                    xmlSql = q_preXml();
+		    function q_gtPost(t_name) {
+		        switch (t_name) {
+		            case 'checkAcompno_change':
+		                var as = _q_appendData("acomp", "", true);
+		                if (as[0] != undefined) {
+		                    alert('已存在 ' + as[0].noa + ' ' + as[0].acomp);
+		                }
+		                break;
+		            case 'checkAcompno_btnOk':
+		                var as = _q_appendData("acomp", "", true);
+		                if (as[0] != undefined) {
+		                    alert('已存在 ' + as[0].noa + ' ' + as[0].acomp);
+		                    Unlock();
+		                    return;
+		                } else {
+		                    wrServer($('#txtNoa').val());
+		                }
+		                break;
+		            case 'stampuse':
+		                var as = _q_appendData("stampuse", "", true);
+		                if (as[0] != undefined) {
+		                    if (as[0].cno.length == 0)
+		                        return;
+		                    var index_acomp = -1;
+		                    for (var i in t_acomp) {
+		                        if (as[0].cno == t_acomp[i].noa) {
+		                            index_acomp = i;
+		                            break;
+		                        }
+		                    }
+		                    if (index_acomp == -1)
+		                        return;
+		                    var index_stampuse = -1;
+		                    for (var i in as) {
+		                        if (as[i].stamp == undefined)
+		                            continue;
+		                        tmp_stamp = $.trim(as[i].stamp).split(',');
+		                        for (var j in tmp_stamp) {
+		                            for (var k in t_acomp[index_acomp].stampuse) {
+		                                if (tmp_stamp[j] == t_acomp[index_acomp].stampuse[k].stamp) {
+		                                    index_stampuse = k;
+		                                    break;
+		                                }
+		                            }
+		                            if (index_stampuse == -1) {
+		                                t_acomp[index_acomp].stampuse.push({
+		                                    stamp: tmp_stamp[j],
+		                                    datea: as[i].datea,
+		                                    sssno: as[i].sssno,
+		                                    namea: as[i].namea,
+		                                    memo: as[i].memo
+		                                });
+		                            } else if (as[i].datea >= t_acomp[index_acomp].stampuse[index_stampuse].datea) {
+		                                t_acomp[index_acomp].stampuse[index_stampuse].datea = as[i].datea;
+		                                t_acomp[index_acomp].stampuse[index_stampuse].sssno = as[i].sssno;
+		                                t_acomp[index_acomp].stampuse[index_stampuse].namea = as[i].namea;
+		                                t_acomp[index_acomp].stampuse[index_stampuse].memo = as[i].memo;
+		                            }
+		                        }
+		                    }
+		                }
+		                display();
+		                break;
+		            case q_name:
+		                var as = _q_appendData("acomp", "", true);
+		                if (as[0] != undefined) {
+		                    for (var i = 0; i < as.length; i++) {
+		                        isFound = false;
+		                        for (var j in t_acomp) {
+		                            if (t_acomp[j].noa == as[i].noa) {
+		                                isFound = true;
+		                                break;
+		                            }
+		                        }
+		                        if (!isFound)
+		                            t_acomp.push(new acomp(as[i].noa, $.trim(as[i].stamp)));
+		                    }
+		                }
 
-                $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-                _btnOk(key_value, bbmKey[0], '', '', 2);
-            }
+		                if (q_cur == 4)
+		                    q_Seek_gtPost();
+		                break;
+		        }  /// end switch
+		    }
 
-            function refresh(recno) {
-                _refresh(recno);
-                refreshBbm();
-                display();	
-            }
-			function refreshBbm(){
-            	if(q_cur==1){
-            		$('#txtNoa').css('color','black').css('background','white').removeAttr('readonly');
-            	}else{
-            		$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
-            	}
-            }
+		    function _btnSeek() {
+		        if (q_cur > 0 && q_cur < 4)// 1-3
+		            return;
+		        q_box('acomp_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+		    }
 
-            function readonly(t_para, empty) {
-                _readonly(t_para, empty);
-                if(q_cur==1 || q_cur==2)
-                	$('.stamp_chk').removeAttr('disabled');
-                else
-                	$('.stamp_chk').attr('disabled','disabled');
-            }
+		    function btnIns() {
+		        _btnIns();
+		        refreshBbm();
+		        $('#txtNoa').focus();
+		    }
 
-            function btnMinus(id) {
-                _btnMinus(id);
-            }
+		    function btnModi() {
+		        if (emp($('#txtNoa').val()))
+		            return;
 
-            function btnPlus(org_htm, dest_tag, afield) {
-                _btnPlus(org_htm, dest_tag, afield);
-            }
+		        _btnModi();
+		        refreshBbm();
+		        $('#txtNoa').attr('readonly', true);
+		        $('#txtAcomp').focus();
+		    }
 
-            function q_appendData(t_Table) {
-                return _q_appendData(t_Table);
-            }
+		    function btnPrint() {
 
-            function btnSeek() {
-                _btnSeek();
-            }
+		    }
+		    function q_stPost() {
+		        if (!(q_cur == 1 || q_cur == 2))
+		            return false;
+		        Unlock();
+		    }
+		    function btnOk() {
+		        var string = '';
+		        for (var i in t_stamp) {
+		            if ($('#stamp_chk_' + i).prop('checked'))
+		                string += (string.length > 0 ? ',' : '') + t_stamp[i];
+		        }
+		        $('#txtStamp').val(string);
 
-            function btnTop() {
-                _btnTop();
-            }
+		        Lock();
+		        $('#txtNoa').val($.trim($('#txtNoa').val()));
+		        if ((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())) {
+		        } else {
+		            alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。' + String.fromCharCode(13) + 'EX: A01、A01-001');
+		            Unlock();
+		            return;
+		        }
 
-            function btnPrev() {
-                _btnPrev();
-            }
+		        if (q_cur == 1) {
+		            t_where = "where=^^ noa='" + $('#txtNoa').val() + "'^^";
+		            q_gt('acomp', t_where, 0, 0, 0, "checkAcompno_btnOk", r_accy);
+		        } else {
+		            wrServer($('#txtNoa').val());
+		        }
+		    }
 
-            function btnPrevPage() {
-                _btnPrevPage();
-            }
+		    function wrServer(key_value) {
+		        var i;
 
-            function btnNext() {
-                _btnNext();
-            }
+		        xmlSql = '';
+		        if (q_cur == 2)/// popSave
+		            xmlSql = q_preXml();
 
-            function btnNextPage() {
-                _btnNextPage();
-            }
+		        $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
+		        _btnOk(key_value, bbmKey[0], '', '', 2);
+		    }
 
-            function btnBott() {
-                _btnBott();
-            }
+		    function refresh(recno) {
+		        _refresh(recno);
+		        refreshBbm();
+		        display();
+		    }
+		    function refreshBbm() {
+		        if (q_cur == 1) {
+		            $('#txtNoa').css('color', 'black').css('background', 'white').removeAttr('readonly');
+		        } else {
+		            $('#txtNoa').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
+		        }
+		    }
 
-            function q_brwAssign(s1) {
-                _q_brwAssign(s1);
-            }
+		    function readonly(t_para, empty) {
+		        _readonly(t_para, empty);
+		        if (q_cur == 1 || q_cur == 2)
+		            $('.stamp_chk').removeAttr('disabled');
+		        else
+		            $('.stamp_chk').attr('disabled', 'disabled');
+		    }
 
-            function btnDele() {
-                _btnDele();
-            }
+		    function btnMinus(id) {
+		        _btnMinus(id);
+		    }
 
-            function btnCancel() {
-                _btnCancel();
-            }
+		    function btnPlus(org_htm, dest_tag, afield) {
+		        _btnPlus(org_htm, dest_tag, afield);
+		    }
+
+		    function q_appendData(t_Table) {
+		        return _q_appendData(t_Table);
+		    }
+
+		    function btnSeek() {
+		        _btnSeek();
+		    }
+
+		    function btnTop() {
+		        _btnTop();
+		    }
+
+		    function btnPrev() {
+		        _btnPrev();
+		    }
+
+		    function btnPrevPage() {
+		        _btnPrevPage();
+		    }
+
+		    function btnNext() {
+		        _btnNext();
+		    }
+
+		    function btnNextPage() {
+		        _btnNextPage();
+		    }
+
+		    function btnBott() {
+		        _btnBott();
+		    }
+
+		    function q_brwAssign(s1) {
+		        _q_brwAssign(s1);
+		    }
+
+		    function btnDele() {
+		        _btnDele();
+		    }
+
+		    function btnCancel() {
+		        _btnCancel();
+		    }
 		</script>
 
 		<style type="text/css">
@@ -607,6 +673,34 @@
 							<td><span> </span><a id='lblAddr_invo' class="lbl"> </a></td>
 							<td colspan="3"><input id="txtAddr_invo"  type="text" class="txt c1" />	</td>
 						</tr>
+                        <% 
+                            if (isAddr2)
+                            {
+                                tmpstring = @"<tr>
+							<td><span> </span><a id='lblAddr2' class=""lbl"">地址(寄送)</a></td>
+							<td colspan=""3""><input id=""txtAddr2""  type=""text"" class=""txt c1"" />	</td>
+						</tr>";
+                                Response.Write(tmpstring);
+                            }
+                            if (isTel2)
+                            {
+                                tmpstring = @"<tr>
+							<td><span> </span><a id='lblTel2' class=""lbl"">電話(寄送)</a></td>
+							<td colspan=""3""><input id=""txtTel2""  type=""text"" class=""txt c1"" />	</td>
+						</tr>";
+                                Response.Write(tmpstring);
+                            }
+                            if (isFax2)
+                            {
+                                tmpstring = @"<tr>
+							<td><span> </span><a id='lblFax2' class=""lbl"">傳真(寄送)</a></td>
+							<td colspan=""3""><input id=""txtFax2""  type=""text"" class=""txt c1"" />	</td>
+						</tr>";
+                                Response.Write(tmpstring);
+                            }
+                            
+                        %>
+
 						<tr>
 							<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 							<td colspan="3"><textarea id="txtMemo" cols="10" rows="5" style="width: 100%;height: 127px;"> </textarea></td>
