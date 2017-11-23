@@ -42,6 +42,9 @@
                         dbf : 'cust',
                         index : 'noa,comp',
                         src : 'cust_b.aspx'
+                    },{/*[6][7]*///2
+                        type : '1',
+                        name : 'credit'
                     }]
                 });
                 q_popAssign();
