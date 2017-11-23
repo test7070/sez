@@ -111,6 +111,7 @@
                 		break;
                 }
                 q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
+                q_cmbParse("cmbTypea","@,月租@月租,材積@材積");
 				
 				$('#txtNoa').change(function(e){
                 	$(this).val($.trim($(this).val()).toUpperCase());    	
