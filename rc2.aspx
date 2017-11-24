@@ -44,6 +44,7 @@
 				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc_b.aspx'],
 				['txtUno_', 'btnUno_', 'view_uccc', 'uno', 'txtUno_', 'uccc_seek_b.aspx?;;;1=0', '95%', '60%'],
 				['txtCarno', 'lblCar', 'cardeal', 'noa,comp', 'txtCarno,txtCar', 'cardeal_b.aspx'],
+				['txtSalesno', 'lblSales_fe', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 				['txtTranstartno', 'lblTranstart', 'addr2', 'noa,post','txtTranstartno,txtTranstart', 'addr2_b.aspx'],
 				['txtCustno_', 'btnCustno_', 'cust', 'noa,comp', 'txtCustno_,txtComp_', 'cust_b.aspx']
 			);
@@ -70,8 +71,14 @@
 				for (var j = 0; j < q_bbsCount; j++) {
 					t_unit = $('#txtUnit_' + j).val();
 					t_mount = q_float('txtMount_' + j);
-					t_weight=+q_float('txtMount_' + j);
-					$('#txtTotal_' + j).val(round(q_mul(q_float('txtPrice_' + j), dec(t_mount)), 0));
+					if (q_getPara('sys.project').toUpperCase()=='BQ'){
+					   t_weight=+q_mul(q_float('txtMount_' + j),q_float('txtGweight_' + j));
+					   $('#txtTotal_' + j).val(round(q_mul(q_mul(q_float('txtPrice_' + j), dec(t_mount)),q_float('txtGweight_' + j)), 0));
+					}else{
+					   t_weight=+q_float('txtMount_' + j);
+					   $('#txtTotal_' + j).val(round(q_mul(q_float('txtPrice_' + j), dec(t_mount)), 0)); 
+					}
+					
 					t_money = q_add(t_money, q_float('txtTotal_' + j));
 				}
 				if($('#chkAtax').prop('checked')){
@@ -89,6 +96,9 @@
 				$('#txtMoney').val(FormatNumber(t_money));
 				$('#txtTax').val(FormatNumber(t_tax));
 				$('#txtTotal').val(FormatNumber(t_total));
+				if (q_getPara('sys.project').toUpperCase()=='BQ'){
+				    $('#txtWeight').val(FormatNumber(t_weight));
+				}
 				
 				var price = dec($('#txtPrice').val());
 				var addMoney = dec(q_getPara('sys.tranadd'));
@@ -325,6 +335,14 @@
 						window.open("./pdf_rc2qrcode_xy.aspx?noa="+$('#txtNoa').val()+"&tablea="+q_name+"&db="+q_db);
 					}
 				});
+				
+				if (q_getPara('sys.project').toUpperCase()=='BQ'){
+                    $('.isBQ').show();
+                    $('#lblStype').hide()
+                    $('#cmbStype').hide()
+                    $('#lblPrice').hide()
+                    $('#txtPrice').hide()
+                }
 			}
 			
 			function refreshBbm() {
@@ -388,6 +406,8 @@
 								ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtSpec,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtPrice,txtTotal,txtMemo,txtCustno,txtComp', b_ret.length, b_ret, 'uno,productno,spec,product,unit,notv,noa,no2,price,total,memo,custno,comp', 'txtProductno,txtProduct');
 								//106/06/19 變動備註
 								for (var i = 0; i < q_bbsCount; i++) {$('#txtMount_' + i).change();}
+							}else if(q_getPara('sys.project').toUpperCase()=='BQ'){
+							    ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtSpec,txtProduct,txtUnit,txtGweight,txtMount,txtOrdeno,txtNo2,txtPrice,txtTotal,txtMemo', b_ret.length, b_ret, 'uno,productno,spec,product,unit,dime,notv,noa,no2,price,total,memo', 'txtProductno,txtProduct');
 							}else
 								ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtSpec,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtPrice,txtTotal,txtMemo', b_ret.length, b_ret, 'uno,productno,spec,product,unit,notv,noa,no2,price,total,memo', 'txtProductno,txtProduct');
 							bbsAssign();
@@ -994,6 +1014,14 @@
 					$('.isAD').hide();
 					$('.dbbs').css('width','1260px');
 				}
+				
+				if (q_getPara('sys.project').toUpperCase()=='BQ'){
+                    $('.isBQ').show();
+                    $('#lblStype').hide()
+                    $('#cmbStype').hide()
+                    $('#lblPrice').hide()
+                    $('#txtPrice').hide()
+                }
 			}
 
 			function btnIns() {
@@ -1029,7 +1057,9 @@
 
 			function btnPrint() {
 				var hasStyle = q_getPara('sys.isstyle');
-				if(hasStyle=='1'){
+				if (q_getPara('sys.project').toUpperCase()=='BQ'){
+				    q_box("z_rc2p_bq.aspx?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+				}else if(hasStyle=='1'){
 					q_box("z_rc2_ra.aspx?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
 				}else{
 					q_box("z_rc2p.aspx?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
@@ -1539,6 +1569,13 @@
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td class="td2" colspan='7' ><input id="txtMemo" type="text" class="txt" style="width:98%;"/></td>
 					</tr>
+					<tr class="tr11 isBQ" style="display: none;">
+                        <td class="td1"><span> </span><a id='lblWeight' class="lbl"> </a></td>
+                        <td class="td2"><input id="txtWeight" type="text" class="txt c1"/></td>
+                        <td class="td3"><span> </span><a id='lblSales_fe' class="lbl btn"> </a></td>
+                        <td class="td4"><input id="txtSalesno" type="text" class="txt c1"/></td>
+                        <td class="td5"><input id="txtSales" type="text" class="txt c1"/></td>
+                    </tr>
 					<tr class="tr11">
 						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td class="td2"><input id="txtWorker" type="text" class="txt c1"/></td>
@@ -1563,6 +1600,7 @@
 					<td align="center" style="width:220px;"><a id='lblProduct'> </a></td>
 					<td align="center" style="width:95px;" class="isStyle"><a id='lblStyle'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit'> </a></td>
+					<td class="isBQ" align="center" style="width:100px;display: none;"><a id='lblGweight_bq'>單重</a></td>
 					<td align="center" style="width:100px;"><a id='lblMount'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblPrices'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblTotals'> </a></td>
@@ -1590,6 +1628,9 @@
 					</td>
 					<td class="isStyle"><input id="txtStyle.*" type="text" class="txt c1"/></td>
 					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
+					<td class="isBQ" style="display: none;">
+                        <input class="txt c1" id="txtGweight.*" type="text" />
+                    </td>
 					<td><input id="txtMount.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtPrice.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtTotal.*" type="text" class="txt num c1" /></td>

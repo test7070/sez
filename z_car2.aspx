@@ -175,6 +175,7 @@
 								}
 	                        }
 	                        $('#q_report div div .radio').first().removeClass('nonselect').addClass('select');
+	                        $('#Xinsuresheet').hide();
                     	}
                     }
                 });
@@ -399,7 +400,7 @@
 							type : '0',
 							name : 'xproj',
 							value : q_getPara('sys.project').toUpperCase()
-						},{/*-[48]*/
+						},{/*-[48]-保單號碼*/
                             type : '6',
                             name : 'xinsuresheet'
                         }, {/*[49]-檢驗日期*/
