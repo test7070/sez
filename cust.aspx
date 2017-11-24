@@ -118,7 +118,6 @@
 						q_cmbParse("combPaytype", paytype_rk);
 						break;
 					case 'PK':
-						$('.pk').show();
 						q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
 						break;
 					default:
@@ -194,11 +193,13 @@
 					$('.isRB').show();
 				}
 				if (q_getPara('sys.project').toUpperCase()=='UJ'){
-					$('.isUJ').show();
 					$('#lblMemo2').text('加工備註');
 				}
 				if (q_getPara('sys.project').toUpperCase()=='YC'){
                     $('.isYC').show();
+                }
+                if (q_getPara('sys.project').toUpperCase()=='PK'){
+                    $('#lblMemo2').text('訂單備註');
                 }
 				
 				$('#btnUcam').click(function() {
@@ -797,10 +798,6 @@
 					$('.isRB').show();
 				}
 				
-				if (q_getPara('sys.project').toUpperCase()=='UJ'){
-					$('.isUJ').show();
-				}
-				
 				if (q_getPara('sys.project').toUpperCase()=='YC'){
                     $('.isYC').show();
                 }
@@ -1286,8 +1283,8 @@
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td colspan='5'><textarea id="txtMemo" rows='5' cols='10' style="width:99%; height: 50px;"> </textarea></td>
 					</tr>
-					<tr class="pk isUJ" style="display:none;">
-						<td><span> </span><a id='lblMemo2' class="lbl">訂單備註</a></td>
+					<tr><!--106/11/24 開放 一律稱為品質要求-->
+						<td><span> </span><a id='lblMemo2' class="lbl"> </a></td>
 						<td colspan='5'>
 							<textarea id="txtMemo2" rows='5' cols='10' style="width:99%; height: 50px;"> </textarea>
 						</td>
