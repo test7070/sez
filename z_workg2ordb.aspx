@@ -267,10 +267,11 @@
 			               	var store=!emp($('#q_report').data('info').sqlCondition[12].getValue())?$('#q_report').data('info').sqlCondition[12].getValue():'#non';
 			               	var workgall=!emp($('#q_report').data('info').sqlCondition[13].getValue())?$('#q_report').data('info').sqlCondition[13].getValue():'#non';
 			               	var isworkh=!emp($('#q_report').data('info').sqlCondition[15].getValue())?$('#q_report').data('info').sqlCondition[15].getValue():'#non';
-										
+							var t_db=q_db.toLocaleUpperCase();
+							
 							var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno
 										+';'+otherworkgall+';'+benddate+';'+eenddate+ ';' + ordc+';' + safe+';'+ store+';' + workgall+';'+r_userno
-										+';'+q_getPara('sys.key_ordb')+';'+r_len+';'+isworkh;
+										+';'+q_getPara('sys.key_ordb')+';'+r_len+';'+isworkh+';'+t_db;
 										
 							var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 				               //q_gtx("z_workg2ordb2", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
@@ -305,10 +306,11 @@
 			               	var store=!emp($('#q_report').data('info').sqlCondition[12].getValue())?$('#q_report').data('info').sqlCondition[12].getValue():'#non';
 			               	var workgall=!emp($('#q_report').data('info').sqlCondition[13].getValue())?$('#q_report').data('info').sqlCondition[13].getValue():'#non';
 			               	var isworkh=!emp($('#q_report').data('info').sqlCondition[15].getValue())?$('#q_report').data('info').sqlCondition[15].getValue():'#non';
+			               	var t_db=q_db.toLocaleUpperCase();
 							
 							var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno
 										+';'+otherworkgall+';'+benddate+';'+eenddate+ ';' + ordc+';' + safe+';' + store+';' + workgall
-										+';'+r_userno+';'+q_getPara('sys.key_orda')+';'+r_len+';'+isworkh;
+										+';'+r_userno+';'+q_getPara('sys.key_orda')+';'+r_len+';'+isworkh+';'+t_db;
 										
 							var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 				               //q_gtx("z_workg2ordb4", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
@@ -344,10 +346,11 @@
 			               	var store=!emp($('#q_report').data('info').sqlCondition[12].getValue())?$('#q_report').data('info').sqlCondition[12].getValue():'#non';
 			               	var workgall=!emp($('#q_report').data('info').sqlCondition[13].getValue())?$('#q_report').data('info').sqlCondition[13].getValue():'#non';
 			               	var isworkh=!emp($('#q_report').data('info').sqlCondition[15].getValue())?$('#q_report').data('info').sqlCondition[15].getValue():'#non';
+		                	var t_db=q_db.toLocaleUpperCase();
 		                	
 							var t_where =r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno
 									+';'+otherworkgall+';'+benddate+';'+eenddate+ ';' + ordc+';' + safe+';' + store+';' + workgall+';'+r_userno
-									+';'+q_getPara('sys.key_ordb')+';'+r_len+';'+isworkh;
+									+';'+q_getPara('sys.key_ordb')+';'+r_len+';'+isworkh+';'+t_db;
 							var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 				               //q_gtx("z_workg2ordb5", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 				               q_func('qtxt.query.sign2', 'orda.txt,sign2,' + t_where);
