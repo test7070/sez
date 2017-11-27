@@ -17,7 +17,7 @@
  
 			q_tables = 's';
 			var q_name = "vcc";
-			var q_readonly = ['txtNoa', 'txtAccno', 'txtComp','txtCardeal','txtSales', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWorker', 'txtWorker2','txtTranstart'];
+			var q_readonly = ['txtNoa', 'txtAccno', 'txtComp','txtCardeal','txtSales', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWorker', 'txtWorker2','txtTranstart','txtWeight'];
 			var q_readonlys = ['txtTotal', 'txtOrdeno', 'txtNo2','txtNoq'];
 			var bbmNum = [
 				['txtPrice', 10, 3, 1], ['txtTranmoney', 11, 0, 1], ['txtMoney', 15, 0, 1], ['txtTax', 15, 0, 1],
@@ -70,11 +70,17 @@
 			}
 
 			function sum() {
-				var t1 = 0, t_unit, t_mount, t_weight = 0,t_money=0, t_tax = 0, t_total = 0,t_price = 0;
+				var t1 = 0, t_unit, t_mount, t_weight = 0,t_price=0,t_money=0, t_tax = 0, t_total = 0,t_price = 0;
 				for (var j = 0; j < q_bbsCount; j++) {
 					t_unit = $('#txtUnit_' + j).val();
 					t_mount = q_float('txtMount_' + j);
-					t_weight=+q_float('txtMount_' + j);
+					
+					if (q_getPara('sys.project').toUpperCase()=='BQ'){
+					    $('#txtPrice_' + j).val(q_mul(q_float('txtPrice_' + j),q_float('txtGweight_' + j)));
+					    t_weight=+q_mul(q_float('txtMount_' + j),q_float('txtGweight_' + j));
+					}else{
+					    t_weight=+q_float('txtMount_' + j);
+					}
 					$('#txtTotal_' + j).val(round(q_mul(q_float('txtPrice_' + j), dec(t_mount)), 0));
 					t_money = q_add(t_money, dec(q_float('txtTotal_' + j)));
 				}
@@ -89,6 +95,7 @@
 				$('#txtMoney').val(FormatNumber(t_money));
 				$('#txtTax').val(FormatNumber(t_tax));
 				$('#txtTotal').val(FormatNumber(t_total));
+				$('#txtWeight').val(FormatNumber(t_weight));
 				
 				var price = dec($('#txtPrice').val());
 				var addMoney = dec(q_getPara('sys.tranadd'));
@@ -271,8 +278,6 @@
 				}
 				if (q_getPara('sys.project').toUpperCase()=='BQ'){
 					$('.BQ').show();
-					$('#lblStype').hide();
-					$('#cmbStype').hide();
 				}
 				if (q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO'){
 					$('.cust2').show();
@@ -300,6 +305,7 @@
                 }else{
                 	$('#txtTax').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
                 }
+
             }
 
 			function bbsGetOrdeList(){
@@ -370,6 +376,9 @@
 							
 							if (q_getPara('sys.project').toUpperCase()=='RB'){
 								ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtOrdeno,txtNo2,txtPrice,txtMount,txtMemo', b_ret.length, b_ret, 'productno,product,spec,size,dime,width,lengthb,unit,noa,no2,price,notv,memo', 'txtProductno,txtProduct,txtSpec');
+							}else if (q_getPara('sys.project').toUpperCase()=='BQ'){
+							    ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtUnit,txtOrdeno,txtNo2,txtPrice,txtMount,txtGweight,txtMemo', b_ret.length, b_ret, 'productno,product,spec,unit,noa,no2,price,notv,gweight,memo', 'txtProductno,txtProduct,txtSpec');
+							    sum();
 							}else{
 								ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtOrdeno,txtNo2,txtPrice,txtMount,txtMemo', b_ret.length, b_ret, 'productno,product,spec,size,dime,width,lengthb,unit,noa,no2,price,mount,memo', 'txtProductno,txtProduct,txtSpec');
 							}
@@ -984,6 +993,9 @@
                     $('#xbProductno').css('width', '100px');
                     $('#xbProduct').css('width', '260px');
                 }
+                if (q_getPara('sys.project').toUpperCase()=='BQ'){
+                    $('.BQ').show();
+                }
 			}
 
 			function HiddenTreat(returnType){
@@ -1397,6 +1409,10 @@
 						<td class="td7"><span> </span><a id='lblTranadd' class="lbl"> </a></td>
 						<td class="td8"><input id="txtTranadd" type="text" class="txt num c1"/></td>
 					</tr>
+					<tr class="BQ" style="display:none;">
+                        <td class="td1"><span> </span><a id='lblWeight' class="lbl"> </a></td>
+                        <td class="td2"><input id="txtWeight" type="text" class="txt num c1"/></td>
+                    </tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblMoney" class="lbl"> </a></td>
 						<td class="td2" colspan='2'><input id="txtMoney" type="text" class="txt num c1"/></td>
@@ -1444,7 +1460,7 @@
 					<td align="center" style="width:180px;" id='xbProduct'><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:95px;" class="isStyle"><a id='lblStyle_s'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit_s'> </a></td>
-					<td class="BQ" align="center" style="width:40px;display:none;"><a id='lblWeighta'>單重</a></td>
+					<td class="BQ" align="center" style="width:80px;display:none;"><a id='lblGWeighta'>單重</a></td>
 					<td align="center" style="width:80px;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblPrice_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblTotal_s'> </a></td>
@@ -1469,7 +1485,7 @@
 					</td>
 					<td class="isStyle"><input id="txtStyle.*" type="text" class="txt c1"/></td>
 					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
-					<td class="BQ" style="display:none;"><input id="txtWeight.*" type="text" class="txt num"/></td>
+					<td class="BQ" style="display:none;"><input id="txtGweight.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtMount.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtPrice.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtTotal.*" type="text" class="txt num c1"/></td>
