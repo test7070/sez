@@ -338,8 +338,6 @@
 				
 				if (q_getPara('sys.project').toUpperCase()=='BQ'){
                     $('.isBQ').show();
-                    $('#lblStype').hide()
-                    $('#cmbStype').hide()
                     $('#lblPrice').hide()
                     $('#txtPrice').hide()
                 }
