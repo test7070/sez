@@ -69,7 +69,7 @@
 			}
 
 			function sum() {
-				var t1 = 0, t_unit, t_mount, t_weight = 0,t_money=0, t_tax = 0, t_total = 0;
+				var t1 = 0, t_unit, t_mount, t_weight = 0,t_money=0, t_tax = 0, t_total = 0,t_price = 0;
 				for (var j = 0; j < q_bbsCount; j++) {
 					t_unit = $('#txtUnit_' + j).val();
 					t_mount = q_float('txtMount_' + j);
@@ -268,13 +268,17 @@
 					$('#lblTranadd').hide()
 					$('#txtTranadd').hide()
 				}
-				
+				if (q_getPara('sys.project').toUpperCase()=='BQ'){
+					$('.BQ').show();
+					$('#lblStype').hide();
+					$('#cmbStype').hide();
+				}
 				if (q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO'){
 					$('.cust2').show();
 				}
 				if (q_getPara('sys.project').toUpperCase()=='AD'){
 					$('#btnst4rc2vcc').show();
-					
+
 					$('#btnst4rc2vcc').click(function() {
 						//產生轉回典盈進出貨
 						if(!emp($('#txtNoa').val())){
@@ -1439,6 +1443,7 @@
 					<td align="center" style="width:180px;" id='xbProduct'><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:95px;" class="isStyle"><a id='lblStyle_s'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit_s'> </a></td>
+					<td class="BQ" align="center" style="width:40px;display:none;"><a id='lblWeighta'>單重</a></td>
 					<td align="center" style="width:80px;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblPrice_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblTotal_s'> </a></td>
@@ -1463,6 +1468,7 @@
 					</td>
 					<td class="isStyle"><input id="txtStyle.*" type="text" class="txt c1"/></td>
 					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
+					<td class="BQ" style="display:none;"><input id="txtWeight.*" type="text" class="txt num"/></td>
 					<td><input id="txtMount.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtPrice.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtTotal.*" type="text" class="txt num c1"/></td>
