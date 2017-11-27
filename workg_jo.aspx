@@ -711,7 +711,8 @@
 											}else{
 												$('#vtunordb_'+i).text('v');
 											}
-											if(as[j].ordano!='' && as[j].ordano.substr(0,2)=='OA'){
+											//106/11/27 請購過就算有簽核
+											if(as[j].ordbno!='' || as[j].ordano!=''){
 												$('#vtunorda_'+i).text('');
 											}else{
 												$('#vtunorda_'+i).text('v');
