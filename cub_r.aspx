@@ -1089,10 +1089,18 @@
 				$('#btnbbtScolor').unbind('click');
 				$('#btnbbtScolor').click(function() {
 					$('#btnScolor__0').click();
+					$('#chkEnda_7').prop('checked',true);
+					if($('#chkEnda_7').prop('checked') && emp($('#txtDatea_7').val())){
+						$('#txtDatea_7').val(q_date());
+					}
 				});
 				$('#btnbbtPrt').unbind('click');
 				$('#btnbbtPrt').click(function() {
 					$('#btnPrt__0').click();
+					$('#chkEnda_9').prop('checked',true);
+					if($('#chkEnda_9').prop('checked') && emp($('#txtDatea_9').val())){
+						$('#txtDatea_9').val(q_date());
+					}
 				});
 				$('#lablUcolor').unbind('click');
 				$('#lablUcolor').click(function() {
@@ -1239,16 +1247,16 @@
 						if((q_getPara('sys.project').toUpperCase()=="AD" || q_getPara('sys.project').toUpperCase()=="JO")){
 							if($('#cmbIpfrom').val().toUpperCase()==z_cno.toUpperCase()){ //ST4
 								if((i==1 || i==2 || i==3 || i==4 || i==5 || i==8 || i==10 || i==13 || i==14 || i==15 || i==20)){ //i==5 || i==6 || i==7 || i==12
-									for (var j=0;j<fbbm.length;j++){
-										$('#'+fbbm[j]+'_'+i).attr('disabled', 'disabled');
+									for (var j=0;j<fbbs.length;j++){
+										$('#'+fbbs[j]+'_'+i).attr('disabled', 'disabled');
 									}
 									$('#btnTggno_'+i).attr('disabled', 'disabled');
 								}
 							}
 							if($('#cmbIpto').val().toUpperCase()==z_cno.toUpperCase()){ //ST2
 								if(!(i==1 || i==2 || i==3 || i==4 || i==5 || i==8 || i==10 || i==13 || i==14 || i==15 || i==20)){
-									for (var j=0;j<fbbm.length;j++){
-										$('#'+fbbm[j]+'_'+i).attr('disabled', 'disabled');
+									for (var j=0;j<fbbs.length;j++){
+										$('#'+fbbs[j]+'_'+i).attr('disabled', 'disabled');
 									}
 									$('#btnTggno_'+i).attr('disabled', 'disabled');
 								}
@@ -1459,6 +1467,11 @@
                 font-weight: bolder;
                 cursor: pointer;
             }
+            
+            #tmptbbt tr td {
+				text-align: center;
+				border: 2px pink double;
+			}
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
