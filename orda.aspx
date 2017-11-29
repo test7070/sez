@@ -597,9 +597,11 @@
                     </tr>
                     <tr>
                         <td><span> </span><a id='lblWorkgno' class="lbl btn"> </a></td>
-                        <td><input id="txtWorkgno" type="text" class="txt c1"/></td>
+                        <td colspan="3"><input id="txtWorkgno" type="text" class="txt c1"/></td>
+                    </tr>
+                    <tr>
                         <td><span> </span><a id='lblOrdbno' class="lbl btn"> </a></td>
-                        <td><input id="txtOrdbno" type="text" class="txt c1"/></td>
+                        <td colspan="3"><input id="txtOrdbno" type="text" class="txt c1"/></td>
                     </tr>
                     <tr>
                         <td><span> </span><a id='lblWorker' class="lbl"> </a></td>
@@ -623,7 +625,7 @@
                         <td align="center" style="width:50px;"><a id='lblIsapv_s'>核准</a><input type="checkbox" id="cccAllapv" onclick="allApv()"/></td>
                         <td align="center" style="width:100px;"><a id='lblMemo2_s'>簽核意見</a></td>
                         <td align="center" style="width:100px;"><a >異動數量</a></td>
-                        <td align="center" style="width:100px;"></td>
+                        <td align="center" style="width:100px;"> </td>
                         <td align="center" style="width:160px;"><a id='lblProductno_s'> </a></td>
                         <td align="center" style="width:200px;"><a id='lblProduct_s'> </a>/<a id='lblSpec_s'> </a></td>
                         <td align="center" style="width:55px;"><a id='lblUnit_s'> </a></td>
