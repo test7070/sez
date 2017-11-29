@@ -43,7 +43,8 @@
 		        bbsKey = ['noa', 'noq'];
 		        q_brwCount();
 		        q_gt(q_name, q_content, q_sqlCount, 1);
-		        q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
+		        var t_db=q_db.toLocaleUpperCase();
+		        q_gt('acomp', "where=^^(dbname='"+t_db+"' or not exists (select * from acomp where dbname='"+t_db+"')) ^^ stop=1", 0, 0, 0, "cno_acomp");
 		    });
 		    function main() {
 		        mainForm(1);

@@ -1236,18 +1236,14 @@
 						<td><select id="cmbCartype" class="txt c1"> </select> </td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblCarbono" class="lbl">車身號碼</a></td>
-						<td><input id="txtCarbono" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblCarkind" class="lbl"> </a></td>
+                        <td><select id="cmbCarkindno" class="txt c1"> </select></td>
 						<td><span> </span><a id="lblCarmode" class="lbl"> </a></td>
 						<td><input id="txtCarmode" type="text" class="txt c1"/> </td>
 						<!--<select id="cmbCarstyleno" class="txt c1"> </select>-->
 						<td><span> </span><a id="lblCarspec" class="lbl btn"> </a></td>
 						<td><select id="cmbCarspecno" class="txt c1"> </select></td>
 					</tr>
-					<tr>
-                        <td><span> </span><a id="lblCarkind" class="lbl"> </a></td>
-                        <td><select id="cmbCarkindno" class="txt c1"> </select></td>
-                    </tr>
 					<tr>
 						<td><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
 						<td colspan="2">
@@ -1366,6 +1362,8 @@
                         <td><input id="txtSmokedate" type="text" class="txt c1" style="width:98%"/></td>
                         <td><span> </span><a id="lblNdate_dc" class="lbl">記錄器檢驗日</a></td>
                         <td><input id="txtNdate" type="text" class="txt c1"/></td>
+                        <td><span> </span><a id="lblCc" class="lbl"> </a></td>
+                        <td><input id="txtCc" type="text" class="txt c1"/> </td>
                     </tr>
 					<tr class="other">
 						<td><span> </span><a id="lblLengthb" class="lbl"> </a></td>
@@ -1400,8 +1398,8 @@
 						<td><input id="txtCylinder" type="text" class="txt c1"/> </td>
 					</tr>
 					<tr class="other">
-						<td><span> </span><a id="lblCc" class="lbl"> </a></td>
-						<td><input id="txtCc" type="text" class="txt c1"/> </td>
+                        <td><span> </span><a id="lblCarbono" class="lbl">車身號碼</a></td>
+                        <td><input id="txtCarbono" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblEngineno" class="lbl"> </a></td>
 						<td><input id="txtEngineno" type="text" class="txt c1"/> </td>
 						<td><span> </span><a id="lblOldnoa" class="lbl"> </a></td>

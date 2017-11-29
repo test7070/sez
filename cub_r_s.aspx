@@ -39,6 +39,28 @@
 				q_cmbParse("cmbEnda", '@全部,Y@Y,N@N');
 				q_cmbParse("cmbChecker", '@全部,Y@Y,N@N');
 				q_cmbParse("cmbApprove", '@全部,Y@Y,N@N');
+				
+				q_cmbParse("cmbbbt1", '@全部,Y@完工,N@未完工');
+				q_cmbParse("cmbbbt2", '@全部,Y@完工,N@未完工');
+				q_cmbParse("cmbbbt3", '@全部,Y@完工,N@未完工');
+				q_cmbParse("cmbbbt4", '@全部,Y@完工,N@未完工');
+				q_cmbParse("cmbbbt5", '@全部,Y@完工,N@未完工');
+				q_cmbParse("cmbbbt6", '@全部,Y@完工,N@未完工');
+				q_cmbParse("cmbbbt7", '@全部,Y@完工,N@未完工');
+				q_cmbParse("cmbbbt8", '@全部,Y@完工,N@未完工');
+				q_cmbParse("cmbbbt9", '@全部,Y@完工,N@未完工');
+				q_cmbParse("cmbbbt10", '@全部,Y@完工,N@未完工');
+				q_cmbParse("cmbbbt11", '@全部,Y@完工,N@未完工');
+				q_cmbParse("cmbbbt12", '@全部,Y@完工,N@未完工');
+				q_cmbParse("cmbbbt13", '@全部,Y@完工,N@未完工');
+				q_cmbParse("cmbbbt14", '@全部,Y@完工,N@未完工');
+				q_cmbParse("cmbbbt15", '@全部,Y@完工,N@未完工');
+				q_cmbParse("cmbbbt16", '@全部,Y@完工,N@未完工');
+				q_cmbParse("cmbbbt17", '@全部,Y@完工,N@未完工');
+				q_cmbParse("cmbbbt18", '@全部,Y@完工,N@未完工');
+				q_cmbParse("cmbbbt19", '@全部,Y@完工,N@未完工');
+				q_cmbParse("cmbbbt20", '@全部,Y@完工,N@未完工');
+				q_cmbParse("cmbbbt21", '@全部,Y@完工,N@未完工');
 			}
 
 			function q_gtPost(t_name) {
@@ -49,7 +71,8 @@
 			function q_seekStr() {
 				var t_bdate = $.trim($('#txtBdate').val());
                 var t_edate = $.trim($('#txtEdate').val());
-				var t_noa = $.trim($('#txtNoa').val());
+				var t_bnoa = $.trim($('#txtBnoa').val());
+				var t_enoa = $.trim($('#txtEnoa').val());
 				var t_custno = $.trim($('#txtCustno').val());
 				var t_pno = $.trim($('#txtProductno').val());
 				var t_enda = $('#cmbEnda').val();
@@ -57,7 +80,7 @@
 				var t_checker = $('#cmbChecker').val();
 				var t_approve = $('#cmbApprove').val();
 				
-				var t_where = " 1=1 " + q_sqlPara2("datea", t_bdate,t_edate) + q_sqlPara2("noa", t_noa)+
+				var t_where = " 1=1 " + q_sqlPara2("datea", t_bdate,t_edate) + q_sqlPara2("noa", t_bnoa,t_enoa)+
 										q_sqlPara2("custno", t_custno) +
 										q_sqlPara2("productno", t_pno) ;
 										
@@ -108,48 +131,112 @@
 		<div style='width:400px; text-align:center;padding:15px;' >
 			<table id="seek" border="1" cellpadding='3' cellspacing='2' style='width:100%;' >
 				<tr class='seek_tr'>
-					<td   style="width:35%;"><a id='lblDatea'>樣品單日期</a></td>
-					<td style="width:65%;  ">
-					<input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
-					<span style="display:inline-block; vertical-align:middle">&sim;</span>
-					<input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" />
+					<td><a id='lblDatea'>樣品單日期</a></td>
+					<td colspan="3">
+						<input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
+						<span style="display:inline-block; vertical-align:middle">&sim;</span>
+						<input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek' style="width:90px;"><a id='lblNoa'>單據編號 </a></td>
-					<td><input class="txt" id="txtNoa" type="text" style="width:220px;" /></td>
+					<td><a id='lblNoa'>樣品單號 </a></td>
+					<td colspan="3">
+						<input class="txt" id="txtBnoa" type="text" style="width:100px;font-size:medium;" />
+						<span style="display:inline-block; vertical-align:middle">&sim;</span>
+						<input class="txt" id="txtEnoa" type="text" style="width:100px;font-size:medium;" />
+					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblIssue'>發行</a></td>
-					<td><select id="cmbIssue" class="txt c1" style="font-size:medium;"> </select></td>
+					<td style="width: 100px;"><a id='lblIssue'>發行</a></td>
+					<td style="width: 100px;"><select id="cmbIssue" class="txt c1" style="font-size:medium;"> </select></td>
+					<td style="width: 100px;"><a id='lblEnda'>寄送</a></td>
+					<td style="width: 100px;"><select id="cmbEnda" class="txt c1" style="font-size:medium;"> </select></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblEnda'>寄送</a></td>
-					<td><select id="cmbEnda" class="txt c1" style="font-size:medium;"> </select></td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek' style="width:90px;"><a id='lblCust'>客戶</a></td>
-					<td style="width:215px;">
-						<input class="txt" id="txtCustno" type="text" style="width:90px;" />
-						&nbsp;
+					<td><a id='lblCust'>客戶</a></td>
+					<td colspan="3">
+						<input class="txt" id="txtCustno" type="text" style="width:90px;" />&nbsp;
 						<input class="txt readonly" id="txtComp" type="text" style="width:120px;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek' style="width:90px;"><a id='lblProduct'>製成品</a></td>
-					<td style="width:215px;">
-						<input class="txt" id="txtProductno" type="text" style="width:90px;" />
-						&nbsp;
+					<td><a id='lblProduct'>製成品</a></td>
+					<td colspan="3">
+						<input class="txt" id="txtProductno" type="text" style="width:90px;" />&nbsp;
 						<input class="txt readonly" id="txtProduct" type="text" style="width:120px;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblChecker'>業務核准</a></td>
+					<td><a id='lblChecker'>業務核准</a></td>
 					<td><select id="cmbChecker" class="txt c1" style="font-size:medium;"> </select></td>
+					<td><a id='lblApprove'>經理核准</a></td>
+					<td><select id="cmbApprove" class="txt c1" style="font-size:medium;"> </select></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblApprove'>經理核准</a></td>
-					<td><select id="cmbApprove" class="txt c1" style="font-size:medium;"> </select></td>
+					<td><a id='lblBbt1'>流程第1項</a></td>
+					<td><select id="cmbbbt1" class="txt c1" style="font-size:medium;"> </select></td>
+					<td><a id='lblBbt2'>流程第2項</a></td>
+					<td><select id="cmbbbt2" class="txt c1" style="font-size:medium;"> </select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td><a id='lblBbt3'>流程第3項</a></td>
+					<td><select id="cmbbbt3" class="txt c1" style="font-size:medium;"> </select></td>
+					<td><a id='lblBbt4'>流程第4項</a></td>
+					<td><select id="cmbbbt4" class="txt c1" style="font-size:medium;"> </select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td><a id='lblBbt5'>流程第5項</a></td>
+					<td><select id="cmbbbt5" class="txt c1" style="font-size:medium;"> </select></td>
+					<td><a id='lblBbt6'>流程第6項</a></td>
+					<td><select id="cmbbbt6" class="txt c1" style="font-size:medium;"> </select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td><a id='lblBbt7'>流程第7項</a></td>
+					<td><select id="cmbbbt7" class="txt c1" style="font-size:medium;"> </select></td>
+					<td><a id='lblBbt8'>流程第8項</a></td>
+					<td><select id="cmbbbt8" class="txt c1" style="font-size:medium;"> </select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td><a id='lblBbt9'>流程第9項</a></td>
+					<td><select id="cmbbbt9" class="txt c1" style="font-size:medium;"> </select></td>
+					<td><a id='lblBbt10'>流程第10項</a></td>
+					<td><select id="cmbbbt10" class="txt c1" style="font-size:medium;"> </select></td>
+				</tr>				
+				<tr class='seek_tr'>
+					<td><a id='lblBbt11'>流程第11項</a></td>
+					<td><select id="cmbbbt11" class="txt c1" style="font-size:medium;"> </select></td>
+					<td><a id='lblBbt12'>流程第12項</a></td>
+					<td><select id="cmbbbt12" class="txt c1" style="font-size:medium;"> </select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td><a id='lblBbt13'>流程第13項</a></td>
+					<td><select id="cmbbbt13" class="txt c1" style="font-size:medium;"> </select></td>
+					<td><a id='lblBbt14'>流程第14項</a></td>
+					<td><select id="cmbbbt14" class="txt c1" style="font-size:medium;"> </select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td><a id='lblBbt15'>流程第15項</a></td>
+					<td><select id="cmbbbt15" class="txt c1" style="font-size:medium;"> </select></td>
+					<td><a id='lblBbt16'>流程第16項</a></td>
+					<td><select id="cmbbbt16" class="txt c1" style="font-size:medium;"> </select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td><a id='lblBbt17'>流程第17項</a></td>
+					<td><select id="cmbbbt17" class="txt c1" style="font-size:medium;"> </select></td>
+					<td><a id='lblBbt18'>流程第18項</a></td>
+					<td><select id="cmbbbt18" class="txt c1" style="font-size:medium;"> </select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td><a id='lblBbt19'>流程第19項</a></td>
+					<td><select id="cmbbbt19" class="txt c1" style="font-size:medium;"> </select></td>
+					<td><a id='lblBbt20'>流程第20項</a></td>
+					<td><select id="cmbbbt20" class="txt c1" style="font-size:medium;"> </select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td><a id='lblBbt21'>流程第21項</a></td>
+					<td><select id="cmbbbt21" class="txt c1" style="font-size:medium;"> </select></td>
+					<td> </td>
+					<td> </td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->

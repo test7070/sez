@@ -54,7 +54,8 @@
 				bbsKey = ['noa', 'noq'];
 				q_brwCount();
 				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
-				q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
+				var t_db=q_db.toLocaleUpperCase();
+				q_gt('acomp', "where=^^(dbname='"+t_db+"' or not exists (select * from acomp where dbname='"+t_db+"')) ^^ stop=1", 0, 0, 0, "cno_acomp");
 				q_gt('flors_coin', '', 0, 0, 0, "flors_coin");
 			});
 
@@ -338,8 +339,6 @@
 				
 				if (q_getPara('sys.project').toUpperCase()=='BQ'){
                     $('.isBQ').show();
-                    $('#lblStype').hide()
-                    $('#cmbStype').hide()
                     $('#lblPrice').hide()
                     $('#txtPrice').hide()
                 }

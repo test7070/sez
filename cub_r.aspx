@@ -18,10 +18,10 @@
 			q_tables = 't';
 			var q_name = "cub";
 			var q_readonly = ['txtComp','txtWorker','txtWorker2','txtMo','txtVcceno','txtCost'//,'txtIpfrom','txtIpto'
-			,'txtChecker','txtCheckerdate','txtApprove','txtApprovedate','txtIssuedate'];
+			,'txtChecker','txtCheckerdate','txtApprove','txtApprovedate','txtIssuedate','textStyle','textSize','txtReviewdate','txtkind'];
 			var q_readonlys = ['txtDate2', 'txtOrdeno', 'txtNo2','txtMo','txtW01','txtProcess'];
 			var q_readonlyt = ['txtSpec','txtSize','txtPlace'];
-			var bbmNum = [['txtMount',10,0,1],['txtCost',15,0,1]];
+			var bbmNum = [['txtMount',10,0,1],['txtCost',15,0,1],['txtMo',15,2,1],['txtPrice',15,3,1]];
 			var bbsNum = [];
 			var bbtNum = [];
 			var bbmMask = [];
@@ -36,9 +36,13 @@
 			q_copy = 1;
 			brwCount2 = 4;
 			aPop = new Array(
-				['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']
+				['txtCno', 'lblCno', 'quar', 'noa', 'txtCno', '']
+				,['txtCustno', 'lblCust', 'cust', 'noa,nick,memo2', 'txtCustno,txtComp,txtMemo2', 'cust_b.aspx']
+				,['txtM14', 'lblM14', 'cust', 'noa,nick', 'txtM14,txtM15', 'cust_b.aspx']
 				//,['txtProductno_', '', 'ucx', 'noa,product', 'txtProductno_,txtProduct_', 'ucx_b.aspx']
-				,['txtProductno', 'lblProduct', 'ucaucc', 'noa,product,spec,unit', 'txtProductno,txtProduct,txtSpec,txtUnit', 'ucaucc_b.aspx']
+				,['txtProductno', 'lblProduct', 'ucaucc', 'noa,product,spec,unit,style,size', 'txtProductno,txtProduct,txtSpec,txtUnit,textStyle,textSize', 'ucaucc_b.aspx']
+				,['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx']
+				,['txtTggno', 'lblTgg', 'part', 'noa,part', 'txtTggno,txtTgg', 'part_b.aspx']
 				,['txtTggno_', 'btnTggno_', 'tgg', 'noa,comp', 'txtTggno_,txtTgg_', "tgg_b.aspx"]
 				,['txtM1', '', 'adsize', 'noa,mon,memo1,memo2', '0txtM1', '']
 				,['txtM4', '', 'adsss', 'noa,mon,memo1,memo2', '0txtM4', '']
@@ -99,6 +103,15 @@
 				q_gt('acomp', "where=^^ isnull(dbname,'')!='' and isnull(ip,'')!='' ^^", 0, 0, 0, "getipfrom");
 				
 				q_cmbParse("cmbItype", ',ODM,OBM,OEM');
+				q_cmbParse("cmbLevel", ',A,B,C,D,E,F,逾期');
+				//天數差異	說明        	等級 	評分
+				//0     	當天完成 	A   	100
+				//-1    	隔天完成 	B   	90
+				//-2    	隔二天完成	C   	80
+				//-3    	隔三天完成	D   	70
+				//-4    	隔四天完成	E   	60
+				//-5    	隔五天完成	F   	50
+				//-6    	超過5天以上	逾期 	40
 				
 				$('#txtMo').change(function() {
 					if(dec($('#txtMount').val())!=0 && dec($('#txtMo').val())!=0){
@@ -158,6 +171,32 @@
 								alert('已被【'+$('#txtChecker').val()+'】核准!!');
 							else
 								alert('【Ipto】與【生產發行件號】禁止空白!!');
+						}
+					}
+				});
+				
+				$('#btnReviewapv').click(function() {
+					if(!(q_cur==1 || q_cur==2) && !emp($('#txtNoa').val())){
+						if(!emp($('#txtChecker').val()) && !emp($('#txtCheckerdate').val()) && emp($('#txtReviewdate').val())){
+							if($('#txtChecker').val()!=r_name){
+								alert('【核准主管】與【覆核主管】不同禁止覆核!!');
+							}else{
+								var t_noa=$('#txtNoa').val();							
+								var t_hostname=location.hostname;
+								var t_proj=q_getPara('sys.project').toUpperCase();
+								q_func('qtxt.query.cub_apv', 'cub.txt,cub_apv,' + encodeURI(r_accy)+';'+encodeURI(t_noa)+';'+encodeURI(r_userno)+';'+encodeURI(r_name)+';'+encodeURI('review')+';'+encodeURI(t_hostname)+';'+encodeURI(t_proj)+';'+encodeURI('0'),r_accy,1);
+			                	var as = _q_appendData("tmp0", "", true, true);
+			                	if (as[0] != undefined) {
+			                		$('#txtReviewdate').val(as[0].reviewdate);
+			                		abbm[q_recno]['reviewdate'] = as[0].reviewdate;
+			                	}
+							}
+						}else{
+							if(!emp($('#txtReviewdate').val())){
+								alert('已被【'+$('#txtChecker').val()+'】覆核!!');
+							}else{
+								alert('尚未被【核准】禁止【覆核】!!');
+							}
 						}
 					}
 				});
@@ -452,6 +491,38 @@
 							q_gt('custprices', t_where, 0, 0, 0, "custprices");
 						}
 						break;
+					case 'txtCno':
+						if(!emp($('#txtCno').val())){
+							var t_where = "where=^^ noa ='"+$('#txtCno').val()+"' ^^";
+							q_gt('quar', t_where, 0, 0, 0, "getquar",r_accy,1);
+							var as = _q_appendData("quar", "", true);
+							if (as[0] != undefined) {
+								$('#txtM13').val(as[0].payterms);
+								if(emp($('#txtCustno').val())){
+									$('#txtCustno').val(as[0].custno);
+									$('#txtComp').val(as[0].comp);
+								}
+							}
+						}
+					
+						if(!emp($('#txtCustno').val())){
+							var t_where = "where=^^ noa ='"+$('#txtCustno').val()+"' ^^";
+							q_gt('cust', t_where, 0, 0, 0, "getmemo2",r_accy,1);
+							var as = _q_appendData("cust", "", true);
+                    		if (as[0] != undefined) {
+                    			$('#txtMemo2').val(as[0].memo2);
+                    		}
+                    		$('#txtM13').val($('#txtCustno').val());
+                    		$('#txtM14').val($('#txtCustno').val());
+                    		$('#txtM15').val($('#txtComp').val());
+						}
+						break;
+					case 'txtCustno':
+						if(!emp($('#txtCustno').val())){
+                    		$('#txtM14').val($('#txtCustno').val());
+                    		$('#txtM15').val($('#txtComp').val());
+						}
+						break;
 					default:
 						break;
 				}			
@@ -461,7 +532,7 @@
 				if (q_cur > 0 && q_cur < 4)
 					return;
 					
-				q_box('cub_r_s.aspx', q_name + '_s', "500px", "450px", q_getMsg("popSeek"));
+				q_box('cub_r_s.aspx', q_name + '_s', "500px", "710px", q_getMsg("popSeek"));
 			}
 
 			function btnIns() {
@@ -482,7 +553,7 @@
 				
 				if(emp($('#txtProcess_0').val())){//自動產生流程
 					var as =[];
-					as.push({process:'開銅膜/模具'});
+					/*as.push({process:'開銅膜/模具'});
 					as.push({process:'樣品照片'});
 					as.push({process:'客戶確認'});
 					as.push({process:'寄送樣品'});
@@ -494,7 +565,29 @@
 					as.push({process:'回覆'});
 					as.push({process:'報價'});
 					as.push({process:'客戶銷售採購價格表'});
-					as.push({process:'製造廠銷售價格表'});
+					as.push({process:'製造廠銷售價格表'});*/
+					
+					as.push({process:'模具需求申請單'});
+					as.push({process:'銅模需求申請單'});
+					as.push({process:'網版需求申請單'});
+					as.push({process:'委外加工製造通知單'});
+					as.push({process:'樣品需求單'});
+					as.push({process:'開發部傳鐳雕圖'});
+					as.push({process:'銷售單位傳鐳雕圖給客戶'});
+					as.push({process:'客戶確認鐳雕圖日期'});
+					as.push({process:'開發部傳樣品照片'});
+					as.push({process:'銷售單位傳樣品照片給客戶'});
+					as.push({process:'開發部寄出樣品日期'});
+					as.push({process:'寄送樣品-銷售單位寄送樣品給客戶'});
+					as.push({process:'客戶確認樣品日期'});
+					as.push({process:'產生生產件號並發行'});
+					as.push({process:'檢查生產基本資料'});
+					as.push({process:'越南會計報價日'});
+					as.push({process:'PF計算 for 會計'});
+					as.push({process:'銷售訂單追蹤'});
+					as.push({process:'報價單追蹤'});
+					as.push({process:'銷售單位客戶銷售_採購價格表'});
+					as.push({process:'製造廠維護銷售價格表'});
 					q_gridAddRow(bbsHtm, 'tbbs', 'txtProcess', as.length, as, 'process', '', '');
 				}
 			}
@@ -556,10 +649,17 @@
 				}
 				
 				sum();
-				if(q_cur==1)
+				if(q_cur==1){
 					$('#txtWorker').val(r_name);
-				else
+					
+					q_gt('sss', "where=^^noa='"+r_userno+"'^^" , 0, 0, 0, "getsalesgroup",r_accy,1);
+					var as = _q_appendData("sss", "", true);
+                    if (as[0] != undefined) {
+						$('#txtkind').val(as[0].salesgroup);
+					}
+				}else{
 					$('#txtWorker2').val(r_name);
+				}
 
 				var t_noa = trim($('#txtNoa').val());
 				var t_date = trim($('#txtDatea').val());
@@ -632,12 +732,28 @@
                     	$("#tbbm textarea").css('color','black');
                     }
 				}
+				
+				//抓取尺寸/車種
+				if(!emp($('#txtProductno').val())){
+					var t_pno=$('#txtProductno').val();
+					q_gt('uca', "where=^^noa='"+t_pno+"'^^" , 0, 0, 0, "",r_accy,1);
+					var as = _q_appendData("uca", "", true);
+					if (as[0] != undefined) {
+						$('#textSize').val(as[0].size);
+						$('#textStyle').val(as[0].style);
+					}
+				}
 			}
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
 				if(t_para){
-					
+					//106/11/24
+					$('#textbbtComp').attr('disabled', 'disabled');
+					$('#textbbtMemo').attr('disabled', 'disabled');
+					$('#btnbbtUcolor').attr('disabled', 'disabled');
+					$('#btnbbtScolor').attr('disabled', 'disabled');
+					$('#btnbbtPrt').attr('disabled', 'disabled');
 				}else{
 					
 				}
@@ -650,8 +766,10 @@
 				if(!(q_cur==1 || q_cur==2) && !emp($('#cmbIpfrom').val()) && $('#cmbIpfrom').val()!=null  && $('#cmbIpto').val()!=null){
 					if($('#cmbIpfrom').val().toUpperCase()==z_cno.toUpperCase()){
 						$('#btnCheckapv').removeAttr("disabled");
+						$('#btnReviewapv').removeAttr("disabled");
 					}else{
 						$('#btnCheckapv').attr('disabled', 'disabled');
+						$('#btnReviewapv').attr('disabled', 'disabled');
 					}
 					if($('#cmbIpto').val().toUpperCase()==z_cno.toUpperCase()){
 						$('#btnApproveapv').removeAttr("disabled");
@@ -662,6 +780,7 @@
 					}
 				}else{
 					$('#btnCheckapv').attr('disabled', 'disabled');
+					$('#btnReviewapv').attr('disabled', 'disabled');
 					$('#btnApproveapv').attr('disabled', 'disabled');
 					$('#btnApproveucx').attr('disabled', 'disabled');
 				}
@@ -783,7 +902,7 @@
 				return function() {return s4() + s4() + s4() + s4();};
 			})();
 			
-			function ShowDownlbl() {				
+			function ShowDownlbl() {
 				$('.lblDownload').text('').hide();
 				$('.lblDownload').each(function(){
 					var txtfiles=replaceAll($(this).attr('id'),'lbl','txt');
@@ -805,6 +924,23 @@
                         	alert('無資料下載!!');
 					});
 				});
+				//106/11/24 bbt改為一行
+				if($('#lblUcolor__0').is(':hidden')){
+					$('#lablUcolor').text('').hide();
+				}else{
+					$('#lablUcolor').text('下載').show();
+				}
+				if($('#lblScolor__0').is(':hidden')){
+					$('#lablScolor').text('').hide();
+				}else{
+					$('#lablScolor').text('下載').show();
+				}
+				if($('#lblPrt__0').is(':hidden')){
+					$('#lablPrt').text('').hide();
+				}else{
+					$('#lablPrt').text('下載').show();
+				}
+				
 			}
 			
 			var ttxtName='';
@@ -823,6 +959,11 @@
 				}else{
 					$('.btnFiles').attr('disabled', 'disabled');
 				}
+				
+				for (var i = 1; i < q_bbtCount; i++) {
+					$('#bbttr__'+i).css('display','none');
+				}
+				
 		        $('.btnFiles').change(function() {
 					event.stopPropagation(); 
 					event.preventDefault();
@@ -838,12 +979,19 @@
 						if(extindex>=0){
 							ext = file.name.substring(extindex,file.name.length);
 						}
-						if(txtOrgName[0]=='txtScolor')
+						//106/11/24bbt只改用一行
+						if(txtOrgName[0]=='txtScolor'){
 							$('#txtSpec__'+txtOrgName[1]).val(file.name);
-						if(txtOrgName[0]=='txtUcolor')
+							$('#textbbtSpec').val(file.name);
+						}
+						if(txtOrgName[0]=='txtUcolor'){
 							$('#txtSize__'+txtOrgName[1]).val(file.name);
-						if(txtOrgName[0]=='txtPrt')
+							$('#textbbtSize').val(file.name);
+						}
+						if(txtOrgName[0]=='txtPrt'){
 							$('#txtPlace__'+txtOrgName[1]).val(file.name);
+							$('#textbbtPlace').val(file.name);
+						}
 						//$('#'+txtName).val(guid()+Date.now()+ext);
 						//106/05/22 不再使用亂數編碼
 						$('#'+txtName).val(file.name);
@@ -896,6 +1044,86 @@
 					ShowDownlbl();
 				});
 				ShowDownlbl();
+				
+				//另存暫存bbt---------------------------------------------
+				if(abbtNow[0]){
+					$('#textbbtUcolor').val(abbtNow[0].ucolor);
+					$('#textbbtSize').val(abbtNow[0].size);
+					$('#textbbtScolor').val(abbtNow[0].scolor);
+					$('#textbbtSpec').val(abbtNow[0].spec);
+					$('#textbbtComp').val(abbtNow[0].comp);
+					$('#textbbtPrt').val(abbtNow[0].prt);
+					$('#textbbtPlace').val(abbtNow[0].place);
+					$('#textbbtMemo').val(abbtNow[0].memo);
+				}else{
+					$('#textbbtUcolor').val('');
+					$('#textbbtSize').val('');
+					$('#textbbtScolor').val('');
+					$('#textbbtSpec').val('');
+					$('#textbbtComp').val('');
+					$('#textbbtPrt').val('');
+					$('#textbbtPlace').val('');
+					$('#textbbtMemo').val('');
+				}
+				$('#textbbtSize').attr('disabled', 'disabled');
+				$('#textbbtSpec').attr('disabled', 'disabled');
+				$('#textbbtPlace').attr('disabled', 'disabled');
+				if(q_cur==1 || q_cur==2){
+					$('#textbbtComp').removeAttr("disabled");
+					$('#textbbtMemo').removeAttr("disabled");
+					$('#btnbbtUcolor').removeAttr("disabled");
+					$('#btnbbtScolor').removeAttr("disabled");
+					$('#btnbbtPrt').removeAttr("disabled");
+				}else{
+					$('#textbbtComp').attr('disabled', 'disabled');
+					$('#textbbtMemo').attr('disabled', 'disabled');
+					$('#btnbbtUcolor').attr('disabled', 'disabled');
+					$('#btnbbtScolor').attr('disabled', 'disabled');
+					$('#btnbbtPrt').attr('disabled', 'disabled');
+				}
+				
+				$('#btnbbtUcolor').unbind('click');
+				$('#btnbbtUcolor').click(function() {
+					$('#btnUcolor__0').click();
+				});
+				$('#btnbbtScolor').unbind('click');
+				$('#btnbbtScolor').click(function() {
+					$('#btnScolor__0').click();
+					$('#chkEnda_7').prop('checked',true);
+					if($('#chkEnda_7').prop('checked') && emp($('#txtDatea_7').val())){
+						$('#txtDatea_7').val(q_date());
+					}
+				});
+				$('#btnbbtPrt').unbind('click');
+				$('#btnbbtPrt').click(function() {
+					$('#btnPrt__0').click();
+					$('#chkEnda_9').prop('checked',true);
+					if($('#chkEnda_9').prop('checked') && emp($('#txtDatea_9').val())){
+						$('#txtDatea_9').val(q_date());
+					}
+				});
+				$('#lablUcolor').unbind('click');
+				$('#lablUcolor').click(function() {
+					$('#lblUcolor__0').click();
+				});
+				$('#lablScolor').unbind('click');
+				$('#lablScolor').click(function() {
+					$('#lblScolor__0').click();
+				});
+				$('#lablPrt').unbind('click');
+				$('#lablPrt').click(function() {
+					$('#lblPrt__0').click();
+				});
+				$('#textbbtComp').unbind('blur');
+				$('#textbbtComp').blur(function() {
+					$('#txtComp__0').val($(this).val())
+				});
+				$('#textbbtMemo').unbind('blur');
+				$('#textbbtMemo').blur(function() {
+					$('#txtMemo__0').val($(this).val())
+				});
+				
+				//另存暫存bbt---------------------------------------------
 			}
 			
 			var t_zoomimg=false;
@@ -1018,17 +1246,17 @@
 						//106/10/09 鎖定固定流程
 						if((q_getPara('sys.project').toUpperCase()=="AD" || q_getPara('sys.project').toUpperCase()=="JO")){
 							if($('#cmbIpfrom').val().toUpperCase()==z_cno.toUpperCase()){ //ST4
-								if((i==5 || i==6 || i==7 || i==12)){
-									for (var j=0;j<fbbm.length;j++){
-										$('#'+fbbm[j]+'_'+i).attr('disabled', 'disabled');
+								if((i==1 || i==2 || i==3 || i==4 || i==5 || i==8 || i==10 || i==13 || i==14 || i==15 || i==20)){ //i==5 || i==6 || i==7 || i==12
+									for (var j=0;j<fbbs.length;j++){
+										$('#'+fbbs[j]+'_'+i).attr('disabled', 'disabled');
 									}
 									$('#btnTggno_'+i).attr('disabled', 'disabled');
 								}
 							}
 							if($('#cmbIpto').val().toUpperCase()==z_cno.toUpperCase()){ //ST2
-								if(!(i==5 || i==6 || i==7 || i==12)){
-									for (var j=0;j<fbbm.length;j++){
-										$('#'+fbbm[j]+'_'+i).attr('disabled', 'disabled');
+								if(!(i==1 || i==2 || i==3 || i==4 || i==5 || i==8 || i==10 || i==13 || i==14 || i==15 || i==20)){
+									for (var j=0;j<fbbs.length;j++){
+										$('#'+fbbs[j]+'_'+i).attr('disabled', 'disabled');
 									}
 									$('#btnTggno_'+i).attr('disabled', 'disabled');
 								}
@@ -1041,7 +1269,7 @@
 					if($('#cmbIpfrom').val()!=null  && $('#cmbIpto').val()!=null){
 						for (var i = 0; i < q_bbsCount; i++) {
 							if($('#cmbIpfrom').val().toUpperCase()==z_cno.toUpperCase()){ //ST4
-								if((i==5 || i==6 || i==7 || i==12)){
+								if((i==1 || i==2 || i==3 || i==4 || i==5 || i==8 || i==10 || i==13 || i==14 || i==15 || i==20)){
 									$('#trcolor_'+i).css('background','#cad3ff');
 								}else{
 									$('#trcolor_'+i).css('background','antiquewhite');
@@ -1049,7 +1277,7 @@
 							}
 								
 							if($('#cmbIpto').val().toUpperCase()==z_cno.toUpperCase()){ //ST2
-								if(!(i==5 || i==6 || i==7 || i==12)){
+								if(!(i==1 || i==2 || i==3 || i==4 || i==5 || i==8 || i==10 || i==13 || i==14 || i==15 || i==20)){
 									$('#trcolor_'+i).css('background','#cad3ff');
 								}else{
 									$('#trcolor_'+i).css('background','antiquewhite');
@@ -1213,7 +1441,7 @@
 				font-size: medium;
 			}
 			#dbbt {
-				width: 1260px;
+				width: 1560px;
 			}
 			#tbbt {
 				margin: 0;
@@ -1239,6 +1467,11 @@
                 font-weight: bolder;
                 cursor: pointer;
             }
+            
+            #tmptbbt tr td {
+				text-align: center;
+				border: 2px pink double;
+			}
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -1283,10 +1516,12 @@
 					<tr>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td><input id="txtDatea" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblCno_r" class="lbl">Quote#</a></td>
+						<td><input id="txtCno" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblNoa_r" class="lbl">樣品單號</a></td>
-						<td><input id="txtNoa" type="text" class="txt c1"/></td>
-						<td  style="display: none;"><span> </span><a id="lblStatus" class="lbl" > </a>完成狀態</td>
-						<td><input id="txtStatus" type="hidden" class="txt c1" /></td>
+						<td colspan="2"><input id="txtNoa" type="text" class="txt c1"/></td>
+						<td style="display: none;"><span> </span><a id="lblStatus" class="lbl" > </a>完成狀態</td>
+						<td style="display: none;"><input id="txtStatus" type="hidden" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCust_r" class="lbl">客戶</a></td>
@@ -1307,23 +1542,42 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblProduct_r" class="lbl" >生產件號</a></td>
-						<td><input id="txtProductno" type="text" class="txt c1"/></td>
-						<td colspan="4">
+						<td colspan="2"><input id="txtProductno" type="text" class="txt c1"/></td>
+						<td colspan="5">
 							<textarea id="txtProduct" rows='5' cols='10' style="width:99%; height: 35px;"> </textarea>
 							<!--<input id="txtProduct" type="text" class="txt c1"/>-->
 						</td>
-						<td><span> </span><a id="lblNo2" class="lbl" >P/0序</a></td>
-						<td><input id="txtNo2" type="text" class="txt num c1"/></td>
+						<!--<td><span> </span><a id="lblNo2" class="lbl" >P/0序</a></td>
+						<td><input id="txtNo2" type="text" class="txt c1"/></td>-->
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblProcess_r" class="lbl">生產線別</a></td>
+						<td><input id="txtProcessno" type="text" class="txt c1"/></td>
+						<td colspan="2"><input id="txtProcess" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblTggno_r" class="lbl">部門組別</a></td>
+						<td><input id="txtTggno" type="text" class="txt c1"/></td>
+						<td colspan="2"><input id="txtTgg" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblSpec_r" class="lbl" >型號</a></td>
 						<td><input id="txtSpec" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblUnit" class="lbl" > </a></td>
+						<td><span> </span><a id="lblUnit_r" class="lbl" >單位</a></td>
 						<td><input id="txtUnit" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblItype_r" class="lbl" >銷售類別</a></td>
 						<td><select id="cmbItype" class="txt c1"> </select></td>
 						<td><span> </span><a id="lblLevel" class="lbl" >服務等級</a></td>
-						<td><input id="txtLevel" type="text" class="txt c1" /></td>	
+						<td>
+							<select id="cmbLevel" class="txt c1"> </select>
+							<!--<input id="txtLevel" type="text" class="txt c1" />-->
+						</td>	
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblStyle_r" class="lbl" >車種</a></td>
+						<td><input id="textStyle" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblSize_r" class="lbl" >尺寸</a></td>
+						<td><input id="textSize" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblM13_r" class="lbl" >報價條件</a></td>
+						<td><input id="txtM13" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblM1" class="lbl" >車縫</a></td>
@@ -1351,18 +1605,22 @@
 						<!--<input id="txtM6" type="text" class="txt c1"/>-->
 					</tr>
 					<tr>
+						<td><span> </span><a id="lblM7" class="lbl" >中束</a></td>
+						<td colspan="2"><input id="txtM7" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblM8" class="lbl" >中束電鍍</a></td>
+						<td colspan="2"><input id="txtM8" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblM5" class="lbl" >高週波</a></td>
 						<td><input id="txtM5" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblM11" class="lbl" >大弓</a></td>
-						<td><input id="txtM11" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblM7" class="lbl" >中束</a></td>
-						<td colspan="3"><input id="txtM7" type="text" class="txt c1"/></td>
+						<td colspan="2"><input id="txtM11" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblM12" class="lbl" >大弓電鍍</a></td>
+						<td colspan="2"><input id="txtM12" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo2_r" class="lbl" >品質要求</a></td>
 						<td colspan="5"><input id="txtMemo2" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblM8" class="lbl" >電鍍</a></td>
-						<td><input id="txtM8" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl" > </a></td>
@@ -1379,6 +1637,9 @@
 							<select id="cmbIpto" class="txt c1"> </select>
 							<!--<input id="txtIpto" type="text" class="txt c1"/>-->
 						</td>
+						<td><span> </span><a id="lblM14_r" class="lbl" >銷售客戶</a></td>
+						<td><input id="txtM14" type="text" class="txt c1"/></td>
+						<td colspan="2"><input id="txtM15" type="text" class="txt c1"/></td>
 					</tr>
 					<tr style="display: none;"> <!--106/09/25 隱藏 自行打出貨單 開放txt,cub_r需重寫(早期由貿易端寫回製造端 目前改由製造回寫貿易)-->
 						<td><span> </span><a id="lblFactory" class="lbl btn" >工廠</a></td>
@@ -1430,6 +1691,8 @@
 						<td colspan="8"><HR></td>
 					</tr>
 					<tr style="height: 25px;">
+						<td><span> </span><a id="lblUcxno" class="lbl" >生產發行件號</a></td>
+						<td><input id="txtUcxno" type="text" class="txt c1"/></td>
 						<td> </td>
 						<td colspan="3" style="color: red;">※有變動時，核准取消，重送簽核。</td>
 					</tr>
@@ -1441,8 +1704,9 @@
 							<input id="txtCheckerdate" type="text" class="txt c1" style="width: 60%;"/>
 							<input id="btnCheckapv" type="button" value="核准" />
 						</td>
-						<td><span> </span><a id="lblUcxno" class="lbl" >生產發行件號</a></td>
-						<td><input id="txtUcxno" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblReviewdate" class="lbl" >覆核日期</a></td>
+						<td><input id="txtReviewdate" type="text" class="txt c1"/></td>
+						<td><input id="btnReviewapv" type="button" value="覆核" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblApprove" class="lbl">開發經理</a></td>
@@ -1464,8 +1728,10 @@
 					<tr>
 						<td><span> </span><a id="lblCost" class="lbl" > </a></td>
 						<td><input id="txtCost" type="text" class="txt num c1"/></td>
-						<td><span> </span><a id="lblWorker" class="lbl" > </a></td>
+						<td><span> </span><a id="lblWorker_r" class="lbl" >製單者</a></td>
 						<td><input id="txtWorker" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblGroup_r" class="lbl" >製單組別</a></td>
+						<td><input id="txtkind" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
 						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
 					</tr>
@@ -1531,17 +1797,18 @@
 			</table>
 		</div>
 		<input id="q_sys" type="hidden" />
-		<div id="dbbt" class='dbbt'>
+		<div id="dbbt" class='dbbt' style="display: none;">
 			<table id="tbbt" class="tbbt">
 				<tr class="head" style="color:white; background:#003366;">
 					<td style="width:20px;"><input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/></td>
 					<td style="width:20px;"> </td>
-					<td style="width:300px; text-align: center;">ai格式</td>
-					<td style="width:300px; text-align: center;">雷雕圖</td>
-					<td style="width:300px; text-align: center;">完成品jpg</td>
+					<td style="width:300px; text-align: center;">銷售單位</td><!--ai格式-->
+					<td style="width:300px; text-align: center;">開發部</td><!--雷雕圖-->
+					<td style="width:300px; text-align: center;">備註</td>
+					<td style="width:300px; text-align: center;">樣品完成圖</td><!--完成品jpg-->
 					<td style="width:300px; text-align: center;">備註</td>
 				</tr>
-				<tr>
+				<tr id="bbttr..*" >
 					<td>
 						<input id="btnMinut..*" type="button" style="font-size: medium; font-weight: bold;" value="－"/>
 						<input class="txt" id="txtNoq..*" type="text" style="display: none;"/>
@@ -1563,6 +1830,7 @@
 						<BR>
 						<input id="txtSpec..*" type="text" class="txt c1"/>
 					</td>
+					<td><input id="txtComp..*" type="text" class="txt c1"/></td>
 					<td>
 						<span style="float: left;"> </span>
 						<input type="file" id="btnPrt..*" class="btnFiles" value="選擇檔案"/>
@@ -1578,6 +1846,47 @@
 				</tr>
 			</table>
 		</div>
+		<div id="tmpdbbt" style="width:1260px;">
+			<table id="tmptbbt" style="background: pink;margin: 0;padding: 2px;border: 2px pink double;border-collapse: collapse;color: blue;">
+				<tr class="head" style="color:white; background:#003366;height: 35px;">
+					<td style="width:300px; text-align: center;">銷售單位</td><!--ai格式-->
+					<td style="width:300px; text-align: center;">開發部</td><!--雷雕圖-->
+					<td style="width:300px; text-align: center;">備註</td>
+				</tr>
+				<tr style="height: 35px;">
+					<td>
+						<input type="button" id="btnbbtUcolor" value="選擇檔案"/>
+						<input id="textbbtUcolor"  type="hidden"/>
+						<a id="lablUcolor" class='lbl' style="color: #4297D7;font-weight: bolder;cursor: pointer;"> </a>
+						<BR>
+						<input id="textbbtSize" type="text" class="txt c1"/>
+					</td>
+					<td>
+						<input type="button" id="btnbbtScolor" value="選擇檔案"/>
+						<input id="textbbtScolor"  type="hidden"/>
+						<a id="lablScolor" class='lbl' style="color: #4297D7;font-weight: bolder;cursor: pointer;"> </a>
+						<BR>
+						<input id="textbbtSpec" type="text" class="txt c1"/>
+					</td>
+					<td><input id="textbbtComp" type="text" class="txt c1"/></td>
+				</tr>
+				<tr class="head" style="color:white; background:#003366;height: 35px;">
+					<td style="width:600px; text-align: center;" colspan="2">樣品完成圖</td><!--完成品jpg-->
+					<td style="width:300px; text-align: center;">備註</td>
+				</tr>
+				<tr style="height: 35px;">
+					<td colspan="2">
+						<input type="button" id="btnbbtPrt" value="選擇檔案"/>
+						<input id="textbbtPrt"  type="hidden"/>
+						<a id="lablPrt" class='lbl' style="color: #4297D7;font-weight: bolder;cursor: pointer;"> </a>
+						<BR>
+						<input id="textbbtPlace" type="text" class="txt c1"/>
+					</td>
+					<td><input id="textbbtMemo" type="text" class="txt c1"/></td>
+				</tr>
+			</table>
+		</div>
+		
 		<iframe id="xdownload" style="display:none;"> </iframe>
 	</body>
 </html>
