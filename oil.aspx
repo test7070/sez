@@ -128,6 +128,13 @@
                 $('#cmbProduct').change(function(e){
                 	getBmile();
                 });
+                
+                $('#lblOilstation').bind('contextmenu', function(e) {
+                    /*滑鼠右鍵*/ 
+                    //加油站主檔
+                    e.preventDefault();
+                    q_box("oilstation.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;", "oilstation", "95%", "95%", "");
+                });
             }
 			
             function q_boxClose(s2) {
