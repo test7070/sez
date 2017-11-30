@@ -81,14 +81,13 @@
                 	//105/10/28 只開放部分使用者
                 	if(r_userno=='040136' || r_rank>='9')
                 		$('#btnSaladjust').show();
+                	$('#btnLabases').show();
                 }else{
                 	$('#btnSaladjust').show();
+                	//預設不開放資料勞健保資料接打在薪資調整記錄
+                	$('#btnLabases').hide();
                 }
-                
-                if(q_getPara('sys.project').toUpperCase()=='JR'){
-                    $('.isJR').hide();
-                }
-                
+                                
                 $('#txtNoa').change(function(e){
                 	$(this).val($.trim($(this).val()).toUpperCase());    	
 					if($(this).val().length>0){
@@ -553,9 +552,6 @@
                refreshBbm();
                $('#combClass5').val($('#txtClass5').val().split(','));
                
-               if(q_getPara('sys.project').toUpperCase()=='JR'){
-                    $('.isJR').hide();
-                }
             }
 			function refreshBbm(){
             	if(q_cur==1){
@@ -940,7 +936,7 @@
 						<td> </td>
 						<td><input id='btnSsspart' type="button"/></td>
 						<td><input id='btnSaladjust' type="button" style="display: none;"/></td>
-						<td class='isJR'><input id='btnLabases' type="button" /></td>
+						<td><input id='btnLabases' type="button" /></td>
 						<td><input id='btnSsschg' type="button" style="display: none;"/></td>
 					</tr>
 					<tr class='issalb' style="display: none;">
