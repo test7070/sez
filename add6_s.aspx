@@ -21,6 +21,10 @@
 			function main() {
 				mainSeek();
 				q_gf('', q_name);
+				if (q_getPara('sys.project').toUpperCase()=='BQ'){
+                    $('.isBQ').hide();
+                    $('#lblDatea').text('檢驗日期');
+                }
 			}
 
 			function q_gfPost() {
@@ -79,15 +83,15 @@
 					<td class='seek' style="width:20%;"><a id='lblNoa'> </a></td>
 					<td><input class="txt" id="txtNoa" type="text" style="width:215px;" /></td>
 				</tr>
-				<tr class='seek_tr'>
+				<tr class='seek_tr isBQ'>
 					<td class='seek' style="width:20%;"><a id='lblTypea'> </a></td>
 					<td><select id="cmbTypea" style="width:215px;" ></select></td>
 				</tr>
-				<tr class='seek_tr'>
+				<tr class='seek_tr isBQ'>
 					<td class='seek' style="width:20%;"><a id='lblCardealno'> </a></td>
 					<td><input class="txt" id="txtCardealno" type="text" style="width:215px;" /></td>
 				</tr>
-				<tr class='seek_tr'>
+				<tr class='seek_tr isBQ'>
 					<td class='seek' style="width:20%;"><a id='lblCardeal'> </a></td>
 					<td><input class="txt" id="txtCardeal" type="text" style="width:215px;" /></td>
 				</tr>
