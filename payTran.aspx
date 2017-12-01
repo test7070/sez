@@ -703,7 +703,12 @@
                                     q_box("payb_ds.aspx?;;;noa='" + t_rc2no + "';" + r_accy, 'payb', "95%", "95%", q_getMsg("popPayb"));
                                 else if (t_tablea == "tre")
                                     q_box("tre_ds.aspx?;;;noa='" + t_rc2no + "';" + t_accy, 'tre', "95%", "95%", t_accy);
-                            } else {
+                            }else if(q_getPara('sys.project').toUpperCase()=='NV'){
+                            	if (t_tablea == "payb")
+                                    q_box("payb_ds.aspx?;;;noa='" + t_rc2no + "';" + r_accy, 'payb', "95%", "95%", q_getMsg("popPayb"));
+                                else if (t_tablea == "tre")
+                                    q_box("tre_jr.aspx?;;;noa='" + t_rc2no + "';" + t_accy, 'tre', "95%", "95%", t_accy);
+                            }else{
                                 if (t_tablea == "payb")
                                     q_box("payb.aspx?;;;noa='" + t_rc2no + "';" + r_accy, 'payb', "95%", "95%", q_getMsg("popPayb"));
                                 else if (t_tablea == "tre")
