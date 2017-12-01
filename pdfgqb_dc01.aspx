@@ -1,4 +1,4 @@
-<%@ Page Language="C#" Debug="true"%>
+﻿<%@ Page Language="C#" Debug="true"%>
     <script language="c#" runat="server">     
     	//大昌合庫支票  for 玉蓮 LQ690C
         public class ParaIn
@@ -30,7 +30,7 @@
         	string db = "dc";
         	if(Request.QueryString["db"] !=null && Request.QueryString["db"].Length>0)
         		db= Request.QueryString["db"];
-        	connectionString = "Data Source=127.0.0.1,1799;Persist Security Info=True;User ID=sa;Password=artsql963;Database="+db;
+        	connectionString = "Data Source=nt3,1799;Persist Security Info=True;User ID=sa;Password=artsql963;Database="+db;
 
 			var item = new ParaIn();
             if (Request.QueryString["bno"] != null && Request.QueryString["bno"].Length > 0)
@@ -219,7 +219,7 @@
             var doc1 = new iTextSharp.text.Document(new iTextSharp.text.Rectangle(611,226), 0, 0, 0, 0);
             iTextSharp.text.pdf.PdfWriter pdfWriter = iTextSharp.text.pdf.PdfWriter.GetInstance(doc1, stream);
             //font
-            iTextSharp.text.pdf.BaseFont bfChinese = iTextSharp.text.pdf.BaseFont.CreateFont(@"C:\windows\fonts\msjh.ttf", iTextSharp.text.pdf.BaseFont.IDENTITY_H, iTextSharp.text.pdf.BaseFont.NOT_EMBEDDED);
+            iTextSharp.text.pdf.BaseFont bfChinese = iTextSharp.text.pdf.BaseFont.CreateFont((Environment.OSVersion.Version.Major==10 ?@"C:\windows\fonts\msjh.ttc,0" :  @"C:\windows\fonts\msjh.ttf") , iTextSharp.text.pdf.BaseFont.IDENTITY_H, iTextSharp.text.pdf.BaseFont.NOT_EMBEDDED);
             iTextSharp.text.pdf.BaseFont bfNumber = iTextSharp.text.pdf.BaseFont.CreateFont(@"C:\windows\fonts\ariblk.ttf", iTextSharp.text.pdf.BaseFont.IDENTITY_H, iTextSharp.text.pdf.BaseFont.NOT_EMBEDDED);
             //iTextSharp.text.pdf.BaseFont bfChinese = iTextSharp.text.pdf.BaseFont.CreateFont(@"C:\windows\fonts\DFT_L7.ttf", iTextSharp.text.pdf.BaseFont.IDENTITY_H, iTextSharp.text.pdf.BaseFont.NOT_EMBEDDED);
             //iTextSharp.text.pdf.BaseFont bfNumber = iTextSharp.text.pdf.BaseFont.CreateFont(@"C:\windows\fonts\DFT_L7.ttf", iTextSharp.text.pdf.BaseFont.IDENTITY_H, iTextSharp.text.pdf.BaseFont.NOT_EMBEDDED);
@@ -278,3 +278,4 @@
             Response.End();
         }
     </script>
+
