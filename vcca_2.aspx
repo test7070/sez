@@ -156,7 +156,23 @@
 				}/// end Switch
 				b_pop = '';
 			}
-
+			function q_funcPost(t_func, result) {
+				switch(t_func) {
+					case 'qtxt.query.checkdata_btnOk':
+						var as = _q_appendData("tmp0", "", true, true);
+                		if(as[0]!=undefined){
+                			if(as[0].val!='1'){
+                				alert(as[0].msg);
+                				Unlock(1);
+                				return;
+                			}
+                		}
+                		wrServer($('#txtNoa').val());
+						break;
+					default:
+						break;
+				}
+			}
 			function q_gtPost(t_name) {
 				switch (t_name) { 
 					
@@ -230,7 +246,7 @@
 				}		
 				$('#txtWorker' ).val(r_name);
 				sum();
-				var t_where = '';
+				/*var t_where = '';
 				if(q_cur==1){
 					t_where = "where=^^ cno='" + $('#txtCno').val() + "' and ('" + $('#txtDatea').val() + "' between bdate and edate) "+
 					" and exists(select noa from vccars where vccars.noa=vccar.noa and ('" + $('#txtNoa').val() + "' between binvono and einvono))"+
@@ -239,7 +255,8 @@
 					t_where = "where=^^ cno='" + $('#txtCno').val() + "' and ('" + $('#txtDatea').val() + "' between bdate and edate) "+
 					" and exists(select noa from vccars where vccars.noa=vccar.noa and ('" + $('#txtNoa').val() + "' between binvono and einvono)) ^^";
 				}
-				q_gt('vccar', t_where, 0, 0, 0, "", r_accy);
+				q_gt('vccar', t_where, 0, 0, 0, "", r_accy);*/
+				q_func('qtxt.query.checkdata_btnOk', 'vcca.txt,checkdata,' +q_cur+';'+$('#txtNoa').val()+';'+$('#txtCno').val()+';'+$('#txtDatea').val());	
 			}
 
 			function _btnSeek() {
