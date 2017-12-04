@@ -257,7 +257,7 @@
 						var t_proj=q_getPara('sys.project').toUpperCase();
 						
 						if(confirm('確定要轉採購單?')){
-							q_func('qtxt.query.orde2ordc_r', 'orde.txt,orde2ordc_r,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val())+ ';' + encodeURI(q_date())+ ';' + encodeURI(r_name)+';'+encodeURI(t_hostname)+';'+encodeURI(t_proj));
+							q_func('qtxt.query.orde2ordc_r', 'orde.txt,orde2ordc_r,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val())+ ';' + encodeURI(q_date())+ ';' + encodeURI(r_name)+';'+encodeURI(t_hostname)+';'+encodeURI(t_proj)+';'+encodeURI(q_db));
 						}
 					}
 				});
@@ -1901,7 +1901,7 @@
 					alert('重新轉採購單!!')
 					var t_hostname=location.hostname;
 					var t_proj=q_getPara('sys.project').toUpperCase();
-					q_func('qtxt.query.orde2ordc_r', 'orde.txt,orde2ordc_r,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val())+ ';' + encodeURI(q_date())+ ';' + encodeURI(r_name)+';'+encodeURI(t_hostname)+';'+encodeURI(t_proj));
+					q_func('qtxt.query.orde2ordc_r', 'orde.txt,orde2ordc_r,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val())+ ';' + encodeURI(q_date())+ ';' + encodeURI(r_name)+';'+encodeURI(t_hostname)+';'+encodeURI(t_proj)+';'+encodeURI(q_db));
 				}
             }
             
