@@ -15,9 +15,13 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+            var gfrun = false;
+            var partItem = '';
             $(document).ready(function() {
             	q_getId();
-                q_gf('', 'z_payp');
+                if (partItem.length == 0) {
+                    q_gt('part', '', 0, 0, 0, "");
+                }
             });
             function q_gfPost() {
                $('#q_report').q_report({
@@ -37,9 +41,24 @@
 	                    type : '0',
 	                    name : 'r_addr',
 	                    value : q_getPara('sys.addr')
-					}]
+					},{
+                        type : '1',
+                        name : 'xdate'
+                    }, {
+                        type : '2',
+                        name : 'cno',
+                        dbf : 'acomp',
+                        index : 'noa,acomp',
+                        src : 'acomp_b.aspx'
+                    }, {
+                        type : '5',
+                        name : 'tpart',
+                        value : partItem.split(',')
+                    }]
 				});
                 q_popAssign();
+                q_getFormat();
+                q_langShow();
                 
            		var t_para = new Array();
 	            try{
@@ -72,6 +91,21 @@
             function q_boxClose(s2) {
             }
             function q_gtPost(s2) {
+            }
+            function q_gtPost(t_name) {
+                switch (t_name) {
+                     case 'part':
+                        var as = _q_appendData("part", "", true);
+                        partItem = " @全部";
+                        for ( i = 0; i < as.length; i++) {
+                            partItem = partItem + (partItem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
+                        }
+                        break;   
+                }
+                if (partItem.length > 0 && !gfrun) {
+                    gfrun = true;
+                    q_gf('', 'z_payp');
+                }
             }
 		</script>
 	</head>

@@ -937,8 +937,14 @@
 			function btnPrint() {
 				var hasStyle = q_getPara('sys.isstyle');
 				if(hasStyle=='1'){
+				 if (q_getPara('sys.project').toUpperCase()=='BQ')
+					q_box('z_vccp_bq.aspx' + "?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+				 else
 					q_box('z_vcc_ra.aspx' + "?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
 				}else{
+				 if (q_getPara('sys.project').toUpperCase()=='BQ')
+					q_box('z_vccp_bq.aspx' + "?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+				 else
 					q_box('z_vccp.aspx' + "?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
 				}
 			}
