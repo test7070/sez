@@ -190,7 +190,7 @@
 				Unlock(1);
 			}
             function btnOk() {  
-            	Lock(1,{opacity:0});
+            	//Lock(1,{opacity:0});
 				if($('#cmbTaxtype').val() !=6 && emp($('#txtProductno').val())){
 					alert(q_getMsg('lblProduct')+'未填寫。');
 					Unlock(1);
