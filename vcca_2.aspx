@@ -171,7 +171,7 @@
 					case 'vccar':
 						var as = _q_appendData("vccar", "", true);
 						if (as[0] == undefined) {
-							alert("請檢查發票日期及公司有無設定，或發票已輸入。");
+							alert("請檢查公司、發票日期及發票號碼主檔，或發票已輸入。");
 						} else {
 							//3聯須輸入統編
 							if (as[0].rev=='3' && $('#cmbTaxtype').val()!='6' && checkId($('#txtSerial').val())!=2){										
