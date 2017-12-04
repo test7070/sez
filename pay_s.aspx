@@ -73,6 +73,7 @@
                 t_cno = $.trim($('#cmbCno').val());
 				t_checkno = $.trim($('#txtCheckno').val());
 				t_rc2no = $.trim($('#txtRc2no').val());
+				t_partno = $.trim($('#cmbPart').val());
                 var t_where = " 1=1 " 
                 + q_sqlPara2("datea", t_bdate, t_edate) 
                 + q_sqlPara2("mon", t_mon) 
@@ -82,8 +83,12 @@
 				+ q_sqlPara2("cno", t_cno);
 				if (t_tgg.length>0)
                     t_where += " and patindex('%" + t_tgg + "%',comp)>0";
-                if ($('#cmbPart').val().length>0)
+                if ($('#cmbPart').val().length>0 && q_getPara('sys.project').toUpperCase()!='NV'){
                     t_where += " and patindex('%" + t_part + "%',part2)>0";
+                }
+                else{
+                    t_where = t_where+ q_sqlPara2("partno", t_partno);
+                }
                 if (t_checkno.length>0)
                 	t_where += " and exists(select noa from pays where pays.noa=pay.noa and patindex('%" + t_checkno + "%',pays.checkno)>0)";
                	if (t_rc2no.length>0)
