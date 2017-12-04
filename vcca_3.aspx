@@ -143,7 +143,7 @@
                 	case 'vccar':
 						var as = _q_appendData("vccar", "", true);
 						if (as[0] == undefined) {
-							alert("請檢查發票日期及公司有無設定，或發票已輸入。");
+							alert("請檢查公司、發票日期及發票號碼主檔，或發票已輸入。");
 						} else {
 							//3聯須輸入統編
 			            	if (as[0].rev=='3' && $('#cmbTaxtype').val()!='6' && checkId($('#txtSerial').val())!=2){					                	
@@ -169,6 +169,17 @@
             }
 			function q_funcPost(t_func, result) {
                 switch(t_func) {
+                	case 'qtxt.query.checkdata_btnOk':
+						var as = _q_appendData("tmp0", "", true, true);
+                		if(as[0]!=undefined){
+                			if(as[0].val!='1'){
+                				alert(as[0].msg);
+                				Unlock(1);
+                				return;
+                			}
+                		}
+                		wrServer($('#txtNoa').val());
+						break;
                     case 'vcca.genvcc':
                     	try{
 	                    	$('#txtAccno').val(result.split(';')[0]);
@@ -190,7 +201,7 @@
 				Unlock(1);
 			}
             function btnOk() {  
-            	Lock(1,{opacity:0});
+            	//Lock(1,{opacity:0});
 				if($('#cmbTaxtype').val() !=6 && emp($('#txtProductno').val())){
 					alert(q_getMsg('lblProduct')+'未填寫。');
 					Unlock(1);
@@ -217,7 +228,7 @@
 				}
                 $('#txtWorker' ).val(  r_name);           
             	sum();
-                var t_where = '';
+                /*var t_where = '';
 				if(q_cur==1){
                     t_where = "where=^^ cno='" + $('#txtCno').val() + "' and ('" + $('#txtDatea').val() + "' between bdate and edate) "+
 					" and exists(select noa from vccars where vccars.noa=vccar.noa and ('" + $('#txtNoa').val() + "' between binvono and einvono))"+
@@ -226,8 +237,9 @@
 					t_where = "where=^^ cno='" + $('#txtCno').val() + "' and ('" + $('#txtDatea').val() + "' between bdate and edate) "+
 					" and exists(select noa from vccars where vccars.noa=vccar.noa and ('" + $('#txtNoa').val() + "' between binvono and einvono)) ^^";
 				}
-				q_gt('vccar', t_where, 0, 0, 0, "", r_accy);
+				q_gt('vccar', t_where, 0, 0, 0, "", r_accy);*/
 				$('#btnVcc').removeAttr('disabled');
+				q_func('qtxt.query.checkdata_btnOk', 'vcca.txt,checkdata,' +q_cur+';'+$('#txtNoa').val()+';'+$('#txtCno').val()+';'+$('#txtDatea').val());	
             }
 
             function _btnSeek() {
