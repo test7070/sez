@@ -133,9 +133,9 @@
             	sum();
             	for(var i=0;i<q_bbsCount;i++){
             			if(($('#txtPton_' + i).val()>0.3) && ($('#txtUnit_' + i).val()=='噸' || $('#txtUnit_' + i).val().toUpperCase()=='T') && emp($('#txtMemo_' + i).val())){
-							$('#txtMemo_' + i).val('出廠-到廠淨重超過0.3t');
+							$('#txtMemo_' + i).val('出廠-到廠淨重超過0.3t'+$('#txtMemo_' + i).val());
 						}else if(($('#txtPton_' + i).val()<0.3) && !emp($('#txtMemo_' + i).val())){
-							$('#txtMemo_' + i).val('');
+							$('#txtMemo_' + i).val($('#txtMemo_' + i).val());
 						}else{
 							$('#txtMemo_' + i).val($('#txtMemo_' + i).val());
 						}
@@ -194,18 +194,18 @@
 							if(q_cur==1 || q_cur==2)
 								$('#txtCaseno2_'+b_seq).val($('#combCaseno2_'+b_seq).find("option:selected").text());
 					});
-					$('#txtPrice_' + i).change(function() {
-						t_IdSeq = -1;
-						q_bodyId($(this).attr('id'));
-						b_seq = t_IdSeq;
-						$('#txtPrice2_' + b_seq).val($('#txtPrice_' + b_seq).val()*0.9*0.2);
-						sum();
-					});
 					$('#txtPrice2_' + i).change(function() {
 						t_IdSeq = -1;
 						q_bodyId($(this).attr('id'));
 						b_seq = t_IdSeq;
-						$('#txtPrice2_' + b_seq).val($('#txtPrice2_' + b_seq).val());
+						$('#txtPrice_' + b_seq).val($('#txtPrice2_' + b_seq).val()*0.9*0.2);
+						sum();
+					});
+					$('#txtPrice_' + i).change(function() {
+						t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						$('#txtPrice_' + b_seq).val($('#txtPrice_' + b_seq).val());
 						sum();    
 					});
                     $('#txtOutmount_' + i).change(function() {
