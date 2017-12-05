@@ -178,8 +178,8 @@
 						<input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  />
 					</td>
 					<td align="center"><a id='lblPart'> </a></td>
-					<td align="center"><a id='lblRate'> </a></td>
-					<td align="center" class="rate"><a id='lblRank'> </a></td>
+					<td align="center" class="rate"><a id='lblRate'> </a></td>
+					<td align="center"><a id='lblRank'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center" style="width:1%;">
