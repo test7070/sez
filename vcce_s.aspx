@@ -26,9 +26,14 @@
                 q_getFormat();
                 q_langShow();
 
-                bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
+                bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd],['txtBodate', r_picd], ['txtEodate', r_picd]];
                 q_mask(bbmMask);
                 $('#txtBdate').focus();
+                
+                if (q_getPara('sys.project').toUpperCase()=='BQ'){
+                    $('.isBQ').show();
+                    $('.isNBQ').hide();
+                }
 
             }
 
@@ -39,12 +44,14 @@
                 t_carno = $('#txtCarno').val();
                 t_bdate = $('#txtBdate').val();
                 t_edate = $('#txtEdate').val();
+                t_bodate = $('#txtBodate').val();
+                t_eodate = $('#txtEodate').val();
                 t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;
                 /// 100.  .
                 t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;
                 /// 100.  .
 
-                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("carno", t_carno) + q_sqlPara2("custno", t_custno) + q_sqlPara2("comp", t_comp) + q_sqlPara2("datea", t_bdate, t_edate);
+                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("carno", t_carno) + q_sqlPara2("custno", t_custno) + q_sqlPara2("comp", t_comp) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("odate", t_bodate, t_eodate);
 
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
@@ -83,12 +90,20 @@
 					&nbsp;
 					<input class="txt" id="txtComp" type="text" style="width:115px; font-size:medium;" />
 					</td>
-					<tr class='seek_tr'>
+					<tr class='seek_tr isNBQ'>
 						<td class='seek'  style="width:20%;"><a id='lblCarno'> </a></td>
 						<td>
 						<input class="txt" id="txtCarno" type="text" style="width:215px; font-size:medium;" />
 						</td>
 					</tr>
+					<tr class='seek_tr isBQ' style="display: none">
+                        <td   style="width:35%;"><a id='lblOdate'>交貨日期</a></td>
+                        <td style="width:65%;  ">
+                        <input class="txt" id="txtBodate" type="text" style="width:90px; font-size:medium;" />
+                        <span style="display:inline-block; vertical-align:middle">&sim;</span>
+                        <input class="txt" id="txtEodate" type="text" style="width:93px; font-size:medium;" />
+                        </td>
+                    </tr>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
