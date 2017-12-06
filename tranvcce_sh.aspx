@@ -30,7 +30,7 @@
             q_alias = '';
             q_desc = 1;
             aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
-            , ['txtCustno_', 'btnCust_', 'cust', 'noa,nick', 'txtCustno_,txtCust_', 'cust_b.aspx']
+            , ['txtCustno_', 'btnCust_', 'cust', 'noa,nick,paytype', 'txtCustno_,txtCust_,cmbTypea_', 'cust_b.aspx']
             , ['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
             , ['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx']
             , ['txtAddrno_', 'btnStraddr_', 'addr', 'noa,addr', 'txtAddrno_,txtAddr_', 'addr_b.aspx']
@@ -64,6 +64,7 @@
                 q_getFormat();
                 q_mask(bbmMask);
                 $('#txtDatea').datepicker();
+                q_cmbParse("cmbTypea",'@,月結@月結,付清@付清','s');
             }
 
             function q_boxClose(s2) {
@@ -108,7 +109,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)
                     return;
-                q_box('z_tran_sh.aspx' + "?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+                q_box('tranvcce_sh_s.aspx', q_name + '_s', "500px", "600px", '查詢視窗');
             }
 
             function bbsAssign() {
@@ -116,7 +117,7 @@
 					$('#lblNo_' + i).text(i + 1);
                     if($('#btnMinus_' + i).hasClass('isAssign'))
                     	continue;
-                  $('#txtTime1_' + i).focusout(function (){
+                  $('#txtNo2_' + i).focusout(function (){
                         var s1 = $(this).val();
                             if (s1.length == 1 && s1 == "=") {
                                 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -155,7 +156,11 @@
                                     var s15 = $('#txtAddrno3_' + i).val();
                                     $('#txtAddrno3_' + b_seq).val(s15); 
                                     var s16 = $('#txtAddr3_' + i).val();
-                                    $('#txtAddr3_' + b_seq).val(s16);                                      
+                                    $('#txtAddr3_' + b_seq).val(s16);
+                                    var s17 = $('#txtNo2_' + i).val();
+                                    $('#txtNo2_' + b_seq).val(s17); 
+                                    var s18 = $('#cmbTypea_' + i).val();
+                                    $('#cmbTypea_' + b_seq).val(s18);                                       
                                 }
                             }
                   });
@@ -201,7 +206,7 @@
                         var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
                         $('#btnDriver_'+n).click();
                   });
-                  $('#txtTime1_' + i).focus(function () {
+                  $('#txtNo2_' + i).focus(function () {
                             if (!$(this).val())
                                 q_msg($(this), '=號複製上一筆資料');
                   });
@@ -243,7 +248,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['time1'] ) {
+                if (!as['time1'] && !as['custno'] && !as['cust'] && !as['productno'] && !as['product'] && !as['mount'] ) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -409,7 +414,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 1500px;
+                width: 1600px;
             }
             .tbbs a {
                 font-size: medium;
@@ -522,12 +527,15 @@
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:20px;"> </td>
+					<td align="center" style="width:50px"><a>項次</a></td>
+					<td align="center" style="width:70px"><a>付款</a></td>
 					<td align="center" style="width:90px"><a>出車日期</a></td>
 					<td align="center" style="width:90px"><a>客戶</a></td>
 					<td align="center" style="width:100px"><a>品項</a></td>
 					<td align="center" style="width:75px"><a>數量</a></td>
 					<td align="center" style="width:50px"><a>單位</a></td>
 					<td align="center" style="width:75px"><a>材積</a></td>
+					<td align="center" style="width:75px"><a>重量(KG)</a></td>
 					<td align="center" style="width:100px"><a>起點</a></td>
 					<td align="center" style="width:100px"><a>迄點</a></td>
 					<td align="center" style="width:120px"><a>櫃號</a></td>
@@ -547,6 +555,8 @@
 						<input type="text" id="txtNoq.*" style="display:none;"/>
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+					<td><input type="text" id="txtNo2.*" style="width:95%;"/></td>
+					<td><select id="cmbTypea.*" class="txt" style="width:95%;"> </select></td>
 					<td><input type="text" id="txtTime1.*" style="width:95%;"/></td>
 					<td>
 						<input type="text" id="txtCustno.*" style="float:left;width:95%;" />
@@ -561,6 +571,7 @@
 					<td><input type="text" id="txtMount.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtUnit.*" style="width:95%;"/></td>
 					<td><input type="text" id="txtVolume.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtWeight.*" class="num" style="width:95%;"/></td>
 					<td>
                         <input type="text" id="txtAddrno.*" style="float:left;width:95%;"/>
                         <input type="text" id="txtAddr.*" style="float:left;width:95%;"/>
