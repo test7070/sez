@@ -1205,8 +1205,8 @@
                 if (emp($('#txtNoa').val()))
                     return;
                 
-				if(!emp($('#txtIssuedate').val())){
-					alert('已發行禁止修改!!');
+				if(!emp($('#txtReviewdate').val())){
+					alert('已覆核禁止刪除!!');
 					return;
 				}
 
