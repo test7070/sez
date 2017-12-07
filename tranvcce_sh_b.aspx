@@ -80,12 +80,13 @@
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:25px" ><input type="checkbox" id="checkAllCheckbox"/></td>
 					<td align="center" style="width:25px;"> </td>
-					<th align="center"><a id=''>派車單號</a></th>
+					<th align="center"><a id=''>派車單號/項次</a></th>
 					<th align="center"><a id=''>客戶</a></th>
 					<th align="center"><a id=''>出車日期</a></th>
 					<th align="center"><a id=''>品名</a></th>
 					<th align="center"><a id=''>數量</a></th>
 					<th align="center"><a id=''>材積</a></th>
+					<th align="center"><a id=''>重量</a></th>
 					<th align="center"><a id=''>起點 / 迄點</a></th>
 					<th align="center"><a id=''>櫃號 / S/O</a></th>
 					<th align="center"><a id=''>金額</a></th>
@@ -95,13 +96,15 @@
 				<tr  style='background:#cad3ff;'>
 					<td style="width:25px;"><input id="chkSel.*" type="checkbox"/></td>
 					<td style="width:25px;"><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-					<td style="width:160px;">
-						<input id="txtNoa.*" type="text" style="float:left;width:70%;" readonly="readonly"/>
-						<input id="txtNoq.*" type="text" style="float:left;width:25%;"  readonly="readonly" />
+					<td style="width:140px;" align="center">
+						<input id="txtNoa.*" type="text" style="float:left;width:95%;" readonly="readonly"/>
+						<input id="txtNoq.*" type="text" style="float:left;width:40%;"  readonly="readonly" />
+						<input id="txtNo2.*" type="text" style="float:left;width:45%;"  readonly="readonly" />
 					</td>
-					<td style="width:80px;">
+					<td style="width:80px;" align="center">
 						<input id="txtCustno.*" type="text" style="display:none;"/>
 						<input id="txtCust.*" type="text" style="float:left;width:95%;" readonly="readonly"/>
+						<input id="txtTypea.*" type="text" style="float:left;width:95%;" readonly="readonly"/>
 					</td>
 					<td style="width:80px;">
                         <input id="txtTime1.*" type="text" style="float:left;width:95%;" readonly="readonly" />
@@ -115,6 +118,9 @@
 					<td style="width:70px;">
 					    <input id="txtVolume.*" type="text" style="float:left;width:95%;" readonly="readonly"/>
 					</td>
+					<td style="width:70px;">
+                        <input id="txtWeight.*" type="text" style="float:left;width:95%;" readonly="readonly"/>
+                    </td>
 					<td style="width:90px;">
 						<input id="txtAddrno.*" type="text" style="display:none;"/>
 						<input id="txtAddr.*" type="text" style="float:left;width:95%;" readonly="readonly" />

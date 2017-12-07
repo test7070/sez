@@ -19,7 +19,7 @@
             var q_readonly = ['txtNoa', 'txtMount', 'txtVolume', 'txtWeight','txtTotal','txtTotal2', 'txtWorker', 'txtWorker2'];
             var q_readonlys = ['txtOrdeno', 'txtCaseno2',];
             var bbmNum = [['txtTotal', 10, 2, 1],['txtTotal2', 10, 0, 1]];
-            var bbsNum = [['txtMount', 10, 2, 1],['txtTotal', 10, 0, 1],['txtTotal2', 10, 0, 1]];
+            var bbsNum = [['txtMount', 10, 2, 1],['txtWeight', 10, 2, 1],['txtTotal', 10, 0, 1],['txtTotal2', 10, 0, 1]];
             var bbmMask = [['txtDatea','999/99/99'],['textMon','999/99']];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -94,8 +94,8 @@
                             if (!b_ret || b_ret.length == 0)
                                 return;
                                 ret = q_gridAddRow(bbsHtm, 'tbbs', 
-                                'txtOrdeno,txtCaseno2,txtTrandate,txtCustno,txtNick,txtUccno,txtProduct,txtMount,txtUnit,txtVolume,txtTotal,txtCarno,txtDriverno,txtDriver,txtMemo,txtStraddrno,txtStraddr,txtEndaddrno,txtEndaddr,txtTotal2,txtCaseno,txtPo,txtCasecustno,txtCasecust', b_ret.length, b_ret, 
-                                'noa,noq,time1,custno,cust,productno,product,mount,unit,volume,total,carno,driverno,driver,memo,addrno,addr,addrno2,addr2,total2,tranno,productno2,addrno3,addr3', 'txtCustno,txtProductno,txtTrandate,txtMount');
+                                'txtOrdeno,txtCaseno2,txtTrandate,txtCustno,txtNick,txtUccno,txtProduct,txtMount,txtUnit,txtVolume,txtTotal,txtCarno,txtDriverno,txtDriver,txtMemo,txtStraddrno,txtStraddr,txtEndaddrno,txtEndaddr,txtTotal2,txtCaseno,txtPo,txtCasecustno,txtCasecust,txtWeight', b_ret.length, b_ret, 
+                                'noa,noq,time1,custno,cust,productno,product,mount,unit,volume,total,carno,driverno,driver,memo,addrno,addr,addrno2,addr2,total2,tranno,productno2,addrno3,addr3,weight', 'txtCustno,txtProductno,txtTrandate,txtMount');
                             }
                         break;
                     case q_name + '_s':
@@ -244,7 +244,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['straddrno'] && !as['trandate']  && !as['custno']  ) {
+                if (!as['straddrno'] && !as['trandate']  && !as['custno']  && !as['nick'] && !as['uccno'] && !as['product'] && !as['mount'] ) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -412,7 +412,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 1500px;
+                width: 1600px;
             }
             .tbbs a {
                 font-size: medium;
@@ -585,6 +585,7 @@
 					<td align="center" style="width:70px"><a>數量</a></td>
 					<td align="center" style="width:50px"><a>單位</a></td>
 					<td align="center" style="width:70px"><a>材積</a></td>
+					<td align="center" style="width:70px"><a>重量</a></td>
 					<td align="center" style="width:100px"><a>起點</a></td>
                     <td align="center" style="width:100px"><a>迄點</a></td>
                     <td align="center" style="width:120px"><a>櫃號</a></td>
@@ -594,7 +595,7 @@
 					<td align="center" style="width:80px"><a>應付運費</a></td>
 					<td align="center" style="width:90px"><a>出車車號</a></td>
 					<td align="center" style="width:80px"><a>司機</a></td>
-					<td align="center" style="width:140px"><a>派車單號</a></td>
+					<td align="center" style="width:170px"><a>派車單號</a></td>
 					<td align="center" style="width:100px"><a>備註</a></td>
 				</tr>
 				<tr class="data" style='background:#cad3ff;'>
@@ -618,6 +619,7 @@
 					<td><input type="text" id="txtMount.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtUnit.*" style="width:95%;"/></td>
 					<td><input type="text" id="txtVolume.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtWeight.*" class="num" style="width:95%;"/></td>
 					<td>
                         <input type="text" id="txtStraddrno.*" style="float:left;width:95%;"/>
                         <input type="text" id="txtStraddr.*" style="float:left;width:95%;"/>
@@ -646,8 +648,8 @@
                         <input type="text" id="txtDriver.*" style="float:left;width:95%;"/>
                         <input type="button" id="btnDriver.*" style="display:none;"/>
                     </td>
-					<td>
-					    <input type="text" id="txtOrdeno.*" style="width:60%;"/>
+					<td align="center">
+					    <input type="text" id="txtOrdeno.*" style="width:95%;"/>
 					    <input type="text" id="txtCaseno2.*" style="width:30%;"/>
 					</td>
 					<td><input type="text" id="txtMemo.*" style="width:95%;"/></td>
