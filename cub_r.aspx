@@ -170,7 +170,7 @@
 							if(!emp($('#txtChecker').val()))
 								alert('已被【'+$('#txtChecker').val()+'】核准!!');
 							else
-								alert('【Ipto】與【生產發行件號】禁止空白!!');
+								alert('【Ipto】或【生產發行件號】禁止空白!!');
 						}
 					}
 				});
@@ -178,22 +178,18 @@
 				$('#btnReviewapv').click(function() {
 					if(!(q_cur==1 || q_cur==2) && !emp($('#txtNoa').val())){
 						if(!emp($('#txtChecker').val()) && !emp($('#txtCheckerdate').val()) && emp($('#txtReviewdate').val())){
-							if($('#txtChecker').val()!=r_name){
-								alert('【核准主管】與【覆核主管】不同禁止覆核!!');
-							}else{
-								var t_noa=$('#txtNoa').val();							
-								var t_hostname=location.hostname;
-								var t_proj=q_getPara('sys.project').toUpperCase();
-								q_func('qtxt.query.cub_apv', 'cub.txt,cub_apv,' + encodeURI(r_accy)+';'+encodeURI(t_noa)+';'+encodeURI(r_userno)+';'+encodeURI(r_name)+';'+encodeURI('review')+';'+encodeURI(t_hostname)+';'+encodeURI(t_proj)+';'+encodeURI('0'),r_accy,1);
-			                	var as = _q_appendData("tmp0", "", true, true);
-			                	if (as[0] != undefined) {
-			                		$('#txtReviewdate').val(as[0].reviewdate);
-			                		abbm[q_recno]['reviewdate'] = as[0].reviewdate;
-			                	}
-							}
+							var t_noa=$('#txtNoa').val();							
+							var t_hostname=location.hostname;
+							var t_proj=q_getPara('sys.project').toUpperCase();
+							q_func('qtxt.query.cub_apv', 'cub.txt,cub_apv,' + encodeURI(r_accy)+';'+encodeURI(t_noa)+';'+encodeURI(r_userno)+';'+encodeURI(r_name)+';'+encodeURI('review')+';'+encodeURI(t_hostname)+';'+encodeURI(t_proj)+';'+encodeURI('0'),r_accy,1);
+			                var as = _q_appendData("tmp0", "", true, true);
+			                if (as[0] != undefined) {
+			                	$('#txtReviewdate').val(as[0].reviewdate);
+			                	abbm[q_recno]['reviewdate'] = as[0].reviewdate;
+			                }
 						}else{
 							if(!emp($('#txtReviewdate').val())){
-								alert('已被【'+$('#txtChecker').val()+'】覆核!!');
+								alert('已被覆核!!');
 							}else{
 								alert('尚未被【核准】禁止【覆核】!!');
 							}
@@ -204,7 +200,7 @@
 				$('#btnApproveapv').click(function() {
 					//執行txt
 					if(!(q_cur==1 || q_cur==2) && !emp($('#txtNoa').val())){
-						if(!emp($('#txtChecker').val()) && !emp($('#txtCheckerdate').val())){
+						if(!emp($('#txtChecker').val()) && !emp($('#txtReviewdate').val())){
 							var t_noa=$('#txtNoa').val();
 							var t_hostname=location.hostname;
 							var t_proj=q_getPara('sys.project').toUpperCase();
@@ -216,8 +212,8 @@
 				                	if (as[0] != undefined) {
 				                		$('#txtApprove').val(as[0].approve);
 				                		$('#txtApprovedate').val(as[0].approvedate);
-				                		abbm[q_recno]['checker'] = as[0].approve;
-		                            	abbm[q_recno]['checkerdate'] = as[0].approvedate;
+				                		abbm[q_recno]['approve'] = as[0].approve;
+		                            	abbm[q_recno]['approvedate'] = as[0].approvedate;
 				                	}
 								}else{
 									alert('需由李經理核准!!');
@@ -228,8 +224,8 @@
 			                	if (as[0] != undefined) {
 			                		$('#txtApprove').val(as[0].approve);
 				                	$('#txtApprovedate').val(as[0].approvedate);
-				                	abbm[q_recno]['checker'] = as[0].approve;
-		                            abbm[q_recno]['checkerdate'] = as[0].approvedate;
+				                	abbm[q_recno]['approve'] = as[0].approve;
+		                            abbm[q_recno]['approvedate'] = as[0].approvedate;
 			                	}
 							}
 						}else{
@@ -456,13 +452,14 @@
 					var t_hostname=location.hostname;
 					var t_proj=q_getPara('sys.project').toUpperCase();
 					
-					if($('#cmbIpfrom').val().toUpperCase()==z_cno.toUpperCase() && !emp($('#txtChecker').val())){
+					//修改不進行更新 只有在覆核和開發經理核准才更新
+					/*if($('#cmbIpfrom').val().toUpperCase()==z_cno.toUpperCase() && !emp($('#txtChecker').val())){
 						q_func('qtxt.query.cub_apv', 'cub.txt,cub_apv,' + encodeURI(r_accy)+';'+encodeURI(t_noa)+';'+encodeURI(r_userno)+';'+encodeURI(r_name)+';'+encodeURI('checker')+';'+encodeURI(t_hostname)+';'+encodeURI(t_proj)+';'+encodeURI('1'),r_accy,1);
-					}
+					}*/
 					
-					if($('#cmbIpto').val().toUpperCase()==z_cno.toUpperCase() && !emp($('#txtApprove').val())){
+					/*if($('#cmbIpto').val().toUpperCase()==z_cno.toUpperCase() && !emp($('#txtApprove').val())){
 						q_func('qtxt.query.cub_apv', 'cub.txt,cub_apv,' + encodeURI(r_accy)+';'+encodeURI(t_noa)+';'+encodeURI(r_userno)+';'+encodeURI(r_name)+';'+encodeURI('approve')+';'+encodeURI(t_hostname)+';'+encodeURI(t_proj)+';'+encodeURI('1'),r_accy,1);
-					}
+					}*/
 					
                 }
 			}
@@ -595,8 +592,16 @@
 			function btnModi() {
 				if (emp($('#txtNoa').val()))
 					return;
-				if(!emp($('#txtIssuedate').val())){
-					alert('已發行禁止修改!!');
+					
+				if(q_getPara('sys.project').toUpperCase()=="AD" || q_getPara('sys.project').toUpperCase()=="JO"){
+					if($('#cmbIpfrom').val().toUpperCase()==z_cno.toUpperCase() && !emp($('#txtReviewdate').val())){
+						alert('已覆核禁止修改!!');
+						return;
+					}
+				}
+					
+				if(!emp($('#txtApprovedate').val())){
+					alert('開發經理已核准禁止修改!!');
 					return;
 				}
 				_btnModi();
@@ -1200,8 +1205,8 @@
                 if (emp($('#txtNoa').val()))
                     return;
                 
-				if(!emp($('#txtIssuedate').val())){
-					alert('已發行禁止修改!!');
+				if(!emp($('#txtReviewdate').val())){
+					alert('已覆核禁止刪除!!');
 					return;
 				}
 

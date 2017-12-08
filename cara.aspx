@@ -175,7 +175,7 @@
             }
 			
 			function q_funcPost(t_func, result) {
-				if(t_func=='qtxt.query.cara'){
+				if(t_func=='qtxt.query.cara' || t_func=='cara.genNext'){
 			        //location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";carno='"+$('#txtCarno').val()+"';"+r_accy;
 			        alert('結轉功能執行完畢!!');
 			        $('#btnNextmon').removeAttr('disabled').val(q_getMsg('btnNextmon'));
