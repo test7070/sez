@@ -48,6 +48,7 @@
 
 		var t_copyStatus=false;
         function mainPost() {
+            q_cmbParse("cmbCountry",'0@中,1@EN,2@簡,3@VN');
         	if(q_getPara('sys.project').toUpperCase()=='BV')
         		document.title='7.1員工密碼設定'	
         		
@@ -137,6 +138,9 @@
         function btnIns() {
             _btnIns();
             $('#txtNoa').focus();
+            if(!emp ($('#cmbCountry').val())){
+                $('#cmbCountry').val(q_getPara('sys.mulang'));
+            }
             
         }
 
@@ -192,6 +196,9 @@
 
         function refresh(recno) {
             _refresh(recno);
+            if(!emp ($('#cmbCountry').val())){
+                $('#cmbCountry').val(q_getPara('sys.mulang'));
+            }
         }
 
         function readonly(t_para, empty) {
@@ -478,6 +485,10 @@
                <td class="td2"><select id="combCopy" class="txt c1"> </select></td>
                <td class="td3"><input id="btnCopy" type="button" style="width: auto;font-size: medium;" /></td>
                <td class="td4"><input id="btnAuthoritys" type="button" style="width: auto;font-size: medium;" /></td>
+            </tr>
+            <tr>
+               <td><span> </span><a id='lblCountry' class="lbl"> </a></td>
+               <td><select id="cmbCountry" style="width: 100%;"> </select></td>
             </tr>
             <!--
             <tr>

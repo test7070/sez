@@ -329,9 +329,9 @@
                     t_money = q_add(t_money,emp($('#cmbCoin').val())?q_float('txtMoney_' + j):q_float('txtMoneyus_' + j));
                     
 					//104/04/29費用不算在收款金額//0601恢復並改為-
-                    t_money -= q_float('txtChgs_' + j);
-                    t_sale += q_float('txtUnpayorg_' + j);
-                    t_pay += q_float('txtPaysale_' + j);
+                    t_money = q_sub(t_money, q_float('txtChgs_' + j));
+                    t_sale = q_add(t_sale, q_float('txtUnpayorg_' + j));
+                    t_pay = q_add(t_pay,q_float('txtPaysale_' + j));
                 }
 
                 //bbm收款金額(total)=bbs收款金額總額(money)
@@ -914,8 +914,8 @@
 				
                 var t_opay = q_float('txtOpay');
                 var t_unopay = q_float('txtUnopay');
-                var t1 = q_float('txtPaysale') + q_float('txtOpay') - q_float('txtUnopay');
-                var t2 = t_money - t_chgs;
+                var t1 = q_sub(q_add(q_float('txtPaysale'),q_float('txtOpay')), q_float('txtUnopay'));
+                var t2 = q_sub(t_money,t_chgs);
                 if (t1 != t2) {
                     alert('收款金額  － 費用 ＝' + q_trv(t2) + '\r 【不等於】 沖帳金額 ＋ 預收 －　預收沖帳 ＝' + q_trv(t1) + '\r【差額】=' + Math.abs(t1 - t2));
                    	Unlock(1);
