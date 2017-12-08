@@ -583,7 +583,7 @@
 					<td class="td1"><span> </span><a id='lblTypea' class="lbl"> </a></td>
 					<td class="td2"><select id="cmbTypea" class="txt c1"> </select></td>
 					<td class="td3"><span> </span><a id="lblNoa" class="lbl"> </a></td>
-					<td class="td4"><input id="txtNoa" type="text" class="txt c1" /></td>
+					<td class="td4"><input id="txtNoa" type="text" class="txt c1" style="width:120px;"/></td>
 					<td class="td5"><span> </span><a id="lblDatea" class="lbl"> </a></td>
 					<td class="td6"><input id="txtDatea" type="text" class="txt c1" /></td>
 					<td class="td7"><span> </span><a id="lblTimea" class="lbl"> </a></td>
@@ -627,10 +627,12 @@
 					<td class="td3 FEN"><span> </span><a id='lblFweight' class="lbl"> </a></td>
 					<td class="td8"><input id="txtFweight" type="text" class="txt c1 num" /></td>
 					<td class="td3 cmbType123" style="display:none;"><span> </span><a class="lbl">夾帶物</a></td>
-					<td class="td4 cmbType123" style="display:none;"><input id="txtItem"  type="text"  class="txt c1 num"/></td>
+					<td class="td4 cmbType123" style="display:none;">
+					<textarea id="txtItem" class="txt c1" style="height:75px;"> </textarea>
+					</td>
 					<td class="td5"><span> </span><a id="lblGweight" class="lbl"> </a></td>
 					<td class="td6"><input id="txtGweight" type="text" class="txt c1 num" /></td>
-					<td class="td7"><span> </span><a id="lblSweight" class="lbl"> </a></td>
+					<td class="td7 FEN"><span> </span><a id="lblSweight" class="lbl"> </a></td>
 					<td class="td8"><input id="txtSweight" type="text" class="txt c1 num" /></td>
 				</tr>
 				<tr class="FEN">
@@ -642,16 +644,6 @@
 					<td class="td6"><input id="txtDime2" type="text" class="txt c1 num" /></td>
 					<td class="td7"><span> </span><a id="lblDime3" class="lbl"> </a></td>
 					<td class="td8"><input id="txtDime3" type="text" class="txt c1 num" /></td>
-				</tr>
-				<tr class="FEY" style="display:none;">
-					<td class="td1">
-					<td class="td2">
-					<td class="td3">
-					<td class="td4">
-					<td class="td5"><span> </span><a class="lbl">過磅重量</a></td>
-					<td class="td6"><input id="txtEardweight" type="text" class="txt c1 num" /></td>
-					<td class="td7"><span> </span><a class="lbl">過磅訊號</a></td>
-					<td class="td7"><input id="txtEardsignal" type="text" class="txt c1 num" /></td>
 				</tr>
 				<tr class="tr6">
 					<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
