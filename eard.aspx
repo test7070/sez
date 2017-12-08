@@ -16,7 +16,7 @@
 			}
 			q_tables = 's';
 			var q_name = "eard";
-			var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtSweight'];
+			var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
 			var q_readonlys = [];
 			var bbmNum = [['txtEmpweight', 10, 0, 1],['txtMinusweight', 10, 0, 1],['txtPlusweight', 10, 0, 1],
 						  ['txtWeight', 10, 0, 1],['txtFweight', 10, 0, 1],['txtGweight', 10, 0, 1],
@@ -54,7 +54,6 @@
                 q_mask(bbmMask);
                 bbsMask = [['txtDatea',r_picd]]
                 q_mask(bbsMask);
-                q_cmbParse("cmbTypea", q_getPara('eard.typea'));
                 q_gt('cardeal', '', 0, 0, 0, "");
                 $('#txtEmpweight').change(function(){sum();});
                 $('#txtMinusweight').change(function(){sum();});
@@ -73,6 +72,101 @@
 	                	}
                 	}
                 });
+				if (q_getPara('sys.project').toUpperCase()=='FE'){
+					q_cmbParse("cmbTypea", '1@進貨,2@出貨,3@借磅,4@進貨退回,5@出貨退回');
+					$('.FEN').hide();
+					$('.FEY').show();
+					if($('#cmbTypea').val()=='5'){
+							$('.cmbType123').show();
+							$('.cmbType23').show();
+							$('.cmbType12').show();
+							$('.cmbType1').hide();
+							$('.cmbType2').show();
+							$('.cmbType3').hide();
+					}
+					if($('#cmbTypea').val()=='4'){
+							$('.cmbType123').show();
+							$('.cmbType23').hide();
+							$('.cmbType12').show();
+							$('.cmbType1').show();
+							$('.cmbType2').hide();
+							$('.cmbType3').hide();
+					}
+					if($('#cmbTypea').val()=='3'){
+							$('.cmbType123').show();
+							$('.cmbType23').show();
+							$('.cmbType12').hide();
+							$('.cmbType1').hide();
+							$('.cmbType2').hide();
+							$('.cmbType3').show();
+					}
+					if($('#cmbTypea').val()=='2'){
+							$('.cmbType123').show();
+							$('.cmbType23').show();
+							$('.cmbType12').show();
+							$('.cmbType1').hide();
+							$('.cmbType2').show();
+							$('.cmbType3').hide();
+					}
+					if($('#cmbTypea').val()=='1'){
+							$('.cmbType123').show();
+							$('.cmbType23').hide();
+							$('.cmbType12').show();
+							$('.cmbType1').show();
+							$('.cmbType2').hide();
+							$('.cmbType3').hide();
+					}
+				}
+				else {
+					q_cmbParse("cmbTypea", q_getPara('eard.typea'));
+				}
+				$("#cmbTypea").focus(function() {
+				}).change(function() {
+					$('.FEN').hide();
+					$('.FEY').show();
+					if($('#cmbTypea').val()=='5'){
+							$('.cmbType123').show();
+							$('.cmbType23').show();
+							$('.cmbType12').show();
+							$('.cmbType1').hide();
+							$('.cmbType2').show();
+							$('.cmbType3').hide();
+					}
+					if($('#cmbTypea').val()=='4'){
+							$('.cmbType123').show();
+							$('.cmbType23').hide();
+							$('.cmbType12').show();
+							$('.cmbType1').show();
+							$('.cmbType2').hide();
+							$('.cmbType3').hide();
+					}
+					if($('#cmbTypea').val()=='3'){
+							$('.cmbType123').show();
+							$('.cmbType23').show();
+							$('.cmbType12').hide();
+							$('.cmbType1').hide();
+							$('.cmbType2').hide();
+							$('.cmbType3').show();
+					}
+					if($('#cmbTypea').val()=='2'){
+							$('.cmbType123').show();
+							$('.cmbType23').show();
+							$('.cmbType12').show();
+							$('.cmbType1').hide();
+							$('.cmbType2').show();
+							$('.cmbType3').hide();
+					}
+					if($('#cmbTypea').val()=='1'){
+							$('.cmbType123').show();
+							$('.cmbType23').hide();
+							$('.cmbType12').show();
+							$('.cmbType1').show();
+							$('.cmbType2').hide();
+							$('.cmbType3').hide();
+					}
+				});
+
+
 			}
 
 			function q_boxClose(s2) {
@@ -153,6 +247,54 @@
 				$('#txtNoa').val('AUTO');
 				$('#txtDatea').val(q_date());
 				$('#txtDatea').focus();
+				if (q_getPara('sys.project').toUpperCase()=='FE'){
+					q_cmbParse("cmbTypea", '1@進貨,2@出貨,3@借磅,4@進貨退回,5@出貨退回');
+					$('.FEN').hide();
+					$('.FEY').show();
+					if($('#cmbTypea').val()=='5'){
+							$('.cmbType123').show();
+							$('.cmbType23').show();
+							$('.cmbType12').show();
+							$('.cmbType1').hide();
+							$('.cmbType2').show();
+							$('.cmbType3').hide();
+					}
+					if($('#cmbTypea').val()=='4'){
+							$('.cmbType123').show();
+							$('.cmbType23').hide();
+							$('.cmbType12').show();
+							$('.cmbType1').show();
+							$('.cmbType2').hide();
+							$('.cmbType3').hide();
+					}
+					if($('#cmbTypea').val()=='3'){
+							$('.cmbType123').show();
+							$('.cmbType23').show();
+							$('.cmbType12').hide();
+							$('.cmbType1').hide();
+							$('.cmbType2').hide();
+							$('.cmbType3').show();
+					}
+					if($('#cmbTypea').val()=='2'){
+							$('.cmbType123').show();
+							$('.cmbType23').show();
+							$('.cmbType12').show();
+							$('.cmbType1').hide();
+							$('.cmbType2').show();
+							$('.cmbType3').hide();
+					}
+					if($('#cmbTypea').val()=='1'){
+							$('.cmbType123').show();
+							$('.cmbType23').hide();
+							$('.cmbType12').show();
+							$('.cmbType1').show();
+							$('.cmbType2').hide();
+							$('.cmbType3').hide();
+					}
+				}
+				else {
+					q_cmbParse("cmbTypea", q_getPara('eard.typea'));
+				}
 			}
 	
 			function btnModi() {
@@ -211,18 +353,69 @@
 			}
 			
 			function bbsSave(as) {
+			if (q_getPara('sys.project').toUpperCase()=='FE'){
+			}
+			else {
 				if (!as['vccno']) {
 					as[bbsKey[1]] = '';
 					return;
 				}
+			}
 				q_nowf();
 				return true;
 			}
 	
 			function refresh(recno) {
 				_refresh(recno);
+				if (q_getPara('sys.project').toUpperCase()=='FE'){
+					q_cmbParse("cmbTypea", '1@進貨,2@出貨,3@借磅,4@進貨退回,5@出貨退回');
+					$('.FEN').hide();
+					$('.FEY').show();
+					if($('#cmbTypea').val()=='5'){
+							$('.cmbType123').show();
+							$('.cmbType23').show();
+							$('.cmbType12').show();
+							$('.cmbType1').hide();
+							$('.cmbType2').show();
+							$('.cmbType3').hide();
+					}
+					if($('#cmbTypea').val()=='4'){
+							$('.cmbType123').show();
+							$('.cmbType23').hide();
+							$('.cmbType12').show();
+							$('.cmbType1').show();
+							$('.cmbType2').hide();
+							$('.cmbType3').hide();
+					}
+					if($('#cmbTypea').val()=='3'){
+							$('.cmbType123').show();
+							$('.cmbType23').show();
+							$('.cmbType12').hide();
+							$('.cmbType1').hide();
+							$('.cmbType2').hide();
+							$('.cmbType3').show();
+					}
+					if($('#cmbTypea').val()=='2'){
+							$('.cmbType123').show();
+							$('.cmbType23').show();
+							$('.cmbType12').show();
+							$('.cmbType1').hide();
+							$('.cmbType2').show();
+							$('.cmbType3').hide();
+					}
+					if($('#cmbTypea').val()=='1'){
+							$('.cmbType123').show();
+							$('.cmbType23').hide();
+							$('.cmbType12').show();
+							$('.cmbType1').show();
+							$('.cmbType2').hide();
+							$('.cmbType3').hide();
+					}
+				}
+				else {
+					q_cmbParse("cmbTypea", q_getPara('eard.typea'));
+				}
 			}
-	
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
 			}
@@ -390,48 +583,59 @@
 					<td class="td1"><span> </span><a id='lblTypea' class="lbl"> </a></td>
 					<td class="td2"><select id="cmbTypea" class="txt c1"> </select></td>
 					<td class="td3"><span> </span><a id="lblNoa" class="lbl"> </a></td>
-					<td class="td4"><input id="txtNoa" type="text" class="txt c1" /></td>
+					<td class="td4"><input id="txtNoa" type="text" class="txt c1" style="width:120px;"/></td>
 					<td class="td5"><span> </span><a id="lblDatea" class="lbl"> </a></td>
 					<td class="td6"><input id="txtDatea" type="text" class="txt c1" /></td>
 					<td class="td7"><span> </span><a id="lblTimea" class="lbl"> </a></td>
 					<td class="td8"><input id="txtTimea" type="text" class="txt c1" /></td>
 				</tr>
 				<tr class="tr2">
-					<td class="td1"><span> </span><a id='lblCustno' class="lbl btn"> </a></td>
-					<td class="td2" colspan="3">
-						<input id="txtCustno"  type="text" style="float:left;width:30%;"/>
-						<input id="txtCust"  type="text" style="float:left;width:70%;"/>
-						<input id="txtNick"  type="text" style="display:none;"/>
+					<td class="td1 cmbType1" style="display:none;"><span> </span><a class="lbl btn">廠商名稱</a></td>
+					<td class="td1 cmbType2" style="display:none;"><span> </span><a class="lbl btn">客戶名稱</a></td>
+					<td class="td1 FEN"><span> </span><a id="lblCustno" class="lbl btn"> </a></td>
+					<td class="td2 cmbType12" colspan="3">
+						<input id="txtCustno" type="text" style="float:left;width:30%;"/>
+						<input id="txtCust" type="text" style="float:left;width:70%;"/>
+						<input id="txtNick" type="text" style="display:none;"/>
 					</td>
-					<td class="td3"><span> </span><a id="lblCardealno" class="lbl"> </a></td>
-					<td class="td4">
+					<td class="td3 FEN"><span> </span><a id="lblCardealno" class="lbl"> </a></td>
+					<td class="td4 FEN">
 						<select id="cmbCardealno" class="txt c1"> </select>
 						<input id="txtCardeal" type="text"  style="display:none;"/>
 					</td>
-					<td class="td5"><span> </span><a id="lblCarno" class="lbl"> </a></td>
-					<td class="td6"><input id="txtCarno" type="text" class="txt c1" /></td>
+					<td class="td5 FEN"><span> </span><a id="lblCarno" class="lbl"> </a></td>
+					<td class="td6 FEN"><input id="txtCarno" type="text" class="txt c1" /></td>
+					
+					<td class="td5 cmbType3" style="display:none;"><span> </span><a class="lbl">傳票編號</a></td>
+					<td class="td6 cmbType3" style="display:none;"><input id="txtCardeal" type="text" class="txt c1" /></td>
+					<td class="td5 cmbType3" style="display:none;"><span> </span><a class="lbl">借磅費用</a></td>
+					<td class="td6 cmbType3" style="display:none;"><input id="txtCarno" type="text" class="txt c1" /></td>
 				</tr>  
 				<tr class="tr3">
-					<td class="td1"><span> </span><a id="lblCaseno" class="lbl"> </a></td>
-					<td class="td2"><input id="txtCaseno" type="text" class="txt c1" /></td>
-					<td class="td3"><span> </span><a id='lblEmpweight' class="lbl"> </a></td>
-					<td class="td4"><input id="txtEmpweight"  type="text"  class="txt c1 num"/></td>
-					<td class="td5"><span> </span><a id="lblMinusweight" class="lbl"> </a></td>
-					<td class="td6"><input id="txtMinusweight" type="text" class="txt c1 num" /></td>
-					<td class="td4"><span> </span><a id="lblPlusweight" class="lbl"> </a></td>
-					<td class="td8"><input id="txtPlusweight" type="text" class="txt c1 num" /></td>
-				</tr>
-				<tr class="tr4">
+					<td class="td1 FEN"><span> </span><a id="lblCaseno" class="lbl"> </a></td>
+					<td class="td2 FEN"><input id="txtCaseno" type="text" class="txt c1" /></td>
+					<td class="td1"><span> </span><a id='lblEmpweight' class="lbl"> </a></td>
+					<td class="td2"><input id="txtEmpweight"  type="text"  class="txt c1 num"/></td>
+					<td class="td3 FEN"><span> </span><a id="lblMinusweight" class="lbl"> </a></td>
+					<td class="td4"><input id="txtMinusweight" type="text" class="txt c1 num" /></td>
+					<td class="td5"><span> </span><a id="lblPlusweight" class="lbl FEN"> </a></td>
+					<td class="td6"><input type="text" id="txtPlusweight" class="txt c1 num" /></td>
+					<td class="td7 cmbType123" style="display:none;"><input type="text" id="txtweight2" class="txt c1 num" /></td>
+				<tr>
 					<td class="td1"><span> </span><a id="lblWeight" class="lbl"> </a></td>
 					<td class="td2"><input id="txtWeight" type="text" class="txt c1 num" /></td>
-					<td class="td3"><span> </span><a id='lblFweight' class="lbl"> </a></td>
-					<td class="td4"><input id="txtFweight"  type="text"  class="txt c1 num"/></td>
+					<td class="td3 FEN"><span> </span><a id='lblFweight' class="lbl"> </a></td>
+					<td class="td8"><input id="txtFweight" type="text" class="txt c1 num" /></td>
+					<td class="td3 cmbType123" style="display:none;"><span> </span><a class="lbl">夾帶物</a></td>
+					<td class="td4 cmbType123" style="display:none;">
+					<textarea id="txtItem" class="txt c1" style="height:75px;"> </textarea>
+					</td>
 					<td class="td5"><span> </span><a id="lblGweight" class="lbl"> </a></td>
 					<td class="td6"><input id="txtGweight" type="text" class="txt c1 num" /></td>
-					<td class="td7"><span> </span><a id="lblSweight" class="lbl"> </a></td>
+					<td class="td7 FEN"><span> </span><a id="lblSweight" class="lbl"> </a></td>
 					<td class="td8"><input id="txtSweight" type="text" class="txt c1 num" /></td>
 				</tr>
-				<tr class="tr5">
+				<tr class="FEN">
 					<td class="td1"><span> </span><a id="lblSize" class="lbl"> </a></td>
 					<td class="td2"><input id="txtSize" type="text" class="txt c1" /></td>
 					<td class="td3"><span> </span><a id='lblDime1' class="lbl"> </a></td>
@@ -440,7 +644,7 @@
 					<td class="td6"><input id="txtDime2" type="text" class="txt c1 num" /></td>
 					<td class="td7"><span> </span><a id="lblDime3" class="lbl"> </a></td>
 					<td class="td8"><input id="txtDime3" type="text" class="txt c1 num" /></td>
-				</tr>                               
+				</tr>
 				<tr class="tr6">
 					<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
 					<td class="td2"><input id="txtWorker"  type="text"  class="txt c1"/></td>
@@ -460,23 +664,25 @@
 				<td  align="center" style="width:30px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 				</td>
-				<td align="center" class="td1" style="width:20%"><a id='lblVccno_s'> </a></td>
+				<td align="center" class="td1 cmbType1" style="width:20%;display:none;"><a>進貨類型</a></td>
+				<td align="center" class="td1 cmbType23" style="width:20%"><a id='lblVccno_s'> </a></td>
 				<td align="center" class="td1" style="width:10%"><a id='lblDatea_s'> </a></td>
-				<td align="center" class="td1" style="width:8%"><a id='lblExclude_s'> </a></td>
+				<td align="center" class="td1 FEN" style="width:8%"><a id='lblExclude_s'> </a></td>
 				<td align="center" class="td1" style="width:10%"><a id='lblWeight_s'> </a></td>
-				<td align="center" class="td1" style="width:10%"><a id='lblSweight_s'> </a></td>
-				<td align="center" class="td1" style="width:10%"><a id='lblPweight_s'> </a></td>
+				<td align="center" class="td1 FEN" style="width:10%"><a id='lblSweight_s'> </a></td>
+				<td align="center" class="td1 FEN" style="width:10%"><a id='lblPweight_s'> </a></td>
 			</tr>
 			<tr id="trSel.*" style='background:#cad3ff;'>
 				<td style="width:1%;">
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 				</td>
-				<td><input id="txtVccno.*" type="text" class="txt c1"/></td>
+				<td class="cmbType1" style="display:none;"><input id="txtTypea.*" type="text" class="txt c1"/></td>
+				<td class="cmbType23"><input id="txtVccno.*" type="text" class="txt c1"/></td>
 				<td><input id="txtDatea.*" type="text" class="txt c1"/></td>
-				<td><input id="chkExclude.*" type="checkbox" /></td>
+				<td class="FEN"><input id="chkExclude.*" type="checkbox" /></td>
 				<td><input id="txtWeight.*" type="text" class="txt c1 num"/></td>
-				<td><input id="txtSweight.*" type="text" class="txt c1 num"/></td>
-				<td>
+				<td class="FEN"><input id="txtSweight.*" type="text" class="txt c1 num"/></td>
+				<td class="FEN">
 					<input id="txtPweight.*" type="text" class="txt c1 num"/>
 					<input id="txtNoq.*" type="text" style="display:none;"/>
 				</td>

@@ -2341,6 +2341,9 @@
 					if (as[0] != undefined) {
 						t_dodate=as[0].value;
 					}
+					if(t_dodate<q_date() || t_dodate.length==0){
+						t_dodate=q_date();
+					}
 					q_gt('holiday', "where=^^ noa>='"+q_date()+"' ^^ stop=100" , 0, 0, 0, "getholiday", r_accy,1);
 					var holiday = _q_appendData("holiday", "", true);
 					//先加3天
