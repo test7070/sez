@@ -329,9 +329,9 @@
                     t_money = q_add(t_money,emp($('#cmbCoin').val())?q_float('txtMoney_' + j):q_float('txtMoneyus_' + j));
                     
 					//104/04/29費用不算在收款金額//0601恢復並改為-
-                    t_money -= q_float('txtChgs_' + j);
-                    t_sale += q_float('txtUnpayorg_' + j);
-                    t_pay += q_float('txtPaysale_' + j);
+                    t_money = q_sub(t_money, q_float('txtChgs_' + j));
+                    t_sale = q_add(t_money, q_float('txtUnpayorg_' + j));
+                    t_pay = q_add(q_float('txtPaysale_' + j));
                 }
 
                 //bbm收款金額(total)=bbs收款金額總額(money)
