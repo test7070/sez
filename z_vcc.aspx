@@ -264,13 +264,7 @@
 				$('#lblMultucc').click(function(e) {
                 	q_box("ucaucc_b2.aspx?;;;;", 'ucc', "600px", "990%", q_getMsg("popUcc"));
                 });
-                
-				for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
-					if($('#q_report').data().info.reportData[i].report.substr(0,7)=='z_vcc13'){
-						$('#q_report div div').eq(i).css('font-size','12px');
-						break;
-					}
-				}
+               
             }
 
             function q_boxClose(s2) {
