@@ -152,7 +152,7 @@
 				$('#btnCheckapv').click(function() {
 					//執行txt
 					if(!(q_cur==1 || q_cur==2) && !emp($('#txtNoa').val())){
-						if(emp($('#txtChecker').val()) && !emp($('#txtUcxno').val()) && !emp($('#cmbIpto').val())){
+						if(emp($('#txtChecker').val()) && !emp($('#cmbIpto').val())){
 							var t_noa=$('#txtNoa').val();							
 							var t_hostname=location.hostname;
 							var t_proj=q_getPara('sys.project').toUpperCase();
@@ -170,7 +170,7 @@
 							if(!emp($('#txtChecker').val()))
 								alert('已被【'+$('#txtChecker').val()+'】核准!!');
 							else
-								alert('【Ipto】或【生產發行件號】禁止空白!!');
+								alert('【Ipto】禁止空白!!');
 						}
 					}
 				});
@@ -206,7 +206,8 @@
 							var t_proj=q_getPara('sys.project').toUpperCase();
 							//t_noa,r_userno,r_name
 							if(q_getPara('sys.project').toUpperCase()=="AD" || q_getPara('sys.project').toUpperCase()=="JO"){
-								if(r_userno=='8001'){
+								//106/12/12 暫不判斷
+								//if(r_userno=='8001'){
 									q_func('qtxt.query.cub_apv', 'cub.txt,cub_apv,' + encodeURI(r_accy)+';'+encodeURI(t_noa)+';'+encodeURI(r_userno)+';'+encodeURI(r_name)+';'+encodeURI('approve')+';'+encodeURI(t_hostname)+';'+encodeURI(t_proj)+';'+encodeURI('0'),r_accy,1);
 				                	var as = _q_appendData("tmp0", "", true, true);
 				                	if (as[0] != undefined) {
@@ -215,9 +216,9 @@
 				                		abbm[q_recno]['approve'] = as[0].approve;
 		                            	abbm[q_recno]['approvedate'] = as[0].approvedate;
 				                	}
-								}else{
-									alert('需由李經理核准!!');
-								}
+								//}else{
+								//	alert('需由李經理核准!!');
+								//}
 							}else{
 								q_func('qtxt.query.cub_apv', 'cub.txt,cub_apv,' + encodeURI(r_accy)+';'+encodeURI(t_noa)+';'+encodeURI(r_userno)+';'+encodeURI(r_name)+';'+encodeURI('approve')+';'+encodeURI(t_hostname)+';'+encodeURI(t_proj)+';'+encodeURI('0'),r_accy,1);
 			                	var as = _q_appendData("tmp0", "", true, true);
@@ -789,11 +790,31 @@
 					$('#btnApproveapv').attr('disabled', 'disabled');
 					$('#btnApproveucx').attr('disabled', 'disabled');
 				}
-				
-				//106/11/09當業務已核准過(時間不會清除) BBM禁止修改
-				if(!emp($('#txtCheckerdate').val())){
-					for (var i=0;i<fbbm.length;i++){
-						$('#'+fbbm[i]).attr('disabled', 'disabled');
+				if($('#cmbIpfrom').val()!=null  && $('#cmbIpto').val()!=null){
+					//106/11/09當業務已核准過(時間不會清除) BBM禁止修改
+					//106/12/12 調整 針對ST2
+					if(!emp($('#txtCheckerdate').val()) && $('#cmbIpfrom').val().toUpperCase()==z_cno.toUpperCase()){
+						for (var i=0;i<fbbm.length;i++){
+							$('#'+fbbm[i]).attr('disabled', 'disabled');
+						}
+					}
+					
+					if(emp($('#txtApprovedate').val()) && $('#cmbIpto').val().toUpperCase()==z_cno.toUpperCase()){
+						for (var i=0;i<fbbm.length;i++){
+							if( fbbm[i]=='txtDatea' || fbbm[i]=='txtCno' || fbbm[i]=='txtCustno' || fbbm[i]=='txtUcxno2'
+								|| fbbm[i]=='txtMount' || fbbm[i]=='txtPrice' || fbbm[i]=='txtMo' || fbbm[i]=='txtOrdeno'
+								|| fbbm[i]=='cmbIpfrom' || fbbm[i]=='cmbIpto' || fbbm[i]=='txtM14' || fbbm[i]=='txtM15'
+								|| fbbm[i]=='txtRefrev' || fbbm[i]=='txtIssuerev' || fbbm[i]=='txtAbrev' || fbbm[i]=='txtTrackingno'
+							)
+								$('#'+fbbm[i]).attr('disabled', 'disabled');
+						}
+					}
+					
+					if(!emp($('#txtApprovedate').val()) && $('#cmbIpto').val().toUpperCase()==z_cno.toUpperCase()){
+						for (var i=0;i<fbbm.length;i++){
+							if(fbbm[i]!='txtUcxno')
+								$('#'+fbbm[i]).attr('disabled', 'disabled');
+						}
 					}
 				}
 			}
@@ -1418,7 +1439,7 @@
 				font-size: medium;
 			}
 			.dbbs {
-				width: 1500px;
+				width: 1530px;
 			}
 			.dbbs .tbbs {
 				margin: 0;
@@ -1752,7 +1773,7 @@
 				<tr style='color:white; background:#003366;' >
 					<td style="width:20px;display: none;"><input id="btnPlus" type="button" style="font-size: medium; font-weight: bold;" value="＋"/></td>
 					<td style="width:20px;"> </td>
-					<td style="width:180px;"><a id='lblProcess_r_s'>流程</a></td>
+					<td style="width:210px;"><a id='lblProcess_r_s'>流程</a></td>
 					<td style="width:140px;"><a id='lblTgg_r_s'>廠商名稱</a></td>
 					<td style="width:80px;"><a id='lblMount_r_s'>數量</a></td>
 					<td style="width:40px;"><a id='lblUnit_r_s'>單位</a></td>
