@@ -601,8 +601,8 @@
 					}
 				}
 					
-				if(!emp($('#txtApprovedate').val())){
-					alert('開發經理已核准禁止修改!!');
+				if(!emp($('#txtIssuedate').val())){
+					alert('開發經理已發行禁止修改!!');
 					return;
 				}
 				_btnModi();
