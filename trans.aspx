@@ -479,7 +479,8 @@
 			        			$('#txtStraddr').removeAttr('readonly').css('color','black').css('background','white');
 								$('#txtInmount').removeAttr('readonly').css('color','black').css('background','white');
 			        			$('#txtPton').removeAttr('readonly').css('color','black').css('background','white');
-			        			$('#txtPrice').removeAttr('readonly').css('color','black').css('background','white');
+			        			if(q_authRun(7))//依修改單價權限判斷
+			        				$('#txtPrice').removeAttr('readonly').css('color','black').css('background','white');
 							}
 							if(trans.isoutside){
 								//外車
