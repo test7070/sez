@@ -139,7 +139,7 @@
 					
 					var t_proj=q_getPara('sys.project').toUpperCase();
 					
-					 if(t_proj!='DC' && t_proj!='EFB'){
+					 if(t_proj!='DC' && t_proj!='EFB' && t_proj!='SH'){
                         for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
                             if(
                             	$('#q_report').data().info.reportData[i].report=='z_cara1' //車主欠款明細
