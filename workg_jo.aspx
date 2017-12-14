@@ -116,6 +116,9 @@
 								t_where = t_where+" and exists(select * from view_orde where noa=a.noa and gdate='"+$('#txtFactno').val()+"') ";
 							if(!emp($('#txtOrdeno').val()))
 								t_where = t_where+" and a.noa='"+$('#txtOrdeno').val()+"' ";
+								
+							//106/12/13 已轉採購單的訂單不匯入排產
+							t_where = t_where+" and not exists(select * from view_orde where noa=a.noa and isnull(ordcno,'')!='') ";
 							
 							t_where="where=^^"+t_where+"^^";
 							
@@ -992,7 +995,19 @@
 							b_seq = t_IdSeq;
 							if (!emp($('#txtOrdeno_' + b_seq).val())) {
 								t_where = " charindex(noa,'" + $('#txtOrdeno_' + b_seq).val() + "')>0 ";
-								q_box("orde.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('PopWork'));
+								
+								q_gt('view_orde', "where=^^ "+t_where+" ^^ stop=1" , 0, 0, 0, "getorde", r_accy,1);
+								var as = _q_appendData("view_orde", "", true);
+								var t_stype='';
+								if (as[0] != undefined) {
+									t_stype=as[0].stype;
+								}
+								
+								if(t_stype=='3' || t_stype=='4'){
+									q_box("orde_r.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('PopWork'));
+								}else{
+									q_box("orde_ad.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('PopWork'));
+								}
 							}
 						});
 						
