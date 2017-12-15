@@ -637,8 +637,8 @@
 					$('#txtXyComp2').val(t_comp2).show();
 					$('#lblXyNoa2').val('').show();
 					$('#lblXyComp2').val('').show();
-					$('#txtSalesno').val(r_userno);
-					$('#txtSales').val(r_name);
+					//$('#txtSalesno').val(r_userno); //106/12/15 改為預設不帶入 避免忘記修改
+					//$('#txtSales').val(r_name); //106/12/15 改為預設不帶入 避免忘記修改
 				}
 			}
 
@@ -686,6 +686,13 @@
 					}else if($('#txtXyNoa1').val().length>=5 && $('#txtXyNoa2').val().length>0){//總店與分店編號 都有打
 						$('#txtNoa').val($('#txtXyNoa1').val()+'-'+$('#txtXyNoa2').val());
 						$('#txtComp').val($('#txtXyComp1').val()+'-'+$('#txtXyComp2').val());
+					}
+				}
+				//106/12/15強制輸入業務 因預設不帶入
+				if (q_getPara('sys.project').toUpperCase()=='XY'){
+					if($('#txtSalesno').val().length==0){
+						alert('請輸入業務編號!!');
+						return;
 					}
 				}
 				

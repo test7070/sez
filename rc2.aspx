@@ -20,7 +20,7 @@
 			var decbbs = ['money', 'total', 'mount', 'price', 'sprice', 'dime', 'width', 'lengthb', 'weight2'];
 			var decbbm = ['payed', 'unpay', 'usunpay', 'uspayed', 'ustotal', 'discount', 'money', 'tax', 'total', 'weight', 'floata', 'mount', 'price', 'tranmoney', 'totalus'];
 			var q_readonly = ['txtNoa', 'txtAcomp', 'txtTgg', 'txtWorker', 'txtWorker2','txtTranstart','txtMoney','txtTotal'];
-			var q_readonlys = ['txtNoq','txtOrdeno','txtNo2'];
+			var q_readonlys = ['txtNoq','txtOrdeno','txtNo2','txtComp'];
 			var bbmNum = [];
 			var bbsNum = [];
 			var bbmMask = [];
@@ -1007,6 +1007,20 @@
 							$('#btnProductno_'+j).attr('disabled', 'disabled');
 						}
 					}
+					
+					if(!emp($('#txtOrdeno_'+i).val())){
+						$('#txtCustno_'+j).attr('disabled', 'disabled');
+						$('#btnCustno_'+j).attr('disabled', 'disabled');
+					}else{
+						if(q_cur==1 || q_cur==2){
+							$('#txtCustno_'+j).removeAttr('disabled');
+							$('#btnCustno_'+j).removeAttr('disabled');
+						}else{
+							$('#txtCustno_'+j).attr('disabled', 'disabled');
+							$('#btnCustno_'+j).attr('disabled', 'disabled');
+						}
+					}
+					
 				}
 				
 				if (q_getPara('sys.project').toUpperCase().substr(0,2)!='AD'){

@@ -601,8 +601,8 @@
 					}
 				}
 					
-				if(!emp($('#txtApprovedate').val())){
-					alert('開發經理已核准禁止修改!!');
+				if(!emp($('#txtIssuedate').val())){
+					alert('開發經理已發行禁止修改!!');
 					return;
 				}
 				_btnModi();
@@ -1058,7 +1058,7 @@
 							oReq.setRequestHeader("FileName", escape(fr.fileName));
 							oReq.send(fr.result);
 							
-							if(fr.result.length>0 && ttxtName=='txtPrt__0'){
+							if(fr.result.length>0 && ttxtName=='txtUcolor__0'){//106/12/13 該為銷售單位的圖 原完成圖
 								$('#txtMemo2__0').val(fr.result);
 								$('#bbtimg').attr('src',$('#txtMemo2__0').val());
 								t_zoomimg=true;

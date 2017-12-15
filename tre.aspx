@@ -120,8 +120,14 @@
 							alert('請輸入司機!');
 							return;
 						}
-                		q_func('qtxt.query.tre_dc', 'tre.txt,tre_dc,' + encodeURI(t_noa) + ';' + encodeURI(t_carteamno)
-                			+ ';' + encodeURI(t_bdate)+ ';' + encodeURI(t_edate)+ ';' + encodeURI(t_carno)+ ';' + encodeURI(t_driverno)); 	
+						if(q_getPara('sys.project').toUpperCase()=='SH'){
+						    q_func('qtxt.query.tre_dc', 'tre.txt,tre_sh,' + encodeURI(t_noa) + ';' + encodeURI(t_carteamno)
+                            + ';' + encodeURI(t_bdate)+ ';' + encodeURI(t_edate)+ ';' + encodeURI(t_carno)+ ';' + encodeURI(t_driverno));  
+						}else{
+						    q_func('qtxt.query.tre_dc', 'tre.txt,tre_dc,' + encodeURI(t_noa) + ';' + encodeURI(t_carteamno)
+                            + ';' + encodeURI(t_bdate)+ ';' + encodeURI(t_edate)+ ';' + encodeURI(t_carno)+ ';' + encodeURI(t_driverno));  
+						}
+                		
                 	}
                 });
                 $("#btnCarchg").click(function(e) {
@@ -142,8 +148,16 @@
             		case 'qtxt.query.tre_dc':
             			var as = _q_appendData("tmp0", "", true, true);
                         if (as[0] != undefined) {
-                            q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtComp,txtStraddr,txtProduct,txtMount,txtPrice,txtDiscount,txtMoney,txtTranno,txtTrannoq,txtCasetype,txtCaseno,txtCaseno2,txtOrdeno'
-                        	, as.length, as, 'trandate,nick,straddr,product,mount2,price3,discount,total2,noa,noq,casetype,caseno,caseno2,ordeno', '','');
+                            if(q_getPara('sys.project').toUpperCase()=='SH'){
+                                q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtComp,txtStraddr,txtProduct,txtMount,txtMoney,txtTranno,txtTrannoq,txtCaseno,txtOrdeno'
+                                , as.length, as, 'trandate,nick,straddr,product,mount,total2,noa,noq,caseno,ordeno', '',''); 
+                                for(var j=0;j<as[j].mount;j++){
+                                        $('#txtStraddr_'+j).val(as[j].straddr+'-'+as[j].endaddr);
+                                }
+                            }else{
+                                q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtComp,txtStraddr,txtProduct,txtMount,txtPrice,txtDiscount,txtMoney,txtTranno,txtTrannoq,txtCasetype,txtCaseno,txtCaseno2,txtOrdeno'
+                                , as.length, as, 'trandate,nick,straddr,product,mount2,price3,discount,total2,noa,noq,casetype,caseno,caseno2,ordeno', '',''); 
+                            }                       
                         	sum();
                         } else {
                             alert('無資料!');
