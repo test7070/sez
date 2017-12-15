@@ -661,7 +661,9 @@
 					q_gt('sss', "where=^^noa='"+r_userno+"'^^" , 0, 0, 0, "getsalesgroup",r_accy,1);
 					var as = _q_appendData("sss", "", true);
                     if (as[0] != undefined) {
-						$('#txtkind').val(as[0].salesgroup);
+						//$('#txtkind').val(as[0].salesgroup);
+						//106/12/15 改成抓部門
+						$('#txtkind').val(as[0].partno);
 					}
 				}else{
 					$('#txtWorker2').val(r_name);
@@ -986,9 +988,10 @@
 					$('.btnFiles').attr('disabled', 'disabled');
 				}
 				
-				for (var i = 1; i < q_bbtCount; i++) {
+				//106/12/15 會上傳多個檔案 重新開放使用bbt顯示
+				/*for (var i = 1; i < q_bbtCount; i++) {
 					$('#bbttr__'+i).css('display','none');
-				}
+				}*/
 				
 		        $('.btnFiles').change(function() {
 					event.stopPropagation(); 
@@ -1650,7 +1653,10 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl" > </a></td>
-						<td colspan="7"><input id="txtMemo" type="text" class="txt c1"/></td>
+						<td colspan="7">
+							<!--<input id="txtMemo" type="text" class="txt c1"/>-->
+							<textarea id="txtMemo" rows='5' cols='10' style="width:99%; height: 50px;"> </textarea>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblIpfrom" class="lbl" >Ipfrom</a></td>
@@ -1823,7 +1829,7 @@
 			</table>
 		</div>
 		<input id="q_sys" type="hidden" />
-		<div id="dbbt" class='dbbt' style="display: none;">
+		<div id="dbbt" class='dbbt'>
 			<table id="tbbt" class="tbbt">
 				<tr class="head" style="color:white; background:#003366;">
 					<td style="width:20px;"><input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/></td>
@@ -1872,7 +1878,7 @@
 				</tr>
 			</table>
 		</div>
-		<div id="tmpdbbt" style="width:1260px;">
+		<div id="tmpdbbt" style="width:1260px;display: none;">
 			<table id="tmptbbt" style="background: pink;margin: 0;padding: 2px;border: 2px pink double;border-collapse: collapse;color: blue;">
 				<tr class="head" style="color:white; background:#003366;height: 35px;">
 					<td style="width:300px; text-align: center;">銷售單位</td><!--ai格式-->
