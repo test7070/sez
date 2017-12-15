@@ -41,7 +41,7 @@
 				$('#txtBoildate').datepicker();
 				$('#txtEoildate').datepicker(); 
 				
-                $('#txtBdate').focus();
+                $('#txtNoa').focus();
             }
 
             function q_seekStr() {
