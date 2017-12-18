@@ -79,7 +79,7 @@
 					}, {
 						type : '5', //[20]
 						name : 'xenda',
-						value : '0@未完工,1@已完工'.split(',')
+						value : ' @全部,0@未完工,1@已完工'.split(',')
 					}, {
 						type : '8', //[21]
 						name : 'xworkj',

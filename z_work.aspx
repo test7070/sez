@@ -78,7 +78,7 @@
 					}, {
 						type : '8', //[13] 7
 						name : 'aberrant',
-						value : ('異常').split(',')
+						value : ('1@').split(',')
 					}, {
 						type : '2', //[14] [15] 8
 						name : 'xprocess',
@@ -106,7 +106,7 @@
 					}, {
 						type : '5', //[21] 14
 						name : 'xenda',
-						value : '0@未完工,1@已完工'.split(',')
+						value : ' @全部,0@未完工,1@已完工'.split(',')
 					}, {
 						type : '1', //[22][23] 15
 						name : 'ydate'
@@ -153,6 +153,10 @@
 						type : '5', //[36] 23
 						name : 'yorder',
 						value : ('stationno@工作線別,pno@物品編號,ordeno@訂單號碼').split(',')
+					}, {
+						type : '8', //[37] 24
+						name : 'xrealwork',
+						value : ('1@').split(',')
 					}]
 				});
 				q_popAssign();
@@ -171,7 +175,7 @@
 				$('#txtXdate1').val(q_date().substr(0,r_lenm)+'/01');
 	            $('#txtXdate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1));
 				//$('#txtXdate1').val(q_date().substring(0,7)+'01');
-				$('.q_report .option:first').css('width','700px')
+				/*$('.q_report .option:first').css('width','700px')
 				$('#Xproductno').css('width','690px');
 				$('#Xproductno .c2').css('width','130px');
 				$('#Xproductno .c3').css('width','130px');
@@ -198,7 +202,10 @@
 				$('#Xendac').css('width','340px').css('height','30px');
 				$('#chkXendac').css('width','250px');
 				
-				$("#lblXcuano").css("font-size", "13px");
+				$("#lblXcuano").css("font-size", "13px");*/
+				
+				$('#chkXrealwork input[type="checkbox"]').prop('checked',true);
+				$('#q_report').click();
 			}
 
 			function q_boxClose(s2) {
