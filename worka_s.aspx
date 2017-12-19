@@ -48,7 +48,7 @@
 										q_sqlPara2("product", t_product) +
 										q_sqlPara2("datea", t_bdate, t_edate)
                 if(t_workno.length>0)
-                    t_where += " and exists(select workno from workas"+r_accy+" where workas"+r_accy+".noa=worka"+r_accy+".noa and workas"+r_accy+".workno='"+t_workno+"')";
+                    t_where += " and exists(select workno from view_workas"+r_accy+" where view_workas"+r_accy+".noa=view_worka"+r_accy+".noa and view_workas"+r_accy+".workno like '"+t_workno+"%')";
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}

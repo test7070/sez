@@ -635,7 +635,7 @@
                         <td align="center" style="width:100px;"><a id='lblSchmount_s'> </a></td>
                         <td align="center" style="width:100px;"><a id='lblSafemount_s'> </a></td>
                         <td align="center" style="width:100px;"><a id='lblNetmount_s'> </a></td>
-                        <td align="center" style="width:100px;"><a id='lblFdate_s'> </a></td>
+                        <td align="center" style="width:100px;display: none;"><a id='lblFdate_s'> </a></td><!--106/12/18 隱藏-->
                         <td align="center" style="width:100px;"><a id='lblFmount_s'> </a></td>
                         <td align="center" style="width:100px;"><a id='lblMemo_s'> </a></td>
                         
@@ -671,7 +671,7 @@
                         <td><input class="txt num c1" id="txtSchmount.*" type="text" /></td>
                         <td><input class="txt num c1" id="txtSafemount.*" type="text" /></td>
                         <td><input class="txt num c1" id="txtNetmount.*" type="text" /></td>
-                        <td><input class="txt c1" id="txtFdate.*" type="text" /></td>
+                        <td style="display: none;"><input class="txt c1" id="txtFdate.*" type="text" /></td><!--106/12/18 隱藏-->
                         <td><input class="txt num c1" id="txtFmount.*" type="text" /></td>
                         <td><input class="txt c1" id="txtMemo.*" type="text" /></td>
                     </tr>

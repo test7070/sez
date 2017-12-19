@@ -342,6 +342,16 @@
 							$('#txtInmount').val(as[0].inmount);
 							$('#txtUnmount').val(q_sub(dec(as[0].mount),dec(as[0].inmount)));
 							
+							//106/12/18 清除textbox
+							$('#txtTeam').val('');
+							$('#txtInmount2').val('');
+							$('#txtQcmount').val('');
+							$('#txtWmount').val('');
+							$('#txtFixmount').val('');
+							$('#txtMount').val('');
+							$('#txtBmount').val('');
+							$('#txtWmemo').val('');
+							
 							if(as[0].isfreeze=='true'){
 								alert('製令已被凍結!!');
 							}else if(q_sub(dec(as[0].mount),dec(as[0].inmount))>0){

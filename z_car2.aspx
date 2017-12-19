@@ -633,7 +633,7 @@
                 			t_bmon=t_bmon.substr(0,t_bmon.length-1);
 							
 							$('#txtDate1').val(t_bmon+'/01');
-							$('#txtDate2').val(q_cdn(q_cdn(t_mon+'01',45).substr(0,r_lem)+'/01',-1));
+							$('#txtDate2').val(q_cdn(q_cdn(t_mon+'/01',45).substr(0,r_lenm)+'/01',-1));
 							
 							$("#chkPrdate input").prop('checked',true)	
 						}

@@ -49,7 +49,7 @@
 										/*q_sqlPara2("workno", t_workno) +*/
 										q_sqlPara2("storeno", t_storeno);
                 if(t_workno.length>0)
-                    t_where += " and exists(select workno from workds"+r_accy+" where workds"+r_accy+".noa=workd"+r_accy+".noa and workds"+r_accy+".workno='"+t_workno+"')";
+                    t_where += " and exists(select workno from view_workds"+r_accy+" where view_workds"+r_accy+".noa=view_workd"+r_accy+".noa and view_workds"+r_accy+".workno like '"+t_workno+"%')";
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
