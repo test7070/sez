@@ -129,7 +129,7 @@
 					
 				});
 				
-				$('#txtInmount2').change(function() {
+				/*$('#txtInmount2').change(function() {
 					var t_mount=dec($('#txtInmount2').val());
 					if(isNaN(t_mount))
 						t_mount=0;
@@ -143,7 +143,7 @@
 						t_mount=0;
 					$('#txtQcmount').val(t_mount);
 
-				});
+				});*/
 				
 				$('#txtWmount').change(function() {
 					var t_mount=dec($('#txtWmount').val());
@@ -174,13 +174,21 @@
 						return;
 					}
 					
-					var t_inmount2=dec($('#txtInmount2').val());
+					/*var t_inmount2=dec($('#txtInmount2').val());
 					if(isNaN(t_inmount2))
 						t_inmount2=0;
 						
 					var t_qcmount=dec($('#txtQcmount').val());
 					if(isNaN(t_qcmount))
-						t_qcmount=0;
+						t_qcmount=0;*/
+					
+					//106/12/18 改為上階層明細
+					var t_inmount2='',t_qcmount='';
+					$('.in_workno').each(function(index) {
+						var n=$(this).attr('id').split('_')[2];
+						t_inmount2+=(t_inmount2.length>0?'##':'')+$('#in_txtWorkno_'+n).val()+'@@'+dec($('#in_txtInmount2_'+n).val());
+						t_qcmount+=(t_qcmount.length>0?'##':'')+$('#in_txtWorkno_'+n).val()+'@@'+dec($('#in_txtQcmount_'+n).val());
+					});	
 						
 					var t_wmount=dec($('#txtWmount').val());
 					if(isNaN(t_wmount))
@@ -344,13 +352,92 @@
 							
 							//106/12/18 清除textbox
 							$('#txtTeam').val('');
-							$('#txtInmount2').val('');
-							$('#txtQcmount').val('');
+							//$('#txtInmount2').val('');
+							//$('#txtQcmount').val('');
 							$('#txtWmount').val('');
 							$('#txtFixmount').val('');
 							$('#txtMount').val('');
 							$('#txtBmount').val('');
 							$('#txtWmemo').val('');
+							
+							//取得上工段移入數
+							var twork=[];
+							q_gt('view_work', "where=^^previd='"+as[0].noa+"'^^", 0, 0, 0, "getInmount2",r_accy,1);
+							var tas = _q_appendData("view_work", "", true);
+							if (tas[0] != undefined) {								
+								for (var i = 0; i < tas.length; i++) {
+									twork.push({
+										workno:tas[i].noa, 
+										ordeno:tas[i].ordeno,
+										no2:tas[i].no2,
+										cuanoa:tas[i].cuano,
+										cuanoq:tas[i].cuanoq,
+										productno:tas[i].productno,
+										product:tas[i].product,
+										spec:tas[i].spec,
+										unit:tas[i].unit,
+										stationno:tas[i].stationno,
+										station:tas[i].station,
+										mount:tas[i].mount,
+										inmount:tas[i].inmount,
+									});
+								}
+							}
+							
+							var rowslength=document.getElementById("table_in").rows.length-10; //10 不刪除的行數
+							for (var j = 0; j < rowslength; j++) {
+								document.getElementById("table_in").deleteRow(9);
+							}
+							
+							if(twork.length>0){
+								
+								var in_row=0;
+								var tmp = document.getElementById("table_in_bottom");
+								for (var i = 0; i < twork.length; i++) {
+									var tr = document.createElement("tr");
+									tr.id = "in_"+i;
+									tr.innerHTML = "<td style='background-color: oldlace;' align='center'>製令編號</td>";
+									tr.innerHTML += "<td style='background-color: oldlace;'><input id='in_txtWorkno_"+i+"' class='in_workno' type='text' style='font-size: medium;width:98%;' value='"+twork[i].workno+"' disabled='disabled'/></td>";
+									tr.innerHTML += "<td style='background-color: oldlace;' align='center'>排程單號</td>";
+									tr.innerHTML += "<td style='background-color: oldlace;' colspan='3'><input id='in_txtCuano_"+i+"' type='text' style='font-size: medium;width:98%;' value='"+twork[i].cuanoa+'-'+twork[i].cuanoq+"' disabled='disabled'/></td>";
+									tmp.parentNode.insertBefore(tr,tmp);
+									
+									var tr = document.createElement("tr");
+									tr.id = "in_"+i;
+									tr.innerHTML = "<td style='background-color: oldlace;' align='center'>訂單編號</td>";
+									tr.innerHTML += "<td style='background-color: oldlace;'><input id='in_txtOrdeno_"+i+"' type='text' style='font-size: medium;width:98%;' value='"+twork[i].ordeno+'-'+twork[i].no2+"' disabled='disabled'/></td>";
+									tr.innerHTML += "<td style='background-color: oldlace;' align='center'>物品編號</td>";
+									tr.innerHTML += "<td style='background-color: oldlace;' colspan='3'><input id='in_txtProductno_"+i+"' type='text' style='font-size: medium;width:98%;' value='"+twork[i].productno+"' disabled='disabled'/></td>";
+									tmp.parentNode.insertBefore(tr,tmp);
+									
+									var tr = document.createElement("tr");
+									tr.id = "in_"+i;
+									tr.innerHTML = "<td style='background-color: oldlace;' align='center'>物品名稱</td>";
+									tr.innerHTML += "<td style='background-color: oldlace;'><input id='in_txtProduct_"+i+"' type='text' style='font-size: medium;width:98%;' value='"+twork[i].product+"' disabled='disabled'/></td>";
+									tr.innerHTML += "<td style='background-color: oldlace;width: 105px;' align='center'>上工段移入數</td>";
+									tr.innerHTML += "<td style='background-color: oldlace;width: 95px;'><input id='in_txtInmount2_"+i+"' class='in_inmount' style='font-size: medium;width:95%;text-align: right;' value='"+twork[i].inmount+"' ></td>";
+									tr.innerHTML += "<td style='background-color: oldlace;width: 105px;' align='center'>上工段QC數</td>";
+									tr.innerHTML += "<td style='background-color: oldlace;width: 95px;'><input id='in_txtQcmount_"+i+"' class='in_qcmount' style='font-size: medium;width:95%;text-align: right;'></td>";
+									tmp.parentNode.insertBefore(tr,tmp);
+								}
+							}
+							
+							$('.in_inmount').each(function(index) {
+								$(this).change(function() {
+									var t_mount=dec($(this).val());
+									if(isNaN(t_mount))
+										t_mount=0;
+									$(this).val(t_mount);
+								});
+							});
+							$('.in_qcmount').each(function(index) {
+								$(this).change(function() {
+									var t_mount=dec($(this).val());
+									if(isNaN(t_mount))
+										t_mount=0;
+									$(this).val(t_mount);
+								});
+							});
 							
 							if(as[0].isfreeze=='true'){
 								alert('製令已被凍結!!');
@@ -517,10 +604,12 @@
 				<tr>
 					<td style="background-color: #f8d463;" align="center">製品編號</td>
 					<td style="background-color: #f8d463;"><input id="txtProductno" style="font-size: medium;width: 98%;" disabled="disabled"></td>
-					<td style="background-color: #99eeee;width: 105px;" align="center">上工段移入數</td>
+					<td style="background-color: aliceblue;" colspan="4"> </td>
+					<!--106/12/18 上工段需明細輸入-->
+					<!--<td style="background-color: #99eeee;width: 105px;" align="center">上工段移入數</td>
 					<td style="background-color: #99eeee;width: 95px;"><input id="txtInmount2" style="font-size: medium;width:95%;text-align: right;"></td>
 					<td style="background-color: #99eeee;width: 105px;" align="center">上工段QC數</td>
-					<td style="background-color: #99eeee;width: 95px;"><input id="txtQcmount" style="font-size: medium;width:95%;text-align: right;"></td>
+					<td style="background-color: #99eeee;width: 95px;"><input id="txtQcmount" style="font-size: medium;width:95%;text-align: right;"></td>-->
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">製品名稱</td>
@@ -557,14 +646,21 @@
 					<td style="background-color: #f8d463;"><input id="txtInmount" style="font-size: medium;width: 50%;text-align: right;" disabled="disabled"></td>
 					<td style="background-color: #ffffaa;" align="center">退件原因</td>
 					<td style="background-color: #ffffaa;" colspan="3">
-						<input id="txtWmemo" style="font-size: medium;width:260px;">
+						<input id="txtWmemo" style="font-size: medium;width:240px;">
 						<select id="cmbWmemo" style="font-size: medium;width:20px;"> </select>
 					</td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">未入庫量</td>
 					<td style="background-color: #f8d463;"><input id="txtUnmount" style="font-size: medium;width: 50%;text-align: right;" disabled="disabled"></td>
-					<td colspan="4" style="text-align: center;"><input id="btnClose_div_in" type="button" value="關閉視窗" style="font-size: medium;"></td>
+					<td style="background-color: aliceblue;" colspan="4"> </td>
+				</tr>
+				<tr>
+					<td colspan="6" style="height: 1px;background-color:grey;" > </td>
+				</tr>
+				
+				<tr id="table_in_bottom">
+					<td colspan="6" style="text-align: center;"><input id="btnClose_div_in" type="button" value="關閉視窗" style="font-size: medium;"></td>
 				</tr>
 			</table>
 		</div>
