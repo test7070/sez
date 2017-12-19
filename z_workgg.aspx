@@ -240,6 +240,9 @@
 				$('#chkXshowatotal span').css('width','200px');
 				$('#Xshowatotal .label').css('width','5px');
 				
+				//106/12/19 預設未完工
+				$('#chkXshownowork input[type="checkbox"]').prop('checked',true);
+				
 				$('#txtXmaxgen').change(function() {
 					var t_mount=dec($('#txtXmaxgen').val());
 					if(isNaN(t_mount))
@@ -351,7 +354,7 @@
 					else
 						t_xordeno2='#non';
 					
-					//106/12/18 不使用 為了讓排程數量顯示全部的數量
+					//106/12/18 不使用 為了讓排程數量顯示全部的數量 --只有z_workgg5 在用
 					if($('#chkXshownowork input[type="checkbox"]').prop('checked'))
 						t_xshownowork='#non';//encodeURI('1');
 					else{
@@ -654,6 +657,16 @@
 						break;
 					case 'qtxt.query.z_workgg5':
 						var as = _q_appendData('tmp0','',true,true);
+						if($('#chkXshownowork input[type="checkbox"]').prop('checked')){
+							for ( i = 0; i < as.length; i++) {
+								if(as[i].ivalue<=0){
+									//106/12/18 不使用 為了讓排程數量顯示全部的數量 但當全部入庫時不顯示
+									as.splice(i, 1);
+									i--;
+								}	
+							}
+						}
+						
 						if (as[0] == undefined) {
 							alert('沒有資料!!');
 						}else{
