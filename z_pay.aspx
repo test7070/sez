@@ -31,7 +31,7 @@
 						$('#Xcoin').hide();
 				});
 				
-				if(q_db.toUpperCase()=='DC'){
+				if(q_db.toUpperCase().substr(0,2)=='DC'){
 					q_gt('part', '', 0, 0, 0, "");
 				}else{
 					q_gt('flors_coin', '', 0, 0, 0, ""); //DC沒有flors_coin_load
