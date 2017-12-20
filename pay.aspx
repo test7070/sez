@@ -222,6 +222,10 @@
 		                q_bbs_addrow(row_bbsbbt, row_b_seq, 1);
 		            }
 		        });
+		        
+		        if(q_getPara('sys.project').toUpperCase()=='JO' || q_getPara('sys.project').toUpperCase().substr(0,2)=='AD'){
+                    $('#btnMon').hide();
+                }
 		    }
 		
 		    function getOpay() {

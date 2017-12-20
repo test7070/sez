@@ -240,6 +240,9 @@
 				$('#chkXshowatotal span').css('width','200px');
 				$('#Xshowatotal .label').css('width','5px');
 				
+				//106/12/19 預設未完工
+				$('#chkXshownowork input[type="checkbox"]').prop('checked',true);
+				
 				$('#txtXmaxgen').change(function() {
 					var t_mount=dec($('#txtXmaxgen').val());
 					if(isNaN(t_mount))
@@ -350,9 +353,10 @@
 						t_xordeno2=encodeURI($('#txtXno2').val());
 					else
 						t_xordeno2='#non';
-						
+					
+					//106/12/18 不使用 為了讓排程數量顯示全部的數量 --只有z_workgg5 在用
 					if($('#chkXshownowork input[type="checkbox"]').prop('checked'))
-						t_xshownowork=encodeURI('1');
+						t_xshownowork='#non';//encodeURI('1');
 					else{
 						t_xshownowork='#non'
 					}
@@ -438,6 +442,12 @@
 							var tmp=replaceAll(tpara[i].split('=')[1],"'",'');
 							$('#txtXproductno1a').val(tmp).change();
 							$('#txtXproductno2a').val(tmp).change();
+						}else if(tpara[i].indexOf('onlyrealwork')>-1){
+							var tmp=replaceAll(tpara[i].split('=')[1],"'",'');
+							if(tmp=="true")
+								$("#chkXonlyrealwork input[type='checkbox']").prop('checked',true).change();
+							else
+								$("#chkXonlyrealwork input[type='checkbox']").prop('checked',false).change();
 						}else if(tpara[i].indexOf('xaction')>-1){
 							var tmp=replaceAll(tpara[i].split('=')[1],"'",'');
 							txaction=tmp;
@@ -647,6 +657,16 @@
 						break;
 					case 'qtxt.query.z_workgg5':
 						var as = _q_appendData('tmp0','',true,true);
+						if($('#chkXshownowork input[type="checkbox"]').prop('checked')){
+							for ( i = 0; i < as.length; i++) {
+								if(as[i].ivalue<=0){
+									//106/12/18 不使用 為了讓排程數量顯示全部的數量 但當全部入庫時不顯示
+									as.splice(i, 1);
+									i--;
+								}	
+							}
+						}
+						
 						if (as[0] == undefined) {
 							alert('沒有資料!!');
 						}else{
@@ -868,10 +888,10 @@
 										
 										if(t_xshownowork=='1'){
 											//OutHtml += "<td class='num'>" + Zerospaec(round(TTD[j][1],0)) +"<BR><a style='color:red;'>"+Zerospaec(round(TTD[j][2],0)) + "</a></td>";
-											OutHtml += "<td class='num'><a href=JavaScript:q_box('z_workgg.aspx',\";cuadate='"+DateObj[j].datea+"'&&stationno='"+TL[k].stationno+"'&&productno='"+TL[k].productno+"'&&xaction='z_workgg4';106\",'95%','95%','106')>" + (round(TTD[j][1],0)==0 && TTD[j][1]>0?round(TTD[j][1],2):Zerospaec(round(TTD[j][1],0))) +"</a><BR><a style='color:red;'>"+(round(TTD[j][2],0)==0 && TTD[j][2]>0?round(TTD[j][2],2):Zerospaec(round(TTD[j][2],0))) + "</a></td>";
+											OutHtml += "<td class='num'><a href=JavaScript:q_box('z_workgg.aspx',\";cuadate='"+DateObj[j].datea+"'&&stationno='"+TL[k].stationno+"'&&productno='"+TL[k].productno+"'&&onlyrealwork='"+$("#chkXonlyrealwork input[type='checkbox']").prop('checked').toString()+"'&&xaction='z_workgg4';106\",'95%','95%','106')>" + (round(TTD[j][1],0)==0 && TTD[j][1]>0?round(TTD[j][1],2):Zerospaec(round(TTD[j][1],0))) +"</a><BR><a style='color:red;'>"+(round(TTD[j][2],0)==0 && TTD[j][2]>0?round(TTD[j][2],2):Zerospaec(round(TTD[j][2],0))) + "</a></td>";
 										}else{
 											//OutHtml += "<td class='num'>" + Zerospaec(round(TTD[j][1],0)) + "</td>";
-											OutHtml += "<td class='num'><a href=JavaScript:q_box('z_workgg.aspx',\";cuadate='"+DateObj[j].datea+"'&&stationno='"+TL[k].stationno+"'&&productno='"+TL[k].productno+"'&&xaction='z_workgg4';106\",'95%','95%','106')>" + (round(TTD[j][1],0)==0 && TTD[j][1]>0?round(TTD[j][1],2):Zerospaec(round(TTD[j][1],0))) + "</a></td>";
+											OutHtml += "<td class='num'><a href=JavaScript:q_box('z_workgg.aspx',\";cuadate='"+DateObj[j].datea+"'&&stationno='"+TL[k].stationno+"'&&productno='"+TL[k].productno+"'&&onlyrealwork='"+$("#chkXonlyrealwork input[type='checkbox']").prop('checked').toString()+"'&&xaction='z_workgg4';106\",'95%','95%','106')>" + (round(TTD[j][1],0)==0 && TTD[j][1]>0?round(TTD[j][1],2):Zerospaec(round(TTD[j][1],0))) + "</a></td>";
 										}
 									}
 								}

@@ -79,10 +79,14 @@
 				var t_issue = $('#cmbIssue').val();
 				var t_checker = $('#cmbChecker').val();
 				var t_approve = $('#cmbApprove').val();
+				var t_worker = $('#txtWorker').val();
+				var t_processno = $('#txtProcessno').val();
 				
 				var t_where = " 1=1 " + q_sqlPara2("datea", t_bdate,t_edate) + q_sqlPara2("noa", t_bnoa,t_enoa)+
 										q_sqlPara2("custno", t_custno) +
-										q_sqlPara2("productno", t_pno) ;
+										q_sqlPara2("productno", t_pno) +
+										q_sqlPara2("worker", t_worker) +
+										q_sqlPara2("processno", t_processno);
 										
 				if(t_enda=='Y')
 					t_where += " and isnull(enda,0)=1 ";
@@ -103,6 +107,111 @@
 					t_where += " and isnull(approve,'')!='' ";
 				if(t_approve=='N')
 					t_where += " and isnull(approve,'')='' ";
+					
+				if($('#cmbbbt1').val()=='Y')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=1 and noq='001') ";
+				else if($('#cmbbbt1').val()=='N')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=0 and noq='001') ";
+					
+				if($('#cmbbbt2').val()=='Y')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=1 and noq='002') ";
+				else if($('#cmbbbt2').val()=='N')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=0 and noq='002') ";
+					
+				if($('#cmbbbt3').val()=='Y')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=1 and noq='003') ";
+				else if($('#cmbbbt3').val()=='N')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=0 and noq='003') ";
+				
+				if($('#cmbbbt4').val()=='Y')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=1 and noq='004') ";
+				else if($('#cmbbbt4').val()=='N')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=0 and noq='004') ";
+					
+				if($('#cmbbbt5').val()=='Y')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=1 and noq='005') ";
+				else if($('#cmbbbt5').val()=='N')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=0 and noq='005') ";
+					
+				if($('#cmbbbt6').val()=='Y')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=1 and noq='006') ";
+				else if($('#cmbbbt6').val()=='N')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=0 and noq='006') ";
+				
+				if($('#cmbbbt7').val()=='Y')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=1 and noq='007') ";
+				else if($('#cmbbbt7').val()=='N')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=0 and noq='007') ";
+				
+				if($('#cmbbbt8').val()=='Y')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=1 and noq='008') ";
+				else if($('#cmbbbt8').val()=='N')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=0 and noq='008') ";
+				
+				if($('#cmbbbt9').val()=='Y')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=1 and noq='009') ";
+				else if($('#cmbbbt9').val()=='N')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=0 and noq='009') ";
+				
+				if($('#cmbbbt10').val()=='Y')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=1 and noq='010') ";
+				else if($('#cmbbbt10').val()=='N')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=0 and noq='010') ";
+				
+				if($('#cmbbbt11').val()=='Y')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=1 and noq='011') ";
+				else if($('#cmbbbt11').val()=='N')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=0 and noq='011') ";
+				
+				if($('#cmbbbt12').val()=='Y')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=1 and noq='012') ";
+				else if($('#cmbbbt12').val()=='N')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=0 and noq='012') ";
+				
+				if($('#cmbbbt13').val()=='Y')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=1 and noq='013') ";
+				else if($('#cmbbbt13').val()=='N')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=0 and noq='013') ";
+				
+				if($('#cmbbbt14').val()=='Y')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=1 and noq='014') ";
+				else if($('#cmbbbt14').val()=='N')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=0 and noq='014') ";
+				
+				if($('#cmbbbt15').val()=='Y')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=1 and noq='015') ";
+				else if($('#cmbbbt15').val()=='N')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=0 and noq='015') ";
+				
+				if($('#cmbbbt16').val()=='Y')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=1 and noq='016') ";
+				else if($('#cmbbbt16').val()=='N')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=0 and noq='016') ";
+				
+				if($('#cmbbbt17').val()=='Y')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=1 and noq='017') ";
+				else if($('#cmbbbt17').val()=='N')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=0 and noq='017') ";
+				
+				if($('#cmbbbt18').val()=='Y')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=1 and noq='018') ";
+				else if($('#cmbbbt18').val()=='N')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=0 and noq='018') ";
+				
+				if($('#cmbbbt19').val()=='Y')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=1 and noq='019') ";
+				else if($('#cmbbbt19').val()=='N')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=0 and noq='019') ";
+				
+				if($('#cmbbbt20').val()=='Y')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=1 and noq='020') ";
+				else if($('#cmbbbt20').val()=='N')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=0 and noq='020') ";
+				
+				if($('#cmbbbt21').val()=='Y')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=1 and noq='021') ";
+				else if($('#cmbbbt21').val()=='N')
+					t_where += " and exists(select noa from view_cubs where noa=view_cub"+r_accy+".noa isnull(enda,0)=0 and noq='021') ";
 				
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
@@ -121,6 +230,9 @@
 			.readonly{
 				color: green;
 				background: rgb(237, 237, 238);
+			}
+			.c1{
+				width: 97%;
 			}
 		</style>
 	</head>
@@ -235,8 +347,15 @@
 				<tr class='seek_tr'>
 					<td><a id='lblBbt21'>流程第21項</a></td>
 					<td><select id="cmbbbt21" class="txt c1" style="font-size:medium;"> </select></td>
-					<td> </td>
-					<td> </td>
+					<td><a id='lblWorker'>製單者</a></td>
+					<td><input id="txtWorker" type="text" class="txt c1" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td><a id='lblProcess_r'>產品線</a></td>
+					<td colspan="3">
+						<input class="txt" id="txtProcessno" type="text" style="width:90px;" />&nbsp;
+						<input class="txt readonly" id="txtProcess" type="text" style="width:120px;" />
+					</td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
