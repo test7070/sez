@@ -19,7 +19,9 @@
             var t_sqlname = 'custchg';
             t_postname = q_name;
             brwCount2 = 50;
-			q_bbsFit = 1;
+			brwCount = -1;
+			brwCount2 = -1;
+			
             var isBott = false;
             var txtfield = [], afield, t_data, t_htm;
             var i, s1;
@@ -43,10 +45,19 @@
                     dataErr = false;
                     return;
                 }
-                mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
+                mainBrow(6, 'order=^^ datea desc,noa desc^^', t_sqlname, t_postname, r_accy);
             }
 
             function mainPost() {
+            	$('#btnTop').hide();
+				$('#btnPrev').hide();
+				$('#btnNext').hide();
+				$('#btnBott').hide();
+				
+				$('#checkAllCheckbox').click(function(e){
+					$('.ccheck').prop('checked',$(this).prop('checked'));
+				});
+				
                 var tmp = location.href.split(';');
                	
                 for(x in tmp)
@@ -99,53 +110,60 @@
 
             function refresh() {
                 _refresh();
+                for(var i=0;i<q_bbsCount;i++){
+					$('#lblNo_'+i).text(i+1);
+				}
             }
-
 
 		</script>
 		<style type="text/css">
-            .seek_tr {
-                color: white;
-                text-align: center;
-                font-weight: bold;
-                background-color: #76a2fe;
-            }
-            tr.select input[type="text"] {
-                color: red;
-            }
 		</style>
 	</head>
 	<body>
-		<div  id="dbbs"  >
-			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
+		<div  id="dFixedTitle" style="overflow-y: scroll;">
+			<table id="tFixedTitle" class='tFixedTitle'  border="2"  cellpadding='2' cellspacing='1' style='width:100%;'  >
 				<tr style='color:white; background:#003366;' >
-					<td class="td1" align="center" style="width:25px;">&nbsp;</td>
-					<td class="td2" align="center" style="width:120px;"><a id='lblNoa'></a></td>
-					<td class="td3" align="center" style="width:80px;"><a id='lblDatea'></a></td>
-					<td class="td3" align="center" style="width:80px;"><a id='lblCarteamno'>車隊</a></td>
-					<td class="td2" align="center" style="width:120px;"><a id='lblPlusitem'></a></td>
-					<td class="td4" align="center" style="width:100px;"><a id='lblPlusmoney'></a></td>
-					<td class="td5" align="center" style="width:120px;"><a id='lblMinusitem'></a></td>
-					<td class="td6" align="center" style="width:100px;"><a id='lblMinusmoney'></a></td>
-				</tr>
-				<tr  style='background:#cad3ff;'>
-					<td>
-						<input type="checkbox" id="chkSel.*"/>
-						<input type="text" id="txtTrdno.*" style="display:none;"/>
-					</td>
-					<td><input type="text" id="txtNoa.*" class="txt" style="width:95%;"/></td>
-					<td><input type="text" id="txtDatea.*" class="txt" style="width:95%;"/></td>
-					<td>
-						<input type="text" id="txtCarteamno.*" class="txt" style="display:none;"/>
-						<input type="text" id="txtCarteam.*" class="txt" style="width:95%;"/>
-					</td>
-					<td><input type="text" id="txtPlusitem.*" class="txt" style="width:95%;"/></td>
-					<td><input type="text" id="txtPlusmoney.*" class="txt" style="width:95%;"/></td>
-					<td><input type="text" id="txtMinusitem.*" class="txt" style="width:95%;"/></td>
-					<td><input type="text" id="txtMinusmoney.*" class="txt" style="width:95%;"/></td>
+					<th align="center" style="width:25px;max-width: 25px;"><input type="checkbox" id="checkAllCheckbox"/></th>
+					<td align="center" style="width:30px;max-width: 30px;"><a>　</a></td>
+					<td align="center" style="width:120px;max-width: 120px;"><a id='lblNoa'> </a></td>
+					<td align="center" style="width:80px;max-width: 80px;"><a id='lblDatea'> </a></td>
+					<td align="center" style="width:80px;max-width: 80px;"><a id='lblCarteamno'>車隊</a></td>
+					<td align="center" style="width:120px;max-width: 120px;"><a id='lblPlusitem'> </a></td>
+					<td align="center" style="width:100px;max-width: 100px;"><a id='lblPlusmoney'> </a></td>
+					<td align="center" style="width:120px;max-width: 120px;"><a id='lblMinusitem'> </a></td>
+					<td align="center" style="width:100px;max-width: 100px;"><a id='lblMinusmoney'> </a></td>
 				</tr>
 			</table>
-			<!--#include file="../inc/pop_ctrl.inc"-->
 		</div>
+		<div id="dbbs" style="overflow: scroll;height:450px;" >
+			<table id="tbbs" class='tbbs' border="2" cellpadding='2' cellspacing='1' style='width:100%;' >
+				<tr style="display:none;">
+					<th align="center" style="width:25px;max-width: 25px;"> </th>
+					<td align="center" style="width:30px;max-width: 30px;"> </td>
+					<td align="center" style="width:120px;max-width: 120px;"> </td>
+					<td align="center" style="width:80px;max-width: 80px;"> </td>
+					<td align="center" style="width:80px;max-width: 80px;"> </td>
+					<td align="center" style="width:120px;max-width: 120px;"> </td>
+					<td align="center" style="width:100px;max-width: 100px;"> </td>
+					<td align="center" style="width:120px;max-width: 120px;"> </td>
+					<td align="center" style="width:100px;max-width: 100px;"> </td>
+				</tr>
+				<tr style='background:#cad3ff;'>
+					<td style="width:25px;max-width: 25px;"><input type="checkbox" class="ccheck" id="chkSel.*"/></td>
+					<td style="width:30px;max-width: 30px;">
+						<a id="lblNo.*" style="font-weight: bold;" readonly="readonly"> </a>
+						<input type="text" id="txtTrdno.*" style="display:none;"/>					
+					</td>
+					<td style="width:120px;max-width: 120px;"><input id="txtNoa.*" type="text" style="float:left;width:95%;"  readonly="readonly" /></td>
+					<td style="width:80px;max-width: 80px;"><input id="txtDatea.*" type="text" style="float:left;width:95%;"  readonly="readonly" /></td>
+					<td style="width:80px;max-width: 80px;"><input id="txtCarteamno.*" type="text" style="float:left;width:95%;"  readonly="readonly" /></td>
+					<td style="width:120px;max-width: 120px;"><input id="txtPlusitem.*" type="text" style="float:left;width:95%;"  readonly="readonly" /></td>
+					<td style="width:100px;max-width: 100px;"><input id="txtPlusmoney.*" type="text" style="float:left;width:95%;"  readonly="readonly" /></td>
+					<td style="width:120px;max-width: 120px;"><input id="txtMinusitem.*" type="text" style="float:left;width:95%;"  readonly="readonly" /></td>
+					<td style="width:100px;max-width: 100px;"><input id="txtMinusmoney.*" type="text" style="float:left;width:95%;"  readonly="readonly" /></td>
+				</tr>
+			</table>
+		</div>
+		<!--#include file="../inc/pop_ctrl.inc"-->
 	</body>
 </html>
