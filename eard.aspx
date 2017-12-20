@@ -72,10 +72,11 @@
 	                	}
                 	}
                 });
-				if (q_getPara('sys.project').toUpperCase()=='FE'){
+				if (q_getPara('sys.project').toUpperCase()==='FE'){
 					q_cmbParse("cmbTypea", '1@進貨,2@出貨,3@借磅,4@進貨退回,5@出貨退回');
-					$('.FEN').hide();
 					$('.FEY').show();
+					$('.FEN').hide();
+					$('.FEYD').remove();
 					if($('#cmbTypea').val()=='5'){
 							$('.cmbType123').show();
 							$('.cmbType23').show();
@@ -118,12 +119,15 @@
 					}
 				}
 				else {
+					$('.FEND').remove();
 					q_cmbParse("cmbTypea", q_getPara('eard.typea'));
 				}
 				$("#cmbTypea").focus(function() {
 				}).change(function() {
-					$('.FEN').hide();
+				if (q_getPara('sys.project').toUpperCase()==='FE'){
+					$('.FEYD').remove();
 					$('.FEY').show();
+					$('.FEN').hide();
 					if($('#cmbTypea').val()=='5'){
 							$('.cmbType123').show();
 							$('.cmbType23').show();
@@ -164,6 +168,10 @@
 							$('.cmbType2').hide();
 							$('.cmbType3').hide();
 					}
+				}
+				else	{
+					$('.FEND').remove();
+				}
 				});
 
 
@@ -243,68 +251,32 @@
 			}
 
 			function btnIns() {
-				_btnIns();
-				$('#txtNoa').val('AUTO');
-				$('#txtDatea').val(q_date());
-				$('#txtDatea').focus();
-				if (q_getPara('sys.project').toUpperCase()=='FE'){
-					q_cmbParse("cmbTypea", '1@進貨,2@出貨,3@借磅,4@進貨退回,5@出貨退回');
-					$('.FEN').hide();
-					$('.FEY').show();
-					if($('#cmbTypea').val()=='5'){
-							$('.cmbType123').show();
-							$('.cmbType23').show();
-							$('.cmbType12').show();
-							$('.cmbType1').hide();
-							$('.cmbType2').show();
-							$('.cmbType3').hide();
-					}
-					if($('#cmbTypea').val()=='4'){
-							$('.cmbType123').show();
-							$('.cmbType23').hide();
-							$('.cmbType12').show();
-							$('.cmbType1').show();
-							$('.cmbType2').hide();
-							$('.cmbType3').hide();
-					}
-					if($('#cmbTypea').val()=='3'){
-							$('.cmbType123').show();
-							$('.cmbType23').show();
-							$('.cmbType12').hide();
-							$('.cmbType1').hide();
-							$('.cmbType2').hide();
-							$('.cmbType3').show();
-					}
-					if($('#cmbTypea').val()=='2'){
-							$('.cmbType123').show();
-							$('.cmbType23').show();
-							$('.cmbType12').show();
-							$('.cmbType1').hide();
-							$('.cmbType2').show();
-							$('.cmbType3').hide();
-					}
-					if($('#cmbTypea').val()=='1'){
-							$('.cmbType123').show();
-							$('.cmbType23').hide();
-							$('.cmbType12').show();
-							$('.cmbType1').show();
-							$('.cmbType2').hide();
-							$('.cmbType3').hide();
-					}
+				if (q_getPara('sys.project').toUpperCase()==='FE'){
 				}
-				else {
-					q_cmbParse("cmbTypea", q_getPara('eard.typea'));
+				else{
+					_btnIns();
+					$('#txtNoa').val('AUTO');
+					$('#txtDatea').val(q_date());
+					$('#txtDatea').focus();
 				}
 			}
 	
 			function btnModi() {
+				if (q_getPara('sys.project').toUpperCase()==='FE'){
+				}
+				else{
 				if (emp($('#txtNoa').val()))
 					return;
 				_btnModi();
+				}
 			}
 	
 			function btnPrint() {
-				q_box('z_eard.aspx', '', "95%", "95%", q_getMsg("popPrint"));
+				if (q_getPara('sys.project').toUpperCase()==='FE'){
+				}
+				else{
+					q_box('z_eard.aspx', '', "95%", "95%", q_getMsg("popPrint"));
+				}
 			}
 
 			function btnOk() {
@@ -335,6 +307,7 @@
 				_btnOk(key_value, bbmKey[0], '', '', 2);
 			}
 
+
 			function bbsAssign() {
 				for (var j = 0; j < q_bbsCount; j++) {
  					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
@@ -353,7 +326,7 @@
 			}
 			
 			function bbsSave(as) {
-			if (q_getPara('sys.project').toUpperCase()=='FE'){
+			if (q_getPara('sys.project').toUpperCase()==='FE'){
 			}
 			else {
 				if (!as['vccno']) {
@@ -367,10 +340,11 @@
 	
 			function refresh(recno) {
 				_refresh(recno);
-				if (q_getPara('sys.project').toUpperCase()=='FE'){
+				if (q_getPara('sys.project').toUpperCase()==='FE'){
 					q_cmbParse("cmbTypea", '1@進貨,2@出貨,3@借磅,4@進貨退回,5@出貨退回');
-					$('.FEN').hide();
+					$('.FEYD').remove();
 					$('.FEY').show();
+					$('.FEN').hide();
 					if($('#cmbTypea').val()=='5'){
 							$('.cmbType123').show();
 							$('.cmbType23').show();
@@ -413,12 +387,13 @@
 					}
 				}
 				else {
+					$('.FEND').remove();
 					q_cmbParse("cmbTypea", q_getPara('eard.typea'));
 				}
 			}
 			function readonly(t_para, empty) {
-				_readonly(t_para, empty);
-			}
+					_readonly(t_para, empty);
+			}	
 	
 			function btnMinus(id) {
 				_btnMinus(id);
@@ -463,7 +438,11 @@
 			}
 	
 			function btnDele() {
-				_btnDele();
+				if (q_getPara('sys.project').toUpperCase()==='FE'){
+				}
+				else{
+					_btnDele();
+				}
 			}
 	
 			function btnCancel() {
@@ -586,54 +565,59 @@
 					<td class="td4"><input id="txtNoa" type="text" class="txt c1" style="width:120px;"/></td>
 					<td class="td5"><span> </span><a id="lblDatea" class="lbl"> </a></td>
 					<td class="td6"><input id="txtDatea" type="text" class="txt c1" /></td>
+					<td class="FEY" style="display:none;"><input id="chkEardweight" type="checkbox"/><a>日期手動</a></td>
 					<td class="td7"><span> </span><a id="lblTimea" class="lbl"> </a></td>
 					<td class="td8"><input id="txtTimea" type="text" class="txt c1" /></td>
 				</tr>
 				<tr class="tr2">
 					<td class="td1 cmbType1" style="display:none;"><span> </span><a class="lbl btn">廠商名稱</a></td>
 					<td class="td1 cmbType2" style="display:none;"><span> </span><a class="lbl btn">客戶名稱</a></td>
+					<td class="td5 cmbType3" style="display:none;"><span> </span><a class="lbl">傳票編號</a></td>
+					<td class="td6 cmbType3" style="display:none;"><input id="txtAccno" type="text" class="txt c1" /></td>
+					<td class="td5 cmbType3" style="display:none;"><span> </span><a class="lbl">借磅費用</a></td>
+					<td class="td6 cmbType3" style="display:none;"><input id="txtPrice" type="text" class="txt c1" /></td>
 					<td class="td1 FEN"><span> </span><a id="lblCustno" class="lbl btn"> </a></td>
 					<td class="td2 cmbType12" colspan="3">
 						<input id="txtCustno" type="text" style="float:left;width:30%;"/>
 						<input id="txtCust" type="text" style="float:left;width:70%;"/>
 						<input id="txtNick" type="text" style="display:none;"/>
 					</td>
-					<td class="td3 FEN"><span> </span><a id="lblCardealno" class="lbl"> </a></td>
-					<td class="td4 FEN">
-						<select id="cmbCardealno" class="txt c1"> </select>
-						<input id="txtCardeal" type="text"  style="display:none;"/>
+					<td class="td3 cmbType123"><span> </span><a id="lblCardealno" class="lbl"> </a></td>
+					<td class="td4 cmbType123">
+						<select id="cmbCardealno" class="txt c1 FEN"> </select>
+						<input class="cmbType123" id="txtCardeal" type="text"  style="display:none;width:100%;"/>
 					</td>
-					<td class="td5 FEN"><span> </span><a id="lblCarno" class="lbl"> </a></td>
-					<td class="td6 FEN"><input id="txtCarno" type="text" class="txt c1" /></td>
 					
-					<td class="td5 cmbType3" style="display:none;"><span> </span><a class="lbl">傳票編號</a></td>
-					<td class="td6 cmbType3" style="display:none;"><input id="txtCardeal" type="text" class="txt c1" /></td>
-					<td class="td5 cmbType3" style="display:none;"><span> </span><a class="lbl">借磅費用</a></td>
-					<td class="td6 cmbType3" style="display:none;"><input id="txtCarno" type="text" class="txt c1" /></td>
+					<td class="td5 cmbType123"><span> </span><a id="lblCarno" class="lbl"> </a></td>
+					<td class="td6 cmbType123"><input id="txtCarno" type="text" class="txt c1" /></td>
+					<td class="FEY" style="display:none;"><input id="chkEardsignal" type="checkbox"/><a>重量手動</a></td>
 				</tr>  
 				<tr class="tr3">
 					<td class="td1 FEN"><span> </span><a id="lblCaseno" class="lbl"> </a></td>
 					<td class="td2 FEN"><input id="txtCaseno" type="text" class="txt c1" /></td>
 					<td class="td1"><span> </span><a id='lblEmpweight' class="lbl"> </a></td>
 					<td class="td2"><input id="txtEmpweight"  type="text"  class="txt c1 num"/></td>
-					<td class="td3 FEN"><span> </span><a id="lblMinusweight" class="lbl"> </a></td>
-					<td class="td4"><input id="txtMinusweight" type="text" class="txt c1 num" /></td>
-					<td class="td5"><span> </span><a id="lblPlusweight" class="lbl FEN"> </a></td>
-					<td class="td6"><input type="text" id="txtPlusweight" class="txt c1 num" /></td>
-					<td class="td7 cmbType123" style="display:none;"><input type="text" id="txtweight2" class="txt c1 num" /></td>
-				<tr>
-					<td class="td1"><span> </span><a id="lblWeight" class="lbl"> </a></td>
-					<td class="td2"><input id="txtWeight" type="text" class="txt c1 num" /></td>
-					<td class="td3 FEN"><span> </span><a id='lblFweight' class="lbl"> </a></td>
-					<td class="td8"><input id="txtFweight" type="text" class="txt c1 num" /></td>
-					<td class="td3 cmbType123" style="display:none;"><span> </span><a class="lbl">夾帶物</a></td>
-					<td class="td4 cmbType123" style="display:none;">
+					<td class="td1 cmbType123" style="display:none;"><span> </span><a id="lblWeightt" class="lbl"> 淨重</a></td>
+					<td class="td2 cmbType123" style="display:none;"><input id="txtWeight" type="text" class="txt c1 num FEND" /></td>
+					<td class="td5 cmbType123" style="display:none;"><span> </span><a id="lblGweightt" class="lbl"> 總重</a></td>
+					<td class="td6 cmbType123" style="display:none;"><input id="txtGweight" type="text" class="txt c1 num FEND" /></td>
+					<td class="td3 cmbType12" style="display:none;"><span> </span><a class="lbl">夾帶物</a></td>
+					<td class="td4 cmbType12" style="display:none;">
 					<textarea id="txtItem" class="txt c1" style="height:75px;"> </textarea>
 					</td>
-					<td class="td5"><span> </span><a id="lblGweight" class="lbl"> </a></td>
-					<td class="td6"><input id="txtGweight" type="text" class="txt c1 num" /></td>
+					<td class="td3 FEN"><span> </span><a id="lblMinusweight" class="lbl"> </a></td>
+					<td class="td4 FEN"><input id="txtMinusweight" type="text" class="txt c1 num" /></td>
+					<td class="td5 FEN"><span> </span><a id="lblPlusweight" class="lbl"> </a></td>
+					<td class="td6 FEN"><input type="text" id="txtPlusweight" class="txt c1 num" /></td>
+				<tr class="FEN">
+					<td class="td1"><span> </span><a id="lblWeight" class="lbl"> </a></td>
+					<td class="td2"><input id="txtWeight" type="text" class="txt c1 num FEYD" /></td>
+					<td class="td3 FEN"><span> </span><a id='lblFweight' class="lbl"> </a></td>
+					<td class="td8 FEN"><input id="txtFweight" type="text" class="txt c1 num" /></td>
+					<td class="td5"><span> </span><a id="lblGweight" class="lbl"> </a></td>		
+					<td class="td6"><input id="txtGweight" type="text" class="txt c1 num FEYD" /></td>
 					<td class="td7 FEN"><span> </span><a id="lblSweight" class="lbl"> </a></td>
-					<td class="td8"><input id="txtSweight" type="text" class="txt c1 num" /></td>
+					<td class="td8 FEN"><input id="txtSweight" type="text" class="txt c1 num" /></td>
 				</tr>
 				<tr class="FEN">
 					<td class="td1"><span> </span><a id="lblSize" class="lbl"> </a></td>
@@ -650,7 +634,7 @@
 					<td class="td2"><input id="txtWorker"  type="text"  class="txt c1"/></td>
 					<td class="td3"><span> </span><a id="lblWorker2" class="lbl"> </a></td>
 					<td class="td4"><input id="txtWorker2" type="text" class="txt c1" /></td>
-					<td class="td5"><input id="btnImportVcc" type="button" /></td>
+					<td class="td5 FEN"><input id="btnImportVcc" type="button" /></td>
 					<td class="td6"></td>
 					<td class="td7"></td>
 					<td class="td8"></td>
