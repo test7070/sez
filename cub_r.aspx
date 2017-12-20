@@ -34,14 +34,16 @@
 			brwKey = 'noa';
 			q_desc = 1;
 			q_copy = 1;
-			brwCount2 = 4;
+			brwCount2 = 23;
 			aPop = new Array(
 				['txtCno', 'lblCno', 'quar', 'noa', 'txtCno', '']
 				,['txtCustno', 'lblCust', 'cust', 'noa,nick,memo2', 'txtCustno,txtComp,txtMemo2', 'cust_b.aspx']
 				,['txtM14', 'lblM14', 'cust', 'noa,nick', 'txtM14,txtM15', 'cust_b.aspx']
 				//,['txtProductno_', '', 'ucx', 'noa,product', 'txtProductno_,txtProduct_', 'ucx_b.aspx']
 				,['txtProductno', 'lblProduct', 'ucaucc', 'noa,product,spec,unit,style,size', 'txtProductno,txtProduct,txtSpec,txtUnit,textStyle,textSize', 'ucaucc_b.aspx']
-				,['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx']
+				//,['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx']
+				//106/12/19 改抓 uccgb
+				,['txtProcessno', 'lblProcess', 'uccgb', 'noa,namea', 'txtProcessno,txtProcess', 'uccgb_b.aspx']
 				,['txtTggno', 'lblTgg', 'part', 'noa,part', 'txtTggno,txtTgg', 'part_b.aspx']
 				,['txtTggno_', 'btnTggno_', 'tgg', 'noa,comp', 'txtTggno_,txtTgg_', "tgg_b.aspx"]
 				,['txtM1', '', 'adsize', 'noa,mon,memo1,memo2', '0txtM1', '']
@@ -530,11 +532,24 @@
 				if (q_cur > 0 && q_cur < 4)
 					return;
 					
-				q_box('cub_r_s.aspx', q_name + '_s', "500px", "710px", q_getMsg("popSeek"));
+				q_box('cub_r_s.aspx', q_name + '_s', "500px", "750px", q_getMsg("popSeek"));
 			}
 
 			function btnIns() {
                 _btnIns();
+                
+                if(q_cur==1){
+					$('#txtWorker').val(r_name);
+					
+					q_gt('sss', "where=^^noa='"+r_userno+"'^^" , 0, 0, 0, "getsalesgroup",r_accy,1);
+					var as = _q_appendData("sss", "", true);
+                    if (as[0] != undefined) {
+						//$('#txtkind').val(as[0].salesgroup);
+						//106/12/15 改成抓部門
+						$('#txtkind').val(as[0].partno);
+					}
+				}
+                
                 refreshBbm();
                 //取消變色
                 $("#tbbm input[type='text']").css('color','black')
@@ -1167,8 +1182,8 @@
 						$('#bbtimg').css('height','')
 						var imgwidth = $('#bbtimg').width();
 			            var imgheight = $('#bbtimg').height();
-			            var t_widh=$('#dview').width();
-			            var x_height=$('.dbbs').offset().top-$('#dview').height()-35;
+			            var t_widh=360;//106/12/19 圖片移到最右邊 故圖片寬度固定 $('#dview').width();
+			            var x_height=600;//106/12/19 圖片移到最右邊 故圖片高度固定 $('.dbbs').offset().top-$('#dview').height()-35;
 			            var t_height=imgheight*(dec(t_widh)/dec(imgwidth));
 			            if(t_height>x_height){
 			            	t_height=x_height;
@@ -1352,7 +1367,7 @@
 			.dview {
 				float: left;
 				border-width: 0px;
-				width: 29%;
+				width: 360px;
 			}
 			.tview {
 				border: 5px solid gray;
@@ -1371,7 +1386,7 @@
 			}
 			.dbbm {
 				float: left;
-				width: 70%;
+				width: 1200px;
 				/*margin: -1px;
 				 border: 1px black solid;*/
 				border-radius: 5px;
@@ -1442,7 +1457,7 @@
 				font-size: medium;
 			}
 			.dbbs {
-				width: 1530px;
+				width: 1560px;
 			}
 			.dbbs .tbbs {
 				margin: 0;
@@ -1509,8 +1524,7 @@
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
 		<!--#include file="../inc/toolbar.inc"-->
-		<div class="bbtimg" style="position:absolute;"><img id="bbtimg" style="MAX-WIDTH: fit-content;MAX-HEIGHT: fit-content;"></div>
-		<div id='dmain' style="overflow:hidden;width: 1260px;">
+		<div id='dmain' style="overflow:hidden;width: 1950px;">
 			<div class="dview" id="dview" >
 				<table class="tview" id="tview" >
 					<tr>
@@ -1532,14 +1546,14 @@
 			<div class='dbbm'>
 				<table class="tbbm" id="tbbm">
 					<tr style="height:1px;">
-						<td style="width: 12%;"> </td>
-						<td style="width: 13%;"> </td>
-						<td style="width: 12%;"> </td>
-						<td style="width: 13%;"> </td>
-						<td style="width: 12%;"> </td>
-						<td style="width: 13%;"> </td>
-						<td style="width: 12%;"> </td>
-						<td style="width: 13%;"> </td>
+						<td style="width: 100px;"> </td>
+						<td style="width: 195px;"> </td>
+						<td style="width: 100px;"> </td>
+						<td style="width: 195px;"> </td>
+						<td style="width: 100px;"> </td>
+						<td style="width: 195px;"> </td>
+						<td style="width: 100px;"> </td>
+						<td style="width: 195px;"> </td>
 						<td style="width: 5px;"> </td>
 					</tr>
 					<tr>
@@ -1580,7 +1594,7 @@
 						<td><input id="txtNo2" type="text" class="txt c1"/></td>-->
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblProcess_r" class="lbl">生產線別</a></td>
+						<td><span> </span><a id="lblProcess_r" class="lbl">產品線</a></td>
 						<td><input id="txtProcessno" type="text" class="txt c1"/></td>
 						<td colspan="2"><input id="txtProcess" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblTggno_r" class="lbl">部門組別</a></td>
@@ -1773,6 +1787,7 @@
 					</tr>
 				</table>
 			</div>
+			<div class="bbtimg" style="float:left;"><img id="bbtimg" style="MAX-WIDTH: fit-content;MAX-HEIGHT: fit-content;"></div>
 		</div>
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs'>

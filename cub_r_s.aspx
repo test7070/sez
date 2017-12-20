@@ -80,11 +80,13 @@
 				var t_checker = $('#cmbChecker').val();
 				var t_approve = $('#cmbApprove').val();
 				var t_worker = $('#txtWorker').val();
+				var t_processno = $('#txtProcessno').val();
 				
 				var t_where = " 1=1 " + q_sqlPara2("datea", t_bdate,t_edate) + q_sqlPara2("noa", t_bnoa,t_enoa)+
 										q_sqlPara2("custno", t_custno) +
 										q_sqlPara2("productno", t_pno) +
-										q_sqlPara2("worker", t_worker);
+										q_sqlPara2("worker", t_worker) +
+										q_sqlPara2("processno", t_processno);
 										
 				if(t_enda=='Y')
 					t_where += " and isnull(enda,0)=1 ";
@@ -229,6 +231,9 @@
 				color: green;
 				background: rgb(237, 237, 238);
 			}
+			.c1{
+				width: 97%;
+			}
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -343,7 +348,14 @@
 					<td><a id='lblBbt21'>流程第21項</a></td>
 					<td><select id="cmbbbt21" class="txt c1" style="font-size:medium;"> </select></td>
 					<td><a id='lblWorker'>製單者</a></td>
-					<td><input class="txt" id="txtWorker" type="text" class="txt c1" /></td>
+					<td><input id="txtWorker" type="text" class="txt c1" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td><a id='lblProcess_r'>產品線</a></td>
+					<td colspan="3">
+						<input class="txt" id="txtProcessno" type="text" style="width:90px;" />&nbsp;
+						<input class="txt readonly" id="txtProcess" type="text" style="width:120px;" />
+					</td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
