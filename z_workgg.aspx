@@ -143,6 +143,18 @@
 						type : '8', //[29]
 						name : 'xshowatotal',
 						value : ('1@顯示小計').split(',')
+					}, {
+						type : '2', //[30][31]
+						name : 'xcust',
+						dbf : 'cust',
+						index : 'noa,comp',
+						src : 'cust_b.aspx'
+					}, {
+						type : '2', //[32][33]
+						name : 'xcust2',
+						dbf : 'cust',
+						index : 'noa,comp',
+						src : 'cust_b.aspx'
 					}]
 				});
 				

@@ -14,6 +14,7 @@
 			aPop = new Array(
 				['txtNoa', '', 'uca', 'noa,product', 'txtNoa', "uca_b.aspx"],
 				['txtTggno', 'lblTgg', 'tgg', 'noa,nick', 'txtTggno', 'tgg_b.aspx'],
+				['txtCustno', 'lblCust', 'cust', 'noa,nick', 'txtCustno', 'cust_b.aspx'],
 				['txtGroupeno', '', 'adsize', 'noa,mon,memo1,memo2', '0txtGroupeno', ''],
 				['txtGroupfno', '', 'adsss', 'noa,mon,memo1,memo2', '0txtGroupfno', ''],
 				['txtGroupgno', '', 'adknife', 'noa,mon,memo1,memo2', '0txtGroupgno', ''],
@@ -153,6 +154,9 @@
 				
 				t_modelno = $('#txtModelno').val();
 				t_model = $('#txtModel').val();
+				
+				t_custno = $('#txtCustno').val();
+				t_cust = $('#txtCust').val();
 
 				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +
 										q_sqlPara2("groupdno", t_groupdno) +
@@ -162,6 +166,7 @@
 										q_sqlPara2("groupano", t_groupano) +
 										q_sqlPara2("groupbno", t_groupbno) +
 										q_sqlPara2("tggno", t_tggno) +
+										q_sqlPara2("custno", t_custno) +
 										q_sqlPara2("modelno", t_modelno)
 										
 										;
@@ -228,6 +233,8 @@
 					t_where += " and charindex(N'" + t_station + "',station)>0";
 				if (t_comp.length > 0)
 					t_where += " and charindex(N'" + t_comp + "',comp)>0";
+				if (t_cust.length > 0)
+					t_where += " and charindex(N'" + t_cust + "',cust)>0";
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
@@ -323,8 +330,11 @@
 				<tr class='seek_tr'>
 					<td class='seek'><a id='lblTypea'> </a></td>
 					<td><select id="cmbTypea" class="c1" > </select></td>
-					<td class='seek'> </td>
-					<td> </td>
+					<td class='seek'><a id='lblCustno'> </a></td>
+					<td>
+						<input class="txt" id="txtCustno" type="text" style="width:80px; font-size:medium;" />
+						<input class="txt" id="txtCust" type="text" style="width:105px; font-size:medium;" />
+					</td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'><a id='lblGroupano'> </a></td>
