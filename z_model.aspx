@@ -41,12 +41,18 @@
                     	type : '8',//[4]
 						name : 'xshowenda',
 						value : "1@過期未保養,2@即將保養,3@已保養".split(',')
-					}, {
+					}, /*{			//工作站區間
 						type : '2',//[5][6]
 						name : 'xstation',
 						dbf : 'station',
 						index : 'noa,station',
 						src : 'station_b.aspx'
+					},*/ {
+						type : '2',//[5][6]
+						name : 'xmodgno',
+						dbf : 'modg',
+						index : 'noa,namea',
+						src : 'modg_b.aspx'
 					}]
 				});
 				q_popAssign();
