@@ -528,18 +528,15 @@
 					</tr>
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblProcess" class="lbl btn"> </a></td>
-						
 						<td class="td2">
 							<input id="txtProcessno" type="text" class="txt" style="width: 50%"/>
 							<input id="txtProcess" type="text" class="txt" style="width: 50%"/>
 						</td>
-						
 						<td class="td3"><span> </span><a id="lblModel" class="lbl btn"> </a></td>
 						<td class="td4">
 							<input id="txtModelno" type="text" class="txt" style="width: 45%"/>
 							<input id="txtModel" type="text" class="txt" style="width: 45%"/>
 						</td>
-						
 						<td class="td3"><span> </span><a id="lblStyle" class="lbl isStyle"> </a></td>
 						<td class="td4"><input id="txtStyle" type="text" class="txt isStyle"/></td>
 					</tr>
