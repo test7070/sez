@@ -45,8 +45,8 @@
 				['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
 				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
 				['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
-				['txtProcessno_', 'btnProcessno_', 'process', 'noa,process', 'txtProcessno_,txtProcess_', 'process_b.aspx']
-				['txtModelno', 'lblModel', 'modg', 'noa,namea', 'txtModelno_,txtModel_', 'modg_b.aspx']
+				['txtProcessno_', 'btnProcessno_', 'process', 'noa,process', 'txtProcessno_,txtProcess_', 'process_b.aspx'],
+				['txtModelno', 'lblModel', 'modg', 'noa,namea', 'txtModelno,txtModel', 'modg_b.aspx']
 			);
 			$(document).ready(function() {
 				bbmKey = ['noa'];
@@ -534,7 +534,7 @@
 							<input id="txtProcess" type="text" class="txt" style="width: 50%"/>
 						</td>
 						
-						<td class="td3"><span> </span><a id="lblModel" class="lbl"> </a></td>
+						<td class="td3"><span> </span><a id="lblModel" class="lbl btn"> </a></td>
 						<td class="td4">
 							<input id="txtModelno" type="text" class="txt" style="width: 45%"/>
 							<input id="txtModel" type="text" class="txt" style="width: 45%"/>
