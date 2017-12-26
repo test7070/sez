@@ -533,7 +533,7 @@
 					<td align="center" style="width:100px;"><a id='lblG_s'>金融商品未實現損益</a></td>
 					<td align="center" style="width:100px;"><a id='lblTotal_s'>股東權益合計</a></td>
 				</tr>
-				<tr  style='background:#cad3ff;'>
+				<tr style='background:#cad3ff;'>
 					<td align="center">
 						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 						<input id="txtNoq.*"  style="display:none;"/>
