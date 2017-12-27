@@ -1182,8 +1182,8 @@
 						$('#bbtimg').css('height','')
 						var imgwidth = $('#bbtimg').width();
 			            var imgheight = $('#bbtimg').height();
-			            var t_widh=360;//106/12/19 圖片移到最右邊 故圖片寬度固定 $('#dview').width();
-			            var x_height=600;//106/12/19 圖片移到最右邊 故圖片高度固定 $('.dbbs').offset().top-$('#dview').height()-35;
+			            var t_widh=240;//106/12/19 圖片移到最右邊 故圖片寬度固定 $('#dview').width();
+			            var x_height=500;//106/12/19 圖片移到最右邊 故圖片高度固定 $('.dbbs').offset().top-$('#dview').height()-35;
 			            var t_height=imgheight*(dec(t_widh)/dec(imgwidth));
 			            if(t_height>x_height){
 			            	t_height=x_height;
