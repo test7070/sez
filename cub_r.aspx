@@ -1076,7 +1076,9 @@
 							oReq.setRequestHeader("FileName", escape(fr.fileName));
 							oReq.send(fr.result);
 							
-							if(fr.result.length>0 && ttxtName=='txtUcolor__0'){//106/12/13 該為銷售單位的圖 原完成圖
+							//106/12/13 該為銷售單位的圖 原完成圖
+							//106/12/27 只抓圖片檔
+							if(fr.result.length>0 && ttxtName.substr(0,11)=='txtUcolor__' && file.type.substr(0,5)=='image'){
 								$('#txtMemo2__0').val(fr.result);
 								$('#bbtimg').attr('src',$('#txtMemo2__0').val());
 								t_zoomimg=true;

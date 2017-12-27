@@ -149,22 +149,17 @@
                 		t_vcc = _q_appendData("vcc", "", true);
                 	break;
                     case 'custroutine':
-                    
-                    	var custroutine = _q_appendData("custroutine", "", true);
-		            	var custroutines = _q_appendData("custroutines", "", true);
-		            	
-		            	for(var i = 0;i < custroutines.length;i++){
-		            		var inrange=false;
-		            		for(var j = 0;j < custroutine.length;j++){
-		            			if(custroutines[i].noa==custroutine[j].noa)
-		            				inrange=true;
-		            		}
-		            		if(!inrange){
-		            			custroutines.splice(i, 1);
-	                            i--;
-		            		}
-		            	}
-		            	
+                    	var as = _q_appendData("custroutine", "", true);
+                    	
+                    	var custroutines=[];
+                    	
+                    	for(var i = 0;i < as.length;i++){
+                    		var t_where = "where=^^ noa ='"+as[i].noa+"' ^^";
+                    		q_gt('custroutine', t_where , 0, 0, 0, "getcustroutines", r_accy,1);
+                    		var ass = _q_appendData("custroutines", "", true);
+                    		custroutines=custroutines.concat(ass);
+                    	}
+                    	
 		            	//判斷是否在區間內
 		            	for(var i = 0;i < custroutines.length;i++){
 		            		if(!($('#txtDatea').val()>=custroutines[i].bdate && $('#txtDatea').val()<=custroutines[i].edate)){
