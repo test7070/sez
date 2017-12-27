@@ -49,7 +49,7 @@
 						src : 'modg_b.aspx'
 					},{
                         type : '1', //[7][8]
-                        name : 'xdate' 
+                        name : 'xdate'
                     },{
 						type : '2',//[9][10]工作站區間
 						name : 'xstation',
@@ -59,7 +59,6 @@
 					}]
 				});
 				q_popAssign();
-  
 				
 				$('#chkXshowenda input').click(function(){ 
 					var tcheck=$(this).val(); 
