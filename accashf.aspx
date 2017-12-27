@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
 		<title> </title>
@@ -54,6 +54,7 @@
             //gindex: 00(只有文字顯示),01(資料明細),02(小計),97、98、99固定
             //gno  對應XLS
             var list = new Array(); 
+            list.push({gindex:"00",groupno:"A",gtitle:"營業活動之現金流量1：",gno:"1"});
             list.push({gindex:"00",groupno:"A",gtitle:"營業活動之現金流量：",gno:"1"});
             list.push({gindex:"01",groupno:"A",gtitle:"本期損益",gno:"3"});
             
@@ -1100,7 +1101,7 @@
 		</div>
 		<div class='dbbs' style="float:left;">
 			<table id="tbbs" class='tbbs'>
-				<tr style='color:white; background:#003366;' >
+				<tr style='color:white; background:#003366;'>
 					<td align="center" style="width:30px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;display: none;"  />
 					<input id="btnImport" value="匯入" type="button" onclick="btnImport_click()" style="font-size: medium; font-weight: bold;"/>
@@ -1112,12 +1113,12 @@
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
-					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;display: none;" />
-					<input class="btn"  id="btnPlusX.*" type="button" value='+' style="font-weight: bold;"  />
-					<input id="txtNoq.*" type="text" style="display: none;" />
-					<input id="txtSel.*" type="text" style="display: none;" />
-					<input id="txtGno.*" type="text" style="display: none;" />
-					<input id="txtGindex.*" type="text" style="display: none;" />
+						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;display: none;" />
+						<input class="btn"  id="btnPlusX.*" type="button" value='+' style="font-weight: bold;"  />
+						<input id="txtNoq.*" type="text" style="display: none;" />
+						<input id="txtSel.*" type="text" style="display: none;" />
+						<input id="txtGno.*" type="text" style="display: none;" />
+						<input id="txtGindex.*" type="text" style="display: none;" />
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
