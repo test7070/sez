@@ -1789,17 +1789,26 @@
 						$('#txtDatea_'+j).datepicker();
 					}
 				}
-				if(q_cur==1 || q_cur==2){
+				/*if(q_cur==1 || q_cur==2){
 					$('#btnGetpdate').removeAttr('disabled');
 				}else{
 					$('#btnGetpdate').attr('disabled', 'disabled');
-				}
+				}*/
 				$('#btnGetpdate').unbind('click');
 				$('#btnGetpdate').click(function() {
+					var t_message='';//106/12/29 顯示訊息
 					for(var k=0;k<q_bbsCount;k++){
-						if(emp($('#txtDatea_'+k).val())){
-							getpdate(k);
+						if(q_cur==1|| q_cur==2){
+							if(emp($('#txtDatea_'+k).val())){
+								getpdate(k);
+							}
+						}else{
+							if($('#txtProductno_'+k).val().length>0)
+								t_message+="第"+(k+1)+"項  "+$('#txtProductno_'+k).val()+"  "+$('#txtMount_'+k).val()+"/"+$('#txtUnit_'+k).val()+"  預交日:"+getpdate(k)+"\n";
 						}
+					}
+					if(!(q_cur==1|| q_cur==2) && t_message.length>0){
+						alert(t_message);
 					}
 				});
 				
@@ -2179,7 +2188,7 @@
 				var mongen=0,daygen=0;//當月產能
 				var t_date='',t_mon='';//計算日期
 				var factnotv=0;//排程量
-				if((q_cur==1 || q_cur==2)){
+				//if((q_cur==1 || q_cur==2)){
 					//排產週
 					/*if(!emp($('#txtOdate').val()) && !emp($('#txtDate3').val()) && !emp($('#txtGdate').val())){ //排產週
 						var t_odate=new Date(dec($('#txtOdate').val().substr(0,r_len))
@@ -2453,8 +2462,12 @@
 							t_addday--;
 						}
 					}
-					$('#txtDatea_'+x).val(t_dodate);
-				}
+					if(q_cur==1 || q_cur==2){
+						$('#txtDatea_'+x).val(t_dodate);
+					}else{
+						return t_dodate;
+					}
+				//}
 			}
 			
 			var ucagroupdivmove = false;
