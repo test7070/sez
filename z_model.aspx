@@ -71,7 +71,6 @@
 			}
 			function q_boxClose(s2) {
 			}
-
 			function q_gtPost(s2) {
 			}
 		</script>
