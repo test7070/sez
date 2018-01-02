@@ -298,7 +298,9 @@
 						//產生轉回典盈進出貨
 						if(!emp($('#txtNoa').val())){
 							if(confirm('確定要轉回典盈?')){
-								q_func('qtxt.query.vcctost4rc2vcc_r', 'vcc.txt,vcctost4rc2vcc_r,'+ encodeURI($('#txtNoa').val())+ ';' + encodeURI(r_accy) + ';'  + encodeURI(q_date())+ ';' + encodeURI(r_name)+ ';' + encodeURI(r_len));
+								var t_hostname=location.hostname;
+								var t_proj=q_getPara('sys.project').toUpperCase();
+								q_func('qtxt.query.vcctost4rc2vcc_r', 'vcc.txt,vcctost4rc2vcc_r,'+ encodeURI($('#txtNoa').val())+ ';' + encodeURI(r_accy) + ';'  + encodeURI(q_date())+ ';' + encodeURI(r_name)+ ';' + encodeURI(r_len)+';'+encodeURI(t_hostname)+';'+encodeURI(q_db)+';'+encodeURI(t_proj));
 							}
 						}
 					});
@@ -365,7 +367,13 @@
 					var as = _q_appendData("tmp0", "", true, true);
 					if (as[0] != undefined) {
 						if(as[0].vnoa.length>0 && as[0].trc2no.length>0 && as[0].tvccno.length>0){
-							alert('出貨單已成功轉回典盈!!');
+							alert('出貨單【'+as[0].tvccno+'】與進貨單【'+as[0].trc2no+'】已成功轉回典盈!!');
+						}else if(as[0].vnoa.length>0 && as[0].tvccno.length>0){
+							alert('出貨單【'+as[0].tvccno+'】已成功轉回典盈!!');
+						}else if(as[0].vnoa.length>0 && as[0].trc2no.length>0){
+							alert('進貨單【'+as[0].trc2no+'】已成功轉回典盈!!');
+						}else{
+							alert('產生錯誤請聯絡工程師!!');
 						}
 					}else{
 						alert('產生錯誤請聯絡工程師!!');
