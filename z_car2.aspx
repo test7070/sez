@@ -165,7 +165,7 @@
 							}
                         }
                         
-                        $('#q_report div div .radio').first().removeClass('nonselect').addClass('select');
+                        //$('#q_report div div .radio').first().removeClass('nonselect').addClass('select');
                     }else{
                     	if(t_proj=='DC'){
                     		 for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
@@ -174,7 +174,7 @@
 	                                 break;
 								}
 	                        }
-	                        $('#q_report div div .radio').first().removeClass('nonselect').addClass('select');
+	                        //$('#q_report div div .radio').first().removeClass('nonselect').addClass('select');
 	                        $('#Xinsuresheet').hide();
                     	}
                     }
