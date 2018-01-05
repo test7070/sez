@@ -23,7 +23,7 @@
             var q_name = "tre";
             var q_readonly = ['txtAccno','txtNoa', 'txtMoney', 'txtTotal','txtTolls','txtWorker2','txtWorker','txtRc2ano','txtPaydate','txtPlusmoney','txtMinusmoney','txtAccno','txtAccno2','txtYear2','txtYear1'];
             var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
-            var bbmNum = [['txtUnopay', 10, 0],['txtMoney', 10, 0],['txtTolls', 10, 0],['txtTotal', 10, 0],['txtPlusmoney', 10, 0],['txtMinusmoney', 10, 0],['txtTax', 10, 0],['txtTaxrate', 10, 0],['txtVolume', 10, 0]];
+            var bbmNum = [['txtUnopay', 10, 0],['txtMoney', 10, 0],['txtTolls', 10, 0],['txtTotal', 10, 0],['txtPlusmoney', 10, 0],['txtMinusmoney', 10, 0],['txtTax', 10, 0],['txtTaxrate', 10, 0],['txtWeight', 10, 0]];
             var bbsNum = [['txtMount', 10, 3],['txtPrice', 10, 3],['txtDiscount', 10, 3],['txtMoney', 10, 0],['txtTolls', 10, 0]];
             var bbmMask = [];
             var bbsMask = [];
@@ -774,8 +774,8 @@
                         <td><input id="txtTax" type="text"  class="txt c1 num"/></td>
                         <td><span> </span><a id="lblTaxrate_sh" class="lbl">佣金</a></td>
                         <td><input id="txtTaxrate" type="text" class="txt c1 num" /></td>
-                        <td><span> </span><a id="lblVolume_sh" class="lbl">現金利息</a></td>
-                        <td><input id="txtVolume" type="text" class="txt c1 num" /></td>
+                        <td><span> </span><a id="lblWeight_sh" class="lbl">現金利息</a></td>
+                        <td><input id="txtWeight" type="text" class="txt c1 num" /></td>
                     </tr>
 					<tr>
 						<td><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
