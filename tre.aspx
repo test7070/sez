@@ -69,7 +69,7 @@
             function mainPost() {
             	q_modiDay= q_getPara('sys.modiday2');  /// 若未指定， d4=  q_getPara('sys.modiday'); 
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd],['txtDate2', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtPaydate', r_picd], ['txtMon', r_picm]];
+                bbmMask = [['txtDatea', r_picd],['txtDate2', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtPaydate', r_picd], ['txtMon', r_picm],['textMon', r_picm]];
                 q_mask(bbmMask);
 				
 				q_gt('carteam', '', 0, 0, 0, "");
@@ -154,11 +154,11 @@
                         var t_key = q_getPara('sys.key_tre');
                         var t_mon = $('#textMon').val();
                         t_key = (t_key.length==0?'FC':t_key);//一定要有值
-                        if(t_mon.length==0 || t_tggno.length==0){
+                        if(t_mon.length==0){
                             alert('請輸入月份'+q_getMsg('lblMon')+'!!');
                             return;
                         }else{
-                            q_func('qtxt.query.trantre_sh', 'tre.txt,trantresh,' + encodeURI(t_key) + ';'+ encodeURI(t_mon)); 
+                            q_func('qtxt.query.trantre_sh', 'tre.txt,tranwj2tre,'+ encodeURI(r_accy)+ ';' + encodeURI(t_key) + ';'+ encodeURI(t_mon)); 
                         }    
                    }
                 });            
@@ -191,6 +191,10 @@
 						}
 						else
 							location.reload();
+                        break;
+                    case 'qtxt.query.trantre_sh':
+                        var as = _q_appendData("tmp0", "", true, true);
+                        alert(as[0].msg);
                         break;
                 }
 
