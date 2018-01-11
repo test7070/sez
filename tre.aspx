@@ -170,8 +170,8 @@
             			var as = _q_appendData("tmp0", "", true, true);
                         if (as[0] != undefined) {
                             if(q_getPara('sys.project').toUpperCase()=='SH'){
-                                q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtComp,txtStraddr,txtProduct,txtMount,txtMoney,txtTranno,txtTrannoq,txtCaseno,txtOrdeno'
-                                , as.length, as, 'trandate,nick,straddr,product,mount,total2,noa,noq,caseno,ordeno', '',''); 
+                                q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtComp,txtStraddr,txtProduct,txtMount,txtMoney,txtTranno,txtTrannoq,txtCaseno,txtOrdeno,txtVolume,txtWeight'
+                                , as.length, as, 'trandate,nick,straddr,product,mount,total2,noa,noq,caseno,ordeno,volume,weight', '',''); 
                                 for(var j=0;j<as[j].mount;j++){
                                         $('#txtStraddr_'+j).val(as[j].straddr+'-'+as[j].endaddr);
                                 }
@@ -342,7 +342,12 @@
             }
 
             function btnPrint() {
-            	q_box('z_tre.aspx'+ "?;;;;"+r_accy+";", '', "95%", "95%", q_getMsg("popPrint"));
+                if(q_getPara('sys.project').toUpperCase()=='SH'){
+                    q_box('z_tre_sh.aspx'+ "?;;;;"+r_accy+";", '', "95%", "95%", q_getMsg("popPrint"));
+                }else{
+                    q_box('z_tre.aspx'+ "?;;;;"+r_accy+";", '', "95%", "95%", q_getMsg("popPrint"));
+                }
+            	
             }
 
             function wrServer(key_value) {
@@ -391,9 +396,6 @@
 
             function refresh(recno) {
                 _refresh(recno);
-                if (q_getPara('sys.project').toUpperCase()=='SH'){
-                    $('.isSH').show();
-                }
             }
 
             function readonly(t_para, empty) {
@@ -410,6 +412,12 @@
                 	//$('#btnTrans').show();
                 	$('#btnCarchg').attr('disabled', 'disabled');
                 }
+                
+                if (q_getPara('sys.project').toUpperCase()=='SH'){
+                    $('.isSH').show();
+                    $('.isNSH').hide();
+                }
+                
                 $('#txtDate2').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
             	$('#txtBdate').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
             	$('#txtEdate').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
@@ -831,7 +839,9 @@
 					<td align="center" style="width:200px;"><a id='lblStraddr_s'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMount_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblPrice_s'> </a></td>
+					<td align="center" style="width:100px;" class="isNSH"><a id='lblPrice_s'> </a></td>
+					<td align="center" style="width:100px; display: none;" class="isSH"><a id='lblVolume_s'>材積</a></td>
+					<td align="center" style="width:100px; display: none;" class="isSH"><a id='lblWeight_s'>重量</a></td>
 					<td align="center" style="width:100px;"><a id='lblDiscount_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMoney_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblTolls_s'> </a></td>
@@ -867,9 +877,15 @@
 					<td >
 					<input type="text" id="txtMount.*" style="width:95%;text-align: right;" />
 					</td>
-					<td >
+					<td class="isNSH">
 					<input type="text" id="txtPrice.*" style="width:95%;text-align: right;" />
 					</td>
+					<td class="isSH" style="display: none;">
+                    <input type="text" id="txtVolume.*" style="width:95%;text-align: right;" />
+                    </td>
+                    <td class="isSH" style="display: none;">
+                    <input type="text" id="txtWeight.*" style="width:95%;text-align: right;" />
+                    </td>
 					<td >
 					<input type="text" id="txtDiscount.*" style="width:95%;text-align: right;" />
 					</td>
