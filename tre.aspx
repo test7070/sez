@@ -847,16 +847,16 @@
 					<td align="center" style="width:100px;"><a id='lblTolls_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMemo_s'> </a></td>
 					<td align="center" style="width:170px;"><a id='lblTranno_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblRs_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblPaymemo_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblFill_s'> </a></td>
+					<td align="center" style="width:100px;" class="isNSH"><a id='lblRs_s'> </a></td>
+					<td align="center" style="width:100px;" class="isNSH"><a id='lblPaymemo_s'> </a></td>
+					<td align="center" style="width:100px;" class="isNSH"><a id='lblFill_s'> </a></td>
 					<td align="center" style="width:100px"><a id='lblCasetype_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblCaseno_s'> </a></td>
-					<td align="center" style="width:150px;"><a id='lblCaseno2_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblBoat_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblBoatname_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblShip_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblOverweightcost_s'> </a></td>
+					<td align="center" style="width:150px;" class="isNSH"><a id='lblCaseno2_s'> </a></td>
+					<td align="center" style="width:100px;" class="isNSH"><a id='lblBoat_s'> </a></td>
+					<td align="center" style="width:100px;" class="isNSH"><a id='lblBoatname_s'> </a></td>
+					<td align="center" style="width:100px;" class="isNSH"><a id='lblShip_s'> </a></td>
+					<td align="center" style="width:100px;" class="isNSH"><a id='lblOverweightcost_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblOthercost_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblOrdeno_s'> </a></td>
 				</tr>
@@ -902,13 +902,13 @@
 						<input type="text" id="txtTranno.*" style="float:left; width: 90%;"/>
 						<input type="text" id="txtTrannoq.*" style="float:left;visibility: hidden; width:1%"/>
 					</td>
-					<td >
+					<td class="isNSH">
 					<input type="text" id="txtRs.*" style="width:95%;" />
 					</td>
-					<td >
+					<td class="isNSH">
 					<input type="text" id="txtPaymemo.*" style="width:95%;" />
 					</td>
-					<td >
+					<td class="isNSH">
 					<input type="text" id="txtFill.*" style="width:95%;" />
 					</td>
 					<td >
@@ -917,19 +917,19 @@
 					<td >
 					<input type="text" id="txtCaseno.*" style="width:95%;" />
 					</td>
-					<td >
+					<td class="isNSH">
 					<input type="text" id="txtCaseno2.*" style="width:95%;" />
 					</td>
-					<td >
+					<td class="isNSH">
 					<input type="text" id="txtBoat.*" style="width:95%;" />
 					</td>
-					<td >
+					<td class="isNSH">
 					<input type="text" id="txtBoatname.*" style="width:95%;"/>
 					</td>
-					<td >
+					<td class="isNSH">
 					<input type="text" id="txtShip.*" style="width:95%;" />
 					</td>
-					<td >
+					<td class="isNSH">
 					<input type="text" id="txtOverweightcost.*" style="width:95%;text-align: right;"/>
 					</td>
 					<td >
