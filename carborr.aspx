@@ -62,6 +62,9 @@
 				for(var x in tmp){
 					t_string += (t_string.length>0?',':'')+tmp[x];
 				}
+				if(q_getPara('sys.project').toUpperCase()=='SH'){
+				    t_string=t_string+',車貸';
+				}
 				q_cmbParse("cmbTypea", t_string);
 				
                 $('#txtMon').change(function() {

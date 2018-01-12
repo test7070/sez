@@ -138,7 +138,9 @@
 					}
 					
 					var t_proj=q_getPara('sys.project').toUpperCase();
-					
+					 if(t_proj=='SH'){
+					     $('#txtXmemo').val('　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　核對:')
+					 }
 					 if(t_proj!='DC' && t_proj!='EFB' && t_proj!='SH'){
                         for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
                             if(
