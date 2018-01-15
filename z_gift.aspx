@@ -25,15 +25,29 @@
             $(document).ready(function() {
             	q_getId();
             	q_gf('', 'z_gift');
-				var t_where = "where=^^ noa='"+r_userno+"' ^^";
-				q_gt('sss', t_where, q_sqlCount, 1, 0, 'partno');
             });
              function q_gfPost() {
-                q_gt('part', '', 0, 0, 0);
+                //q_gt('part', '', 0, 0, 0);
 				q_gt('giftsendt', '', 0, 0, 0, "");
             }
             function q_gtPost(t_name) {
             	 switch (t_name) {
+            	 	 case 'giftsendt':
+                        t_giftsendt = '';
+                        var as = _q_appendData("giftsendt", "", true);
+                        for ( i = 0; i < as.length; i++) {
+                            t_giftsendt += (t_giftsendt.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].namea;
+                        }
+                        q_gt('store', '', 0, 0, 0);
+                        break;
+                    case 'store':
+                        t_store = '';
+                        var as = _q_appendData("store", "", true);
+                        t_store += '#non@全部';
+                        for ( i = 0; i < as.length; i++) {
+                            t_store += (t_store.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
+                        }
+                        break;
                     case 'part':
                         t_part = '';
                         var as = _q_appendData("part", "", true);
@@ -41,51 +55,15 @@
                             t_part += (t_part.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
                         }
                         break;
-                    case 'store':
-                        t_store = '';
-                        var as = _q_appendData("store", "", true);
-                        t_store += '99@全部';
-                        for ( i = 0; i < as.length; i++) {
-                            t_store += (t_store.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
-                        }
-                        break;
-                    case 'store2':
-                        t_store = '';
-                        var as = _q_appendData("store", "", true);
-                        t_store += ' @ ';
-                        for ( i = 0; i < as.length; i++) {
-							if(as[i].store=='車廠')
-                            t_store += (t_store.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
-                        }
-                        break;
-                    case 'giftsendt':
-                        t_giftsendt = '';
-                        var as = _q_appendData("giftsendt", "", true);
-                        for ( i = 0; i < as.length; i++) {
-                            t_giftsendt += (t_giftsendt.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].namea;
-                        }
-                        break;
-					case 'partno':
-						var as = _q_appendData('sss','', true);
-						if(as.length>0){				//有員工資料
-							if(as[0].partno>='08'){		//人員限制
-								partno=as[0].partno
-								q_gt('store2', '', 0, 0, 0);
-							}
-							else {
-								q_gt('store', '', 0, 0, 0);
-							}
-						}
-                        break;
-                }
-                     if (!t_isinit && t_giftsendt.length > 0 ) {
+				}
+				if (!t_isinit && t_giftsendt.length > 0 && t_store.length>0) {
                 	t_isinit = true;
                     $('#q_report').q_report({
                         fileName : 'z_gift',
                         options : [{
-                        type : '1',
-                        name : 'date'
-                    }, {/*6*/
+	                        type : '1',
+	                        name : 'date'
+						}, {/*6*/
                             type : '5',
                             name : 'tsendmemo',
                             value : [q_getPara('report.all')].concat(t_giftsendt.split(','))
@@ -107,37 +85,34 @@
 							src : 'part_b.aspx'
 						}]
                     });
-                q_langShow();
-                q_popAssign();
-                $('#txtDate1').mask('999/99/99');
-	             $('#txtDate1').datepicker();
-	             $('#txtDate2').mask('999/99/99');
-	             $('#txtDate2').datepicker(); 
-	             var t_date,t_year,t_month,t_day;
-	                t_date = new Date();
-	                t_date.setDate(1);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                t_day = t_date.getUTCDate();
-	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
-	                t_date = new Date();
-	                t_date.setDate(35);
-	                t_date.setDate(0);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                t_day = t_date.getUTCDate();
-	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
-					if(partno.length>0){
-						$('#Xstore').attr('disable',true);
+					q_langShow();
+					q_popAssign();
+					$('#txtDate1').mask(r_picd);
+					$('#txtDate1').datepicker();
+					$('#txtDate2').mask(r_picd);
+					$('#txtDate2').datepicker(); 
+	                $('#txtDate1').val(q_date().substr(0,r_lenm)+'/01');
+	                $('#txtDate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',35).substr(0,r_lenm)+'/01',-1));
+	                
+	                if(r_rank<"8" && q_getPara('sys.project').toUpperCase()=='DC'){
+		                var t_where = "where=^^ noa='"+r_userno+"' ^^";
+						q_gt('sss', t_where, 0, 0, 0, 'getpartno',r_accy,1);
+						if(as[0] != undefined){
+							if(as[0].partno>='08'){
+								$('#txtXpart1a').attr('disabled', 'disabled');
+								$('#txtXpart2a').attr('disabled', 'disabled');
+								$('#btnXpart1').hide();
+								$('#btnXpart2').hide();
+								$('#txtXpart1a').val(as[0].partno);
+								$('#txtXpart1b').val(as[0].part);
+								$('#txtXpart2a').val(as[0].partno);
+								$('#txtXpart2b').val(as[0].part);
+								$('#Xstore select').val('B')
+								$('#Xstore select').attr('disabled', 'disabled');	
+							}
+						}
 					}
-              
-            }
+            	}
             }
 
             function q_boxClose(s2) {

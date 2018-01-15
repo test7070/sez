@@ -39,8 +39,12 @@
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
-                var t_where = "where=^^ noa='"+r_userno+"' ^^";
-				q_gt('sss', t_where, q_sqlCount, 1, 0, 'partno');
+                if(r_rank<"8"){
+	                var t_where = "where=^^ noa='"+r_userno+"' ^^";
+					q_gt('sss', t_where, q_sqlCount, 1, 0, 'getpartno');
+				}else{
+					q_gt(q_name, q_content, q_sqlCount, 1, 0, '');
+				}
             });
             function main() {
                 if (dataErr) {
@@ -55,15 +59,15 @@
                 bbmMask = [['txtDatea', r_picd],['txtIndate', r_picd], ['txtMon', r_picm]];
 
                 q_mask(bbmMask);
-                //q_gt('store', '', 0, 0, 0, "");
-                //q_gt('part', '', 0, 0, 0, "");
+                q_gt('store', '', 0, 0, 0, "");
+                q_gt('part', '', 0, 0, 0, "");
                 q_gt('acomp', '', 0, 0, 0, "");
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
 
                 $('#txtInvono').change(function() {
                 	$(this).val($.trim($(this).val().toUpperCase()));
                 	if ($(this).val().length > 0 && !(/^[A-Z]{2}[0-9]{8}$/g).test($(this).val()))
-                    	alert(q_getMsg('lblInvono')+'��~�C');
+                    	alert(q_getMsg('lblInvono')+'錯誤!!');
                 });
                 $('#cmbTaxtype').focus(function() {
 					var len = $(this).children().length > 0 ? $(this).children().length : 1;
@@ -122,38 +126,6 @@
 		                    	$("#cmbPartno").val(abbm[q_recno].partno);
 		                }
 		                break;
-					case 'part2':
-		                var as = _q_appendData("part", "", true);
-		                if (as[0] != undefined) {
-		                    var t_item = " @ ";
-		                    for (i = 0; i < as.length; i++) {
-								if(as[i].part== part){
-		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
-								}
-		                    }
-							q_cmbParse("cmbPartno", t_item);
-							if(abbm[q_recno])
-		                    	$("#cmbPartno").val(abbm[q_recno].partno);
-		                }
-		                break;
-					case 'partno':
-						var as = _q_appendData('sss','', true);
-						if(as.length>0){				//有員工資料
-							if(as[0].partno>='08'){		//人員限制
-								var t_where = "where=^^ partno='"+as[0].partno+"' ^^";
-								part=as[0].part
-								q_gt(q_name, t_where, 9999, 1, 0, '', r_accy);
-								q_gt('part', '', 0, 0, 0, 'part2');
-								q_gt('store', '', 0, 0, 0, 'store2');
-								
-							}
-							else {
-								q_gt(q_name, q_content, q_sqlCount, 1, 0, '');
-								q_gt('part', '', 0, 0, 0, 'part');
-								q_gt('store', '', 0, 0, 0, 'store');
-							}
-						}
-					break;
                     case 'store':
 		                var as = _q_appendData("store", "", true);
 		                if (as[0] != undefined) {
@@ -166,19 +138,41 @@
 		                    	$("#cmbStoreno").val(abbm[q_recno].storeno);
 		                }
 		                break;
-					case 'store2':
-		                var as = _q_appendData("store", "", true);
-		                if (as[0] != undefined) {
-		                    var t_item = "";
-		                    for (i = 0; i < as.length; i++) {
-								if(as[i].store=='車廠')
-		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
-		                    }
-		                    q_cmbParse("cmbStoreno", t_item);
-		                    if(abbm[q_recno])
-		                    	$("#cmbStoreno").val(abbm[q_recno].storeno);
-		                }
-		                break;
+					case 'getpartno':
+						var as = _q_appendData('sss','', true);
+						if(q_getPara('sys.project').toUpperCase()=='DC'){
+							if(as[0] != undefined){
+								if(as[0].partno>='08'){
+									var t_where = "where=^^ partno='"+ as[0].partno +"' ^^";
+									q_gt(q_name, t_where, q_sqlCount, 1, 0, '', r_accy);
+								}else {
+									q_gt(q_name, q_content, q_sqlCount, 1, 0, '');
+								}
+							}
+						}else{
+							q_gt(q_name, q_content, q_sqlCount, 1, 0, '');
+						}
+						break;
+					case 'inspart':
+						var as = _q_appendData('sss','', true);
+						if(as[0] != undefined){
+							if(as[0].partno>='08'){
+								$('#cmbPartno').val(as[0].partno);
+								$('#cmbPartno').attr('disabled', 'disabled');
+								$('#cmbStoreno').val('B');
+								$('#cmbStoreno').attr('disabled', 'disabled');
+							}
+						}
+						break;
+					case 'modipart':
+						var as = _q_appendData('sss','', true);
+						if(as[0] != undefined){
+							if(as[0].partno>='08'){
+								$('#cmbPartno').attr('disabled', 'disabled');
+								$('#cmbStoreno').attr('disabled', 'disabled');
+							}
+						}
+						break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -244,8 +238,13 @@
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtIndate').val(q_date());
-                $('#txtMon').val(q_date().substr(0, 6));
+                $('#txtMon').val(q_date().substr(0, r_lenm));
                 $('#txtDatea').focus();
+                
+                if(r_rank<"8" && q_getPara('sys.project').toUpperCase()=='DC'){
+					var t_where = "where=^^ noa='"+r_userno+"' ^^";
+					q_gt('sss', t_where, 1, 1, 0, 'inspart');
+				}
             }
 
             function btnModi() {
@@ -254,6 +253,11 @@
                 _btnModi();
                 $('#txtDatea').focus();
                 sum();
+                
+                if(r_rank<"8" && q_getPara('sys.project').toUpperCase()=='DC'){
+	                var t_where = "where=^^ noa='"+r_userno+"' ^^";
+					q_gt('sss', t_where, 1, 1, 0, 'modipart');
+				}
             }
 
             function btnPrint() {
