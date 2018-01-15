@@ -272,6 +272,9 @@
                         if(q_getPara('sys.project').toUpperCase()=='SH'){
                             q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtTranno,txtTrannoq,txtCarno,txtStraddr,txtTranmoney,txtCaseno,txtMount,txtPrice,txtTotal,txtCustorde,txtProduct,txtVolume,txtWeight'
                             , as.length, as, 'trandate,noa,noq,carno,straddr,total,caseno,mount,price,total,custorde,product,volume,weight', '','');
+                            for(var j=0;j<as.length;j++){
+                                 $('#txtStraddr_'+j).val(as[j].straddr+'-'+as[j].endaddr);
+                            }    
                         }else{
                             q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtTranno,txtTrannoq,txtCarno,txtStraddr,txtTranmoney,txtCaseno,txtMount,txtPrice,txtTotal,txtCustorde,txtProduct'
                             , as.length, as, 'trandate,noa,noq,carno,straddr,total,caseno,mount,price,total,custorde,product', '','');

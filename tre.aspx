@@ -155,7 +155,7 @@
                         var t_mon = $('#textMon').val();
                         t_key = (t_key.length==0?'FC':t_key);//一定要有值
                         if(t_mon.length==0){
-                            alert('請輸入月份'+q_getMsg('lblMon')+'!!');
+                            alert('請輸入月份'+q_getMsg('lblMon_sh')+'!!');
                             return;
                         }else{
                             q_func('qtxt.query.trantre_sh', 'tre.txt,tranwj2tre,'+ encodeURI(r_accy)+ ';' + encodeURI(t_key) + ';'+ encodeURI(t_mon)); 
@@ -172,7 +172,7 @@
                             if(q_getPara('sys.project').toUpperCase()=='SH'){
                                 q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtComp,txtStraddr,txtProduct,txtMount,txtMoney,txtTranno,txtTrannoq,txtCaseno,txtOrdeno,txtVolume,txtWeight'
                                 , as.length, as, 'trandate,nick,straddr,product,mount,total2,noa,noq,caseno,ordeno,volume,weight', '',''); 
-                                for(var j=0;j<as[j].mount;j++){
+                                for(var j=0;j<as.length;j++){
                                         $('#txtStraddr_'+j).val(as[j].straddr+'-'+as[j].endaddr);
                                 }
                             }else{
@@ -648,7 +648,7 @@
                     <td style="width:80px;"></td>
                 </tr>
                 <tr style="height:35px;">
-                    <td><span> </span><a id="lblMon" style="float:right; color: blue; font-size: medium;">月份</a></td>
+                    <td><span> </span><a id="lblMon_sh" style="float:right; color: blue; font-size: medium;">月份</a></td>
                     <td colspan="4">
                     <input id="textMon"  type="text" style="float:left; width:100px; font-size: medium;"/>
                     </td>

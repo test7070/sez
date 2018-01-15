@@ -158,6 +158,11 @@
 					$(".carexpense").show();
 					if(q_getPara('sys.project').toUpperCase()=="VA"){
                 		$('.carexpense').eq(0).hide();
+                	}else if(q_getPara('sys.project').toUpperCase()=="SH"){
+                	    $('.carexpense').eq(2).hide();
+                	    $('.carexpense').eq(3).show();
+                	}else{
+                	    $('.carexpense').eq(3).hide();
                 	}
 				}, function(e) {
 					$(".carexpense").hide();
@@ -707,7 +712,13 @@
                 refreshBbm();
                  if(q_getPara('sys.project').toUpperCase()=="DC"){
 	                $(".carexpense").show();
+	                $('.carexpense').eq(3).hide();
 				}
+				
+				if(q_getPara('sys.project').toUpperCase()=="SH"){
+                        $('.carexpense').eq(2).hide();
+                        $('.carexpense').eq(3).show();
+                }
                 
                 //暫存資料
                  t_cardeal='';
@@ -909,7 +920,7 @@
                		$('#btnLicence').removeAttr('disabled');
                	}else{
                		$('#btnLicence').attr('disabled','disabled');
-               	}
+               	} 	
             }
 
             function btnMinus(id) {
@@ -1474,6 +1485,15 @@
 						<td> </td>
 						<td> </td>
 					</tr>
+					<tr class="carexpense">
+                        <td><span> </span><a id="lblGuildfee" class="lbl">公會費</a></td>
+                        <td><input id="txtGuildfee" type="text"  class="txt c1 num"/>    </td>
+                        <td><span> </span><a id="lblFees" class="lbl">公費</a></td>
+                        <td><input id="txtFees" type="text"  class="txt c1 num"/>   </td>   
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                    </tr>
 					<tr class="carexpense">
 						<td><span> </span><a id="lblVrate" class="lbl"> </a></td>
 						<td><input id="txtVrate" type="text"  class="txt c1 num"/>	</td>
