@@ -45,7 +45,8 @@
 			aPop = new Array(
 				['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
 				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,spec,unit', 'txtProductno_,txtProduct_,txtSpec_,txtUnit_', 'ucaucc_b.aspx'],
-				['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
+				//['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
+				['txtStationno', 'lblStation', 'station', 'noa,station,tggno,tgg', 'txtStationno,txtStation,txtStationtggno,txtStationtgg', 'station_b.aspx'],
 				['txtStationno__', 'btnStation__', 'station__', 'noa,station', 'txtStationno__,txtStation__', 'station_b.aspx'],
 				['txtStationgno', 'lblStationg', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx'],
 				//106/03/13['txtModelno', 'lblModel', 'model', 'noa,model', 'txtModelno,txtModel', 'model_b.aspx'],
@@ -1500,7 +1501,16 @@
 							<input id="txtStationno" type="text" class="txt" style="width: 45%;"/>
 							<input id="txtStation" type="text" class="txt" style="width: 53%;"/>
 						</td>
-						<td class="td3">
+						<td><span> </span><a id="lblStationtgg" class="lbl"> </a></td>
+						<td>
+							<input id="txtStationtggno" type="text" class="txt" style="width: 45%;"/>
+							<input id="txtStationtgg" type="text" class="txt" style="width: 53%;"/>
+						</td>
+						<td class="td5"><span> </span><a id="lblPrice" class="lbl"> </a></td>
+						<td class="td6"><input id="txtPrice" type="text" class="txt num c1"/></td>
+					</tr>
+					<tr class="tr5-1">
+						<td class="td1">
 							<span> </span><a id="lblTgg" class="lbl btn"> </a>
 							<input type="checkbox" id="chkIsoutsource" style="float:right;">
 						</td>
@@ -1508,8 +1518,6 @@
 							<input id="txtTggno" type="text" class="txt" style="width: 45%;"/>
 							<input id="txtComp" type="text" class="txt" style="width: 53%;"/>
 						</td>
-						<td class="td5"><span> </span><a id="lblPrice" class="lbl"> </a></td>
-						<td class="td6"><input id="txtPrice" type="text" class="txt num c1"/></td>
 					</tr>
 					<tr class="tr6">
 						<td class="td1"><span> </span><a id="lblStationg" class="lbl btn"> </a></td>
