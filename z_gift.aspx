@@ -15,6 +15,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
+		var partno='';
 		aPop = new Array(['txtSssno', '', 'sss', 'noa,namea', 'txtSssno', "sss_b.aspx"],
 						 ['txtPartno', '', 'part', 'noa,part', 'txtPartno', "part_b.aspx"]);
 			t_isinit = false;
@@ -24,9 +25,10 @@
             $(document).ready(function() {
             	q_getId();
             	q_gf('', 'z_gift');
+				var t_where = "where=^^ noa='"+r_userno+"' ^^";
+				q_gt('sss', t_where, q_sqlCount, 1, 0, 'partno');
             });
              function q_gfPost() {
-                q_gt('store', '', 0, 0, 0);
                 q_gt('part', '', 0, 0, 0);
 				q_gt('giftsendt', '', 0, 0, 0, "");
             }
@@ -47,12 +49,33 @@
                             t_store += (t_store.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
                         }
                         break;
+                    case 'store2':
+                        t_store = '';
+                        var as = _q_appendData("store", "", true);
+                        t_store += ' @ ';
+                        for ( i = 0; i < as.length; i++) {
+							if(as[i].store=='車廠')
+                            t_store += (t_store.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
+                        }
+                        break;
                     case 'giftsendt':
                         t_giftsendt = '';
                         var as = _q_appendData("giftsendt", "", true);
                         for ( i = 0; i < as.length; i++) {
                             t_giftsendt += (t_giftsendt.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].namea;
                         }
+                        break;
+					case 'partno':
+						var as = _q_appendData('sss','', true);
+						if(as.length>0){				//有員工資料
+							if(as[0].partno>='08'){		//人員限制
+								partno=as[0].partno
+								q_gt('store2', '', 0, 0, 0);
+							}
+							else {
+								q_gt('store', '', 0, 0, 0);
+							}
+						}
                         break;
                 }
                      if (!t_isinit && t_giftsendt.length > 0 ) {
@@ -77,9 +100,11 @@
 							name : 'xstore',
 							value : t_store.split(',')
 						},{/*4*/
-							type : '8',
+							type : '2',
 							name : 'xpart',
-							value : t_part.split(',')
+							dbf : 'part',
+							index : 'noa,part',
+							src : 'part_b.aspx'
 						}]
                     });
                 q_langShow();
@@ -108,6 +133,9 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
+					if(partno.length>0){
+						$('#Xstore').attr('disable',true);
+					}
               
             }
             }
