@@ -36,8 +36,12 @@
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
-				var t_where = "where=^^ noa='"+r_userno+"' ^^";
-				q_gt('sss', t_where, q_sqlCount, 1, 0, 'partno');
+                if(r_rank<"8"){
+					var t_where = "where=^^ noa='"+r_userno+"' ^^";
+					q_gt('sss', t_where, q_sqlCount, 1, 0, 'getpartno');
+				}else{
+					q_gt(q_name, q_content, q_sqlCount, 1, 0, '');
+				}
             });
 
             function main() {
@@ -109,41 +113,43 @@
                         if (q_cur == 4)
                             q_Seek_gtPost();
                         break;
-					case 'partno':
+					case 'getpartno':
 						var as = _q_appendData('sss','', true);
-						if(as.length>0){				//有員工資料
-							if(as[0].partno>='08'){		//人員限制
-								var t_where = "where=^^ partno='"+ as[0].partno +"' ^^";
-								q_gt(q_name, t_where, 9999, 1, 0, '', r_accy);
+						if(q_getPara('sys.project').toUpperCase()=='DC'){
+							if(as[0] != undefined){
+								if(as[0].partno>='08'){
+									q_content = "where=^^partno='"+ as[0].partno +"'^^";
+									q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
+								}else {
+									q_gt(q_name, q_content, q_sqlCount, 1, 0, '');
+								}
 							}
-							else {
-								q_gt(q_name, q_content, q_sqlCount, 1, 0, '');
-							}
+						}else{
+							q_gt(q_name, q_content, q_sqlCount, 1, 0, '');
 						}
-					break;
-					case 'partno2':
+						break;
+					case 'inspart':
 						var as = _q_appendData('sss','', true);
-						if(as[0].partno>='08'){
-							$('#txtDatea').focus();
-							$('#txtDatea').val(q_date());
-							$('#txtPartno').val(as[0].partno);
-							$('#txtPartno').attr('disabled', 'disabled');
-							$('#txtPart').val(as[0].part);
-							$('#txtPart').attr('disabled', 'disabled');
-							$('#lblPartno').attr('id','txtlbl');
-
-							refreshBbm();
-							//$('#txtNoa').val('AUTO');
-							$('#textAge').val('');
+						if(as[0] != undefined){
+							if(as[0].partno>='08'){
+								$('#txtPartno').val(as[0].partno);
+								$('#txtPartno').attr('disabled', 'disabled');
+								$('#txtPart').val(as[0].part);
+								$('#txtPart').attr('disabled', 'disabled');
+								$('#lblPartno').attr('id','txtlbl');
+							}
 						}
-						else{
-							$('#txtDatea').focus();
-							$('#txtDatea').val(q_date());
-							refreshBbm();
-							//$('#txtNoa').val('AUTO');
-							$('#textAge').val('');
+						break;
+					case 'modipart':
+						var as = _q_appendData('sss','', true);
+						if(as[0] != undefined){
+							if(as[0].partno>='08'){
+								$('#txtPartno').attr('disabled', 'disabled');
+								$('#txtPart').attr('disabled', 'disabled');
+								$('#lblPartno').attr('id','txtlbl');
+							}
 						}
-					break;
+						break;
                 }
             }
 
@@ -192,8 +198,15 @@
             }
             function btnIns() {
                 _btnIns();
-				var t_where = "where=^^ noa='"+r_userno+"' ^^";
-				q_gt('sss', t_where, 1, 1, 0, 'partno2');
+                $('#txtDatea').focus();
+				$('#txtDatea').val(q_date());
+				refreshBbm();
+				//$('#txtNoa').val('AUTO');
+				$('#textAge').val('');
+				if(r_rank<"8" && q_getPara('sys.project').toUpperCase()=='DC'){
+					var t_where = "where=^^ noa='"+r_userno+"' ^^";
+					q_gt('sss', t_where, 1, 1, 0, 'inspart');
+				}
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))
@@ -203,6 +216,10 @@
                 $('#txtNoa').attr('readonly','readonly');
                 $('#txtNoa').css('background-color','rgb(237, 237, 238)');
                 $('#txtDatea').focus();
+                if(r_rank<"8" && q_getPara('sys.project').toUpperCase()=='DC'){
+	                var t_where = "where=^^ noa='"+r_userno+"' ^^";
+					q_gt('sss', t_where, 1, 1, 0, 'modipart');
+				}
             }
             function btnPrint() {
             	//q_box('z_vcctran.aspx'+ "?;;;;"+r_accy+";noa="+trim($('#txtNoa').val()), '', "90%", "650px", m_print);

@@ -86,6 +86,17 @@
 					+q_sqlPara2("sales", t_sales)
 					+q_sqlPara2("giftno", t_giftno)
 					+q_sqlPara2("gift", t_gift);
+					
+				if(r_rank<"8" && q_getPara('sys.project').toUpperCase()=='DC'){
+	                var x_where = "where=^^ noa='"+r_userno+"' ^^";
+					q_gt('sss', x_where, 0, 0, 0, 'seekpart',r_accy,1);
+					var as = _q_appendData('sss','', true);
+					if(as[0] != undefined){
+						if(as[0].partno>='08'){
+							t_where=t_where+" and partno='"+as[0].partno+"'";
+						}
+					}
+				}
 				
 				if(!emp(t_custno))
 					t_where+=" and noa in (select noa from giftsends where custno='"+t_custno+"') "

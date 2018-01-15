@@ -82,6 +82,17 @@
 					+q_sqlPara2("partno", t_partno)					
 					+q_sqlPara2("tggno", t_tggno)
 					+q_sqlPara2("tgg", t_tgg);
+					
+				if(r_rank<"8" && q_getPara('sys.project').toUpperCase()=='DC'){
+	                var x_where = "where=^^ noa='"+r_userno+"' ^^";
+					q_gt('sss', x_where, 0, 0, 0, 'seekpart',r_accy,1);
+					var as = _q_appendData('sss','', true);
+					if(as[0] != undefined){
+						if(as[0].partno>='08'){
+							t_where=t_where+" and partno='"+as[0].partno+"'";
+						}
+					}
+				}
 
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;

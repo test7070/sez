@@ -40,8 +40,12 @@
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
-                var t_where = "where=^^ noa='"+r_userno+"' ^^";
-				q_gt('sss', t_where, q_sqlCount, 1, 0, 'partno');
+                if(r_rank<"8"){
+	                var t_where = "where=^^ noa='"+r_userno+"' ^^";
+					q_gt('sss', t_where, q_sqlCount, 1, 0, 'getpartno');
+				}else{
+					q_gt(q_name, q_content, q_sqlCount, 1, 0, '');
+				}
             });
 
             function main() {
@@ -58,8 +62,8 @@
                 bbmMask = [['txtDatea', r_picd],['txtSenddate', r_picd]];
                 q_mask(bbmMask);
                 q_gt('giftsendt', '', 0, 0, 0, "", r_accy);
-                //q_gt('store', '', 0, 0, 0, "");
-                 q_gt('acomp', '', 0, 0, 0, "");
+                q_gt('store', '', 0, 0, 0, "");
+                q_gt('acomp', '', 0, 0, 0, "");
 
             }
 
@@ -108,19 +112,6 @@
 		                    	$("#cmbStoreno").val(abbm[q_recno].storeno);
 		                }
 		                break;
-						case 'store2':
-		                var as = _q_appendData("store", "", true);
-		                if (as[0] != undefined) {
-		                    var t_item = " @ ";
-		                    for (i = 0; i < as.length; i++) {
-								if(as[i].store=='車廠')
-									t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
-		                    }
-							q_cmbParse("cmbStoreno", t_item);
-		                    if(abbm[q_recno])
-		                    	$("#cmbStoreno").val(abbm[q_recno].storeno);
-		                }
-		                break;
 		            case 'acomp':
 		            	var as = _q_appendData("acomp", "", true);
                     	var t_item = " @ ";
@@ -138,41 +129,46 @@
                         if (q_cur == 4)
                             q_Seek_gtPost();
                         break;	
-					case 'partno':
+					case 'getpartno':
 						var as = _q_appendData('sss','', true);
-						if(as.length>0){				//有員工資料
-							if(as[0].partno>='08'){		//人員限制
-								var t_where = "where=^^ partno='"+as[0].partno+"' ^^";
-								q_gt(q_name, t_where, 9999, 1, 0, '', r_accy);
+						if(q_getPara('sys.project').toUpperCase()=='DC'){
+							if(as[0] != undefined){
+								if(as[0].partno>='08'){
+									q_content = "where=^^partno='"+ as[0].partno +"'^^";
+									q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
+								}else {
+									q_gt(q_name, q_content, q_sqlCount, 1, 0, '');
+								}
 							}
-							else {
-								q_gt(q_name, q_content, q_sqlCount, 1, 0, '');
-							}
+						}else{
+							q_gt(q_name, q_content, q_sqlCount, 1, 0, '');
 						}
-					break;
-					case 'partno2':
+						break;
+					case 'inspart':
 						var as = _q_appendData('sss','', true);
-						if(as[0].partno>='08'){
-							$('#txtDatea').focus();
-							$('#txtDatea').val(q_date());
-							$('#txtSenddate').val(q_date());
-							$('#txtPartno').val(as[0].partno);
-							$('#txtPartno').attr('disabled', 'disabled');
-							$('#txtPart').val(as[0].part);
-							$('#txtPart').attr('disabled', 'disabled');
-							$('#lblPartno').attr('id','txtlbl');
-							$('#txtNoa').val('AUTO');
-							$('#textAge').val('');
-							q_gt('store', '', 0, 0, 0, 'store2');
+						if(as[0] != undefined){
+							if(as[0].partno>='08'){
+								$('#txtPartno').val(as[0].partno);
+								$('#txtPartno').attr('disabled', 'disabled');
+								$('#txtPart').val(as[0].part);
+								$('#txtPart').attr('disabled', 'disabled');
+								$('#lblPartno').attr('id','txtlbl');
+								$('#cmbStoreno').val('B');
+								$('#cmbStoreno').attr('disabled', 'disabled');
+							}
 						}
-						else{
-							$('#txtDatea').focus();
-							$('#txtDatea').val(q_date());
-							$('#txtSenddate').val(q_date());
-							$('#txtNoa').val('AUTO');
-							q_gt('store', '', 0, 0, 0, '');
+						break;
+					case 'modipart':
+						var as = _q_appendData('sss','', true);
+						if(as[0] != undefined){
+							if(as[0].partno>='08'){
+								$('#txtPartno').attr('disabled', 'disabled');
+								$('#txtPart').attr('disabled', 'disabled');
+								$('#lblPartno').attr('id','txtlbl');
+								$('#cmbStoreno').attr('disabled', 'disabled');
+							}
 						}
-					break;
+						break;
                 }
             }
 
@@ -210,17 +206,30 @@
                     return;
                 q_box('giftreceive_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
             }
+            
             function btnIns() {
                 _btnIns();
-				var t_where = "where=^^ noa='"+r_userno+"' ^^";
-				q_gt('sss', t_where, 1, 1, 0, 'partno2');
+                $('#txtDatea').focus();
+				$('#txtDatea').val(q_date());
+				$('#txtSenddate').val(q_date());
+				$('#txtNoa').val('AUTO');
+				if(r_rank<"8" && q_getPara('sys.project').toUpperCase()=='DC'){
+					var t_where = "where=^^ noa='"+r_userno+"' ^^";
+					q_gt('sss', t_where, 1, 1, 0, 'inspart');
+				}
             }
+            
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();           
                 $('#txtNoa').attr('readonly','readonly');
                 $('#txtItem').focus();
+                
+                if(r_rank<"8" && q_getPara('sys.project').toUpperCase()=='DC'){
+	                var t_where = "where=^^ noa='"+r_userno+"' ^^";
+					q_gt('sss', t_where, 1, 1, 0, 'modipart');
+				}
             }
             function btnPrint() {
             	q_box('z_giftreceive.aspx', '', "90%", "650px", m_print);
