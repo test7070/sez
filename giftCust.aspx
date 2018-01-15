@@ -36,7 +36,8 @@
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
+				var t_where = "where=^^ noa='"+r_userno+"' ^^";
+				q_gt('sss', t_where, q_sqlCount, 1, 0, 'partno');
             });
 
             function main() {
@@ -108,6 +109,41 @@
                         if (q_cur == 4)
                             q_Seek_gtPost();
                         break;
+					case 'partno':
+						var as = _q_appendData('sss','', true);
+						if(as.length>0){				//有員工資料
+							if(as[0].partno>='08'){		//人員限制
+								var t_where = "where=^^ partno='"+ as[0].partno +"' ^^";
+								q_gt(q_name, t_where, 9999, 1, 0, '', r_accy);
+							}
+							else {
+								q_gt(q_name, q_content, q_sqlCount, 1, 0, '');
+							}
+						}
+					break;
+					case 'partno2':
+						var as = _q_appendData('sss','', true);
+						if(as[0].partno>='08'){
+							$('#txtDatea').focus();
+							$('#txtDatea').val(q_date());
+							$('#txtPartno').val(as[0].partno);
+							$('#txtPartno').attr('disabled', 'disabled');
+							$('#txtPart').val(as[0].part);
+							$('#txtPart').attr('disabled', 'disabled');
+							$('#lblPartno').attr('id','txtlbl');
+
+							refreshBbm();
+							//$('#txtNoa').val('AUTO');
+							$('#textAge').val('');
+						}
+						else{
+							$('#txtDatea').focus();
+							$('#txtDatea').val(q_date());
+							refreshBbm();
+							//$('#txtNoa').val('AUTO');
+							$('#textAge').val('');
+						}
+					break;
                 }
             }
 
@@ -156,11 +192,8 @@
             }
             function btnIns() {
                 _btnIns();
-               $('#txtDatea').focus();
-               $('#txtDatea').val(q_date());
-                refreshBbm();
-               //$('#txtNoa').val('AUTO');
-               $('#textAge').val('');
+				var t_where = "where=^^ noa='"+r_userno+"' ^^";
+				q_gt('sss', t_where, 1, 1, 0, 'partno2');
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))

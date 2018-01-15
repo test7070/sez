@@ -30,6 +30,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,nick', 'txtCno,txtAcomp', 'Acomp_b.aspx'],
+			['txtPartno', 'lblPartno', 'part', 'noa,part', 'txtPartno,txtPart', 'Acomp_b.aspx'],
             ['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
             ['txtCustno_', 'btnCustno_', 'giftcust', 'noa,namea,job,comp,custno,nick', 'txtCustno_,txtNamea_,txtJob_,txtComp_,txtCustno2_,txtNick_', 'giftcust_b.aspx'],
             ['txtGiftno_', 'btnGiftno_', 'gift', 'noa,product,price', 'txtGiftno_,txtGift_,txtPrice_', 'gift_b.aspx'],
@@ -39,7 +40,8 @@
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+                var t_where = "where=^^ noa='"+r_userno+"' ^^";
+				q_gt('sss', t_where, q_sqlCount, 1, 0, 'partno');
             });
 
             function main() {
@@ -56,7 +58,7 @@
                 bbmMask = [['txtDatea', r_picd],['txtSenddate', r_picd]];
                 q_mask(bbmMask);
                 q_gt('giftsendt', '', 0, 0, 0, "", r_accy);
-                q_gt('store', '', 0, 0, 0, "");
+                //q_gt('store', '', 0, 0, 0, "");
                  q_gt('acomp', '', 0, 0, 0, "");
 
             }
@@ -101,26 +103,76 @@
 		                    for (i = 0; i < as.length; i++) {
 		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
 		                    }
-		                    q_cmbParse("cmbStoreno", t_item);
+							q_cmbParse("cmbStoreno", t_item);
 		                    if(abbm[q_recno])
 		                    	$("#cmbStoreno").val(abbm[q_recno].storeno);
 		                }
 		                break;
-					case 'acomp':
+						case 'store2':
+		                var as = _q_appendData("store", "", true);
+		                if (as[0] != undefined) {
+		                    var t_item = " @ ";
+		                    for (i = 0; i < as.length; i++) {
+								if(as[i].store=='車廠')
+									t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
+		                    }
+							q_cmbParse("cmbStoreno", t_item);
+		                    if(abbm[q_recno])
+		                    	$("#cmbStoreno").val(abbm[q_recno].storeno);
+		                }
+		                break;
+		            case 'acomp':
 		            	var as = _q_appendData("acomp", "", true);
                     	var t_item = " @ ";
                          for ( i = 0; i < as.length; i++) {
                          	t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
                          }
                          q_cmbParse("cmbCno", t_item);
+                         //q_cmbParse("cmbCno2", t_item);
                          if(abbm[q_recno]){
                          	$("#cmbCno").val(abbm[q_recno].cno);
+                         	//$("#cmbCno2").val(abbm[q_recno].cno2);
                          }
 		            	break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
-                        break;
+                        break;	
+					case 'partno':
+						var as = _q_appendData('sss','', true);
+						if(as.length>0){				//有員工資料
+							if(as[0].partno>='08'){		//人員限制
+								var t_where = "where=^^ partno='"+as[0].partno+"' ^^";
+								q_gt(q_name, t_where, 9999, 1, 0, '', r_accy);
+							}
+							else {
+								q_gt(q_name, q_content, q_sqlCount, 1, 0, '');
+							}
+						}
+					break;
+					case 'partno2':
+						var as = _q_appendData('sss','', true);
+						if(as[0].partno>='08'){
+							$('#txtDatea').focus();
+							$('#txtDatea').val(q_date());
+							$('#txtSenddate').val(q_date());
+							$('#txtPartno').val(as[0].partno);
+							$('#txtPartno').attr('disabled', 'disabled');
+							$('#txtPart').val(as[0].part);
+							$('#txtPart').attr('disabled', 'disabled');
+							$('#lblPartno').attr('id','txtlbl');
+							$('#txtNoa').val('AUTO');
+							$('#textAge').val('');
+							q_gt('store', '', 0, 0, 0, 'store2');
+						}
+						else{
+							$('#txtDatea').focus();
+							$('#txtDatea').val(q_date());
+							$('#txtSenddate').val(q_date());
+							$('#txtNoa').val('AUTO');
+							q_gt('store', '', 0, 0, 0, '');
+						}
+					break;
                 }
             }
 
@@ -160,10 +212,8 @@
             }
             function btnIns() {
                 _btnIns();
-               $('#txtDatea').focus();
-                $('#txtDatea').val(q_date());
-                $('#txtSenddate').val(q_date());
-                $('#txtNoa').val('AUTO');
+				var t_where = "where=^^ noa='"+r_userno+"' ^^";
+				q_gt('sss', t_where, 1, 1, 0, 'partno2');
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))
@@ -473,6 +523,11 @@
 							<!--<input type="text" id="txtCno" class="txt c2"/>-->
 							<input type="hidden" id="txtAcomp" class="txt c3"/>
 						</td>
+						<td class="td1"><span> </span><a id='lblPartno' class="lbl btn">部門</a></td>
+						<td class="td2" colspan="2"><input type="text" id="txtPartno" class="txt c2"/>
+							<input type="text" id="txtPart" class="txt c3"/>
+						</td>	
+
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblSalesno' class="lbl btn"> </a></td>

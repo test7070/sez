@@ -16,11 +16,32 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
 		aPop = new Array(['txtCustno', '', 'cust', 'noa,comp', 'txtCustno', "cust_b.aspx"]);
+		var partno ='';
+		var part ='';
             $(document).ready(function() {
             	q_getId();
             	q_gf('', 'z_giftreceive');
+				var t_where = "where=^^ noa='"+r_userno+"' ^^";
+				q_gt('sss', t_where, q_sqlCount, 1, 0, 'partno');
             });
             function q_gfPost() {
+				q_gt('giftreceive', '', 0, 0, 0, "");
+            }
+
+            function q_boxClose(s2) {
+            }
+			function q_gtPost(t_name) {
+            	 switch (t_name) {
+                    case 'partno':
+						var as = _q_appendData('sss','', true);
+						if(as.length>0){				//有員工資料
+							if(as[0].partno>='08'){		//人員限制
+								partno = as[0].partno
+								part = as[0].part
+							}
+						}
+						break;
+                }
                $('#q_report').q_report({
                         fileName : 'z_giftreceive',
                         options : [{
@@ -32,13 +53,22 @@
                         dbf : 'cust',
                         index : 'noa,comp',
                         src : 'cust_b.aspx'
-                    }]
-                    });
+                    },{
+                        type : '2',
+                        name : 'part',
+                        dbf : 'part',
+                        index : 'noa,part',
+                        src : 'part_b.aspx'
+                    }
+					]});
                 q_popAssign();
+                q_langShow();
+                
                 $('#txtDate1').mask('999/99/99');
 	             $('#txtDate1').datepicker();
 	             $('#txtDate2').mask('999/99/99');
 	             $('#txtDate2').datepicker(); 
+	             
 	             var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
 	                t_date.setDate(1);
@@ -59,12 +89,18 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
-              
-            }
-
-            function q_boxClose(s2) {
-            }
-            function q_gtPost(s2) {
+					if(partno.length>0){
+						$('#txtPart1a').attr('disabled', true);
+						$('#txtPart1b').attr('disabled', true);
+						$('#txtPart2a').attr('disabled', true);
+						$('#txtPart2b').attr('disabled', true);
+						$('#btnPart1').removeAttr('class');
+						$('#btnPart2').removeAttr('class');
+						$('#txtPart1a').val(partno);
+						$('#txtPart1b').val(part);
+						$('#txtPart2a').val(partno);
+						$('#txtPart2b').val(part);
+					}
             }
 		</script>
 	</head>

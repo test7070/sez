@@ -16,12 +16,15 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
 		aPop = new Array();
-		
+			var partno ='';
+			var part ='';
 			t_isinit = false;
 			t_giftsendt = '';
             $(document).ready(function() {
             	q_getId();
             	q_gf('', 'z_giftsend');
+				var t_where = "where=^^ noa='"+r_userno+"' ^^";
+				q_gt('sss', t_where, q_sqlCount, 1, 0, 'partno');
             });
              function q_gfPost() {
 				q_gt('giftsendt', '', 0, 0, 0, "");
@@ -35,6 +38,15 @@
                             t_giftsendt += (t_giftsendt.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].namea;
                         }
                         break;
+                    case 'partno':
+						var as = _q_appendData('sss','', true);
+						if(as.length>0){				//有員工資料
+							if(as[0].partno>='08'){		//人員限制
+								partno = as[0].partno
+								part = as[0].part
+							}
+						}
+						break;
                 }
                      if (!t_isinit && t_giftsendt.length > 0 ) {
                 	t_isinit = true;
@@ -75,7 +87,14 @@
 					}, {/*6*/
 						type : '6',
 						name : 'xnoa'
-					}]
+					},{/*6[14][15]*/
+						type : '2',
+						name : 'part',
+						dbf : 'part',
+						index : 'noa,part',
+                        src : 'part_b.aspx'
+					}
+					]
 				});
                 q_popAssign();
                 q_langShow();
@@ -108,6 +127,18 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
+					if(partno.length>0){
+						$('#txtPart1a').attr('disabled', true);
+						$('#txtPart1b').attr('disabled', true);
+						$('#txtPart2a').attr('disabled', true);
+						$('#txtPart2b').attr('disabled', true);
+						$('#btnPart1').removeAttr('class');
+						$('#btnPart2').removeAttr('class');
+						$('#txtPart1a').val(partno);
+						$('#txtPart1b').val(part);
+						$('#txtPart2a').val(partno);
+						$('#txtPart2b').val(part);
+					}
             }  
             }
 
