@@ -143,8 +143,8 @@
 						if(q_getPara('sys.project').toUpperCase()=='DC'){
 							if(as[0] != undefined){
 								if(as[0].partno>='08'){
-									var t_where = "where=^^ partno='"+ as[0].partno +"' ^^";
-									q_gt(q_name, t_where, q_sqlCount, 1, 0, '', r_accy);
+									q_content = "where=^^partno='"+ as[0].partno +"'^^";
+									q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
 								}else {
 									q_gt(q_name, q_content, q_sqlCount, 1, 0, '');
 								}

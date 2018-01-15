@@ -101,6 +101,7 @@
                     if (r_rank < "8" && q_getPara('sys.project').toUpperCase() == 'DC') {
 	                    var t_where = "where=^^ noa='" + r_userno + "' ^^";
 	                    q_gt('sss', t_where, 0, 0, 0, 'getpartno', r_accy, 1);
+	                    var as = _q_appendData('sss','', true);
 	                    if (as[0] != undefined) {
 	                        if (as[0].partno >= '08') {
 	                            $('#txtXpart1a').attr('disabled', 'disabled');

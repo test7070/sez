@@ -88,8 +88,8 @@
 					+q_sqlPara2("gift", t_gift);
 					
 				if(r_rank<"8" && q_getPara('sys.project').toUpperCase()=='DC'){
-	                var t_where = "where=^^ noa='"+r_userno+"' ^^";
-					q_gt('sss', t_where, 1, 1, 0, 'seekpart',r_accy,1);
+	                var x_where = "where=^^ noa='"+r_userno+"' ^^";
+					q_gt('sss', x_where, 0, 0, 0, 'seekpart',r_accy,1);
 					var as = _q_appendData('sss','', true);
 					if(as[0] != undefined){
 						if(as[0].partno>='08'){
