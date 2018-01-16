@@ -270,8 +270,8 @@
                     case 'trd_tran':
                         var as = _q_appendData("view_trans", "", true);
                         if(q_getPara('sys.project').toUpperCase()=='SH'){
-                            q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtTranno,txtTrannoq,txtCarno,txtStraddr,txtTranmoney,txtCaseno,txtMount,txtPrice,txtTotal,txtCustorde,txtProduct,txtVolume,txtWeight'
-                            , as.length, as, 'trandate,noa,noq,carno,straddr,total,caseno,mount,price,total,custorde,product,volume,weight', '','');
+                            q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtTranno,txtTrannoq,txtCarno,txtStraddr,txtTranmoney,txtCaseno,txtMount,txtPrice,txtTotal,txtCustorde,txtProduct,txtVolume,txtWeight,txtMemo'
+                            , as.length, as, 'trandate,noa,noq,carno,straddr,total,caseno,mount,price,total,custorde,product,volume,weight,memo', '','');
                             for(var j=0;j<as.length;j++){
                                  $('#txtStraddr_'+j).val(as[j].straddr+'-'+as[j].endaddr);
                             }    
@@ -958,6 +958,7 @@
 					<td align="center" style="width:150px;"><a id='lblCaseno_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblTranno_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblTranmoney_s'> </a></td>
+					<td align="center" style="width:150px; display: none;"><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -1005,6 +1006,9 @@
 					<td >
 					<input type="text" id="txtTranmoney.*" style="width:95%;text-align: right;" />
 					</td>
+					<td style="display: none">
+                    <input type="text" id="txtMemo.*" style="width:95%;" />
+                    </td>
 				</tr>
 			</table>
 		</div>

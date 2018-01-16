@@ -170,7 +170,7 @@
             			var as = _q_appendData("tmp0", "", true, true);
                         if (as[0] != undefined) {
                             if(q_getPara('sys.project').toUpperCase()=='SH'){
-                                q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtComp,txtStraddr,txtProduct,txtMount,txtMoney,txtTranno,txtTrannoq,txtCaseno,txtOrdeno,txtVolume,txtWeight'
+                                q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtComp,txtStraddr,txtProduct,txtMount,txtMoney,txtTranno,txtTrannoq,txtCaseno,txtOrdeno,txtVolume,txtWeight,'
                                 , as.length, as, 'trandate,nick,straddr,product,mount,total2,noa,noq,caseno,ordeno,volume,weight', '',''); 
                                 for(var j=0;j<as.length;j++){
                                         $('#txtStraddr_'+j).val(as[j].straddr+'-'+as[j].endaddr);

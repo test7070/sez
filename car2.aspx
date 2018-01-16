@@ -70,7 +70,7 @@
 				, ["txtDiscountdate", "999/99/99"], ["txtSuspdate", "999/99/99"], ["txtOverdate", "999/99/99"]
 				, ["txtEnddate", "999/99/99"], ["txtWastedate", "999/99/99"], ["txtReissuedate", "999/99/99"]
 				, ["txtSigndate", "999/99/99"], ["txtCanceldate", "999/99/99"], ["txtResetdate", "999/99/99"]]
-				
+
                 q_mask(bbmMask);
                 q_cmbParse("cmbSex", q_getPara('sys.sex'));
                 q_cmbParse("cmbChecktype", q_getPara('car2.checktype'));
@@ -78,6 +78,11 @@
                 q_cmbParse("cmbIsprint", q_getPara('car2.isprint'));
                 q_cmbParse("cmbAuto", q_getPara('car2.auto'));
                 q_cmbParse("cmbOiltype","汽油@汽油,柴油@柴油");
+                
+                if(q_getPara('sys.project').toUpperCase()=="SH"){
+                    $("#txtGuildfee").val(FormatNumber($("#txtGuildfee").val()));
+                    $("#txtfees").val(FormatNumber($("#txtfees").val()));
+                }
                 
                 if(q_getPara('sys.project').toUpperCase()!="DC"){
                 	$(".btns").hide();
@@ -1079,6 +1084,18 @@
             	}else{
             		$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
             	}
+            }
+            
+            function FormatNumber(n) {
+                var xx = "";
+                if(n<0){
+                    n = Math.abs(n);
+                    xx = "-";
+                }           
+                n += "";
+                var arr = n.split(".");
+                var re = /(\d{1,3})(?=(\d{3})+$)/g;
+                return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
             }
 		</script>
 		<style type="text/css">
