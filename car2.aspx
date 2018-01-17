@@ -70,7 +70,7 @@
 				, ["txtDiscountdate", "999/99/99"], ["txtSuspdate", "999/99/99"], ["txtOverdate", "999/99/99"]
 				, ["txtEnddate", "999/99/99"], ["txtWastedate", "999/99/99"], ["txtReissuedate", "999/99/99"]
 				, ["txtSigndate", "999/99/99"], ["txtCanceldate", "999/99/99"], ["txtResetdate", "999/99/99"]]
-				
+
                 q_mask(bbmMask);
                 q_cmbParse("cmbSex", q_getPara('sys.sex'));
                 q_cmbParse("cmbChecktype", q_getPara('car2.checktype'));
@@ -78,6 +78,11 @@
                 q_cmbParse("cmbIsprint", q_getPara('car2.isprint'));
                 q_cmbParse("cmbAuto", q_getPara('car2.auto'));
                 q_cmbParse("cmbOiltype","汽油@汽油,柴油@柴油");
+                
+                if(q_getPara('sys.project').toUpperCase()=="SH"){
+                    $("#txtGuildfee").val(FormatNumber($("#txtGuildfee").val()));
+                    $("#txtfees").val(FormatNumber($("#txtfees").val()));
+                }
                 
                 if(q_getPara('sys.project').toUpperCase()!="DC"){
                 	$(".btns").hide();
@@ -158,6 +163,11 @@
 					$(".carexpense").show();
 					if(q_getPara('sys.project').toUpperCase()=="VA"){
                 		$('.carexpense').eq(0).hide();
+                	}else if(q_getPara('sys.project').toUpperCase()=="SH"){
+                	    $('.carexpense').eq(2).hide();
+                	    $('.carexpense').eq(3).show();
+                	}else{
+                	    $('.carexpense').eq(3).hide();
                 	}
 				}, function(e) {
 					$(".carexpense").hide();
@@ -707,7 +717,13 @@
                 refreshBbm();
                  if(q_getPara('sys.project').toUpperCase()=="DC"){
 	                $(".carexpense").show();
+	                $('.carexpense').eq(3).hide();
 				}
+				
+				if(q_getPara('sys.project').toUpperCase()=="SH"){
+                        $('.carexpense').eq(2).hide();
+                        $('.carexpense').eq(3).show();
+                }
                 
                 //暫存資料
                  t_cardeal='';
@@ -909,7 +925,7 @@
                		$('#btnLicence').removeAttr('disabled');
                	}else{
                		$('#btnLicence').attr('disabled','disabled');
-               	}
+               	} 	
             }
 
             function btnMinus(id) {
@@ -1068,6 +1084,18 @@
             	}else{
             		$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
             	}
+            }
+            
+            function FormatNumber(n) {
+                var xx = "";
+                if(n<0){
+                    n = Math.abs(n);
+                    xx = "-";
+                }           
+                n += "";
+                var arr = n.split(".");
+                var re = /(\d{1,3})(?=(\d{3})+$)/g;
+                return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
             }
 		</script>
 		<style type="text/css">
@@ -1474,6 +1502,15 @@
 						<td> </td>
 						<td> </td>
 					</tr>
+					<tr class="carexpense">
+                        <td><span> </span><a id="lblGuildfee" class="lbl">公會費</a></td>
+                        <td><input id="txtGuildfee" type="text"  class="txt c1 num"/>    </td>
+                        <td><span> </span><a id="lblFees" class="lbl">公費</a></td>
+                        <td><input id="txtFees" type="text"  class="txt c1 num"/>   </td>   
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                    </tr>
 					<tr class="carexpense">
 						<td><span> </span><a id="lblVrate" class="lbl"> </a></td>
 						<td><input id="txtVrate" type="text"  class="txt c1 num"/>	</td>

@@ -62,6 +62,9 @@
 				for(var x in tmp){
 					t_string += (t_string.length>0?',':'')+tmp[x];
 				}
+				if(q_getPara('sys.project').toUpperCase()=='SH'){
+				    t_string=t_string+',車貸';
+				}
 				q_cmbParse("cmbTypea", t_string);
 				
                 $('#txtMon').change(function() {
@@ -107,8 +110,16 @@
 					
 					q_gridAddRow(bbsHtm, 'tbbs', 'txtMon,txtMoney', as.length, as, 'mon,money', '', '');
 				});
+				
+				//限制只做一次性匯入
+				$('#btnImport').click(function() {
+                        var t_key = q_getPara('sys.key_carchg');
+                        var t_noa = $('#txtNoa').val();
+                        t_key = (t_key.length==0?'BE':t_key);//一定要有值
+                        q_func('qtxt.query.carborr2carchg', 'carborr.txt,carborr2carchg,' + encodeURI(t_key) + ';'+ encodeURI(t_noa));
+                });
             }
-
+            
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
@@ -199,21 +210,28 @@
             	if($('#txtMon').val().length>0 && $('#txtDriverno').val().length>0 )
                 	q_func('carsal2.import',r_accy+','+$('#txtMon').val()+','+$('#txtDriverno').val()+','+$('#txtDriverno').val());
             }
-            function q_funcPost(t_func, result) {/// 執行 q_exec() 呼叫 server 端 function 後， client 端所要執行的程式
-                if (result.substr(0, 5) == '<Data') {/// 如果傳回  table[]
+            function q_funcPost(t_func, result) {/// 執行 q_exec() 呼叫 server 端 function 後， client 端所要執行的程式 
+                switch(t_func) {
+                    case 'qtxt.query.carborr2carchg':
+                        alert('匯入完成');
+                        break;
+                        
+                    if (result.substr(0, 5) == '<Data') {/// 如果傳回  table[]
                     var as = _q_appendData('carsal2', '', true);
                     if(as.length>0){
-                    	if(t_curMon==$('#txtMon').val() &&  t_curDriverno==$('#txtDriverno').val())
-                    		t_money2=parseFloat(as[0].total)+t_curMoney;
-                    	else
-                    		t_money2=parseFloat(as[0].total);
-                    	q_gt('driver', "where=^^noa='"+$("#txtDriverno").val()+"'", 0, 0, 0, "", r_accy);	
-                    	
-                    }
-                    else
-                    	$('#txtMoney2').val('');              
-                } else
-                    alert(t_func + '\r' + result);
+                        if(t_curMon==$('#txtMon').val() &&  t_curDriverno==$('#txtDriverno').val())
+                            t_money2=parseFloat(as[0].total)+t_curMoney;
+                        else
+                            t_money2=parseFloat(as[0].total);
+                        q_gt('driver', "where=^^noa='"+$("#txtDriverno").val()+"'", 0, 0, 0, "", r_accy);   
+                            
+                        }
+                        else
+                            $('#txtMoney2').val('');              
+                    } else
+                        alert(t_func + '\r' + result);
+                        
+               }
             }
             function q_popPost(id) {
 				switch(id) {
@@ -287,6 +305,10 @@
                     $('#btnAction').removeAttr('disabled');
                 } else {
                     $('#btnAction').attr('disabled', 'disabled');
+                }
+                
+                if(q_getPara('sys.project').toUpperCase()=='SH'){
+                    $('.isSH').show();
                 }
             }
 
@@ -600,6 +622,9 @@
 						<td>
 						<input id="btnAction" type="button"  class="txt c1"/>
 						</td>
+						<td class="isSH" style="display: none;">
+                        <input id="btnImport" type="button"  class="txt c1" value="匯至加減項"/>
+                        </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblTotal" class="lbl"> </a></td>

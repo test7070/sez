@@ -41,7 +41,10 @@
                     dataErr = false;
                     return;
                 }
-                mainBrow(6, t_content, t_sqlname, t_postname);
+                if(q_authRun())
+					mainBrow(6, t_content, t_sqlname, t_postname);
+				else
+					alert('無使用權限');
             }
 
 		    function mainPost() {

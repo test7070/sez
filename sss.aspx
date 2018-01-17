@@ -87,6 +87,10 @@
                 	//預設不開放資料勞健保資料接打在薪資調整記錄
                 	$('#btnLabases').hide();
                 }
+                
+                if(q_getPara('sys.project').toUpperCase()=='NV'){
+                	$('#btnLabases').show();
+                }
                                 
                 $('#txtNoa').change(function(e){
                 	$(this).val($.trim($(this).val()).toUpperCase());    	

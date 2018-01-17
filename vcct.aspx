@@ -61,7 +61,7 @@
                     $(this).val($.trim($(this).val()).toUpperCase());
                     if ($(this).val().length > 0) {
                         if($('#cmbKind').val()=='23' || $('#cmbKind').val()=='24' || $('#cmbKind').val()=='33' || $('#cmbKind').val()=='34'){
-	                		t_where = "where=^^ noa='" + $('#txtNoa').val() + "' and kind in('23','24','33','34') ^^";
+	                		t_where = "where=^^ noa='" + $('#txtNoa').val() + "' and kind in('23','24','33','34') and mon='"+$('#txtMon').val()+"' ^^";
 	                	}else{
 	                		t_where = "where=^^ noa='" + $('#txtNoa').val() + "' and kind not in ('23','24','33','34') ^^";
 	                	}
@@ -215,7 +215,11 @@
                     case 'checkVcctno_change':
                         var as = _q_appendData("vcct", "", true);
                         if (as[0] != undefined) {
-                            alert('已存在 ' + as[0].noa);
+                        	if($('#cmbKind').val()=='23' || $('#cmbKind').val()=='24' || $('#cmbKind').val()=='33' || $('#cmbKind').val()=='34'){
+                        		alert('當月份已登陸【 ' + as[0].noa+'】折讓發票號碼，請確認是否正確!!(若無誤可不理會此訊息)');
+                        	}else{                        	
+                            	alert('已存在發票號碼【 ' + as[0].noa+'】');
+                            }
                         }
                         break;
                     case 'checkVcctno_btnOk':
@@ -307,9 +311,9 @@
 				});
 				
 				if(q_cur==1){
-					if(emp($('#txtNoa').val()) && ($('#cmbKind').val()=='22' || $('#cmbKind').val()=='23' ||$('#cmbKind').val()=='24'
-						|| $('#cmbKind').val()=='25' || $('#cmbKind').val()=='27' || $('#cmbKind').val()=='28' || $('#cmbKind').val()=='29' 
-						|| $('#cmbKind').val()=='36' || $('#cmbKind').val()=='34' || $('#cmbKind').val()=='37' || $('#cmbKind').val()=='38'   )){
+					if(emp($('#txtNoa').val()) && (($('#cmbKind').val()=='22' || $('#cmbKind').val()=='23' ||$('#cmbKind').val()=='24'
+						|| $('#cmbKind').val()=='25' || $('#cmbKind').val()=='27' || $('#cmbKind').val()=='34' || $('#cmbKind').val()=='37' || $('#cmbKind').val()=='38')
+						&& $('#chkIscarrier').prop('checked') || $('#cmbKind').val()=='28' || $('#cmbKind').val()=='29' || $('#cmbKind').val()=='36')){
 						if($('#txtDutymemo').val().length>0){
 							$('#txtNoa').val($('#txtDutymemo').val());
 						}
@@ -338,6 +342,7 @@
                 if ($('#txtNoa').val().length > 0 && !(/^[a-z,A-Z]{2}[0-9]{8}$/g).test($('#txtNoa').val())
                 && !(($('#cmbKind').val()=='22' && $('#chkIsadd').prop('checked')) 
 				|| $('#cmbKind').val()=='28' || $('#cmbKind').val()=='29' || $('#cmbKind').val()=='36')
+				&& !$('#chkIscarrier').prop('checked')
                 ) {
 					alert(q_getMsg('lblNoa') + '錯誤。');
 					Unlock(1);
@@ -361,7 +366,7 @@
                 
                 if (q_cur == 1) {
                 	if($('#cmbKind').val()=='23' || $('#cmbKind').val()=='24' || $('#cmbKind').val()=='33' || $('#cmbKind').val()=='34'){
-                		t_where = "where=^^ noa='" + $('#txtNoa').val() + "' and kind in('23','24','33','34') ^^";
+                		t_where = "where=^^ noa='" + $('#txtNoa').val() + "' ^^";
                 	}else{
                 		t_where = "where=^^ noa='" + $('#txtNoa').val() + "' and kind not in ('23','24','33','34') ^^";
                 	}

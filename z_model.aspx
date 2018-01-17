@@ -31,8 +31,8 @@
 						type : '0',
 						name : 'accy',
 						value : r_accy
-					}, {
-						type : '2',
+					},{
+						type : '2',//[2][3]
 						name : 'xmodelno',
 						dbf : 'model',
 						index : 'noa,model',
@@ -43,6 +43,15 @@
 						value : "1@過期未保養,2@即將保養,3@已保養".split(',')
 					}, {
 						type : '2',//[5][6]
+						name : 'xmodgno',
+						dbf : 'modg',
+						index : 'noa,namea',
+						src : 'modg_b.aspx'
+					},{
+                        type : '1', //[7][8]
+                        name : 'xdate'
+                    },{
+						type : '2',//[9][10]工作站區間
 						name : 'xstation',
 						dbf : 'station',
 						index : 'noa,station',
@@ -50,7 +59,7 @@
 					}]
 				});
 				q_popAssign();
-			
+				
 				$('#chkXshowenda input').click(function(){ 
 					var tcheck=$(this).val(); 
 					$('#chkXshowenda input').each(function() {
@@ -60,12 +69,8 @@
 					})   
 				})
 			}
-			
-			
-
 			function q_boxClose(s2) {
 			}
-
 			function q_gtPost(s2) {
 			}
 		</script>

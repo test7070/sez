@@ -464,6 +464,24 @@
 						q_func('qtxt.query.cub_apv', 'cub.txt,cub_apv,' + encodeURI(r_accy)+';'+encodeURI(t_noa)+';'+encodeURI(r_userno)+';'+encodeURI(r_name)+';'+encodeURI('approve')+';'+encodeURI(t_hostname)+';'+encodeURI(t_proj)+';'+encodeURI('1'),r_accy,1);
 					}*/
 					
+					if($('#cmbIpfrom').val().toUpperCase()==z_cno.toUpperCase() && !emp(z_cno) && r_rank==9 && q_cur==2){
+						q_func('qtxt.query.cub_apv', 'cub.txt,cub_apv,' + encodeURI(r_accy)+';'+encodeURI(t_noa)+';'+encodeURI(r_userno)+';'+encodeURI(r_name)+';'+encodeURI('deleter')+';'+encodeURI(t_hostname)+';'+encodeURI(t_proj)+';'+encodeURI('0'),r_accy,1);
+		                var as = _q_appendData("tmp0", "", true, true);
+		                if (as[0] != undefined) {
+		                	$('#txtChecker').val(as[0].checker);
+		                	$('#txtCheckerdate').val(as[0].checkerdate);
+		                	$('#txtReviewdate').val(as[0].reviewdate);
+		                	$('#txtApprove').val(as[0].approve);
+				            $('#txtApprovedate').val(as[0].approvedate);
+				            $('#txtIssuedate').val(as[0].issuedate);
+		                	abbm[q_recno]['checker'] = as[0].checker;
+                           	abbm[q_recno]['checkerdate'] = as[0].checkerdate;
+                           	abbm[q_recno]['reviewdate'] = as[0].reviewdate;
+                           	abbm[q_recno]['approve'] = as[0].approve;
+		                    abbm[q_recno]['approvedate'] = as[0].approvedate;
+		                    abbm[q_recno]['issuedate'] = as[0].issuedate;
+		                }
+					}
                 }
 			}
 
@@ -608,17 +626,19 @@
 			function btnModi() {
 				if (emp($('#txtNoa').val()))
 					return;
-					
-				if(q_getPara('sys.project').toUpperCase()=="AD" || q_getPara('sys.project').toUpperCase()=="JO"){
-					if($('#cmbIpfrom').val().toUpperCase()==z_cno.toUpperCase() && !emp($('#txtReviewdate').val())){
-						alert('已覆核禁止修改!!');
+				
+				if(r_rank<9){ //106/12/28 權限9忽略
+					if(q_getPara('sys.project').toUpperCase()=="AD" || q_getPara('sys.project').toUpperCase()=="JO"){
+						if($('#cmbIpfrom').val().toUpperCase()==z_cno.toUpperCase() && !emp($('#txtReviewdate').val())){
+							alert('已覆核禁止修改!!');
+							return;
+						}
+					}
+						
+					if(!emp($('#txtIssuedate').val())){
+						alert('開發經理已發行禁止修改!!');
 						return;
 					}
-				}
-					
-				if(!emp($('#txtIssuedate').val())){
-					alert('開發經理已發行禁止修改!!');
-					return;
 				}
 				_btnModi();
 				refreshBbm();
@@ -1076,7 +1096,9 @@
 							oReq.setRequestHeader("FileName", escape(fr.fileName));
 							oReq.send(fr.result);
 							
-							if(fr.result.length>0 && ttxtName=='txtUcolor__0'){//106/12/13 該為銷售單位的圖 原完成圖
+							//106/12/13 該為銷售單位的圖 原完成圖
+							//106/12/27 只抓圖片檔
+							if(fr.result.length>0 && ttxtName.substr(0,11)=='txtUcolor__' && file.type.substr(0,5)=='image'){
 								$('#txtMemo2__0').val(fr.result);
 								$('#bbtimg').attr('src',$('#txtMemo2__0').val());
 								t_zoomimg=true;
@@ -1182,8 +1204,8 @@
 						$('#bbtimg').css('height','')
 						var imgwidth = $('#bbtimg').width();
 			            var imgheight = $('#bbtimg').height();
-			            var t_widh=360;//106/12/19 圖片移到最右邊 故圖片寬度固定 $('#dview').width();
-			            var x_height=600;//106/12/19 圖片移到最右邊 故圖片高度固定 $('.dbbs').offset().top-$('#dview').height()-35;
+			            var t_widh=240;//106/12/19 圖片移到最右邊 故圖片寬度固定 $('#dview').width();
+			            var x_height=500;//106/12/19 圖片移到最右邊 故圖片高度固定 $('.dbbs').offset().top-$('#dview').height()-35;
 			            var t_height=imgheight*(dec(t_widh)/dec(imgwidth));
 			            if(t_height>x_height){
 			            	t_height=x_height;

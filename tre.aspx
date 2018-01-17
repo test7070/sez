@@ -23,7 +23,7 @@
             var q_name = "tre";
             var q_readonly = ['txtAccno','txtNoa', 'txtMoney', 'txtTotal','txtTolls','txtWorker2','txtWorker','txtRc2ano','txtPaydate','txtPlusmoney','txtMinusmoney','txtAccno','txtAccno2','txtYear2','txtYear1'];
             var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
-            var bbmNum = [['txtUnopay', 10, 0],['txtMoney', 10, 0],['txtTolls', 10, 0],['txtTotal', 10, 0],['txtPlusmoney', 10, 0],['txtMinusmoney', 10, 0]];
+            var bbmNum = [['txtUnopay', 10, 0],['txtMoney', 10, 0],['txtTolls', 10, 0],['txtTotal', 10, 0],['txtPlusmoney', 10, 0],['txtMinusmoney', 10, 0],['txtTax', 10, 0],['txtTaxrate', 10, 0],['txtWeight', 10, 0]];
             var bbsNum = [['txtMount', 10, 3],['txtPrice', 10, 3],['txtDiscount', 10, 3],['txtMoney', 10, 0],['txtTolls', 10, 0]];
             var bbmMask = [];
             var bbsMask = [];
@@ -69,7 +69,7 @@
             function mainPost() {
             	q_modiDay= q_getPara('sys.modiday2');  /// 若未指定， d4=  q_getPara('sys.modiday'); 
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd],['txtDate2', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtPaydate', r_picd], ['txtMon', r_picm]];
+                bbmMask = [['txtDatea', r_picd],['txtDate2', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtPaydate', r_picd], ['txtMon', r_picm],['textMon', r_picm]];
                 q_mask(bbmMask);
 				
 				q_gt('carteam', '', 0, 0, 0, "");
@@ -140,7 +140,28 @@
 					t_where = "  carno='" + $('#txtCarno').val() + "' and driverno='"+ $('#txtDriverno').val() +"' and  (treno='" + $('#txtNoa').val() + "' or len(isnull(treno,''))=0) ";
 					q_box("carchg_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;" + t_carchgno + ";", 'carchg', "95%", "650px", q_getMsg('popCarchg'));
 
-				});              
+				});
+				$('#btnImport').click(function() {
+                    $('#divImport').toggle();
+                    $('#textBdate').focus();
+                });
+                $('#btnCancel_import').click(function() {
+                    $('#divImport').toggle();
+                });
+                
+                $('#btnImport_trans').click(function() {
+                   if(q_cur != 1 && q_cur != 2){
+                        var t_key = q_getPara('sys.key_tre');
+                        var t_mon = $('#textMon').val();
+                        t_key = (t_key.length==0?'FC':t_key);//一定要有值
+                        if(t_mon.length==0){
+                            alert('請輸入月份'+q_getMsg('lblMon_sh')+'!!');
+                            return;
+                        }else{
+                            q_func('qtxt.query.trantre_sh', 'tre.txt,tranwj2tre,'+ encodeURI(r_accy)+ ';' + encodeURI(t_key) + ';'+ encodeURI(t_mon)); 
+                        }    
+                   }
+                });            
             }
             
             function q_funcPost(t_func, result) {
@@ -149,9 +170,9 @@
             			var as = _q_appendData("tmp0", "", true, true);
                         if (as[0] != undefined) {
                             if(q_getPara('sys.project').toUpperCase()=='SH'){
-                                q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtComp,txtStraddr,txtProduct,txtMount,txtMoney,txtTranno,txtTrannoq,txtCaseno,txtOrdeno'
-                                , as.length, as, 'trandate,nick,straddr,product,mount,total2,noa,noq,caseno,ordeno', '',''); 
-                                for(var j=0;j<as[j].mount;j++){
+                                q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtComp,txtStraddr,txtProduct,txtMount,txtMoney,txtTranno,txtTrannoq,txtCaseno,txtOrdeno,txtVolume,txtWeight,'
+                                , as.length, as, 'trandate,nick,straddr,product,mount,total2,noa,noq,caseno,ordeno,volume,weight', '',''); 
+                                for(var j=0;j<as.length;j++){
                                         $('#txtStraddr_'+j).val(as[j].straddr+'-'+as[j].endaddr);
                                 }
                             }else{
@@ -170,6 +191,10 @@
 						}
 						else
 							location.reload();
+                        break;
+                    case 'qtxt.query.trantre_sh':
+                        var as = _q_appendData("tmp0", "", true, true);
+                        alert(as[0].msg);
                         break;
                 }
 
@@ -317,7 +342,12 @@
             }
 
             function btnPrint() {
-            	q_box('z_tre.aspx'+ "?;;;;"+r_accy+";", '', "95%", "95%", q_getMsg("popPrint"));
+                if(q_getPara('sys.project').toUpperCase()=='SH'){
+                    q_box('z_tre_sh.aspx'+ "?;;;;"+r_accy+";", '', "95%", "95%", q_getMsg("popPrint"));
+                }else{
+                    q_box('z_tre.aspx'+ "?;;;;"+r_accy+";", '', "95%", "95%", q_getMsg("popPrint"));
+                }
+            	
             }
 
             function wrServer(key_value) {
@@ -347,8 +377,18 @@
                 }
                 t_plusmoney = q_float('txtPlusmoney');
 				t_minusmoney = q_float('txtMinusmoney');   
-				t_unopay =  q_float('txtUnopay');       
-                t_total = t_money + t_tolls + t_plusmoney - t_minusmoney - t_unopay;
+				t_unopay =  q_float('txtUnopay');
+				if (q_getPara('sys.project').toUpperCase()=='SH'){
+				   var t_tax = 0, t_taxrate = 0,t_volume = 0;
+				   t_tax = round(q_mul(t_money,0.05),0);
+                   t_taxrate = round(q_mul(t_money,0.07),0);
+                   t_volume =  q_float('txtVolume');
+				   t_total = t_money + t_tolls + t_plusmoney - t_minusmoney - t_unopay - t_tax - t_taxrate - t_volume;
+				   $('#txtTax').val(t_tax);
+                   $('#txtTaxrate').val(t_taxrate);
+				}else{
+				   t_total = t_money + t_tolls + t_plusmoney - t_minusmoney - t_unopay; 
+				}
                 $('#txtTolls').val(t_tolls);
                 $('#txtMoney').val(t_money);
                 $('#txtTotal').val(t_total);
@@ -372,6 +412,12 @@
                 	//$('#btnTrans').show();
                 	$('#btnCarchg').attr('disabled', 'disabled');
                 }
+                
+                if (q_getPara('sys.project').toUpperCase()=='SH'){
+                    $('.isSH').show();
+                    $('.isNSH').hide();
+                }
+                
                 $('#txtDate2').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
             	$('#txtBdate').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
             	$('#txtEdate').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
@@ -592,6 +638,30 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
+	<div id="divImport" style="position:absolute; top:250px; left:600px; display:none; width:400px; height:200px; background-color: #cad3ff; border: 5px solid gray;">
+            <table style="width:100%;">
+                <tr style="height:1px;">
+                    <td style="width:150px;"></td>
+                    <td style="width:80px;"></td>
+                    <td style="width:80px;"></td>
+                    <td style="width:80px;"></td>
+                    <td style="width:80px;"></td>
+                </tr>
+                <tr style="height:35px;">
+                    <td><span> </span><a id="lblMon_sh" style="float:right; color: blue; font-size: medium;">月份</a></td>
+                    <td colspan="4">
+                    <input id="textMon"  type="text" style="float:left; width:100px; font-size: medium;"/>
+                    </td>
+                </tr>             
+                <tr style="height:35px;">
+                    <td> </td>
+                    <td><input id="btnImport_trans" type="button" value="匯入"/></td>
+                    <td></td>
+                    <td></td>
+                    <td><input id="btnCancel_import" type="button" value="關閉"/></td>
+                </tr>
+            </table>
+        </div>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
 			<div class="dview" id="dview">
@@ -678,6 +748,8 @@
 						<input id="txtDriverno" type="text"  class="txt c2"/>
 						<input id="txtDriver" type="text"  class="txt c3"/>
 						</td>
+						<td></td>
+						<td class="isSH" style="display: none"><input id="btnImport" type="button" value="月結匯入" style="width:100%;"/></td>
 					</tr>	
 					<tr>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
@@ -709,6 +781,14 @@
 						<td><span> </span><a id="lblTolls" class="lbl"> </a></td>
 						<td><input id="txtTolls" type="text" class="txt c1 num"/></td>
 					</tr>
+					<tr class="isSH" style="display: none">
+                        <td><span> </span><a id="lblTax_sh" class="lbl">營業稅</a></td>
+                        <td><input id="txtTax" type="text"  class="txt c1 num"/></td>
+                        <td><span> </span><a id="lblTaxrate_sh" class="lbl">佣金</a></td>
+                        <td><input id="txtTaxrate" type="text" class="txt c1 num" /></td>
+                        <td><span> </span><a id="lblWeight_sh" class="lbl">現金利息</a></td>
+                        <td><input id="txtWeight" type="text" class="txt c1 num" /></td>
+                    </tr>
 					<tr>
 						<td><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
 						<td colspan="3">
@@ -759,22 +839,24 @@
 					<td align="center" style="width:200px;"><a id='lblStraddr_s'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMount_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblPrice_s'> </a></td>
+					<td align="center" style="width:100px;" class="isNSH"><a id='lblPrice_s'> </a></td>
+					<td align="center" style="width:100px; display: none;" class="isSH"><a id='lblVolume_s'>材積</a></td>
+					<td align="center" style="width:100px; display: none;" class="isSH"><a id='lblWeight_s'>重量</a></td>
 					<td align="center" style="width:100px;"><a id='lblDiscount_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMoney_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblTolls_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMemo_s'> </a></td>
 					<td align="center" style="width:170px;"><a id='lblTranno_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblRs_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblPaymemo_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblFill_s'> </a></td>
+					<td align="center" style="width:100px;" class="isNSH"><a id='lblRs_s'> </a></td>
+					<td align="center" style="width:100px;" class="isNSH"><a id='lblPaymemo_s'> </a></td>
+					<td align="center" style="width:100px;" class="isNSH"><a id='lblFill_s'> </a></td>
 					<td align="center" style="width:100px"><a id='lblCasetype_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblCaseno_s'> </a></td>
-					<td align="center" style="width:150px;"><a id='lblCaseno2_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblBoat_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblBoatname_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblShip_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblOverweightcost_s'> </a></td>
+					<td align="center" style="width:150px;" class="isNSH"><a id='lblCaseno2_s'> </a></td>
+					<td align="center" style="width:100px;" class="isNSH"><a id='lblBoat_s'> </a></td>
+					<td align="center" style="width:100px;" class="isNSH"><a id='lblBoatname_s'> </a></td>
+					<td align="center" style="width:100px;" class="isNSH"><a id='lblShip_s'> </a></td>
+					<td align="center" style="width:100px;" class="isNSH"><a id='lblOverweightcost_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblOthercost_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblOrdeno_s'> </a></td>
 				</tr>
@@ -795,9 +877,15 @@
 					<td >
 					<input type="text" id="txtMount.*" style="width:95%;text-align: right;" />
 					</td>
-					<td >
+					<td class="isNSH">
 					<input type="text" id="txtPrice.*" style="width:95%;text-align: right;" />
 					</td>
+					<td class="isSH" style="display: none;">
+                    <input type="text" id="txtVolume.*" style="width:95%;text-align: right;" />
+                    </td>
+                    <td class="isSH" style="display: none;">
+                    <input type="text" id="txtWeight.*" style="width:95%;text-align: right;" />
+                    </td>
 					<td >
 					<input type="text" id="txtDiscount.*" style="width:95%;text-align: right;" />
 					</td>
@@ -814,13 +902,13 @@
 						<input type="text" id="txtTranno.*" style="float:left; width: 90%;"/>
 						<input type="text" id="txtTrannoq.*" style="float:left;visibility: hidden; width:1%"/>
 					</td>
-					<td >
+					<td class="isNSH">
 					<input type="text" id="txtRs.*" style="width:95%;" />
 					</td>
-					<td >
+					<td class="isNSH">
 					<input type="text" id="txtPaymemo.*" style="width:95%;" />
 					</td>
-					<td >
+					<td class="isNSH">
 					<input type="text" id="txtFill.*" style="width:95%;" />
 					</td>
 					<td >
@@ -829,19 +917,19 @@
 					<td >
 					<input type="text" id="txtCaseno.*" style="width:95%;" />
 					</td>
-					<td >
+					<td class="isNSH">
 					<input type="text" id="txtCaseno2.*" style="width:95%;" />
 					</td>
-					<td >
+					<td class="isNSH">
 					<input type="text" id="txtBoat.*" style="width:95%;" />
 					</td>
-					<td >
+					<td class="isNSH">
 					<input type="text" id="txtBoatname.*" style="width:95%;"/>
 					</td>
-					<td >
+					<td class="isNSH">
 					<input type="text" id="txtShip.*" style="width:95%;" />
 					</td>
-					<td >
+					<td class="isNSH">
 					<input type="text" id="txtOverweightcost.*" style="width:95%;text-align: right;"/>
 					</td>
 					<td >

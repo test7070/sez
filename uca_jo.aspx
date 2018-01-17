@@ -48,8 +48,10 @@
 			brwCount2 = 7;
 			aPop = new Array(
 				['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
+				['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'],
 				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,spec,unit', 'txtProductno_,txtProduct_,txtSpec_,txtUnit_', 'ucaucc_b.aspx'],
-				['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
+				//['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
+				['txtStationno', 'lblStation', 'station', 'noa,station,tggno,tgg', 'txtStationno,txtStation,txtStationtggno,txtStationtgg', 'station_b.aspx'],
 				['txtStationno__', 'btnStation__', 'station__', 'noa,station', 'txtStationno__,txtStation__', 'station_b.aspx'],
 				['txtStationgno', 'lblStationg', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx'],
 				//106/03/13['txtModelno', 'lblModel', 'model', 'noa,model', 'txtModelno,txtModel', 'model_b.aspx'],
@@ -1612,6 +1614,11 @@
 						<td><select id="cmbGroupano" class="txt c1" style="font-size: medium;"> </select></td>
 						<td><span> </span><a id="lblGroupbno" class="lbl"> </a></td>
 						<td><select id="cmbGroupbno" class="txt c1" style="font-size: medium;"> </select></td>
+						<td><span> </span><a id="lblCust" class="lbl btn"> </a></td>
+						<td>
+							<input id="txtCustno" type="text" class="txt" style="width: 45%;"/>
+							<input id="txtCust" type="text" class="txt" style="width: 53%;"/>
+						</td>
 					</tr>
 					<!--106/07/21 先隱藏 開放產品名稱和英文-->
 					<!--106/11/13 恢復顯示-->
@@ -1688,6 +1695,13 @@
 							<input id="txtStationno" type="text" class="txt" style="width: 45%;"/>
 							<input id="txtStation" type="text" class="txt" style="width: 53%;"/>
 						</td>
+						<td><span> </span><a id="lblStationtgg" class="lbl"> </a></td>
+						<td>
+							<input id="txtStationtggno" type="text" class="txt" style="width: 45%;"/>
+							<input id="txtStationtgg" type="text" class="txt" style="width: 53%;"/>
+						</td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblStationg" class="lbl btn"> </a></td>
 						<td>
 							<input id="txtStationgno" type="text" class="txt" style="width: 45%;"/>

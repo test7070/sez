@@ -45,6 +45,7 @@
 				['txtStoreno', 'lblStoreno', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
 				['txtStoreinno', 'lblStoreinno', 'store', 'noa,store', 'txtStoreinno,txtStorein', 'store_b.aspx'],
 				['txtStationgno', 'lblStationgno', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx'],
+				['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
 				['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']
 			);
 			function main() {
@@ -557,6 +558,15 @@
 						<td class="td1"><span> </span><a id='lblMaxgen' class="lbl"> </a></td>
 						<td class="td2"><input id="txtMaxgen" type="text" class="txt c1 num"/></td>
 						<td class="td3"><a id='lblMaxgenunit' class="lbl" style="float: left;"> </a></td>
+						<td class="td4"> </td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblTggno' class="lbl btn"> </a></td>
+						<td class="td2" colspan="2">
+							<input id="txtTggno" type="text" class="txt c2"/>
+							<input id="txtTgg" type="text" class="txt c3"/>
+						</td>
+						<td class="td3"> </td>
 						<td class="td4"> </td>
 					</tr>
 					<tr style="display: none;"> <!--106/07/26 隱藏-->

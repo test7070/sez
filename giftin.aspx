@@ -15,8 +15,9 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
 
-            q_desc = 1
+            //q_desc = 1
             q_tables = 's';
+			var part='';
             var q_name = "giftin";
             var q_readonly = ['txtNoa', 'txtWorker','txtMoney','txtTax','txtTotal'];
             var q_readonlys = ['txtTotal'];
@@ -38,7 +39,12 @@
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1)
+                if(r_rank<"8"){
+	                var t_where = "where=^^ noa='"+r_userno+"' ^^";
+					q_gt('sss', t_where, q_sqlCount, 1, 0, 'getpartno');
+				}else{
+					q_gt(q_name, q_content, q_sqlCount, 1, 0, '');
+				}
             });
             function main() {
                 if (dataErr) {
@@ -61,7 +67,7 @@
                 $('#txtInvono').change(function() {
                 	$(this).val($.trim($(this).val().toUpperCase()));
                 	if ($(this).val().length > 0 && !(/^[A-Z]{2}[0-9]{8}$/g).test($(this).val()))
-                    	alert(q_getMsg('lblInvono')+'��~�C');
+                    	alert(q_getMsg('lblInvono')+'錯誤!!');
                 });
                 $('#cmbTaxtype').focus(function() {
 					var len = $(this).children().length > 0 ? $(this).children().length : 1;
@@ -132,6 +138,41 @@
 		                    	$("#cmbStoreno").val(abbm[q_recno].storeno);
 		                }
 		                break;
+					case 'getpartno':
+						var as = _q_appendData('sss','', true);
+						if(q_getPara('sys.project').toUpperCase()=='DC'){
+							if(as[0] != undefined){
+								if(as[0].partno>='08'){
+									q_content = "where=^^partno='"+ as[0].partno +"'^^";
+									q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
+								}else {
+									q_gt(q_name, q_content, q_sqlCount, 1, 0, '');
+								}
+							}
+						}else{
+							q_gt(q_name, q_content, q_sqlCount, 1, 0, '');
+						}
+						break;
+					case 'inspart':
+						var as = _q_appendData('sss','', true);
+						if(as[0] != undefined){
+							if(as[0].partno>='08'){
+								$('#cmbPartno').val(as[0].partno);
+								$('#cmbPartno').attr('disabled', 'disabled');
+								$('#cmbStoreno').val('B');
+								$('#cmbStoreno').attr('disabled', 'disabled');
+							}
+						}
+						break;
+					case 'modipart':
+						var as = _q_appendData('sss','', true);
+						if(as[0] != undefined){
+							if(as[0].partno>='08'){
+								$('#cmbPartno').attr('disabled', 'disabled');
+								$('#cmbStoreno').attr('disabled', 'disabled');
+							}
+						}
+						break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -197,8 +238,13 @@
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtIndate').val(q_date());
-                $('#txtMon').val(q_date().substr(0, 6));
+                $('#txtMon').val(q_date().substr(0, r_lenm));
                 $('#txtDatea').focus();
+                
+                if(r_rank<"8" && q_getPara('sys.project').toUpperCase()=='DC'){
+					var t_where = "where=^^ noa='"+r_userno+"' ^^";
+					q_gt('sss', t_where, 1, 1, 0, 'inspart');
+				}
             }
 
             function btnModi() {
@@ -207,6 +253,11 @@
                 _btnModi();
                 $('#txtDatea').focus();
                 sum();
+                
+                if(r_rank<"8" && q_getPara('sys.project').toUpperCase()=='DC'){
+	                var t_where = "where=^^ noa='"+r_userno+"' ^^";
+					q_gt('sss', t_where, 1, 1, 0, 'modipart');
+				}
             }
 
             function btnPrint() {
@@ -291,6 +342,14 @@
             function refresh(recno) {
                 _refresh(recno);
 
+            }
+			
+			function refreshBbm(){
+            	if(q_cur==1){
+            		$('#txtNoa').css('color','black').css('background','white').removeAttr('readonly');
+            	}else{
+            		$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+            	}
             }
 
             function readonly(t_para, empty) {

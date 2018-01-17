@@ -24,7 +24,7 @@
             var q_readonly = [];
             var q_readonlys = ['txtWeek','txtWorker'];
             var bbmNum = [];
-            var bbsNum = [['txtGen', 10, 2, 1]];
+            var bbsNum = [['txtGen', 10, 2, 1],['txtWages', 10, 2, 1]];
             var bbmMask = [];
             var bbsMask = [['txtDatea', r_picd]];
 
@@ -118,6 +118,13 @@
 				    });
 				    
 				    $('#txtGen_' + i).change(function () {
+						t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						$('#txtWorker_'+b_seq).val(r_name);
+				    });
+				    
+				    $('#txtWages_' + i).change(function () {
 						t_IdSeq = -1;
 						q_bodyId($(this).attr('id'));
 						b_seq = t_IdSeq;
@@ -264,8 +271,9 @@
 					</td>
 					<td class="td2" align="center" style="width:19%;"><a id='lblDatea'> </a></td>
 					<td class="td3" align="center" style="width:8%;"><a id='lblWeek'> </a></td>
-					<td class="td4" align="center" style="width:20%;"><a id='lblGen'> </a></td>
-					<td class="td5" align="center" style="width:32%;"><a id='lblMemo'> </a></td>
+					<td class="td4" align="center" style="width:15%;"><a id='lblGen'> </a></td>
+					<td class="td4" align="center" style="width:15%;"><a id='lblWages'> </a></td>
+					<td class="td5" align="center" style="width:20%;"><a id='lblMemo'> </a></td>
 					<td class="td6" align="center" style="width:20%;"><a id='lblWorker'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
@@ -278,6 +286,7 @@
 					<td class="td2"><input id="txtDatea.*" type="text" class="txt c1" style="width:95%;"/></td>
 					<td class="td3"><input id="txtWeek.*" type="text" class="txt c1" style="width:95%;text-align: center;"/></td>
 					<td class="td4"><input id="txtGen.*" type="text" class="txt c1" style="width:95%;text-align: right;"/></td>
+					<td class="td4"><input id="txtWages.*" type="text" class="txt c1" style="width:95%;text-align: right;"/></td>
 					<td class="td5"><input id="txtMemo.*" type="text" class="txt c1" style="width:95%;"/></td>
 					<td class="td6"><input id="txtWorker.*" type="text" class="txt c1" style="width:95%;"/></td>
 				</tr>

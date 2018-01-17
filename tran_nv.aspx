@@ -63,7 +63,7 @@
              		t_weight = q_sub(q_float('txtGross_'+i),q_float('txtWeight3_'+i));
              		t_pton = q_sub(q_float('txtWeight2_'+i),t_weight);
              		t_mount = q_sub(q_float('txtOutmount_'+i),q_float('txtInmount_'+i));
-             		t_total = q_mul(q_float('txtCustprice_'+i),t_weight);
+             		t_total = q_mul(q_add(q_float('txtCustprice_'+i),q_float('txtPrice3_'+i)),t_weight);
              		t_total2 = q_mul(q_float('txtPrice_'+i),t_weight);
              		t_discount = q_mul(q_float('txtPrice2_'+i),q_float('txtGross_'+i));
              		t_tmount = q_add(t_tmount,q_sub(q_float('txtOutmount_'+i),q_float('txtInmount_'+i)));
@@ -94,6 +94,7 @@
             	q_cmbParse("cmbTtype",'N@無,Y@有','s');
             	q_cmbParse("cmbStatus",'未稅@未稅,含稅@含稅','s');
             	q_cmbParse("combCaseno2",'50T@50T,100T@100T,150T@150T,200T@200T,300T@300T','s');
+            	q_cmbParse("cmbCalctype",'1@公司車*0.9*0.2,2@外車*0.8,3@外車*0.85,4@外車*100%,5@靠車*0.91,6@靠車*0.9','s');
             	$('#lblVolume').text('目前數量');
             	
             	$('#lblAddrno').click(function() {
@@ -591,7 +592,7 @@
 					<td align="center" style="width:80px"><a>客戶</a></td>
 					<td align="center" style="width:100px"><a>地點</a></td>
 					<td align="center" style="width:120px"><a>場地限制</a></td>
-					<td align="center" style="width:80px"><a>桶槽容量</a></td>
+					<td align="center" style="width:85px"><a>桶槽容量</a></td>
 					<td align="center" style="width:100px"><a>可送貨時間</a></td>
 					<td align="center" style="width:80px"><a>公里數</a></td>
 					<td align="center" style="width:80px"><a>車頭牌</a></td>
@@ -617,12 +618,14 @@
 					<td align="center" style="width:80px"><a>核定數量</a></td>
 					<td align="center" style="width:80px"><a>目前數量</a></td>
 					<td align="center" style="width:80px"><a>可用數量</a></td>
-					<td align="center" style="width:100px"><a>管邊到期日</a></td>
-					<td align="center" style="width:80px"><a>客戶單價</a></td>
+					<td align="center" style="width:100px"><a>管編到期日</a></td>
+					<td align="center" style="width:80px"><a>售料單價</a></td>
+					<td align="center" style="width:80px"><a>運費收單價</a></td>
 					<td align="center" style="width:80px"><a>客戶金額</a></td>
 					<td align="center" style="width:60px"><a>實際客戶金額 </a></td>
 					<td align="center" style="width:80px"><a>車行單價</a></td>
 					<td align="center" style="width:80px"><a>車行金額</a></td>
+					<td align="center" style="width:80px"><a>司機單價類別</a></td>
 					<td align="center" style="width:80px"><a>司機單價</a></td>
 					<td align="center" style="width:80px"><a>司機金額</a></td>
 					<td align="center" style="width:60px"><a>司機寄送文件</a></td>
@@ -689,11 +692,13 @@
 					<td><input type="text" id="txtInmount.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtMount.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtCldate.*" style="width:95%;"/></td>
+					<td><input type="text" id="txtPrice3.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtCustprice.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtTotal.*" class="num" style="width:95%;"/></td>
 					<td><select id="cmbStatus.*" class="txt" style="width:95%;"> </select></td>
 					<td><input type="text" id="txtPrice2.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtDiscount.*" class="num" style="width:95%;"/></td>
+					<td><select id="cmbCalctype.*" class="txt" style="width: 90px;"> </select></td>
 					<td><input type="text" id="txtPrice.*" class="num" style="width:95%;"/></td>
                     <td><input type="text" id="txtTotal2.*" class="num" style="width:95%;"/></td>
 					<td><select id="cmbTtype.*" class="txt" style="width:95%;"> </select></td>

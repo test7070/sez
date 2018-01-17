@@ -138,7 +138,9 @@
 					}
 					
 					var t_proj=q_getPara('sys.project').toUpperCase();
-					
+					 if(t_proj=='SH'){
+					     $('#txtXmemo').val('　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　核對:')
+					 }
 					 if(t_proj!='DC' && t_proj!='EFB' && t_proj!='SH'){
                         for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
                             if(
@@ -165,7 +167,7 @@
 							}
                         }
                         
-                        $('#q_report div div .radio').first().removeClass('nonselect').addClass('select');
+                        //$('#q_report div div .radio').first().removeClass('nonselect').addClass('select');
                     }else{
                     	if(t_proj=='DC'){
                     		 for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
@@ -174,7 +176,7 @@
 	                                 break;
 								}
 	                        }
-	                        $('#q_report div div .radio').first().removeClass('nonselect').addClass('select');
+	                        //$('#q_report div div .radio').first().removeClass('nonselect').addClass('select');
 	                        $('#Xinsuresheet').hide();
                     	}
                     }

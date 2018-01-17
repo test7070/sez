@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
 		<title> </title>
@@ -42,9 +42,25 @@
 		  	*/
 		    q_desc = 1;
 			brwCount2 = 3;
-			var defaultTxt = ['期初餘額','員工股票紅利','本期損益','盈餘指撥及分配','提列法定盈餘公積','普通股現金股利'
-				,'備供出售金融資產未實現損益增減','外幣財務報表換算所產生兌換差額增減','採權益法評價之被投資公司股權淨值增減','期末餘額'];
-
+/*			var defaultTxt = ['期初餘額','員工股票紅利','本期損益','盈餘指撥及分配','提列法定盈餘公積','普通股現金股利'
+				,'備供出售金融資產未實現損益增減','外幣財務報表換算所產生兌換差額增減','採權益法評價之被投資公司股權淨值增減','期末餘額'];*/
+			
+			var defaultTxt = ['期初餘額',
+							  '採用權益法認列之關聯企業之變動數',
+							  '淨利',
+							  '稅後其他綜和損益',
+							  '綜和損益總和',
+							  '盈餘指撥及分配',
+							  '　提列法定盈餘公積',
+							  '　普通股現金股利',
+							  '發放予子公司股利調整資本公積',
+							  '取得或處分公司股權價格與帳面價值差額',
+							  '對子公司所有權權益變動',
+							  '股份基礎給付交益',
+							  '取得子公司所增加之非控制權益',
+							  '子公司股東現金股利',
+							  '子公司員工認股權',
+							  '期末餘額'];
 		    $(document).ready(function () {
 		        bbmKey = ['noa'];
 		        bbsKey = ['noa', 'noq'];
@@ -533,7 +549,7 @@
 					<td align="center" style="width:100px;"><a id='lblG_s'>金融商品未實現損益</a></td>
 					<td align="center" style="width:100px;"><a id='lblTotal_s'>股東權益合計</a></td>
 				</tr>
-				<tr  style='background:#cad3ff;'>
+				<tr style='background:#cad3ff;'>
 					<td align="center">
 						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 						<input id="txtNoq.*"  style="display:none;"/>

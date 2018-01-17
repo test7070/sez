@@ -21,7 +21,7 @@
             q_tables = 's';
             var q_name = "trd";
             var q_readonly = ['txtTax', 'txtNoa', 'txtMoney', 'txtTotal','txtWorker2','txtWorker', 'txtMount', 'txtStraddr', 'txtEndaddr', 'txtPlusmoney', 'txtMinusmoney', 'txtVccano', 'txtCustchgno','txtAccno','txtAccno2','txtYear2','txtYear1'];
-            var q_readonlys = [ 'txtTranno','txtTrannoq','txtTrandate','txtStraddr','txtProduct','txtCarno','txtCustorde','txtCaseno','txtMount','txtPrice','txtTotal','txtTranmoney'];
+            var q_readonlys = [ 'txtTranno','txtTrannoq','txtTrandate','txtStraddr','txtProduct','txtCarno','txtCustorde','txtCaseno','txtMount','txtPrice','txtTotal','txtTranmoney','txtVolume','txtWeight'];
             var bbmNum = [['txtPlus', 10, 0,1],['txtDiscount', 10, 0,1],['txtMoney', 10, 0,1], ['txtTax', 10, 0,1], ['txtTotal', 10, 0,1], ['txtMount', 10, 3,1], ['txtPlusmoney', 10, 0,1], ['txtMinusmoney', 10, 0,1]];
             var bbsNum = [['txtTranmoney', 10, 0,1], ['txtOverweightcost', 10, 0,1], ['txtOthercost', 10, 0,1], ['txtMount', 10, 3,1], ['txtPrice', 10, 3,1], ['txtTotal', 10, 0,1]];
             var bbmMask = [];
@@ -269,8 +269,16 @@
                         break;
                     case 'trd_tran':
                         var as = _q_appendData("view_trans", "", true);
-                        q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtTranno,txtTrannoq,txtCarno,txtStraddr,txtTranmoney,txtCaseno,txtMount,txtPrice,txtTotal,txtCustorde,txtProduct'
-                        , as.length, as, 'trandate,noa,noq,carno,straddr,total,caseno,mount,price,total,custorde,product', '','');
+                        if(q_getPara('sys.project').toUpperCase()=='SH'){
+                            q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtTranno,txtTrannoq,txtCarno,txtStraddr,txtTranmoney,txtCaseno,txtMount,txtPrice,txtTotal,txtCustorde,txtProduct,txtVolume,txtWeight,txtMemo'
+                            , as.length, as, 'trandate,noa,noq,carno,straddr,total,caseno,mount,price,total,custorde,product,volume,weight,memo', '','');
+                            for(var j=0;j<as.length;j++){
+                                 $('#txtStraddr_'+j).val(as[j].straddr+'-'+as[j].endaddr);
+                            }    
+                        }else{
+                            q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtTranno,txtTrannoq,txtCarno,txtStraddr,txtTranmoney,txtCaseno,txtMount,txtPrice,txtTotal,txtCustorde,txtProduct'
+                            , as.length, as, 'trandate,noa,noq,carno,straddr,total,caseno,mount,price,total,custorde,product', '','');
+                        }
                         for ( i = 0; i < q_bbsCount; i++) {
                             if (i < as.length) {
                             }else{
@@ -458,8 +466,13 @@
                 q_gt('umms', t_where, 0, 0, 0, 'btnModi',r_accy);
             }
 
-            function btnPrint() {                       
-                q_box('z_trd.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
+            function btnPrint() {
+                if(q_getPara('sys.project').toUpperCase()=='SH'){
+                    q_box('z_trd_sh.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
+                }else{
+                    q_box('z_trd.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
+                }                      
+                
             }
 
             function wrServer(key_value) {
@@ -512,6 +525,10 @@
                     $('#btnTrans').attr('disabled', 'disabled');
                     $('#btnCustchg').attr('disabled', 'disabled');
                     $('#btnVcca').attr('disabled', 'disabled');
+                }
+                if(q_getPara('sys.project').toUpperCase()=='SH'){
+                    $('.isNSH').hide();
+                    $('.isSH').show();
                 }
             }
 
@@ -932,13 +949,16 @@
 					<td align="center" style="width:200px;"><a id='lblStraddr_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblMount_s'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblPrice_s'> </a></td>
+					<td align="center" style="width:80px;" class="isNSH"><a id='lblPrice_s'> </a></td>
+					<td align="center" style="width:80px; display: none;" class="isSH"><a id='lblVolume_s'>材積</a></td>
+					<td align="center" style="width:80px; display: none;" class="isSH"><a id='lblWeight_s'>重量</a></td>
 					<td align="center" style="width:80px;"><a id='lblTotal_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblCarno_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblCustorde_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblCaseno_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblTranno_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblTranmoney_s'> </a></td>
+					<td align="center" style="width:150px; display: none;"><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -958,9 +978,15 @@
 					<td >
 					<input type="text" id="txtMount.*" style="width:95%;text-align: right;" />
 					</td>
-					<td >
+					<td class="isNSH">
 					<input type="text" id="txtPrice.*" style="width:95%;text-align: right;" />
 					</td>
+					<td class="isSH" style="display: none">
+                    <input type="text" id="txtVolume.*" style="width:95%;text-align: right;" />
+                    </td>
+                    <td class="isSH" style="display: none">
+                    <input type="text" id="txtWeight.*" style="width:95%;text-align: right;" />
+                    </td>
 					<td >
 					<input type="text" id="txtTotal.*" style="width:95%;text-align: right;" />
 					</td>
@@ -980,6 +1006,9 @@
 					<td >
 					<input type="text" id="txtTranmoney.*" style="width:95%;text-align: right;" />
 					</td>
+					<td style="display: none">
+                    <input type="text" id="txtMemo.*" style="width:95%;" />
+                    </td>
 				</tr>
 			</table>
 		</div>
