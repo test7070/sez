@@ -41,9 +41,9 @@
 		        q_brwCount();
 		        q_xchg = (q_content.length > 0 ? 2 : 0);   /// q_xchg 0=all  1=view   2=form
 
-		        q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy + "_" + r_cno);  /// q_sqlCount=最前面 top=筆數， q_init 為載入 q_sys.xml 與 q_LIST
+		        //q_gt  一次執行一個
 		        q_gt('ssspart', "where=^^noa='" + r_userno + "'^^", 0, 0, 0, "", r_accy + '_' + r_cno);
-		        //    }).mousedown(function (e) {
+		       
 		        if (!$('#div_row').is(':hidden')) {
 		            if (mouse_div) {
 		                $('#div_row').hide();
@@ -75,7 +75,7 @@
 
 		            bbmMask = [['txtAccc2', '99/99']];
 		            sys_proj = q_getPara('sys.project');
-
+   
 		            var s1 = sys_proj;
 		            t_znoModi = (s1.length > 1 && (s1.substr(0, 2) == 'sa' || s1.substr(0, 2) == 'rb' || s1.substr(0, 2) == 'yc' || s1.substr(0, 2) == 'bd' || s1.substr(0, 2) == 'rk' || s1.substr(0, 2) == 'vu'));
 		            $('#txtCno').hide();
@@ -214,7 +214,7 @@
 		                else {
 		                    var as = _q_appendData('acuser', '', true), str = ''; //, aTmp = [];
 		                    //aTmp[0] = ['', '']
-		                    str = ' @ ,'
+		                    str = ' @ ,';
 		                    for (var i = 0; i < as.length; i++)
 		                        str = str + as[i].noa + '@' + as[i].noa + as[i].namea + (i != as.length - 1 ? ',' : '');
 
@@ -234,32 +234,7 @@
 		            case 'ssspart':
 		                ssspart = _q_appendData("ssspart", "", true);
 		                //避免refresh 先執行 這裡取到權限部門資料後再執行一次
-		                var t_showPart = 0;
-		                for (var i = 0; i < q_bbsCount; i++) {
-		                    var s1 = $('#txtPart_' + i).val();
-		                    if (s1 == r_partno) {
-		                        t_showPart = 1;
-		                        break;
-		                    }
-
-		                    if (ssspart != null && ssspart.length > 0)
-		                        for (j = 0; j < ssspart.length; j++) {
-		                            if (ssspart[j].partno == s1) {
-		                                t_showPart = 1;
-		                                break;
-		                            }
-		                        }
-
-		                    if (t_showPart == 1)
-		                        break;
-		                }
-
-		                if (t_lockPart == 1 && r_rank < 8 && t_showPart == 1) {
-		                    $('#dbbs').show();  // 有相關部門，再開啟
-		                    $('#btnModi').removeAttr('disabled');
-		                    $('#btnDele').removeAttr('disabled');
-		                }
-
+		               	q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy + "_" + r_cno);  /// q_sqlCount=最前面 top=筆數， q_init 為載入 q_sys.xml 與 q_LIST
 		                break;
 		            case 'acomp':
 		                var as = _q_appendData('acomp');
@@ -710,44 +685,42 @@
 		            $('#btnDele').attr('disabled', 'disabled');
 		        }
 		        _refresh(recno);
-
-		        var t_showPart = 0, s2, s1, i, j;
-
-
-
-		        for (i = 0; i < q_bbsCount; i++) {
-		            s2 = $('#txtBal_' + i).val();
+				for (var i = 0; i < q_bbsCount; i++) {
+                	s2 = $('#txtBal_' + i).val();
 		            if (s2 && s2.length > 0)
 		                $('#txtBal_' + i).css('display', 'inline-block');
-
-		            if (r_partno.length > 0) {
-		                s1 = $('#txtPart_' + i).val();
-		                if (s1 == r_partno) {
-		                    t_showPart = 1;
-		                    break;
-		                }
-
-		                if (ssspart != null && ssspart.length > 0)
-		                    for (j = 0; j < ssspart.length; j++) {
-		                        if (ssspart[j].partno == s1) {
-		                            t_showPart = 1;
-		                            break;
-		                        }
-		                    }
-
-		                s1 = $('#txtAccc6_' + i).val();
-		                if (s1.indexOf('薪資') > -1 || s1.indexOf('獎金') > -1 || s1.indexOf('福利金') > -1)
-		                 {   t_showPart = 0;
-		                break;}
-		            }
-		        }
-
-		        if (t_lockPart == 1 && r_rank < 8 && t_showPart == 1) {
-		            $('#dbbs').show();  // 有相關部門，再開啟
-		            $('#btnModi').removeAttr('disabled');
-		            $('#btnDele').removeAttr('disabled');
-		        }
-
+                }
+                var showPart = false;
+                for (var i = 0; i < q_bbsCount; i++) {     
+                    var s1 = $('#txtPart_' + i).val();
+                    if (s1 == r_partno) {
+                        showPart = true;
+                        break;
+                    }
+                    if (ssspart != null && ssspart.length > 0)
+                        for (j = 0; j < ssspart.length; j++) {
+                            if (ssspart[j].partno == s1) {
+                                showPart = true;
+                                break;
+                            }
+                        }
+                    if (showPart)
+                        break;
+                }
+                for (var i = 0; showPart && i < q_bbsCount; i++) {
+		            s1 = $('#txtAccc6_' + i).val();
+		            if($.trim($('#txtAccc5_' + i).val())!='5850.07')
+		                if (s1.indexOf('薪資') > -1 || s1.indexOf('獎金') > -1 || s1.indexOf('福利金') > -1){  
+		                	showPart = false;
+		                	break;
+	                	}
+                }
+                if (t_lockPart == 1 && r_rank < 8 && showPart) {
+                    $('#dbbs').show();  // 有相關部門，再開啟
+                    $('#btnModi').removeAttr('disabled');
+                    $('#btnDele').removeAttr('disabled');
+                }
+		            
 		        $('#combAccc1').val($('#txtAccc1').val());
 		        $('#combAccc1').attr('disabled', 'disabled');
 		        $('#combAccc1').css('background', t_background2);
