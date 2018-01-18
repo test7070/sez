@@ -1050,7 +1050,7 @@
 				<table class="tbbm" id="tbbm" >
 					<tr>
 						<td>
-							<table style="width: 600px;">
+							<table>
 								<tr style="height: 1px;">
 									<td class="td1" style="width: 108px;"> </td>
 									<td class="td2" style="width: 108px;"> </td>
@@ -1092,7 +1092,7 @@
 							</table>
 						</td>
 						<td>
-							<table style="width:250px;">
+							<table>
 								<tr>
 									<td class="td1"><span> </span><a id="lblTranmoney" class="lbl"> </a></td>
 									<td class="td2" colspan='2'><input id="txtTranmoney" type="text" class="txt num c1"/></td>
