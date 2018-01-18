@@ -1026,13 +1026,31 @@
 		</style>
 	</head>
 	<body>
-		<div id="dmain" style="width: 1260px;">
+		<div id="dmain" style="width: 1380px;">
 			<!--#include file="../inc/toolbar.inc"-->
+			<div class="dview" id="dview" >
+				<table class="tview" id="tview">
+					<tr>
+						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
+						<td align="center" style="width:5%"><a id='vewType'> </a></td>
+						<td align="center" style="width:25%"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:25%"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:40%"><a id='vewComp'> </a></td>
+					</tr>
+					<tr>
+						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
+						<td align="center" id='typea=vcc.typea'>~typea=vcc.typea</td>
+						<td align="center" id='datea'>~datea</td>
+						<td align="center" id='noa'>~noa</td>
+						<td align="center" id='comp,4'>~comp,4</td>
+					</tr>
+				</table>
+			</div>
 			<div class='dbbm'>
-				<table class="tbbm"  id="tbbm" >
+				<table class="tbbm" id="tbbm" >
 					<tr>
 						<td>
-							<table style="width: 872px;">
+							<table style="width: 600px;">
 								<tr style="height: 1px;">
 									<td class="td1" style="width: 108px;"> </td>
 									<td class="td2" style="width: 108px;"> </td>
@@ -1045,8 +1063,8 @@
 								</tr>
 								<tr>
 									<td class="" style="width: 108px;"><span> </span><a id='lblNoa' class="lbl"> </a></td>
-									<td class="" style="width: 108px;"><input id="txtNoa" type="text" class="txt c1" /></td>
-									<td class="td4" colspan="6">
+									<td class="" style="width: 108px;" colspan="2"><input id="txtNoa" type="text" class="txt c1" /></td>
+									<td class="td4" colspan="5">
 										<a id='lblDatea' class="lbl" style="float: left;"> </a><span style="float: left;"> </span>
 										<input id="txtDatea" type="text" class="txt c1" style="width: 80px;float: left;"/>
 										<span style="float: left;"> </span><span style="float: left;"> </span><span style="float: left;"> </span>
@@ -1067,16 +1085,16 @@
 								</tr>
 								<tr>
 									<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
-									<td class="td2" colspan='4'><textarea id="txtMemo" cols="10" rows="5" style="width: 50%;height: 50px;"> </textarea></td>
+									<td class="td2" colspan='3'><textarea id="txtMemo" cols="10" rows="5" style="width:60%;height:50px;"> </textarea></td>
 									<td class="td1"><span> </span><a id="lblMemo2" class="lbl"> </a></td>
-									<td class="td2" colspan='4'><textarea id="txtMemo2" cols="10" rows="5" style="width: 60%;height: 50px;"> </textarea></td>
+									<td class="td2" colspan='5'><textarea id="txtMemo2" cols="10" rows="5" style="width:60%;height:50px;"> </textarea></td>
 								</tr>
 							</table>
 						</td>
 						<td>
-							<table style="width: 300px;">
+							<table style="width:250px;">
 								<tr>
-									<td class="td1"><span> </span>收取<a id="lblTranmoney" class="lbl"> </a></td>
+									<td class="td1"><span> </span><a id="lblTranmoney" class="lbl"> </a></td>
 									<td class="td2" colspan='2'><input id="txtTranmoney" type="text" class="txt num c1"/></td>
 								</tr>
 								<tr>
