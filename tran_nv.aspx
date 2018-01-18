@@ -33,9 +33,9 @@
             aPop = new Array(['txtDriverno', 'lblDriverno', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
             , ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']
             , ['txtAddrno', 'lblAddrno', 'store', 'noa,store', 'txtAddrno,txtAddr', 'store_b.aspx']
+            , ['txtCaseno_', 'btnCaseno_', 'store', 'noa,store', 'txtCaseno_', 'store_b.aspx']
             , ['txtUccno_', 'btnProduct_', 'ucc', 'noa,product', 'txtUccno_,txtProduct_', 'ucc_b.aspx']
-            , ['txtStraddrno_', 'btnStraddr_', 'addr', 'noa,addr,productno,product,custprice', 'txtStraddrno_,txtStraddr_,txtUccno_,txtProduct_,txtCustprice_,', 'addr_b.aspx']
-            , ['txtEndaddrno_', 'btnEndaddr_', 'addr', 'noa,addr', 'txtEndaddrno_,txtEndaddr_', 'addr_b.aspx']
+            , ['txtStraddrno_', 'btnStraddr_', 'addr', 'noa,addr,productno,product', 'txtStraddrno_,txtStraddr_,txtUccno_,txtProduct_,', 'addr_b.aspx']
             , ['txtCustno_', 'btnCust_', 'cust', 'noa,comp,nick,addr_home,memo2,salesno2,typea,custno2', 'txtCustno_,txtComp_,txtNick_,txtSaddr_,txtAaddr_,txtCaseno2_,cmbUnit2_,cmbStatus_', 'cust_b.aspx']
             , ['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx']);
 
@@ -58,14 +58,13 @@
 
             function sum() {
             	var t_tmount=0,t_tvolume=0,t_tweight=0,t_ttotal=0,t_ttotal2=0;
-             	var t_mount=0,t_weight=0,t_pton=0,t_total=0,t_total2=0,t_discount;
+             	var t_mount=0,t_weight=0,t_pton=0,t_total=0,t_total2=0;
              	for(var i=0;i<q_bbsCount;i++){
              		t_weight = q_sub(q_float('txtGross_'+i),q_float('txtWeight3_'+i));
              		t_pton = q_sub(q_float('txtWeight2_'+i),t_weight);
              		t_mount = q_sub(q_float('txtOutmount_'+i),q_float('txtInmount_'+i));
              		t_total = q_mul(q_add(q_float('txtCustprice_'+i),q_float('txtPrice3_'+i)),t_weight);
              		t_total2 = q_mul(q_float('txtPrice_'+i),t_weight);
-             		t_discount = q_mul(q_float('txtPrice2_'+i),q_float('txtGross_'+i));
              		t_tmount = q_add(t_tmount,q_sub(q_float('txtOutmount_'+i),q_float('txtInmount_'+i)));
              		t_tvolume = q_add(t_tvolume,q_float('txtInmount_'+i));
              		t_tweight = q_add(t_tweight,t_weight);
@@ -76,7 +75,6 @@
              		$('#txtMount_'+i).val(t_mount);
              		$('#txtTotal_'+i).val(t_total);
              		$('#txtTotal2_'+i).val(t_total2);
-             		$('#txtDiscount_'+i).val(t_discount);
              	}
              	$('#txtMount').val(t_tmount);
              	$('#txtVolume').val(t_tvolume);
@@ -94,7 +92,7 @@
             	q_cmbParse("cmbTtype",'N@無,Y@有','s');
             	q_cmbParse("cmbStatus",'未稅@未稅,含稅@含稅','s');
             	q_cmbParse("combCaseno2",'50T@50T,100T@100T,150T@150T,200T@200T,300T@300T','s');
-            	q_cmbParse("cmbCalctype",'1@公司車*0.9*0.2,2@外車*0.8,3@外車*0.85,4@外車*100%,5@靠車*0.91,6@靠車*0.9','s');
+            	q_cmbParse("cmbCalctype",'@,1@公司車*0.9*0.2,2@外車*0.8,3@外車*0.85,4@外車*100%,5@靠車*0.91,6@靠車*0.9','s');
             	$('#lblVolume').text('目前數量');
             	
             	$('#lblAddrno').click(function() {
@@ -104,8 +102,7 @@
 				$('#txtAddrno').change(function() {
             			$('#lblVolume').show();
 						$('#txtVolume').show();
-				});
-					
+				});	
             }
 
             function q_boxClose(s2) {
@@ -169,7 +166,13 @@
                         e.preventDefault();
                         var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
                         $('#btnCust_'+n).click();
-                    });	
+                    });
+                    $('#txtCaseno_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnCaseno_'+n).click();
+                    });
                     $('#txtUccno_' + i).bind('contextmenu', function(e) {
                         /*滑鼠右鍵*/
                         e.preventDefault();
@@ -195,20 +198,22 @@
 							if(q_cur==1 || q_cur==2)
 								$('#txtCaseno2_'+b_seq).val($('#combCaseno2_'+b_seq).find("option:selected").text());
 					});
-					$('#txtPrice2_' + i).change(function() {
-						t_IdSeq = -1;
-						q_bodyId($(this).attr('id'));
-						b_seq = t_IdSeq;
-						$('#txtPrice_' + b_seq).val($('#txtPrice2_' + b_seq).val()*0.9*0.2);
-						sum();
-					});
-					$('#txtPrice_' + i).change(function() {
-						t_IdSeq = -1;
-						q_bodyId($(this).attr('id'));
-						b_seq = t_IdSeq;
-						$('#txtPrice_' + b_seq).val($('#txtPrice_' + b_seq).val());
-						sum();    
-					});
+					
+					$('#txtUccno_'+i).change(function() {
+					    t_IdSeq = -1;
+                        q_bodyId($(this).attr('id'));
+                        b_seq = t_IdSeq;
+                        t_custno=$('#txtCustno_'+b_seq).val();
+                        t_uccno=$('#txtCustno_'+b_seq).val();
+                        t_addrno=$('#txtCustno_'+b_seq).val();
+                        var t_where="where=^^ noa=(select top 1 noa from view_trans where custno='0001' and uccno='01' order by noa desc) and noq=(select top 1 noq from view_trans where custno='0001' and uccno='01' order by noq desc) ^^";
+                        q_gt('view_trans', t_where, 0, 0, 0, "", r_accy,1);
+                        var as = _q_appendData("view_trans", "", true);
+                        if (as[0] != undefined){
+                            $('#txtPrice_'+b_seq).val(as[0].price);
+                        }
+                    });
+                
                     $('#txtOutmount_' + i).change(function() {
                         sum();
                     });
@@ -619,13 +624,14 @@
 					<td align="center" style="width:80px"><a>目前數量</a></td>
 					<td align="center" style="width:80px"><a>可用數量</a></td>
 					<td align="center" style="width:100px"><a>管編到期日</a></td>
+					<td align="center" style="width:80px"><a>成本單價</a></td>
 					<td align="center" style="width:80px"><a>售料單價</a></td>
-					<td align="center" style="width:80px"><a>運費收單價</a></td>
+					<td align="center" style="width:80px"><a>運費單價</a></td>
 					<td align="center" style="width:80px"><a>客戶金額</a></td>
 					<td align="center" style="width:60px"><a>實際客戶金額 </a></td>
-					<td align="center" style="width:80px"><a>車行單價</a></td>
-					<td align="center" style="width:80px"><a>車行金額</a></td>
-					<td align="center" style="width:80px"><a>司機單價類別</a></td>
+					<!--td align="center" style="width:80px"><a>車行單價</a></td>
+					<td align="center" style="width:80px"><a>車行金額</a></td-->
+					<td align="center" style="width:150px"><a>司機單價類別</a></td>
 					<td align="center" style="width:80px"><a>司機單價</a></td>
 					<td align="center" style="width:80px"><a>司機金額</a></td>
 					<td align="center" style="width:60px"><a>司機寄送文件</a></td>
@@ -638,7 +644,9 @@
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td><input type="text" id="txtDatea.*" style="width:95%;"/></td>
-					<td><input type="text" id="txtCaseno.*" style="width:95%;"/></td>
+					<td><input type="text" id="txtCaseno.*" style="width:95%;"/>
+					    <input type="button" id="btnCaseno.*" style="display:none;"/>
+					</td>
 					<td><input type="text" id="txtSaddr.*" style="width:95%;"/></td>
 					<td>
 						<input type="text" id="txtCustno.*" style="float:left;width:95%;" />
@@ -692,14 +700,15 @@
 					<td><input type="text" id="txtInmount.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtMount.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtCldate.*" style="width:95%;"/></td>
-					<td><input type="text" id="txtPrice3.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtPrice2.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtCustprice.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtPrice.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtTotal.*" class="num" style="width:95%;"/></td>
 					<td><select id="cmbStatus.*" class="txt" style="width:95%;"> </select></td>
-					<td><input type="text" id="txtPrice2.*" class="num" style="width:95%;"/></td>
-					<td><input type="text" id="txtDiscount.*" class="num" style="width:95%;"/></td>
-					<td><select id="cmbCalctype.*" class="txt" style="width: 90px;"> </select></td>
-					<td><input type="text" id="txtPrice.*" class="num" style="width:95%;"/></td>
+					<!--td><input type="text" id="txtPrice2.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtDiscount.*" class="num" style="width:95%;"/></td-->
+					<td><select id="cmbCalctype.*" class="txt" style="width: 95%;"> </select></td>
+					<td><input type="text" id="txtMount3.*" class="num" style="width:95%;"/></td>
                     <td><input type="text" id="txtTotal2.*" class="num" style="width:95%;"/></td>
 					<td><select id="cmbTtype.*" class="txt" style="width:95%;"> </select></td>
 					<td><input type="text" id="txtMemo.*" style="width:95%;" /></td>

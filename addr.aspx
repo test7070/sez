@@ -63,6 +63,15 @@
 					e.preventDefault();
 					q_box("z_addr2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy, 'z_addr2', "95%", "95%", q_getMsg("popPrint"));
 				});
+				
+				if(q_getPara('sys.project').toUpperCase()!='DC'){
+                    $('#lblCaseuse').text('客戶');
+                }
+                
+                if(q_getPara('sys.project').toUpperCase()=='NV'){
+                    $('#lblCustprice_s').text('料身單價');
+                    $('#lblDriverprice_s').text('運費單價');
+                }
 			}
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
@@ -318,6 +327,10 @@
 					$('#btnPlus_ds').removeAttr('disabled');
 				else
 					$('#btnPlus_ds').attr('disabled', $('#btnPlus').attr('disabled'));
+					
+			    if(q_getPara('sys.project').toUpperCase()=='NV'){
+                    $('.isNNV').hide();
+                }
 			}
 			function btnMinus(id) {
 				_btnMinus(id);
@@ -586,7 +599,7 @@
                         <input id="txtDriverprice" type="text"  class="txt c1  num"/>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class='isNNV'>
                         <td><span> </span><a id='lblDriverprice2' class="lbl"> </a></td>
                         <td>
                         <input id="txtDriverprice2" type="text"  class="txt c1  num"/>
@@ -626,7 +639,7 @@
                     <td align="center" style="width:80px;"><a id='lblCustprice_s'> </a></td>
                     <td align="center" style="width:80px;display:none;" class="va"><a>客戶補噸</a></td>
                     <td align="center" style="width:80px;"><a id='lblDriverprice_s'> </a></td>
-                    <td align="center" style="width:80px;"><a id='lblDriverprice2_s'> </a></td>
+                    <td align="center" style="width:80px;" class='isNNV'><a id='lblDriverprice2_s'> </a></td>
                     <td align="center" style="width:80px;display: none;"><a id='lblCommission_s'> </a></td>
                     <td align="center" style="width:80px;display: none;"><a id='lblCommission2_s'> </a></td>
                     <td align="center" style="width:80px;"><a id='lblSalesno_s'> </a></td>
@@ -647,7 +660,7 @@
                     <td >
                     <input type="text" id="txtDriverprice.*" style="width:95%;text-align:right;" />
                     </td>
-                    <td >
+                    <td class='isNNV'>
                     <input type="text" id="txtDriverprice2.*" style="width:95%;text-align:right;" />
                     </td>
                     <td style="display: none;">
