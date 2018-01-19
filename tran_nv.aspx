@@ -35,7 +35,7 @@
             , ['txtAddrno', 'lblAddrno', 'store', 'noa,store', 'txtAddrno,txtAddr', 'store_b.aspx']
             , ['txtCaseno_', 'btnCaseno_', 'store', 'noa,store', 'txtCaseno_', 'store_b.aspx']
             , ['txtUccno_', 'btnProduct_', 'ucc', 'noa,product', 'txtUccno_,txtProduct_', 'ucc_b.aspx']
-            , ['txtStraddrno_', 'btnStraddr_', 'addr', 'noa,addr,productno,product', 'txtStraddrno_,txtStraddr_,txtUccno_,txtProduct_,', 'addr_b.aspx']
+            , ['txtStraddrno_', 'btnStraddr_', 'addr', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr_b.aspx']
             , ['txtCustno_', 'btnCust_', 'cust', 'noa,comp,nick,addr_home,memo2,salesno2,typea,custno2', 'txtCustno_,txtComp_,txtNick_,txtSaddr_,txtAaddr_,txtCaseno2_,cmbUnit2_,cmbStatus_', 'cust_b.aspx']
             , ['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx']);
 
@@ -117,6 +117,9 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                case 'view_trans':
+                    
+                    break;
                 case q_name:
                     if (q_cur == 4)
                         q_Seek_gtPost();
@@ -125,8 +128,24 @@
             }
 
             function q_popPost(s1) {
+                switch (s1) {
+                    case 'txtUccno_':
+                        sendsignmemo();
+                    break;
+                }
             }
-
+            
+            function sendsignmemo() {
+                for(var i=0;i<q_bbsCount;i++){
+                            var t_where = "where=^^ noa=(select noa from addr where productno='"+$('#txtUccno_'+i).val()+"' and noa='"+$('#txtStraddrno_'+i).val()+"' and caseuseno='"+$('#txtCustno_'+i).val()+"') and datea<='"+$('#txtTrandate').val()+"' ^^";
+                            q_gt('addrs', t_where, 0, 0, 0, "addrs", r_accy, 1);
+                            var as = _q_appendData("addrs", "", true);
+                            if (as[0] != undefined) {
+                                $('#txtPrice_'+i).val(as[0].custprice);
+                            }
+                }  
+            }
+           
             function btnOk() {
             	sum();
             	for(var i=0;i<q_bbsCount;i++){
@@ -199,19 +218,8 @@
 								$('#txtCaseno2_'+b_seq).val($('#combCaseno2_'+b_seq).find("option:selected").text());
 					});
 					
-					$('#txtUccno_'+i).change(function() {
-					    t_IdSeq = -1;
-                        q_bodyId($(this).attr('id'));
-                        b_seq = t_IdSeq;
-                        t_custno=$('#txtCustno_'+b_seq).val();
-                        t_uccno=$('#txtCustno_'+b_seq).val();
-                        t_addrno=$('#txtCustno_'+b_seq).val();
-                        var t_where="where=^^ noa=(select top 1 noa from view_trans where custno='0001' and uccno='01' order by noa desc) and noq=(select top 1 noq from view_trans where custno='0001' and uccno='01' order by noq desc) ^^";
-                        q_gt('view_trans', t_where, 0, 0, 0, "", r_accy,1);
-                        var as = _q_appendData("view_trans", "", true);
-                        if (as[0] != undefined){
-                            $('#txtPrice_'+b_seq).val(as[0].price);
-                        }
+					$("#txtUccno_").change(function() {
+                        sendsignmemo();
                     });
                 
                     $('#txtOutmount_' + i).change(function() {
