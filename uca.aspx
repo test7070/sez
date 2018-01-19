@@ -27,9 +27,9 @@
 			var q_readonlys = [];
 			var q_readonlyt = ['txtAssm'];
 			var bbmNum = [['txtPrice', 15, 5, 1, 1],['txtPreday', 12, 0, 1],['txtHours', 10, 3, 1],['txtMinutes', 10, 3, 1],['txtHminutes', 10, 3, 1],['txtSec', 2, 0, 1],['txtHsec', 2, 0, 1]
-			,['txtPretime', 12, 2, 1],['txtBadperc', 15, 5, 1, 1],['txtUweight', 12, 2, 1],['txtMakes', 15, 2, 1],['txtPacks', 15, 2, 1],['txtWages', 15, 2, 1],['txtSafemount', 15, 2, 1],['txtStdmount', 15, 2, 1]];/*,['txtMechs', 15, 2, 1],['txtTrans', 15, 2, 1]*/
+			,['txtPretime', 12, 2, 1],['txtBadperc', 15, 5, 1, 1],['txtUweight', 15, 3, 1],['txtMakes', 15, 2, 1],['txtPacks', 15, 2, 1],['txtWages', 15, 2, 1],['txtSafemount', 15, 2, 1],['txtStdmount', 15, 2, 1]];/*,['txtMechs', 15, 2, 1],['txtTrans', 15, 2, 1]*/
 			var bbsNum = [['txtMount', 15, 5, 1, 1]/*, ['txtWeight', 11, 2]*/, ['txtHours', 9, 2,1],['txtLoss', 15, 5, 1, 1],['txtDividea', 10, 0,1],['txtMul', 10, 2,1]];
-			var bbtNum = [['txtMount', 15, 5, 1, 1]/*, ['txtWeight_', 12, 2 ,1]*/,['txtPrice', 12, 2, 1], ['txtEndmount', 12, 0, 1], ['txtEndweight', 12, 2, 1]
+			var bbtNum = [['txtMount', 15, 5, 1, 1]/*, ['txtWeight_', 12, 2 ,1]*/,['txtPrice', 12, 2, 1], ['txtEndmount', 12, 0, 1], ['txtEndweight', 15, 3, 1]
 			,['txtMinutes', 10, 3, 1],['txtHminutes', 10, 3, 1],['txtSec', 2, 0, 1],['txtHsec', 2, 0, 1]
 			,['txtLoss', 15, 5, 1, 1],['txtMakes', 15, 2, 1],['txtMakes_fee', 15, 2, 1],['txtWages', 15, 2, 1],['txtWages_fee', 15, 2, 1]
 			];
