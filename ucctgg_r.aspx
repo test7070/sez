@@ -31,7 +31,7 @@
             brwKey = 'Noa';
             aPop = new Array(
             	['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']
-            	,['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx']
+            	,['txtProductno_', 'btnProductno_', 'ucx', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucx_b.aspx']
             );
             
             $(document).ready(function() {
