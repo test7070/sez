@@ -156,10 +156,18 @@
 				}else{
 					$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 				}
+				
+				if(q_db.substring(0,2).toUpperCase()=='ST' || q_getPara('sys.project').toUpperCase()=='DC'){
+                    $('.isST').show();
+                }
 			}
 
 		function readonly(t_para, empty) {
 			_readonly(t_para, empty);
+			if(q_db.substring(0,2).toUpperCase()=='DC' && q_getPara('sys.project').toUpperCase()!='DC'){
+                    $('#lblPost').text('地點');
+                    $('#vewPost').text('地點');
+            }
 		}
 
 		function btnMinus(id) {
@@ -294,13 +302,13 @@
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>				
 						<td align="center" style="width:25%"><a id='vewNoa'> </a></td>
 						<td align="center" style="width:25%"><a id='vewPost'> </a></td>
-						<td align="center" style="width:25%"><a id='vewP_post'> </a></td>
+						<td align="center" style="width:25%;display: none" class='isST'><a id='vewP_post'> </a></td>
 					</tr>
 					 <tr>
 							<td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
 							<td align="center" id='noa'>~noa</td>
 							<td align="center" id='post'>~post</td>
-							<td align="center" id='p_post'>~p_post</td>
+							<td align="center" id='p_post' class='isST' style="display: none">~p_post</td>
 					</tr>
 				</table>
 			</div>
@@ -316,7 +324,7 @@
 						<td class="td1"><span> </span><a id='lblPost' class="lbl"></a></td>
 						<td class="td2"><input id="txtPost"  type="text" class="txt c1"/></td>
 					</tr>
-					<tr>
+					<tr class="isST" style="display: none">
 						<td class="td1"><span> </span><a id='lblP_post' class="lbl"></a></td>
 						<td class="td2"><input id="txtP_post"  type="text" class="txt c1" /></td>
 					</tr>

@@ -328,9 +328,6 @@
 				else
 					$('#btnPlus_ds').attr('disabled', $('#btnPlus').attr('disabled'));
 					
-			    if(q_getPara('sys.project').toUpperCase()=='NV'){
-                    $('.isNNV').hide();
-                }
 			}
 			function btnMinus(id) {
 				_btnMinus(id);
@@ -599,7 +596,7 @@
                         <input id="txtDriverprice" type="text"  class="txt c1  num"/>
                         </td>
                     </tr>
-                    <tr class='isNNV'>
+                    <tr>
                         <td><span> </span><a id='lblDriverprice2' class="lbl"> </a></td>
                         <td>
                         <input id="txtDriverprice2" type="text"  class="txt c1  num"/>
@@ -639,7 +636,7 @@
                     <td align="center" style="width:80px;"><a id='lblCustprice_s'> </a></td>
                     <td align="center" style="width:80px;display:none;" class="va"><a>客戶補噸</a></td>
                     <td align="center" style="width:80px;"><a id='lblDriverprice_s'> </a></td>
-                    <td align="center" style="width:80px;" class='isNNV'><a id='lblDriverprice2_s'> </a></td>
+                    <td align="center" style="width:80px;"><a id='lblDriverprice2_s'> </a></td>
                     <td align="center" style="width:80px;display: none;"><a id='lblCommission_s'> </a></td>
                     <td align="center" style="width:80px;display: none;"><a id='lblCommission2_s'> </a></td>
                     <td align="center" style="width:80px;"><a id='lblSalesno_s'> </a></td>
@@ -660,7 +657,7 @@
                     <td >
                     <input type="text" id="txtDriverprice.*" style="width:95%;text-align:right;" />
                     </td>
-                    <td class='isNNV'>
+                    <td>
                     <input type="text" id="txtDriverprice2.*" style="width:95%;text-align:right;" />
                     </td>
                     <td style="display: none;">

@@ -19,18 +19,27 @@
         mainSeek();
         q_gf('', q_name);
     }
-
+    
     function q_gfPost() {
         q_getFormat();
         q_langShow();
+
+        if(q_db.substring(0,2).toUpperCase()=='DC' && q_getPara('sys.project').toUpperCase()!='DC'){
+             $('#lblPost').text('地點');
+        }
+            
+        if(q_db.substring(0,2).toUpperCase()=='ST' || q_getPara('sys.project').toUpperCase()=='DC'){
+             $('.isST').show();
+        }
 
        /* bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
         q_mask(bbmMask);
 
         $('#txtBdate').focus();*/
+
     }
 
-    function q_seekStr() {   
+    function q_seekStr() {
         t_noa = $('#txtNoa').val();
       /*  t_bdate = $('#txtBdate').val();
         t_edate = $('#txtEdate').val();*/
@@ -62,7 +71,7 @@
                 <td class='seek'  style="width:20%;"><a id='lblPost'></a></td>
                 <td><input class="txt" id="txtPost" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
-             <tr class='seek_tr'>
+             <tr class='seek_tr isST' style="display: none">
                 <td class='seek'  style="width:20%;"><a id='lblP_post'></a></td>
                 <td><input class="txt" id="txtP_post" type="text" style="width:215px; font-size:medium;" /></td>
              </tr>
