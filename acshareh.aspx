@@ -22,7 +22,7 @@
 		    q_tables = 's';
 		    var q_name = "acshareh";
 		    var q_readonly = [];
-		    var q_readonlys = ['txtTotal'];
+		    var q_readonlys = ['txtC3','txtD2','txtF','txtTotal'];
 		    var bbmNum = new Array();
 		    var bbsNum = new Array();
 		    var bbmMask = [];
@@ -33,13 +33,6 @@
 		    brwNowPage = 0;
 		    brwKey = 'Datea';
 		    //ajaxPath = "";
-		    /*aPop = new Array(
-		    	['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver,cardno', 'txtCarno,txtDriverno,txtDriver,txtCardno', 'car2_b.aspx'],
-		    	['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
-		    	['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick', 'txtTggno,txtTgg,txtNick', 'tgg_b.aspx'], 
-		    	['txtCarplateno', 'lblCarplateno', 'carplate', 'noa,carplate,driver', 'txtCarplateno', 'carplate_b.aspx'], 
-		    	['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,typea,unit,inprice', 'txtProductno_,txtProduct_,txtTypea_,txtUnit_,txtPrice_', 'fixucc_b.aspx']);
-		  	*/
 		    q_desc = 1;
 			brwCount2 = 3;
 /*			var defaultTxt = ['期初餘額','員工股票紅利','本期損益','盈餘指撥及分配','提列法定盈餘公積','普通股現金股利'
@@ -53,6 +46,8 @@
 							  '盈餘指撥及分配:',
 							  '　提列法定盈餘公積',
 							  '　普通股現金股利',
+							  '現金增資',
+							  '可轉換公司債轉換',
 							  '發放予子公司股利調整資本公積',
 							  '取得或處分公司股權價格與帳面價值差額',
 							  '對子公司所有權權益變動',
@@ -109,9 +104,15 @@
                         	for(var i=0;i<q_bbsCount;i++){
 					    		if($('#txtTxt_'+i).val()==defaultTxt[0]){
 					    			$('#txtA_'+i).val(as[0].a);
+					    			$('#txtA1_'+i).val(as[0].a1);
 		                        	$('#txtB_'+i).val(as[0].b);
 		                        	$('#txtC_'+i).val(as[0].c);
+		                        	$('#txtC1_'+i).val(as[0].c1);
+		                        	$('#txtC2_'+i).val(as[0].c2);
+		                        	$('#txtC3_'+i).val(as[0].c3);
 		                        	$('#txtD_'+i).val(as[0].d);
+		                        	$('#txtD1_'+i).val(as[0].d1);
+		                        	$('#txtD2_'+i).val(as[0].d2);
 		                        	$('#txtE_'+i).val(as[0].e);
 		                        	$('#txtF_'+i).val(as[0].f);
 		                        	$('#txtG_'+i).val(as[0].g);
@@ -152,7 +153,7 @@
 		                $('#txtA_' + i).change(function (e) {
 		                    sum();
 		                });
-		                $('#txtA_' + i).change(function (e) {
+		                $('#txtA1_' + i).change(function (e) {
 		                    sum();
 		                });
 		                $('#txtB_' + i).change(function (e) {
@@ -161,7 +162,22 @@
 		                $('#txtC_' + i).change(function (e) {
 		                    sum();
 		                });
+		                $('#txtC1_' + i).change(function (e) {
+		                    sum();
+		                });
+		                $('#txtC2_' + i).change(function (e) {
+		                    sum();
+		                });
+		                $('#txtC3_' + i).change(function (e) {
+		                    sum();
+		                });
 		                $('#txtD_' + i).change(function (e) {
+		                    sum();
+		                });
+		                $('#txtD1_' + i).change(function (e) {
+		                    sum();
+		                });
+		                $('#txtD2_' + i).change(function (e) {
 		                    sum();
 		                });
 		                $('#txtE_' + i).change(function (e) {
@@ -221,9 +237,15 @@
 		    		if($('#txtTxt_'+i).val()==defaultTxt[defaultTxt.length-1]){
 		    			endN = i;
 		    			$('#txtA_'+i).val(0);
+		    			$('#txtA1_'+i).val(0);
 		    			$('#txtB_'+i).val(0);
 		    			$('#txtC_'+i).val(0);
+		    			$('#txtC1_'+i).val(0);
+		    			$('#txtC2_'+i).val(0);
+		    			$('#txtC3_'+i).val(0);
 		    			$('#txtD_'+i).val(0);
+		    			$('#txtD1_'+i).val(0);
+		    			$('#txtD2_'+i).val(0);
 		    			$('#txtE_'+i).val(0);
 		    			$('#txtF_'+i).val(0);
 		    			$('#txtG_'+i).val(0);
@@ -234,9 +256,15 @@
 		    		for(var i=0;i<q_bbsCount;i++){
 		    			if(i!=endN){
 		    				$('#txtA_'+endN).val(q_float('txtA_'+endN)+q_float('txtA_'+i));
+		    				$('#txtA1_'+endN).val(q_float('txtA1_'+endN)+q_float('txtA1_'+i));
 		    				$('#txtB_'+endN).val(q_float('txtB_'+endN)+q_float('txtB_'+i));
 		    				$('#txtC_'+endN).val(q_float('txtC_'+endN)+q_float('txtC_'+i));
+		    				$('#txtC1_'+endN).val(q_float('txtC1_'+endN)+q_float('txtC1_'+i));
+		    				$('#txtC2_'+endN).val(q_float('txtC2_'+endN)+q_float('txtC2_'+i));
+		    				$('#txtC3_'+endN).val(q_float('txtC3_'+endN)+q_float('txtC3_'+i));
 		    				$('#txtD_'+endN).val(q_float('txtD_'+endN)+q_float('txtD_'+i));
+		    				$('#txtD1_'+endN).val(q_float('txtD1_'+endN)+q_float('txtD1_'+i));
+		    				$('#txtD2_'+endN).val(q_float('txtD2_'+endN)+q_float('txtD2_'+i));
 		    				$('#txtE_'+endN).val(q_float('txtE_'+endN)+q_float('txtE_'+i));
 		    				$('#txtF_'+endN).val(q_float('txtF_'+endN)+q_float('txtF_'+i));
 		    				$('#txtG_'+endN).val(q_float('txtG_'+endN)+q_float('txtG_'+i));
@@ -244,13 +272,24 @@
 		    		}
 		    	}	
 		    	for(var i=0;i<q_bbsCount;i++){
-		    		$('#txtTotal_'+i).val(
+					$('#txtC3_'+i).val(
+		    			+q_float('txtC_'+i)
+		    			+q_float('txtC1_'+i)
+		    			+q_float('txtC2_'+i)
+		    		);
+					$('#txtD2_'+i).val(
+		    			+q_float('txtD_'+i)
+		    			+q_float('txtD1_'+i)
+		    		);
+					$('#txtF_'+i).val(
 		    			q_float('txtA_'+i)
 		    			+q_float('txtB_'+i)
-		    			+q_float('txtC_'+i)
-		    			+q_float('txtD_'+i)
+		    			+q_float('txtC3_'+i)
+		    			+q_float('txtD2_'+i)
 		    			+q_float('txtE_'+i)
-		    			+q_float('txtF_'+i)
+		    		);
+					$('#txtTotal_'+i).val(
+		    			q_float('txtF_'+i)
 		    			+q_float('txtG_'+i)
 		    		);
 		    	}
@@ -383,7 +422,7 @@
             }
             .dview {
                 float: left;
-                width: 470px;
+                width: 110px;
                 border-width: 0px;
             }
             .tview {
@@ -404,9 +443,9 @@
             .dbbm {
                 float: left;
                 width: 480px;
-                /*margin: -1px;
-                 border: 1px black solid;*/
-                border-radius: 5px;
+                /*border-radius: 5px;
+                margin: -1px;
+                border: 1px black solid;*/
             }
             .tbbm {
                 padding: 0px;
@@ -431,7 +470,7 @@
                 background-color: #DAA520;
             }
             .tbbm .tdZ {
-                width: 1%;
+                width: 1%;width: 1%;
             }
             .tbbm tr td span {
                 float: right;
@@ -493,8 +532,7 @@
 	<body ondragstart="return false" draggable="false"
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
-	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
-	>
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();" >
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id="dmain">
 			<div class="dview" id="dview">
@@ -510,12 +548,9 @@
 				</table>
 			</div>
 			<div class="dbbm">
-				<table class="tbbm"  id="tbbm">
+				<table class="tbbm" id="tbbm">
 					<tr style="height:1px;">
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
+						<td colspan="4"> </td>
 						<td class="tdZ"> </td>
 					</tr>
 					<tr>
@@ -523,9 +558,7 @@
 						<td><input id="txtNoa" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td> </td>
-						<td> </td>
-						<td> </td>
+						<td colspan="4"> </td>
 						<td><input id="btnImport" type="button" class="txt c1" value="匯入期初"/></td>
 					</tr>
 				</table>
@@ -533,38 +566,45 @@
 		</div>
 		
 		<div class='dbbs'>
-			<table id="tbbs" class='tbbs'>
+			<table id="tbbs" class='tbbs' style="width:1700px;">
 				<tr style='color:white; background:#003366;' >
-					<td  align="center" style="width:30px;">
-					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
-					</td>
+					<td align="center" style="width:30px;"><input class="btn"  id="btnPlus" type="button" value="+" style="font-weight: bold;" /></td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:250px;"><a id='lblTxt_s'>項目</a></td>
-					<td align="center" style="width:100px;"><a id='lblA_s' tag="3110">普通股股本</a></td>
-					<td align="center" style="width:100px;"><a id='lblB_s' tag="3300">資本公積</a></td>
-					<td align="center" style="width:100px;"><a id='lblC_s' tag="3410">法定盈餘公積</a></td>
-					<td align="center" style="width:100px;"><a id='lblD_s'>未提撥保留盈餘</a></td>
-					<td align="center" style="width:100px;"><a id='lblE_s'>累積換算調整數</a></td>
-					<td align="center" style="width:100px;"><a id='lblF_s'>庫藏股</a></td>
-					<td align="center" style="width:100px;"><a id='lblG_s'>金融商品未實現損益</a></td>
-					<td align="center" style="width:100px;"><a id='lblTotal_s'>股東權益合計</a></td>
+					
+					<td align="center" style="width:260px;"><a id='lblTxt_s'>項目</a></td>
+					<td align="center" style="width:180px;" colspan="2"><a id='lblA_s' tag="3110.">普通股股本<hr>股數(千股) | 金　　　額</a></td>
+					<td align="center" style="width:100px;"><a id='lblB_s' tag="3300.">資本公積</a></td>
+					<td align="center" style="width:380px;" colspan="4"><a id='lblC_s' tag="3410.">保 留 盈 餘<hr>法定盈餘公積 | 特別盈餘公積 | 未分配盈餘 | 合計</a></td>
+					<td align="center" style="width:380px;" colspan="3"><a id='lblD_s'>其他權益項目<hr>國外營運機構 | 備供出售　 | 　　
+																							        <br>財務報表換算 | 金融資產　 | 合計
+																							        <br>之兌換差額　| 未實現損益 | 　　</a></td>
+					<td align="center" style="width:100px;"><a id='lblE_s' tag="3500.">庫藏股票</a></td>
+					<td align="center" style="width:100px;"><a id='lblF_s'>總　　計</a></td>
+					<td align="center" style="width:100px;"><a id='lblG_s'>非控制權益</a></td>
+					<td align="center" style="width:100px;"><a id='lblTotal_s'>權益合計</a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td align="center">
-						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
-						<input id="txtNoq.*"  style="display:none;"/>
+						<input class="btn" id="btnMinus.*" type="button" value="-" style=" font-weight: bold;" />
+						<input id="txtNoq.*" style="display:none;"/>
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-
+					
 					<td><input class="txt" id="txtTxt.*" type="text" style="width:95%;"/></td>
-					<td><input id="txtA.*" type="text"  style="width:95%;text-align:right;"/></td>
-					<td><input id="txtB.*" type="text"  style="width:95%;text-align:right;"/></td>
-					<td><input id="txtC.*" type="text"  style="width:95%;text-align:right;"/></td>
-					<td><input id="txtD.*" type="text"  style="width:95%;text-align:right;"/></td>
-					<td><input id="txtE.*" type="text"  style="width:95%;text-align:right;"/></td>
-					<td><input id="txtF.*" type="text"  style="width:95%;text-align:right;"/></td>
-					<td><input id="txtG.*" type="text"  style="width:95%;text-align:right;"/></td>
-					<td><input id="txtTotal.*" type="text"  style="width:95%;text-align:right;"/></td>
+					<td><input id="txtA1.*" type="text" style="width:95%;text-align:right;"/></td>
+					<td><input id="txtA.*" type="text" style="width:95%;text-align:right;"/></td>
+					<td><input id="txtB.*" type="text" style="width:95%;text-align:right;"/></td>
+					<td><input id="txtC.*" type="text" style="width:95%;text-align:right;"/></td>
+					<td><input id="txtC1.*" type="text" style="width:95%;text-align:right;"/></td>
+					<td><input id="txtC2.*" type="text" style="width:95%;text-align:right;"/></td>
+					<td><input id="txtC3.*" type="text" style="width:95%;text-align:right;"/></td>
+					<td><input id="txtD.*" type="text" style="width:95%;text-align:right;"/></td>
+					<td><input id="txtD1.*" type="text" style="width:95%;text-align:right;"/></td>
+					<td><input id="txtD2.*" type="text" style="width:95%;text-align:right;"/></td>
+					<td><input id="txtE.*" type="text" style="width:95%;text-align:right;"/></td>
+					<td><input id="txtF.*" type="text" style="width:95%;text-align:right;"/></td>
+					<td><input id="txtG.*" type="text" style="width:95%;text-align:right;"/></td>
+					<td><input id="txtTotal.*" type="text" style="width:95%;text-align:right;"/></td>
 				</tr>
 				
 			</table>
