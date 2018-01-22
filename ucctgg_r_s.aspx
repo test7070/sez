@@ -10,7 +10,7 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
             var q_name = "ucctgg_s";
-            var aPop = new Array(['txtProductno', '', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'], ['txtTggno', '', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']);
+            var aPop = new Array(['txtProductno', '', 'ucx', 'noa,product', 'txtProductno,txtProduct', 'ucx_b.aspx'], ['txtTggno', '', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']);
             $(document).ready(function() {
                 main();
             });
