@@ -20,7 +20,7 @@
             var q_readonlys = [];
             var bbmNum = [['txtMount', 10, 3, 1],['txtVolume', 10, 0, 1], ['txtWeight', 10, 3, 1], ['txtTotal', 10, 0, 1], ['txtTotal2', 10, 0, 1]];
             var bbsNum = [['txtMount', 10, 0, 1], ['txtOutmount', 10, 0, 1], ['txtInmount', 10, 0, 1], ['txtMount2', 10, 0, 1], ['txtWeight', 10, 3, 1], ['txtWeight2', 10, 3, 1], 
-            			 ['txtMiles', 10, 0, 1], ['txtGross', 10, 3, 1], ['txtWeight3', 10, 3, 1], ['txtPton', 10, 3, 1], ['txtPrice', 10, 3, 1], ['txtPrice2', 10, 3, 1], ['txtCustprice', 10, 3, 1], 
+            			 ['txtMiles', 10, 0, 1], ['txtGross', 10, 3, 1], ['txtWeight3', 10, 3, 1], ['txtPton', 10, 3, 1], ['txtPrice', 10, 3, 1], ['txtPrice2', 10, 3, 1], ['txtCustprice', 10, 3, 1], ['txtMount3', 10, 3, 1], 
             			 ['txtCustdiscount', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtTotal2', 10, 0, 1], ['txtDiscount', 10, 0, 1]];
             var bbmMask = [['txtDatea', '999/99/99'],['txtTrandate', '999/99/99']];
             var bbsMask = [];
@@ -64,7 +64,22 @@
              		t_pton = q_sub(q_float('txtWeight2_'+i),t_weight);
              		t_mount = q_sub(q_float('txtOutmount_'+i),q_float('txtInmount_'+i));
              		t_total = q_mul(q_add(q_float('txtCustprice_'+i),q_float('txtPrice3_'+i)),t_weight);
-             		t_total2 = q_mul(q_float('txtPrice_'+i),t_weight);
+             		if($('#cmbCalctype_'+i).val()==1){
+             		    $('#txtMount3_'+i).val($('#txtPrice_'+i).val()*0.9*0.2);
+             		}else if($('#cmbCalctype_'+i).val()==2){
+             		    $('#txtMount3_'+i).val($('#txtPrice_'+i).val()*0.82);
+             		}else if($('#cmbCalctype_'+i).val()==3){
+             		    $('#txtMount3_'+i).val($('#txtPrice_'+i).val()*0.85);
+             		}else if($('#cmbCalctype_'+i).val()==4){
+                        $('#txtMount3_'+i).val($('#txtPrice_'+i).val());
+                    }else if($('#cmbCalctype_'+i).val()==5){
+             		    $('#txtMount3_'+i).val($('#txtPrice_'+i).val()*0.91);
+             		}else if($('#cmbCalctype_'+i).val()==6){
+             		    $('#txtMount3_'+i).val($('#txtPrice_'+i).val()*0.9);
+             		}else{
+             		    $('#txtMount3_'+i).val();
+             		}
+             		t_total2 = q_mul(q_float('txtMount3_'+i),t_weight);
              		t_tmount = q_add(t_tmount,q_sub(q_float('txtOutmount_'+i),q_float('txtInmount_'+i)));
              		t_tvolume = q_add(t_tvolume,q_float('txtInmount_'+i));
              		t_tweight = q_add(t_tweight,t_weight);
@@ -92,7 +107,7 @@
             	q_cmbParse("cmbTtype",'N@無,Y@有','s');
             	q_cmbParse("cmbStatus",'未稅@未稅,含稅@含稅','s');
             	q_cmbParse("combCaseno2",'50T@50T,100T@100T,150T@150T,200T@200T,300T@300T','s');
-            	q_cmbParse("cmbCalctype",'@,1@公司車*0.9*0.2,2@外車*0.8,3@外車*0.85,4@外車*100%,5@靠車*0.91,6@靠車*0.9','s');
+            	q_cmbParse("cmbCalctype",'@,1@公司車*0.9*0.2,2@外車*0.82,3@外車*0.85,4@外車*100%,5@靠車*0.91,6@靠車*0.9','s');
             	$('#lblVolume').text('目前數量');
             	
             	$('#lblAddrno').click(function() {
@@ -117,8 +132,51 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                case 'view_trans':
-                    
+                case 'addrs':
+                    var as = _q_appendData("addrs", "", true);
+                    if (as[0] != undefined) {
+                          for(var i=0;i<q_bbsCount;i++){
+                              if($('#txtStraddrno_'+i).val()==as[0].noa){
+                                      $('#txtPrice_'+i).val(as[0].custprice);  
+                              }      
+                          }
+                    }
+                    for(var i=0;i<q_bbsCount;i++){
+                        if(!emp($('#txtUccno_'+i).val()) && !emp($('#txtCustno_'+i).val())){
+                           var t_where = "where=^^ noa=(select top 1 noa from view_trans"+r_accy+" where uccno='"+$('#txtUccno_'+i).val()+"' and custno='"+$('#txtCustno_'+i).val()+"' and datea<='"+$('#txtDatea').val()+"' order by datea desc) and uccno='"+$('#txtUccno_'+i).val()+"' and custno='"+$('#txtCustno_'+i).val()+"' ^^";
+                           q_gt('trans', t_where, 0, 0, 0, "trans", r_accy, 1); 
+                        } 
+                    }
+                    break;
+                case 'trans':
+                    var as = _q_appendData("trans", "", true);
+                        if (as[0] != undefined) {
+                             for(var i=0;i<q_bbsCount;i++){
+                                 if($('#txtCustno_'+i).val()==as[0].custno && $('#txtUccno_'+i).val()==as[0].uccno){
+                                     if($('#txtPrice_'+i).val().length==0){
+                                         $('#txtPrice_'+i).val(as[0].price);
+                                     }
+                                     
+                                     if($('#txtPrice2_'+i).val().length==0){
+                                         $('#txtPrice2_'+i).val(as[0].price2);
+                                     }
+                                     
+                                     if($('#txtCustprice_'+i).val().length==0){
+                                         $('#txtCustprice_'+i).val(as[0].custprice);
+                                     }
+                                 }    
+                             }
+                        }    
+                    break;
+                case 'trans_cost':
+                    var as = _q_appendData("trans", "", true);
+                        if (as[0] != undefined) {
+                             for(var i=0;i<q_bbsCount;i++){
+                                 if($('#txtCustno_'+i).val()==as[0].custno && $('#txtUccno_'+i).val()==as[0].uccno && !emp($('#txtUccno_'+i).val()) && !emp($('#txtCustno_'+i).val()))
+                                     $('#txtCustprice_'+i).val(as[0].custprice);
+                                     $('#txtPrice2_'+i).val(as[0].price2);
+                             }
+                        }    
                     break;
                 case q_name:
                     if (q_cur == 4)
@@ -128,24 +186,9 @@
             }
 
             function q_popPost(s1) {
-                switch (s1) {
-                    case 'txtUccno_':
-                        sendsignmemo();
-                    break;
-                }
+                
             }
-            
-            function sendsignmemo() {
-                for(var i=0;i<q_bbsCount;i++){
-                            var t_where = "where=^^ noa=(select noa from addr where productno='"+$('#txtUccno_'+i).val()+"' and noa='"+$('#txtStraddrno_'+i).val()+"' and caseuseno='"+$('#txtCustno_'+i).val()+"') and datea<='"+$('#txtTrandate').val()+"' ^^";
-                            q_gt('addrs', t_where, 0, 0, 0, "addrs", r_accy, 1);
-                            var as = _q_appendData("addrs", "", true);
-                            if (as[0] != undefined) {
-                                $('#txtPrice_'+i).val(as[0].custprice);
-                            }
-                }  
-            }
-           
+
             function btnOk() {
             	sum();
             	for(var i=0;i<q_bbsCount;i++){
@@ -218,8 +261,28 @@
 								$('#txtCaseno2_'+b_seq).val($('#combCaseno2_'+b_seq).find("option:selected").text());
 					});
 					
-					$("#txtUccno_").change(function() {
-                        sendsignmemo();
+					$("#txtUccno_"+i).change(function() {
+					    t_IdSeq = -1;
+                        q_bodyId($(this).attr('id'));
+                        b_seq = t_IdSeq;
+                        var t_where = "where=^^ noa=(select noa from addr where productno='"+$('#txtUccno_'+b_seq).val()+"' and noa='"+$('#txtStraddrno_'+b_seq).val()+"' and caseuseno='"+$('#txtCustno_'+b_seq).val()+"') and datea<='"+$('#txtDatea').val()+"' ^^";
+                        q_gt('addrs', t_where, 0, 0, 0, "addrs", r_accy, 1);
+                    });
+                    
+                    $("#txtCustno_"+i).change(function() {
+                        t_IdSeq = -1;
+                        q_bodyId($(this).attr('id'));
+                        b_seq = t_IdSeq;
+                        var t_where = "where=^^ noa=(select noa from addr where productno='"+$('#txtUccno_'+b_seq).val()+"' and noa='"+$('#txtStraddrno_'+b_seq).val()+"' and caseuseno='"+$('#txtCustno_'+b_seq).val()+"') and datea<='"+$('#txtDatea').val()+"' ^^";
+                        q_gt('addrs', t_where, 0, 0, 0, "addrs", r_accy, 1);
+                    });
+                    
+                    $("#txtStraddrno_"+i).change(function() {
+                        t_IdSeq = -1;
+                        q_bodyId($(this).attr('id'));
+                        b_seq = t_IdSeq;
+                        var t_where = "where=^^ noa=(select noa from addr where productno='"+$('#txtUccno_'+b_seq).val()+"' and noa='"+$('#txtStraddrno_'+b_seq).val()+"' and caseuseno='"+$('#txtCustno_'+b_seq).val()+"') and datea<='"+$('#txtDatea').val()+"' ^^";
+                        q_gt('addrs', t_where, 0, 0, 0, "addrs", r_accy, 1);
                     });
                 
                     $('#txtOutmount_' + i).change(function() {
@@ -244,6 +307,15 @@
                         sum();
                     });
                     $('#txtPrice_' + i).change(function() {
+                        sum();
+                    });
+                    $('#txtPrice2_' + i).change(function() {
+                        sum();
+                    });
+                    $('#txtMount3_' + i).change(function() {
+                        sum();
+                    });
+                    $('#cmbCalctype_' + i).change(function() {
                         sum();
                     });
                 }
