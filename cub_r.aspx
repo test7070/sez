@@ -34,7 +34,7 @@
 			brwKey = 'noa';
 			q_desc = 1;
 			q_copy = 1;
-			brwCount2 = 23;
+			brwCount2 = 24;
 			aPop = new Array(
 				['txtCno', 'lblCno', 'quar', 'noa', 'txtCno', '']
 				,['txtCustno', 'lblCust', 'cust', 'noa,nick,memo2', 'txtCustno,txtComp,txtMemo2', 'cust_b.aspx']
@@ -54,6 +54,9 @@
 				,['txtM9','','adly','noa,mon,memo,memo1,memo2','0txtM9','']
 				,['txtM10','','adly','noa,mon,memo,memo1,memo2','0txtM10','']
 				,['txtM11','','adknife','noa,mon,memo,memo1,memo2','0txtM11','']
+				,['txtM16','','adspec','noa,mon,memo,memo1,memo2','0txtM16','']
+				,['txtM17','','adpro','noa,mon,memo,memo1,memo2','0txtM17','']
+				,['txtM18','','adtran','noa,mon,memo,memo1,memo2','0txtM18','']
 				,['txtFactoryno','lblFactory','factory','noa,factory','txtFactoryno,txtFactory','factory_b.aspx']
 			);
 
@@ -1665,7 +1668,15 @@
 						<td><input id="txtM3" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblM6" class="lbl" >印刷/位置</a></td>
+						<td><span> </span><a id="lblM16" class="lbl">車縫線顏色</a></td>
+						<td><input id="txtM16" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblM17" class="lbl">轉印</a></td>
+						<td><input id="txtM17" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblM18" class="lbl">座管</a></td>
+						<td><input id="txtM18" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblM6" class="lbl" >網烙印</a></td>
 						<td colspan="7"><textarea id="txtM6" rows='5' cols='10' style="width:99%; height: 50px;"> </textarea></td>
 						<!--<input id="txtM6" type="text" class="txt c1"/>-->
 					</tr>

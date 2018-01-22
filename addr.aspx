@@ -63,6 +63,15 @@
 					e.preventDefault();
 					q_box("z_addr2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy, 'z_addr2', "95%", "95%", q_getMsg("popPrint"));
 				});
+				
+				if(q_getPara('sys.project').toUpperCase()!='DC'){
+                    $('#lblCaseuse').text('客戶');
+                }
+                
+                if(q_getPara('sys.project').toUpperCase()=='NV'){
+                    $('#lblCustprice_s').text('料身單價');
+                    $('#lblDriverprice_s').text('運費單價');
+                }
 			}
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
@@ -318,6 +327,7 @@
 					$('#btnPlus_ds').removeAttr('disabled');
 				else
 					$('#btnPlus_ds').attr('disabled', $('#btnPlus').attr('disabled'));
+					
 			}
 			function btnMinus(id) {
 				_btnMinus(id);
@@ -647,7 +657,7 @@
                     <td >
                     <input type="text" id="txtDriverprice.*" style="width:95%;text-align:right;" />
                     </td>
-                    <td >
+                    <td>
                     <input type="text" id="txtDriverprice2.*" style="width:95%;text-align:right;" />
                     </td>
                     <td style="display: none;">

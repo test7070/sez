@@ -51,7 +51,7 @@
                     <input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" />
                     </td>
                     <td style="width:45%;">
-                    <input class="txt" id="txtAddr.*" type="text" style="width:98%;"  readonly="readonly" />
+                    <input class="txt" id="txtPost.*" type="text" style="width:98%;"  readonly="readonly" />
                     </td>
                 </tr>
             </table>
