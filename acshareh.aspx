@@ -686,7 +686,7 @@
                     <td align="center" style="width:100px;"><a id='lblE_s' tag="3500.">庫藏股票</a></td>
                     <td align="center" style="width:100px;"><a id='lblF_s'>總　　計</a></td>
                     <td align="center" style="width:100px;"><a id='lblG_s'>非控制權益</a></td>
-                    <td align="center" style="width:100px;"><a id='lblTotal_s'>權益合計</a></td>
+                    <td align="center" style="width:100px;"><a id='lblTotal_s'>股東權益合計</a></td>
                 </tr>
                 <tr style='background:#cad3ff;'>
                     <td align="center">
