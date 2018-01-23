@@ -18,39 +18,40 @@
             aPop = new Array(['txtXcno', 'lblXcno', 'acomp', 'noa,acomp', 'txtXcno,txtXacomp', 'acomp_b.aspx']);
             t_cno = '';
             t_isinit = false;
-            var z_cno=r_cno,z_acomp=r_comp;
+            var z_cno=r_cno,z_acomp=r_comp,t_invoicetype;
             $(document).ready(function() {
                 q_getId();
-                q_gf('', 'z_vcca');
+                q_gt('acomp', 'stop=1 ', 0, 0, 0);
                 
-                $('#q_report').click(function(e) {
-	            	if(q_getPara('sys.project').toUpperCase()!='SB')
-	                	$('#Sbtype').hide();
-	            });
+                
+                
             });
             
             function q_gfPost() {
-                //q_gt('acomp', '', 0, 0, 0);
-                q_gt('acomp', 'stop=1 ', 0, 0, 0);
+                LoadFinish();
+                
             }
 			
             function q_gtPost(t_name) {
                 switch (t_name) {
-                    case 'acomp':
+                	case 'acomp':
                         var as = _q_appendData("acomp", "", true);
-                        /*t_cno = '';
-                        for ( i = 0; i < as.length; i++) {
-                            t_cno += (t_cno.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].nick;
-                        }
-                        t_cno += ',checkAll@全選';*/
-                       
                        if (as[0] != undefined) {
 	                		z_cno=as[0].noa;
 	                		z_acomp=as[0].acomp;
 	                	}
-                       
-                        LoadFinish();
+                        q_gt('invoicetype', '', 0, 0, 0, "getInvoicetype", r_accy);
                         break;
+                	case 'getInvoicetype':
+                		var as = _q_appendData("invoicetype", "", true);
+                		if (as[0] != undefined){
+                			t_invoicetype = '';
+                			for(var i=0;i<as.length;i++){
+                				t_invoicetype += (t_invoicetype.length>0?',':'') + as[i].noa+'@'+as[i].namea;
+                			}
+                		}
+                		q_gf('', 'z_vcca');
+                		break;
                 }
             }
 
@@ -86,7 +87,7 @@
                     }, {/*5 [11]*/
                         type : '5',
                         name : 'xtype',
-                        value : [' @全部','2@二聯','3@三聯']
+                        value : [q_getPara('report.all')].concat(t_invoicetype.split(','))
                     }, {/*6 [12]*/
                         type : '6',
                         name : 'xcno'
@@ -118,6 +119,10 @@
                         type : '0',
                         name : 'xproject',
                         value : q_getPara('sys.project').toUpperCase()
+                    }, {/*12 [21] */
+                        type : '8',
+                        name : 'xoption',
+                        value : ['01@只顯示作廢發票','02@只顯示異常']
                     }]
                 });
                 
@@ -125,6 +130,11 @@
                 q_getFormat();
                 q_langShow();
                 
+                $('#q_report').click(function(e) {
+	            	if(q_getPara('sys.project').toUpperCase()!='SB')
+	                	$('#Sbtype').hide();
+	            });
+	            
                 var r_1911=1911;
 				if(r_len==4){//西元年
 					r_1911=0;
@@ -148,10 +158,10 @@
                 
                 var tmp = document.getElementById("txtXcno");
                 var t_input = document.createElement("input");
-                t_input.id='txtXacomp'
-                t_input.type='text'
+                t_input.id='txtXacomp';
+                t_input.type='text';
                 t_input.className = "c2 text";
-                t_input.disabled='disabled'
+                t_input.disabled='disabled';
                 tmp.parentNode.appendChild(t_input,tmp);
                 aPop.push(['txtXcno','lblXcno','acomp','noa,acomp','txtXcno,txtXacomp','acomp_b.aspx']);
                  
