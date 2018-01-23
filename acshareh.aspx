@@ -676,12 +676,14 @@
                     <td align="center" style="width:20px;"></td>
 
                     <td align="center" style="width:310px;"><a id='lblTxt_s'>項　　　目</a></td>
-                    <td align="center" style="width:180px;" colspan="2"><a id='lblA_s' tag="3110.">普通股股本<hr>股數(千股) | 金　　　額</a></td>
+                    <td align="center" style="width:180px;" colspan="2"><a id='lblA_s' tag="3110.">普通股股本<hr>股數(千股) ｜ 金　　　額</a></td>
                     <td align="center" style="width:100px;"><a id='lblB_s' tag="3300.">資本公積</a></td>
-                    <td align="center" style="width:380px;" colspan="4"><a id='lblC_s' tag="3410.">保 留 盈 餘<hr>法定盈餘公積 | 特別盈餘公積 | 未分配盈餘 | 合計</a></td>
-                    <td align="center" style="width:380px;" colspan="3"><a id='lblD_s'>其他權益項目<hr>國外營運機構 | 備供出售　 | 　　
-																								   <br>財務報表換算 | 金融資產　 | 合計
-																								   <br>之兌換差額　| 未實現損益 | 　　 </a></td>
+                    <td style="width:380px;" colspan="4"><a id='lblC_s' tag="3410.">　　　　　　　　　保　留　盈　餘　　　　　　　　　
+																				<hr>法定盈餘公積｜特別盈餘公積｜未分配盈餘｜合　　　計</a></td>
+                    <td style="width:380px;" colspan="3"><a id='lblD_s'>　　　　其　他　權　益　項　目　　　 
+																</a><hr>國外營運機構｜ 備供出售　 ｜
+																	<br>財務報表換算｜ 金融資產　 ｜　合　 計
+																	<br>之兌換差額　｜ 未實現損益 ｜</td>
                     <td align="center" style="width:100px;"><a id='lblE_s' tag="3500.">庫藏股票</a></td>
                     <td align="center" style="width:100px;"><a id='lblF_s'>總　　計</a></td>
                     <td align="center" style="width:100px;"><a id='lblG_s'>非控制權益</a></td>
