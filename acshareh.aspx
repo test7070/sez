@@ -667,7 +667,6 @@
                 </table>
             </div>
         </div>
-
         <div class='dbbs'>
             <table id="tbbs" class='tbbs' style="width:1830px;">
                 <tr style='color:white; background:#003366;' >
