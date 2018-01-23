@@ -34,6 +34,7 @@
             , ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']
             , ['txtAddrno', 'lblAddrno', 'store', 'noa,store', 'txtAddrno,txtAddr', 'store_b.aspx']
             , ['txtCaseno_', 'btnCaseno_', 'store', 'noa,store', 'txtCaseno_', 'store_b.aspx']
+            , ['txtTggno_', 'btnTgg_', 'tgg', 'noa,comp', 'txtTggno_,txtTgg_', 'tgg_b.aspx']
             , ['txtUccno_', 'btnProduct_', 'ucc', 'noa,product', 'txtUccno_,txtProduct_', 'ucc_b.aspx']
             , ['txtStraddrno_', 'btnStraddr_', 'addr', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr_b.aspx']
             , ['txtCustno_', 'btnCust_', 'cust', 'noa,comp,nick,addr_home,memo2,salesno2,typea,custno2', 'txtCustno_,txtComp_,txtNick_,txtSaddr_,txtAaddr_,txtCaseno2_,cmbUnit2_,cmbStatus_', 'cust_b.aspx']
@@ -63,19 +64,19 @@
              		t_weight = q_sub(q_float('txtGross_'+i),q_float('txtWeight3_'+i));
              		t_pton = q_sub(q_float('txtWeight2_'+i),t_weight);
              		t_mount = q_sub(q_float('txtOutmount_'+i),q_float('txtInmount_'+i));
-             		t_total = q_mul(q_add(q_float('txtCustprice_'+i),q_float('txtPrice3_'+i)),t_weight);
+             		t_total = q_mul(q_add(q_float('txtCustprice_'+i),q_float('txtPrice_'+i)),t_weight);
              		if($('#cmbCalctype_'+i).val()==1){
-             		    $('#txtMount3_'+i).val($('#txtPrice_'+i).val()*0.9*0.2);
+             		    $('#txtMount3_'+i).val(dec($('#txtPrice_'+i).val())*0.9*0.2);
              		}else if($('#cmbCalctype_'+i).val()==2){
-             		    $('#txtMount3_'+i).val($('#txtPrice_'+i).val()*0.82);
+             		    $('#txtMount3_'+i).val(dec($('#txtPrice_'+i).val())*0.82);
              		}else if($('#cmbCalctype_'+i).val()==3){
-             		    $('#txtMount3_'+i).val($('#txtPrice_'+i).val()*0.85);
+             		    $('#txtMount3_'+i).val(dec($('#txtPrice_'+i).val())*0.85);
              		}else if($('#cmbCalctype_'+i).val()==4){
                         $('#txtMount3_'+i).val($('#txtPrice_'+i).val());
                     }else if($('#cmbCalctype_'+i).val()==5){
-             		    $('#txtMount3_'+i).val($('#txtPrice_'+i).val()*0.91);
+             		    $('#txtMount3_'+i).val(dec($('#txtPrice_'+i).val())*0.91);
              		}else if($('#cmbCalctype_'+i).val()==6){
-             		    $('#txtMount3_'+i).val($('#txtPrice_'+i).val()*0.9);
+             		    $('#txtMount3_'+i).val(dec($('#txtPrice_'+i).val())*0.9);
              		}else{
              		    $('#txtMount3_'+i).val();
              		}
@@ -222,7 +223,14 @@
                 for (var i = 0; i < q_bbsCount; i++) {
 					$('#lblNo_' + i).text(i + 1);
                     if($('#btnMinus_' + i).hasClass('isAssign'))
-                    	continue;
+                    	continue;                
+                    $('#txtTggno_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnTgg_'+n).click();
+                    });
+
                     $('#txtCustno_' + i).bind('contextmenu', function(e) {
                         /*滑鼠右鍵*/
                         e.preventDefault();
@@ -241,6 +249,7 @@
                         var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
                         $('#btnProduct_'+n).click();
                     });
+
                     $('#txtStraddrno_' + i).bind('contextmenu', function(e) {
                         /*滑鼠右鍵*/
                         e.preventDefault();
@@ -356,7 +365,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['straddrno'] ) {
+                if (!as['straddrno'] && !as['custno'] && !as['productno'] && !as['datea']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -662,6 +671,7 @@
 						<td>
 						<input id="txtWorker2" type="text" class="txt c1" />
 						</td>
+						<td><input id="btnImport" type="button" value="廠商付款立帳" style="width:100%;"/></td>
 					</tr>
 				</table>
 			</div>
@@ -672,6 +682,7 @@
 					<td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:100px"><a>日期</a></td>
+					<td align="center" style="width:80px"><a>廠商</a></td>
 					<td align="center" style="width:80px"><a>貨源</a></td>
 					<td align="center" style="width:100px"><a>合約規格</a></td>
 					<td align="center" style="width:80px"><a>客戶</a></td>
@@ -724,6 +735,10 @@
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td><input type="text" id="txtDatea.*" style="width:95%;"/></td>
+					<td><input type="text" id="txtTggno.*" style="float:left;width:95%;"/>
+                        <input type="text" id="txtTgg.*" style="float:left;width:95%;"/>
+                        <input type="button" id="btnTgg.*" style="display:none;"/>
+                    </td>
 					<td><input type="text" id="txtCaseno.*" style="width:95%;"/>
 					    <input type="button" id="btnCaseno.*" style="display:none;"/>
 					</td>

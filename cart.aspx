@@ -426,12 +426,12 @@
 					</tr>
 					<tr></tr>
 					<tr>
-						<td class='isDC'><span> </span><a class="lbl">匯入月份</a></td>
-						<td class='isDC'><input id="textMon" type="text"  class="txt c1"/> </td>
+						<td class='isDC' style="display: none"><span> </span><a class="lbl">匯入月份</a></td>
+						<td class='isDC' style="display: none"><input id="textMon" type="text"  class="txt c1"/> </td>
 					</tr>
 					<tr>
 						<td> </td>
-						<td class='isDC'><input id="btnUpdatedata" type="button"  class="txt c1" value="保牌燃費、折舊匯入"/> </td>
+						<td class='isDC' style="display: none"><input id="btnUpdatedata" type="button"  class="txt c1" value="保牌燃費、折舊匯入"/> </td>
 					</tr>
 					<tr></tr>
 					<tr></tr>
