@@ -59,6 +59,14 @@
                 	if(t_mon.length>0)
                 		q_func('qtxt.query.updatedata', 'cart.txt,updatedata,' + t_mon );
                 });
+                
+                if (q_getPara('sys.project').toUpperCase()=='DC'){
+                    $('.isDC').show();
+                }else{
+                    $('.isNDC').show();
+                    $('#lblTax_s').text('保稅')
+                }
+
             }
 
             function q_boxClose(s2) {
@@ -177,6 +185,13 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                
+                if (q_getPara('sys.project').toUpperCase()=='DC'){
+                    $('.isDC').show();
+                }else{
+                    $('.isNDC').show();
+                    $('#lblTax_s').text('保稅')
+                }
 
             }
 
@@ -411,12 +426,12 @@
 					</tr>
 					<tr></tr>
 					<tr>
-						<td><span> </span><a class="lbl">匯入月份</a></td>
-						<td><input id="textMon" type="text"  class="txt c1"/> </td>
+						<td class='isDC' style="display: none"><span> </span><a class="lbl">匯入月份</a></td>
+						<td class='isDC' style="display: none"><input id="textMon" type="text"  class="txt c1"/> </td>
 					</tr>
 					<tr>
 						<td> </td>
-						<td><input id="btnUpdatedata" type="button"  class="txt c1" value="保牌燃費、折舊匯入"/> </td>
+						<td class='isDC' style="display: none"><input id="btnUpdatedata" type="button"  class="txt c1" value="保牌燃費、折舊匯入"/> </td>
 					</tr>
 					<tr></tr>
 					<tr></tr>
@@ -434,8 +449,9 @@
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:80px;"><a id='lblMon_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblTax_s'> </a></td>
+					<td class="isNDC" align="center" style="width:100px;display: none"><a id='lblLicense_s'>牌照稅</a></td>
+					<td class="isNDC" align="center" style="width:100px;display: none"><a id='lblOil_s'>燃料稅</a></td>
 					<td align="center" style="width:100px;"><a id='lblDepreciation_s'> </a></td>
-
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -446,9 +462,15 @@
 					<td >
 					<input type="text" id="txtMon.*" style="width:95%;" />
 					</td>
-					<td >
+					<td class="isNDC" style="display: none">
 					<input type="text" id="txtTax.*" style="width:95%;text-align: right;" />
 					</td>
+					<td class="isNDC" style="display: none">
+                    <input type="text" id="txtLicense.*" style="width:95%;text-align: right;" />
+                    </td>
+                    <td >
+                    <input type="text" id="txtOil.*" style="width:95%;text-align: right;" />
+                    </td>
 					<td >
 					<input type="text" id="txtDepreciation.*" style="width:95%;text-align: right;" />
 					</td>
