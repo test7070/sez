@@ -150,10 +150,10 @@
 				var t_ins=false;
 					if(q_getPara('sys.project').toUpperCase()=='RB'){
 					q_gt('authority',"where=^^ a.noa='z_ucc' and a.sssno='"+r_userno+"' ^^", 0, 0, 0, "getauthority", r_accy,1);
-					var tuca = _q_appendData("authority", "", true);
-					if (tuca[0] != undefined) {
-						if(as[0].pr_ins=='1'){
-							t_ins==true;
+					var as = _q_appendData("authority", "", true);
+					if (as[0] != undefined) {
+						if(as[0].pr_ins=='true'){
+							t_ins=true;
 						}
 					}
 				}
