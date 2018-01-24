@@ -146,8 +146,26 @@
 				q_popAssign();
 				q_getFormat();
 				q_langShow();
-				if(r_rank <8)
-					$('#btnCostbcc').attr('disabled', 'disabled')
+				
+				var t_ins=false;
+					if(q_getPara('sys.project').toUpperCase()=='RB'){
+					q_gt('authority',"where=^^ a.noa='z_ucc' and a.sssno='"+r_userno+"' ^^", 0, 0, 0, "getauthority", r_accy,1);
+					var tuca = _q_appendData("authority", "", true);
+					if (tuca[0] != undefined) {
+						if(as[0].pr_ins=='1'){
+							t_ins==true;
+						}
+					}
+				}
+				
+				if(q_getPara('sys.project').toUpperCase()=='RB'){
+					if(!t_ins && r_rank <8)
+						$('#btnCostbcc').attr('disabled', 'disabled')
+				}else{
+					if(r_rank <8)
+						$('#btnCostbcc').attr('disabled', 'disabled')
+				}
+					
 				if(r_len==4){                	
                 	$.datepicker.r_len=4;
 					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
