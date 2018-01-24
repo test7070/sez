@@ -79,7 +79,7 @@
 
                 $('#btnImport').click(function(e) {
                     if ($.trim($('#txtNoa').val()).length > 0)
-                        q_gt('acshareh_import', '', 0, 0, 0, "", $.trim($('#txtNoa').val()) + '_' + r_cno);
+                        q_gt('acshareh_import', '', 0, 0, 0, "", $.trim($('#txtNoa').val()-1911) + '_' + r_cno);
                     else
                         alert('請輸入' + q_getMsg('lblNoa'));
                 });
@@ -202,10 +202,14 @@
                 _btnIns();
                 while (q_bbsCount < defaultTxt.length) {
                     $('#btnPlus').click();
+					$('#txtNoa').val(r_accya);
+					var t_date = new Date();
+					var r_accya = t_date.getFullYear();
                 }
                 for (var i = 0; i < defaultTxt.length; i++)
                     $('#txtTxt_' + i).val(defaultTxt[i]);
             }
+			
 
             function btnModi() {
                 if (emp($('#txtNoa').val()))
@@ -453,8 +457,6 @@
                     return (r1 / r2) * pow(10, t2 - t1);
                 }
             }
-
-
             Number.prototype.mul = function(arg) {
                 return accMul(arg, this);
             }
