@@ -98,9 +98,13 @@
                         name : 'wyear'
                     }]
                 });
-                $('#txtWyear').mask('999');
-                $('#txtWyear').val(r_accy);
-                
+				
+                //$('#txtWyear').mask('999');
+                $('#txtWyear').mask('9999');
+				var t_date = new Date();
+				var r_accya = t_date.getFullYear();
+                $('#txtWyear').val(r_accya);
+				
                 $('#txtWmon').mask('999/99');
                 $('#txtXmon').mask('999/99');
                 $('#txtYmon').mask('999/99');
@@ -119,7 +123,8 @@
                 $('#txtYdate2').datepicker();
 				$('#chkXpart').children('input').attr('checked', 'checked');
 				var t_date = new Date();
-				var t_year = t_date.getFullYear()-1911;
+				/*var t_year = t_date.getFullYear()-1911;*/
+				var t_year = t_date.getFullYear();
 				var t_month = t_date.getMonth()+1;
 				$('#txtWmon').val(t_year+'/'+(t_month<10?'0':'')+t_month);
 				$('#txtWdate1').val(t_year +'/01/01');
