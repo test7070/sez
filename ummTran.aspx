@@ -154,6 +154,11 @@
                         q_tr('txtOpay', t_money);
                     sum();
 				});
+				
+				if(q_getPara('sys.project').toUpperCase()=='ES'){
+				    $('#btnVcc').val('月結匯入');
+				}
+				
 				//0926改為開啟視窗
 				$('#btnVcc').click(function(e) {
 					switch(q_getPara('sys.project').toUpperCase()){
@@ -163,6 +168,12 @@
 							q_func('qtxt.query.trd2umms_wh', 'umm.txt,trd2umms_wh,' + encodeURI(t_custno) + ';'+ encodeURI(t_custno2));
 							//q_gt('view_quat', "where=^^ noa='"+t_quatno+"' ^^", 0, 0, 0, JSON.stringify({action:'importQuat'}));
 							break;
+					    case 'ES':
+                            var t_custno = $.trim($('#txtCustno').val());
+                            var t_custno2 = $.trim($('#txtCustno2').val()).replace(',','@');
+                            var t_mon = $.trim($('#txtMon').val());
+                            q_func('qtxt.query.tranumms_es', 'umm.txt,tranumms_es,' + encodeURI(t_custno) + ';'+ encodeURI(t_custno2)+ ';'+ encodeURI(t_mon));
+                            break;
 						default:
 							if(q_cur==2 && t_iscara && q_getPara('sys.project').toUpperCase()=='DC'){//106/02/08 dc 只要有做cara的內容限制只能匯入一次 避免收款換月份導致上月欠款問題
 								alert('內含監理部"單據作業",禁止匯入重複匯入!!');
@@ -337,6 +348,18 @@
                         }
                         sum();
             			break;
+            	    case 'qtxt.query.tranumms_es':
+                        var as = _q_appendData("tmp0", "", true, true);
+                        q_gridAddRow(bbsHtm, 'tbbs', 'txtTablea,txtAccy,txtVccno,txtCustno,txtMemo2,txtMon,txtUnpayorg,txtUnpay'
+                        , as.length, as, 'tablea,accy,noa,custno,cust,mon,unpay,unpay', '','');
+                        for ( i = 0; i < q_bbsCount; i++) {
+                            if (i < as.length) {
+                            }else{
+                                _btnMinus("btnMinus_" + i);
+                            }
+                        }
+                        sum();
+                        break;
                     default:
                         break;
                 }
