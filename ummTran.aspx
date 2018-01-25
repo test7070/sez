@@ -156,7 +156,7 @@
 				});
 				
 				if(q_getPara('sys.project').toUpperCase()=='ES'){
-				    $('#btnVcc').val('月結匯入');
+				    $('#btnVcc').val('月結出車單匯入');
 				}
 				
 				//0926改為開啟視窗
