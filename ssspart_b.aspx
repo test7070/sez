@@ -25,7 +25,7 @@
             var bbsNum = [['txtRate',5,2,0],['txtRank',1,0,0]];
             var bbmMask = [];
             var bbsMask = [];
-
+			var t_authRun=false;
             $(document).ready(function() {
                 bbmKey = [];
                 bbsKey = ['noa','noq'];
@@ -34,14 +34,16 @@
                 }// debug
                 if (!q_paraChk())
                     return;
-                main();
+                var t_where = "where=^^ a.noa='" + q_name + "' and a.sssno='"+r_userno+"' ^^";
+				q_gt('authority', t_where, 0, 0, 0, "getauthRun", r_accy);
             });
+            
             function main() {
                 if (dataErr) {
                     dataErr = false;
                     return;
                 }
-                if(q_authRun())
+                if(t_authRun)
 					mainBrow(6, t_content, t_sqlname, t_postname);
 				else
 					alert('無使用權限');
@@ -119,22 +121,34 @@
 
             function q_gtPost(t_name) {  /// 資料下載後 ...
 		        switch (t_name) {
-		    	case 'part':
-					var as = _q_appendData("part", "", true);
-					if (as[0] != undefined) {
-						var t_item = "@";
-						for (i = 0; i < as.length; i++) {
-							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
+		        	case 'getauthRun':
+						var as = _q_appendData("authority", "", true, true);
+						if (as[0] != undefined) {
+							if (as[0]["pr_run"] == "true"){
+								t_authRun=true;
+							}
 						}
-						q_cmbParse("cmbPartno", t_item, 's');
-						refresh(q_recno);  /// 第一次需要重新載入
-
-					}
-					break;
-				case q_name:
-					if (q_cur == 4)
-						q_Seek_gtPost();
-					break;
+						if(r_rank>=8){
+							t_authRun=true;
+						}
+						main();
+						break;
+			    	case 'part':
+						var as = _q_appendData("part", "", true);
+						if (as[0] != undefined) {
+							var t_item = "@";
+							for (i = 0; i < as.length; i++) {
+								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
+							}
+							q_cmbParse("cmbPartno", t_item, 's');
+							refresh(q_recno);  /// 第一次需要重新載入
+	
+						}
+						break;
+					case q_name:
+						if (q_cur == 4)
+							q_Seek_gtPost();
+						break;
 		        }
             }
 
