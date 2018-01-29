@@ -156,8 +156,15 @@
 				});
 				
 				if(q_getPara('sys.project').toUpperCase()=='ES'){
-				    $('#btnVcc').val('月結出車單匯入');
+				    $('.isES').show();
 				}
+				
+				$('#btnMon').click(function(e) {
+				     var t_custno = $.trim($('#txtCustno').val());
+                     var t_custno2 = $.trim($('#txtCustno2').val()).replace(',','@');
+                     var t_mon = $.trim($('#txtMon').val());
+                     q_func('qtxt.query.tranumms_es', 'umm.txt,tranumms_es,' + encodeURI(t_custno) + ';'+ encodeURI(t_custno2)+ ';'+ encodeURI(t_mon));
+				});
 				
 				//0926改為開啟視窗
 				$('#btnVcc').click(function(e) {
@@ -168,12 +175,6 @@
 							q_func('qtxt.query.trd2umms_wh', 'umm.txt,trd2umms_wh,' + encodeURI(t_custno) + ';'+ encodeURI(t_custno2));
 							//q_gt('view_quat', "where=^^ noa='"+t_quatno+"' ^^", 0, 0, 0, JSON.stringify({action:'importQuat'}));
 							break;
-					    case 'ES':
-                            var t_custno = $.trim($('#txtCustno').val());
-                            var t_custno2 = $.trim($('#txtCustno2').val()).replace(',','@');
-                            var t_mon = $.trim($('#txtMon').val());
-                            q_func('qtxt.query.tranumms_es', 'umm.txt,tranumms_es,' + encodeURI(t_custno) + ';'+ encodeURI(t_custno2)+ ';'+ encodeURI(t_mon));
-                            break;
 						default:
 							if(q_cur==2 && t_iscara && q_getPara('sys.project').toUpperCase()=='DC'){//106/02/08 dc 只要有做cara的內容限制只能匯入一次 避免收款換月份導致上月欠款問題
 								alert('內含監理部"單據作業",禁止匯入重複匯入!!');
@@ -1032,11 +1033,18 @@
 				_refresh(recno);
 				if (q_cur == 1 || q_cur == 2) {
 					$("#btnVcc").removeAttr("disabled");
+					$("#btnMon").removeAttr("disabled");
 					$("#btnAuto").removeAttr("disabled");
 				} else {
 					$("#btnVcc").attr("disabled", "disabled");
+					$("#btnMon").attr("disabled", "disabled");
 					$("#btnAuto").attr("disabled", "disabled");
 				}
+				
+				if(q_getPara('sys.project').toUpperCase()=='ES'){
+                    $('.isES').show();
+                }
+				
 				getOpay();
 				refreshFbbs();
 			}
@@ -1045,9 +1053,11 @@
 				_readonly(t_para, empty);
 				if (q_cur == 1 || q_cur == 2) {
 					$("#btnVcc").removeAttr("disabled");
+					$("#btnMon").removeAttr("disabled");
 					$("#btnAuto").removeAttr("disabled");
 				} else {
 					$("#btnVcc").attr("disabled", "disabled");
+					$("#btnMon").attr("disabled", "disabled");
 					$("#btnAuto").attr("disabled", "disabled");
 				}
 				refreshFbbs();
@@ -1301,7 +1311,9 @@
 							<input id="txtCustno" type="text" class="txt c4"/>
 							<input id="txtComp" type="text" class="txt c5"/>
 						</td>
-						<td class="6"><input type="button" id="btnVcc" class="txt c1" /></td>
+						<td class="6"><input type="button" id="btnVcc" class="txt c1" />
+						              <input type="button" id="btnMon" class="txt c1 isES" style="display: none" value="月結出車單匯入"/>
+						</td>
 						<td class="td7"><span> </span><a id='lblCust2' class="lbl btn"></a></td>
 						<td class="td8"><input id="txtCustno2" type="text" class="txt c1"/></td>
 					</tr>
