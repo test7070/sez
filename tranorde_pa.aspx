@@ -17,7 +17,7 @@
             q_tables = 't';
             var q_name = "tranorde";
             var q_readonly = ['txtNoa','txtWorker', 'txtWorker2','txtBoat'];
-            var q_readonlys = ['txtAddress'];
+            var q_readonlys = [];
             var bbsNum = new Array(['txtLengthb', 10, 2, 1],['txtWidth', 10, 2, 1],['txtHeight', 10, 2, 1],['txtVolume', 10, 2, 1],['txtWeight', 10, 2, 1],['txtTheight', 10, 0, 1],['txtTvolume', 10, 0, 1],['txtMount', 10, 0, 1],['txtPrice', 10, 2, 1],['txtMoney', 10, 0, 1],['txtTotal', 10, 0, 1],['txtTotal2', 10, 0, 1],['txtTotal3', 10, 0, 1]);
             var bbsMask = new Array(['txtTrandate', '999/99/99'],['txtDate1', '999/99/99'],['txtDate2', '999/99/99'],['txtTime1', '99:99'],['txtTime2', '99:99']);
             var bbtMask = new Array(); 
@@ -34,6 +34,7 @@
             brwCount2 = 9;
             aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,memo2', 'txtCustno,txtComp,txtNick,txtMemo', 'cust_b.aspx'] 
                 ,['txtAddrno', 'lblAddr_js', 'addr2_wj', 'custno,cust,address', 'txtAddrno,txtAddr,txtBoat', 'addr2_b2.aspx']
+                ,['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
                 ,['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
             $(document).ready(function() {
                 var t_where = '';
@@ -45,6 +46,11 @@
             });
             
             function sum() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return;
+                for(var i=0;i<q_bbsCount;i++){
+                    $('#txtTotal_'+i).val(q_mul(q_float('txtPrice_' + i),q_float('txtMount_' + i)));
+                }
             }
             function main() {
                 if (dataErr) {
@@ -61,9 +67,54 @@
                     $('#lblNo_' + i).text(i + 1);
                     if($('#btnMinus_' + i).hasClass('isAssign'))
                         continue;
+                        
+                    $('#txtProductno_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnProduct_'+n).click();
+                    });
                     
-                    $('#txtWeight_' + i).change(function() {
-                        sum();
+                    $('#txtConn_' + i).focusout(function (){
+                        var s1 = $(this).val();
+                            if (s1.length == 1 && s1 == "=") {
+                                t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+                                q_bodyId($(this).attr('id'));
+                                b_seq = t_IdSeq;
+                                if (b_seq > 0) {
+                                    var i = b_seq - 1;
+                                    var s1 = $('#txtConn_' + i).val();
+                                    $('#txtConn_' + b_seq).val(s1);
+                                    var s2 = $('#txtProductno_' + i).val();
+                                    $('#txtProductno_' + b_seq).val(s2); 
+                                    var s3 = $('#txtProduct_' + i).val();
+                                    $('#txtProduct_' + b_seq).val(s3);
+                                    var s4 = $('#txtTel_' + i).val();
+                                    $('#txtTel_' + b_seq).val(s4);
+                                    var s5 = $('#txtAddress_' + i).val();
+                                    $('#txtAddress_' + b_seq).val(s5);
+                                    var s6 = $('#txtContainerno1_' + i).val();
+                                    $('#txtContainerno1_' + b_seq).val(s6);
+                                    var s7 = $('#txtContainerno2_' + i).val();
+                                    $('#txtContainerno2_' + b_seq).val(s7);
+                                    var s8 = $('#txtAddress2_' + i).val();
+                                    $('#txtAddress2_' + b_seq).val(s8);
+                                    var s9 = $('#txtUnit_' + i).val();
+                                    $('#txtUnit_' + b_seq).val(s9);
+                                }
+                            }
+                    });
+                    $('#txtConn_' + i).focus(function () {
+                            if (!$(this).val())
+                                q_msg($(this), '=號複製上一筆摘要');
+                    });
+                         
+                    $('#txtMount_' + i).change(function() {
+                            sum();
+                    });
+                    
+                    $('#txtPrice_' + i).change(function() {
+                            sum();
                     });
 
                 }
@@ -83,11 +134,16 @@
                 _bbtAssign();
             }
             function bbsSave(as) {
-                if (!as['calctype'] && !as['addrno2'] && !as['addr2']  && !as['addrno'] && !as['addr'] && !as['productno'] && !as['product'] && !as['product2']) {
+                if ( !as['conn'] && !as['address']  && !as['Containerno1'] && !as['address2'] && !as['productno'] && !as['product'] && !as['mount']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
                 q_nowf();
+                as['caseno'] = abbm2['cno'];
+                as['time1'] = abbm2['acomp'];
+                as['addrno3'] = abbm2['custno'];
+                as['addr3'] = abbm2['comp'];
+                as['trandate'] = abbm2['date1'];
                 return true;
             }
             
@@ -127,6 +183,7 @@
             
             function btnOk() {
                 $('#txtDatea').val($.trim($('#txtDatea').val()));
+                sum();
                 if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
                     alert(q_getMsg('lblDatea') + '錯誤。');
                     Unlock(1);
@@ -470,7 +527,6 @@
                 <tr style='color:white; background:#003366;' >
                     <td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
                     <td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:90px"><a>配送日期</a></td>
                     <td align="center" style="width:250px"><a>寄件人/電話<br>地址</a></td>
 					<td align="center" style="width:250px"><a>收件人/電話<br>地址</a></td>
                     <td align="center" style="width:200px"><a>品名</a></td>
@@ -486,7 +542,6 @@
                         <input type="text" id="txtNoq.*" style="display:none;"/>
                     </td>
                     <td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-					<td><input type="text" id="txtTrandate.*" style="width:95%;" /></td>
                     <td>
                         <input type="text" id="txtConn.*" style="width:40%;">
                         <input type="text" id="txtTel.*" style="width:52%;">
@@ -499,9 +554,10 @@
 
                     </td>
                     <td>
-                        <input type="text" id="txtProductno.*" style="width:35%;" />
-                        <input type="text" id="txtProduct.*" style="width:45%;"/>
-                        <input type="button" id="btnProduct.*" style="width:5%;" value=".">
+                        <input type="text" id="txtProductno.*" style="width:95%;" />
+                        <input type="button" id="btnProduct.*" style="display:none;">
+                        <input type="text" id="txtProduct.*" style="width:95%;"/>
+                        
                     </td>
                     <td><input type="text" id="txtUnit.*" class="num" style="width:95%;" /> </td>
                     <td><input type="text" id="txtMount.*" class="num" style="width:95%;" /></td>
