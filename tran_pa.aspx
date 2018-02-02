@@ -543,12 +543,14 @@
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:100px;"><a>承車日期</a></td>
+					<td align="center" style="width:100px;"><a>收款方式</a></td>
+					<td align="center" style="width:100px;"><a>配送日期</a></td>
+					<td align="center" style="width:200px;"><a>起運地點</a></td>
+                    <td align="center" style="width:200px;"><a>卸貨地點</a></td>
 					<td align="center" style="width:100px;"><a>品名</a></td>
 					<td align="center" style="width:80px;"><a>單價</a></td>
 					<td align="center" style="width:80px;"><a>件數</a></td>
-					<td align="center" style="width:200px;"><a>起運地點</a></td>
-					<td align="center" style="width:200px;"><a>卸貨地點</a></td>
+
 					<td align="center" style="width:180px;"><a>派車單號</a></td>	
 					<td align="center" style="width:80px;"><a>應收運費</a></td>
 					<td align="center" style="width:80px;"><a>應付運費</a></td>
@@ -559,6 +561,7 @@
 						<input type="text" id="txtNoq.*" style="display:none;"/>
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>					
+					<td><select id="cmbTtype.*" class="txt" style="width:95%;"> </select></td>
 					<td><input type="text" id="txtTrandate.*" style="width:95%;"/></td> 
 					<td>
 						<input type="text" id="txtUccno.*" style="float:left;width:95%;"/>

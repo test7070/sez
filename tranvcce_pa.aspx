@@ -19,9 +19,9 @@
             var q_readonly = ['txtNoa', 'txtWeight','txtTotal', 'txtWorker', 'txtWorker2','txtAddress'];
             var q_readonlys = ['txtOrdeno', 'txtNo2'];
             var bbmNum = [];
-            var bbsNum = [['txtWeight', 10, 0, 1],['txtUweight', 10, 2, 1],['txtMount', 10, 0, 1],['txtVolume', 10, 0, 1],['txtTvolume', 10, 0, 1],['txtTheight', 10, 0, 1],['txtTotal', 15, 0, 1],['txtTotal2', 10, 0, 1]];
-            var bbmMask = [];
-            var bbsMask = [['txtTime3', '999/99/99'],['txtLng', '999/99/99'],['txtBdate', '999/99/99'],['txtEdate', '999/99/99'],['txtTime1', '99:99'],['txtTime2', '99:99']];
+            var bbsNum = [['txtMount', 10, 0, 1],['txtVolume', 10, 2, 1],['txtTotal', 15, 0, 1],['txtTotal2', 10, 0, 1]];
+            var bbmMask = [['txtTimea', '999/99/99']];
+            var bbsMask = [['txtBdate', '999/99/99'],['txtEdate', '999/99/99'],['txtTime1', '99:99'],['txtTime2', '99:99']];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -54,13 +54,17 @@
             }
             var t_weight=0;
             function sum() {
-
-
+                if (!(q_cur == 1 || q_cur == 2))
+                    return;
+                for(var i=0;i<q_bbsCount;i++){
+                    $('#txtTotal_'+i).val(q_mul(q_float('txtVolume_' + i),q_float('txtMount_' + i)));
+                }
             }
 
             function mainPost() {
                 q_mask(bbmMask);
                 $('#txtDatea').datepicker();
+                $('#txtTimea').datepicker();
                 $('#textBdate').datepicker();
                 $('#textEdate').datepicker();
                 
@@ -82,8 +86,8 @@
                                 if (!b_ret || b_ret.length == 0)
                                     return;
                                     ret = q_gridAddRow(bbsHtm, 'tbbs', 
-                                    'txtBdate,txtConn,txtTel,txtAddress,txtLat,txtLat2,txtAddress2,txtProductno,txtProduct,txtUnit,txtMount,txtTotal', b_ret.length, b_ret, 
-                                    'trandate,conn,tel,address,containerno1,containerno2,address2,productno,product,unit,mount,total',',txtConn,txtProductno,txtProduct,txtUnit,txtMount,txtTotal');
+                                    'txtOrdeno,txtNo2,txtBdate,txtConn,txtTel,txtAddress,txtLat,txtLat2,txtAddress2,txtProductno,txtProduct,txtUnit,txtMount,txtVolume,txtTotal', b_ret.length, b_ret, 
+                                    'noa,noq,trandate,conn,tel,address,containerno1,containerno2,address2,productno,product,unit,mount,price,total',',txtConn,txtProductno,txtProduct,txtUnit,txtMount,txtTotal');
                              }
                         break;
                     case q_name + '_s':
@@ -166,7 +170,7 @@
                             sum();
                     });
                     
-                    $('#txtPrice_' + i).change(function() {
+                    $('#txtVolume_' + i).change(function() {
                             sum();
                     });
                 }
@@ -182,8 +186,8 @@
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').val('AUTO');
-                $('#txtTrandate').val(q_date());
                 $('#txtDatea').val(q_date()).focus();
+                $('#txtTimea').val(q_date());
                 refreshBbs();
             }
 
@@ -209,13 +213,16 @@
             }
 
             function bbsSave(as) {
-                if (!as['custno'] && !as['cust'] && !as['addrno2'] && !as['addrno'] && !as['addr'] && !as['addr2'] && !as['carno'] && !as['mount']) {
+                if (!as['addrno2'] && !as['addrno'] && !as['addr'] && !as['addr2'] && !as['carno'] && !as['productno'] && !as['mount']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
                 q_nowf();
                 as['cno'] = abbm2['cno'];
                 as['acomp'] = abbm2['acomp'];
+                as['custno'] = abbm2['addrno'];
+                as['cust'] = abbm2['addr'];
+                as['edate'] = abbm2['timea'];
                 return true;
             }
 
@@ -398,7 +405,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 2500px;
+                width: 2600px;
             }
             .tbbs a {
                 font-size: medium;
@@ -553,17 +560,18 @@
 			</div>
 		</div>
 		<div class='dbbs' >
-			<table id="tbbs" class='tbbs' style="width:1300px;">
+			<table id="tbbs" class='tbbs' style="width:1400px;">
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:90px"><a>預計配送日期<br>配送日期</a></td>
+					<td align="center" style="width:90px"><a>預計配送日期</a></td>
 					<td align="center" style="width:200px"><a>寄件人/電話<br>地址</a></td>
 					<td align="center" style="width:200px"><a>收件人/電話<br>地址</a></td>
 					<td align="center" style="width:60px"><a>儲位</a></td>
 					<td align="center" style="width:100px"><a>品名</a></td>
 					<td align="center" style="width:40px"><a>單位</a></td>
-					<td align="center" style="width:50px"><a>數量</a></td>
+					<td align="center" style="width:70px"><a>數量</a></td>
+					<td align="center" style="width:70px"><a>單價</a></td>
                     <td align="center" id='hid_total' style="width:70px"><a>應收金額</a></td>
 					<td align="center" style="width:60px"><a>車牌</a></td>
                     <td align="center" style="width:50px"><a>司機</a></td>
@@ -578,7 +586,6 @@
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
                     <td>
                         <input type="text" id="txtBdate.*" style="width:95%;" />
-                         <input type="text" id="txtEdate.*" style="width:95%;" />
                     </td>
                     <td>
                         <input type="text" id="txtConn.*" style="width:40%;" />
@@ -599,6 +606,7 @@
                     </td>
                     <td><input type="text" id="txtUnit.*" style="width:95%;"/></td>
                     <td><input type="text" id="txtMount.*" class="num" style="width:95%;"/></td>
+                    <td><input type="text" id="txtVolume.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtTotal.*" class="num" style="width:95%;"/></td>
 					<td>
                         <input type="text" id="txtCarno.*" style="width:95%;"/>
