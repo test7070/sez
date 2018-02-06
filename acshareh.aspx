@@ -41,7 +41,7 @@
 							  '採用權益法認列之關聯企業之變動數', 
 							  '淨利', 
 							  '稅後其他綜和損益', 
-							  '綜和損益總和', 
+							  '綜和損益總和',
 							  '盈餘指撥及分配：提列法定盈餘公積', 
 							  '　　　　　　　：普通股現金股利',
 							  '盈餘指撥及分配總合',
@@ -79,7 +79,7 @@
 
                 $('#btnImport').click(function(e) {
                     if ($.trim($('#txtNoa').val()).length > 0)
-                        q_gt('acshareh_import', '', 0, 0, 0, "", $.trim($('#txtNoa').val()) + '_' + r_cno);
+                        q_gt('acshareh_import', '', 0, 0, 0, "", $.trim($('#txtNoa').val()-1911) + '_' + r_cno);
                     else
                         alert('請輸入' + q_getMsg('lblNoa'));
                 });
@@ -202,10 +202,14 @@
                 _btnIns();
                 while (q_bbsCount < defaultTxt.length) {
                     $('#btnPlus').click();
+					$('#txtNoa').val(r_accya);
+					var t_date = new Date();
+					var r_accya = t_date.getFullYear();
                 }
                 for (var i = 0; i < defaultTxt.length; i++)
                     $('#txtTxt_' + i).val(defaultTxt[i]);
             }
+			
 
             function btnModi() {
                 if (emp($('#txtNoa').val()))
@@ -453,8 +457,6 @@
                     return (r1 / r2) * pow(10, t2 - t1);
                 }
             }
-
-
             Number.prototype.mul = function(arg) {
                 return accMul(arg, this);
             }
@@ -667,7 +669,6 @@
                 </table>
             </div>
         </div>
-
         <div class='dbbs'>
             <table id="tbbs" class='tbbs' style="width:1830px;">
                 <tr style='color:white; background:#003366;' >
@@ -677,16 +678,18 @@
                     <td align="center" style="width:20px;"></td>
 
                     <td align="center" style="width:310px;"><a id='lblTxt_s'>項　　　目</a></td>
-                    <td align="center" style="width:180px;" colspan="2"><a id='lblA_s' tag="3110.">普通股股本<hr>股數(千股) | 金　　　額</a></td>
+                    <td align="center" style="width:180px;" colspan="2"><a id='lblA_s' tag="3110.">普通股股本<hr>股數(千股) ｜ 金　　　額</a></td>
                     <td align="center" style="width:100px;"><a id='lblB_s' tag="3300.">資本公積</a></td>
-                    <td align="center" style="width:380px;" colspan="4"><a id='lblC_s' tag="3410.">保 留 盈 餘<hr>法定盈餘公積 | 特別盈餘公積 | 未分配盈餘 | 合計</a></td>
-                    <td align="center" style="width:380px;" colspan="3"><a id='lblD_s'>其他權益項目<hr>國外營運機構 | 備供出售　 | 　　
-																								   <br>財務報表換算 | 金融資產　 | 合計
-																								   <br>之兌換差額　| 未實現損益 | 　　 </a></td>
+                    <td style="width:380px;" colspan="4"><a id='lblC_s' tag="3410.">　　　　　　　　　保　留　盈　餘　　　　　　　　　
+																				<hr>法定盈餘公積｜特別盈餘公積｜未分配盈餘｜合　　　計</a></td>
+                    <td style="width:380px;" colspan="3"><a id='lblD_s'>　　　　其　他　權　益　項　目　　　 
+																</a><hr>國外營運機構｜ 備供出售　 ｜
+																	<br>財務報表換算｜ 金融資產　 ｜　合　 計
+																	<br>之兌換差額　｜ 未實現損益 ｜</td>
                     <td align="center" style="width:100px;"><a id='lblE_s' tag="3500.">庫藏股票</a></td>
                     <td align="center" style="width:100px;"><a id='lblF_s'>總　　計</a></td>
                     <td align="center" style="width:100px;"><a id='lblG_s'>非控制權益</a></td>
-                    <td align="center" style="width:100px;"><a id='lblTotal_s'>權益合計</a></td>
+                    <td align="center" style="width:100px;"><a id='lblTotal_s'>股東權益合計</a></td>
                 </tr>
                 <tr style='background:#cad3ff;'>
                     <td align="center">

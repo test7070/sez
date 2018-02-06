@@ -22,7 +22,7 @@
             var bbsNum = [['txtMount', 10, 0, 1], ['txtOutmount', 10, 0, 1], ['txtInmount', 10, 0, 1], ['txtMount2', 10, 0, 1], ['txtWeight', 10, 3, 1], ['txtWeight2', 10, 3, 1], 
             			 ['txtMiles', 10, 0, 1], ['txtGross', 10, 3, 1], ['txtWeight3', 10, 3, 1], ['txtPton', 10, 3, 1], ['txtPrice', 10, 3, 1], ['txtPrice2', 10, 3, 1], ['txtCustprice', 10, 3, 1], ['txtMount3', 10, 3, 1], 
             			 ['txtCustdiscount', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtTotal2', 10, 0, 1], ['txtDiscount', 10, 0, 1]];
-            var bbmMask = [['txtDatea', '999/99/99'],['txtTrandate', '999/99/99']];
+            var bbmMask = [['txtDatea', '999/99/99'],['txtTrandate', '999/99/99'],['textMon','999/99']];
             var bbsMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -34,6 +34,7 @@
             , ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']
             , ['txtAddrno', 'lblAddrno', 'store', 'noa,store', 'txtAddrno,txtAddr', 'store_b.aspx']
             , ['txtCaseno_', 'btnCaseno_', 'store', 'noa,store', 'txtCaseno_', 'store_b.aspx']
+            , ['txtTggno_', 'btnTgg_', 'tgg', 'noa,comp', 'txtTggno_,txtTgg_', 'tgg_b.aspx']
             , ['txtUccno_', 'btnProduct_', 'ucc', 'noa,product', 'txtUccno_,txtProduct_', 'ucc_b.aspx']
             , ['txtStraddrno_', 'btnStraddr_', 'addr', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr_b.aspx']
             , ['txtCustno_', 'btnCust_', 'cust', 'noa,comp,nick,addr_home,memo2,salesno2,typea,custno2', 'txtCustno_,txtComp_,txtNick_,txtSaddr_,txtAaddr_,txtCaseno2_,cmbUnit2_,cmbStatus_', 'cust_b.aspx']
@@ -63,20 +64,22 @@
              		t_weight = q_sub(q_float('txtGross_'+i),q_float('txtWeight3_'+i));
              		t_pton = q_sub(q_float('txtWeight2_'+i),t_weight);
              		t_mount = q_sub(q_float('txtOutmount_'+i),q_float('txtInmount_'+i));
-             		t_total = q_mul(q_add(q_float('txtCustprice_'+i),q_float('txtPrice3_'+i)),t_weight);
+             		t_total = q_mul(q_add(q_float('txtCustprice_'+i),q_float('txtPrice_'+i)),t_weight);
              		if($('#cmbCalctype_'+i).val()==1){
-             		    $('#txtMount3_'+i).val($('#txtPrice_'+i).val()*0.9*0.2);
+             		    $('#txtMount3_'+i).val(dec($('#txtPrice_'+i).val())*0.9*0.2);
              		}else if($('#cmbCalctype_'+i).val()==2){
-             		    $('#txtMount3_'+i).val($('#txtPrice_'+i).val()*0.82);
+             		    $('#txtMount3_'+i).val(dec($('#txtPrice_'+i).val())*0.82);
              		}else if($('#cmbCalctype_'+i).val()==3){
-             		    $('#txtMount3_'+i).val($('#txtPrice_'+i).val()*0.85);
+             		    $('#txtMount3_'+i).val(dec($('#txtPrice_'+i).val())*0.85);
              		}else if($('#cmbCalctype_'+i).val()==4){
                         $('#txtMount3_'+i).val($('#txtPrice_'+i).val());
                     }else if($('#cmbCalctype_'+i).val()==5){
-             		    $('#txtMount3_'+i).val($('#txtPrice_'+i).val()*0.91);
+             		    $('#txtMount3_'+i).val(dec($('#txtPrice_'+i).val())*0.91);
              		}else if($('#cmbCalctype_'+i).val()==6){
-             		    $('#txtMount3_'+i).val($('#txtPrice_'+i).val()*0.9);
-             		}else{
+             		    $('#txtMount3_'+i).val(dec($('#txtPrice_'+i).val())*0.9);
+             		}else if($('#cmbCalctype_'+i).val()==7){
+                        $('#txtMount3_'+i).val(dec($('#txtPrice_'+i).val())*0.25);
+                    }else{
              		    $('#txtMount3_'+i).val();
              		}
              		t_total2 = q_mul(q_float('txtMount3_'+i),t_weight);
@@ -107,7 +110,7 @@
             	q_cmbParse("cmbTtype",'N@無,Y@有','s');
             	q_cmbParse("cmbStatus",'未稅@未稅,含稅@含稅','s');
             	q_cmbParse("combCaseno2",'50T@50T,100T@100T,150T@150T,200T@200T,300T@300T','s');
-            	q_cmbParse("cmbCalctype",'@,1@公司車*0.9*0.2,2@外車*0.82,3@外車*0.85,4@外車*100%,5@靠車*0.91,6@靠車*0.9','s');
+            	q_cmbParse("cmbCalctype",'@,1@公司車*0.9*0.2,2@外車*0.82,3@外車*0.85,4@外車*100%,5@靠車*0.91,6@靠車*0.9,7@混凝土車*0.25','s');
             	$('#lblVolume').text('目前數量');
             	
             	$('#lblAddrno').click(function() {
@@ -118,6 +121,40 @@
             			$('#lblVolume').show();
 						$('#txtVolume').show();
 				});	
+				
+				$('#btnImport').click(function() {
+                    $('#divImport').toggle();
+                    $('#textBdate').focus();
+                });
+                $('#btnCancel_import').click(function() {
+                    $('#divImport').toggle();
+                });
+                
+                //第一次只KEY月分做所有處理廠匯入,後續才能KEY處理廠做BBS變動,否則資料不新增
+                $('#btnImport_trans').click(function() {
+                   if(q_cur != 1 && q_cur != 2){
+                        var t_key = q_getPara('sys.key_payb');
+                        var t_mon = $('#textMon').val();
+                        t_key = (t_key.length==0?'FC':t_key);//一定要有值
+                        if(t_mon.length==0){
+                            alert('請輸入月份'+q_getMsg('lblMon')+'!!');
+                            return;
+                        }else{
+                            q_func('qtxt.query.tranpayb_nv', 'tran.txt,tranpaybnv,' + encodeURI(t_key) + ';'+ encodeURI(t_mon)); 
+                        }    
+                   }
+                });
+            }
+            
+            function q_funcPost(t_func, result) {
+                switch(t_func) {
+                    case 'qtxt.query.tranpayb_nv':
+                        var as = _q_appendData("tmp0", "", true, true);
+                        alert(as[0].msg);
+                        break;
+                    default:
+                        break;
+                }
             }
 
             function q_boxClose(s2) {
@@ -186,6 +223,20 @@
             }
 
             function q_popPost(s1) {
+                switch (s1) {
+                    case 'txtCustno_':
+                        var t_where = "where=^^ noa=(select noa from addr where productno='"+$('#txtUccno_'+b_seq).val()+"' and noa='"+$('#txtStraddrno_'+b_seq).val()+"' and caseuseno='"+$('#txtCustno_'+b_seq).val()+"') and datea<='"+$('#txtDatea').val()+"' ^^";
+                        q_gt('addrs', t_where, 0, 0, 0, "addrs", r_accy, 1);
+                        break;
+                    case 'txtUccno_':
+                        var t_where = "where=^^ noa=(select noa from addr where productno='"+$('#txtUccno_'+b_seq).val()+"' and noa='"+$('#txtStraddrno_'+b_seq).val()+"' and caseuseno='"+$('#txtCustno_'+b_seq).val()+"') and datea<='"+$('#txtDatea').val()+"' ^^";
+                        q_gt('addrs', t_where, 0, 0, 0, "addrs", r_accy, 1);
+                        break;
+                    case 'txtStraddrno_':
+                        var t_where = "where=^^ noa=(select noa from addr where productno='"+$('#txtUccno_'+b_seq).val()+"' and noa='"+$('#txtStraddrno_'+b_seq).val()+"' and caseuseno='"+$('#txtCustno_'+b_seq).val()+"') and datea<='"+$('#txtDatea').val()+"' ^^";
+                        q_gt('addrs', t_where, 0, 0, 0, "addrs", r_accy, 1);
+                        break;
+                }
                 
             }
 
@@ -222,7 +273,14 @@
                 for (var i = 0; i < q_bbsCount; i++) {
 					$('#lblNo_' + i).text(i + 1);
                     if($('#btnMinus_' + i).hasClass('isAssign'))
-                    	continue;
+                    	continue;                
+                    $('#txtTggno_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnTgg_'+n).click();
+                    });
+
                     $('#txtCustno_' + i).bind('contextmenu', function(e) {
                         /*滑鼠右鍵*/
                         e.preventDefault();
@@ -241,6 +299,7 @@
                         var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
                         $('#btnProduct_'+n).click();
                     });
+
                     $('#txtStraddrno_' + i).bind('contextmenu', function(e) {
                         /*滑鼠右鍵*/
                         e.preventDefault();
@@ -356,7 +415,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['straddrno'] ) {
+                if (!as['straddrno'] && !as['custno'] && !as['productno'] && !as['datea']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -578,6 +637,30 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
+	   <div id="divImport" style="position:absolute; top:250px; left:600px; display:none; width:400px; height:200px; background-color: #cad3ff; border: 5px solid gray;">
+            <table style="width:100%;">
+                <tr style="height:1px;">
+                    <td style="width:150px;"></td>
+                    <td style="width:80px;"></td>
+                    <td style="width:80px;"></td>
+                    <td style="width:80px;"></td>
+                    <td style="width:80px;"></td>
+                </tr>
+                <tr style="height:35px;">
+                    <td><span> </span><a id="lblMon" style="float:right; color: blue; font-size: medium;">月份</a></td>
+                    <td colspan="4">
+                    <input id="textMon"  type="text" style="float:left; width:100px; font-size: medium;"/>
+                    </td>
+                </tr>              
+                <tr style="height:35px;">
+                    <td> </td>
+                    <td><input id="btnImport_trans" type="button" value="付款"/></td>
+                    <td></td>
+                    <td></td>
+                    <td><input id="btnCancel_import" type="button" value="關閉"/></td>
+                </tr>
+            </table>
+        </div>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id="dmain" >
 			<div class="dview" id="dview">
@@ -662,6 +745,7 @@
 						<td>
 						<input id="txtWorker2" type="text" class="txt c1" />
 						</td>
+						<td><input id="btnImport" type="button" value="廠商付款立帳" style="width:100%;"/></td>
 					</tr>
 				</table>
 			</div>
@@ -672,6 +756,7 @@
 					<td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:100px"><a>日期</a></td>
+					<td align="center" style="width:80px"><a>廠商</a></td>
 					<td align="center" style="width:80px"><a>貨源</a></td>
 					<td align="center" style="width:100px"><a>合約規格</a></td>
 					<td align="center" style="width:80px"><a>客戶</a></td>
@@ -724,6 +809,10 @@
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td><input type="text" id="txtDatea.*" style="width:95%;"/></td>
+					<td><input type="text" id="txtTggno.*" style="float:left;width:95%;"/>
+                        <input type="text" id="txtTgg.*" style="float:left;width:95%;"/>
+                        <input type="button" id="btnTgg.*" style="display:none;"/>
+                    </td>
 					<td><input type="text" id="txtCaseno.*" style="width:95%;"/>
 					    <input type="button" id="btnCaseno.*" style="display:none;"/>
 					</td>
