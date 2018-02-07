@@ -156,37 +156,47 @@
 				});
 				
 				if(q_getPara('sys.project').toUpperCase()=='ES'){
-				    $('#btnVcc').val('月結匯入');
-				}
-				
+                    $('#btnVcc').val('月結出車單匯入');
+                    $('#txtPayc').change(function() {
+                        var t_payc = $.trim($('#txtPayc').val());
+                        q_gt('trd', "where=^^ noa='"+t_payc+"' ^^", 0, 0, 0, "trd", r_accy, 1);
+                        var as = _q_appendData("trd", "", true);                   
+                        q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtUnpay,txtUnpayorg', as.length, as, 'noa,total,total', 'txtVccno', '');
+                        sum();
+                        $('#txtCustno').val($.trim(as[0].custno));
+                        $('#txtComp').val($.trim(as[0].comp));
+                        $('#cmbCno').val($.trim(as[0].cno));
+                    });
+                }
+
 				//0926改為開啟視窗
-				$('#btnVcc').click(function(e) {
-					switch(q_getPara('sys.project').toUpperCase()){
-						case 'WH':
-							var t_custno = $.trim($('#txtCustno').val());
-							var t_custno2 = $.trim($('#txtCustno2').val()).replace(',','@');
-							q_func('qtxt.query.trd2umms_wh', 'umm.txt,trd2umms_wh,' + encodeURI(t_custno) + ';'+ encodeURI(t_custno2));
-							//q_gt('view_quat', "where=^^ noa='"+t_quatno+"' ^^", 0, 0, 0, JSON.stringify({action:'importQuat'}));
-							break;
-					    case 'ES':
+                $('#btnVcc').click(function(e) {
+                    switch(q_getPara('sys.project').toUpperCase()){
+                        case 'WH':
+                            var t_custno = $.trim($('#txtCustno').val());
+                            var t_custno2 = $.trim($('#txtCustno2').val()).replace(',','@');
+                            q_func('qtxt.query.trd2umms_wh', 'umm.txt,trd2umms_wh,' + encodeURI(t_custno) + ';'+ encodeURI(t_custno2));
+                            //q_gt('view_quat', "where=^^ noa='"+t_quatno+"' ^^", 0, 0, 0, JSON.stringify({action:'importQuat'}));
+                            break;
+                        case 'ES':
                             var t_custno = $.trim($('#txtCustno').val());
                             var t_custno2 = $.trim($('#txtCustno2').val()).replace(',','@');
                             var t_mon = $.trim($('#txtMon').val());
                             q_func('qtxt.query.tranumms_es', 'umm.txt,tranumms_es,' + encodeURI(t_custno) + ';'+ encodeURI(t_custno2)+ ';'+ encodeURI(t_mon));
                             break;
-						default:
-							if(q_cur==2 && t_iscara && q_getPara('sys.project').toUpperCase()=='DC'){//106/02/08 dc 只要有做cara的內容限制只能匯入一次 避免收款換月份導致上月欠款問題
-								alert('內含監理部"單據作業",禁止匯入重複匯入!!');
-								return;
-							}
-							//201307/16因客戶2會輸入很多，所以將判斷條件移到開起qbox才查詢
-							var t_where = '', t_where1 = '', t_where2 = '', t_where3 = '', t_where4 = '', t_where5 = '', t_where6 = '', t_where7 = '';
-							q_box("umm_trd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + t_where1 + t_where2 + t_where3 + t_where4 + t_where5 + t_where6 + t_where7, 'umm_trd', "95%", "95%", q_getMsg('popUmm_trd'));
-							break;
-					}
-				});
-				
-			}
+                        default:
+                            if(q_cur==2 && t_iscara && q_getPara('sys.project').toUpperCase()=='DC'){//106/02/08 dc 只要有做cara的內容限制只能匯入一次 避免收款換月份導致上月欠款問題
+                                alert('內含監理部"單據作業",禁止匯入重複匯入!!');
+                                return;
+                            }
+                            //201307/16因客戶2會輸入很多，所以將判斷條件移到開起qbox才查詢
+                            var t_where = '', t_where1 = '', t_where2 = '', t_where3 = '', t_where4 = '', t_where5 = '', t_where6 = '', t_where7 = '';
+                            q_box("umm_trd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + t_where1 + t_where2 + t_where3 + t_where4 + t_where5 + t_where6 + t_where7, 'umm_trd', "95%", "95%", q_getMsg('popUmm_trd'));
+                            break;
+                    }
+                });
+                
+            }
 
 			/*function umm_trd() {
 				var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
@@ -1037,6 +1047,7 @@
 					$("#btnVcc").attr("disabled", "disabled");
 					$("#btnAuto").attr("disabled", "disabled");
 				}
+				
 				getOpay();
 				refreshFbbs();
 			}
@@ -1045,9 +1056,11 @@
 				_readonly(t_para, empty);
 				if (q_cur == 1 || q_cur == 2) {
 					$("#btnVcc").removeAttr("disabled");
+					$("#btnMon").removeAttr("disabled");
 					$("#btnAuto").removeAttr("disabled");
 				} else {
 					$("#btnVcc").attr("disabled", "disabled");
+					$("#btnMon").attr("disabled", "disabled");
 					$("#btnAuto").attr("disabled", "disabled");
 				}
 				refreshFbbs();
@@ -1301,7 +1314,8 @@
 							<input id="txtCustno" type="text" class="txt c4"/>
 							<input id="txtComp" type="text" class="txt c5"/>
 						</td>
-						<td class="6"><input type="button" id="btnVcc" class="txt c1" /></td>
+						<td class="6"><input type="button" id="btnVcc" class="txt c1" />
+						</td>
 						<td class="td7"><span> </span><a id='lblCust2' class="lbl btn"></a></td>
 						<td class="td8"><input id="txtCustno2" type="text" class="txt c1"/></td>
 					</tr>
