@@ -572,10 +572,6 @@
             var check_stk_notv=0;
             var checkstktmp=[];
             function btnOk() {
-				if (!confirm('確定成立銷售??')){
-					return;
-				}
-				Lock();
                 var t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')],['txtDatea', q_getMsg('lblDatea')], ['txtCustno', q_getMsg('lblCust')], ['txtCno', q_getMsg('lblAcomp')],['txtStoreno', q_getMsg('lblStore')], ['txtSalesno', q_getMsg('lblSales')]]);
                 if (t_err.length > 0) {
                     alert(t_err);
@@ -1182,6 +1178,10 @@
                 color: blue;
                 font-size: medium;
             }
+            .tbbm tr td .lbl1 {
+                color: blue;
+                font-size: medium;
+            }
             .tbbm tr td .lbl.btn {
                 color: #4297D7;
                 font-weight: bolder;
@@ -1286,57 +1286,55 @@
                 </table>
             </div>
             <div class='dbbm'><!--- style="width: 900px;"--->
-                <table class="tbbm" id="tbbm" style="width: 100%;height: 375px;" border="2">
+                <table class="tbbm" id="tbbm" style="width: 100%;height: 362px;" border="2">
                     <tr>
                         <td width="70%">
                             <table border="0" >
+                                <tr><td colspan="10"><span> </span><font size="6"><b>現場銷售系統</b></font><hr></td>
                                 <tr>
-                                    <td style="width: 108px;"><span> </span><a id="lblNoa" class="lbl"> </a></td>
-                                    <td style="width: 108px;" colspan="2"><input id="txtNoa" type="text" class="txt c1" /></td>
-                                    <td colspan="3">
+                                    <td width="100px"><span> </span><a id="lblNoa" class="lbl"> </a></td>
+                                    <td width="115px"><input id="txtNoa" type="text" class="txt c1" /></td>
+                                    <td colspan="6">
                                         <a id="lblDatea" class="lbl" style="float: left;"> </a><span style="float: left;"> </span>
-                                        <input id="txtDatea" type="text" class="txt c1" style="width: 80px;float: left;"/>
-                                        <span style="float: left;"> </span><span style="float: left;"> </span><span style="float: left;"> </span>
+											<input id="txtDatea" type="text" class="txt c1" style="width: 80px;float: left;"/>
+											<span style="float: left;"> </span><span style="float: left;"> </span><span style="float: left;"> </span>
                                         <a id="lblMon" class="lbl" style="float: left;"> </a> <span style="float: left;"> </span>
-                                        <input id="txtMon" type="text" class="txt c1" style="width: 80px;float: left;"/>
+                                        <input id="txtMon" type="text" class="txt c1" style="width: 75px;float: left;"/>
+										<a id="lblType" class="lbl1"></a><select id="cmbTypea"> </select>
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td><a id="lblType" class="lbl"></a></td>
-                                    <td><select id="cmbTypea"> </select></td>
                                 </tr>
                                 <tr>
                                     <td class="td1"><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
                                     <td class="td2"><input id="txtCno" type="text" class="txt c1"/></td>
-                                    <td class="td2" colspan="4"><input id="txtAcomp" type="text" class="txt c1"/></td>
+                                    <td class="td2" colspan="8"><input id="txtAcomp" type="text" class="txt c1"/></td>
                                 </tr>
                                 <tr>
                                     <td class="td1"><span> </span><a id="lblCust" class="lbl btn"> </a></td>
                                     <td class="td2"><input id="txtCustno" type="text" class="txt c1"/></td>
-                                    <td class="td2" colspan="2"><input id="txtComp" type="text" class="txt c1" size="20%" placeholder="客戶名稱"/></td>
-                                    <td class="td3"><input id="txtNick" type="text" class="txt c1" placeholder="客戶簡稱"/></td>
-                                    <td class="td3" colspan="3"><input id="txtTel" type="text" class="txt c1" size="20%" placeholder="客戶電話"/></td>
+                                    <td class="td2" colspan="3">
+										<input id="txtComp" type="text" class="txt c1" style="width:65%;" placeholder="客戶名稱"/>
+										<input id="txtNick" type="text" class="txt c1" style="width:35%;" placeholder="客戶簡稱"/>
+									</td>
+                                    <td class="td3" colspan="5"><input id="txtTel" type="text" class="txt c1" size="20%" placeholder="客戶電話"/></td>
                                 </tr>
-                                <!---<tr><td colspan="8"><hr></td></tr>--->
                                 <tr>
                                     <td class="td1"><span> </span><a id="lblSales" class="lbl btn"> </a></td>
                                     <td class="td2"><input id="txtSalesno" type="text" class="txt c1"/></td>
                                     <td class="td3"><input id="txtSales" type="text" class="txt c1"/></td>
-                                    <td colspan="2"><span> </span><a id="lblStore" class="lbl btn"> </a></td>
+                                    <td colspan="3" width="50px"><span> </span><a id="lblStore" class="lbl btn"> </a></td>
                                     <td><input id="txtStoreno" type="text" class="txt c1" style="width:49%;"/><input id="txtStore" type="text" class="txt c1" style="width:49%;"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="td1"><span> </span><a id="lblWorker" class="lbl"> </a></td>
-                                    <td><input id="txtWorker" type="text" class="txt c1"/></td>
-                                    <td><input id="txtWorker2" type="text" class="txt c1"/></td>
                                 </tr>
                                 <tr>
                                     <td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
                                     <td class="td2" colspan="7"><textarea id="txtMemo" cols="10" rows="5" style="width:99%;height:50px;"> </textarea></td>
                                 </tr>
                                 <tr>
-                                    <td class="td1"><span> </span><a id="lblOrdeno" class="lbl"></a></td>
-                                    <td class="td2" colspan="7"><input id="txtOrdeno" type="text" class="txt c1" placeholder="AUTO" /></td>
+                                    <td ><span> </span><a id="lblOrdeno" class="lbl"></a></td>
+                                    <td colspan="2"><input id="txtOrdeno" type="text" class="txt c1" placeholder="AUTO" /></td>
+                                    <td colspan="2"><span> </span><a id="lblWorker" class="lbl"></a></td>
+                                    <td colspan="5">
+										<input id="txtWorker" type="text" class="txt c1" style="width:49%;" /><input id="txtWorker2" type="text" class="txt c1"style="width:49%;" />
+									</td>
                                 </tr>
                             </table>
                         </td>
@@ -1382,7 +1380,7 @@
                                     <td><input id="txtTotal" type="text" class="txt num c1 istax" style="width: 80%;"/></td>
                                 </tr>
                                 <tr>
-                                    <td><a class="lblType1"></a></td>
+                                    <td><a class="lbl" id="lblType1"></a></td>
                                     <td><input id="txtStatus" type="text" class="txt c1" style="width: 49%;"/>
 										<select id="cmbStatus" style="width: 12%;" onchange="combStatus_chg();"> </select></td>
                                 </tr>
