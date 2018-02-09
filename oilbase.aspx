@@ -41,12 +41,21 @@
 					dataErr = false;
 					return;
 				}
+				if (q_getPara('sys.project').toUpperCase()==='WJ'){
+					$('.WJNN').hide();
+					$('.WJYY').show();
+				}
 				mainForm(0);
 				// 1=Last  0=Top
 			}///  end Main()
 
 			function mainPost() {
 				q_mask(bbmMask);
+				if (q_getPara('sys.project').toUpperCase()==='WJ'){
+					$('.WJN').hide();
+					$('.WJY').show();
+					document.title = '台橡單價表';
+				}
 			}
 
 			function q_boxClose(s2) {
@@ -316,12 +325,25 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>			
 						<td align="center" style="width:60px; color:black;"><a id='vewMon'> </a></td>
-						<td align="center" style="width:70px; color:black;"><a id='vewPrice1'> </a></td>
-						<td align="center" style="width:70px; color:black;"><a id='vewPrice2'> </a></td>
-						<td align="center" style="width:70px; color:black;"><a id='vewPrice3'> </a></td>
-						<td align="center" style="width:70px; color:black;"><a id='vewPrice4'> </a></td>
-						<td align="center" style="width:70px; color:black;"><a id='vewPrice5'> </a></td>
-						<td align="center" style="width:70px; color:black;"><a id='vewPrice'> </a></td>
+						<td align="center" style="width:70px; color:black;">
+						<a class="WJNN" id='vewPrice1'> </a>
+						<a class="WJYY" style="display:none;">北區</a>
+						</td>
+						<td align="center" style="width:70px; color:black;">
+						<a class="WJNN" id='vewPrice2'> </a>
+						<a class="WJYY" style="display:none;">中區</a>
+						</td>
+						<td align="center" style="width:70px; color:black;">
+						<a class="WJNN" id='vewPrice3'> </a>
+						<a class="WJYY" style="display:none;">南區</a>
+						</td>
+						<td align="center" style="width:70px; color:black;">
+						<a class="WJNN" id='vewPrice4'> </a>
+						<a class="WJYY" style="display:none;">移倉</a>
+						</td>
+						<td class="WJNN" align="center" style="width:70px; color:black;"><a id='vewPrice5'> </a></td>
+						<td class="WJNN" align="center" style="width:70px; color:black;"><a id='vewPrice'> </a>
+						</td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
@@ -330,8 +352,8 @@
 						<td id='price2' style="text-align: right;">~price2</td>
 						<td id='price3' style="text-align: right;">~price3</td>
 						<td id='price4' style="text-align: right;">~price4</td>
-						<td id='price5' style="text-align: right;">~price5</td>
-						<td id='price' style="text-align: right;">~price</td>
+						<td class="WJNN" id='price5' style="text-align: right;">~price5</td>
+						<td class="WJNN" id='price' style="text-align: right;">~price</td>
 					</tr>
 				</table>
 			</div>
@@ -350,26 +372,38 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblPrice1' class="lbl"> </a></td>
+						<td><span> </span>
+						<a id='lblPrice1' class="lbl WJN"> </a>
+						<a id='lblPrice1WJ' class="lbl WJY" style="display:none;">北區</a>
+						</td>
 						<td><input id="txtPrice1"  type="text"  class="txt num c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblPrice2' class="lbl"> </a></td>
+						<td><span> </span>
+						<a id='lblPrice2' class="lbl WJN"> </a>
+						<a id='lblPrice2WJ' class="lbl WJY" style="display:none;">中區</a>
+						</td>
 						<td><input id="txtPrice2"  type="text"  class="txt num c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblPrice3' class="lbl"> </a></td>
+						<td><span> </span>
+						<a id='lblPrice3' class="lbl WJN"> </a>
+						<a id='lblPrice3WJ' class="lbl WJY" style="display:none;">南區</a>
+						</td>
 						<td><input id="txtPrice3"  type="text"  class="txt num c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblPrice4' class="lbl"> </a></td>
+						<td><span> </span>
+						<a id='lblPrice4' class="lbl WJN"> </a>
+						<a id='lblPrice4WJ' class="lbl WJY" style="display:none;">移倉</a>
+						</td>
 						<td><input id="txtPrice4"  type="text"  class="txt num c1"/></td>
 					</tr>
-					<tr>
+					<tr class='WJN'>
 						<td><span> </span><a id='lblPrice5' class="lbl"> </a></td>
 						<td><input id="txtPrice5"  type="text"  class="txt num c1"/></td>
 					</tr>
-					<tr>
+					<tr class='WJN'>
 						<td><span> </span><a id='lblPrice' class="lbl"> </a></td>
 						<td><input id="txtPrice"  type="text"  class="txt num c1"/></td>
 					</tr>
