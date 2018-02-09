@@ -66,9 +66,13 @@
                 if(q_getPara('sys.project').toUpperCase()=='BV'){
                 	document.title='1.4員工資料';
                 	$('#lblFt_date').text('工號');
-                	bbmMask = [['txtBirthday', r_picd], ['txtIndate', r_picd], ['txtOutdate', r_picd], ['txtMobile1', '9999999999'], ['txtMobile2', '9999999999'], ['txtHealth_bdate', r_picd], ['txtHealth_edate', r_picd], ['txtLabor1_bdate', r_picd], ['txtLabor1_edate', r_picd], ['txtLabor2_bdate', r_picd], ['txtLabor2_edate', r_picd]];
+                	bbmMask = [['txtBirthday', r_picd], ['txtIndate', r_picd], ['txtOutdate', r_picd], ['txtMobile1', '9999999999'], ['txtMobile2', '9999999999']
+                	, ['txtHealth_bdate', r_picd], ['txtHealth_edate', r_picd], ['txtLabor1_bdate', r_picd], ['txtLabor1_edate', r_picd], ['txtLabor2_bdate', r_picd], ['txtLabor2_edate', r_picd]];
                 }else{
-                	bbmMask = [['txtBirthday', r_picd], ['txtFt_date', r_picd], ['txtIndate', r_picd], ['txtOutdate', r_picd], ['txtMobile1', '9999999999'], ['txtMobile2', '9999999999'], ['txtHealth_bdate', r_picd], ['txtHealth_edate', r_picd], ['txtLabor1_bdate', r_picd], ['txtLabor1_edate', r_picd], ['txtLabor2_bdate', r_picd], ['txtLabor2_edate', r_picd]];
+                	bbmMask = [['txtBirthday', r_picd], ['txtFt_date', r_picd], ['txtIndate', r_picd], ['txtOutdate', r_picd], ['txtMobile1', '9999999999'], ['txtMobile2', '9999999999']
+                	, ['txtHealth_bdate', r_picd], ['txtHealth_edate', r_picd], ['txtLabor1_bdate', r_picd], ['txtLabor1_edate', r_picd], ['txtLabor2_bdate', r_picd], ['txtLabor2_edate', r_picd]
+                	,['textBmon','99'],['textEmon','99'], ['textYear', r_pic]
+                	];
                 }
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('sss.typea'));
@@ -321,7 +325,7 @@
                     }
                 });
                 $('#table_salbs .num').val(0);
-                $('#textYear').val(r_accy);
+                $('#textYear').val(q_date().substr(0,r_len));
                 $('#table_salbs .num').keyup(function() {
 					var tmp=$(this).val();
 					tmp=tmp.match(/\d{1,}\.{0,1}\d{0,}/);
@@ -1107,7 +1111,7 @@
 				</tr>
 				<tr id='salbs_close'>
 					<td align="center" colspan='10'>
-						<input id="textYear" type="text" style="width: 30px;"/> 年度
+						<input id="textYear" type="text" style="width: 40px;"/> 年度
 						<input id="btnInsert_div_salbs" type="button" value="寫入稅務薪資表">
 						<input id="btnClose_div_salbs" type="button" value="關閉視窗">
 					</td>

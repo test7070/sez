@@ -172,7 +172,7 @@
                     		t_money = 0;
                     	}
                     }
-                    if (t_money > 0)
+                    //if (t_money > 0)
                         q_tr('txtOpay', t_money);
                     sum();
                 });
