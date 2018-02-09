@@ -83,7 +83,7 @@
                 
                 q_cmbParse("cmbTypea", q_getPara('vcc.typea'));
                 q_cmbParse("combPay", ('').concat(new Array('　　　　','現金','刷卡','支付宝')));
-                q_cmbParse("cmbStatus", ('').concat(new Array('　　　　','已出貨','未出貨')));
+                q_cmbParse("cmbStatus", ('').concat(new Array('已出貨','未出貨','　　　　')));
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
                 
                 var t_where = "where=^^ 1=0  ^^ stop=100";
@@ -722,6 +722,7 @@
                     q_gtnoa(q_name, replaceAll('B' + $('#txtDatea').val(), '/', ''));
                 else
                     wrServer(s1);
+				
             }
 			
             function _btnSeek() {
@@ -738,7 +739,6 @@
                     $('#txtPaytype').val(cmb.value);
                 cmb.value = '';
             }
-			
             function combStatus_chg() {
                 var cmb = document.getElementById("cmbStatus");
                 if (!q_cur)
@@ -935,9 +935,21 @@
                     
                     if(q_getPara('sys.project').toUpperCase()=='RB')
                         q_func('qtxt.query.vcc2cng_rb', 'vcc.txt,vcc2cng_rb,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val())+ ';' + encodeURI(r_name));
-						//q_func('qtxt.query.vcc_rb2toorde', 'test.txt,vcc_rb2toorde,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val()));
+						q_func('qtxt.query.vcc_rb2toorde', 'test.txt,vcc_rb2toorde,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val()));
                         //q_func('qtxt.query.vcc_rb2toorde', 'vcc.txt,vcc_rb2toorde,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val())+ ';' + encodeURI(r_name));
                 }
+				//////////print
+                /*if (q_cur == 1){
+					var value = dbbm.innerHTML;
+					var printPage = window.open("","printPage","");
+						printPage.document.open();
+						printPage.document.write("<HTML><head></head><BODY onload='window.print();window.close()'>");
+						printPage.document.write("<PRE>");
+						printPage.document.write(value);
+						printPage.document.write("</PRE>");
+						printPage.document.close("</BODY></HTML>");
+				}*/
+				////////////// html 按列印直接印出預設印表機
             }
 
             function refresh(recno) {
@@ -1112,7 +1124,6 @@
                         break;
                     default:
                 }
-                
                 $('#txtMoney').val(FormatNumber(t_money));
                 $('#txtTax').val(FormatNumber(t_tax));
                 $('#txtTotal').val(FormatNumber(t_total));
@@ -1271,7 +1282,7 @@
             </table>
         </div>
         <div id="dmain" style="width: 1258px;" ><!--#include file="../inc/toolbar.inc"-->
-            <div class="dview" id="dview" >
+            <div class="dview">
                 <table class="tview" id="tview">
                     <tr>
                         <td align="center" style="width:5%"><a id='vewChk'> </a></td>
@@ -1289,15 +1300,15 @@
                     </tr>
                 </table>
             </div>
-            <div class='dbbm'><!--- style="width: 900px;"--->
+            <div class='dbbm' id='dbbm'><!--- style="width: 900px;"--->
                 <table class="tbbm" id="tbbm" style="width: 100%;height: 362px;" border="2">
                     <tr>
                         <td width="70%">
                             <table border="0" >
-                                <tr><td colspan="10">
+                                <tr>
+									<td colspan="10">
 										<span> </span><font size="6"><b>現場銷售系統</b></font>
-										<input style="float: right;" class="btn" id="btnvcctype" onClick="btnvcctype()" type="button" value='退貨' />
-										<hr>
+										<input style="float: right;" class="btn" id="btnvcctype" onClick="btnvcctype()" type="button" value='退貨' /><hr>
 									</td>
                                 <tr>
                                     <td width="100px"><span> </span><a id="lblNoa" class="lbl"> </a></td>
@@ -1356,7 +1367,7 @@
                                     <td width="30%"><a id="lblInvono" class="lbl btn vcca"> </a></td>
                                     <td>
                                         <input id="txtInvono" type="text" class="txt c1 vcca" style="width: 80%;"/>
-                                        <input id="txtInvo" type="hidden" class="txt c1"/><!--有值表示訂單轉發票-->
+                                        <input id="txtInvo" type="hidden" class="txt c1"/><!---有值表示訂單轉發票-->
                                     </td>
                                 </tr>
                                 
@@ -1446,5 +1457,7 @@
                 </tr>
             </table>
         </div><input id="q_sys" type="hidden" />
+            
+		
     </body>
 </html>
