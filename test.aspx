@@ -37,7 +37,7 @@
                 ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
                 ['txtSalesno', 'lblSales', 'sss', 'noa,namea,partno,part', 'txtSalesno,txtSales', 'sss_b.aspx'],
                 ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'],
-                ['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit,saleprice', 'txtProductno_,txtProduct_,txtSpec_,txtPrice_', 'ucaucc_b.aspx'],
+                ['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit,price', 'txtProductno_,txtProduct_,txtSpec_,txtPrice_', 'ucaucc_b.aspx'],
                 ['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx']
             );
 
@@ -68,7 +68,7 @@
                     t_weight=+q_float('txtMount_' + j);
                     $('#txtTotal_' + j).val(round(q_mul(q_float('txtPrice_' + j), dec(t_mount)), 0));
 					
-					$('#txtMount_'+j).val(round(parseFloat(t_mount1),2));
+					$('#txtMount_'+j).val(round(parseFloat(t_mount),2));
                     t_money = q_add(t_money, dec(q_float('txtTotal_' + j)));
                 }
                 calTax();
@@ -94,13 +94,8 @@
                 $('#lblStoreno').text('倉庫編號');
                 $('#lblStore1').text('倉庫名稱');
                 $('#lblStoremount').text('倉庫數量');
-                //限制帳款月份的輸入 只有在備註的第一個字為*才能手動輸入       
-				$('#btnOrdetoVcc').click(function() {
-					alert('注意：是否退貨此商品!!');
-				});
-
-				
-                $('#txtMemo').change(function(){
+                //限制帳款月份的輸入 只有在備註的第一個字為*才能手動輸入
+				$('#txtMemo').change(function(){
                     if ($('#txtMemo').val().substr(0,1)=='*')
                         $('#txtMon').removeAttr('readonly');
                     else
@@ -113,7 +108,6 @@
                 $('#txtTax').change(function() {
                     sum();
                 });
-				
                 $('#txtPrice').change(function() {
                     sum();
                 });
@@ -126,7 +120,6 @@
                         q_box("vcca_rb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vcca', "95%", "95%", $('#lblInvono').val());
                     }
                 });
-                
                 $('#lblInvo').click(function() {
                     t_where = '';
                     t_invo = $('#txtInvo').val();
@@ -178,7 +171,6 @@
                     }
                 }
             }
-
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
@@ -327,7 +319,7 @@
                         var tmp = document.getElementById("stk_close");
                         tmp.parentNode.insertBefore(tr,tmp);
                         stk_row++;
-                        
+                        ///不主動顯示庫存
                         /*$('#div_stk').css('top',mouse_point.pageY-parseInt($('#div_stk').css('height')));
                         $('#div_stk').css('left',mouse_point.pageX-parseInt($('#div_stk').css('width')));
                         $('#div_stk').toggle();*/
@@ -731,11 +723,6 @@
                 else
                     wrServer(s1);
             }
-
-			function btnOrdetoVcc(){
-				alert('注意：是否退貨此商品!!');
-				return;
-			}
 			
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
@@ -849,7 +836,7 @@
                 _btnIns();
                 $('#txtInvono').val('');
                 $('#chkIsgenvcca').prop('checked',true);
-                $('#txtMon').val('');
+                //$('#txtMon').val('');
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
                 $('#txtCno').val(z_cno);
                 $('#txtAcomp').val(z_acomp);
@@ -864,6 +851,13 @@
 				$('#txtSalesno').val(r_userno);
 				$('#txtSales').val(r_name);
                 $('#cmbTaxtype').val(q_getPara('sys.d4taxtype'));
+				/////產生民國年 "t_date.getFullYear();-1911"
+				var t_date = new Date();
+				var t_year = t_date.getFullYear();
+				var t_month = t_date.getMonth()+1;
+				$('#txtMon').val(t_year+'/'+(t_month<10?'0':'')+t_month);
+				//$('#txtDatea').val(t_year+'/'+(t_month<10?'0':'')+t_month+'/'+(t_day<10?'0':'')+t_day);
+				
 				
                 if (!emp($('#txtCustno').val())) {
                     var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^ stop=100";
@@ -941,7 +935,7 @@
                     
                     if(q_getPara('sys.project').toUpperCase()=='RB')
                         q_func('qtxt.query.vcc2cng_rb', 'vcc.txt,vcc2cng_rb,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val())+ ';' + encodeURI(r_name));
-						q_func('qtxt.query.vcc_rb2toorde', 'test.txt,vcc_rb2toorde,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val()));
+						//q_func('qtxt.query.vcc_rb2toorde', 'test.txt,vcc_rb2toorde,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val()));
                         //q_func('qtxt.query.vcc_rb2toorde', 'vcc.txt,vcc_rb2toorde,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val())+ ';' + encodeURI(r_name));
                 }
             }
@@ -1123,6 +1117,13 @@
                 $('#txtTax').val(FormatNumber(t_tax));
                 $('#txtTotal').val(FormatNumber(t_total));
             }
+			function btnvcctype(){
+				if(confirm("退貨確認警告:請問是否要退貨此商品??")){
+					alert("開始退貨");
+				}else{
+					alert("取消退貨");
+				}
+			}
         </script>
         <style type="text/css">
             #dmain {
@@ -1295,7 +1296,7 @@
                             <table border="0" >
                                 <tr><td colspan="10">
 										<span> </span><font size="6"><b>現場銷售系統</b></font>
-										<input style="float: right;" class="btn" id="btnvcctype" type="button" value='退貨' />
+										<input style="float: right;" class="btn" id="btnvcctype" onClick="btnvcctype()" type="button" value='退貨' />
 										<hr>
 									</td>
                                 <tr>
