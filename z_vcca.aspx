@@ -18,7 +18,7 @@
             aPop = new Array(['txtXcno', 'lblXcno', 'acomp', 'noa,acomp', 'txtXcno,txtXacomp', 'acomp_b.aspx']);
             t_cno = '';
             t_isinit = false;
-            var z_cno=r_cno,z_acomp=r_comp,t_invoicetype;
+            var z_cno=r_cno,z_acomp=r_comp,t_invoicetype='';
             $(document).ready(function() {
                 q_getId();
                 q_gt('acomp', 'stop=1 ', 0, 0, 0);
