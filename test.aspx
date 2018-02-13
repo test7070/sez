@@ -935,21 +935,9 @@
                     
                     if(q_getPara('sys.project').toUpperCase()=='RB')
                         q_func('qtxt.query.vcc2cng_rb', 'vcc.txt,vcc2cng_rb,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val())+ ';' + encodeURI(r_name));
-						q_func('qtxt.query.vcc_rb2toorde', 'test.txt,vcc_rb2toorde,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val()));
+						q_func('qtxt.query.vcc_rb2toorde', 'test.txt,vcc_rb2toorde,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val()));//回寫訂單測試的txt
                         //q_func('qtxt.query.vcc_rb2toorde', 'vcc.txt,vcc_rb2toorde,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val())+ ';' + encodeURI(r_name));
                 }
-				//////////print
-                /*if (q_cur == 1){
-					var value = dbbm.innerHTML;
-					var printPage = window.open("","printPage","");
-						printPage.document.open();
-						printPage.document.write("<HTML><head></head><BODY onload='window.print();window.close()'>");
-						printPage.document.write("<PRE>");
-						printPage.document.write(value);
-						printPage.document.write("</PRE>");
-						printPage.document.close("</BODY></HTML>");
-				}*/
-				////////////// html 按列印直接印出預設印表機
             }
 
             function refresh(recno) {

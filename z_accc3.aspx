@@ -108,7 +108,7 @@
                 $('#txtWmon').mask('999/99');
                 $('#txtXmon').mask('999/99');
                 $('#txtYmon').mask('999/99');
-                
+				
                 $('#txtWdate1').mask('999/99/99');
                 $('#txtWdate1').datepicker();
                 $('#txtWdate2').mask('999/99/99');
