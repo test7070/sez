@@ -1554,9 +1554,9 @@
 				<table class="tview" id="tview" >
 					<tr>
 						<td style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td style="width:100px; color:black;"><a id='vewChecker'>業務主管</a></td>
-						<td style="width:100px; color:black;"><a id='vewApprove'>開發經理</a></td>
-						<td style="width:100px; color:black;"><a id='vewIssuedate'>發行日期</a></td>
+						<td style="width:100px; color:black;"><a id='vewChecker'></a></td>
+						<td style="width:100px; color:black;"><a id='vewApprove'></a></td>
+						<td style="width:100px; color:black;"><a id='vewIssuedate'></a></td>
 						<td style="width:120px; color:black;"><a id='vewComp'> </a></td>
 					</tr>
 					<tr>
@@ -1884,9 +1884,9 @@
 					<td style="width:20px;"> </td>
 					<td style="width:300px; text-align: center;"><a id='lblSalesunit_r_s'></a></td><!--ai格式-->
 					<td style="width:300px; text-align: center;"><a id='lblDD_r_s'></a></td><!--雷雕圖-->
-					<td style="width:300px; text-align: center;"><a id='lblMemo_r_s'></a></td>
+					<td style="width:300px; text-align: center;"><a id='lblMemo1_r_s'></a></td>
 					<td style="width:300px; text-align: center;"><a id='lblSCC_r_s'></td><!--完成品jpg-->
-					<td style="width:300px; text-align: center;"><a id='lblMemo_r_s'></a></td>
+					<td style="width:300px; text-align: center;"><a id='lblMemo2_r_s'></a></td>
 				</tr>
 				<tr id="bbttr..*" >
 					<td>
@@ -1929,9 +1929,9 @@
 		<div id="tmpdbbt" style="width:1260px;display: none;">
 			<table id="tmptbbt" style="background: pink;margin: 0;padding: 2px;border: 2px pink double;border-collapse: collapse;color: blue;">
 				<tr class="head" style="color:white; background:#003366;height: 35px;">
-					<td style="width:300px; text-align: center;">銷售單位</td><!--ai格式-->
-					<td style="width:300px; text-align: center;">開發部</td><!--雷雕圖-->
-					<td style="width:300px; text-align: center;">備註</td>
+					<td style="width:300px; text-align: center;"><a id='lblSalesunit_r_s'></a></td><!--ai格式-->
+					<td style="width:300px; text-align: center;"><a id='lblDD_r_s'></a></td><!--雷雕圖-->
+					<td style="width:300px; text-align: center;"><a id='lblMemo3_r_s'></a></td>
 				</tr>
 				<tr style="height: 35px;">
 					<td>
@@ -1951,8 +1951,8 @@
 					<td><input id="textbbtComp" type="text" class="txt c1"/></td>
 				</tr>
 				<tr class="head" style="color:white; background:#003366;height: 35px;">
-					<td style="width:600px; text-align: center;" colspan="2">樣品完成圖</td><!--完成品jpg-->
-					<td style="width:300px; text-align: center;">備註</td>
+					<td style="width:600px; text-align: center;" colspan="2"><a id='lblSCC_r_s'></a></td><!--完成品jpg-->
+					<td style="width:300px; text-align: center;"><a id='lblMemo4_r_s'></a></td>
 				</tr>
 				<tr style="height: 35px;">
 					<td colspan="2">

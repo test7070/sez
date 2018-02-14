@@ -1077,7 +1077,7 @@
                     t_money += q_float('txtTotal_' + j);
                 }
                 t_total = t_money;
-                
+				
                 var t_taxrate = q_div(parseFloat(q_getPara('sys.taxrate')), 100);
                 switch ($('#cmbTaxtype').val()) {
                     case '0': // 無
