@@ -83,7 +83,7 @@
                 
                 q_cmbParse("cmbTypea", q_getPara('vcc.typea'));
                 q_cmbParse("combPay", ('').concat(new Array('　　　　','現金','刷卡','支付宝')));
-                q_cmbParse("cmbStatus", ('').concat(new Array('已出貨','未出貨','　　　　')));
+                q_cmbParse("cmbStatus", ('').concat(new Array('　　　　','已出貨','未出貨')));
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
                 
                 var t_where = "where=^^ 1=0  ^^ stop=100";
@@ -139,6 +139,32 @@
                 $('#btnClose_div_stk').click(function() {
                     $('#div_stk').hide();
                 });
+				
+				/*if (q_getPara('sys.project').toUpperCase()=='RB'){
+					$('#btntoorde').show();
+
+					$('#btntoorde').click(function() {
+						if(!emp($('#txtNoa').val())){
+							if(confirm('確定要產生訂單?')){
+								var t_hostname=location.hostname;
+								var t_proj=q_getPara('sys.project').toUpperCase();
+								q_func('qtxt.query.vcctoorde', 'vcc.txt,vcctoorde,'+ encodeURI($('#txtNoa').val())+ ';' + encodeURI(r_accy) + ';'  + encodeURI(q_date())+ ';' + encodeURI(r_name)+ ';' + encodeURI(r_len)+';'+encodeURI(t_hostname)+';'+encodeURI(q_db)+';'+encodeURI(t_proj));
+							}
+						}
+					});
+				}*/
+				if (q_getPara('sys.project').toUpperCase()=='AD'){
+					$('#btntoorde').show();
+					$('#btntoorde').click(function() {
+						if(!emp($('#txtNoa').val())){
+							if(confirm('確定要產生訂單?')){
+								var t_hostname=location.hostname;
+								var t_proj=q_getPara('sys.project').toUpperCase();
+								q_func('qtxt.query.vcctoorde', 'test.txt,vcctoorde,'+ encodeURI($('#txtNoa').val())+ ';' + encodeURI(r_accy) + ';'  + encodeURI(q_date())+ ';' + encodeURI(r_name)+ ';' + encodeURI(r_len)+';'+encodeURI(t_hostname)+';'+encodeURI(q_db)+';'+encodeURI(t_proj));
+							}
+						}
+					});
+				}
 				
             }
             
@@ -548,7 +574,7 @@
                         var as = _q_appendData('vcca', '', true);
                         if (as[0] != undefined) {
                             check_vcca=false;
-                            alert("該訂單已開立過發票，請勿自動產生發票!!");
+                            alert("該貨單已開立過發票，請勿自動產生發票!!");
                         }else{
                             check_vcca=true;
                             btnOk();
@@ -674,10 +700,11 @@
                 //判斷是否手動開過開票或再訂單已開發票
                 if(!check_vcca && $('#chkIsgenvcca').prop('checked') &&!emp($('#txtOrdeno').val())){
                     var t_where = "where=^^ trdno='"+$('#txtOrdeno').val()+"' and isnull([type],'') !='' ^^";
+					alert('判斷是否手動開過開票或再訂單已開發票');
                     q_gt('vcca', t_where, 0, 0, 0, "checkisgenvcca", r_accy);
                     return;
                 }
-                
+				
                 //判斷起算日,寫入帳款月份
                 //104/09/30 如果備註沒有*字就重算帳款月份
                 //if(!check_startdate && emp($('#txtMon').val())){
@@ -722,7 +749,6 @@
                     q_gtnoa(q_name, replaceAll('B' + $('#txtDatea').val(), '/', ''));
                 else
                     wrServer(s1);
-				
             }
 			
             function _btnSeek() {
@@ -739,6 +765,7 @@
                     $('#txtPaytype').val(cmb.value);
                 cmb.value = '';
             }
+			
             function combStatus_chg() {
                 var cmb = document.getElementById("cmbStatus");
                 if (!q_cur)
@@ -807,7 +834,6 @@
                             t_IdSeq = -1;
                             q_bodyId($(this).attr('id'));
                             b_seq = t_IdSeq;
-                            //t_where = "cust='" + $('#txtCustno').val() + "' and noq='" + $('#txtProductno_' + b_seq).val() + "'";
                             t_where = "custno='" + $('#txtCustno').val() + "' and comp='" + $('#txtComp').val() + "' and productno='" + $('#txtProductno_' + b_seq).val() + "' and product='" + $('#txtProduct_' + b_seq).val() + "'";
                             q_box("z_vccrecord.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vccrecord', "95%", "95%", q_getMsg('lblRecord_s'));
                         });
@@ -935,8 +961,6 @@
                     
                     if(q_getPara('sys.project').toUpperCase()=='RB')
                         q_func('qtxt.query.vcc2cng_rb', 'vcc.txt,vcc2cng_rb,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val())+ ';' + encodeURI(r_name));
-						q_func('qtxt.query.vcc_rb2toorde', 'test.txt,vcc_rb2toorde,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val()));//回寫訂單測試的txt
-                        //q_func('qtxt.query.vcc_rb2toorde', 'vcc.txt,vcc_rb2toorde,' + encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val())+ ';' + encodeURI(r_name));
                 }
             }
 
@@ -1077,7 +1101,7 @@
                     t_money += q_float('txtTotal_' + j);
                 }
                 t_total = t_money;
-				
+                
                 var t_taxrate = q_div(parseFloat(q_getPara('sys.taxrate')), 100);
                 switch ($('#cmbTaxtype').val()) {
                     case '0': // 無
@@ -1112,6 +1136,7 @@
                         break;
                     default:
                 }
+                
                 $('#txtMoney').val(FormatNumber(t_money));
                 $('#txtTax').val(FormatNumber(t_tax));
                 $('#txtTotal').val(FormatNumber(t_total));
@@ -1270,7 +1295,7 @@
             </table>
         </div>
         <div id="dmain" style="width: 1258px;" ><!--#include file="../inc/toolbar.inc"-->
-            <div class="dview">
+            <div class="dview" id="dview" >
                 <table class="tview" id="tview">
                     <tr>
                         <td align="center" style="width:5%"><a id='vewChk'> </a></td>
@@ -1288,15 +1313,16 @@
                     </tr>
                 </table>
             </div>
-            <div class='dbbm' id='dbbm'><!--- style="width: 900px;"--->
+            <div class='dbbm'><!--- style="width: 900px;"--->
                 <table class="tbbm" id="tbbm" style="width: 100%;height: 362px;" border="2">
                     <tr>
                         <td width="70%">
                             <table border="0" >
-                                <tr>
-									<td colspan="10">
+                                <tr><td colspan="10">
 										<span> </span><font size="6"><b>現場銷售系統</b></font>
-										<input style="float: right;" class="btn" id="btnvcctype" onClick="btnvcctype()" type="button" value='退貨' /><hr>
+										<input style="float: right;" class="btn" id="btnvcctype" onClick="btnvcctype()" type="button" value='退貨' />
+										<input id="btntoorde" type="button" value="產生訂單" style="display: none;"/>
+										<hr>
 									</td>
                                 <tr>
                                     <td width="100px"><span> </span><a id="lblNoa" class="lbl"> </a></td>
@@ -1355,7 +1381,7 @@
                                     <td width="30%"><a id="lblInvono" class="lbl btn vcca"> </a></td>
                                     <td>
                                         <input id="txtInvono" type="text" class="txt c1 vcca" style="width: 80%;"/>
-                                        <input id="txtInvo" type="hidden" class="txt c1"/><!---有值表示訂單轉發票-->
+                                        <input id="txtInvo" type="hidden" class="txt c1"/><!--有值表示訂單轉發票-->
                                     </td>
                                 </tr>
                                 
@@ -1445,7 +1471,5 @@
                 </tr>
             </table>
         </div><input id="q_sys" type="hidden" />
-            
-		
     </body>
 </html>
