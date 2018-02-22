@@ -45,9 +45,29 @@
 				// 1=Last  0=Top
 			}///  end Main()
 
+
+            function sum() {
+                if(q_getPara('sys.project').toUpperCase()=='WJ'){
+                    $('#txtNmile').val(q_add(q_float('txtMile'),q_float('txtLmile')));
+                }
+            }
+            
 			function mainPost() {
 				bbmMask = [['txtDatea', r_picd],['txtLdate', r_picd],['txtNdate', r_picd]];
 				q_mask(bbmMask);
+				if(q_getPara('sys.project').toUpperCase()=='WJ'){
+				    aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa', 'txtCarno,', 'car2_b.aspx']
+				    ,['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']);
+				    $('#lblMile').text('保養里程數');
+				    
+				    $('#txtMile').change(function() {
+                        sum();
+                    })
+                    
+                    $('#txtLmile').change(function() {
+                        sum();
+                    })
+				}
 			}
 
 			function q_boxClose(s2) {
@@ -118,6 +138,9 @@
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
+				if(q_getPara('sys.project').toUpperCase()=='WJ'){
+                    $('.isWJ').show();
+                }
 			}
 
 			function btnMinus(id) {
@@ -335,7 +358,13 @@
 						<input id="txtCarno"  type="text"  class="txt c1"/>
 						</td>
 					</tr>
-					
+					<tr class='isWJ' style="display: none">
+                        <td colspan="2"><span> </span><a id='lblDriver' class="lbl">司機</a></td>
+                        <td colspan="3">
+                        <input id="txtDriverno"  type="text"  class="txt c2"/>
+                        <input id="txtDriver"  type="text"  class="txt c3"/>
+                        </td>
+                    </tr>
 					<tr>
 						<td colspan="2"><span> </span><a id="lblItemno" class="lbl"></a></td>
 						<td colspan="2">
@@ -352,6 +381,18 @@
 						<td class="td4"></td>
 						<td class="td5"></td>
 					</tr>
+					<tr class='isWJ' style="display: none">
+                        <td colspan="2"><span> </span><a id="lblLmeter" class="lbl">上次路碼表</a></td>
+                        <td>
+                        <input id="txtLmeter"  type="text" class="txt num c1"/>
+                        </td>
+                    </tr>
+                    <tr class='isWJ' style="display: none">
+                        <td colspan="2"><span> </span><a id="lblMeter" class="lbl">本次路碼表</a></td>
+                        <td>
+                        <input id="txtMeter"  type="text" class="txt num c1"/>
+                        </td>
+                    </tr>
 					<tr>
 						<td colspan="2"><span> </span><a id="lblMile" class="lbl"></a></td>
 						<td>
@@ -365,11 +406,11 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2"><span> </span><a id="lblLmile" class="lbl"></a></td>
-						<td>
-						<input id="txtLmile"  type="text" class="txt num c1"/>
-						</td>
-					</tr>
+                        <td colspan="2"><span> </span><a id="lblLmile" class="lbl"></a></td>
+                        <td>
+                        <input id="txtLmile"  type="text" class="txt num c1"/>
+                        </td>
+                    </tr>
 					<tr>
 						<td colspan="2"><span> </span><a id="lblNdate" class="lbl"></a></td>
 						<td>
@@ -382,6 +423,16 @@
 						<input id="txtNmile"  type="text" class="txt num c1" />
 						</td>
 					</tr>
+					<tr class='isWJ' style="display: none">
+                        <td colspan="2"><span> </span><a id="lblFhour" class="lbl">保養/維修時數</a></td>
+                        <td>
+                        <input id="txtFhour"  type="text" class="txt num c1"/>
+                        </td>
+                    </tr>
+                    <tr class='isWJ' style="display: none">
+                        <td colspan="2"><span> </span><a id="lblMemo" class="lbl">備註</a></td>
+                        <td colspan="6"><textarea id="txtMemo" style="width:100%; height:100px;"> </textarea></td>
+                    </tr>
 					<tr>
 						<td colspan="2"><span> </span><a id="lblWorker" class="lbl"></a></td>
 						<td><input id="txtWorker"  type="text"  class="txt c1"/></td>
