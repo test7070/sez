@@ -62,7 +62,7 @@
                                 <tr><td colspan="10">
 										<span> </span><font size="6"><b>現場銷售系統</b></font>
 										<input style="float: right;" class="btn" id="btnvcctype" onClick="btnvcctype()" type="button" value='退貨' />
-										<!---<input style="float: right;" class="btn" id="btntoorde" type="button" value="產生訂單" />--->
+										<input style="float: right;" class="btn" id="btnVcctoOrde" type="button" value="D" />
 										<hr>
 									</td>
                                 <tr>
@@ -155,7 +155,7 @@
                                 </tr>
                                 <tr>
                                     <td><a class="lbl" id="lblType1"></a></td>
-                                    <td><input id="txtStatus" type="text" class="txt c1" style="width: 49%;"/>
+                                    <td><input id="txtZipname" type="text" class="txt c1" style="width: 49%;"/>
 										<select id="cmbStatus" style="width: 12%;" onchange="combStatus_chg();"> </select></td>
                                 </tr>
                             </table>
