@@ -86,7 +86,7 @@
 				
 				if(q_getPara('sys.project').toUpperCase()=='XY'){ //105/05/23 拿來做 採購/製令
 					bbmMask = [];
-					q_cmbParse("combStyle_xy",' ,便品,空白,公版,加工,印刷,私-空白,新版,改版,新版數位樣,新版正式樣,改版數位樣,改版正式樣');
+					q_cmbParse("combStyle_xy",' ,便品,空白,公版,加工,印刷,私-空白');
 					$('#combStyle_xy').show();
 					$('#txtStyle').hide();
 					$('.isXY2').show();

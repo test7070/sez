@@ -177,7 +177,7 @@
 	                selectbox.id="combXystyle";
 	                selectbox.style.cssText ="width:20px;font-size: medium;";
 	                tmp.parentNode.appendChild(selectbox,tmp);
-	                q_cmbParse("combXystyle",' ,便品,空白,公版,加工,印刷,私-空白,新版,改版,新版數位樣,新版正式樣,改版數位樣,改版正式樣');
+	                q_cmbParse("combXystyle",' ,便品,空白,公版,加工,印刷,私-空白');
 	                 $('#combXystyle').change(function() {
 	                 	if($('#txtXystyle').val().length>0)
 							$('#txtXystyle').val($('#txtXystyle').val()+'.'+$('#combXystyle').find("option:selected").text());

@@ -183,8 +183,8 @@
                 $('#txtXemon1').val(r_accy + '/01').mask(r_picm);
                 $('#txtXemon2').val(r_accy + '/12').mask(r_picm);
                 $('#Xmemo').removeClass('a2').addClass('a1');
-                $('#txtXmemo').css('width', '85%');
-                $('#Xgroupano select').css('width', '150px');
+                /*$('#txtXmemo').css('width', '85%');
+                $('#Xgroupano select').css('width', '150px');*/
 
                 if (q_getPara('sys.project').toUpperCase()=='IT') {
                     if (issale == 'true' && job.indexOf('經理') < 0 && r_rank <= '5') {//一般業務只能看到自己的業績
@@ -208,10 +208,10 @@
                     }
                 }
                 
-                $('#Xshowinvono').css('width', '300px').css('height', '30px');
+               /* $('#Xshowinvono').css('width', '300px').css('height', '30px');
                 $('#Xshowinvono .label').css('width','100px');
                 $('#chkXshowinvono').css('width', '0px').css('margin-top', '5px');
-                $('#chkXshowinvono span').css('width','0px')
+                $('#chkXshowinvono span').css('width','0px')*/
                 
                 if(isinvosystem=='2'){//沒有發票系統
 	                $('#Xshowinvono').hide();
@@ -253,14 +253,14 @@
 	                });
 	                	
 				}
-				$('#txtMultcust').css("width","205px");
-				$('#lblMultcust').css("color","#0000ff");
+				/*$('#txtMultcust').css("width","205px");
+				$('#lblMultcust').css("color","#0000ff");*/
 				$('#lblMultcust').click(function(e) {
                 	q_box("cust_b2.aspx?;;;;", 'cust', "600px", "90%", q_getMsg("popCust"));
                 });
-                $('#Multucc').css("width","605px");
+                /*$('#Multucc').css("width","605px");
 				$('#txtMultucc').css("width","500px");
-				$('#lblMultucc').css("color","#0000ff");
+				$('#lblMultucc').css("color","#0000ff");*/
 				$('#lblMultucc').click(function(e) {
                 	q_box("ucaucc_b2.aspx?;;;;", 'ucc', "600px", "990%", q_getMsg("popUcc"));
                 });

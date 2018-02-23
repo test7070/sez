@@ -64,7 +64,7 @@
                 if (q_getPara('sys.project').toUpperCase()=='XY'){
                 	$('#txtStyle').hide();
                 	$('#cmbStyle_xy').show();
-                	q_cmbParse("cmbStyle_xy",'@全部,便品,空白,公版,加工,印刷,私-空白,新版,改版,新版數位樣,新版正式樣,改版數位樣,改版正式樣');
+                	q_cmbParse("cmbStyle_xy",'@全部,便品,空白,公版,加工,印刷,私-空白');
                 }
             }
 
