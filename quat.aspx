@@ -162,7 +162,6 @@
 						q_cmbParse("cmbCoin", z_coin);
 						if(abbm[q_recno])
 							$('#cmbCoin').val(abbm[q_recno].coin);
-						
 						break;
 					case 'custaddr':
 						var as = _q_appendData("custaddr", "", true);
