@@ -37,8 +37,10 @@
             , ['txtTggno_', 'btnTgg_', 'tgg', 'noa,comp', 'txtTggno_,txtTgg_', 'tgg_b.aspx']
             , ['txtUccno_', 'btnProduct_', 'ucc', 'noa,product', 'txtUccno_,txtProduct_', 'ucc_b.aspx']
             , ['txtStraddrno_', 'btnStraddr_', 'addr', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr_b.aspx']
-            , ['txtCustno_', 'btnCust_', 'cust', 'noa,comp,nick,addr_home,memo2,salesno2,typea,custno2', 'txtCustno_,txtComp_,txtNick_,txtSaddr_,txtAaddr_,txtCaseno2_,cmbUnit2_,cmbStatus_', 'cust_b.aspx']
-            , ['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx']);
+            , ['txtCustno_', 'btnCust_', 'cust', 'noa,comp,nick,addr_home,memo2,salesno2,typea,custno2,mprice', 'txtCustno_,txtComp_,txtNick_,txtSaddr_,txtAaddr_,txtCaseno2_,cmbUnit2_,cmbStatus_,textOverh_', 'cust_b.aspx']
+            , ['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx']
+            , ['txtDriver_', 'btnDriver_', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx']
+            , ['txtCardealno_', 'btnCardeal_', 'carplate', 'noa', 'txtCardealno_', 'carplate_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -65,6 +67,9 @@
              		t_pton = q_sub(q_float('txtWeight2_'+i),t_weight);
              		t_mount = q_sub(q_float('txtOutmount_'+i),q_float('txtInmount_'+i));
              		t_total = q_mul(q_add(q_float('txtCustprice_'+i),q_float('txtPrice_'+i)),t_weight);
+             		if($('#textOverh_'+i).val()!=0){
+             		    $('#txtOverh_'+i).val(q_mul(t_total,q_div($('#textOverh_'+i).val(),100)));
+             		}
              		if($('#cmbCalctype_'+i).val()==1){
              		    $('#txtMount3_'+i).val(dec($('#txtPrice_'+i).val())*0.9*0.2);
              		}else if($('#cmbCalctype_'+i).val()==2){
@@ -312,6 +317,21 @@
                         var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
                         $('#btnCarno_'+n).click();
                     });
+                    
+                    $('#txtDriver_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnDriver_'+n).click();
+                    });
+                    
+                    $('#txtCardeal_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnCardeal_'+n).click();
+                    });
+                    
                     $('#combCaseno2_' + i).change(function() {
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
@@ -766,6 +786,7 @@
 					<td align="center" style="width:100px"><a>可送貨時間</a></td>
 					<td align="center" style="width:80px"><a>公里數</a></td>
 					<td align="center" style="width:80px"><a>車頭牌</a></td>
+					<td align="center" style="width:80px"><a>子車</a></td>
 					<td align="center" style="width:80px"><a>司機姓名</a></td>
 					<td align="center" style="width:120px"><a>出勤狀況</a></td>
 					<td align="center" style="width:80px"><a>今天趟數</a></td>
@@ -793,6 +814,7 @@
 					<td align="center" style="width:80px"><a>售料單價</a></td>
 					<td align="center" style="width:80px"><a>運費單價</a></td>
 					<td align="center" style="width:80px"><a>客戶金額</a></td>
+					<td align="center" style="width:100px"><a>服務費</a></td>
 					<td align="center" style="width:60px"><a>實際客戶金額 </a></td>
 					<!--td align="center" style="width:80px"><a>車行單價</a></td>
 					<td align="center" style="width:80px"><a>車行金額</a></td-->
@@ -842,7 +864,12 @@
 					<td>
 						<input type="text" id="txtDriverno.*" style="display:none;"/>
 						<input type="text" id="txtDriver.*" style="width:95%;"/>
+						<input type="button" id="btnDriver.*" style="display:none;"/>
 					</td>
+					<td>
+                        <input type="text" id="txtCardealno.*" style="width:95%;"/>
+                        <input type="button" id="btnCardeal.*" style="display:none;"/>
+                    </td>
 					<td><input type="text" id="txtCaseuse.*" style="width:95%;"/></td>
 					<td><input type="text" id="txtMount2.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtTraceno.*" style="width:95%;"/></td>
@@ -873,6 +900,8 @@
 					<td><input type="text" id="txtCustprice.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtPrice.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtTotal.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="textOverh.*" style="display:none;"/>
+                        <input type="text" id="txtOverh.*" class="num" style="width:95%;"/></td>
 					<td><select id="cmbStatus.*" class="txt" style="width:95%;"> </select></td>
 					<!--td><input type="text" id="txtPrice2.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtDiscount.*" class="num" style="width:95%;"/></td-->

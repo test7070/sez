@@ -1554,9 +1554,9 @@
 				<table class="tview" id="tview" >
 					<tr>
 						<td style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td style="width:100px; color:black;"><a id='vewChecker'>業務主管</a></td>
-						<td style="width:100px; color:black;"><a id='vewApprove'>開發經理</a></td>
-						<td style="width:100px; color:black;"><a id='vewIssuedate'>發行日期</a></td>
+						<td style="width:100px; color:black;"><a id='vewChecker'></a></td>
+						<td style="width:100px; color:black;"><a id='vewApprove'></a></td>
+						<td style="width:100px; color:black;"><a id='vewIssuedate'></a></td>
 						<td style="width:120px; color:black;"><a id='vewComp'> </a></td>
 					</tr>
 					<tr>
@@ -1586,30 +1586,30 @@
 						<td><input id="txtDatea" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblCno_r" class="lbl">Quote#</a></td>
 						<td><input id="txtCno" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblNoa_r" class="lbl">樣品單號</a></td>
+						<td><span> </span><a id="lblNoa_r" class="lbl"></a></td>
 						<td colspan="2"><input id="txtNoa" type="text" class="txt c1"/></td>
-						<td style="display: none;"><span> </span><a id="lblStatus" class="lbl" > </a>完成狀態</td>
+						<td style="display: none;"><span> </span><a id="lblStatus" class="lbl" > </a></td>
 						<td style="display: none;"><input id="txtStatus" type="hidden" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblCust_r" class="lbl">客戶</a></td>
+						<td><span> </span><a id="lblCust_r" class="lbl"></a></td>
 						<td><input id="txtCustno" type="text" class="txt c1"/></td>
 						<td colspan="2"><input id="txtComp" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblUcxno2" class="lbl" >貿易銷售件號</a></td>
+						<td><span> </span><a id="lblUcxno2" class="lbl" ></a></td>
 						<td colspan="3"><input id="txtUcxno2" type="text" class="txt c1"/></td>					
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblMount_r" class="lbl" >P/0數量</a></td>
+						<td><span> </span><a id="lblMount_r" class="lbl" ></a></td>
 						<td><input id="txtMount" type="text" class="txt num c1"/></td>
 						<td><span> </span><a id="lblPrice" class="lbl" > </a></td>
 						<td><input id="txtPrice" type="text" class="txt num c1"/></td>
-						<td><span> </span><a id="lblMoney_r" class="lbl" >P/0金額</a></td>
+						<td><span> </span><a id="lblMoney_r" class="lbl" ></a></td>
 						<td><input id="txtMo" type="text" class="txt num c1"/></td>
 						<td><span> </span><a id="lblOrdeno" class="lbl" >P/0</a></td>
 						<td><input id="txtOrdeno" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblProduct_r" class="lbl" >生產件號</a></td>
+						<td><span> </span><a id="lblProduct_r" class="lbl" ></a></td>
 						<td colspan="2"><input id="txtProductno" type="text" class="txt c1"/></td>
 						<td colspan="5">
 							<textarea id="txtProduct" rows='5' cols='10' style="width:99%; height: 35px;"> </textarea>
@@ -1619,83 +1619,83 @@
 						<td><input id="txtNo2" type="text" class="txt c1"/></td>-->
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblProcess_r" class="lbl">產品線</a></td>
+						<td><span> </span><a id="lblProcess_r" class="lbl"></a></td>
 						<td><input id="txtProcessno" type="text" class="txt c1"/></td>
 						<td colspan="2"><input id="txtProcess" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblTggno_r" class="lbl">部門組別</a></td>
+						<td><span> </span><a id="lblTggno_r" class="lbl"></a></td>
 						<td><input id="txtTggno" type="text" class="txt c1"/></td>
 						<td colspan="2"><input id="txtTgg" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblSpec_r" class="lbl" >型號</a></td>
+						<td><span> </span><a id="lblSpec_r" class="lbl" ></a></td>
 						<td><input id="txtSpec" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblUnit_r" class="lbl" >單位</a></td>
+						<td><span> </span><a id="lblUnit_r" class="lbl" ></a></td>
 						<td><input id="txtUnit" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblItype_r" class="lbl" >銷售類別</a></td>
+						<td><span> </span><a id="lblItype_r" class="lbl" ></a></td>
 						<td><select id="cmbItype" class="txt c1"> </select></td>
-						<td><span> </span><a id="lblLevel" class="lbl" >服務等級</a></td>
+						<td><span> </span><a id="lblLevel" class="lbl" ></a></td>
 						<td>
 							<select id="cmbLevel" class="txt c1"> </select>
 							<!--<input id="txtLevel" type="text" class="txt c1" />-->
 						</td>	
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblStyle_r" class="lbl" >車種</a></td>
+						<td><span> </span><a id="lblStyle_r" class="lbl" ></a></td>
 						<td><input id="textStyle" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblSize_r" class="lbl" >尺寸</a></td>
+						<td><span> </span><a id="lblSize_r" class="lbl" ></a></td>
 						<td><input id="textSize" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblM13_r" class="lbl" >報價條件</a></td>
+						<td><span> </span><a id="lblM13_r" class="lbl" ></a></td>
 						<td><input id="txtM13" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblM1" class="lbl" >車縫</a></td>
+						<td><span> </span><a id="lblM1" class="lbl" ></a></td>
 						<td><input id="txtM1" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblM4" class="lbl" >護片</a></td>
+						<td><span> </span><a id="lblM4" class="lbl" ></a></td>
 						<td><input id="txtM4" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblBdate" class="lbl" > </a></td>
 						<td><input id="txtBdate" type="text" class="txt c1" /></td>
-						<td><span> </span><a id="lblUindate" class="lbl" >應完工日</a></td>
+						<td><span> </span><a id="lblUindate" class="lbl" ></a></td>
 						<td><input id="txtUindate" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblM2" class="lbl" >皮料號(1)</a></td>
+						<td><span> </span><a id="lblM2" class="lbl" ></a></td>
 						<td><input id="txtM2" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblM9" class="lbl" >皮料號(2)</a></td>
+						<td><span> </span><a id="lblM9" class="lbl" ></a></td>
 						<td><input id="txtM9" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblM10" class="lbl" >皮料號(3)</a></td>
+						<td><span> </span><a id="lblM10" class="lbl" ></a></td>
 						<td><input id="txtM10" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblM3" class="lbl" >皮料號(4)</a></td>
+						<td><span> </span><a id="lblM3" class="lbl" ></a></td>
 						<td><input id="txtM3" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblM16" class="lbl">車縫線顏色</a></td>
+						<td><span> </span><a id="lblM16" class="lbl"></a></td>
 						<td><input id="txtM16" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblM17" class="lbl">轉印</a></td>
+						<td><span> </span><a id="lblM17" class="lbl"></a></td>
 						<td><input id="txtM17" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblM18" class="lbl">座管</a></td>
+						<td><span> </span><a id="lblM18" class="lbl"></a></td>
 						<td><input id="txtM18" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblM6" class="lbl" >網烙印</a></td>
+						<td><span> </span><a id="lblM6" class="lbl" ></a></td>
 						<td colspan="7"><textarea id="txtM6" rows='5' cols='10' style="width:99%; height: 50px;"> </textarea></td>
 						<!--<input id="txtM6" type="text" class="txt c1"/>-->
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblM7" class="lbl" >中束</a></td>
+						<td><span> </span><a id="lblM7" class="lbl" ></a></td>
 						<td colspan="2"><input id="txtM7" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblM8" class="lbl" >中束電鍍</a></td>
+						<td><span> </span><a id="lblM8" class="lbl" ></a></td>
 						<td colspan="2"><input id="txtM8" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblM5" class="lbl" >高週波</a></td>
+						<td><span> </span><a id="lblM5" class="lbl" ></a></td>
 						<td><input id="txtM5" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblM11" class="lbl" >大弓</a></td>
+						<td><span> </span><a id="lblM11" class="lbl" ></a></td>
 						<td colspan="2"><input id="txtM11" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblM12" class="lbl" >大弓電鍍</a></td>
+						<td><span> </span><a id="lblM12" class="lbl" ></a></td>
 						<td colspan="2"><input id="txtM12" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblMemo2_r" class="lbl" >品質要求</a></td>
+						<td><span> </span><a id="lblMemo2_r" class="lbl" ></a></td>
 						<td colspan="5"><input id="txtMemo2" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
@@ -1716,12 +1716,12 @@
 							<select id="cmbIpto" class="txt c1"> </select>
 							<!--<input id="txtIpto" type="text" class="txt c1"/>-->
 						</td>
-						<td><span> </span><a id="lblM14_r" class="lbl" >銷售客戶</a></td>
+						<td><span> </span><a id="lblM14_r" class="lbl" ></a></td>
 						<td><input id="txtM14" type="text" class="txt c1"/></td>
 						<td colspan="2"><input id="txtM15" type="text" class="txt c1"/></td>
 					</tr>
 					<tr style="display: none;"> <!--106/09/25 隱藏 自行打出貨單 開放txt,cub_r需重寫(早期由貿易端寫回製造端 目前改由製造回寫貿易)-->
-						<td><span> </span><a id="lblFactory" class="lbl btn" >工廠</a></td>
+						<td><span> </span><a id="lblFactory" class="lbl btn" ></a></td>
 						<td><input id="txtFactoryno" type="text" class="txt c1"/></td>
 						<td><input id="txtFactory" type="text" class="txt c1"/></td>
 					</tr>
@@ -1757,47 +1757,47 @@
 						</td>-->
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblRefrev" class="lbl" >參考版號</a></td>
+						<td><span> </span><a id="lblRefrev" class="lbl" ></a></td>
 						<td><input id="txtRefrev" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblIssuerev" class="lbl" >發行版號</a></td>
+						<td><span> </span><a id="lblIssuerev" class="lbl" ></a></td>
 						<td><input id="txtIssuerev" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblAbrev" class="lbl" >異常版本</a></td>
+						<td><span> </span><a id="lblAbrev" class="lbl" ></a></td>
 						<td><input id="txtAbrev" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblTrackingno" class="lbl" >快遞號碼</a></td>
+						<td><span> </span><a id="lblTrackingno" class="lbl" ></a></td>
 						<td><input id="txtTrackingno" type="text" class="txt c1"/></td>
 					</tr>
 					<tr style="height: 1px;">
 						<td colspan="8"><HR></td>
 					</tr>
 					<tr style="height: 25px;">
-						<td><span> </span><a id="lblUcxno" class="lbl" >生產發行件號</a></td>
+						<td><span> </span><a id="lblUcxno" class="lbl" ></a></td>
 						<td><input id="txtUcxno" type="text" class="txt c1"/></td>
 						<td> </td>
 						<td colspan="3" style="color: red;">※有變動時，核准取消，重送簽核。</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblChecker" class="lbl" >業務主管</a></td>
+						<td><span> </span><a id="lblChecker" class="lbl" ></a></td>
 						<td><input id="txtChecker" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblCheckerdate" class="lbl" >核准日期</a></td>
+						<td><span> </span><a id="lblCheckerdate" class="lbl" ></a></td>
 						<td colspan="2">
 							<input id="txtCheckerdate" type="text" class="txt c1" style="width: 60%;"/>
 							<input id="btnCheckapv" type="button" value="核准" />
 						</td>
-						<td><span> </span><a id="lblReviewdate" class="lbl" >覆核日期</a></td>
+						<td><span> </span><a id="lblReviewdate" class="lbl" ></a></td>
 						<td><input id="txtReviewdate" type="text" class="txt c1"/></td>
 						<td><input id="btnReviewapv" type="button" value="覆核" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblApprove" class="lbl">開發經理</a></td>
+						<td><span> </span><a id="lblApprove" class="lbl"></a></td>
 						<td><input id="txtApprove" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblApprovedate" class="lbl">核准日期</a></td>
+						<td><span> </span><a id="lblApprovedate" class="lbl"></a></td>
 						<td  colspan="2">
 							<input id="txtApprovedate" type="text" class="txt c1" style="width: 60%;"/>
 							<input id="btnApproveapv" type="button" value="核准" />
 							<!--<input id="chkIsproj" type="checkbox"/>
 							<a id='lblIsproj_r'>核單</a>-->
 						</td>
-						<td><span> </span><a id="lblIssuedate" class="lbl" >發行日期</a></td>
+						<td><span> </span><a id="lblIssuedate" class="lbl" ></a></td>
 						<td><input id="txtIssuedate" type="text" class="txt c1"/></td>
 						<td><input id="btnApproveucx" type="button" value="發行" /></td>
 					</tr>
@@ -1807,9 +1807,9 @@
 					<tr>
 						<td><span> </span><a id="lblCost" class="lbl" > </a></td>
 						<td><input id="txtCost" type="text" class="txt num c1"/></td>
-						<td><span> </span><a id="lblWorker_r" class="lbl" >製單者</a></td>
+						<td><span> </span><a id="lblWorker_r" class="lbl" ></a></td>
 						<td><input id="txtWorker" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblGroup_r" class="lbl" >製單組別</a></td>
+						<td><span> </span><a id="lblGroup_r" class="lbl" ></a></td>
 						<td><input id="txtkind" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
 						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
@@ -1827,21 +1827,21 @@
 				<tr style='color:white; background:#003366;' >
 					<td style="width:20px;display: none;"><input id="btnPlus" type="button" style="font-size: medium; font-weight: bold;" value="＋"/></td>
 					<td style="width:20px;"> </td>
-					<td style="width:210px;"><a id='lblProcess_r_s'>流程</a></td>
-					<td style="width:140px;"><a id='lblTgg_r_s'>廠商名稱</a></td>
-					<td style="width:80px;"><a id='lblMount_r_s'>數量</a></td>
-					<td style="width:40px;"><a id='lblUnit_r_s'>單位</a></td>
-					<td style="width:80px;"><a id='lblPrice_r_s'>單價</a></td>
-					<td style="width:100px;"><a id='lblMo_r_s'>金額</a></td>
-					<td style="width:40px;"><a id='lblSalev_s'>外加稅</a></td>
-					<td style="width:100px;"><a id='lblTxa_r_s'>稅金</a></td>
-					<td style="width:100px;"><a id='lblW01_r_s'>總金額</a></td>
-					<td style="width:150px;"><a id='lblMemo_r_s'>備註</a><BR><a id='lblBornproductno_r_s'>生產件號</a></td>
-					<td style="width:40px;"><a id='lblEnda_r_s'>完工</a></td>
-					<td style="width:90px;"><a id='lblDatea_r_s'>完工日</a></td>
-					<td style="width:40px;"><a id='lblPay_r_s'>請款</a></td>
-					<td style="width:150px;"><a id='lblOrdeno_r_s'>進貨單號</a></td>
-					<td style="width:150px;"><a id='lblOth_r_s'>快遞帳號</a></td>
+					<td style="width:210px;"><a id='lblProcess_r_s'></a></td>
+					<td style="width:140px;"><a id='lblTgg_r_s'></a></td>
+					<td style="width:80px;"><a id='lblMount_r_s'></a></td>
+					<td style="width:40px;"><a id='lblUnit_r_s'></a></td>
+					<td style="width:80px;"><a id='lblPrice_r_s'></a></td>
+					<td style="width:100px;"><a id='lblMo_r_s'></a></td>
+					<td style="width:40px;"><a id='lblSalev_s'></a></td>
+					<td style="width:100px;"><a id='lblTxa_r_s'></a></td>
+					<td style="width:100px;"><a id='lblW01_r_s'></a></td>
+					<td style="width:150px;"><a id='lblMemo_r_s'></a><BR><a id='lblBornproductno_r_s'></a></td>
+					<td style="width:40px;"><a id='lblEnda_r_s'></a></td>
+					<td style="width:90px;"><a id='lblDatea_r_s'></a></td>
+					<td style="width:40px;"><a id='lblPay_r_s'></a></td>
+					<td style="width:150px;"><a id='lblOrdeno_r_s'></a></td>
+					<td style="width:150px;"><a id='lblOth_r_s'></a></td>
 				</tr>
 				<tr id="trcolor.*" style='background:#cad3ff;'>
 					<td align="center" style="display: none;">
@@ -1882,11 +1882,11 @@
 				<tr class="head" style="color:white; background:#003366;">
 					<td style="width:20px;"><input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/></td>
 					<td style="width:20px;"> </td>
-					<td style="width:300px; text-align: center;">銷售單位</td><!--ai格式-->
-					<td style="width:300px; text-align: center;">開發部</td><!--雷雕圖-->
-					<td style="width:300px; text-align: center;">備註</td>
-					<td style="width:300px; text-align: center;">樣品完成圖</td><!--完成品jpg-->
-					<td style="width:300px; text-align: center;">備註</td>
+					<td style="width:300px; text-align: center;"><a id='lblSalesunit_r_s'></a></td><!--ai格式-->
+					<td style="width:300px; text-align: center;"><a id='lblDD_r_s'></a></td><!--雷雕圖-->
+					<td style="width:300px; text-align: center;"><a id='lblMemo1_r_s'></a></td>
+					<td style="width:300px; text-align: center;"><a id='lblSCC_r_s'></td><!--完成品jpg-->
+					<td style="width:300px; text-align: center;"><a id='lblMemo2_r_s'></a></td>
 				</tr>
 				<tr id="bbttr..*" >
 					<td>
@@ -1929,9 +1929,9 @@
 		<div id="tmpdbbt" style="width:1260px;display: none;">
 			<table id="tmptbbt" style="background: pink;margin: 0;padding: 2px;border: 2px pink double;border-collapse: collapse;color: blue;">
 				<tr class="head" style="color:white; background:#003366;height: 35px;">
-					<td style="width:300px; text-align: center;">銷售單位</td><!--ai格式-->
-					<td style="width:300px; text-align: center;">開發部</td><!--雷雕圖-->
-					<td style="width:300px; text-align: center;">備註</td>
+					<td style="width:300px; text-align: center;"><a id='lblSalesunit_r_s'></a></td><!--ai格式-->
+					<td style="width:300px; text-align: center;"><a id='lblDD_r_s'></a></td><!--雷雕圖-->
+					<td style="width:300px; text-align: center;"><a id='lblMemo3_r_s'></a></td>
 				</tr>
 				<tr style="height: 35px;">
 					<td>
@@ -1951,8 +1951,8 @@
 					<td><input id="textbbtComp" type="text" class="txt c1"/></td>
 				</tr>
 				<tr class="head" style="color:white; background:#003366;height: 35px;">
-					<td style="width:600px; text-align: center;" colspan="2">樣品完成圖</td><!--完成品jpg-->
-					<td style="width:300px; text-align: center;">備註</td>
+					<td style="width:600px; text-align: center;" colspan="2"><a id='lblSCC_r_s'></a></td><!--完成品jpg-->
+					<td style="width:300px; text-align: center;"><a id='lblMemo4_r_s'></a></td>
 				</tr>
 				<tr style="height: 35px;">
 					<td colspan="2">

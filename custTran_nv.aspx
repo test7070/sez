@@ -582,6 +582,10 @@
 						</td>
 					</tr>
 					<tr>
+                        <td><span> </span><a id='' class="lbl">服務費(%)</a></td>
+                        <td><input id="txtMprice" type="text" class="txt num c1"/></td>
+                    </tr>
+					<tr>
 						<td><span> </span><a id='lblMemo2' class="lbl">場地限制</a></td>
 						<td colspan="2"><input id="txtMemo2" type="text" class="txt c1"></td>
 						<td><span> </span><a id='' class="lbl">合約限制</a></td>
