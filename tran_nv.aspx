@@ -862,13 +862,13 @@
 						<input type="button" id="btnCarno.*" style="display:none;"/>
 					</td>
 					<td>
-						<input type="text" id="txtDriverno.*" style="display:none;"/>
-						<input type="text" id="txtDriver.*" style="width:95%;"/>
-						<input type="button" id="btnDriver.*" style="display:none;"/>
-					</td>
-					<td>
                         <input type="text" id="txtCardealno.*" style="width:95%;"/>
                         <input type="button" id="btnCardeal.*" style="display:none;"/>
+                    </td>
+                    <td>
+                        <input type="text" id="txtDriverno.*" style="display:none;"/>
+                        <input type="text" id="txtDriver.*" style="width:95%;"/>
+                        <input type="button" id="btnDriver.*" style="display:none;"/>
                     </td>
 					<td><input type="text" id="txtCaseuse.*" style="width:95%;"/></td>
 					<td><input type="text" id="txtMount2.*" class="num" style="width:95%;"/></td>
