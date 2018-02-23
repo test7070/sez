@@ -1569,17 +1569,17 @@
 				</table>
 			</div>
 			<div class='dbbm'>
-				<table class="tbbm" id="tbbm">
+				<table class="tbbm" id="tbbm" border="0">
 					<tr style="height:1px;">
-						<td style="width: 100px;"> </td>
+						<td style="width: 230px;"> </td>
 						<td style="width: 195px;"> </td>
-						<td style="width: 100px;"> </td>
 						<td style="width: 195px;"> </td>
-						<td style="width: 100px;"> </td>
+						<td style="width: 250px;"> </td>
 						<td style="width: 195px;"> </td>
-						<td style="width: 100px;"> </td>
 						<td style="width: 195px;"> </td>
-						<td style="width: 5px;"> </td>
+						<td style="width: 200px;"> </td>
+						<td style="width: 120px;"> </td>
+						<td style="width: 20px;"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
