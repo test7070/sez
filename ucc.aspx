@@ -682,6 +682,7 @@
 			function refresh(recno) {
 				_refresh(recno);
 				refreshBbm();
+
 				$('#div_stkcost').hide();
 				$('#btnStkcost').removeAttr('disabled');
 				$('#btnStkcost').val(q_getMsg('btnStkcost'));
