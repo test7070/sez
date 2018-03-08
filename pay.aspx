@@ -1055,14 +1055,23 @@
 				}
 			}
 			function tipInit(){
-				
-				tip($('#lblMon'),'<a style="color:red;font-size:16px;font-weight:bold;width:400px;display:block;">匯入資料前需注意【'+q_getMsg('lblMon')+'】有無輸入正確。</a>',-20,-20);
-				tip($('#btnVcc'),'<a style="color:red;font-size:16px;font-weight:bold;width:400px;display:block;">【'+q_getMsg('btnVcc')+'】、【'+q_getMsg('btnMon')+'】只能擇一輸入。</a>',-50,30);
-				tip($('#txtOpay'),'<a style="color:red;font-size:16px;font-weight:bold;width:150px;display:block;">↑本次預付金額。</a>',-80,30);
-				tip($('#txtUnopay'),'<a style="color:red;font-size:16px;font-weight:bold;width:150px;display:block;">↑若使用預付金額來沖帳，則在此填入金額。</a>',-100,30);
-				tip($('#textOpay'),'<a style="color:red;font-size:16px;font-weight:bold;width:150px;display:block;">↑累計預付金額。</a>',-80,30);
-				tip($('#btnAuto'),'<a style="color:red;font-size:16px;font-weight:bold;width:150px;display:block;">↑自動填入沖帳金額。</a>',-80,30);
-				tip($('#txtAcc2_0'),'<a style="color:red;font-size:16px;font-weight:bold;width:200px;display:block;">若要退票，則會計科目輸入 2121. 應付票據，付款金額輸入負數。</a>',-80,30);
+				if (q_getPara('sys.project').toUpperCase()=='GU'){
+					tip($('#lblMon'),'<a style="color:red;font-size:16px;font-weight:bold;width:400px;display:block;">*匯入資料前需注意【帳款月份】有無輸入正確。</a>',-20,-20);
+					tip($('#btnVcc'),'<a style="color:red;font-size:16px;font-weight:bold;width:400px;display:block;">*【進貨單匯入】、【月結匯入】只能擇一輸入。</a>',-50,30);
+					tip($('#txtOpay'),'<a style="color:red;font-size:16px;font-weight:bold;width:150px;display:block;">↑本次預付金額。</a>',-80,30);
+					tip($('#txtUnopay'),'<a style="color:red;font-size:16px;font-weight:bold;width:150px;display:block;">↑若使用預付金額來沖帳，則在此填入金額。</a>',-100,30);
+					tip($('#textOpay'),'<a style="color:red;font-size:16px;font-weight:bold;width:150px;display:block;">↑累計預付金額。</a>',-80,30);
+					tip($('#btnAuto'),'<a style="color:red;font-size:16px;font-weight:bold;width:150px;display:block;">↑自動填入沖帳金額。</a>',-80,30);
+					tip($('#txtAcc2_0'),'<a style="color:red;font-size:16px;font-weight:bold;width:200px;display:block;">*若要退票，則會計科目輸入 2121. 應付票據，付款金額輸入負數。</a>',-80,30);
+				}else{
+					tip($('#lblMon'),'<a style="color:red;font-size:16px;font-weight:bold;width:400px;display:block;">匯入資料前需注意【'+q_getMsg('lblMon')+'】有無輸入正確。</a>',-20,-20);
+					tip($('#btnVcc'),'<a style="color:red;font-size:16px;font-weight:bold;width:400px;display:block;">【'+q_getMsg('btnVcc')+'】、【'+q_getMsg('btnMon')+'】只能擇一輸入。</a>',-50,30);
+					tip($('#txtOpay'),'<a style="color:red;font-size:16px;font-weight:bold;width:150px;display:block;">↑本次預付金額。</a>',-80,30);
+					tip($('#txtUnopay'),'<a style="color:red;font-size:16px;font-weight:bold;width:150px;display:block;">↑若使用預付金額來沖帳，則在此填入金額。</a>',-100,30);
+					tip($('#textOpay'),'<a style="color:red;font-size:16px;font-weight:bold;width:150px;display:block;">↑累計預付金額。</a>',-80,30);
+					tip($('#btnAuto'),'<a style="color:red;font-size:16px;font-weight:bold;width:150px;display:block;">↑自動填入沖帳金額。</a>',-80,30);
+					tip($('#txtAcc2_0'),'<a style="color:red;font-size:16px;font-weight:bold;width:200px;display:block;">若要退票，則會計科目輸入 2121. 應付票據，付款金額輸入負數。</a>',-80,30);
+				}
 			}
 			function tip(obj,msg,x,y){
 				x = x==undefined?0:x;
