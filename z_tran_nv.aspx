@@ -15,6 +15,10 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+		aPop = new Array(['txtXcar21a', '', 'car2', 'a.noa,driver', 'txtXcar21a,txtXcar21b', 'car2_b.aspx'],
+                         ['txtXcar22a', '', 'car2', 'a.noa,driver', 'txtXcar22a,txtXcar22b', 'car2_b.aspx']
+        );
+  
            if (location.href.indexOf('?') < 0) {
 				location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
 			}
@@ -43,10 +47,7 @@
 						src : 'cust_b.aspx'
 					},{
 						type : '2', //[8][9]
-						name : 'xcar2',
-						dbf : 'car2',
-						index : 'noa,driver',
-						src : 'car2_b.aspx'
+						name : 'xcar2'
 					},{
                         type : '2', //[10][11]
                         name : 'xstore',
