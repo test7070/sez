@@ -55,19 +55,19 @@
                 </table>
             </div>
             <div class='dbbm'><!--- style="width: 900px;"--->
-                <table class="tbbm" id="tbbm" style="width:1000px;height: 362px;" border="2">
+                <table class="tbbm" id="tbbm" style="width:1000px;height:375px;" border="2">
                     <tr>
                         <td width="70%">
-                            <table border="0" >
+                            <table border="0" style="height: 100%;">
                                 <tr>
                                     <td colspan="10">
-										<span> </span><font size="6"><b><a id="lblFromname"></b></font>
-											<input style="float: right;" class="btn" id="btnvcctype" onClick="btnvcctype()" type="button" value='退貨' />
+										<span></span><font size="6"><b><a id="lblFromname"></b></font>
+										<!---<input style="float: right;" class="btn" id="btnvcctype" onClick="btnvcctype()" type="button" value='退貨' />--->
 										<hr>
 									</td>
                                 </tr>
                                 <tr>
-                                    <td width="115px"></td>
+                                    <td width="115px" height="1px"></td>
                                     <td width="200px"></td>
                                     <td width="150px"></td>
                                     <td width="100px"></td>
