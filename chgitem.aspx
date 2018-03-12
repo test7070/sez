@@ -46,6 +46,11 @@
 
 			function mainPost() {
 			    q_mask(bbmMask);
+			    
+			    if(q_getPara('sys.project').toUpperCase()=='JR'){
+                    $('.isJR').show();  
+                }
+                
 			    $('#txtChgitem').change(function(e){
                 	$(this).val($.trim($(this).val()).toUpperCase());    	
 					if($(this).val().length>0){
@@ -66,7 +71,40 @@
 			        if (s1.length == 4)
 			            $(this).val(s1 + '.');
 			    });
+			    
+			    $('#btnImport').click(function() {
+                    $('#divImport').toggle();
+                    $('#textBdate').focus();
+                });
+                $('#btnCancel_import').click(function() {
+                    $('#divImport').toggle();
+                });
+                
+                $('#btnImport_carchg').click(function() {
+                   if(q_cur != 1 && q_cur != 2){
+                        var t_key = q_getPara('sys.key_payb');
+                        var t_mon = $('#textMon').val();
+                        var t_noa= $('#txtNoa').val();
+                        t_key = (t_key.length==0?'FC':t_key);//一定要有值
+                        if(t_mon.length==0 || $('#chkIsfix').prop('checked')==false){
+                            alert('請輸入月份'+q_getMsg('lblMon')+'或是固定未勾選!!');
+                            return;
+                        }else{
+                            q_func('qtxt.query.chgitem2carchg', 'chgitem.txt,chgitem2carchg,' + encodeURI(t_key) + ';'+ encodeURI(t_mon)+ ';'+ encodeURI(t_noa)); 
+                        }    
+                   }
+                });
 			}
+			
+			function q_funcPost(t_func, result) {
+                switch(t_func) {
+                    case 'qtxt.query.chgitem2carchg':
+                        alert('已匯入!!');
+                        break;
+                    default:
+                        break;
+                }
+            }
 
 			function q_boxClose(s2) {
 				var ret;
@@ -353,6 +391,30 @@
 	</head>
 	<body>
 		<!--#include file="../inc/toolbar.inc"-->
+		<div id="divImport" style="position:absolute; top:250px; left:600px; display:none; width:400px; height:200px; background-color: #cad3ff; border: 5px solid gray;">
+            <table style="width:100%;">
+                <tr style="height:1px;">
+                    <td style="width:150px;"></td>
+                    <td style="width:80px;"></td>
+                    <td style="width:80px;"></td>
+                    <td style="width:80px;"></td>
+                    <td style="width:80px;"></td>
+                </tr>
+                <tr style="height:35px;">
+                    <td><span> </span><a id="lblMon" style="float:right; color: blue; font-size: medium;">月份</a></td>
+                    <td colspan="4">
+                    <input id="textMon"  type="text" style="float:left; width:100px; font-size: medium;"/>
+                    </td>
+                </tr>              
+                <tr style="height:35px;">
+                    <td> </td>
+                    <td><input id="btnImport_carchg" type="button" value="匯入"/></td>
+                    <td></td>
+                    <td></td>
+                    <td><input id="btnCancel_import" type="button" value="關閉"/></td>
+                </tr>
+            </table>
+        </div>
 		<div id='dmain'>
 			<div class="dview" id="dview" >
 				<table class="tview" id="tview">
@@ -408,6 +470,7 @@
 					<tr>
 						<td class="td5"><span> </span><a id="vewIsfix"  class="lbl">  </a></td>
 						<td class="td6"><input id="chkIsfix" type="checkbox" /></td>
+						<td class='isJR' style="display: none"><input id="btnImport" type="button" value="固定加減項匯入" style="width:100%;"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl">  </a></td>
