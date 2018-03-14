@@ -52,7 +52,9 @@
 		        t_edate = $('#txtEdate').val();
 		        t_tggno = $.trim($('#txtTggno').val());
 		        t_tgg = $.trim($('#txtTgg').val());
-
+				t_custno = $.trim($('#txtCustno').val());
+		        t_cust = $.trim($('#txtCust').val());
+		        
 		        var t_where = " 1=1 " 
 		        + q_sqlPara2("typea", t_typea)
 		        + q_sqlPara2("kind", t_kind)
@@ -63,13 +65,17 @@
 		        + q_sqlPara2("tggno", t_tggno)
 		        + q_sqlPara2("uno", t_uno) ;
 		        if (t_mech.length>0)
-                    t_where += " and charindex('" + t_mech + "',mech)>0";
+                    t_where += " and charindex(N'" + t_mech + "',mech)>0";
 				if (t_tgg.length>0)
-                    t_where += " and charindex('" + t_tgg + "',tgg)>0";
+                    t_where += " and charindex(N'" + t_tgg + "',tgg)>0";
 		       	if(t_ordeno.length>0)
-		       		t_where += " and exists(select view_cuts"+r_accy+".noa from view_cuts"+r_accy+" where view_cuts"+r_accy+".noa=view_cut"+r_accy+".noa and view_cuts"+r_accy+".ordeno='"+t_ordeno+"')";
+		       		t_where += " and exists(select view_cuts"+r_accy+".noa from view_cuts"+r_accy+" where view_cuts"+r_accy+".noa=view_cut"+r_accy+".noa and view_cuts"+r_accy+".ordeno=N'"+t_ordeno+"')";
 		       	if(t_bno.length>0)
-		       		t_where += " and exists(select view_cuts"+r_accy+".noa from view_cuts"+r_accy+" where view_cuts"+r_accy+".noa=view_cut"+r_accy+".noa and view_cuts"+r_accy+".bno='"+t_bno+"')";
+		       		t_where += " and exists(select view_cuts"+r_accy+".noa from view_cuts"+r_accy+" where view_cuts"+r_accy+".noa=view_cut"+r_accy+".noa and view_cuts"+r_accy+".bno=N'"+t_bno+"')";
+		       	if(t_custno.length>0)
+		       		t_where += " and exists(select view_cuts"+r_accy+".noa from view_cuts"+r_accy+" where view_cuts"+r_accy+".noa=view_cut"+r_accy+".noa and view_cuts"+r_accy+".custno=N'"+t_custno+"')";
+		        if(t_cust.length>0)
+		       		t_where += " and exists(select view_cuts"+r_accy+".noa from view_cuts"+r_accy+" where view_cuts"+r_accy+".noa=view_cut"+r_accy+".noa and charindex(N'"+t_cust+"',view_cuts"+r_accy+".cust)>0)";
 		        t_where = ' where=^^' + t_where + '^^ ';
 		        return t_where;
             }
@@ -144,6 +150,18 @@
 					<td class='seek'  style="width:20%;"><a id='lblBno'></a></td>
 					<td>
 					<input class="txt" id="txtBno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblCustno'>客戶編號</a></td>
+					<td>
+					<input class="txt" id="txtCustno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblCust'>客戶名稱</a></td>
+					<td>
+					<input class="txt" id="txtCust" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>

@@ -460,7 +460,7 @@
             }
             .tbbm {
                 padding: 0px;
-                border: 1px white double;
+                border: 0px white double;
                 border-spacing: 0;
                 border-collapse: collapse;
                 font-size: medium;
@@ -591,7 +591,7 @@
 				</table>
 			</div>
 			<div class='dbbm'>
-				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
+				<table class="tbbm" id="tbbm" border="0" cellpadding='2' cellspacing='0'>
 					<tr class="tr1">
 						<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
@@ -611,7 +611,7 @@
 						<td class="td2" colspan="3"><input id="txtTel" type="text" class="txt c1"/></td>
 						<td class="td3"><span> </span><a id="lblMon" class="lbl" > </a></td>
 						<td class="td4"><input id="txtMon" type="text" class="txt c1"/></td>
-						<td class="td7"><input id="btnInput" type="button" value="帳款匯入" /></td>
+						<td class="td6"><input id="btnInput" type="button" value="帳款匯入" /></td>
 					</tr>
 					<tr class="isXY" style="display: none;">
 						<td class="td1"><span> </span><a id="lblBsno" class="lbl" > </a></td>

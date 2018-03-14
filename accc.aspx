@@ -709,7 +709,7 @@
                 }
                 for (var i = 0; showPart && i < q_bbsCount; i++) {
 		            s1 = $('#txtAccc6_' + i).val();
-		            if($.trim($('#txtAccc5_' + i).val())!='5850.07')
+		            if($.trim($('#txtAccc5_' + i).val())!='5850.07' && $.trim($('#txtAccc5_' + i).val())!='2123.51' )
 		                if (s1.indexOf('薪資') > -1 || s1.indexOf('獎金') > -1 || s1.indexOf('福利金') > -1){  
 		                	showPart = false;
 		                	break;
