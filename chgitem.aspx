@@ -19,7 +19,7 @@
 			var q_name = "chgitem";
 			var q_readonly = ['txtWorker'];
 			var bbmNum = [];
-			var bbmMask = [];
+			var bbmMask = [['textMon','999/99']];
 			q_sqlCount = 6;
 			brwCount = 6;
 			brwList = [];
@@ -86,7 +86,7 @@
                         var t_mon = $('#textMon').val();
                         var t_noa= $('#txtNoa').val();
                         t_key = (t_key.length==0?'FC':t_key);//一定要有值
-                        if(t_mon.length==0 || $('#chkIsfix').prop('checked')==false){
+                        if(t_mon.length==0 && $('#chkIsfix').prop('checked')==false){
                             alert('請輸入月份'+q_getMsg('lblMon')+'或是固定未勾選!!');
                             return;
                         }else{
