@@ -35,36 +35,52 @@
                 //q_mask(bbmMask);
 
                 $('#txtNoa').focus();
-                
-                if(q_getPara('sys.project').toUpperCase()=='ES'){
-                	q_cmbParse("cmbPaytype", "@全部,月結,現金,回收");
-                }else{
-                	q_cmbParse("cmbPaytype", q_getPara('vcc.paytype'));
+                var paytype = q_getPara('vcc.paytype').split(',');
+                var typea = "@全部,"+q_getPara('cust.typea');
+                switch(q_getPara('sys.project').toUpperCase()){
+                	case 'WH':
+                		paytype = "月結,現金".split(',');
+                		typea = "@全部,客戶,貨主,空運公司,空運貨主";
+                		break;
+                	case 'ES':
+                		paytype = "月結,現金,回收".split(',');
+                		break;
+                	default:
+                		break;
                 }
+                for(var i=0;i<paytype.length;i++){
+                	if(paytype[i].length>0){
+                		$('#listPaytype').append("<option value='"+paytype[i]+"'> </option>");
+                	}
+                }
+                q_cmbParse("cmbTypea", typea);
             }
 
             function q_seekStr() {
-                t_noa = $('#txtNoa').val();
-                t_serial = $('#txtSerial').val();
-                t_comp = $('#txtComp').val();
-                t_nick = $('#txtNick').val();
-                t_paytype = $('#cmbPaytype').val();
-				t_memo=$('#txtMemo').val();
-				t_tel = $('#txtTel').val();
-
+                t_noa = $.trim($('#txtNoa').val());
+                t_serial = $.trim($('#txtSerial').val());
+                t_comp = $.trim($('#txtComp').val());
+                t_nick = $.trim($('#txtNick').val());
+                t_paytype = $.trim($('#txtPaytype').val());
+				t_memo= $.trim($('#txtMemo').val());
+				t_tel = $.trim($('#txtTel').val());
+				t_typea = $.trim($('#cmbTypea').val());
+				
                 var t_where = " 1=1 " 
                 + q_sqlPara2("noa", t_noa)
                 + q_sqlPara2("serial", t_serial);
 				
 				if(t_comp.length>0)
-					t_where += " and (charindex(N'"+t_comp+"',comp)>0 or charindex('"+t_comp+"',nick)>0)";
+					t_where += " and (charindex(N'"+t_comp+"',comp)>0 or charindex(N'"+t_comp+"',nick)>0)";
                 if(t_paytype.length>0)
                 	t_where += " and charindex(N'"+t_paytype+"',paytype)>0";
                 if(t_memo.length>0)
                 	t_where += " and charindex(N'"+t_memo+"',memo)>0";
             	if(t_tel.length>0)
-					t_where += " and (charindex(N'"+t_tel+"',tel)>0 or charindex('"+t_tel+"',mobile)>0 or charindex('"+t_tel+"',fax)>0)";
-                
+					t_where += " and (charindex(N'"+t_tel+"',tel)>0 or charindex(N'"+t_tel+"',mobile)>0 or charindex(N'"+t_tel+"',fax)>0)";
+                if(t_typea.length>0)
+                	t_where += " and charindex(N'"+t_typea+"',typea)>0";
+                	
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
             }
@@ -81,6 +97,10 @@
 	<body>
 		<div style='width:400px; text-align:center;padding:15px;' >
 			<table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblTypea'>類別</a></td>
+					<td><select id="cmbTypea" class="txt" style="width:215px; font-size:medium;"> </select>
+				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblSerial'>統編</a></td>
 					<td><input class="txt" id="txtSerial" type="text" style="width:215px; font-size:medium;" /></td>
@@ -99,7 +119,8 @@
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblPaytype'>收款方式</a></td>
-					<td><select id="cmbPaytype" style="width:215px; font-size:medium;"> </select></td>
+					<td><input id="txtPaytype" type="text" class="txt" list="listPaytype" style="width:215px; font-size:medium;"/></td>
+					<datalist id="listPaytype"> </datalist>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblTel'>電話</a></td>
