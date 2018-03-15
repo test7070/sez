@@ -17,8 +17,10 @@
 		<script type="text/javascript">
 			var q_name = "carchg_s";
 			aPop = new Array(
-		    ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno', 'driver_b.aspx'], 
-             ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno', 'car2_b.aspx']
+		     ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno', 'driver_b.aspx'] 
+             , ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno', 'car2_b.aspx']
+             , ['txtMinusitemno', 'lblMinusitem', 'chgitem', 'noa,item,acc1,acc2', 'txtMinusitemno,txtMinusitem,txtAcc1,txtAcc2', 'chgitem_b.aspx']
+             , ['txtPlusitemno', 'lblPlusitem', 'chgitem', 'noa,item,acc1,acc2', 'txtPlusitemno,txtPlusitem,txtAcc1,txtAcc2', 'chgitem_b.aspx']
              , ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
 			function z_carchg() {
 			}
@@ -46,7 +48,14 @@
 				q_gt('carteam', '', 0, 0, 0, "");
 				q_cmbParse("cmbTre", "@全部,Y@已立帳,N@未立帳");
 				$('#txtBdate').focus();
+				
+				if(q_getPara('sys.project').toUpperCase()=='NV'){
+                    $('.isNV').show(); 
+                }else{
+                    $('.isNNV').show();
+                }
 			}
+					
 			function q_gtPost(t_name) {
                 switch (t_name) {
                     case 'carteam':
@@ -56,6 +65,16 @@
                             t_data.carteam += (t_data.carteam.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
                         }
                         q_cmbParse("cmbCarteam", t_data.carteam);
+                        q_gt('chgitem', '', 0, 0, 0, "");
+                        break;
+                    case 'chgitem':
+                        t_data.chgitem = '@全部';
+                        var as = _q_appendData("chgitem", "", true);
+                        for ( i = 0; i < as.length; i++) {
+                            t_data.chgitem += (t_data.chgitem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa+'.'+as[i].item;
+                        }
+                        q_cmbParse("cmbMinusitem", t_data.chgitem);
+                        q_cmbParse("cmbPlusitem", t_data.chgitem);
                         break;
                 }
             }
@@ -65,16 +84,29 @@
 				t_bdate = $('#txtBdate').val();
 				t_edate = $('#txtEdate').val();
 				t_carno = $('#txtCarno').val();
+				t_minusitemno = $('#txtMinusitemno').val();
+                t_minusitem = $('#txtMinusitem').val();
+                t_plusitemno = $('#txtPlusitemno').val();
+                t_plusitem = $('#txtPlusitem').val();
 				t_acc1 = $('#txtAcc1').val();
 				t_acc2 = $('#txtAcc2').val();
 				t_driverno = $('#txtDriverno').val();
 				t_driver = $('#txtDriver').val();
+				t_minusitemno1 = $('#cmbMinusitem').val();
+				t_plusitemno1= $('#cmbPlusitem').val();
 				t_carteam = $('#cmbCarteam').val();
 				t_tre = $('#cmbTre').val();
 				t_memo = $.trim($('#txtMemo').val());
 				
-				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("carno", t_carno) + q_sqlPara2("driverno", t_driverno)
-										 + q_sqlPara2("acc1", t_acc1) + q_sqlPara2("acc2", t_acc2);
+				if(q_getPara('sys.project').toUpperCase()=='NV'){
+                    var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("carno", t_carno) + q_sqlPara2("driverno", t_driverno)
+                                         + q_sqlPara2("minusitemno", t_minusitemno1)+ q_sqlPara2("plusitemno", t_plusitemno1)+ q_sqlPara2("acc1", t_acc1) + q_sqlPara2("acc2", t_acc2);
+                }else{
+                    var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("carno", t_carno) + q_sqlPara2("driverno", t_driverno)
+                                         + q_sqlPara2("minusitemno", t_minusitemno)+ q_sqlPara2("minusitem", t_minusitem)+ q_sqlPara2("plusitemno", t_plusitemno)+ q_sqlPara2("plusitem", t_plusitem)+ q_sqlPara2("acc1", t_acc1) + q_sqlPara2("acc2", t_acc2);
+                }
+				
+				
 				if (t_carteam.length > 0)
                     t_where += q_sqlPara2("carteamno", t_carteam);
                 if (t_driver.length > 0)
@@ -147,6 +179,22 @@
 					<input class="txt" id="txtDriver" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
+				<tr class='seek_tr'>
+                    <td class='seek'  style="width:20%;"><a id='lblMinusitem'></a></td>
+                    <td  class="isNNV" style="display: none;">
+                    <input class="txt" id="txtMinusitemno" type="text" style="width:90px; font-size:medium;" />
+                    <input class="txt" id="txtMinusitem" type="text" style="width:115px; font-size:medium;" />
+                    </td>
+                    <td class="isNV" style="display: none;"><select id="cmbMinusitem" style="width:215px; font-size:medium;" ></select></td>
+                </tr>
+                <tr class='seek_tr'>
+                    <td class='seek'  style="width:20%;"><a id='lblPlusitem'></a></td>
+                    <td  class="isNNV" style="display: none;">
+                    <input class="txt" id="txtPlusitemno" type="text" style="width:90px; font-size:medium;" />
+                    <input class="txt" id="txtPlusitem" type="text" style="width:115px; font-size:medium;" />
+                    </td>
+                    <td class="isNV" style="display: none;"><select id="cmbPlusitem" style="width:215px; font-size:medium;" ></select></td>
+                </tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblAcc1'></a></td>
 					<td>
