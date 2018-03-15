@@ -89,7 +89,8 @@
             function mainPost() {
             	switch(q_getPara('sys.project').toUpperCase()){
             		case 'WH':
-            			q_cmbParse("cmbTypea", "一般");
+            			$('#lblType').css('color','red');
+            			q_cmbParse("cmbTypea", "客戶,貨主,空運公司,空運貨主");
             			break;
             		default:
             			q_cmbParse("cmbTypea", q_getPara('cust.typea'));

@@ -1328,7 +1328,7 @@
 				}
 			}
 			function tipInit(){
-				if (q_getPara('sys.project').toUpperCase()=='GU'){
+				if (q_getPara('sys.project').toUpperCase()=='GU' || q_getPara('sys.project').toUpperCase()=='FP' ){
 					tip($('#txtMon'),'<a style="color:red;font-size:16px;font-weight:bold;width:250px;display:block;">*匯入資料前需注意【帳款月份】有無輸入正確。</a>',-20,-10);
 					tip($('#btnVcc'),'<a style="color:red;font-size:16px;font-weight:bold;width:300px;display:block;">*【出貨單匯入】、【月結匯入】只能擇一輸入。</a>',-50,30);
 					tip($('#txtOpay'),'<a style="color:red;font-size:16px;font-weight:bold;width:150px;display:block;">↑本次預收金額。</a>',-100,30);
