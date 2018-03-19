@@ -62,6 +62,15 @@
 			}
 			function q_funcPost(t_func, result) {
                 switch(t_func) {
+                	case 'qtxt.query.savecust':
+                		var as = _q_appendData("tmp0", "", true, true);                     
+                        if(as[0]!=undefined){
+                        	console.log('qtxt.query.savecust');
+                        	console.log(as[0].msg);
+                        }
+                        t_key = q_getHref();
+						_btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
+                		break;
                     case 'qtxt.query.credit':
                         var as = _q_appendData("tmp0", "", true, true);                     
                         if(as[0]!=undefined){
@@ -109,8 +118,8 @@
 				                    wParent.getElementById("txtCredit").value = t_credit;
 				                    window.parent.abbm[window.parent.q_recno] = t_credit;
 				                }
-								t_key = q_getHref();
-								_btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
+				                console.log('credit.txt,savecust,'+ encodeURI(wParent.getElementById("txtNoa").value) + ';'+ encodeURI(t_credit+''));
+				                q_func('qtxt.query.savecust', 'credit.txt,savecust,'+ encodeURI(wParent.getElementById("txtNoa").value) + ';'+ encodeURI(t_credit+''));
 							}else{
 								alert('可核准額度不足，禁止修改。');
 								return;
