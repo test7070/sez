@@ -1055,7 +1055,7 @@
 				}
 			}
 			function tipInit(){
-				if (q_getPara('sys.project').toUpperCase()=='GU'){
+				if (q_getPara('sys.project').toUpperCase()=='GU' || q_getPara('sys.project').toUpperCase()=='FP' ){
 					tip($('#lblMon'),'<a style="color:red;font-size:16px;font-weight:bold;width:400px;display:block;">*匯入資料前需注意【帳款月份】有無輸入正確。</a>',-20,-20);
 					tip($('#btnVcc'),'<a style="color:red;font-size:16px;font-weight:bold;width:400px;display:block;">*【進貨單匯入】、【月結匯入】只能擇一輸入。</a>',-50,30);
 					tip($('#txtOpay'),'<a style="color:red;font-size:16px;font-weight:bold;width:150px;display:block;">↑本次預付金額。</a>',-80,30);
@@ -1101,7 +1101,7 @@
 					t_set.data('tip').push({index:t_index,ref:obj,msg:msg,shiftX:x,shiftY:y});
 				}			
 			}
-			
+		
 			var mouse_div = true; //控制滑鼠消失div
 		    var row_bbsbbt = ''; //判斷是bbs或bbt增加欄位
 		    var row_b_seq = ''; //判斷第幾個row

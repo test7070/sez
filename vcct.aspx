@@ -302,6 +302,13 @@
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
+				
+				//107/03/14 回寫出貨單手開發票
+				var t_sono=$('#txtSono').val();
+				if(q_getPara('sys.project').toUpperCase()=='RB' && t_sono.length>0){
+					q_func('qtxt.query.updatevcc_rb', 'vcct.txt,updatevcc_rb,'+t_sono+';'+$('#txtNoa').val());
+				}
+				
                 Unlock();
             }
 
