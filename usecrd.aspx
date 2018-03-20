@@ -30,7 +30,16 @@
 				bbsKey = ['noa', 'noq'];
 				if (!q_paraChk())
 					return;
-				main();
+					
+				if (window.parent.q_name == 'cust') {
+                    var wParent = window.parent.document;
+                    if(wParent.getElementById("txtNoa").value.length>0){
+                    	console.log('credit.txt,fe,'+ encodeURI(wParent.getElementById("txtNoa").value) + ';non');
+                    	q_func('qtxt.query.credit', 'credit.txt,fe,'+ encodeURI(wParent.getElementById("txtNoa").value) + ';non');
+               		}else 
+               			alert('編號異常!');
+                }
+				
 			});
 			function sum(){
 				var t_credit = 0;
@@ -51,14 +60,15 @@
 				});
 				q_mask(bbmMask);
 				
-				if (window.parent.q_name == 'cust') {
-                    var wParent = window.parent.document;
-                    if(wParent.getElementById("txtNoa").value.length>0){
-                    	console.log('credit.txt,fe,'+ encodeURI(wParent.getElementById("txtNoa").value) + ';non');
-                    	q_func('qtxt.query.credit', 'credit.txt,fe,'+ encodeURI(wParent.getElementById("txtNoa").value) + ';non');
-               		}else 
-               			alert('編號異常!');
-                }
+				if($('#btnOk2').length==0){
+					$('#btnOk').before($('#btnOk').clone().attr('id', 'btnOk2').show()).hide();
+				   $('#btnOk2').click(function(e){
+				   		sum();
+						q_gt('nhpe', "where=^^ noa='"+r_userno+"'^^", 0, 0, 0, "nhpe");
+				   });	
+				   
+				   
+				}
 			}
 			function q_funcPost(t_func, result) {
                 switch(t_func) {
@@ -68,8 +78,7 @@
                         	console.log('qtxt.query.savecust');
                         	console.log(as[0].msg);
                         }
-                        t_key = q_getHref();
-						_btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
+                        btnOk();
                 		break;
                     case 'qtxt.query.credit':
                         var as = _q_appendData("tmp0", "", true, true);                     
@@ -92,6 +101,7 @@
                           	$('#txtA4').val(gqb);
                           	$('#txtA5').val(total);  
                         }
+                        main();
                         break;
                 }
             }
@@ -183,10 +193,14 @@
 			}
 
 			function btnOk() {
-				sum();
-				q_gt('nhpe', "where=^^ noa='"+r_userno+"'^^", 0, 0, 0, "nhpe");
+				t_key = q_getHref();
+				_btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
 			}
-
+			function btnModi() {
+				console.log('btnModi');	
+				_btnModi();
+				$('#btnOk2').css('visibility','visible');
+			}
 			function bbsSave(as) {
 				if (!as['creditno']) {
 					as[bbsKey[0]] = '';
