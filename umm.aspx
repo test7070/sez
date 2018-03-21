@@ -1328,7 +1328,14 @@
 				}
 			}
 			function tipInit(){
-				if (q_getPara('sys.project').toUpperCase()=='GU' || q_getPara('sys.project').toUpperCase()=='FP' ){
+				tip($('#txtMon'),'<a style="color:red;font-size:16px;font-weight:bold;width:250px;display:block;">*匯入資料前需注意【帳款月份】有無輸入正確。</a>',-20,-10);
+				tip($('#btnVcc'),'<a style="color:red;font-size:16px;font-weight:bold;width:300px;display:block;">*【出貨單匯入】、【月結匯入】只能擇一輸入。</a>',-50,30);
+				tip($('#txtOpay'),'<a style="color:red;font-size:16px;font-weight:bold;width:150px;display:block;">↑本次預收金額。</a>',-100,30);
+				tip($('#txtUnopay'),'<a style="color:red;font-size:16px;font-weight:bold;width:150px;display:block;">↑若使用預收金額來沖帳，則在此填入金額。</a>',-100,30);
+				tip($('#textOpay'),'<a style="color:red;font-size:16px;font-weight:bold;width:150px;display:block;">↑累計預收金額。</a>',-100,30);
+				tip($('#btnAuto'),'<a style="color:red;font-size:16px;font-weight:bold;width:150px;display:block;">↑自動填入沖帳金額。</a>',-100,30);
+				tip($('#txtAcc2_0'),'<a style="color:red;font-size:16px;font-weight:bold;width:200px;display:block;">若要退票，則會計科目輸入 1121. 應收票據，收款金額輸入負數。</a>',-100,30);
+				/*if (q_getPara('sys.project').toUpperCase()=='GU' || q_getPara('sys.project').toUpperCase()=='FP' ){
 					tip($('#txtMon'),'<a style="color:red;font-size:16px;font-weight:bold;width:250px;display:block;">*匯入資料前需注意【帳款月份】有無輸入正確。</a>',-20,-10);
 					tip($('#btnVcc'),'<a style="color:red;font-size:16px;font-weight:bold;width:300px;display:block;">*【出貨單匯入】、【月結匯入】只能擇一輸入。</a>',-50,30);
 					tip($('#txtOpay'),'<a style="color:red;font-size:16px;font-weight:bold;width:150px;display:block;">↑本次預收金額。</a>',-100,30);
@@ -1344,7 +1351,7 @@
 					tip($('#textOpay'),'<a style="color:red;font-size:16px;font-weight:bold;width:150px;display:block;">↑累計預收金額。</a>',-100,30);
 					tip($('#btnAuto'),'<a style="color:red;font-size:16px;font-weight:bold;width:150px;display:block;">↑自動填入沖帳金額。</a>',-100,30);
 					tip($('#txtAcc2_0'),'<a style="color:red;font-size:16px;font-weight:bold;width:200px;display:block;">若要退票，則會計科目輸入 1121. 應收票據，收款金額輸入負數。</a>',-100,30);
-				}
+				}*/
 
 			}
 			function tip(obj,msg,x,y){
