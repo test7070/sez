@@ -132,6 +132,7 @@
 					<td align="center" style="width:100px;max-width: 100px;"><a id='lblPlusmoney'> </a></td>
 					<td align="center" style="width:120px;max-width: 120px;"><a id='lblMinusitem'> </a></td>
 					<td align="center" style="width:100px;max-width: 100px;"><a id='lblMinusmoney'> </a></td>
+					<td align="center" style="width:100px;max-width: 100px;"><a id='lblMemo'>備註</a></td>
 				</tr>
 			</table>
 		</div>
@@ -161,6 +162,7 @@
 					<td style="width:100px;max-width: 100px;"><input id="txtPlusmoney.*" type="text" style="float:left;width:95%;"  readonly="readonly" /></td>
 					<td style="width:120px;max-width: 120px;"><input id="txtMinusitem.*" type="text" style="float:left;width:95%;"  readonly="readonly" /></td>
 					<td style="width:100px;max-width: 100px;"><input id="txtMinusmoney.*" type="text" style="float:left;width:95%;"  readonly="readonly" /></td>
+					<td style="width:100px;max-width: 100px;"><input id="txtMemo.*" type="text" style="float:left;width:95%;"  readonly="readonly" /></td>
 				</tr>
 			</table>
 		</div>
