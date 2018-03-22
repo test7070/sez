@@ -128,8 +128,8 @@
 				                    wParent.getElementById("txtCredit").value = t_credit;
 				                    window.parent.abbm[window.parent.q_recno] = t_credit;
 				                }
-				                console.log('credit.txt,savecust,'+ encodeURI(wParent.getElementById("txtNoa").value) + ';'+ encodeURI(t_credit+''));
-				                q_func('qtxt.query.savecust', 'credit.txt,savecust,'+ encodeURI(wParent.getElementById("txtNoa").value) + ';'+ encodeURI(t_credit+''));
+				                console.log('credit.txt,savecust,'+ encodeURI(r_userno) + ';'+ encodeURI(wParent.getElementById("txtNoa").value) + ';'+ encodeURI(t_credit+''));
+				                q_func('qtxt.query.savecust', 'credit.txt,savecust,'+ encodeURI(r_userno) + ';'+ encodeURI(wParent.getElementById("txtNoa").value) + ';'+ encodeURI(t_credit+''));
 							}else{
 								alert('可核准額度不足，禁止修改。');
 								return;
