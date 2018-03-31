@@ -30,7 +30,16 @@
 				bbsKey = ['noa', 'noq'];
 				if (!q_paraChk())
 					return;
-				main();
+					
+				if (window.parent.q_name == 'cust') {
+                    var wParent = window.parent.document;
+                    if(wParent.getElementById("txtNoa").value.length>0){
+                    	console.log('credit.txt,fe,'+ encodeURI(wParent.getElementById("txtNoa").value) + ';non');
+                    	q_func('qtxt.query.credit', 'credit.txt,fe,'+ encodeURI(wParent.getElementById("txtNoa").value) + ';non');
+               		}else 
+               			alert('編號異常!');
+                }
+				
 			});
 			function sum(){
 				var t_credit = 0;
@@ -51,17 +60,26 @@
 				});
 				q_mask(bbmMask);
 				
-				if (window.parent.q_name == 'cust') {
-                    var wParent = window.parent.document;
-                    if(wParent.getElementById("txtNoa").value.length>0){
-                    	console.log('credit.txt,fe,'+ encodeURI(wParent.getElementById("txtNoa").value) + ';non');
-                    	q_func('qtxt.query.credit', 'credit.txt,fe,'+ encodeURI(wParent.getElementById("txtNoa").value) + ';non');
-               		}else 
-               			alert('編號異常!');
-                }
+				if($('#btnOk2').length==0){
+					$('#btnOk').before($('#btnOk').clone().attr('id', 'btnOk2').show()).hide();
+				   $('#btnOk2').click(function(e){
+				   		sum();
+						q_gt('nhpe', "where=^^ noa='"+r_userno+"'^^", 0, 0, 0, "nhpe");
+				   });	
+				   
+				   
+				}
 			}
 			function q_funcPost(t_func, result) {
                 switch(t_func) {
+                	case 'qtxt.query.savecust':
+                		var as = _q_appendData("tmp0", "", true, true);                     
+                        if(as[0]!=undefined){
+                        	console.log('qtxt.query.savecust');
+                        	console.log(as[0].msg);
+                        }
+                        btnOk();
+                		break;
                     case 'qtxt.query.credit':
                         var as = _q_appendData("tmp0", "", true, true);                     
                         if(as[0]!=undefined){
@@ -83,6 +101,7 @@
                           	$('#txtA4').val(gqb);
                           	$('#txtA5').val(total);  
                         }
+                        main();
                         break;
                 }
             }
@@ -109,8 +128,8 @@
 				                    wParent.getElementById("txtCredit").value = t_credit;
 				                    window.parent.abbm[window.parent.q_recno] = t_credit;
 				                }
-								t_key = q_getHref();
-								_btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
+				                console.log('credit.txt,savecust,'+ encodeURI(r_userno) + ';'+ encodeURI(wParent.getElementById("txtNoa").value) + ';'+ encodeURI(t_credit+''));
+				                q_func('qtxt.query.savecust', 'credit.txt,savecust,'+ encodeURI(r_userno) + ';'+ encodeURI(wParent.getElementById("txtNoa").value) + ';'+ encodeURI(t_credit+''));
 							}else{
 								alert('可核准額度不足，禁止修改。');
 								return;
@@ -174,10 +193,14 @@
 			}
 
 			function btnOk() {
-				sum();
-				q_gt('nhpe', "where=^^ noa='"+r_userno+"'^^", 0, 0, 0, "nhpe");
+				t_key = q_getHref();
+				_btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
 			}
-
+			function btnModi() {
+				console.log('btnModi');	
+				_btnModi();
+				$('#btnOk2').css('visibility','visible');
+			}
 			function bbsSave(as) {
 				if (!as['creditno']) {
 					as[bbsKey[0]] = '';

@@ -74,7 +74,6 @@
 				for (var j = 0; j < q_bbsCount; j++) {
 					t_unit = $('#txtUnit_' + j).val();
 					t_mount = q_float('txtMount_' + j);
-					
 					if (q_getPara('sys.project').toUpperCase()=='BQ'){
 					    $('#txtPrice_' + j).val(q_mul(q_float('txtPrice_' + j),q_float('txtGweight_' + j)));
 					    t_weight=+q_mul(q_float('txtMount_' + j),q_float('txtGweight_' + j));

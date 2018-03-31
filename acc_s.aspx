@@ -14,7 +14,8 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
             var q_name = "acc_s"; 
-
+		aPop = new Array(['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', 'acc_s.aspx']
+		,['txtAcc2', 'lblAcc2', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', 'acc_s.aspx']);
             $(document).ready(function() {
                 main();
             });

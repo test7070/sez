@@ -331,7 +331,7 @@
             }
             .dview {
                 float: left;
-                width: 950px;
+                width: 1050px;
                 border-width: 0px;
             }
             .tview {
@@ -471,6 +471,7 @@
 						<td align="center" style="width:100px; color:black;"><a id='vewMinusmoney'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewPlusmoney'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewTrdno'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewMemo'>備註</a></td>
 					</tr>
 					<tr>
 						<td >
@@ -483,6 +484,7 @@
 						<td id="minusmoney,0,1" style="text-align: right;">~minusmoney,0,1</td>
 						<td id="plusmoney,0,1" style="text-align: right;">~plusmoney,0,1</td>
 						<td id="trdno" style="text-align: left;">~trdno</td>
+						<td id="memo" style="text-align: left;">~memo</td>
 					</tr>
 				</table>
 			</div>
