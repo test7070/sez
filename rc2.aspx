@@ -342,6 +342,12 @@
                     $('#lblPrice').hide()
                     $('#txtPrice').hide()
                 }
+                
+                if (q_getPara('sys.project').toUpperCase()=='UJ'){
+                    $('.isUJ').show();
+                    $('.isSpec').hide();
+                    $('#tbbs').css("width", (dec($('#tbbs')[0].offsetWidth)+160) + "px");
+                }
 			}
 			
 			function refreshBbm() {
@@ -1035,6 +1041,12 @@
                     $('#lblPrice').hide()
                     $('#txtPrice').hide()
                 }
+                
+                if (q_getPara('sys.project').toUpperCase()=='UJ'){
+                    $('.isUJ').show();
+                    $('.isSpec').hide();
+                    $('#tbbs').css("width", (dec($('#tbbs')[0].offsetWidth)+160) + "px");
+                }
 			}
 
 			function btnIns() {
@@ -1623,6 +1635,8 @@
 					<td align="center" style="width:220px;"><a id='lblProduct'> </a></td>
 					<td align="center" style="width:95px;" class="isStyle"><a id='lblStyle'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit'> </a></td>
+					<td class="isUJ" align="center" style="width:100px;display: none;"><a id='lblDime_bq'>進貨量(Kg)</a></td>
+					<td class="isUJ" align="center" style="width:100px;display: none;"><a id='lblWeight_bq'>進貨量(M)</a></td>
 					<td class="isBQ" align="center" style="width:100px;display: none;"><a id='lblGweight_bq'>單重</a></td>
 					<td align="center" style="width:100px;"><a id='lblMount'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblPrices'> </a></td>
@@ -1651,6 +1665,12 @@
 					</td>
 					<td class="isStyle"><input id="txtStyle.*" type="text" class="txt c1"/></td>
 					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
+					<td class="isUJ" style="display: none;">
+                        <input class="txt c1" id="txtDime.*" type="text" />
+                    </td>
+                    <td class="isUJ" style="display: none;">
+                        <input class="txt c1" id="txtWeight.*" type="text" />
+                    </td>
 					<td class="isBQ" style="display: none;">
                         <input class="txt c1" id="txtGweight.*" type="text" />
                     </td>

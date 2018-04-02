@@ -2,56 +2,43 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
 		<title> </title>
-		<script src="../script/jquery.min.js" type="text/javascript"></script>
-		<script src='../script/qj2.js' type="text/javascript"></script>
-		<script src='qset.js' type="text/javascript"></script>
-		<script src='../script/qj_mess.js' type="text/javascript"></script>
-		<script src="../script/qbox.js" type="text/javascript"></script>
-		<script src='../script/mask.js' type="text/javascript"></script>
+		<script src="../script/jquery.min.js" type="text/javascript"> </script>
+		<script src='../script/qj2.js' type="text/javascript"> </script>
+		<script src='qset.js' type="text/javascript"> </script>
+		<script src='../script/qj_mess.js' type="text/javascript"> </script>
+		<script src="../script/qbox.js" type="text/javascript"> </script>
+		<script src='../script/mask.js' type="text/javascript"> </script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
-		<script src="css/jquery/ui/jquery.ui.core.js"></script>
-		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
-		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
-		<script src="http://59.125.143.170/t_link/js/test.js"></script>
+		<script src="css/jquery/ui/jquery.ui.core.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
+		<script src="http://59.125.143.170/t_link/js/test.js" type="text/javascript"> </script>
 		<link href="http://59.125.143.170/t_link/css/test.css" rel="stylesheet" type="text/css" />
 	</head>
-	<body ondragstart="return false" draggable="false"
-	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
-	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
-	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
-		<div style="overflow: auto;display:block;">
-			<!--#include file="../inc/toolbar.inc"-->
-		</div>
+	<body ondragstart="return false" draggable="false" ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();" ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();" ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
+		<div style="overflow: auto;display:block;"> <!--#include file="../inc/toolbar.inc"--> </div>
 		<div style="overflow: auto;display:block;width:1280px;">
 			<div class="dview" id="dview">
 				<table class="tview" id="tview"	>
 					<tr>
-						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewNoa'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewNick'> </a></td>
+						<td align="center" style="width:20px; color:black;"><a id="vewChk"> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id="vewDatea"> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id="vewNoa"> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id="vewNick"> </a></td>
 					</tr>
 					<tr>
-						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
-						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='noa'>~noa</td>
-						<td align="center" id='nick'>~nick</td>
+						<td><input id="chkBrow.*" type="checkbox" style="" /> </td>
+						<td align="center" id="datea">~datea</td>
+						<td align="center" id="noa">~noa</td>
+						<td align="center" id="nick">~nick</td>
 					</tr>
 				</table>
 			</div>
 			<div class="dbbm">
 				<table class="tbbm" id="tbbm">
 					<tr style="height:1px;">
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td class="tdZ"> </td>
+						<td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td class="tdZ"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblType' class="lbl"> </a></td>
@@ -61,20 +48,17 @@
 						</td>
 						<td><span> </span><a id='lblKind' class="lbl"> </a></td>
 						<td><select id="cmbKind" class="txt c1"> </select></td>
-						<td> </td>
+						<td><select id="cmbdd" class="txt c1"> </select></td>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td colspan="2"><input id="txtNoa" type="text" class="txt c1"/></td>
-						<td class="tdZ">
-							<input type="button" id="btnTip" value="?" style="float:right;" onclick="tipShow()"/>
-						</td>
+						<td class="tdZ"><input type="button" id="btnTip" value="?" style="float:right;" onclick="tipShow()"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td><input id="txtDatea" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblMon' class="lbl"> </a></td>
 						<td><input id="txtMon" type="text" class="txt c1"/></td>
-						<td> </td>
-						<td> </td>
+						<td> </td><td> </td>
 						<td colspan="2">
 							<input type="checkbox" id="chkIsgenvcca" style="float:left;"/>
 							<a id='lblIsgenvcca' class="lbl" style="float:left;"> </a>
@@ -197,9 +181,7 @@
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs' style=' text-align:center'>
 				<tr style='color:white; background:#003366;' >
-					<td align="center" style="width:30px;">
-						<input class="btn" id="btnPlus" type="button" value='+' style="font-weight: bold;" />
-					</td>
+					<td align="center" style="width:30px;"><input class="btn" id="btnPlus" type="button" value='+' style="font-weight: bold;" /></td>
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:230px;"><a id="lblUno_st" > </a></td>
 					<td align="center" style="width:120px;"><a id='lblProductno_st'> </a></td>
@@ -222,7 +204,7 @@
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
 						<input class="btn" id="btnUno.*" type="button" value='.' style="width:10%;"/>
-						<input id="txtUno.*" type="text" style="width:80%;"/>
+						<input id="txtUno.*" type="text" class="txtUno" style="width:80%;"/>
 					</td>
 					<td>
 						<input class="btn" id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:15px;float:left;" />
@@ -248,7 +230,7 @@
 						<input id="txtLengthb.*" type="text" style="display:none;"/>
 						<input id="txtSpec.*" type="text" style="float:left;"/>
 					</td>
-					<td class="rs_hide"><input id="txtSize.*" type="text" style="width:95%;" /></td>
+					<td class="rs_hide"><input id="txtSize.*" type="text" style="width:95%;" onChange="" /></td>
 					<td><input id="txtUnit.*" type="text" class="txt num" style="width:95%;text-align: center;"/></td>
 					<td><input id="txtMount.*" type="text" class="txt num" style="width:95%;"/></td>
 					<td><input id="txtWeight.*" type="text" class="txt num" style="width:95%;"/></td>

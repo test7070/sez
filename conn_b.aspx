@@ -57,6 +57,10 @@
 				$('#btnNext').hide();
 				$('#btnBott').hide();
 				
+				$('#btnOk').unbind('click');//107/03/31 避免先關閉式窗沒存檔
+				$('#btnOk').click(function() {
+					btnOk();
+				});
             }
 
             function bbsAssign() {/// 表身運算式
