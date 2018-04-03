@@ -267,12 +267,20 @@
             		return;
 				}
 				if($('#txtMon').val().length==0)
-					$('#txtMon').val($('#txtFixadate').val().substring(0,6));
-				if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
+				    if(r_len=='3'){
+				        $('#txtMon').val($('#txtFixadate').val().substring(0,6));
+				    }else{
+				        $('#txtMon').val($('#txtFixadate').val().substring(0,7));
+				    }
+				if (r_len=='3' && $('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
                     alert(q_getMsg('lblMon') + '錯誤。');
                     Unlock(1);
 					return;
-				}
+				}else if (r_len=='4' && $('#txtMon').val().length > 0 && !(/^[0-9]{4}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
+                    alert(q_getMsg('lblMon') + '錯誤。');
+                    Unlock(1);
+                    return;
+                }
 	            if($('#txtFixadate').val().length == 0 || !q_cd($('#txtFixadate').val())){
 					alert(q_getMsg('lblFixadate')+'錯誤。');
             		Unlock(1);

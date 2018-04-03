@@ -168,6 +168,10 @@
                     $('#lblPost').text('地點');
                     $('#vewPost').text('地點');
             }
+            if(q_getPara('sys.project').toUpperCase()=='PA'){
+                    $('.isPA').show();
+                    $('.isNPA').hide();
+            }
 		}
 
 		function btnMinus(id) {
@@ -320,7 +324,7 @@
 						<td class="td3"></td>
 						<td class="td4"></td>
 					</tr>
-					<tr>
+					<tr class="isNPA">
 						<td class="td1"><span> </span><a id='lblPost' class="lbl"></a></td>
 						<td class="td2"><input id="txtPost"  type="text" class="txt c1"/></td>
 					</tr>
@@ -328,6 +332,22 @@
 						<td class="td1"><span> </span><a id='lblP_post' class="lbl"></a></td>
 						<td class="td2"><input id="txtP_post"  type="text" class="txt c1" /></td>
 					</tr>
+					<tr class="isPA" style="display: none">
+                        <td class="td1"><span> </span><a id='lblAddr' class="lbl">地點</a></td>
+                        <td class="td2"><input id="txtAddr"  type="text" class="txt c1" /></td>
+                    </tr>
+					<tr class="isPA" style="display: none">
+                        <td class="td1"><span> </span><a id='lblConn' class="lbl">聯絡人</a></td>
+                        <td class="td2"><input id="txtConn"  type="text" class="txt c1" /></td>
+                    </tr>
+                    <tr class="isPA" style="display: none">
+                        <td class="td1"><span> </span><a id='lblTel' class="lbl">電話</a></td>
+                        <td class="td2"><input id="txtTel"  type="text" class="txt c1" /></td>
+                    </tr>
+                    <tr class="isPA" style="display: none">
+                        <td class="td1"><span> </span><a id='lblAddress' class="lbl">地址</a></td>
+                        <td class="td2" colspan="2"><input id="txtAddress"  type="text" class="txt c1" /></td>
+                    </tr>
 				</table>
 			</div>
 		</div> 
