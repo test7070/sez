@@ -45,7 +45,6 @@
                     dataErr = false;
                     return;
                 }
-
                 mainForm(1);
             }
 
