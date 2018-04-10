@@ -30,6 +30,12 @@
         q_mask(bbmMask);
 
         $('#txtNoa').focus();
+        
+        if (q_getPara('sys.project').toUpperCase()=='UJ') {
+            $('.isNUJ').hide();
+            $('#lblWorkgno').text('採購編號');
+            $('#lblDatea').text('日期');
+        } 
     }
 
     function q_seekStr() {   
@@ -70,7 +76,7 @@
                 <td class='seek'  style="width:20%;"><a id='lblWorkgno'> </a></td>
                 <td><input class="txt" id="txtWorkgno" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
-            <tr class='seek_tr'>
+            <tr class='seek_tr isNUJ'>
                 <td class='seek'  style="width:20%;"><a id='lblOrdbno'> </a></td>
                 <td><input class="txt" id="txtOrdbno" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
