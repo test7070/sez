@@ -29,6 +29,10 @@
 			}
 			function refresh() {
 				_refresh();
+				if(q_getPara('sys.project').toUpperCase()=='PA'){
+                    $('.isPA').show();
+                    $('.isNPA').hide();
+                }
 			}
         </script>
         <style type="text/css">
@@ -42,6 +46,7 @@
                     <th align="center" ></th>
                     <th align="center" style='color:Blue;' ><a id='lblNoa'></a></th>
                     <th align="center" style='color:Blue;' ><a id='lblAddr'></a></th>
+                    <th align="center" style='color:Blue;display: none' class='isPA'><a id='lblAddress'>地址</a></th>
                 </tr>
                 <tr>
                     <td style="width:2%;">
@@ -50,8 +55,14 @@
                     <td style="width:20%;">
                     <input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" />
                     </td>
-                    <td style="width:45%;">
+                    <td class='isNPA' style="width:45%;">
                     <input class="txt" id="txtPost.*" type="text" style="width:98%;"  readonly="readonly" />
+                    </td>
+                    <td class='isPA' style="width:45%;display: none;">
+                    <input class="txt" id="txtAddr.*" type="text" style="width:98%;"  readonly="readonly" />
+                    </td>
+                    <td class='isPA' style="width:45%;display: none;">
+                    <input class="txt" id="txtAddress.*" type="text" style="width:98%;"  readonly="readonly" />
                     </td>
                 </tr>
             </table>
