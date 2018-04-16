@@ -93,9 +93,6 @@
             			$('#lblType').css('color','red');
             			q_cmbParse("cmbTypea", "客戶,貨主,空運公司,空運貨主");
             			break;
-            		case 'AY':
-                        
-                        break;
             		default:
             			q_cmbParse("cmbTypea", q_getPara('cust.typea'));
             			break;
@@ -225,6 +222,10 @@
                 
                 if(q_getPara('sys.project').toUpperCase()!='WJ'){
                     $('.isWJ').hide();
+                }
+                
+                if(q_getPara('sys.project').toUpperCase()=='AY'){
+                    $('.isAY').show();
                 }
                
             }
