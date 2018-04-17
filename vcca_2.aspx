@@ -349,7 +349,7 @@
 				t_price = q_float('txtPrice');
 				if(q_getPara('sys.project').toUpperCase()=='WJ'){
 				    if(!emp($('#txtMoney').val())){
-				        t_money =$('#txtMoney').val();
+				        t_money =q_float('txtMoney');
 				    }else{
 				        t_money = round(t_mount*t_price,0);
 				    }
