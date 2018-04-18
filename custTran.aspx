@@ -87,6 +87,7 @@
 			var curData = new currentData();
 
             function mainPost() {
+                q_cmbParse("cmbMprice", q_getPara('sys.taxtype'));
             	switch(q_getPara('sys.project').toUpperCase()){
             		case 'WH':
             			$('#lblType').css('color','red');
@@ -96,10 +97,6 @@
             			q_cmbParse("cmbTypea", q_getPara('cust.typea'));
             			break;
             	}
-            	
-            	if (q_getPara('sys.project').toUpperCase()=='JR'){
-                    $('#btnCustm').show();
-                }
 
                 switch(q_getPara('sys.project').toUpperCase()){
                 	case 'WH':
@@ -116,6 +113,9 @@
                 	case 'ES':
                 		q_cmbParse("combPaytype", ",月結,現金,回收");
                 		break;
+                    case 'ES':
+                        $('#btnCustm').show();
+                        break;
                 	default:
                 		q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
                 		break;
@@ -197,7 +197,7 @@
                   	t_where = "noa='" + $('#txtNoa').val() + "'";
                     q_box("invest_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'invest', "95%", "650px", q_getMsg('btnInvest'));
                 });
-               /* $('#lblCredit').click(function(){
+               $('#lblCredit').click(function(){
 					var t_noa = $('#txtNoa').val();
 					var t_where = '';
 					if($('#CreditShow').css('display') != 'none')
@@ -206,7 +206,7 @@
 	                	t_where = "where=^^a.noa='" + t_noa + "' ^^";
 	                	q_gt('credit_sum', t_where, 1, 1, 0, '', r_accy);
                 	}
-                });*/
+                });
                 $('#btnCustm').click(function() {
                     if (q_cur == 1) {
                         return;
@@ -222,6 +222,10 @@
                 
                 if(q_getPara('sys.project').toUpperCase()!='WJ'){
                     $('.isWJ').hide();
+                }
+                
+                if(q_getPara('sys.project').toUpperCase()=='AY'){
+                    $('.isAY').show();
                 }
                
             }
@@ -255,7 +259,7 @@
                         }
                 		break;
 
-                	/*case 'credit_sum':
+                	case 'credit_sum':
                 		var creditMsg = '<table>';
                 		var credit,unorde = 0,ungqb = 0,umm_opay = 0,umm_unpay = 0,vcc_unpay = 0,total = 0,unpay = 0;
 	                		var as = _q_appendData('credit_sum', '', true);
@@ -276,7 +280,7 @@
                 				creditMsg += '<tr><td class="title">=額度餘額：</td><td class="val">' + total + '</td></tr>';
                 				$('#CreditShow').html(creditMsg).toggle();
                 			}
-                		break;*/
+                		break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -575,7 +579,7 @@
             select {
                 font-size: medium;
             }
-            /*#CreditShow {
+            #CreditShow {
                 display: none;
                 padding:3px;
                 background-color: #cad3ff;
@@ -590,7 +594,7 @@
             #CreditShow .val {
 				width:60%;
 				text-align: right;
-            }*/
+            }
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -726,13 +730,21 @@
 							<input id="txtSales2" type="text" style="float:left; width:60%;"/>
 						</td>
 					</tr>
+					<tr class="isAY" style="display: none">
+                        <td><span> </span><a id='lblMprice' class="lbl">稅別</a></td>
+                        <td><select id="cmbMprice"  class="txt c1"> </select></td>
+                        <td><span> </span><a id='lblPprice' class="lbl">稅率</a></td>
+                        <td><input id="txtPprice"  type="text" class="txt c1 num"/></td> 
+                    </tr>
+					<tr class="isAY" style="display: none">
+					    <td><span> </span><a id="lblCredit" class="lbl btn"> </a></td>
+                        <td><input id="txtCredit" type="text" class="txt num c1" /> </td>
+                        <td>
+                            <div id="CreditShow">
+                            </div>
+                        </td>
+                    </tr>
 					<tr>
-						<!--<td><span> </span><a id="lblCredit" class="lbl btn"> </a></td>
-						<td><input id="txtCredit" type="text" class="txt num c1" />	</td>
-						<td>
-							<div id="CreditShow">
-							</div>
-						</td>-->
 						<td><span> </span><a id='lblChkstatus' class="lbl"> </a></td>
 						<td colspan="2"><input id="txtChkstatus"  type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblChkdate' class="lbl"> </a></td>

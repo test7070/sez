@@ -318,11 +318,16 @@
 
 			function sum() {
 				if(!(q_cur==1 || q_cur==2))
-					return;		
-				$('#txtMoney').attr('readonly',true);			
+					return;
+				if(q_getPara('sys.project').toUpperCase()=='WJ'){
+                    $('#txtMoney').removeAttr('disabled');
+                    $('#txtMoney').removeAttr('readonly').css('color','black').css('background','white');
+                }else{
+                    $('#txtMoney').attr('readonly',true);
+                    $('#txtMoney').css('background-color','rgb(237,237,238)').css('color','green');
+                }			
 				$('#txtTax').attr('readonly',true);	
 				$('#txtTotal').attr('readonly', true);
-				$('#txtMoney').css('background-color','rgb(237,237,238)').css('color','green');
 				$('#txtTax').css('background-color','rgb(237,237,238)').css('color','green');
 				$('#txtTotal').css('background-color','rgb(237,237,238)').css('color','green');
 				
@@ -342,7 +347,15 @@
 				var t_mount,t_price,t_money,t_taxrate,t_tax,t_total;
 				t_mount = q_float('txtMount');
 				t_price = q_float('txtPrice');
-				t_money = round(t_mount*t_price,0);
+				if(q_getPara('sys.project').toUpperCase()=='WJ'){
+				    if(!emp($('#txtMoney').val())){
+				        t_money =q_float('txtMoney');
+				    }else{
+				        t_money = round(t_mount*t_price,0);
+				    }
+				}else{
+                    t_money = round(t_mount*t_price,0); 
+				}
 				t_taxrate = parseFloat(q_getPara('sys.taxrate'))/100;
 				switch ($('#cmbTaxtype').val()) {
 					case '1':  // 應稅
