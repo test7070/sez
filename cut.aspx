@@ -132,25 +132,63 @@
 					sum();
 				});
 				$('#btnOrdesImport').click(function() {
-					if (q_cur == 1 || q_cur == 2) {
-						var t_bdime = dec($('#txtBdime').val()) - 0.5;
-						var t_edime = dec($('#txtEdime').val());
-						var t_width = dec($('#txtWidth').val());
-						var t_productno = trim($('#txtProductno').val());
-						var t_custno = trim($('#txtCustno').val());
-						t_edime = (t_edime == 0 ? 999 : t_edime);
-						var t_where = " 1=1 and isnull(enda,0)!=1";
-						t_where += q_sqlPara2('dime', t_bdime, t_edime);
-						if(t_width!=0)
-						   if(q_getPara('sys.project')=='bd'){
-						      t_where += q_sqlPara2('width', 0, t_width+11+t_width*0.2); 
-						   }else{
-						      t_where += q_sqlPara2('width', 0, t_width+11); 
-						   }	
-						if (!emp(t_custno))
-							t_where += q_sqlPara2('custno', t_custno);
-						t_where += " and kind='" +$('#cmbKind').val()+ "'";
-						q_box("ordestt_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
+					switch(q_getPara('sys.project').toUpcase()){
+						case 'BD':
+							var t_table = 'CUT';
+							var t_noa = $.trim($('#txtNoa').val());
+							var t_custno = $.trim($('#txtCustno').val());
+							var t_kind = $.trim($('#txtKind').val());
+							var t_bdate = '';
+							var t_edate = '';
+							var t_productno = $.trim($('#txtProductno').val());
+							var t_bdime = q_float('txtDime') - 0.2;
+							var t_edime = q_float('txtDime') + 0.2;
+							var t_bwidth = 0;
+							var t_ewidth = 0;
+							var t_blength = 0;
+							var t_elength = 0;
+							var t_para = '';
+							
+	                        var t_where = '';
+	                        q_box("orde_import_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + ";" + JSON.stringify({
+	                            table : t_table,
+	                            noa : t_noa,
+	                            custno : t_custno,
+	                            kind : t_kind,
+	                            bdate : t_bdate,
+	                            edate : t_edate,
+	                            productno : t_productno,
+	                            bdime : t_bdime,
+	                            edime : t_edime,
+	                            bwidth : t_bwidth,
+	                            ewidth : t_ewidth,
+	                            blength : t_blength,
+	                            elength : t_elength,
+	                            para : t_para
+	                        }), "orde_import", "95%", "95%", '');
+							break;
+						default:
+							if (q_cur == 1 || q_cur == 2) {
+								var t_bdime = dec($('#txtBdime').val()) - 0.5;
+								var t_edime = dec($('#txtEdime').val());
+								var t_width = dec($('#txtWidth').val());
+								var t_productno = trim($('#txtProductno').val());
+								var t_custno = trim($('#txtCustno').val());
+								t_edime = (t_edime == 0 ? 999 : t_edime);
+								var t_where = " 1=1 and isnull(enda,0)!=1";
+								t_where += q_sqlPara2('dime', t_bdime, t_edime);
+								if(t_width!=0)
+								   if(q_getPara('sys.project')=='bd'){
+								      t_where += q_sqlPara2('width', 0, t_width+11+t_width*0.2); 
+								   }else{
+								      t_where += q_sqlPara2('width', 0, t_width+11); 
+								   }	
+								if (!emp(t_custno))
+									t_where += q_sqlPara2('custno', t_custno);
+								t_where += " and kind='" +$('#cmbKind').val()+ "'";
+								q_box("ordestt_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
+							}
+							break;
 					}
 				});
 				
