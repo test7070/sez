@@ -33,11 +33,13 @@
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'noa';
-			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'],
-				['txtUno', 'lblUno', 'view_uccc', 'uno,productno,product,spec,dime,width,lengthb,radius,weight,eweight,itype,custno,source,uno2,memo,class', 'txtUno,txtProductno,txtProduct,txtSpec,txtDime,txtWidth,txtLengthb,txtRadius,txtOweight,txtEweight,cmbItype,txtCustno,txtSource,txtUno2,txtMemo,txtClass', 'uccc_seek_b.aspx?;;;1=0', '95%', '95%'], 
-				['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'], 
+			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx']
+				,['txtUno', 'lblUno', 'view_uccc'
+					, 'uno,productno,product,spec,dime,width,lengthb,radius,weight,eweight,itype,custno,source,uno2,memo,class'
+					, 'txtUno,txtProductno,txtProduct,txtSpec,txtDime,txtWidth,txtLengthb,txtRadius,txtOweight,txtEweight,cmbItype,txtCustno,txtSource,txtUno2,txtMemo,txtClass', 'uccc_seek_b.aspx?;;;1=0', '95%', '95%'] 
+				,['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'], 
 				['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtCust_', 'cust_b.aspx'], 
-				['txtMechno', 'lblMech', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'], 
+				['txtMechno', 'lblMech', 'mech', 'noa,mech,typea,typea', 'txtMechno,txtMech,combType2,txtType2', 'mech_b.aspx'], 
 				['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']
 				, ['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_', 'ucc_b.aspx']
 	            , ['txtStyle_', 'btnStyle_', 'style', 'noa,product', 'txtStyle_', 'style_b.aspx']
@@ -132,7 +134,7 @@
 					sum();
 				});
 				$('#btnOrdesImport').click(function() {
-					switch(q_getPara('sys.project').toUpcase()){
+					switch(q_getPara('sys.project').toUpperCase()){
 						case 'BD':
 							var t_table = 'CUT';
 							var t_noa = $.trim($('#txtNoa').val());
@@ -200,6 +202,19 @@
 			function q_boxClose(s2) {///   q_boxClose 2/4
 				var ret;
 				switch (b_pop) {
+					case 'orde_import':
+                		
+                		q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtCust,txtProductno,txtProduct,txtStyle,txtClass,txtDime,txtWidth,txtLengthb,txtRadius,txtSpec,txtMount,txtDivide,txtOrdeno,txtNo2'
+                			, b_ret.length, b_ret
+                			, 'custno,cust,productno,product,style,class,dime,width,lengthb,radius,spec,mount,n,noa,no2'
+                			, 'txtOrdeno');
+                		
+                	
+                		/*q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,combSpec,txtDime,txtWidth,txtLengthb,txtRadius,txtSize,txtOrdeno,txtNo2,txtPrice,txtMount,txtWeight,txtTotal,txtMemo,txtUnit,txtSource,txtStyle,txtClass'
+	                        	, b_ret.length, b_ret
+								, 'productno,product,spec,spec,dime,width,lengthb,radius,size,noa,no2,price,mount,weight,total,memo,unit,source,style,class', 'txtProductno'); 
+                		*/
+                		break;
 					case 'ordes':
 						if (q_cur > 0 && q_cur < 4) {
 							b_ret = getb_ret();
