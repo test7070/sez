@@ -931,7 +931,7 @@
 					<td style="background-color: #f8d463;"><input id="checkRc2a" type="checkbox" style="float: left;"/></td>
 				</tr>
 				<tr id='vcca_close'>
-					<td align="center" colspan='2'>
+					<td align="center" colspan="2">
 						<input id="btn_div_vcca" type="button" value="匯入營業稅">
 						<input id="btnClose_div_vcca" type="button" value="關閉視窗">
 					</td>
