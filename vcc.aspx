@@ -933,11 +933,18 @@
 				$('#txtAcomp').val(z_acomp);
 				$('#txtDatea').val(q_date());
 				$('#cmbTypea').val('1');
-				$('#txtDatea').focus();
+				
 				//$('#cmbTaxtype').val('1');
 				stype_chang();
 				var t_where = "where=^^ 1=0 ^^ stop=100";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
+				
+				if (q_getPara('sys.project').toUpperCase()=='AD'){
+					$('#txtCustno2').val('XK0004');
+					$('#txtCustno2').change();	
+				}
+				
+				$('#txtDatea').focus();
 			}
 
 			function btnModi() {
