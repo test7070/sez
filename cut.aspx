@@ -33,11 +33,13 @@
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'noa';
-			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'],
-				['txtUno', 'lblUno', 'view_uccc', 'uno,productno,product,spec,dime,width,lengthb,radius,weight,eweight,itype,custno,source,uno2,memo,class', 'txtUno,txtProductno,txtProduct,txtSpec,txtDime,txtWidth,txtLengthb,txtRadius,txtOweight,txtEweight,cmbItype,txtCustno,txtSource,txtUno2,txtMemo,txtClass', 'uccc_seek_b.aspx?;;;1=0', '95%', '95%'], 
-				['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'], 
+			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx']
+				,['txtUno', 'lblUno', 'view_uccc'
+					, 'uno,productno,product,spec,dime,width,lengthb,radius,weight,eweight,itype,custno,source,uno2,memo,class'
+					, 'txtUno,txtProductno,txtProduct,txtSpec,txtDime,txtWidth,txtLengthb,txtRadius,txtOweight,txtEweight,cmbItype,txtCustno,txtSource,txtUno2,txtMemo,txtClass', 'uccc_seek_b.aspx?;;;1=0', '95%', '95%'] 
+				,['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'], 
 				['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtCust_', 'cust_b.aspx'], 
-				['txtMechno', 'lblMech', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'], 
+				['txtMechno', 'lblMech', 'mech', 'noa,mech,typea,typea', 'txtMechno,txtMech,combType2,txtType2', 'mech_b.aspx'], 
 				['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']
 				, ['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_', 'ucc_b.aspx']
 	            , ['txtStyle_', 'btnStyle_', 'style', 'noa,product', 'txtStyle_', 'style_b.aspx']
@@ -132,25 +134,63 @@
 					sum();
 				});
 				$('#btnOrdesImport').click(function() {
-					if (q_cur == 1 || q_cur == 2) {
-						var t_bdime = dec($('#txtBdime').val()) - 0.5;
-						var t_edime = dec($('#txtEdime').val());
-						var t_width = dec($('#txtWidth').val());
-						var t_productno = trim($('#txtProductno').val());
-						var t_custno = trim($('#txtCustno').val());
-						t_edime = (t_edime == 0 ? 999 : t_edime);
-						var t_where = " 1=1 and isnull(enda,0)!=1";
-						t_where += q_sqlPara2('dime', t_bdime, t_edime);
-						if(t_width!=0)
-						   if(q_getPara('sys.project')=='bd'){
-						      t_where += q_sqlPara2('width', 0, t_width+11+t_width*0.2); 
-						   }else{
-						      t_where += q_sqlPara2('width', 0, t_width+11); 
-						   }	
-						if (!emp(t_custno))
-							t_where += q_sqlPara2('custno', t_custno);
-						t_where += " and kind='" +$('#cmbKind').val()+ "'";
-						q_box("ordestt_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
+					switch(q_getPara('sys.project').toUpperCase()){
+						case 'BD':
+							var t_table = 'CUT';
+							var t_noa = $.trim($('#txtNoa').val());
+							var t_custno = $.trim($('#txtCustno').val());
+							var t_kind = $.trim($('#txtKind').val());
+							var t_bdate = '';
+							var t_edate = '';
+							var t_productno = $.trim($('#txtProductno').val());
+							var t_bdime = q_float('txtDime') - 0.2;
+							var t_edime = q_float('txtDime') + 0.2;
+							var t_bwidth = 0;
+							var t_ewidth = 0;
+							var t_blength = 0;
+							var t_elength = 0;
+							var t_para = '';
+							
+	                        var t_where = '';
+	                        q_box("orde_import_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + ";" + JSON.stringify({
+	                            table : t_table,
+	                            noa : t_noa,
+	                            custno : t_custno,
+	                            kind : t_kind,
+	                            bdate : t_bdate,
+	                            edate : t_edate,
+	                            productno : t_productno,
+	                            bdime : t_bdime,
+	                            edime : t_edime,
+	                            bwidth : t_bwidth,
+	                            ewidth : t_ewidth,
+	                            blength : t_blength,
+	                            elength : t_elength,
+	                            para : t_para
+	                        }), "orde_import", "95%", "95%", '');
+							break;
+						default:
+							if (q_cur == 1 || q_cur == 2) {
+								var t_bdime = dec($('#txtBdime').val()) - 0.5;
+								var t_edime = dec($('#txtEdime').val());
+								var t_width = dec($('#txtWidth').val());
+								var t_productno = trim($('#txtProductno').val());
+								var t_custno = trim($('#txtCustno').val());
+								t_edime = (t_edime == 0 ? 999 : t_edime);
+								var t_where = " 1=1 and isnull(enda,0)!=1";
+								t_where += q_sqlPara2('dime', t_bdime, t_edime);
+								if(t_width!=0)
+								   if(q_getPara('sys.project')=='bd'){
+								      t_where += q_sqlPara2('width', 0, t_width+11+t_width*0.2); 
+								   }else{
+								      t_where += q_sqlPara2('width', 0, t_width+11); 
+								   }	
+								if (!emp(t_custno))
+									t_where += q_sqlPara2('custno', t_custno);
+								t_where += " and kind='" +$('#cmbKind').val()+ "'";
+								q_box("ordestt_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
+							}
+							break;
 					}
 				});
 				
@@ -162,6 +202,19 @@
 			function q_boxClose(s2) {///   q_boxClose 2/4
 				var ret;
 				switch (b_pop) {
+					case 'orde_import':
+                		
+                		q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtCust,txtProductno,txtProduct,txtStyle,txtClass,txtDime,txtWidth,txtLengthb,txtRadius,txtSpec,txtMount,txtDivide,txtOrdeno,txtNo2'
+                			, b_ret.length, b_ret
+                			, 'custno,cust,productno,product,style,class,dime,width,lengthb,radius,spec,mount,n,noa,no2'
+                			, 'txtOrdeno');
+                		
+                	
+                		/*q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,combSpec,txtDime,txtWidth,txtLengthb,txtRadius,txtSize,txtOrdeno,txtNo2,txtPrice,txtMount,txtWeight,txtTotal,txtMemo,txtUnit,txtSource,txtStyle,txtClass'
+	                        	, b_ret.length, b_ret
+								, 'productno,product,spec,spec,dime,width,lengthb,radius,size,noa,no2,price,mount,weight,total,memo,unit,source,style,class', 'txtProductno'); 
+                		*/
+                		break;
 					case 'ordes':
 						if (q_cur > 0 && q_cur < 4) {
 							b_ret = getb_ret();
