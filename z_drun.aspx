@@ -90,6 +90,8 @@
 	            	){
 	            		$('#txtDate1').val(q_cdn(q_date(),-60));
 	            		$('#txtDate2').val(q_date());
+	            		$('#txtSssno1a').val(r_userno).change();
+	            		$('#txtSssno2a').val(r_userno).change();
 	            	}
 	            	$('#btnOk').click();
 				});
