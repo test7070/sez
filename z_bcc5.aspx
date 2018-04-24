@@ -20,35 +20,10 @@
             t_store = '';
             $(document).ready(function() {
                 q_getId();
-                q_gf('', 'z_bcc5');
+                q_gt('part', '', 0, 0, 0);
             });
             function q_gfPost() {
-                q_gt('part', '', 0, 0, 0);
-                q_gt('store', '', 0, 0, 0);
-            }
-
-            function q_gtPost(t_name) {
-                switch (t_name) {
-                    case 'part':
-                        t_part = '';
-                        var as = _q_appendData("part", "", true);
-                        for ( i = 0; i < as.length; i++) {
-                            t_part += (t_part.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
-                        }
-                        break;
-                    case 'store':
-                        t_store = '';
-                        var as = _q_appendData("store", "", true);
-                        t_store += '#non@全部';
-                        for ( i = 0; i < as.length; i++) {
-                            t_store += (t_store.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
-                        }
-                        
-                        break;
-                }
-                if (!t_isInit && t_part.length > 0 && t_store.length > 0) {
-                	t_isInit = true;
-                    $('#q_report').q_report({
+                $('#q_report').q_report({
                         fileName : 'z_bcc5',
                         options : [{/*1*/
 							type : '1',
@@ -112,6 +87,27 @@
 	                $('#txtXdate').val(q_date());
 	                
 					$('#chkXstore').children('input').attr('checked', 'checked');
+            }
+
+            function q_gtPost(t_name) {
+                switch (t_name) {
+                    case 'part':
+                        t_part = '';
+                        var as = _q_appendData("part", "", true);
+                        for ( i = 0; i < as.length; i++) {
+                            t_part += (t_part.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
+                        }
+                        q_gt('store', '', 0, 0, 0);
+                        break;
+                    case 'store':
+                        t_store = '';
+                        var as = _q_appendData("store", "", true);
+                        t_store += '#non@全部';
+                        for ( i = 0; i < as.length; i++) {
+                            t_store += (t_store.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
+                        }
+                        q_gf('', 'z_bcc5');
+                        break;
                 }
             }
 
