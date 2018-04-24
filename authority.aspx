@@ -198,7 +198,7 @@
 			_readonlys(true);
 		}
 		
-		function readonly(t_para, empty) {
+	/*	function readonly(t_para, empty) {
 			_readonly(t_para, empty);
 			
 			
@@ -210,6 +210,22 @@
 				}
 			}
 		}
+		*/
+		
+            function readonly(t_para, empty) {
+                _readonly(t_para, empty);
+                if(q_cur==1||q_cur==2){
+                	for (var i = 0; i < q_bbsCount; i++) {
+						$('#check_All_'+i).removeAttr('disabled');
+					}
+				}else{
+					for (var i = 0; i < q_bbsCount; i++) {
+						$('#check_All_'+i).attr('disabled', 'disabled');
+					}
+				}
+            }
+		
+		
 		
 		function btnMinus(id) {
 			_btnMinus(id);
