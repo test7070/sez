@@ -224,9 +224,11 @@
 				t_mount = dec($('#txtMount').val());
 				if(t_hours==0){
 					$('#txtHours').val('8');
+					t_hours=8;
 				}
 				if(t_mount==0){
 					$('#txtMount').val('1');
+					t_mount=1;
 				}
 				t_gen = q_mul(t_hours,t_mount);
 				$('#txtGen').val(t_gen);
