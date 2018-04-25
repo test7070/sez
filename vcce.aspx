@@ -409,6 +409,10 @@
 			}
 
 			function btnPrint() {
+				if (q_getPara('sys.project').toUpperCase()=='UJ'){ //在出貨單印撿貨單
+					return;
+				}
+				
 				t_where = "noa='" + $('#txtNoa').val() + "'";
 				q_box("z_vccep.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, '', "95%", "95%", q_getMsg('popPrint'));
 			}

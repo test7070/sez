@@ -111,12 +111,12 @@
 						This_Depl = 0;
 						//本期折舊
 						for (var i = 0; i < as.length; i++) {
-							if (as[i].mon != q_date().substring(0, 6))
+							if (as[i].mon != q_date().substring(0, r_lenm))
 								Before_Depl += dec(as[i].depl);
 							else
 								This_Depl = dec(as[i].depl);
 						}
-						Before_Depl += accumulat;
+						//Before_Depl += accumulat;
 						Before_Depl = Math.round((Before_Depl / canSaleMount) * dec($('#txtMount').val()));
 						This_Depl = Math.round((This_Depl / canSaleMount) * dec($('#txtMount').val()));
 						$('#txtDepl').val(dec(This_Depl));

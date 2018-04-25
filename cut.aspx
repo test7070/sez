@@ -143,12 +143,12 @@
 							var t_bdate = '';
 							var t_edate = '';
 							var t_productno = $.trim($('#txtProductno').val());
-							var t_bdime = q_float('txtDime') - 0.2;
-							var t_edime = q_float('txtDime') + 0.2;
+							var t_bdime = q_float('txtDime')==0?0:q_float('txtDime') - 0.2;
+							var t_edime = q_float('txtDime')==0?9999:q_float('txtDime') + 0.2;
 							var t_bwidth = 0;
-							var t_ewidth = 0;
+							var t_ewidth = 99999;
 							var t_blength = 0;
-							var t_elength = 0;
+							var t_elength = 99999;
 							var t_para = '';
 							
 	                        var t_where = '';
@@ -300,6 +300,18 @@
             
 			function q_popPost(s1) {
 				switch(s1){
+					case 'txtCustno_':
+						if($.trim($('#txtProductno_'+b_seq).val()).length == 0 ){
+							//代入表頭資料
+							$('#txtProductno_'+b_seq).val($.trim($('#txtProductno').val()));
+							$('#txtProduct_'+b_seq).val($.trim($('#txtProduct').val()));
+							$('#txtSpec_'+b_seq).val($.trim($('#txtSpec').val()));
+							$('#txtDime_'+b_seq).val($.trim($('#txtDime').val()));
+							$('#txtWidth_'+b_seq).val($.trim($('#txtWidth').val()));
+							$('#txtLengthb_'+b_seq).val($.trim($('#txtLengthb').val()));
+							$('#txtRadius_'+b_seq).val($.trim($('#txtRadius').val()));
+						}
+						break;
 					case 'txtUno':
 						$('#txtGweight').val($('#txtEweight').val());
 						$('#txtGmount').val(1);
