@@ -16,10 +16,11 @@
 		<script type="text/javascript">
             var q_name = "tranorde";
             var q_readonly = ['txtNoa', 'txtWeight','txtTotal', 'txtWorker', 'txtWorker2'];
-            var bbmNum = [['txtMount',10,0,1],['txtTtrannumber',10,0,1],['txtTweight2',10,0,1]];
+            var bbmNum = [];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
+            q_desc = 1;
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
@@ -43,7 +44,7 @@
                     dataErr = false;
                     return;
                 }
-                mainForm(0);
+                mainForm(1);
             }
 
             function sum() {
@@ -322,7 +323,7 @@
 						<input id="chkBrow.*" type="checkbox"/>
 						</td>
 						<td align="center" id='noa'>~noa</td>
-						<td align="center" id='nick'>~nick</td>
+						<td align="center" id='comp'>~comp</td>
 						<td align="center" id='dldate'>~dldate</td>
 					</tr>
 				</table>
@@ -368,16 +369,14 @@
                             <input id="txtCaddr" type="text" class="txt c1" style="width: 60%;"/></td>
                     </tr>
                     <tr>
-                        <td><span> </span><a id="lblMount_ay" class="lbl" >數量</a></td>
-                        <td><input id="txtMount" type="text" class="txt c1 num"/></td>
-                        <td><span> </span><a id="lblUnit" class="lbl" > </a></td>
-                        <td><input id="txtUnit" type="text" class="txt c1" /></td>
+                        <td><span> </span><a id="lblOption01_ay" class="lbl" >數量</a></td>
+                        <td><input id="txtOption01" type="text" class="txt c1 num"/></td>
                     </tr>
                     <tr>
-                        <td><span> </span><a id="lblTtrannumber_ay" class="lbl" >材積</a></td>
-                        <td><input id="txtTtrannumber" type="text" class="txt c1 num" /></td>
-                        <td><span> </span><a id="lblTweight2_ay" class="lbl" >重量</a></td>
-                        <td><input id="txtTweight2" type="text" class="txt c1 num"/></td>
+                        <td><span> </span><a id="lblOption02_ay" class="lbl" >材積</a></td>
+                        <td><input id="txtOption02" type="text" class="txt c1 num" /></td>
+                        <td><span> </span><a id="lblCtweight2_ay" class="lbl" >重量</a></td>
+                        <td><input id="txtCtweight2" type="text" class="txt c1 num"/></td>
                     </tr>
                     <tr>
                         <td><span> </span><a id="lblMemo" class="lbl" > </a></td>

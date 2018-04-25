@@ -16,7 +16,7 @@
 		<script type="text/javascript">
             var q_name = "tranvcce";
             var q_readonly = ['txtNoa', 'txtOrdeno', 'txtWorker', 'txtWorker2'];
-            var bbmNum = [['txtMount',10,0,1],['txtVolume',10,0,1],['txtWeight',10,0,1]];
+            var bbmNum = [];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -87,10 +87,9 @@
                                     $('#txtAddr').val(b_ret[0].addr);
                                     $('#txtEndaddrno').val(b_ret[0].cbno);
                                     $('#txtEndaddr').val(b_ret[0].caddr);
-                                    $('#txtMount').val(b_ret[0].mount);
-                                    $('#txtUnit').val(b_ret[0].unit);
-                                    $('#txtVolume').val(b_ret[0].ttrannumber);
-                                    $('#txtWeight').val(b_ret[0].tweight2);
+                                    $('#txtTranno').val(b_ret[0].option01);
+                                    $('#txtUnit').val(b_ret[0].option02);
+                                    $('#txtCarno2').val(b_ret[0].ctweight2);
                                     $('#txtMemo').val(b_ret[0].memo);
                                     $('#txtImg').val(b_ret[0].memo2);
                              }
@@ -358,7 +357,7 @@
 						<input id="chkBrow.*" type="checkbox"/>
 						</td>
 						<td align="center" id='noa'>~noa</td>
-						<td align="center" id='nick'>~nick</td>
+						<td align="center" id='comp'>~comp</td>
 						<td align="center" id='no2'>~no2</td>
 					</tr>
 				</table>
@@ -418,16 +417,14 @@
                             <input id="txtEndaddr" type="text" class="txt c1" style="width: 60%;"/></td>
                     </tr>
                     <tr>
-                        <td><span> </span><a id="lblMount" class="lbl" >數量</a></td>
-                        <td><input id="txtMount" type="text" class="txt c1 num"/></td>
-                        <td><span> </span><a id="lblUnit" class="lbl" >單位</a></td>
-                        <td><input id="txtUnit" type="text" class="txt c1" /></td>
+                        <td><span> </span><a id="lblTranno_ay" class="lbl" >數量</a></td>
+                        <td><input id="txtTranno" type="text" class="txt c1 num"/></td>
                     </tr>
                     <tr>
-                        <td><span> </span><a id="lblVolume" class="lbl" >材積</a></td>
-                        <td><input id="txtVolume" type="text" class="txt c1 num" /></td>
-                        <td><span> </span><a id="lblWeight" class="lbl" >重量</a></td>
-                        <td><input id="txtWeight" type="text" class="txt c1 num"/></td>
+                        <td><span> </span><a id="lblUnit" class="lbl" >材積</a></td>
+                        <td><input id="txtUnit" type="text" class="txt c1 num" /></td>
+                        <td><span> </span><a id="lblCarno2" class="lbl" >重量</a></td>
+                        <td><input id="txtCarno2" type="text" class="txt c1 num"/></td>
                     </tr>
                     <tr>
                         <td><span> </span><a id="lblMemo" class="lbl" > </a></td>

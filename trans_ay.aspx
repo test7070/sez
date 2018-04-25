@@ -16,7 +16,7 @@
 		<script type="text/javascript">
 			var q_name = "trans";
 			var q_readonly = ['txtNoa','txtOrdeno','txtWorker','txtWorker2'];
-			var bbmNum = [['txtMount',10,0,1],['txtWeight',10,0,1],['txtVolume',10,0,1],['txtTotal',10,0,1],['txtPrice2',10,0,1],['txtTotal2',10,0,1]];
+			var bbmNum = [['txtTotal',10,0,1],['txtPrice2',10,0,1],['txtTotal2',10,0,1]];
 			var bbmMask = [['txtDatea','999/99/99']];
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -25,8 +25,7 @@
 			brwKey = 'noa';
 			q_desc = 1;
             //q_xchg = 1;
-            brwCount2 = 16;
-            q_copy = 1;
+            brwCount2 = 17;
 
 			//['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']
             //不能彈出瀏覽視窗
@@ -106,10 +105,9 @@
                                     $('#txtStraddr').val(b_ret[0].addr);
                                     $('#txtEndaddrno').val(b_ret[0].endaddrno);
                                     $('#txtEndaddr').val(b_ret[0].endaddr);
-                                    $('#txtMount').val(b_ret[0].mount);
-                                    $('#txtUnit').val(b_ret[0].unit);
-                                    $('#txtVolume').val(b_ret[0].volume);
-                                    $('#txtWeight').val(b_ret[0].weight);                                  
+                                    $('#txtUnit').val(b_ret[0].tranno);
+                                    $('#txtAtel').val(b_ret[0].unit);
+                                    $('#txtAaddr').val(b_ret[0].carno2);                                 
                              }
                         break;
 					case q_name + '_s':
@@ -387,7 +385,7 @@
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox"/></td>
 						<td id="noa" style="text-align: center;">~noa</td>
-						<td id="nick" style="text-align: center;">~nick</td>
+						<td id="comp" style="text-align: center;">~comp</td>
 						<td id="acomp" style="text-align: center;">~acomp</td>
 					</tr>
 				</table>
@@ -459,16 +457,14 @@
                         <td colspan="3"><input id="txtSaddr" type="text" class="txt c1"/></td>
                     </tr>
                     <tr>
-                        <td><span> </span><a id="lblMount_ay" class="lbl" >數量</a></td>
-                        <td><input id="txtMount" type="text" class="txt c1 num"/></td>
-                        <td><span> </span><a id="lblUnit_ay" class="lbl" >單位</a></td>
-                        <td><input id="txtUnit" type="text" class="txt c1" /></td>
+                        <td><span> </span><a id="lblUnit_ay" class="lbl" >數量</a></td>
+                        <td><input id="txtUnit" type="text" class="txt c1 num"/></td>
                     </tr>
                     <tr>
-                        <td><span> </span><a id="lblVolume_ay" class="lbl" >材積</a></td>
-                        <td><input id="txtVolume" type="text" class="txt c1 num" /></td>
-                        <td><span> </span><a id="lblWeight_ay" class="lbl" >重量</a></td>
-                        <td><input id="txtWeight" type="text" class="txt c1 num"/></td>
+                        <td><span> </span><a id="lblAtel_ay" class="lbl" >材積</a></td>
+                        <td><input id="txtAtel" type="text" class="txt c1 num" /></td>
+                        <td><span> </span><a id="lblAaddr_ay" class="lbl" >重量</a></td>
+                        <td><input id="txtAaddr" type="text" class="txt c1 num"/></td>
                     </tr>
                     <tr>
                         <td><span> </span><a id="lblTotal_ay" class="lbl" >運費</a></td>

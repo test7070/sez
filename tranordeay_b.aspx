@@ -125,9 +125,9 @@
                         <input id="txtCbno.*" type="text" style="display:none;"/>
                         <input id="txtCaddr.*" type="text" style="float:left;width:95%;" readonly="readonly" />
                     </td>
-                    <td style="width:90px;"><input id="txtMount.*" type="text" style="text-align:right;width:95%;" readonly="readonly"/></td>
-                    <td style="width:90px;"><input id="txtTtrannumber.*" type="text" style="text-align:right;width:95%;" readonly="readonly"/></td>
-                    <td style="width:90px;"><input id="txtTweight2.*" type="text" style="text-align:right;width:95%;" readonly="readonly"/></td>
+                    <td style="width:90px;"><input id="txtOption01.*" type="text" style="text-align:right;width:95%;" readonly="readonly"/></td>
+                    <td style="width:90px;"><input id="txtOption02.*" type="text" style="text-align:right;width:95%;" readonly="readonly"/></td>
+                    <td style="width:90px;"><input id="txtCtweight2.*" type="text" style="text-align:right;width:95%;" readonly="readonly"/></td>
 				</tr>
 			</table>
 		</div>
