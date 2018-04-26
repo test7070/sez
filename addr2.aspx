@@ -305,13 +305,15 @@
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>				
 						<td align="center" style="width:25%"><a id='vewNoa'> </a></td>
-						<td align="center" style="width:25%"><a id='vewPost'> </a></td>
+						<td align="center" style="width:25%" class='isNPA'><a id='vewPost'> </a></td>
+						<td align="center" style="width:25%;display: none;" class='isPA'><a id='vewAddr'> </a></td>
 						<td align="center" style="width:25%;display: none" class='isST'><a id='vewP_post'> </a></td>
 					</tr>
 					 <tr>
 							<td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
 							<td align="center" id='noa'>~noa</td>
-							<td align="center" id='post'>~post</td>
+							<td align="center" id='post' class='isNPA'>~post</td>
+							<td align="center" id='addr' class='isPA' style="display: none">~addr</td>
 							<td align="center" id='p_post' class='isST' style="display: none">~p_post</td>
 					</tr>
 				</table>
