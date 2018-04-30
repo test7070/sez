@@ -90,7 +90,15 @@
 					}, {
                         type : '6', //[19]
                         name : 'xuca'
-                    }]
+                    },{
+						type : '0',//[20]
+						name : 'rlen',
+						value : r_len
+					}, {
+						type : '0', //[25] 
+						name : 'xproject',
+						value : q_getPara('sys.project').toUpperCase()
+					}]
 				});
 				q_popAssign();
 				q_getFormat();

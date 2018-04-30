@@ -211,6 +211,8 @@
 			}
 		}
 		
+		
+		
 		function btnMinus(id) {
 			_btnMinus(id);
 			sum();
