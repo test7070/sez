@@ -348,7 +348,13 @@
                     </tr>
                     <tr class="isPA" style="display: none">
                         <td class="td1"><span> </span><a id='lblAddress' class="lbl">地址</a></td>
-                        <td class="td2" colspan="2"><input id="txtAddress"  type="text" class="txt c1" /></td>
+                        <td class="td2" colspan="3"><input id="txtAddress"  type="text" class="txt c1" /></td>
+                    </tr>
+                    <tr class="isPA" style="display: none">
+                        <td><span> </span><a id="lblDirection" class="lbl">特殊需求</a></td>
+                        <td colspan="3">
+                            <textarea id="txtDirection" class="txt c1" style="height:75px;width:98%;"> </textarea>
+                        </td>
                     </tr>
 				</table>
 			</div>

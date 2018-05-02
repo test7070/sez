@@ -18,7 +18,7 @@
 
             q_desc = 1;
             var q_name = "tre_accc";
-            var q_readonly = ['txtNoa', 'txtWorker', 'txtPaybno', 'txtPayeno', 'txtChkeno', 'txtAccno1', 'txtAccno2', 'txtAccno3', 'txtBdriver', 'txtEdriver', 'txtTotal', 'txtTreno'];
+            var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtPaybno', 'txtPayeno', 'txtChkeno', 'txtAccno1', 'txtAccno2', 'txtAccno3', 'txtBdriver', 'txtEdriver', 'txtTotal', 'txtTreno'];
             var bbmNum = [['txtOpay', 11, 0, 1], ['txtUnopay', 11, 0, 1], ['txtTotal', 11, 0, 1]];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -303,7 +303,13 @@
                     alert(q_getMsg('lblEdate') + '錯誤。');
                     return;
                 }
-                $('#txtWorker').val(r_name);
+                
+                if(q_cur ==1){
+                    $('#txtWorker').val(r_name);
+                }else if(q_cur ==2){
+                    $('#txtWorker2').val(r_name);
+                }
+                
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
@@ -726,10 +732,12 @@
 						</td>
 						<td></td>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
-						<td>
-						<input id="txtWorker" type="text" class="txt c1"/>
-						</td>
+						<td><input id="txtWorker" type="text" class="txt c1"/></td>
 					</tr>
+					<tr>
+					    <td><span> </span><a id="lblWorker2" class="lbl">修改</a></td>
+                        <td colspan="4"><input id="txtWorker2" type="text" class="txt c1"/></td>
+                    </tr>
 				</table>
 			</div>
 		</div>
