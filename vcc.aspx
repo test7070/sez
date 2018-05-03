@@ -1067,6 +1067,7 @@
 					$('#txtMon').removeAttr('readonly');
 				else
 					$('#txtMon').attr('readonly', 'readonly');
+
 				refreshBbm();
 			}
 
