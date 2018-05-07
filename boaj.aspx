@@ -42,6 +42,19 @@
             $('#btnNext').hide();
             $('#btnNextPage').hide();
             $('#q_menu').hide();
+            
+            if(window.parent.q_name=='boaj'){
+            	$('#q_menu').show();
+            	$('#dview').show();
+            	$('#btnPrevPage').show();
+	            $('#btnPrev').show();
+	            $('#btnNext').show();
+	            $('#btnNextPage').show();
+	            $('#dview').css('width','260px');
+	            $('#tbbm').css('width','1000px');
+	            $('.dbbm').css('width','1000px');
+	            $('#dmain').css('width','1260px');
+            }
         });
  
        function main() {
