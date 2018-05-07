@@ -92,6 +92,19 @@
 				var t_key = q_getHref();
 				if (t_key[1] != undefined)
 					$('#txtXnoa').val(t_key[1]);
+					
+				if(!(q_getPara('sys.project').toUpperCase()=='JO'|| q_getPara('sys.project').toUpperCase()=='AD')){
+					for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+						if(
+                        	$('#q_report').data().info.reportData[i].report=='z_workbqp_jo01' || //編皮生產日報表
+                        	$('#q_report').data().info.reportData[i].report=='z_workbqp_jo02' || //編皮檢驗日報表
+                        	$('#q_report').data().info.reportData[i].report=='z_workbqp_jo03' //包裝生產日報表
+						){
+							$('#q_report div div').eq(i).hide();
+						}
+					}
+				}
+				
 			}
 
 			function q_boxClose(s2) {
