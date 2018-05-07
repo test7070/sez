@@ -52,7 +52,7 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
-            /* 若非本會計年度則無法存檔 */
+            /* 若非本會計年度則無法存檔 
 			$('#txtDatea').focusout(function () {
 				if($(this).val().substr( 0,3)!= r_accy){
 			        	$('#btnOk').attr('disabled','disabled');
@@ -60,7 +60,7 @@
 				}else{
 			       		$('#btnOk').removeAttr('disabled');
 				}
-			});
+			});*/ /////先不判斷，因無會計傳票
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -88,10 +88,8 @@
                 alert(t_err);
                 return;
             }
-
             $('#txtWorker').val(r_name)
             sum();
-
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
             if (s1.length == 0 || s1 == "AUTO")   
                 q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
