@@ -305,13 +305,15 @@
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>				
 						<td align="center" style="width:25%"><a id='vewNoa'> </a></td>
-						<td align="center" style="width:25%"><a id='vewPost'> </a></td>
+						<td align="center" style="width:25%" class='isNPA'><a id='vewPost'> </a></td>
+						<td align="center" style="width:25%;display: none;" class='isPA'><a id='vewAddr'> </a></td>
 						<td align="center" style="width:25%;display: none" class='isST'><a id='vewP_post'> </a></td>
 					</tr>
 					 <tr>
 							<td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
 							<td align="center" id='noa'>~noa</td>
-							<td align="center" id='post'>~post</td>
+							<td align="center" id='post' class='isNPA'>~post</td>
+							<td align="center" id='addr' class='isPA' style="display: none">~addr</td>
 							<td align="center" id='p_post' class='isST' style="display: none">~p_post</td>
 					</tr>
 				</table>
@@ -346,7 +348,13 @@
                     </tr>
                     <tr class="isPA" style="display: none">
                         <td class="td1"><span> </span><a id='lblAddress' class="lbl">地址</a></td>
-                        <td class="td2" colspan="2"><input id="txtAddress"  type="text" class="txt c1" /></td>
+                        <td class="td2" colspan="3"><input id="txtAddress"  type="text" class="txt c1" /></td>
+                    </tr>
+                    <tr class="isPA" style="display: none">
+                        <td><span> </span><a id="lblDirection" class="lbl">特殊需求</a></td>
+                        <td colspan="3">
+                            <textarea id="txtDirection" class="txt c1" style="height:75px;width:98%;"> </textarea>
+                        </td>
                     </tr>
 				</table>
 			</div>

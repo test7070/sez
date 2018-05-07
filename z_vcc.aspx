@@ -163,25 +163,52 @@
                 q_getFormat();
                 q_langShow();
                 
+                var r_1911=1911;
                  if(r_len==4){                	
                 	$.datepicker.r_len=4;
 					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+					r_1911=0;
                 }
 
                 $('#txtDate1').mask(r_picd);
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask(r_picd);
                 $('#txtDate2').datepicker();
+                $('#txtMon1').mask(r_picm);
+                $('#txtMon2').mask(r_picm);
+                $('#txtXbmon1').mask(r_picm);
+                $('#txtXbmon2').mask(r_picm);
+                $('#txtXemon1').mask(r_picm);
+                $('#txtXemon2').mask(r_picm);
+		
+				var t_date,t_year,t_month,t_day;
+                    t_date = new Date();
+                    t_date.setDate(1);
+                    t_year = t_date.getUTCFullYear()-r_1911;
+                    t_year = t_year>99?t_year+'':'0'+t_year;
+                    t_month = t_date.getUTCMonth()+1;
+                    t_month = t_month>9?t_month+'':'0'+t_month;
+                    t_day = t_date.getUTCDate();
+                    t_day = t_day>9?t_day+'':'0'+t_day;
+                    $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
+                    $('#txtMon1').val(t_year+'/01');
+                    $('#txtXbmon1').val(t_year+'/01');
+                    $('#txtXemon1').val(t_year+'/01');
+                    
+                    t_date = new Date();
+                    t_date.setDate(35);
+                    t_date.setDate(0);
+                    t_year = t_date.getUTCFullYear()-r_1911;
+                    t_year = t_year>99?t_year+'':'0'+t_year;
+                    t_month = t_date.getUTCMonth()+1;
+                    t_month = t_month>9?t_month+'':'0'+t_month;
+                    t_day = t_date.getUTCDate();
+                    t_day = t_day>9?t_day+'':'0'+t_day;
+                    $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
+                    $('#txtMon2').val(t_year+'/12');
+                    $('#txtXbmon2').val(t_year+'/12');
+                    $('#txtXemon2').val(t_year+'/12');
 
-				$('#txtDate1').val(q_date().substr(0,r_lenm)+'/01');
-				$('#txtDate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1));
-				
-                $('#txtMon1').val(r_accy + '/01').mask(r_picm);
-                $('#txtMon2').val(r_accy + '/12').mask(r_picm);
-                $('#txtXbmon1').val(r_accy + '/01').mask(r_picm);
-                $('#txtXbmon2').val(r_accy + '/12').mask(r_picm);
-                $('#txtXemon1').val(r_accy + '/01').mask(r_picm);
-                $('#txtXemon2').val(r_accy + '/12').mask(r_picm);
                 $('#Xmemo').removeClass('a2').addClass('a1');
                 /*$('#txtXmemo').css('width', '85%');
                 $('#Xgroupano select').css('width', '150px');*/

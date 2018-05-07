@@ -269,16 +269,8 @@
                         break;
                     case 'trd_tran':
                         var as = _q_appendData("view_trans", "", true);
-                        if(q_getPara('sys.project').toUpperCase()=='SH'){
-                            q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtTranno,txtTrannoq,txtCarno,txtStraddr,txtTranmoney,txtCaseno,txtMount,txtPrice,txtTotal,txtCustorde,txtProduct,txtVolume,txtWeight,txtMemo'
-                            , as.length, as, 'trandate,noa,noq,carno,straddr,total,caseno,mount,price,total,custorde,product,volume,weight,memo', '','');
-                            for(var j=0;j<as.length;j++){
-                                 $('#txtStraddr_'+j).val(as[j].straddr+'-'+as[j].endaddr);
-                            }    
-                        }else{
-                            q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtTranno,txtTrannoq,txtCarno,txtStraddr,txtTranmoney,txtCaseno,txtMount,txtPrice,txtTotal,txtCustorde,txtProduct'
-                            , as.length, as, 'trandate,noa,noq,carno,straddr,total,caseno,mount,price,total,custorde,product', '','');
-                        }
+                        q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtTranno,txtTrannoq,txtCarno,txtStraddr,txtTranmoney,txtCaseno,txtMount,txtPrice,txtTotal,txtCustorde,txtProduct'
+                        , as.length, as, 'trandate,noa,noq,carno,straddr,total,caseno,mount,price,total,custorde,product', '','');
                         for ( i = 0; i < q_bbsCount; i++) {
                             if (i < as.length) {
                             }else{
@@ -467,11 +459,7 @@
             }
 
             function btnPrint() {
-                if(q_getPara('sys.project').toUpperCase()=='SH'){
-                    q_box('z_trd_sh.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
-                }else{
-                    q_box('z_trd.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
-                }                      
+               q_box('z_trd.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));                    
                 
             }
 
@@ -525,11 +513,7 @@
                     $('#btnTrans').attr('disabled', 'disabled');
                     $('#btnCustchg').attr('disabled', 'disabled');
                     $('#btnVcca').attr('disabled', 'disabled');
-                }
-                if(q_getPara('sys.project').toUpperCase()=='SH'){
-                    $('.isNSH').hide();
-                    $('.isSH').show();
-                }
+                } 
             }
 
             function btnMinus(id) {
@@ -949,9 +933,7 @@
 					<td align="center" style="width:200px;"><a id='lblStraddr_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblMount_s'> </a></td>
-					<td align="center" style="width:80px;" class="isNSH"><a id='lblPrice_s'> </a></td>
-					<td align="center" style="width:80px; display: none;" class="isSH"><a id='lblVolume_s'>材積</a></td>
-					<td align="center" style="width:80px; display: none;" class="isSH"><a id='lblWeight_s'>重量</a></td>
+					<td align="center" style="width:80px;"><a id='lblPrice_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblTotal_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblCarno_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblCustorde_s'> </a></td>
@@ -978,15 +960,9 @@
 					<td >
 					<input type="text" id="txtMount.*" style="width:95%;text-align: right;" />
 					</td>
-					<td class="isNSH">
+					<td>
 					<input type="text" id="txtPrice.*" style="width:95%;text-align: right;" />
 					</td>
-					<td class="isSH" style="display: none">
-                    <input type="text" id="txtVolume.*" style="width:95%;text-align: right;" />
-                    </td>
-                    <td class="isSH" style="display: none">
-                    <input type="text" id="txtWeight.*" style="width:95%;text-align: right;" />
-                    </td>
 					<td >
 					<input type="text" id="txtTotal.*" style="width:95%;text-align: right;" />
 					</td>

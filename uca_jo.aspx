@@ -1629,6 +1629,60 @@
 						<td colspan="2" style="text-align: center;"><span> </span><a class="lbl" style="float: none;">越文</a></td>
 					</tr>
 					<tr>
+                        <td><span> </span><a id="lblGroupjno" class="lbl" style="text-align: right;">皮料1　Da1</a></td>
+                        <td>
+                            <input id="txtGroupjno" type="text" class="txt c1" style="width: 45%;"/>
+                            <input id="textGroupjmon" type="text" class="txt c1" style="width: 53%;"/>
+                        </td>
+                        <td colspan="2"><input id="textGroupjmemo1" type="text" class="txt c1"/></td>
+                        <td colspan="2"><input id="textGroupjmemo2" type="text" class="txt c1"/></td>
+                    </tr>
+                    <tr>
+                        <td><span> </span><a id="lblGroupkno" class="lbl" style="text-align: right;">皮料2　Da2</a></td>
+                        <td>
+                            <input id="txtGroupkno" type="text" class="txt c1" style="width: 45%;"/>
+                            <input id="textGroupkmon" type="text" class="txt c1" style="width: 53%;"/>
+                        </td>
+                        <td colspan="2"><input id="textGroupkmemo1" type="text" class="txt c1"/></td>
+                        <td colspan="2"><input id="textGroupkmemo2" type="text" class="txt c1"/></td>
+                    </tr>
+                    <tr>
+                        <td><span> </span><a id="lblGrouplno" class="lbl" style="text-align: right;">皮料3　Da3</a></td>
+                        <td>
+                            <input id="txtGrouplno" type="text" class="txt c1" style="width: 45%;"/>
+                            <input id="textGrouplmon" type="text" class="txt c1" style="width: 53%;"/>
+                        </td>
+                        <td colspan="2"><input id="textGrouplmemo1" type="text" class="txt c1"/></td>
+                        <td colspan="2"><input id="textGrouplmemo2" type="text" class="txt c1"/></td>
+                    </tr>
+                    <tr>
+                        <td><span> </span><a id="lblGroupmno" class="lbl" style="text-align: right;">皮料4　Da4</a></td>
+                        <td>
+                            <input id="txtGroupmno" type="text" class="txt c1" style="width: 45%;"/>
+                            <input id="textGroupmmon" type="text" class="txt c1" style="width: 53%;"/>
+                        </td>
+                        <td colspan="2"><input id="textGroupmmemo1" type="text" class="txt c1"/></td>
+                        <td colspan="2"><input id="textGroupmmemo2" type="text" class="txt c1"/></td>
+                    </tr>
+                    <tr>
+                        <td><span> </span><a id="lblGroupnno" class="lbl" style="text-align: right;">皮料5　Da5</a></td>
+                        <td>
+                            <input id="txtGroupnno" type="text" class="txt c1" style="width: 45%;"/>
+                            <input id="textGroupnmon" type="text" class="txt c1" style="width: 53%;"/>
+                        </td>
+                        <td colspan="2"><input id="textGroupnmemo1" type="text" class="txt c1"/></td>
+                        <td colspan="2"><input id="textGroupnmemo2" type="text" class="txt c1"/></td>
+                    </tr>
+                    <tr>
+                        <td><span> </span><a id="lblGroupono" class="lbl" style="text-align: right;">皮料6　Da6</a></td>
+                        <td>
+                            <input id="txtGroupono" type="text" class="txt c1" style="width: 45%;"/>
+                            <input id="textGroupomon" type="text" class="txt c1" style="width: 53%;"/>
+                        </td>
+                        <td colspan="2"><input id="textGroupomemo1" type="text" class="txt c1"/></td>
+                        <td colspan="2"><input id="textGroupomemo2" type="text" class="txt c1"/></td>
+                    </tr>
+					<tr>
 						<td><span> </span><a id="lblGroupeno" class="lbl" style="text-align: right;">車縫<br>Đường may</a></td>
 						<td>
 							<input id="txtGroupeno" type="text" class="txt c1" style="width: 45%;"/>
@@ -1638,6 +1692,15 @@
 						<td colspan="2"><input id="textGroupememo2" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
+                        <td><span> </span><a id="lblGrouppno" class="lbl" style="text-align: right;">車縫線顏色<br>Màu chỉ may</a></td>
+                        <td>
+                            <input id="txtGrouppno" type="text" class="txt c1" style="width: 45%;"/>
+                            <input id="textGrouppmon" type="text" class="txt c1" style="width: 53%;"/>
+                        </td>
+                        <td colspan="2"><input id="textGrouppmemo1" type="text" class="txt c1"/></td>
+                        <td colspan="2"><input id="textGrouppmemo2" type="text" class="txt c1"/></td>
+                    </tr>
+					<tr>
 						<td><span> </span><a id="lblGroupfno" class="lbl" style="text-align: right;">護片<br>Phụ kiện</a></td>
 						<td>
 							<input id="txtGroupfno" type="text" class="txt c1" style="width: 45%;"/>
@@ -1646,6 +1709,24 @@
 						<td colspan="2"><input id="textGroupfmemo1" type="text" class="txt c1"/></td>
 						<td colspan="2"><input id="textGroupfmemo2" type="text" class="txt c1"/></td>
 					</tr>
+					<tr>
+                        <td><span> </span><a id="lblGroupqno" class="lbl" style="text-align: right;">轉印<br>In ủi</a></td>
+                        <td>
+                            <input id="txtGroupqno" type="text" class="txt c1" style="width: 45%;"/>
+                            <input id="textGrouqpmon" type="text" class="txt c1" style="width: 53%;"/>
+                        </td>
+                        <td colspan="2"><input id="textGroupqmemo1" type="text" class="txt c1"/></td>
+                        <td colspan="2"><input id="textGroupqmemo2" type="text" class="txt c1"/></td>
+                    </tr>
+                    <tr>
+                        <td><span> </span><a id="lblGrouprno" class="lbl" style="text-align: right;">網烙印<br>In ép</a></td>
+                        <td>
+                            <input id="txtGrouprno" type="text" class="txt c1" style="width: 45%;"/>
+                            <input id="textGrouprmon" type="text" class="txt c1" style="width: 53%;"/>
+                        </td>
+                        <td colspan="2"><input id="textGrouprmemo1" type="text" class="txt c1"/></td>
+                        <td colspan="2"><input id="textGrouprmemo2" type="text" class="txt c1"/></td>
+                    </tr>
 					<tr>
 						<td><span> </span><a id="lblGroupgno" class="lbl" style="text-align: right;">大弓<br>Gọng</a></td>
 						<td>
