@@ -24,9 +24,9 @@
 			var decbbm = ['weight', 'hours', 'pretime', 'mount', 'wages', 'makes'/*, 'mechs', 'trans'*/, 'molds', 'packs', 'uweight', 'price'];
 			var decbbt = [];
 			var q_readonly = ['textCosta','txtModel','txtStationg', 'textCostb', 'textCostc', 'textCostd', 'textCostw', 'textCostm', 'textCostp', 'textCostt', 'textCosttotal', 'textStk', 'textOrdemount', 'textPlanmount', 'textIntmount', 'textAvaistk','txtMolds','txtRev'
-			,'textGroupemon','textGroupfmon','textGroupgmon','textGrouphmon','textGroupimon'
-			,'textGroupememo1','textGroupfmemo1','textGroupgmemo1','textGrouphmemo1','textGroupimemo1'
-			,'textGroupememo2','textGroupfmemo2','textGroupgmemo2','textGrouphmemo2','textGroupimemo2'
+			,'textGroupemon','textGroupfmon','textGroupgmon','textGrouphmon','textGroupimon','textGroupjmon','textGroupkmon','textGrouplmon','textGroupmmon','textGroupnmon','textGroupomon','textGrouppmon','textGroupqmon','textGrouprmon'
+			,'textGroupememo1','textGroupfmemo1','textGroupgmemo1','textGrouphmemo1','textGroupimemo1','textGroupjmemo1','textGroupkmemo1','textGrouplmemo1','textGroupmmemo1','textGroupnmemo1','textGroupomemo1','textGrouppmemo1','textGroupqmemo1','textGrouprmemo1'
+			,'textGroupememo2','textGroupfmemo2','textGroupgmemo2','textGrouphmemo2','textGroupimemo2','textGroupjmemo2','textGroupkmemo2','textGrouplmemo2','textGroupmmemo2','textGroupnmemo2','textGroupomemo2','textGrouppmemo2','textGroupqmemo2','textGrouprmemo2'
 			,'textUcxno','txtIssuedate','txtProduct','txtEngpro'];
 			var q_readonlys = [];
 			var q_readonlyt = ['txtAssm'];
@@ -64,7 +64,16 @@
 				['txtGroupfno', 'lblGroupfno', 'adsss', 'noa,mon,memo1,memo2', '0txtGroupfno,textGroupfmon,textGroupfmemo1,textGroupfmemo2', ''],
 				['txtGroupgno', 'lblGroupgno', 'adknife', 'noa,mon,memo1,memo2', '0txtGroupgno,textGroupgmon,textGroupgmemo1,textGroupgmemo2', ''],
 				['txtGrouphno', 'lblGrouphno', 'adpipe', 'noa,mon,memo1,memo2', '0txtGrouphno,textGrouphmon,textGrouphmemo1,textGrouphmemo2', ''],
-				['txtGroupino', 'lblGroupino', 'adtran', 'noa,mon,memo1,memo2', '0txtGroupino,textGroupimon,textGroupemimo1,textGroupimemo2', '']
+				['txtGroupino', 'lblGroupino', 'adtran', 'noa,mon,memo1,memo2', '0txtGroupino,textGroupimon,textGroupimemo1,textGroupimemo2', ''],
+				['txtGroupjno','lblGroupjno','adly','noa,mon,memo,memo1,memo2','0txtGroupjno,textGroupjmon,textGroupjmemo1,textGroupjmemo2',''],
+				['txtGroupkno','lblGroupkno','adly','noa,mon,memo,memo1,memo2','0txtGroupkno,textGroupkmon,textGroupkmemo1,textGroupkmemo2',''],
+				['txtGrouplno','lblGrouplno','adly','noa,mon,memo,memo1,memo2','0txtGrouplno,textGrouplmon,textGrouplmemo1,textGrouplmemo2',''],
+				['txtGroupmno','lblGroupmno','adly','noa,mon,memo,memo1,memo2','0txtGroupmno,textGroupmmon,textGroupmmemo1,textGroupmmemo2',''],
+				['txtGroupnno','lblGroupnno','adly','noa,mon,memo,memo1,memo2','0txtGroupnno,textGroupnmon,textGroupnmemo1,textGroupnmemo2',''],
+				['txtGroupono','lblGroupono','adly','noa,mon,memo,memo1,memo2','0txtGroupono,textGroupomon,textGroupomemo1,textGroupomemo2',''],
+				['txtGrouppno','lblGrouppno','adspec','noa,mon,memo,memo1,memo2','0txtGrouppno,textGrouppmon,textGrouppmemo1,textGrouppmemo2',''],
+				['txtGroupqno','lblGroupqno','adpro','noa,mon,memo,memo1,memo2','0txtGroupqno,textGroupqmon,textGroupqmemo1,textGroupqmemo2',''],
+                ['txtGrouprno','lblGrouprno','adoth','noa,mon,memo,memo1,memo2','0txtGrouprno,textGrouprmon,textGrouprmemo1,textGrouprmemo2','']
 			);	
 			
 			$(document).ready(function() {
@@ -642,6 +651,12 @@
 						$('#txtNoq__' + i).val(('000' + (i + 1)).slice(-3));
 				}
 				
+				//107/05/07 【銷售屬性】：是必填欄位
+				if($.trim($('#cmbGroupdno').val()).length==0){
+                        alert('銷售屬性禁止空白!!');
+                        return;
+                }
+				
 				if(q_cur==1){
 					if($.trim($('#cmbGroupbno').val()).length==0){// || $.trim($('#cmbGroupcno').val()).length==0
 						alert('次產線禁止空白!!');
@@ -1106,6 +1121,106 @@
 						$('#textGroupimemo2').val(as[0].memo2);
 					}
 				}
+				
+				//107/05/07 8大要件:皮料 車縫線顏色 轉印 網烙印
+				if(!emp($('#txtGroupjno').val())){
+                    var t_where = "where=^^ noa='"+$('#txtGroupjno').val()+"' ^^";
+                    q_gt('adly', t_where, 0, 0, 0, "",r_accy,1);
+                    var as = _q_appendData("adly", "", true);
+                    if (as[0] != undefined) {
+                        $('#textGroupjmon').val(as[0].mon);
+                        $('#textGroupjmemo1').val(as[0].memo1);
+                        $('#textGroupjmemo2').val(as[0].memo2);
+                    }
+                }
+                
+                if(!emp($('#txtGroupkno').val())){
+                    var t_where = "where=^^ noa='"+$('#txtGroupkno').val()+"' ^^";
+                    q_gt('adly', t_where, 0, 0, 0, "",r_accy,1);
+                    var as = _q_appendData("adly", "", true);
+                    if (as[0] != undefined) {
+                        $('#textGroupkmon').val(as[0].mon);
+                        $('#textGroupkmemo1').val(as[0].memo1);
+                        $('#textGroupkmemo2').val(as[0].memo2);
+                    }
+                }
+                
+                if(!emp($('#txtGrouplno').val())){
+                    var t_where = "where=^^ noa='"+$('#txtGrouplno').val()+"' ^^";
+                    q_gt('adly', t_where, 0, 0, 0, "",r_accy,1);
+                    var as = _q_appendData("adly", "", true);
+                    if (as[0] != undefined) {
+                        $('#textGrouplmon').val(as[0].mon);
+                        $('#textGrouplmemo1').val(as[0].memo1);
+                        $('#textGrouplmemo2').val(as[0].memo2);
+                    }
+                }
+                
+                if(!emp($('#txtGroupmno').val())){
+                    var t_where = "where=^^ noa='"+$('#txtGroupmno').val()+"' ^^";
+                    q_gt('adly', t_where, 0, 0, 0, "",r_accy,1);
+                    var as = _q_appendData("adly", "", true);
+                    if (as[0] != undefined) {
+                        $('#textGroupmmon').val(as[0].mon);
+                        $('#textGroupmmemo1').val(as[0].memo1);
+                        $('#textGroupmmemo2').val(as[0].memo2);
+                    }
+                }
+                
+                if(!emp($('#txtGroupnno').val())){
+                    var t_where = "where=^^ noa='"+$('#txtGroupnno').val()+"' ^^";
+                    q_gt('adly', t_where, 0, 0, 0, "",r_accy,1);
+                    var as = _q_appendData("adly", "", true);
+                    if (as[0] != undefined) {
+                        $('#textGroupnmon').val(as[0].mon);
+                        $('#textGroupnmemo1').val(as[0].memo1);
+                        $('#textGroupnmemo2').val(as[0].memo2);
+                    }
+                }
+                
+                if(!emp($('#txtGroupono').val())){
+                    var t_where = "where=^^ noa='"+$('#txtGroupono').val()+"' ^^";
+                    q_gt('adly', t_where, 0, 0, 0, "",r_accy,1);
+                    var as = _q_appendData("adly", "", true);
+                    if (as[0] != undefined) {
+                        $('#textGroupomon').val(as[0].mon);
+                        $('#textGroupomemo1').val(as[0].memo1);
+                        $('#textGroupomemo2').val(as[0].memo2);
+                    }
+                }
+                
+                if(!emp($('#txtGrouppno').val())){
+                    var t_where = "where=^^ noa='"+$('#txtGrouppno').val()+"' ^^";
+                    q_gt('adspec', t_where, 0, 0, 0, "",r_accy,1);
+                    var as = _q_appendData("adspec", "", true);
+                    if (as[0] != undefined) {
+                        $('#textGrouppmon').val(as[0].mon);
+                        $('#textGrouppmemo1').val(as[0].memo1);
+                        $('#textGrouppmemo2').val(as[0].memo2);
+                    }
+                }
+                
+                if(!emp($('#txtGroupqno').val())){
+                    var t_where = "where=^^ noa='"+$('#txtGroupqno').val()+"' ^^";
+                    q_gt('adoth', t_where, 0, 0, 0, "",r_accy,1);
+                    var as = _q_appendData("adoth", "", true);
+                    if (as[0] != undefined) {
+                        $('#textGroupqmon').val(as[0].mon);
+                        $('#textGroupqmemo1').val(as[0].memo1);
+                        $('#textGroupqmemo2').val(as[0].memo2);
+                    }
+                }
+                
+                if(!emp($('#txtGrouprno').val())){
+                    var t_where = "where=^^ noa='"+$('#txtGrouprno').val()+"' ^^";
+                    q_gt('adpro', t_where, 0, 0, 0, "",r_accy,1);
+                    var as = _q_appendData("adpro", "", true);
+                    if (as[0] != undefined) {
+                        $('#textGrouprmon').val(as[0].mon);
+                        $('#textGrouprmemo1').val(as[0].memo1);
+                        $('#textGrouprmemo2').val(as[0].memo2);
+                    }
+                }
 				
 				//讀取貿易件號 106/09/22
 				if(!emp($('#txtNoa').val())){
@@ -1713,7 +1828,7 @@
                         <td><span> </span><a id="lblGroupqno" class="lbl" style="text-align: right;">轉印<br>In ủi</a></td>
                         <td>
                             <input id="txtGroupqno" type="text" class="txt c1" style="width: 45%;"/>
-                            <input id="textGrouqpmon" type="text" class="txt c1" style="width: 53%;"/>
+                            <input id="textGroupqmon" type="text" class="txt c1" style="width: 53%;"/>
                         </td>
                         <td colspan="2"><input id="textGroupqmemo1" type="text" class="txt c1"/></td>
                         <td colspan="2"><input id="textGroupqmemo2" type="text" class="txt c1"/></td>
