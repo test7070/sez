@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -24,7 +24,7 @@
 				['txtSize1', 10, 3], ['txtSize2', 10, 2], ['txtSize3', 10, 3],
 				['txtSize4', 10, 2], ['txtRadius', 10, 3], ['txtWidth', 10, 2],
 				['txtDime', 10, 3], ['txtLengthb', 10, 2], ['txtMount', 10, 0],
-				['txtWeight', 10, 1]
+				['txtWeight', 10, 1],['txtLengthc', 10, 1]
 			];
 			var bbmMask = [];
 			var bbsMask = [];
@@ -67,7 +67,11 @@
 				bbmMask = [['txtDatea', r_picd], ['txtCucdate', r_picd]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbTranstyle", q_getPara('sys.transtyle'));
-				q_cmbParse("cmbTypea", q_getPara('get.typea'));
+				if (q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO'){
+					q_cmbParse("cmbTypea", q_getPara('get.typea')+',作廢');
+				}else {
+					q_cmbParse("cmbTypea", q_getPara('get.typea'));
+				}
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				
 				if (q_getPara('sys.project').toUpperCase()=='XY'){
@@ -255,6 +259,16 @@
 					return (hasSpec.toString()=='1');
 				}else if(returnType=='rack'){
 					return (hasRackComp.toString()=='1');
+				}
+				
+				if(!((q_getPara('sys.project').toUpperCase()=='JO'|| q_getPara('sys.project').toUpperCase()=='AD') && $('#cmbTypea').val()=='作廢') ){
+					$('.JO').hide();
+					$('#lblMemo_s').text(q_getMsg("lblMemo_s"));
+				}else{
+					$('#lblLengthc_s').text('殘值');
+					$('#lblMemo2_s').text('處理方式');
+					$('#lblMemo_s').text('報廢原因');
+					$('.JO').show();
 				}
 			}
 
@@ -548,7 +562,7 @@
 				<table class="tbbm" id="tbbm" border="0" cellpadding='2' cellspacing='0'>
 					<tr class="tr1">
 						<td class='td1'><span> </span><a id="lblType" class="lbl"> </a></td>
-						<td class="td2"><select id="cmbTypea" class="txt c1"></select></td>
+						<td class="td2"><select id="cmbTypea" class="txt c1"> </select></td>
 						<td class='td3'><span> </span><a id="lblDatea" class="lbl" > </a></td>
 						<td class="td4"><input id="txtDatea" type="text" class="txt c1"/></td>
 						<td class='td5'><span> </span><a id="lblNoa" class="lbl" > </a></td>
@@ -599,7 +613,7 @@
 							<input id="txtAddr" type="text" class="txt c3"/>
 						</td>
 						<td class="td1"><span> </span><a id="lblTrantype" class="lbl"> </a></td>
-						<td class="td2"><select id="cmbTrantype" class="txt c1"></select></td>
+						<td class="td2"><select id="cmbTrantype" class="txt c1"> </select></td>
 					</tr>
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblTranstart" class="lbl btn"> </a></td>
@@ -646,6 +660,8 @@
 					<td align="center" style="width:6%;"><a id='lblUnit_s'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblMount_s'> </a></td>
 					<td align="center" id='Memo'><a id='lblMemo_s'> </a></td>
+					<td align="center" class="JO" style="display: none;width:10%;"><a id='lblLengthc_s'> </a></td>
+					<td align="center" class="JO" style="display: none;width:10%;"><a id='lblMemo2_s'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td><input class="btn" id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
@@ -664,6 +680,8 @@
 						<input id="txtNoq.*" type="hidden" />
 						<input id="recno.*" type="hidden" />
 					</td>
+					<td class="JO" style="display: none;"><input class="txt num c1 JO" id="txtLengthc.*" type="text"/></td>
+					<td class="JO" style="display: none;"><input class="txt c1 JO" id="txtMemo2.*" type="text"/></td>
 				</tr>
 			</table>
 		</div>
