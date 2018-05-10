@@ -53,13 +53,13 @@
 				,['txtM8','','addime','noa,mon,memo,memo1,memo2','0txtM8','']
 				,['txtM9','','adly','noa,mon,memo,memo1,memo2','0txtM9','']
 				,['txtM10','','adly','noa,mon,memo,memo1,memo2','0txtM10','']
-				,['txtM19','','adly','noa,mon,memo,memo1,memo2','0txtM19','']
-				,['txtM20','','adly','noa,mon,memo,memo1,memo2','0txtM20','']
+				//,['txtM19','','adly','noa,mon,memo,memo1,memo2','0txtM19','']
+				//,['txtM20','','adly','noa,mon,memo,memo1,memo2','0txtM20','']
 				,['txtM11','','adknife','noa,mon,memo,memo1,memo2','0txtM11','']
 				,['txtM16','','adspec','noa,mon,memo,memo1,memo2','0txtM16','']
-				,['txtM17','','adpro','noa,mon,memo,memo1,memo2','0txtM17,txtM21','']
+				,['txtM17','','adpro','noa,mon,memo,memo1,memo2','0txtM17,txtM19','']
 				,['txtM18','','adtran','noa,mon,memo,memo1,memo2','0txtM18','']
-				,['txtM22','','adoth','noa,mon,memo,memo1,memo2','0txtM22,txtM6','']
+				,['txtM20','','adoth','noa,mon,memo,memo1,memo2','0txtM20,txtM6','']
 				,['txtFactoryno','lblFactory','factory','noa,factory','txtFactoryno,txtFactory','factory_b.aspx']
 			);
 
@@ -1673,10 +1673,10 @@
                     <tr>
                         <td><span> </span><a id="lblM3" class="lbl" ></a></td>
                         <td colspan="2"><input id="txtM3" type="text" class="txt c1"/></td>
-                        <td><span> </span><a id="lblM19" class="lbl" ></a></td>
-                        <td colspan="2"><input id="txtM19" type="text" class="txt c1"/></td>
-                        <td><span> </span><a id="lblM20" class="lbl" ></a></td>
-                        <td colspan="3"><input id="txtM20" type="text" class="txt c1"/></td> 
+                        <!--<td style="display: none"><span> </span><a id="lblM19" class="lbl" ></a></td>
+                        <td colspan="2" style="display: none"><input id="txtM19" type="text" class="txt c1"/></td>
+                        <td style="display: none"><span> </span><a id="lblM20" class="lbl" ></a></td>
+                        <td colspan="3" style="display: none"><input id="txtM20" type="text" class="txt c1"/></td>-->
                     </tr>
 					<tr>
 						<td><span> </span><a id="lblM1" class="lbl" ></a></td>
@@ -1691,12 +1691,12 @@
 					<tr>
 						<td><span> </span><a id="lblM17" class="lbl"></a></td>
 						<td colspan="2"><input id="txtM17" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblM21" class="lbl" ></a></td>
-                        <td colspan="6"><textarea id="txtM21" rows='5' cols='10' style="width:99%; height: 50px;"> </textarea></td>
+						<td><span> </span><a id="lblM19" class="lbl" ></a></td>
+                        <td colspan="6"><textarea id="txtM19" rows='5' cols='10' style="width:99%; height: 50px;"> </textarea></td>
 					</tr>
 					<tr>
-					    <td><span> </span><a id="lblM22" class="lbl"></a></td>
-                        <td colspan="2"><input id="txtM22" type="text" class="txt c1"/></td>
+					    <td><span> </span><a id="lblM20" class="lbl"></a></td>
+                        <td colspan="2"><input id="txtM20" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblM6" class="lbl" ></a></td>
 						<td colspan="6"><textarea id="txtM6" rows='5' cols='10' style="width:99%; height: 50px;"> </textarea></td>
 						<!--<input id="txtM6" type="text" class="txt c1"/>-->
@@ -1716,8 +1716,8 @@
 					<tr>
                         <td><span> </span><a id="lblM18" class="lbl"></a></td>
                         <td colspan="5"><input id="txtM18" type="text" class="txt c1"/></td>
-                        <td><span> </span><a id="lblM23" class="lbl" ></a></td>
-                        <td colspan="3"><input id="txtM23" type="text" class="txt c1"/></td>
+                        <td><span> </span><a id="lblM21" class="lbl" ></a></td>
+                        <td colspan="3"><input id="txtM21" type="text" class="txt c1"/></td>
                     </tr>
 					<tr>
 						<td><span> </span><a id="lblMemo2_r" class="lbl" ></a></td>
