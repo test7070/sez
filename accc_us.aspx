@@ -836,7 +836,7 @@
 						<td ><input class="txt" id="txtAccc6.*" type="text" style="width:97%;"/></td>
 						<td style="text-align:center;" >
 							<input class="txt" id="txtAccc7.*" type="text" style="width:90%;"/>
-							<input class="btn"  id="btnQphr.*" type="button" value='.'  />
+							<input class="btn"  id="btnQphr.*" type="button" value='.' />
 							<input class="txt" id="txtBal.*" type="text" style="width:80%; text-align:center; display:none"/>
 						</td>
 						<td ><input class="txt" id="txtDmoney.*" type="text" maxlength='20' style="width:97%; text-align:right;"/></td>
