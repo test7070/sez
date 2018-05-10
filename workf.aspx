@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -29,7 +29,7 @@
 			var bbsNum = [
 				['txtBorn', 15, 0, 1], ['txtMount', 15, 0, 1], ['txtPrice', 15, 0, 1],
 				['txtTotal', 15, 0, 1], ['txtErrmount', 15, 0, 1], ['txtWmount', 15, 0, 1],
-				['txtOutmount', 15, 0, 1], ['txtInmount', 15, 0, 1]
+				['txtOutmount', 15, 0, 1], ['txtInmount', 15, 0, 1], ['txtWvalue', 15, 0, 1]
 			];
 			var bbmMask = [];
 			var bbsMask = [['txtQctime','99:99']];
@@ -525,6 +525,7 @@
 						}
 					});
 				}
+				HideField();
 			}
 
 			function btnIns() {
@@ -619,6 +620,7 @@
 
 			function refresh(recno) {
 				_refresh(recno);
+				HideField();
 			}
 
 			function readonly(t_para, empty) {
@@ -630,10 +632,21 @@
 					$('#btnWork').removeAttr('disabled');
 					$('#btnOrdes').removeAttr('disabled');
 				}
+				HideField();
+			}
+			
+			function HideField() {
 				var hasStyle = q_getPara('sys.isstyle');
 				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
 				var hasSpec = q_getPara('sys.isspec');
 				var isSpec = (hasSpec.toString()=='1'?$('.isSpec').show():$('.isSpec').hide());
+				
+				if(!(q_getPara('sys.project').toUpperCase()=='JO'|| q_getPara('sys.project').toUpperCase()=='AD')){
+					$('.JO').hide();
+				}else{
+					$('.JO').show();
+				}
+				
 			}
 
 			function btnMinus(id) {
@@ -947,10 +960,10 @@
 			<div class="dview" id="dview" style="float: left; width:32%;" >
 				<table class="tview" id="tview" border="1" cellpadding='2' cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
-						<td align="center" style="width:5%"><a id='vewChk'></a></td>
-						<td align="center" style="width:18%"><a id='vewDatea'></a></td>
-						<td align="center" style="width:20%"><a id='vewNoa'></a></td>
-						<td align="center" style="width:30%"><a id='vewTgg'></a></td>
+						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
+						<td align="center" style="width:18%"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:20%"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:30%"><a id='vewTgg'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=' '/></td>
@@ -963,11 +976,11 @@
 			<div class='dbbm' style="width: 68%;float:left">
 				<table class="tbbm" id="tbbm" border="0" cellpadding='2' cellspacing='0'>
 					<tr style="height: 1px;">
-						<td width="120px"></td>
-						<td width="203px"></td>
-						<td width="120px"></td>
-						<td width="203px"></td>
-						<td width="120px"></td>
+						<td width="120px"> </td>
+						<td width="203px"> </td>
+						<td width="120px"> </td>
+						<td width="203px"> </td>
+						<td width="120px"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
@@ -1019,7 +1032,7 @@
 					<tr>
 						<td><span> </span><a id='lblTax' class="lbl"> </a></td>
 						<td>
-							<select id="cmbTaxtype" class="txt" onchange="calTax()" style='width:45%;'></select>
+							<select id="cmbTaxtype" class="txt" onchange="calTax()" style='width:45%;'> </select>
 							<input id="txtTax" type="text" class="txt c2 num" style="width: 52%;"/>
 						</td>
 						<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
@@ -1051,31 +1064,32 @@
 						<input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" />
 					</td>
 					<td align="center" style="width:20px;"> </td>
-					<td style="width:200px;" align="center"><a id='lblProductnos'></a></td>
-					<td style="width:220px;" align="center"><a id='lblProduct_s'></a></td>
-					<td style="width:95px;" align="center" class="isStyle"><a id='lblStyle'></a></td>
-					<td style="width:40px;" align="center"><a id='lblUnit'></a></td>
-					<td style="width:100px;" align="center"><a id='lblWk_mounts'></a></td>
-					<td style="width:100px;" align="center"><a id='lblWk_inmounts'></a></td>
-					<td style="width:100px;" align="center"><a id='lblWk_unmounts'></a></td>
-					<td style="width:100px;" align="center"><a id='lblBorn' style="color: red;font-weight: bold;"></a></td>
-					<td style="width:150px;" align="center"><a id='lblStores' style="color: red;font-weight: bold;"></a></td>
-					<td style="width:100px;;" align="center"><a id='lblBwmounts'></a></td>
-					<td style="width:100px;" align="center"><a id='lblPrice_s'></a></td>
-					<td style="width:100px;" align="center"><a id='lblTotal_s'></a></td>
-					<!--<td style="width:100px;" align="center"><a id='lblInmount_s'></a></td>
-					<td style="width:100px;" align="center"><a id='lblOutmount_s'></a></td>-->
-					<td style="width:100px;" align="center"><a id='lblTmount'></a>/<br><a id='lblTdate'></a></td>
-					<!--<td style="width:100px;" align="center"><a id='lblTdate'></a></td>-->
-					<td style="width:120px;" align="center"><a id='lblMounts'></a>/<br><a id='lblQcdate'></a></td>
-					<!--<td style="width:100px;" align="center"><a id='lblQcdate'></a></td>-->
-					<td style="width:100px;" align="center"><a id='lblQcresult'></a></td>
-					<td style="width:110px;" align="center"><a id='lblBkmount_s'></a></td>
-					<td style="width:110px;" align="center"><a id='lblWmounts'></a></td>
-					<!--<td style="width:150px;" align="center"><a id='lblErrmount'></a></td>-->
-					<td align="center"><a id='lblMemos'></a></td>
-					<td style="width:180px;" align="center"><a id='lblWorknos'></a></td>
-					<td style="width:100px;" align="center"><a id='lblQcworker'></a>/<a id='lblQctime'></a></td>
+					<td style="width:200px;" align="center"><a id='lblProductnos'> </a></td>
+					<td style="width:220px;" align="center"><a id='lblProduct_s'> </a></td>
+					<td style="width:95px;" align="center" class="isStyle"><a id='lblStyle'> </a></td>
+					<td style="width:40px;" align="center"><a id='lblUnit'> </a></td>
+					<td style="width:100px;" align="center"><a id='lblWk_mounts'> </a></td>
+					<td style="width:100px;" align="center"><a id='lblWk_inmounts'> </a></td>
+					<td style="width:100px;" align="center"><a id='lblWk_unmounts'> </a></td>
+					<td style="width:100px;" align="center"><a id='lblBorn' style="color: red;font-weight: bold;"> </a></td>
+					<td style="width:150px;" align="center"><a id='lblStores' style="color: red;font-weight: bold;"> </a></td>
+					<td style="width:100px;;" align="center"><a id='lblBwmounts'> </a></td>
+					<td style="width:100px;" align="center"><a id='lblPrice_s'> </a></td>
+					<td style="width:100px;" align="center"><a id='lblTotal_s'> </a></td>
+					<!--<td style="width:100px;" align="center"><a id='lblInmount_s'> </a></td>
+					<td style="width:100px;" align="center"><a id='lblOutmount_s'> </a></td>-->
+					<td style="width:100px;" align="center"><a id='lblTmount'> </a>/<br><a id='lblTdate'> </a></td>
+					<!--<td style="width:100px;" align="center"><a id='lblTdate'> </a></td>-->
+					<td style="width:120px;" align="center"><a id='lblMounts'> </a>/<br><a id='lblQcdate'> </a></td>
+					<!--<td style="width:100px;" align="center"><a id='lblQcdate'> </a></td>-->
+					<td style="width:100px;" align="center"><a id='lblQcresult'> </a></td>
+					<td style="width:110px;" align="center"><a id='lblBkmount_s'> </a></td>
+					<td style="width:110px;" align="center"><a id='lblWmounts'> </a></td>
+					<td style="width:110px;" align="center" class="JO"><a id='lblWvalues_jo' class="JO">殘值</a><a id='lblMethods_jo' class="JO">/處理方法</a></td>
+					<!--<td style="width:150px;" align="center"><a id='lblErrmount'> </a></td>-->
+					<td align="center"><a id='lblMemos'> </a></td>
+					<td style="width:180px;" align="center"><a id='lblWorknos'> </a></td>
+					<td style="width:100px;" align="center"><a id='lblQcworker'> </a>/<a id='lblQctime'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<!--1020702製造業通常只用到數量，所以重量隱藏，並將生產數量改為報廢數量-->
@@ -1121,6 +1135,10 @@
 					<td>
 						<input class="txt c1 num" id="txtWmount.*" type="text"/>
 						<input class="txt c1" id="txtWrea.*" type="text"/>
+					</td>
+					<td class="JO">
+						<input class="txt c1 num JO" id="txtWvalue.*" type="text"/>
+						<input class="txt c1 JO" id="txtMethod.*" type="text"/>
 					</td>
 					<!--<td>
 						<input class="txt c1 num" id="txtErrmount.*" type="text"/>
