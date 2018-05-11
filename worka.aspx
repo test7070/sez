@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -119,6 +119,23 @@
 
 				$('#btnClose_div_stk').click(function() {
 					$('#div_stk').toggle();
+				});
+				
+				$('#cmbTypea').change(function() {
+					if(q_getPara('sys.project').toUpperCase()=='JO'|| q_getPara('sys.project').toUpperCase()=='AD'){
+						$('#combMold').text('');
+						if($('#cmbTypea').val()=='1'){
+							q_cmbParse("combMold", '1@正常發料,2@本單位製程損耗 khaáu hao QTSXÑV,3@前單位轉來之不良品 haøng keùm phaåm do khaâu tröôùc chuyeån');
+						}else{
+							q_cmbParse("combMold", '4@前部溢交 VL dö khaâu tröôùc,5@本單位溢料 VL dö ñôn vò');
+						}
+						$('#combMold').change();
+					}
+				});
+				
+				$('#combMold').change(function() {
+					if(q_cur==1 || q_cur==2)
+						$('#txtMold').val($('#combMold').val());
 				});
 			}
 
@@ -791,6 +808,15 @@
 				} else {
 					$('#txtNoa').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
 				}
+				
+				if(!(q_getPara('sys.project').toUpperCase()=='JO'|| q_getPara('sys.project').toUpperCase()=='AD')){
+					$('.JO').hide();
+				}else{
+					$('#lblMemo').text('加工/處理方式');
+					$('#cmbTypea').change();
+					$('#lblMold_jo').text('補(退)料原因');
+					$('.JO').show();
+				}
 			}
 
 			function readonly(t_para, empty) {
@@ -799,10 +825,12 @@
 					$('#btnWork').attr('disabled', 'disabled');
 					$('#btnWorks').attr('disabled', 'disabled');
 					$('#btnOrdes').attr('disabled', 'disabled');
+					$('#combMold').attr('disabled', 'disabled');
 				} else {
 					$('#btnWork').removeAttr('disabled');
 					$('#btnWorks').removeAttr('disabled');
 					$('#btnOrdes').removeAttr('disabled');
+					$('#combMold').removeAttr('disabled');
 				}
 				HideField();
 			}
@@ -1010,11 +1038,11 @@
 			<table id="table_stk" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">產品編號</td>
-					<td style="background-color: #f8d463;" colspan="2" id='stk_productno'></td>
+					<td style="background-color: #f8d463;" colspan="2" id='stk_productno'> </td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">產品名稱</td>
-					<td style="background-color: #f8d463;" colspan="2" id='stk_product'></td>
+					<td style="background-color: #f8d463;" colspan="2" id='stk_product'> </td>
 				</tr>
 				<tr id='stk_top'>
 					<td align="center" style="width: 30%;">倉庫編號</td>
@@ -1033,9 +1061,9 @@
 			<div class="dview" id="dview" style="float: left; width:23%;" >
 				<table class="tview" id="tview" border="1" cellpadding='2' cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
-						<td align="center" style="width:5%"><a id='vewChk'></a></td>
-						<td align="center" style="width:40%"><a id='vewDatea'></a></td>
-						<td align="center" style="width:55%"><a id='vewNoa'></a></td>
+						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
+						<td align="center" style="width:40%"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:55%"><a id='vewNoa'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=' ' /></td>
@@ -1047,16 +1075,16 @@
 			<div class='dbbm' style="width: 77%;float:left">
 				<table class="tbbm" id="tbbm" border="0" cellpadding='2' cellspacing='0'>
 					<tr style="height: 1px;">
-						<td width="120px"></td>
-						<td width="203px"></td>
-						<td width="120px"></td>
-						<td width="203px"></td>
-						<td width="120px"></td>
-						<td width="203px"></td>
+						<td width="120px"> </td>
+						<td width="203px"> </td>
+						<td width="120px"> </td>
+						<td width="203px"> </td>
+						<td width="120px"> </td>
+						<td width="203px"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblType' class="lbl"> </a></td>
-						<td><select id="cmbTypea" class="txt c1"></select></td>
+						<td><select id="cmbTypea" class="txt c1"> </select></td>
 						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td><input id="txtDatea" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
@@ -1108,6 +1136,13 @@
 							<input type="button" id="btnOrdes">
 						</td>
 					</tr>
+					<tr class="JO" style="display: none;">
+						<td><span> </span><a id='lblMold_jo' class="lbl"> </a></td>
+						<td>
+							<input id="txtMold" type="hidden"/>
+							<select id="combMold" class="txt c1"> </select>
+						</td>
+					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td colspan='3'>
@@ -1126,15 +1161,15 @@
 					<td align="center" style="width:45px;">
 						<input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" />
 					</td>
-					<td align="center" style="width:20px;"></td>
+					<td align="center" style="width:20px;"> </td>
 					<td class="isAD" align="center" style="width:180px;"><a id='lblUno'> </a></td>
 					<td align="center" style="width:240px;"><a id='lblProductnos'> </a></td>
 					<td align="center" style="width:240px;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:95px;" class="isStyle"><a id='lblStyle'> </a></td>
 					<td align="center" style="width:50px;"><a id='lblUnit'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblWk_mounts'></a></td>
-					<td align="center" style="width:80px"><a id='lblWk_gmounts'></a></td>
-					<td align="center" style="width:80px;"><a id='lblWk_emounts'></a></td>
+					<td align="center" style="width:80px;"><a id='lblWk_mounts'> </a></td>
+					<td align="center" style="width:80px"><a id='lblWk_gmounts'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblWk_emounts'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblMounts'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblStores'> </a></td>
 					<td align="center"><a id='lblMemos'> </a></td>
