@@ -24,9 +24,8 @@
                 if (custtypeItem.length == 0) {
 					q_gt('custtype', '', 0, 0, 0, "");
 				}
-                
                 $('#q_report').click(function(e) {
-					if(q_getPara('sys.project').toUpperCase()=='RB'){
+					if(q_getPara('sys.project').toUpperCase()!='DC'){
 						var delete_report=999;
 						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
 							if($('#q_report').data().info.reportData[i].report=='z_cust03')
