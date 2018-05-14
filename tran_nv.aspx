@@ -87,7 +87,11 @@
                     }else{
              		    $('#txtMount3_'+i).val();
              		}
-             		t_total2 = q_mul(q_float('txtMount3_'+i),t_weight);
+             		if($('#txtUnit_'+i).val()=='趟'){
+             		    t_total2 = q_mul(q_float('txtMount3_'+i),q_float('txtMount2_'+i));
+             		}else{
+             		    t_total2 = q_mul(q_float('txtMount3_'+i),t_weight);
+             		}
              		t_tmount = q_add(t_tmount,q_sub(q_float('txtOutmount_'+i),q_float('txtInmount_'+i)));
              		t_tvolume = q_add(t_tvolume,q_float('txtInmount_'+i));
              		t_tweight = q_add(t_tweight,t_weight);

@@ -94,6 +94,17 @@
 					$('#txtTnoa1').val(t_key[1]);
 					$('#txtTnoa2').val(t_key[1]);
 				}
+				
+				if(!(q_getPara('sys.project').toUpperCase()=='JO'|| q_getPara('sys.project').toUpperCase()=='AD')){
+					for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+						if(
+                        	$('#q_report').data().info.reportData[i].report=='z_workap_jo01' || //領料出庫單
+                        	$('#q_report').data().info.reportData[i].report=='z_workap_jo02'  //補(退)料通知單
+						){
+							$('#q_report div div').eq(i).hide();
+						}
+					}
+				}
 			}
 
 			function q_boxClose(s2) {

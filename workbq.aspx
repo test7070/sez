@@ -25,7 +25,7 @@
 			var bbmNum = [];
 			var bbsNum = [
 				['txtBorn', 15, 2, 1], ['txtMount', 15, 2, 1], ['txtPrice', 15, 2, 1],
-				['txtTotal', 15, 0, 1], ['txtErrmount', 15, 2, 1], ['txtWmount', 15, 2, 1],
+				['txtTotal', 15, 0, 1], ['txtErrmount', 15, 2, 1], ['txtWmount', 15, 2, 1],['txtWvalue', 15, 2, 1],
 				['txtOutmount', 15, 2, 1], ['txtInmount', 15, 2, 1], ['txtBkmount', 15, 2, 1]
 			];
 			var bbmMask = [];
@@ -710,6 +710,13 @@
 				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
 				var hasSpec = q_getPara('sys.isspec');
 				var isSpec = (hasSpec.toString()=='1'?$('.isSpec').show():$('.isSpec').hide());
+				
+				if(!(q_getPara('sys.project').toUpperCase()=='JO'|| q_getPara('sys.project').toUpperCase()=='AD')){
+					$('.JO').hide();
+				}else{
+					$('.JO').show();
+				}
+				
 			}
 			function Fieldchange() {
 				if(!r_modi && r_rank<'7'){
@@ -957,8 +964,9 @@
 					<td style="width:120px;" align="center"><a id='lblMounts'> </a></td>
 					<td style="width:100px;" align="center"><a id='lblQcresults'> </a></td>
 					<td style="width:150px;" align="center"><a id='lblStores'> </a></td>
-					<td style="width:100px;;" align="center"><a id='lblBkmounts'> </a></td>
-					<td style="width:100px;;" align="center"><a id='lblWmounts'> </a></td>
+					<td style="width:100px;" align="center"><a id='lblBkmounts'> </a></td>
+					<td style="width:150px;" align="center"><a id='lblWmounts'> </a><a id='lblWreas_jo' class="JO">/原因</a></td>
+					<td style="width:150px;" align="center" class="JO"><a id='lblWvalues_jo' class="JO">殘值</a><a id='lblMethods_jo' class="JO">/處理方法</a></td>
 					<td style="width:100px;" align="center"><a id='lblInmount_s'> </a></td>
 					<td style="width:100px;" align="center"><a id='lblOutmount_s'> </a></td>
 					<td style="width:150px;" align="center"><a id='lblErrmount'> </a></td>
@@ -992,7 +1000,14 @@
 						<input id="txtStore.*" type="text" class="txt c3" style="width: 50%;"/>
 					</td>
 					<td><input class="txt c1 num" id="txtBkmount.*" type="text"/></td>
-					<td><input class="txt c1 num" id="txtWmount.*" type="text"/></td>
+					<td>
+						<input class="txt c1 num" id="txtWmount.*" type="text"/>
+						<input class="txt c1 JO" id="txtWrea.*" type="text"/>
+					</td>
+					<td class="JO">
+						<input class="txt c1 num JO" id="txtWvalue.*" type="text"/>
+						<input class="txt c1 JO" id="txtMethod.*" type="text"/>
+					</td>
 					<td><input class="txt c1 num" id="txtInmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtOutmount.*" type="text"/></td>
 					<td>
