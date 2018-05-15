@@ -3047,7 +3047,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMoney' class="lbl">Accounts Receivable</a></td>
-						<td colspan='2'><input id="txtMoney" type="text" class="txt c1" style="text-align: center;"/></td>
+						<td colspan='2'><input id="txtMoney" type="text" class="txt c1 num"/></td>
 						<td><span> </span><a id='lblTax' class="lbl">Sales Tax</a></td>
 						<td><input id="txtTax" type="text" class="txt num c1"/></td>
 						<td><select id="cmbTaxtype" class="txt c1" onchange='sum()' > </select></td>

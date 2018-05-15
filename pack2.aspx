@@ -312,7 +312,7 @@
             }
             .dview {
                 float: left;
-                width: 300px; 
+                width: 35%; 
                 border-width: 0px; 
             }
             .tview {
@@ -333,7 +333,7 @@
             }
             .dbbm {
                 float: left;
-                width: 700px;
+                width: 60%;
                 /*margin: -1px;        
                 border: 1px black solid;*/
                 border-radius: 5px;
