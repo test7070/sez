@@ -69,7 +69,8 @@
         function mainPost() { 
             bbmMask = [['txtDatea', r_picd],['txtEta', r_picd],['txtEtd', r_picd],['txtOnboarddate', r_picd],['txtShippingdate', r_picd],['txtCldate', r_picd],['txtSaildate', r_picd]];
         	q_mask(bbmMask);
-        	
+        	q_cmbParse("cmbPallet",',CFS/LCL,CY/FCL,併櫃');
+			q_cmbParse("cmbCasesize",',20呎,40呎,40呎高櫃,45呎');
         	$('#txtNoa').change(function() {
 				//t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
                 //q_gt('boaj', t_where, 0, 0, 0, "check_Noa", r_accy);
@@ -491,9 +492,7 @@
 				<td class="td5"><span> </span><a id="lblNotify" class="lbl"> </a></td>
 				<td class="td6"><input id="txtNotify" type="text" class="txt c1"/></td> 
 				<td class="td1"><span> </span><a id="lblEntryno" class="lbl"> </a></td>
-				<td class="td2"><input id="txtEntryno" type="text" class="txt c1"/></td>
-				<!--<td class="td3"><span> </span><a id="lblInvoiceno" class="lbl"> </a></td>
-				<td class="td4"><input id="txtInvoiceno" type="text" class="txt c1"/></td>-->               
+				<td class="td2"><input id="txtEntryno" type="text" class="txt c1"/></td>             
             </tr>
             <tr class="tr4">
 				<td class="td1"><span> </span><a id="lblInspection_comp" class="lbl btn"> </a></td>
@@ -514,30 +513,53 @@
 					<input id="txtForwarderno" type="text" class="txt c2"/>
 					<input id="txtForwarder" type="text" class="txt c3"/>
 				</td>
-				<td class="td3"><span> </span><a id="lblCustoms" class="lbl"> </a></td>
-				<td class="td4"><input id="txtCustoms" type="text" class="txt c1"/></td>
             </tr>
-            <tr class="tr6">
-				<td class="td1"><span> </span><a id="lblEta" class="lbl"> </a></td>
-				<td class="td2"><input id="txtEta" type="text" class="txt c1"/></td>
-				<td class="td3"><span> </span><a id="lblEtd" class="lbl"> </a></td>
-				<td class="td4"><input id="txtEtd" type="text" class="txt c1"/></td>
-            </tr>
-            <tr class="tr7">
-				<td class="td1"><span> </span><a id="lblSono" class="lbl"> </a></td>
-				<td class="td2"><input id="txtSono" type="text" class="txt c1"/></td>
+			<tr>
+				<td class="td1"><span> </span><a id="lblBooking" class="lbl">Booking#</a></td>
+				<td class="td2"><input id="txtCustoms" type="text" class="txt c1"/></td>
 				<td class="td3"><span> </span><a id="lblBoatname" class="lbl"> </a></td>
 				<td class="td4"><input id="txtBoatname" type="text" class="txt c1"/></td>
-				<td class="td5"><span> </span><a id="lblShip" class="lbl"> </a></td>
+				<td class="td5"><span> </span><a id="lblShipNo" class="lbl">船班號碼</a></td>
 				<td class="td6"><input id="txtShip" type="text" class="txt c1"/></td>
+			</tr>
+			<tr class="tr12">
+				<td><span> </span><a id="lblCldate" class="lbl"> </a></td>
+				<td><input id="txtCldate" type="text" class="txt c1" style="width:50%"/></td>
+				<td><span> </span><a id="lblClTime" class="lbl">結關時間</a></td>
+				<td>
+					<input id="txtSaildate" type="text" class="txt c1" style="width:50%"/>
+					<a id="lblEtd" class="lbl"></a>
+				</td>
+				<td>
+					<input id="txtEtd" type="text" class="txt c1" style="width:80px"/>
+					<a id="lblEta" class="lbl"> </a>
+				</td>
+				<td><input id="txtEta" type="text" class="txt c1"style="width:50%"/></td>
+				<!-- <td style="width:50px"><span> </span><a id="lblEtd" class="lbl"> </a></td> -->
+				<!-- <td style="width:30px"><input id="txtEtd" type="text" class="txt c1"/></td> -->
+				<!-- <td><span> </span><a id="lblEta" class="lbl"> </a></td> -->
+				<!-- <td><input id="txtEta" type="text" class="txt c1"/></td> -->
             </tr>
-            <tr class="tr8">
+			<tr class="tr11">
+				<td><span> </span><a id="lblCutoffTime" class="lbl">VGM+SI cut off time</a></td>
+				<td><input id="txtCutoff" type="text" class="txt c1"/></td>
+				<td class="td5"><span> </span><a id="lblCaseType" class="lbl">櫃型</a></td>
+				<td class="td6"><select id="cmbPallet" style="width:100%"> </select></td>
+            </tr>
+			<tr class="tr8">
 				<td class="td1"><span> </span><a id="lblCasesize" class="lbl"> </a></td>
-				<td class="td2"><input id="txtCasesize" type="text" class="txt num c1"/></td>
-				<td class="td3"><span> </span><a id="lblCaseyard" class="lbl"> </a></td>
-				<td class="td4"><input id="txtCaseyard" type="text" class="txt c1"/></td>
+				<td class="td6"><select id="cmbCasesize" style="width:100%"> </select></td>
+				<td class="td3"><span> </span><a id="lblCaseMount" class="lbl">貨櫃數量</a></td>
+				<td class="td4"><input id="txtInvoiceno" type="text" class="txt c1"/></td>
+
+            </tr>
+			<tr class="tr8">
 				<td class="td5"><span> </span><a id="lblCaseno" class="lbl"> </a></td>
 				<td class="td6"><input id="txtCaseno" type="text" class="txt c1"/></td>
+				<td class="td1"><span> </span><a id="lblSono2" class="lbl">封條號碼</a></td>
+				<td class="td2"><input id="txtSono" type="text" class="txt c1"/></td>
+				<td class="td3"><span> </span><a id="lblCaseyard" class="lbl"> </a></td>
+				<td class="td4"><input id="txtCaseyard" type="text" class="txt c1"/></td>
             </tr>
             <tr class="tr9">
 				<td class="td1"><span> </span><a id="lblBillmemo" class="lbl"> </a></td>
@@ -551,32 +573,15 @@
 				<td class="td5"><span> </span><a id="lblGoal" class="lbl"> </a></td>
 				<td class="td6"><input id="txtGoal" type="text" class="txt c1"/></td>
             </tr>
-            <tr class="tr11">
-				<td class="td1"><span> </span><a id="lblOnboarddate" class="lbl"> </a></td>
-				<td class="td2"><input id="txtOnboarddate" type="text" class="txt c1"/></td>
-				<td class="td3"><span> </span><a id="lblShippingdate" class="lbl"> </a></td>
-				<td class="td4"><input id="txtShippingdate" type="text" class="txt c1"/></td>
-				<td class="td5"><span> </span><a id="lblCutoff" class="lbl"> </a></td>
-				<td class="td6"><input id="txtCutoff" type="text" class="txt c1"/></td>
-            </tr>
-            <tr class="tr12">
-				<td class="td1"><span> </span><a id="lblSaildate" class="lbl"> </a></td>
-				<td class="td2"><input id="txtSaildate" type="text" class="txt c1" /></td>
-				<td class="td3"><span> </span><a id="lblCldate" class="lbl"> </a></td>
-				<td class="td4"><input id="txtCldate" type="text" class="txt c1"/></td>
-				<td class="td5"><span> </span><a id="lblPallet" class="lbl"> </a></td>
-				<td class="td6"><input id="txtPallet" type="text" class="txt c1"/></td>
-            </tr>
-            <tr class="tr4">
-				<td class="td1"><span> </span><a id="lblMarkno" class="lbl"> </a></td>
-				<td class="td2"><select id="cmbMarkno" class="txt c1"> </select></td> 
-		  	</tr>
+			<tr>
+				<td class="td1"><span> </span><a id="lblPhoto" class="lbl">空櫃/裝櫃照片</a></td>
+			</tr>
             <tr class="tr5">
-				<td class="td1"><span> </span><a id="lblMain" class="lbl"> </a></td>
+				<td class="td1"><span> </span><a id="lblMark" class="lbl">SHIPPING MARK</a></td>
 				<td class="td2" colspan="2">
 					<textarea id="txtMain"  rows='5' cols='50' style="width:300px; height: 250px;"> </textarea>
 				</td>
-				<td class="td4"><span> </span><a id="lblSide" class="lbl"> </a></td>
+				<td class="td4"><span> </span><a id="lblMemo" class="lbl">備註</a></td>
 				<td class="td5" colspan="2">
                		<textarea id="txtSide"  rows='15' cols='50' style="width:300px; height: 250px;"> </textarea>
 				</td> 
