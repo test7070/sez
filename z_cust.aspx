@@ -25,7 +25,7 @@
 					q_gt('custtype', '', 0, 0, 0, "");
 				}
                 $('#q_report').click(function(e) {
-					if(q_getPara('sys.project').toUpperCase()!='DC'){
+					if(q_getPara('sys.project').toUpperCase()!='DC' && q_getPara('sys.project').toUpperCase()!='NV'){
 						var delete_report=999;
 						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
 							if($('#q_report').data().info.reportData[i].report=='z_cust03')
@@ -92,6 +92,12 @@
                         dbf : 'sss',
                         index : 'noa,namea',
                         src : 'sss_b.aspx'
+                    }, {/*2 [16],[17]*/
+                        type : '2',
+                        name : 'xacomp',
+                        dbf : 'acomp',
+                        index : 'noa,acomp',
+                        src : 'acomp_b.aspx'
                     }]
                 });
                 q_popAssign();
