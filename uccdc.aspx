@@ -65,6 +65,14 @@
                     	$(this).val($(this).val().substring(0,4)+'.'+$(this).val().substring(4));	
                     }
                 });
+                
+                $('#txtNoa').change(function(e) {
+                    if (q_getPara('sys.project').toUpperCase()=='SH'){
+                        t_where = "where=^^ noa=(select MAX(noa) from ucc where left(noa,1)='"+$('#txtNoa').val().substr(0,1)+"' ) ^^";
+                        q_gt('ucc', t_where, 0, 0, 0, "GetMaxnoa_sh", r_accy);
+                    }
+                });
+                
             }
 
             function q_boxClose(s2) {
@@ -94,7 +102,14 @@
                         	wrServer($('#txtNoa').val());
                         }
                 		break;
-
+                    case 'GetMaxnoa_sh':
+                        var as = _q_appendData("ucc", "", true);
+                        if(as[0] != undefined){
+                            maxno=isNaN(dec(as[0].noa.slice(-5)))?'0':as[0].noa.slice(-5);
+                            maxno=('00000'+(dec(maxno)+1)).slice(-5);
+                            $('#txtNoa').val($('#txtNoa').val().substr(0,1)+maxno);
+                        }
+                        break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
