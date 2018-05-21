@@ -14,10 +14,8 @@
 		<script src="css/jquery/ui/jquery.ui.core.js"></script>
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
-		<script type="text/javascript">
-            
+		<script type="text/javascript">            
             var custtypeItem='';
-            
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
@@ -25,15 +23,14 @@
 					q_gt('custtype', '', 0, 0, 0, "");
 				}
                 $('#q_report').click(function(e) {
-					if(q_getPara('sys.project').toUpperCase()!='DC' && q_getPara('sys.project').toUpperCase()!='NV'){
+					if((q_getPara('sys.project').toUpperCase()!='DC' && q_getPara('sys.project').toUpperCase()!='NV') || r_rank<8
+					){
 						var delete_report=999;
 						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
 							if($('#q_report').data().info.reportData[i].report=='z_cust03')
 								delete_report=i;
 						}
-						if($('#q_report div div').text().indexOf('員工基本資料')>-1){
-							$('#q_report div div').eq(delete_report).hide();
-						}
+						$('#q_report div div').eq(delete_report).hide();
 					}
 				});
             });

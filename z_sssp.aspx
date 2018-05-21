@@ -49,21 +49,12 @@
                 q_langShow();
 	            q_popAssign();
 	            
-                $('#txtXmon').mask('999/99');
-                $('#txtXyear').mask('999');
+                $('#txtXmon').mask(r_picm);
+                $('#txtXyear').mask(r_pic);
                 
-                var t_date=q_date();
-				var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
-				nextdate.setDate(nextdate.getDate() -30);
-				t_date=''+(nextdate.getFullYear()-1911)+'/';
-				//月份
-				if(nextdate.getMonth()+1<10)
-					t_date=t_date+'0'+(nextdate.getMonth()+1);
-				else
-					t_date=t_date+(nextdate.getMonth()+1);
-					
+                var t_date=q_cdn(q_date().substring(0, r_lenm)+'/01',-1).substring(0, r_lenm);
                 $('#txtXmon').val(t_date);
-                $('#txtXyear').val(t_date.substr(0,3));
+                $('#txtXyear').val(t_date.substr(0,r_len));
                 
                 //1030909 副總 不讓員工列印
                 if(q_getPara('sys.comp').indexOf('大昌')>-1){
