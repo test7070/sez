@@ -119,6 +119,20 @@
                 	$(".btns").show();
                 }
                 
+                //107/05/21 住倉需要車號修改
+                if(q_getPara('sys.project').toUpperCase()=="PA"){
+                    $(".btns").show();
+                    $('.bcartax').hide();
+                    $('.bcarlender').hide();
+                    $('.bcarsalary').hide();
+                    $('.bsale').hide();
+                    $('.bcarinsurance').hide();
+                    $('.bcaraccident').hide();
+                    $('.bcarchange').hide();
+                    $('.boil').hide();
+                    $('.bcarexpense').hide();
+                }
+                
                 //106/09/14
                 if(q_getPara('sys.project').toUpperCase()=="WA" || q_getPara('sys.project').toUpperCase()=="SH"){
                 	$(".btns").show();
