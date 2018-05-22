@@ -1697,13 +1697,13 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:1%;"> </td>
-					<td align="center" style="width:7%;"><a id='lblAcc1'> </a><br><a id='lblAcc2'> </a></td>
-					<td align="center" style="width:15%;"><a id='lblMoney'> </a><br><a id='lblAccmemo'> </a><br class="Usdata" style="display:none;"><a class="Usdata" id='lblMoneyuss' style="display:none;"> </a></td>
-					<td align="center" style="width:7%;"><a id='lblCheckno'> </a><br><a id='lblGqbtitle'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblAcc1'> </a><br/><a id='lblAcc2'> </a></td>
+					<td align="center" style="width:15%;"><a id='lblMoney'> </a><br/><a id='lblAccmemo'> </a><br class="Usdata" style="display:none;"><a class="Usdata" id='lblMoneyuss' style="display:none;"> </a></td>
+					<td align="center" style="width:7%;"><a id='lblCheckno'> </a><br/><a id='lblGqbtitle'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblAccount'> </a></td>
-					<td align="center" style="width:6%;"><a id='lblBankno'> </a><br><a id='lblBank'> </a></td>
+					<td align="center" style="width:6%;"><a id='lblBankno'> </a><br/><a id='lblBank'> </a></td>
 					<td align="center" style="width:4%;"><a id='lblIndate'> </a></td>
-					<td align="center" style="width:5%;"><a id='lblChgsTran'> </a><br><a id='lblParts'> </a></td>
+					<td align="center" style="width:5%;"><a id='lblChgsTran'> </a><br/><a id='lblParts'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblMemos'> </a></td>
 					<td align="center" style="width:5%;"><a id='lblPaysales'> </a></td>
 					<td align="center" style="width:5%;"><a id='lblUnpay_s'> </a></td>
