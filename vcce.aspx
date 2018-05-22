@@ -19,7 +19,7 @@
 			q_tables = 's';
 			var q_name = "vcce";
 			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtComp', 'txtAcomp', 'txtSales','textCuft'];
-			var q_readonlys = ['txtStore'];
+			var q_readonlys = ['txtStore','txtNotv','txtNotv2'];
 			var bbmNum = [['txtWeight', 15, 3, 1], ['txtTotal', 10, 2, 1]];
 			var bbsNum = [['txtMount', 10, 0, 1], ['txtEcount', 10, 0, 1], ['txtAdjcount', 10, 0, 1],];
 			var bbmMask = [];
@@ -46,6 +46,8 @@
 				bbsKey = ['noa', 'noq'];
 				q_brwCount();
 				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
+				var t_db=q_db.toLocaleUpperCase();
+				q_gt('acomp', "where=^^(dbname='"+t_db+"' or not exists (select * from acomp where dbname='"+t_db+"')) ^^ stop=1", 0, 0, 0, "cno_acomp");
 			});
 
 			function main() {
@@ -229,8 +231,17 @@
 			}
 
 			var focus_addr = '';
+			var z_cno = r_cno, z_acomp = r_comp, z_nick = r_comp.substr(0, 2);
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'cno_acomp':
+						var as = _q_appendData("acomp", "", true);
+						if (as[0] != undefined) {
+							z_cno = as[0].noa;
+							z_acomp = as[0].acomp;
+							z_nick = as[0].nick;
+						}
+						break;
 					case 'packing':
 						var as = _q_appendData("packing", "", true);
 						var t_cuft=0;
@@ -343,8 +354,17 @@
 				sum();
 
 				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
+				
+				var t_cnoascii=String.fromCharCode(dec(z_cno.substr(0,1))+64);
+				if(!(t_cnoascii>='A' && t_cnoascii<='Z')){
+					t_cnoascii='';
+				}
+				if(!(q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO')){
+					t_cnoascii='';
+				}
+				
 				if (s1.length == 0 || s1 == "AUTO")
-					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_vcce') + $('#txtDatea').val(), '/', ''));
+					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_vcce') +t_cnoascii+ $('#txtDatea').val(), '/', ''));
 				else
 					wrServer(s1);
 			}
@@ -392,6 +412,8 @@
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 				$('#txtDatea').val(q_date());
 				$('#txtDatea').focus();
+				$('#txtCno').val(z_cno);
+				$('#txtAcomp').val(z_acomp);
 				var t_where = "where=^^ 1=0 ^^ stop=100";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
 			}
@@ -845,7 +867,7 @@
 						<td class="td1"><span> </span><a id="lblCaseno2" class="lbl btn">出貨單號</a></td>
 						<td class="td2" colspan="2"><input id="txtCaseno2"  type="text" class="txt c1"/></td>
 						<td class="td4"><input id="btnTovcc" type="button" value="轉出貨單" /></td>
-						<td class="td5"></td>
+						<td class="td5"> </td>
 						<td class="td4"><span> </span><a id="lblEtcdate" class="lbl">E.T.C</a></td>
                         <td class="td5" colspan="2"><input id="txtEtcdate"  type="text" class="txt c1" style="width: 50%;"/>
                                         <input id="txtEtctime"  type="text" class="txt c1" style="width: 30%;"/>
@@ -887,8 +909,8 @@
 						<td align="center" style="width:7%;"><a id='lblMount_s'> </a></td>
 						<td align="center" style="width:7%;"><a id='lblWeight_s'> </a></td>
 						<td align="center" style="width:3%;"><a id='lblEnds_s'> </a></td>
-						<td align="center" style="width:7%;"><a id='lblEcount_s'> </a></td>
-						<td align="center" style="width:7%;"><a id='lblAdjcount_s'> </a></td>
+						<td align="center" style="width:7%;"><a id='lblNotv_s'> </a></td>
+						<td align="center" style="width:7%;display: none;"><a id='lblAdjcount_s'> </a></td>
 						<td align="center" style="width:10%;"><a id='lblStoreno_s'> </a></td>
 						<td align="center" style="width:10%;" class="isRack"><a id='lblRackno_s'> </a></td>
 						<td align="center"><a id='lblMemo_s'> </a></td>
@@ -909,8 +931,11 @@
 						<td><input class="txt num c1" id="txtMount.*" type="text"/></td>
 						<td><input class="txt num c1" id="txtWeight.*" type="text"/></td>
 						<td align="center"><input id="chkEnda.*" type="checkbox"/></td>
-						<td><input class="txt num c1" id="txtEcount.*" type="text" /></td>
-						<td><input class="txt num c1" id="txtAdjcount.*" type="text" /></td>
+						<td>
+							<input class="txt num c1" id="txtNotv.*" type="text" />
+							<input class="txt num c1" id="txtNotv2.*" type="text" />
+						</td>
+						<td style="display: none;"><input class="txt num c1" id="txtAdjcount.*" type="text" /></td>
 						<td>
 							<input id="txtStoreno.*" type="text" class="txt c1" style="width: 75%"/>
 							<input class="btn"  id="btnStoreno.*" type="button" value='.' style=" font-weight: bold;" />

@@ -1377,11 +1377,15 @@
 				sum();
 
 				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
+				var t_cnoascii=String.fromCharCode(dec(z_cno.substr(0,1))+64);
+				if(!(t_cnoascii>='A' && t_cnoascii<='Z')){
+					t_cnoascii='';
+				}
 				if (s1.length == 0 || s1 == "AUTO"){
 					if($('#cmbStype').val()=='4')//樣品
-						q_gtnoa(q_name, replaceAll('S' + $('#txtOdate').val(), '/', ''));
+						q_gtnoa(q_name, replaceAll('S' +t_cnoascii+ $('#txtOdate').val(), '/', ''));
 					else
-						q_gtnoa(q_name, replaceAll(q_getPara('sys.key_orde') + $('#txtOdate').val(), '/', ''));
+						q_gtnoa(q_name, replaceAll(q_getPara('sys.key_orde') +t_cnoascii+ $('#txtOdate').val(), '/', ''));
 				}else
 					wrServer(s1);
 			}
@@ -1842,6 +1846,11 @@
 			function btnModi() {
 				if (emp($('#txtNoa').val()))
 					return;
+					
+				if($('#chkEnda').prop('checked')){
+					alert('訂單已結案禁止修改!!')//107/05/22
+					return;
+				}
 				
 				modi_mount=0;
 				for(var i=0;i<q_bbsCount;i++){
