@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -16,7 +16,7 @@
 			}
 
 			var q_name = "accz";
-			var q_readonly = ['txtNoa','txtFixmoney','txtFixdate'];
+			var q_readonly = ['txtNoa','txtFixmoney','txtFixdate','textAcczsdate'];
 			var bbmNum = [
 				['txtMount', 10, 0, 1], ['txtRate', 3, 2, 1], ['txtMoney', 14, 0, 1],
 				['txtFixmoney', 14, 0, 1], ['txtAccumulat', 14, 0, 1], ['txtEndvalue', 14, 0, 1],['txtYear',10,0,1]
@@ -114,7 +114,7 @@
 					q_box("accza_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy, 'accza', "40%", "430px", q_getMsg('popAccza'));
 				});
 				$('#btnAcczs').click(function() {
-					q_box("acczs.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";acczno='" + $('#txtNoa').val() + "';" + r_accy, '', "95%", "95%", q_getMsg('popAcczs'));
+					q_box("acczs.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";acczno='" + $('#txtNoa').val() + "';" + r_accy, 'acczs', "95%", "95%", q_getMsg('popAcczs'));
 				});
 				$('#btnAccz').click(function() {
 					q_box('z_accz.aspx' + "?;;;;" + r_accy, '', '95%', '95%', q_getMsg("popAccz"));
@@ -234,6 +234,9 @@
 				switch (b_pop) {
 					case 'acczf':
 						setTimeout('getfix()',1000);
+						break;
+					case 'acczs':
+						getAcczsdate();
 						break;
 					case q_name + '_s':
 						q_boxClose2(s2);
@@ -358,10 +361,26 @@
 					_btnOk(key_value, bbmKey[0], '', '', 2);
 				}
 			}
+			
+			function getAcczsdate() {
+				if(!emp($('#txtAcc1').val())){
+					var t_where = "where=^^ acczno = '" + $('#txtAcc1').val() + "'^^";
+					q_gt('view_acczs', t_where, 0, 0, 0, "getacczs", r_accy + '_' + r_cno,1);
+					var as = _q_appendData('view_acczs', "", true);
+					if (as[0] != undefined){
+						$('#textAcczsdate').val(as[0].sale_date);
+					}else{
+						$('#textAcczsdate').val('');							
+					}
+				}else{
+					$('#textAcczsdate').val('');
+				}
+			}
 
 			function refresh(recno) {
 				_refresh(recno);
 				refreshBbm();
+				getAcczsdate();
 			}
 
 			function readonly(t_para, empty) {
@@ -623,7 +642,18 @@
 					<tr>
 						<td class="td1"><span> </span><a id='lblAccumulat' class="lbl"> </a></td>
 						<td class="td2"><input id="txtAccumulat" type="text" class="txt num c1" /></td>
-						<td class="td3"> </td>
+						<td class="td3"><span> </span><a id='lblAcczsdate' class="lbl">出售/報廢日期</a></td>
+						<td class="td4"><input id="textAcczsdate" type="text" class="txt c1" /></td>
+						<td class="td5"><input id="btnAcczs" type="button" /></td>
+						<td class="td6"> </td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblEndvalue' class="lbl"> </a></td>
+						<td class="td2"><input id="txtEndvalue" type="text" class="txt num c1" /></td>
+						<td class="td3">
+							<input id="chkIsendmodi" type="checkbox" />
+							<span> </span><a id="lblIsendmodi"> </a>
+						</td>
 						<td class="td4">
 							<div id="Changeaccno">
 								<table>
@@ -643,17 +673,6 @@
 							</div>
 							<input id="btnTurncut" type="button" />
 						</td>
-						<td class="td5"><input id="btnAcczs" type="button" /></td>
-						<td class="td6"> </td>
-					</tr>
-					<tr>
-						<td class="td1"><span> </span><a id='lblEndvalue' class="lbl"> </a></td>
-						<td class="td2"><input id="txtEndvalue" type="text" class="txt num c1" /></td>
-						<td class="td3">
-							<input id="chkIsendmodi" type="checkbox" />
-							<span> </span><a id="lblIsendmodi"> </a>
-						</td>
-						<td class="td4"><input id="btnAcczt" type="button" /></td>
 						<td class="td5"><input id="btnZ_acczs" type="button" /></td>
 						<td class="td6"> </td>
 					</tr>
@@ -664,6 +683,14 @@
 							<input id="chkNscrapvalue" type="checkbox" class="txt"/>
 							<span> </span><a id="lblNscrapvalue" class="txt"> </a>
 						</td>
+						<td class="td4"><input id="btnAcczt" type="button" /></td>
+						<td class="td5"> </td>
+						<td class="td6"> </td>
+					</tr>
+					<tr>
+						<td class="td1"> </td>
+						<td class="td2"> </td>
+						<td class="td3"> </td>
 						<td class="td4"><input id="btnAccza" type="button" /></td>
 						<td class="td5"> </td>
 						<td class="td6"> </td>

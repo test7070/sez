@@ -64,6 +64,10 @@
 						type : '0',
 						name : 'rlenm',
 						value : r_lenm
+					},{
+						type : '0',
+						name : 'xproj',
+						value : q_getPara('sys.project').toUpperCase()
 					}]
 				});
 				q_popAssign();
