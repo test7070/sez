@@ -71,7 +71,6 @@
 			}
 			
 			function sum() {
-				$('#txtDiffprice').val(q_sub(dec($('#txtExprice').val()),dec($('#txtExreprice').val())));
 			}
 
 			function q_boxClose(s2) {
