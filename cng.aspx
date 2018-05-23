@@ -164,6 +164,20 @@
 							}
 						}
 						break;
+					case 'txtStoreinno':
+						if (q_getPara('sys.project').toUpperCase()=='XY'){
+							//107/05/23 //地址帶入備註
+							var t_storeinno=$('#txtStoreinno').val();
+							var t_storein=$('#txtStorein').val();
+							if(t_storeinno.length>0){
+								q_gt('cust', "where=^^noa='" +t_storeinno + "'^^", 0, 0, 0, "getstorecust",r_accy,1);
+								var as = _q_appendData("cust", "", true);
+								if (as[0] != undefined) {
+									$('#txtMemo').val(as[0].addr_comp);
+								}
+							}
+						}
+						break;
 				}
 			}
 
