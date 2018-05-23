@@ -336,6 +336,21 @@
 				if(q_getPara('sys.project').toUpperCase()=='NV'){
 					$('.acomp').show();
 				}
+				
+				$('#btnUploadimg').click(function() {
+					var t_where = "noa='" + $('#txtNoa').val() + "'";
+					q_box("uploadimg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'uploadimg', "680px", "650px", q_getMsg('btnUploadimg'));
+				});
+				
+				$('#btnSall').click(function() {
+					if(q_cur==1){return;}
+                    q_box("sall.aspx?;;;", 'sall', "95%", "95%", q_getMsg("popSall"));
+				});
+				
+				if (q_getPara('sys.project').toUpperCase()=='JS'){
+					$('#btnSall').show();
+					$('#btnUploadimg').show();
+				}
             }
             
             function sum() {
@@ -351,6 +366,10 @@
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
+                	case 'uploadimg':
+						var t_where = "where=^^noa='" + $('#txtNoa').val() + "'^^";
+						q_gt('sss', t_where, 0, 0, 0, "uploadimg_noa", r_accy);
+						break;
                     case q_name + '_s':
                         q_boxClose2(s2);
                         ///   q_boxClose 3/4
@@ -464,6 +483,33 @@
 					case 'payremark':
 						t_typeb = _q_appendData("payremark", "", true);
 						break;
+					case 'uploadimg_noa':
+						var as = _q_appendData("sss", "", true);
+						if (as[0] != undefined) {
+							abbm[q_recno]['images'] = as[0].images;
+							$('#txtImages').val(as[0].images);
+						}
+						$('.images').html('');
+						if(!emp($('#txtImages').val())&&!emp($('#txtNoa').val())){
+							imagename=$('#txtImages').val().split(';');
+							imagename.sort();
+							var imagehtml="<table width='1260px'><tr>";
+							for (var i=0 ;i<imagename.length;i++){
+								if(imagename[i]!='')
+									imagehtml+="<td><img id='images_"+i+"' style='cursor: pointer;' width='200px' src='../images/upload/"+replaceAll($('#txtNoa').val(),'/','CHR(47)')+'_'+imagename[i]+"?"+new Date()+"'> </td>"
+							}
+							imagehtml+="</tr></table>";
+							$('.images').html(imagehtml);
+							
+							for (var i=0 ;i<imagename.length;i++){
+								$('#images_'+i).click(function() {
+									var n = $(this).attr('id').split('_')[1];
+									t_where = "noa='" + $('#txtNoa').val() + "'";
+									q_box("../images/upload/"+replaceAll($('#txtNoa').val(),'/','CHR(47)')+'_'+imagename[n]+"?;;;;;"+new Date(), 'image', "85%", "85%", "");
+								});
+							}
+						}
+						break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -560,7 +606,28 @@
                refreshBbm();
                $('#combClass5').val($('#txtClass5').val().split(','));
                
+               $('.images').html('');
+				if(!emp($('#txtImages').val())&&!emp($('#txtNoa').val())){
+					imagename=$('#txtImages').val().split(';');
+					imagename.sort();
+					var imagehtml="<table width='1260px'><tr>";
+					for (var i=0 ;i<imagename.length;i++){
+						if(imagename[i]!='')
+							imagehtml+="<td><img id='images_"+i+"' style='cursor: pointer;' width='200px' src='../images/upload/"+replaceAll($('#txtNoa').val(),'/','CHR(47)')+'_'+imagename[i]+"?"+new Date()+"'> </td>"
+					}
+					imagehtml+="</tr></table>";
+					$('.images').html(imagehtml);
+					
+					for (var i=0 ;i<imagename.length;i++){
+						$('#images_'+i).click(function() {
+							var n = $(this).attr('id').split('_')[1];
+							t_where = "noa='" + $('#txtNoa').val() + "'";
+							q_box("../images/upload/"+replaceAll($('#txtNoa').val(),'/','CHR(47)')+'_'+imagename[n]+"?;;;;;"+new Date(), 'image', "85%", "85%", "");
+						});
+					}
+				}
             }
+            
 			function refreshBbm(){
             	if(q_cur==1){
             		$('#txtNoa').css('color','black').css('background','white').removeAttr('readonly');
@@ -935,17 +1002,25 @@
 						<td><input id="txtConn"  type="text"  class="txt c1"/></td>
 						<td><span> </span><a id="lblConntel" class="lbl"> </a></td>
 						<td><input id="txtConntel"  type="text"  class="txt c1"/></td>
+						<td> </td>
+						<td><span> </span><input id='btnUploadimg' type="button" style="display: none;"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
-						<td colspan="5"><textarea id="txtMemo" rows="5" class="txt c1"> </textarea></td>
+						<td colspan="5">
+							<textarea id="txtMemo" rows="5" class="txt c1"> </textarea>
+							<input type="hidden" id="txtImages" class="txt c1"/>
+						</td>
 					</tr>
 					<tr>
 						<td> </td>
-						<td><input id='btnSsspart' type="button"/></td>
-						<td><input id='btnSaladjust' type="button" style="display: none;"/></td>
-						<td><input id='btnLabases' type="button" /></td>
-						<td><input id='btnSsschg' type="button" style="display: none;"/></td>
+						<td colspan="5">
+							<input id='btnSsspart' type="button"/>
+							<span> </span><input id='btnSaladjust' type="button" style="display: none;"/>
+							<span> </span><input id='btnLabases' type="button" />
+							<span> </span><input id='btnSsschg' type="button" style="display: none;"/>
+							<span> </span><input id='btnSall' type="button" style="display: none;"/>
+						</td>
 					</tr>
 					<tr class='issalb' style="display: none;">
 						<td> </td>
@@ -959,6 +1034,7 @@
 				</table>
 			</div>
 		</div>
+		<div class='images' style="float: left;"> </div>
 		<input id="q_sys" type="hidden" />
 		<div id="div_salbs" style="position:absolute; top:300px; left:100px; display:none; width:950px; background-color: #CDFFCE; border: 5px solid gray;">
 			<table id="table_salbs" style="width:100%;" border="1" cellpadding='2'  cellspacing='0'>
