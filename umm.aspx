@@ -192,8 +192,11 @@
                 	if(t_custno.length==0){
                 		alert('請先輸入'+q_getMsg('lblCust')+'!!');
                 		return;
-                	}
-                	q_gt('umm_import',"where=^^['"+t_noa+"','"+t_custno+"','"+t_custno2+"','"+t_mon+"','"+q_getPara('sys.d4taxtype')+"')^^", 0, 0, 0, "umm_import");
+                    }
+                    if (q_getPara('sys.project').toUpperCase()=='FP'){
+                        q_gt('umm_import',"where=^^['"+t_noa+"','"+t_custno+"','"+t_custno2+"','"+t_mon+"','"+q_getPara('sys.d4taxtype')+"')^^", 0, 0, 0, "umm_import");
+                    }
+                	
                 	
                 });
                 
