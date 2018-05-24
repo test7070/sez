@@ -25,11 +25,11 @@
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6;
-		brwCount = 6;
+		brwCount = 3;
 		brwList = [];
 		brwNowPage = 0;
 		brwKey = 'Noa';
-		brwCount2= 6;
+		brwCount2= 3;
 		aPop = new Array(
 			['txtMechno', 'lblMechno', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'],
 			['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx'],
