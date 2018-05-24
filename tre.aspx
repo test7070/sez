@@ -158,7 +158,7 @@
                             alert('請輸入月份'+q_getMsg('lblMon_sh')+'!!');
                             return;
                         }else{
-                            q_func('qtxt.query.trantre_sh', 'tre.txt,tranwj2tre,'+ encodeURI(r_accy)+ ';' + encodeURI(t_key) + ';'+ encodeURI(t_mon)); 
+                            q_func('qtxt.query.trantre_sh', 'tre.txt,transh2tre,'+ encodeURI(r_accy)+ ';' + encodeURI(t_key) + ';'+ encodeURI(t_mon)); 
                         }    
                    }
                 });            
