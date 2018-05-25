@@ -535,9 +535,13 @@
 
 		        var t_bno, t_eno, i, j;
 		        t_eno = $('#vtaccc3_0').text();
-		        t_bno = $('#vtaccc3_' + (brwCount - 1)).text();
-		        q_func('accc_post.getprt', r_accy + ',' + t_bno + "," + t_eno, r_accy, 1);
+                t_bno = $('#vtaccc3_' + (brwCount - 1)).text();
 
+                //興合出現異常
+                if (q_getPara('sys.project').toUpperCase() == 'sh') {
+                } else {
+                    q_func('accc_post.getprt', r_accy + ',' + t_bno + "," + t_eno, r_accy, 1);
+                }
 		        var as = _q_appendData("tmp0", "", true);
 
 		        for (i = 0; i < brwCount; i++) {
