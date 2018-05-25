@@ -66,7 +66,7 @@
              		t_weight = q_sub(q_float('txtGross_'+i),q_float('txtWeight3_'+i));
              		t_pton = q_sub(q_float('txtWeight2_'+i),t_weight);
              		t_mount = q_sub(q_float('txtOutmount_'+i),q_float('txtInmount_'+i));
-             		t_total = q_mul(q_add(q_float('txtCustprice_'+i),q_float('txtPrice_'+i)),t_weight);
+             		t_total = round(q_mul(q_add(q_float('txtCustprice_'+i),q_float('txtPrice_'+i)),t_weight),0);
              		if($('#textOverh_'+i).val()!=0){
              		    $('#txtOverh_'+i).val(q_mul(t_total,q_div($('#textOverh_'+i).val(),100)));
              		}
@@ -693,7 +693,7 @@
 						<td align="center" style="width:5%"><a id="vewChk"> </a></td>
 						<td align="center" style="display:none;"><a> </a></td>
 						<td align="center" style="width:20%"><a>日期</a></td>
-						<td align="center" style="width:20%"><a>出車單號</a></td>
+						<td align="center" style="width:20%"><a>電腦編號</a></td>
 					</tr>
 					<tr>
 						<td>
@@ -716,7 +716,7 @@
 						<td class="tdZ"></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblNoa" class="lbl" > </a></td>
+						<td><span> </span><a id="lblNoa_nv" class="lbl" >電腦編號</a></td>
 						<td>
 						<input id="txtNoa" type="text" class="txt c1"/>
 						</td>
