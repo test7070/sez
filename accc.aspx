@@ -538,7 +538,7 @@
                 t_bno = $('#vtaccc3_' + (brwCount - 1)).text();
 
                 //興合出現異常
-                if (q_getPara('sys.project').toUpperCase() == 'sh') {
+                if (q_getPara('sys.project').toUpperCase() == 'SH') {
                 } else {
                     q_func('accc_post.getprt', r_accy + ',' + t_bno + "," + t_eno, r_accy, 1);
                 }
