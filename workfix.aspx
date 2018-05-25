@@ -23,7 +23,7 @@
 			var q_name = "workfix";
 			var decbbs = [];
 			var decbbm = [];
-			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2','txtWorkno','txtWorkgno'];
+			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2','txtWorkgno','txtWorkano'];
 			var q_readonlys = [];
 			var bbmNum = [['txtMount', 15, 2, 1]];
 			var bbsNum = [['txtMount', 15, 2, 1]];
@@ -57,6 +57,22 @@
 			}
 
 			function mainPost() {
+				
+				if(q_getPara('sys.project').toUpperCase().substr(0,2)=='AD' || q_getPara('sys.project').toUpperCase()=='JO'){
+					$('.ad').show();
+					$('.adhide').hide();
+					q_cmbParse("cmbTypea", '2@溢料 Dö vaät tö,1@缺料 Thieáu vaät tö');
+					q_cmbParse("cmbKind", '1@前部溢交 VL dö khaâu tröôùc,2@本單位溢料 VL dö ñôn vò,3@本單位製程損耗 khaáu hao QTSXÑV,4@前單位轉來之不良品 haøng keùm phaåm do khaâu tröôùc chuyeån ');
+					
+					$('#lblNoa').text('補(退)料單號');
+					$('#lblTypea').text('狀態');
+					$('#lblKind').text('原因');
+					$('#lblMemo').text('處理方式/備註');
+					$('#lblWorkano').text('發料單號');
+				}else{
+					q_readonly.push('txtWorkno');
+				}
+				
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd], ['txtCuadate', r_picd], ['txtUindate', r_picd]];
 				q_mask(bbmMask);
@@ -68,7 +84,7 @@
 							t_mount=1;
 						}
 						
-						q_gt('ucas', "where=^^noa='"+$('#txtProductno').val()+"' ^^", 0, 0, 0, "getworks", r_accy,1);
+						q_gt('ucas', "where=^^noa='"+$('#txtProductno').val()+"' ^^", 0, 0, 0, "getucas", r_accy,1);
 						var as = _q_appendData("ucas", "", true);
 						for (var i = 0; i < as.length; i++) {
 							as[i].mount=t_mount*as[i].mount*(1+(dec(as[i].loss)/100))
@@ -79,12 +95,51 @@
 					}
 				});
 				
+				$('#btnWorkImport').click(function() {
+					if(!emp($('#txtWorkno').val())){
+						q_gt('view_work', "where=^^noa='"+$('#txtWorkno').val()+"' ^^", 0, 0, 0, "getworks", r_accy,1);
+						var as = _q_appendData("view_work", "", true);
+						if (as[0] != undefined) {
+							$('#txtProductno').val(as[0].productno);
+							$('#txtProduct').val(as[0].product);
+							
+							var t_notv=q_sub(dec(as[0].mount),dec(as[0].inmount));
+							var t_nrate=q_div(t_notv,dec(as[0].mount));
+							$('#txtMount').val(t_notv);
+							
+							q_gt('view_works', "where=^^noa='"+$('#txtWorkno').val()+"' ^^", 0, 0, 0, "getworks", r_accy,1);
+							var as = _q_appendData("view_works", "", true);
+							for (var i = 0; i < as.length; i++) {
+								as[i].mount=round(q_mul(as[i].mount,t_nrate),4);
+							}
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount'
+							, as.length, as, 'productno,product,unit,mount', '');
+						}else{
+							alert('【'+$('#txtWorkno').val()+'】製令單號不存在!!');
+						}
+					}
+				});
+				
+				$('#btnToWorka').click(function() {
+					if(!(q_cur==1 || q_cur==2)){
+						q_func('qtxt.query.toworka', 'workfix.txt,toworka,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';' + encodeURI(q_date()) + ';'+r_userno);
+					}
+				});
+				
 				$('#txtWorkno').click(function() {
 					if (!emp($('#txtWorkno').val())){
 						t_where = "noa='" + $('#txtWorkno').val() + "'";
 						q_box("work.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('lblWorkno'));
 					}
 				});
+				
+				$('#txtWorkano').click(function() {
+					if (!emp($('#txtWorkano').val())){
+						t_where = "noa='" + $('#txtWorkano').val() + "'";
+						q_box("worka.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'worka', "95%", "95%", '發料作業');
+					}
+				});
+				
 				$('#txtWorkgno').click(function() {
 					if (!emp($('#txtWorkgno').val())){
 						t_where = "noa='" + $('#txtWorkgno').val() + "'";
@@ -218,11 +273,15 @@
 				_readonly(t_para, empty);
 				if (t_para) {
 					$('#btnImport').attr('disabled', 'disabled');
+					$('#btnWorkImport').attr('disabled', 'disabled');
+					$('#btnToWorka').removeAttr('disabled');
 					for (var i = 0; i < q_bbsCount; i++) {
 						$('#combMemo_'+i).attr('disabled', 'disabled');
 					}
 				} else {
 					$('#btnImport').removeAttr('disabled');
+					$('#btnWorkImport').removeAttr('disabled');
+					$('#btnToWorka').attr('disabled', 'disabled');
 					for (var i = 0; i < q_bbsCount; i++) {
 						$('#combMemo_'+i).removeAttr('disabled');
 					}
@@ -504,30 +563,36 @@
 				<table class="tbbm" id="tbbm" border="0" cellpadding='2' cellspacing='0'>
 					<tr style="height: 1px;">
 						<td width="120px"> </td>
-						<td width="203px"> </td>
+						<td width="150px"> </td>
 						<td width="120px"> </td>
-						<td width="203px"> </td>
+						<td width="150px"> </td>
 						<td width="120px"> </td>
+						<td width="150px"> </td>
+						<td width="10px"> </td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td><input id="txtNoa" type="text" class="txt c1"/></td>
+						<td class="ad" style="display: none;"><span> </span><a id='lblTypea' class="lbl"> </a></td>
+						<td class="ad" style="display: none;"><select id="cmbTypea" class="txt c1"> </select></td>
 						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td><input id="txtDatea" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
+						<td><input id="txtNoa" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
+						<td class="ad" style="display: none;"><span> </span><a id='lblKind' class="lbl"> </a></td>
+						<td class="ad" style="display: none;"><select id="cmbKind" class="txt c1"> </select></td>
 						<td><span> </span><a id='lblStation' class="lbl btn"> </a></td>
 						<td>
 							<input id="txtStationno" type="text" class="txt" style='width:45%;'/>
 							<input id="txtStation" type="text" class="txt" style='width:50%;'/>
 						</td>
-						<td><span> </span><a id='lblTgg' class="lbl btn"> </a></td>
-						<td>
+						<td class="adhide"><span> </span><a id='lblTgg' class="lbl btn"> </a></td>
+						<td class="adhide">
 							<input id="txtTggno" type="text" class="txt" style='width:45%;'/>
 							<input id="txtTgg" type="text" class="txt" style='width:50%;'/>
 						</td>
 					</tr>
-					<tr>
+					<tr class="adhide">
 						<td><span> </span><a id='lblCuadate' class="lbl"> </a></td>
 						<td><input id="txtCuadate" type="text" class="txt" style="width: 100px;"/></td>
 						<td><span> </span><a id='lblUindate' class="lbl"> </a></td>
@@ -551,14 +616,20 @@
 					<tr>
 						<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
 						<td><input id="txtWorkno" type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblWorkgno' class="lbl"> </a></td>
-						<td><input id="txtWorkgno" type="text" class="txt c1"/></td>
+						<td class="adhide"><span> </span><a id='lblWorkgno' class="lbl"> </a></td>
+						<td class="adhide"><input id="txtWorkgno" type="text" class="txt c1"/></td>
+						<td class="ad" colspan="2" style="display: none;">
+							<input id="btnWorkImport" type="button" class="txt" value="製令匯入"/>
+							<input id="btnToWorka" type="button" class="txt" value="轉領料單"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
 						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
+						<td class="ad" style="display: none;"><span> </span><a id='lblWorkano' class="lbl"> </a></td>
+						<td class="ad" style="display: none;"><input id="txtWorkano" type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
