@@ -235,6 +235,7 @@
 			}
 
 			function btnPrint() {
+				q_box("z_workfixp.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "' ;" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
 			}
 
 			function wrServer(key_value) {
