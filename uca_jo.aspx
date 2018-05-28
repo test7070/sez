@@ -600,6 +600,17 @@
                     alert('型號或五大要件禁止空白!!');
                     return;
                 }
+                
+                if (emp($('#cmbGroupdno').val())) {
+                    alert('銷售屬性禁止空白!!');
+                    return;
+                }
+                
+                if(($('#cmbGroupdno').val()=='ODM' || $('#cmbGroupdno').val()=='OEM') && emp($('#txtCustno').val())){
+                	alert('銷售屬性ODM,OEM 客戶編號禁止空白!!');
+                    return;
+                }
+                
                 //檢查表身是否存在NOA
                 var t_nos=-1;
                 for (var i = 0; i < q_bbsCount; i++) {
