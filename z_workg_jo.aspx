@@ -197,11 +197,28 @@
 					var t_fixmount=dec($('#txtFixmount').val());
 					if(isNaN(t_fixmount))
 						t_fixmount=0;
+						
+					var t_worker=$('#txtWorker').val();
+					if(t_woker.length==0){
+						t_woker=r_name;
+					}
+					
+					var t_chkmount2='0';
+					if($('#chkMount2').prop('checked')){
+						t_chkmount2='1';
+					}
+					
+					var t_m2workno='#non';
+					if($('#cmbWorkno').val()!=null){
+						if($('#cmbWorkno').val().length>0){
+							t_m2workno=$('#cmbWorkno').val();
+						}
+					}
 					
 					if($('#txtWorkno').val().substr(1,1).replace(/[^\d]/g,'')!=''){
 						var t_timea=padL(new Date().getHours(), '0', 2)+':'+padL(new Date().getMinutes(),'0',2);
-						q_func('qtxt.query.workg_jo_put', 'z_workg_jo.txt,workg_jo_put,' + encodeURI($('#txtWorkno').val()) + ';'+ encodeURI(t_mount) + ';' + encodeURI(q_date()) + ';' + encodeURI(t_timea) + ';'+ encodeURI(r_accy) + ';' + encodeURI(r_userno) + ';' + encodeURI(r_name) 
-						+ ';' + encodeURI(t_team)+ ';' + encodeURI(t_inmount2)+ ';' + encodeURI(t_wmount)+ ';' + encodeURI(t_fixmount)+ ';' + encodeURI(t_qcmount) );
+						q_func('qtxt.query.workg_jo_put', 'z_workg_jo.txt,workg_jo_put,' + encodeURI($('#txtWorkno').val()) + ';'+ encodeURI(t_mount) + ';' + encodeURI(q_date()) + ';' + encodeURI(t_timea) + ';'+ encodeURI(r_accy) + ';' + encodeURI(r_userno) + ';' + encodeURI(t_woker) 
+						+ ';' + encodeURI(t_team)+ ';' + encodeURI(t_inmount2)+ ';' + encodeURI(t_wmount)+ ';' + encodeURI(t_fixmount)+ ';' + encodeURI(t_qcmount)+';'+t_chkmount2+';'+encodeURI(t_m2workno));
 						$('#div_in').hide();	
 					}else{
 						alert("【"+$('#txtWorkno').val()+"】是模擬製令不得入庫!!");
@@ -211,6 +228,7 @@
 				$('#btnOK2_div_in').click(function() {
 					var t_mount=dec($('#txtBmount').val());
 					var t_team=emp($('#txtTeam').val())?'#non':$('#txtTeam').val();
+					var t_woker=emp($('#txtWorker').val())?r_name:$('#txtWorker').val();
 					if(isNaN(t_mount))
 						t_mount=0;
 					if(t_mount<=0){
@@ -225,7 +243,7 @@
 					
 					if($('#txtWorkno').val().substr(1,1).replace(/[^\d]/g,'')!=''){
 						var t_timea=padL(new Date().getHours(), '0', 2)+':'+padL(new Date().getMinutes(),'0',2);
-						q_func('qtxt.query.workg_jo_pul', 'z_workg_jo.txt,workg_jo_pul,' + encodeURI($('#txtWorkno').val()) + ';'+ encodeURI(t_mount) + ';' + encodeURI(q_date()) + ';' + encodeURI(t_timea) + ';'+ encodeURI(r_accy) + ';' + encodeURI(r_userno) + ';' + encodeURI(r_name) 
+						q_func('qtxt.query.workg_jo_pul', 'z_workg_jo.txt,workg_jo_pul,' + encodeURI($('#txtWorkno').val()) + ';'+ encodeURI(t_mount) + ';' + encodeURI(q_date()) + ';' + encodeURI(t_timea) + ';'+ encodeURI(r_accy) + ';' + encodeURI(r_userno) + ';' + encodeURI(t_woker) 
 						+ ';' + encodeURI(t_team)+ ';' + encodeURI(t_wmemo));
 						$('#div_in').hide();	
 					}else if(dec($('#txtInmount').val())<=0){
@@ -276,6 +294,26 @@
 					var t_report=$('#q_report').data('info').reportData[radind].report;
 					if(t_report=='z_workg_jo03' && $('#frameReport table').length>0 && !emp($('#txtYstation').val())){ //有表再執行
 						updatework();
+					}
+				});
+				
+				//107/05/28 尾箱
+				$('#chkMount2').click(function() {
+					if($('#chkMount2').prop('checked')){
+						$('#cmbWorkno').val('');
+						$('#cmbWorkno').attr('disabled', 'disabled');
+					}else{
+						$('#cmbWorkno').removeAttr('disabled');
+					}
+				});
+				
+				//107/05/28 尾箱補滿
+				$('#cmbWorkno').change(function() {
+					if($('#cmbWorkno').val().length>0){
+						$('#cmbWorkno').prop('checked',false);
+						$('#chkMount2').attr('disabled', 'disabled');
+					}else{
+						$('#chkMount2').removeAttr('disabled');
 					}
 				});
 			}
@@ -359,6 +397,25 @@
 							$('#txtMount').val('');
 							$('#txtBmount').val('');
 							$('#txtWmemo').val('');
+							$('#txtWorker').val(r_name);
+							
+							//107/05/28 尾箱,補滿內容
+							$('#chkMount2').prop('checked',false);
+							$('#cmbWorkno').text('');
+							q_cmbParse("cmbWorkno", '@');
+							if($('#txtWorkno').val().slice(-5)=='-0000'){
+								$('#chkMount2').removeAttr('disabled');
+								$('#cmbWorkno').removeAttr('disabled');
+								
+								q_gt('view_workbs', "where=^^ isnull(mount2,0)>0 ^^", 0, 0, 0, "getm2workno",r_accy,1);
+								var bas = _q_appendData("view_workbs", "", true);
+								var t_item='@';
+								for (var i = 0; i < bas.length; i++) {
+									t_item = t_item + (t_item.length > 0 ? ',' : '') + bas[i].workno+'@'+bas[i].workno+' 尾箱:'+bas[i].mount2;
+								}
+								$('#cmbWorkno').text('');
+								q_cmbParse("cmbWorkno", t_item);
+							}
 							
 							//取得上工段移入數
 							var twork=[];
@@ -419,6 +476,15 @@
 									tr.innerHTML += "<td style='background-color: oldlace;width: 105px;' align='center'>上工段QC數</td>";
 									tr.innerHTML += "<td style='background-color: oldlace;width: 95px;'><input id='in_txtQcmount_"+i+"' class='in_qcmount' style='font-size: medium;width:95%;text-align: right;'></td>";
 									tmp.parentNode.insertBefore(tr,tmp);
+									
+									//107/05/28 增加 退件
+									var tr = document.createElement("tr");
+									tr.id = "in_"+i;
+									tr.innerHTML = "<td style='background-color: oldlace;' align='center'>退件原因</td>";
+									tr.innerHTML += "<td style='background-color: oldlace;'><input id='in_txtWmemo_"+i+"' type='text' style='font-size: medium;width:98%;'/></td>";
+									tr.innerHTML += "<td style='background-color: oldlace;' align='center'>退件數量</td>";
+									tr.innerHTML += "<td style='background-color: oldlace;' colspan='3'><input id='in_txtBmount_"+i+"' class='in_bmount' type='text' style='font-size: medium;width:50%;text-align: right;' /><input type='button' id='in_btnout_"+i+"' class='in_outbtn' value='退件' style='font-size: medium;'></td>";
+									tmp.parentNode.insertBefore(tr,tmp);
 								}
 							}
 							
@@ -436,6 +502,51 @@
 									if(isNaN(t_mount))
 										t_mount=0;
 									$(this).val(t_mount);
+								});
+							});
+							
+							//107/05/28 增加 退件
+							$('.in_bmount').each(function(index) {
+								$(this).change(function() {
+									var t_mount=dec($(this).val());
+									if(isNaN(t_mount))
+										t_mount=0;
+									$(this).val(t_mount);
+								});
+							});
+							$('.in_outbtn').each(function(index) {
+								$(this).click(function() {
+									var n=$(this).attr('id').split('_')[2];
+									var t_mount=dec($('#in_txtBmount_'+n).val());
+									var t_team=emp($('#txtTeam').val())?'#non':$('#txtTeam').val();
+									var t_worker=emp($('#txtWorker').val())?r_name:$('#txtWorker').val();
+									var t_workno=$('#in_txtWorkno_'+n).val();
+									if(t_workno.length==0){
+										return;
+									}
+									
+									if(isNaN(t_mount))
+										t_mount=0;
+									if(t_mount<=0){
+										alert('請輸入退件數量!!')
+										return;
+									}
+									
+									var t_wmemo=$('#in_txtWmemo_'+n).val();
+									if(t_wmemo.length==0){
+										t_wmemo='#non';
+									}
+									
+									if($('#in_txtWorkno_'+n).val().substr(1,1).replace(/[^\d]/g,'')!=''){
+										var t_timea=padL(new Date().getHours(), '0', 2)+':'+padL(new Date().getMinutes(),'0',2);
+										q_func('qtxt.query.workg_jo_pul', 'z_workg_jo.txt,workg_jo_pul,' + encodeURI(t_workno) + ';'+ encodeURI(t_mount) + ';' + encodeURI(q_date()) + ';' + encodeURI(t_timea) + ';'+ encodeURI(r_accy) + ';' + encodeURI(r_userno) + ';' + encodeURI(t_worker) 
+										+ ';' + encodeURI(t_team)+ ';' + encodeURI(t_wmemo));
+										$('#div_in').hide();	
+									}else if(dec($('#in_txtInmount2_'+n).val())<=0){
+										alert("【"+$('#in_txtWorkno_'+n).val()+"】入庫量小於零不得退件!!");
+									}else{
+										alert("【"+$('#in_txtWorkno_'+n).val()+"】是模擬製令不得退件!!");
+									}
 								});
 							});
 							
@@ -522,7 +633,7 @@
 			function workin(workno) {
 				var radind=$('#q_report').data('info').radioIndex;
 				var t_report=$('#q_report').data('info').reportData[radind].report;
-				
+				$('#div_in').hide();
 				if(workno.id.length>0){
 					$('#txtWorkno').val(workno.id);
 					$('#div_in').css('top', $(workno).offset().top+60);
@@ -537,6 +648,13 @@
 						}
 					}
 					
+					//107/05/28 尾箱,補滿內容
+					$('#chkMount2').prop('checked',false);
+					$('#cmbWorkno').text('');
+					q_cmbParse("cmbWorkno", '@');
+					$('#chkMount2').attr('disabled', 'disabled');
+					$('#cmbWorkno').attr('disabled', 'disabled');
+							
 					q_gt('view_work', "where=^^noa='"+workno.id+"'^^", 0, 0, 0, "");
 				}
 			}
@@ -604,7 +722,11 @@
 				<tr>
 					<td style="background-color: #f8d463;" align="center">製品編號</td>
 					<td style="background-color: #f8d463;"><input id="txtProductno" style="font-size: medium;width: 98%;" disabled="disabled"></td>
-					<td style="background-color: aliceblue;" colspan="4"> </td>
+					<!--107/05/28 寫入製單人-->
+					<td style="background-color: #ffddff;width: 105px;" align="center">作業人員</td>
+					<td style="background-color: #ffddff;width: 295px;" colspan="3"><input id="txtWorker" style="font-size: medium;width: 60%;text-align: left;"></td>
+					
+					<!--<td style="background-color: aliceblue;" colspan="4"> </td>-->
 					<!--106/12/18 上工段需明細輸入-->
 					<!--<td style="background-color: #99eeee;width: 105px;" align="center">上工段移入數</td>
 					<td style="background-color: #99eeee;width: 95px;"><input id="txtInmount2" style="font-size: medium;width:95%;text-align: right;"></td>
@@ -614,14 +736,16 @@
 				<tr>
 					<td style="background-color: #f8d463;" align="center">製品名稱</td>
 					<td style="background-color: #f8d463;"><input id="txtProduct" style="font-size: medium;width: 98%;" disabled="disabled"></td>
-					<td style="background-color: #99eeee;" align="center">報廢數</td>
-					<td style="background-color: #99eeee;" colspan="3"><input id="txtWmount" style="font-size: medium;width:50%;text-align: right;"></td>
+					<td style="background-color: aliceblue;" colspan="4"> </td>
+					<!--107/05/28不使用-->
+					<td style="background-color: #99eeee;display: none;" align="center">維修入庫數</td>
+					<td style="background-color: #99eeee;display: none;" colspan="3"><input id="txtFixmount" style="font-size: medium;width:50%;text-align: right;display: none;"></td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">工作線號</td>
 					<td style="background-color: #f8d463;"><input id="txtStationno" style="font-size: medium;width: 98%;" disabled="disabled"></td>
-					<td style="background-color: #99eeee;" align="center">維修入庫數</td>
-					<td style="background-color: #99eeee;" colspan="3"><input id="txtFixmount" style="font-size: medium;width:50%;text-align: right;"></td>
+					<td style="background-color: #99eeee;" align="center">報廢數</td>
+					<td style="background-color: #99eeee;" colspan="3"><input id="txtWmount" style="font-size: medium;width:50%;text-align: right;"></td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">工作線名</td>
@@ -630,13 +754,19 @@
 					<td style="background-color: #99eeee;" colspan="3">
 						<input id="txtMount" style="font-size: medium;width:50%;text-align: right;">
 						<input id="btnOK_div_in" type="button" value="入庫" style="font-size: medium;">
+						<input id="chkMount2" type="checkbox"><a>尾箱</a>
 					</td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">排程數量</td>
 					<td style="background-color: #f8d463;"><input id="txtWorkmount" style="font-size: medium;width: 50%;text-align: right;" disabled="disabled"></td>
-					<td style="background-color: #ffffaa;" align="center">本次退件數量</td>
+					<td style="background-color: #ffffaa;" align="center">尾箱補滿</td>
 					<td style="background-color: #ffffaa;" colspan="3">
+						<select id="cmbWorkno" style="font-size: medium;width:20px;"> </select>
+					</td>
+					<!--107/05/28不使用-->
+					<td style="background-color: #ffffaa;display: none;" align="center">本次退件數量</td>
+					<td style="background-color: #ffffaa;display: none;" colspan="3">
 						<input id="txtBmount" style="font-size: medium;width:50%;text-align: right;">
 						<input id="btnOK2_div_in" type="button" value="退件" style="font-size: medium;">
 					</td>
@@ -644,8 +774,10 @@
 				<tr>
 					<td style="background-color: #f8d463;" align="center">已入庫量</td>
 					<td style="background-color: #f8d463;"><input id="txtInmount" style="font-size: medium;width: 50%;text-align: right;" disabled="disabled"></td>
-					<td style="background-color: #ffffaa;" align="center">退件原因</td>
-					<td style="background-color: #ffffaa;" colspan="3">
+					<td style="background-color: aliceblue;" colspan="4"> </td>
+					<!--107/05/28不使用-->
+					<td style="background-color: #ffffaa;display: none;" align="center">退件原因</td>
+					<td style="background-color: #ffffaa;display: none;" colspan="3">
 						<input id="txtWmemo" style="font-size: medium;width:240px;">
 						<select id="cmbWmemo" style="font-size: medium;width:20px;"> </select>
 					</td>

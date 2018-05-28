@@ -901,7 +901,7 @@
 				if(!emp($('#txtGroupnno').val())){
 					var t_where = "where=^^ noa='"+$('#txtGroupnno').val()+"' ^^";
 					q_gt('adspec', t_where, 0, 0, 0, "",r_accy,1);
-					var as = _q_appendData("adly", "", true);
+					var as = _q_appendData("adspec", "", true);
 					if (as[0] != undefined) {
 						$('#textGroupnmon').val(as[0].mon);
 						$('#textGroupnmemo1').val(as[0].memo1);
@@ -912,7 +912,7 @@
 				if(!emp($('#txtGroupono').val())){
 					var t_where = "where=^^ noa='"+$('#txtGroupono').val()+"' ^^";
 					q_gt('adpro', t_where, 0, 0, 0, "",r_accy,1);
-					var as = _q_appendData("adly", "", true);
+					var as = _q_appendData("adpro", "", true);
 					if (as[0] != undefined) {
 						$('#textGroupomon').val(as[0].mon);
 						$('#textGroupomemo1').val(as[0].memo1);
@@ -923,7 +923,7 @@
 				if(!emp($('#txtGrouppno').val())){
 					var t_where = "where=^^ noa='"+$('#txtGrouppno').val()+"' ^^";
 					q_gt('adoth', t_where, 0, 0, 0, "",r_accy,1);
-					var as = _q_appendData("adly", "", true);
+					var as = _q_appendData("adoth", "", true);
 					if (as[0] != undefined) {
 						$('#textGrouppmon').val(as[0].mon);
 						$('#textGrouppmemo1').val(as[0].memo1);
