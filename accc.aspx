@@ -277,7 +277,6 @@
 		                return;
 		            }
 		        }
-
 		        t_err = q_chkEmpField([['txtAccc3', q_getMsg('lblAccc3')], ['txtAccc2', q_getMsg('lblAccc2')]]);
 		        // 檢查空白
 		        if (t_err.length > 0) {
@@ -285,25 +284,19 @@
 		            alert(t_err);
 		            return;
 		        }
-
 		        sum();
 		        t_err = "";
 		        var td = q_tr('txtDmoney'), s1;
 		        var tc = q_tr('txtCmoney');
 		        var t_type = $('#txtAccc1').val();
-
 		        if (td != tc && t_type == '3')
 		            t_err = t_err + q_getMsg("msgMoneyDC") + dcType[0] + '=' + td + '   ' + dcType[1] + '=' + tc + "\r";
-
 		        if (t_proj == 'rb')
 		            for (var j = 0; j < q_bbsCount; j++) {
 		                if ($.trim($('#txtPart_' + j).val()).length == 0) {
 		                    t_err += '部門空白=' + $('#txtAccc5_' + j).val() + $('#txtAccc6_' + j).val() + ' ' + $('#txtAccc7_' + j).val() + ' ' + $('#txtDmoney_' + j).val() + ' ' + $('#txtCmoney_' + j).val();
 		                }
 		            }
-
-
-
 		        //var i = parseInt($('#combAccc1').val(), 0);
 		        //var s1 = $('#combAccc1')[0][i - 1].innerText.substr(0, 1);
 		        //            if (s1 < '1' || s1 > '3') {
@@ -313,10 +306,7 @@
 		        //$('#txtAccc1').val( s1);
 
 		        $('#txtWorker').val(r_name)
-
-
-
-
+				
 		        //重新設定noq
 		        for (var i = 0; i < q_bbsCount; i++) {
 		            if (!emp($('#txtAccc5_' + i).val()))
@@ -358,9 +348,7 @@
 		    function q_popPost(s2) {
 		        if (s2 == 'txtAccc5_')/// for body
 		            changeDC();
-
-		        if (s2 == 'txtBal_')/// for body
-		        {
+		        if (s2 == 'txtBal_'){/// for body
 		            var s1 = $('#txtAccc5_' + b_seq).val(), s3;
 		            var t_money = $('#txtDmoney_' + b_seq).val();
 		            if (s1.length > 0) {
@@ -532,18 +520,14 @@
 		    }
 
 		    function q_gridvPost() {
-
 		        var t_bno, t_eno, i, j;
 		        t_eno = $('#vtaccc3_0').text();
                 t_bno = $('#vtaccc3_' + (brwCount - 1)).text();
-
-                //興合出現異常
-                if (q_getPara('sys.project').toUpperCase() == 'SH') {
-                } else {
-                    q_func('accc_post.getprt', r_accy + ',' + t_bno + "," + t_eno, r_accy, 1);
-                }
-		        var as = _q_appendData("tmp0", "", true);
-
+                
+                q_func('accc_post.getprt', r_accy + ',' + t_bno + "," + t_eno, r_accy, 1);
+                var as = _q_appendData("tmp0", "", true);
+                
+                
 		        for (i = 0; i < brwCount; i++) {
 		            t_no = $('#vtaccc3_' + i).text();
 		            for (j = 0; j < as.length; j++)
@@ -553,7 +537,6 @@
 		                }
 		        }
 		    }
-
 		    function q_boxClose(s2) {///   q_boxClose 2/4 /// 查詢視窗、廠商視窗、採購視窗  關閉時執行
 		        var ret;
 		        switch (b_pop) {/// 重要：不可以直接 return ，最後需執行 originalClose();
@@ -565,13 +548,11 @@
 		                    b_ret = getb_ret();
 		                    if (!b_ret || b_ret.length == 0)
 		                        return;
-
 		                    if (b_seq < 0 || b_seq >= q_bbsCount)
-		                        ;
+		                        //;
 		                    $('#txtAccc7_' + b_seq).val(b_ret[0].phr);
 		                }
 		                break;
-
 		            case q_name + '_s':
 		                q_boxClose2(s2);
 		                ///   q_boxClose 3/4
@@ -615,11 +596,8 @@
 		        q_modiDate = r_accy + '/' + abbm[q_recno]['accc2'];
 		        if (q_chkClose())
 		            return;
-
 		        _btnModi();
-
 		        chg_accc1();
-
 		        $('#txtAccc1').attr('disabled', 'disabled');
 		        $('#txtAccc2').focus();
 		    }
@@ -630,21 +608,17 @@
 
 		    function wrServer(key_value) {
 		        var i;
-
 		        $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 		        _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
 		    }
 
 		    function bbsSave(as) {/// 表身 寫入資料庫前，寫入需要欄位
 		        var t_dmoney = dec(as['dmoney']), t_cmoney = dec(as['cmoney']);
-
 		        if (!as['accc5'] && !as['accc6'] && t_dmoney == 0 && t_cmoney == 0) {//不存檔條件
 		            as[bbsKey[1]] = '';
 		            /// no2 為空，不存檔
 		            return;
 		        }
-
-
 		        q_nowf();
 
 		        as['accc1'] = abbm2['accc1'];
@@ -656,7 +630,6 @@
 
 		        if (sys_proj == 'rk')
 		            return true;
-
 		        t_err = '';
 
 		        var s1 = as['accc5'] + as['accc6'] + as['accc7'] + as['accc8'] + '\n';
@@ -1011,14 +984,14 @@
 						<tr>
 							<td class="style1"  align="right"><a id='lblAccc1'> </a></td>
 							<td class="style3" >
-							<input id="txtAccc1" maxlength='20' type="text"  style='width:7%;'/>
-							<select id="combAccc1" style='width:85%;font-size: medium;' />
+								<input id="txtAccc1" maxlength='20' type="text"  style='width:7%;'/>
+								<select id="combAccc1" style='width:85%;font-size: medium;'/>
 							</td>
 							<td class="style1" align="right" ><a id='lblYear'> </a></td>
 							<td class="style2" align='left' ><a id='tYear'> </a></td>
 							<td class="style1" align="right"><a id='lblAcuser'> </a></td>
-							<td class="style2" ><select id="combAcuser" style='width:100%; font-size:medium'></select></td>
-                            <td class="tdProj" style='width:15%;'></td>
+							<td class="style2" ><select id="combAcuser" style='width:100%; font-size:medium'> </select></td>
+                            <td class="tdProj" style='width:15%;'> </td>
 						</tr>
 						<tr>
 							<td class="style1" align="right" ><a id='lblAccc2'> </a></td>
@@ -1042,35 +1015,23 @@
 							<input id="txtWorker"  type="text"  maxlength='20'style='width:97%; text-align:center;'/>
 							</td>
 							<td class="style1"><a id='lblChecker'> </a></td>
-							<td class="style2">
-							<input id="txtChecker"  type="text"  maxlength='20'style='width:97%; text-align:center;'/>
-							</td>
+							<td class="style2"><input id="txtChecker" type="text" maxlength='20' style="width:97%;text-align:center;"/></td>
 							<td class="style1"><a id='lblCmoney'> </a></td>
-							<td class="style2" >
-							<input id="txtCmoney" type="text"  maxlength='30'   style='width:97%;text-align:right;'/>
-							</td>
-                            <td class="tdProj" ></td>
+							<td class="style2"><input id="txtCmoney" type="text" maxlength='30' style='width:97%;text-align:right;'/></td>
+                            <td class="tdProj"> </td>
 						</tr>
 
 						<tr>
 							<td class="style1"><a id='lblZno'> </a></td>
-							<td class="style3" >
-							<input id="txtZno"  type="text"  maxlength='20'style='width:97%; text-align:center;'/>
-							</td>
+							<td class="style3"><input id="txtZno" type="text" maxlength='20' style='width:97%; text-align:center;'/></td>
 							<td class="style1"><a id='lblCno'> </a></td>
-							<td class="style2">
-							<input id="txtCno"  type="text"  maxlength='20'style='width:97%; text-align:center;'/>
-							</td>
+							<td class="style2"><input id="txtCno" type="text" maxlength='20' style='width:97%; text-align:center;'/></td>
 							<td class="style1"><a id='lblLok'> </a></td>
 							<td >
-							<input id="chkLok" type="checkbox"  style='width:10%;float:left'/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <input id="txtPart"  type="hidden" />
+								<input id="chkLok" type="checkbox"  style='width:10%;float:left'/>
+                            	&nbsp;&nbsp;&nbsp;&nbsp;<input id="txtPart"  type="hidden" />
 							</td>
-                           <td class="tdProj" >
-                           <a id='lblProj'></a>
-							<input id="txtProj" type="text"  style='width:50%;'/>
-                           </td>
+                           <td class="tdProj"><a id='lblProj'> </a><input id="txtProj" type="text" style='width:50%;'/></td>
 						</tr>
 					</table>
 					<input id="text_Noq"  type="hidden" class="txt c1"/>	
@@ -1097,45 +1058,31 @@
 						<td align="center" style="width:4%;"><a id='lblFloata'> </a></td>--%>
 					</tr>
 					<tr  style='background:#cad3ff;'>
-						<td >
-						<input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" />
-                        </td>
-                        <td ><input class="txt" id="txtNoq.*" type="text"  style=" width:75%;"/></td>
+						<td><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;"/></td>
+                        <td><input class="txt" id="txtNoq.*" type="text"  style=" width:75%;"/></td>
                         <td class="tdProj" style="">
-						<input class="btn"  id="btnProj" type="button" value='.' style=" width:5%;font-weight: bold; " />
-						<input class="txt" id="txtProj.*" type="text" maxlength='90' style="width:80%; " />
+							<input class="btn"  id="btnProj" type="button" value='.' style=" width:5%;font-weight: bold; " />
+							<input class="txt" id="txtProj.*" type="text" maxlength='90' style="width:80%; " />
 						</td>
 						<td>
-						<input class="btn"  id="btnPart.*" type="button" value='.' style="width:5%; font-weight: bold; " />
-						<input class="txt" id="txtPart.*" type="text" maxlength='90' style="width:55%; " />
+							<input class="btn"  id="btnPart.*" type="button" value='.' style="width:5%; font-weight: bold; " />
+							<input class="txt" id="txtPart.*" type="text" maxlength='90' style="width:55%; " />
 						</td>
 						<td >
-						<input class="btn"  id="btnAcc.*" type="button" value='.' style="width:5%; font-weight: bold;" />
-						<input class="txt" id="txtAccc5.*" type="text" maxlength='90' style="width:78%;" />
+							<input class="btn"  id="btnAcc.*" type="button" value='.' style="width:5%; font-weight: bold;" />
+							<input class="txt" id="txtAccc5.*" type="text" maxlength='90' style="width:78%;" />
 						</td>
-						<td >
-						<input class="txt" id="txtAccc6.*" type="text" style="width:97%;"/>
-						</td>
+						<td><input class="txt" id="txtAccc6.*" type="text" style="width:97%;"/></td>
 						<td style="text-align:center;" >
-						<input class="txt" id="txtAccc7.*" type="text" style="width:90%;"/>
-						<input class="btn"  id="btnQphr.*" type="button" value='.'  />
-						<input class="txt" id="txtBal.*" type="text" style="width:80%; text-align:center; display:none"/>
+							<input class="txt" id="txtAccc7.*" type="text" style="width:90%;"/>
+							<input class="btn"  id="btnQphr.*" type="button" value='.'  />
+							<input class="txt" id="txtBal.*" type="text" style="width:80%; text-align:center; display:none"/>
 						</td>
-						<td class='tdMoney'>
-						<input class="txt" id="txtDmoney.*" type="text" maxlength='20' style="width:97%; text-align:right;"/>
-						</td>
-						<td class='tcMoney'>
-						<input class="txt" id="txtCmoney.*" type="text" maxlength='20' style="width:97%; text-align:right;"/>
-						</td>
-          <%--             <td>
-						<input class="txt" id="txtCno.*" type="text" maxlength='90' style="width:97%;"/>
-						</td>
-						 <td >
-						<input class="txt" id="txtCoin.*" type="text" maxlength='90' style="width:97%;"/>
-						</td>
-						<td >
-						<input class="txt" id="txtFloata.*" type="text" maxlength='90' style="width:97%;text-align:right;"/>
-						</td>--%>
+						<td class='tdMoney'><input class="txt" id="txtDmoney.*" type="text" maxlength='20' style="width:97%; text-align:right;"/></td>
+						<td class='tcMoney'><input class="txt" id="txtCmoney.*" type="text" maxlength='20' style="width:97%; text-align:right;"/></td>
+          <%--          <td><input class="txt" id="txtCno.*" type="text" maxlength='90' style="width:97%;"/></td>
+						 <td><input class="txt" id="txtCoin.*" type="text" maxlength='90' style="width:97%;"/></td>
+						<td><input class="txt" id="txtFloata.*" type="text" maxlength='90' style="width:97%;text-align:right;"/></td>--%>
 					</tr>
 				</table>
 			</div>
