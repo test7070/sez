@@ -762,7 +762,7 @@
 					<td style="background-color: #f8d463;"><input id="txtWorkmount" style="font-size: medium;width: 50%;text-align: right;" disabled="disabled"></td>
 					<td style="background-color: #ffffaa;" align="center">尾箱補滿</td>
 					<td style="background-color: #ffffaa;" colspan="3">
-						<select id="cmbWorkno" style="font-size: medium;width:20px;"> </select>
+						<select id="cmbWorkno" style="font-size: medium;"> </select>
 					</td>
 					<!--107/05/28不使用-->
 					<td style="background-color: #ffffaa;display: none;" align="center">本次退件數量</td>
