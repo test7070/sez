@@ -199,8 +199,8 @@
 						t_fixmount=0;
 						
 					var t_worker=$('#txtWorker').val();
-					if(t_woker.length==0){
-						t_woker=r_name;
+					if(t_worker.length==0){
+						t_worker=r_name;
 					}
 					
 					var t_chkmount2='0';
@@ -217,7 +217,7 @@
 					
 					if($('#txtWorkno').val().substr(1,1).replace(/[^\d]/g,'')!=''){
 						var t_timea=padL(new Date().getHours(), '0', 2)+':'+padL(new Date().getMinutes(),'0',2);
-						q_func('qtxt.query.workg_jo_put', 'z_workg_jo.txt,workg_jo_put,' + encodeURI($('#txtWorkno').val()) + ';'+ encodeURI(t_mount) + ';' + encodeURI(q_date()) + ';' + encodeURI(t_timea) + ';'+ encodeURI(r_accy) + ';' + encodeURI(r_userno) + ';' + encodeURI(t_woker) 
+						q_func('qtxt.query.workg_jo_put', 'z_workg_jo.txt,workg_jo_put,' + encodeURI($('#txtWorkno').val()) + ';'+ encodeURI(t_mount) + ';' + encodeURI(q_date()) + ';' + encodeURI(t_timea) + ';'+ encodeURI(r_accy) + ';' + encodeURI(r_userno) + ';' + encodeURI(t_worker) 
 						+ ';' + encodeURI(t_team)+ ';' + encodeURI(t_inmount2)+ ';' + encodeURI(t_wmount)+ ';' + encodeURI(t_fixmount)+ ';' + encodeURI(t_qcmount)+';'+t_chkmount2+';'+encodeURI(t_m2workno));
 						$('#div_in').hide();	
 					}else{
@@ -228,7 +228,7 @@
 				$('#btnOK2_div_in').click(function() {
 					var t_mount=dec($('#txtBmount').val());
 					var t_team=emp($('#txtTeam').val())?'#non':$('#txtTeam').val();
-					var t_woker=emp($('#txtWorker').val())?r_name:$('#txtWorker').val();
+					var t_worker=emp($('#txtWorker').val())?r_name:$('#txtWorker').val();
 					if(isNaN(t_mount))
 						t_mount=0;
 					if(t_mount<=0){
@@ -243,7 +243,7 @@
 					
 					if($('#txtWorkno').val().substr(1,1).replace(/[^\d]/g,'')!=''){
 						var t_timea=padL(new Date().getHours(), '0', 2)+':'+padL(new Date().getMinutes(),'0',2);
-						q_func('qtxt.query.workg_jo_pul', 'z_workg_jo.txt,workg_jo_pul,' + encodeURI($('#txtWorkno').val()) + ';'+ encodeURI(t_mount) + ';' + encodeURI(q_date()) + ';' + encodeURI(t_timea) + ';'+ encodeURI(r_accy) + ';' + encodeURI(r_userno) + ';' + encodeURI(t_woker) 
+						q_func('qtxt.query.workg_jo_pul', 'z_workg_jo.txt,workg_jo_pul,' + encodeURI($('#txtWorkno').val()) + ';'+ encodeURI(t_mount) + ';' + encodeURI(q_date()) + ';' + encodeURI(t_timea) + ';'+ encodeURI(r_accy) + ';' + encodeURI(r_userno) + ';' + encodeURI(t_worker) 
 						+ ';' + encodeURI(t_team)+ ';' + encodeURI(t_wmemo));
 						$('#div_in').hide();	
 					}else if(dec($('#txtInmount').val())<=0){
