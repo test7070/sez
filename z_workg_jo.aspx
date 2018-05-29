@@ -407,7 +407,7 @@
 								$('#chkMount2').removeAttr('disabled');
 								$('#cmbWorkno').removeAttr('disabled');
 								
-								q_gt('view_workbs', "where=^^ isnull(mount2,0)>0 ^^", 0, 0, 0, "getm2workno",r_accy,1);
+								q_gt('view_workbs', "where=^^ isnull(mount2,0)>0 and exists (select * from view_work a left join view_orde b on a.ordeno=b.noa where isnull(b.enda,0)!=1 and isnull(b.cancel,0)!=1  and view_workbs"+r_accy+".workno=a.noa) ^^", 0, 0, 0, "getm2workno",r_accy,1);
 								var bas = _q_appendData("view_workbs", "", true);
 								var t_item='@';
 								for (var i = 0; i < bas.length; i++) {
