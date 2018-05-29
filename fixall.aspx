@@ -18,7 +18,7 @@
 		    function onPageError(error) {
 		        alert("An error occurred:\r\n" + error.Message);
 		    }
-
+			q_copy=1;
 		    q_tables = 's';
 		    var q_name = "fixall";
 		    var q_readonly = ['txtNoa', 'txtWmoney', 'txtCmoney', 'txtDmoney', 'txtEmoney','txtMoney','txtTax', 'txtDiscount', 'txtTotal','txtWorker','txtWorker2'];
