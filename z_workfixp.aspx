@@ -18,49 +18,33 @@
 			$(document).ready(function() {
 				_q_boxClose();
 				q_getId();
-				q_gf('', 'z_workap');
+				q_gf('', 'z_workfixp');
 			});
 			function q_gfPost() {
 				$('#q_report').q_report({
-					fileName : 'z_workap',
+					fileName : 'z_workfixp',
 					options : [{
 						type : '0',
 						name : 'accy',
 						value : q_getId()[4] //[1]
 					}, {
 						type : '1', //[2][3]
-						name : 'date'
-					}, {
-						type : '6', //[4]
-						name : 'xnoa'
-					}, {
-						type : '8', //[5]
-						name : 'xmerger',
-						value : '合併原料'.split(',')
-					}, {
-						type : '1', //[6][7]
 						name : 'xdate'
 					}, {
-						type : '2', //[8][9]
+						type : '1', //[4][5]
+						name : 'xnoa'
+					}, {
+						type : '2', //[6][7]
 						name : 'xstationno',
 						dbf : 'station',
 						index : 'noa,station',
 						src : 'station_b.aspx'
 					}, {
-						type : '2', //[10][11]
-						name : 'xstoreno',
-						dbf : 'store',
-						index : 'noa,store',
-						src : 'store_b.aspx'
-					}, {
-						type : '2', //[12][13]
-						name : 'xproductno',
-						dbf : 'ucaucc',
-						index : 'noa,product',
-						src : 'ucaucc_b.aspx'
-					}, {
-						type : '1', //[14][15]
-						name : 'tnoa'
+						type : '2', //[8][9]
+						name : 'xtggno',
+						dbf : 'tgg',
+						index : 'noa,nick',
+						src : 'tgg_b.aspx'
 					}]
 				});
 				q_popAssign();
@@ -70,36 +54,25 @@
                 	$.datepicker.r_len=4;
 					//$.datepicker.setDefaults($.datepicker.regional["ENG"]);
                 }
-				$('#txtDate1').mask(r_picd);
-				$('#txtDate1').datepicker();
-				$('#txtDate2').mask(r_picd);
-				$('#txtDate2').datepicker();
+				
 				$('#txtXdate1').mask(r_picd);
 				$('#txtXdate1').datepicker();
 				$('#txtXdate2').mask(r_picd);
 				$('#txtXdate2').datepicker();
-				$('.q_report .option:first').css('width','700px')
-				$('#Xproductno').css('width','690px');
-				$('#Xproductno .c2').css('width','130px');
-				$('#Xproductno .c3').css('width','130px');
-
-				$('#txtDate1').val(q_date().substr(0,r_lenm)+'/01');
-	            $('#txtDate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1));
+				
 				$('#txtXdate1').val(q_date().substr(0,r_lenm)+'/01');
 	            $('#txtXdate2').val(q_cdn(q_cdn(q_date().substr(0,r_lenm)+'/01',45).substr(0,r_lenm)+'/01',-1));
 				
 				var t_key = q_getHref();
 				if (t_key != undefined){
-					$('#txtXnoa').val(t_key[1]);
-					$('#txtTnoa1').val(t_key[1]);
-					$('#txtTnoa2').val(t_key[1]);
+					$('#txtXnoa1').val(t_key[1]);
+					$('#txtXnoa2').val(t_key[1]);
 				}
 				
 				if(!(q_getPara('sys.project').toUpperCase()=='JO'|| q_getPara('sys.project').toUpperCase()=='AD')){
 					for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
 						if(
-                        	$('#q_report').data().info.reportData[i].report=='z_workap_jo01' //領料出庫單
-                        	//|| $('#q_report').data().info.reportData[i].report=='z_workap_jo02'  //補(退)料通知單 107/05/25 拿掉 非立即扣料所以將內容做再workfix 報表也移至z_workfixp
+                        	$('#q_report').data().info.reportData[i].report=='z_workfixp_jo01' //補(退)料通知單
 						){
 							$('#q_report div div').eq(i).hide();
 						}
@@ -118,10 +91,10 @@
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
-		<div id="q_menu"></div>
+		<div id="q_menu"> </div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">
-				<div id="q_report"></div>
+				<div id="q_report"> </div>
 			</div>
 			<div class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->

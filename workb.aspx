@@ -990,7 +990,7 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 2275px;">
+		<div class='dbbs' style="width: 2200px;">
 			<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1' >
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:20px;"><input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" /></td>
@@ -1007,7 +1007,7 @@
 					<td align="center" style="width:80px;"><a id='lblWmount'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblInmount_s'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblQcmount_s'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblFixmount_s'> </a></td>
+					<!--<td align="center" style="width:80px;"><a id='lblFixmount_s'> </a></td>--><!--107/05/28隱藏-->
 					<td align="center" style="width:200px;"><a id='lblStores'> </a></td>
 					<td align="center" ><a id='lblMemos'> </a></td>
 					<!--<td align="center" style="width:45px;"><a id='lblEnda'> </a></td>-->
@@ -1039,7 +1039,7 @@
 					<td><textarea id="txtPrevqc.*" class="txt c1" style="height:45px;"> </textarea></td>
 					<!--106/12/18 改為存字串 內存上一階層的內容-->
 					<!--<td><input id="txtInmount.*" type="text" class="txt c1 num"/></td>-->
-					<td><input id="txtFixmount.*" type="text" class="txt c1 num"/></td>
+					<!--<td><input id="txtFixmount.*" type="text" class="txt c1 num"/></td>--><!--107/05/28隱藏-->
 					<td>
 						<input class="btn" id="btnStore.*" type="button" value='.' style="width:1%;float: left;" />
 						<input id="txtStoreno.*" type="text" class="txt c2" style="width: 33%;"/>
