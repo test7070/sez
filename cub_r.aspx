@@ -1396,7 +1396,7 @@
 			.dview {
 				float: left;
 				border-width: 0px;
-				width: 360px;
+				width: 420px;
 			}
 			.tview {
 				border: 5px solid gray;
@@ -1555,20 +1555,23 @@
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' style="overflow:hidden;width: 1950px;">
 			<div class="dview" id="dview" >
-				<table class="tview" id="tview" >
+				<!--107/05/29 調整內容-->
+				<table class="tview" id="tview" style="word-break:break-all;">
 					<tr>
 						<td style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td style="width:100px; color:black;"><a id='vewNoa_r'>樣品單號 </a></td>
-						<td style="width:100px; color:black;"><a id='vewSpec'>型號</a></td>
-						<td style="width:120px; color:black;"><a id='vewComp'> </a></td>
-						<td style="width:100px; color:black;"><a id='vewIssuedate'> </a></td>
+						<td style="width:110px; color:black;"><a id='vewUcxno2_r'>貿易銷售<BR>件號 </a></td>
+						<td style="width:80px; color:black;"><a id='vewComp'> </a></td>
+						<td style="width:90px; color:black;"><a id='vewIssuedate'> </a></td>
+						<td style="width:110px; color:black;"><a id='vewNoa_r'>樣品單號 </a></td>
+						<!--<td style="width:100px; color:black;"><a id='vewSpec'>型號</a></td>-->
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
-						<td id='noa' style="text-align: center;">~noa</td>
-						<td id='spec' style="text-align: center;">~spec</td>
+						<td id='ucxno2' style="text-align: center;">~ucxno2</td>
 						<td id='comp,6' style="text-align: center;">~comp,6</td>
 						<td id='issuedate' style="text-align: center;">~issuedate</td>
+						<td id='noa' style="text-align: center;">~noa</td>
+						<!--<td id='spec' style="text-align: center;">~spec</td>-->
 					</tr>
 				</table>
 			</div>

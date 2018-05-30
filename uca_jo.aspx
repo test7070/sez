@@ -567,10 +567,24 @@
                 var t_prdouct='';
                 if(!emp($('#txtSpec').val()))
                     t_prdouct=t_prdouct+(t_prdouct.length>0?',':'')+'型號:'+$('#txtSpec').val();
+                if(!emp($('#txtGroupjno').val()))
+                    t_prdouct=t_prdouct+(t_prdouct.length>0?',':'')+'皮料1:'+$('#textGroupjmon').val();
+                if(!emp($('#txtGroupkno').val()))
+                    t_prdouct=t_prdouct+(t_prdouct.length>0?',':'')+'皮料2:'+$('#textGroupkmon').val();
+                if(!emp($('#txtGrouplno').val()))
+                    t_prdouct=t_prdouct+(t_prdouct.length>0?',':'')+'皮料3:'+$('#textGrouplmon').val();
+                if(!emp($('#txtGroupmno').val()))
+                    t_prdouct=t_prdouct+(t_prdouct.length>0?',':'')+'皮料4:'+$('#textGroupmmon').val();
                 if(!emp($('#txtGroupeno').val()))
                     t_prdouct=t_prdouct+(t_prdouct.length>0?',':'')+'車縫:'+$('#textGroupemon').val();
+                if(!emp($('#txtGroupnno').val()))
+                    t_prdouct=t_prdouct+(t_prdouct.length>0?',':'')+'車縫線顏色:'+$('#textGroupnmon').val();
                 if(!emp($('#txtGroupfno').val()))
                     t_prdouct=t_prdouct+(t_prdouct.length>0?',':'')+'護片:'+$('#textGroupfmon').val();
+                if(!emp($('#txtGroupono').val()))
+                    t_prdouct=t_prdouct+(t_prdouct.length>0?',':'')+'轉印:'+$('#textGroupomon').val();
+                if(!emp($('#txtGrouppno').val()))
+                    t_prdouct=t_prdouct+(t_prdouct.length>0?',':'')+'網烙印:'+$('#textGrouppmon').val();
                 if(!emp($('#txtGroupgno').val()))
                     t_prdouct=t_prdouct+(t_prdouct.length>0?',':'')+'大弓:'+$('#textGroupgmon').val();
                 if(!emp($('#txtGrouphno').val()))
@@ -581,16 +595,30 @@
                 var t_engpro='';
                 if(!emp($('#txtSpec').val()))
                     t_engpro=t_engpro+(t_engpro.length>0?',':'')+'型號:'+$('#txtSpec').val();
+                if(!emp($('#txtGroupjno').val()))
+                    t_engpro=t_engpro+(t_engpro.length>0?',':'')+'皮料1:'+$('#textGroupjmemo1').val();
+                if(!emp($('#txtGroupkno').val()))
+                    t_engpro=t_engpro+(t_engpro.length>0?',':'')+'皮料2:'+$('#textGroupkmemo1').val();
+                if(!emp($('#txtGrouplno').val()))
+                    t_engpro=t_engpro+(t_engpro.length>0?',':'')+'皮料3:'+$('#textGrouplmemo1').val();
+                if(!emp($('#txtGroupmno').val()))
+                    t_engpro=t_engpro+(t_engpro.length>0?',':'')+'皮料4:'+$('#textGroupmmemo1').val();
                 if(!emp($('#txtGroupeno').val()))
-                    t_engpro=t_engpro+(t_engpro.length>0?',':'')+'車縫:'+$('#textGroupemon').val();
+                    t_engpro=t_engpro+(t_engpro.length>0?',':'')+'車縫:'+$('#textGroupememo1').val();
+                if(!emp($('#txtGroupnno').val()))
+                    t_engpro=t_engpro+(t_engpro.length>0?',':'')+'車縫線顏色:'+$('#textGroupnmemo1').val();
                 if(!emp($('#txtGroupfno').val()))
-                    t_engpro=t_engpro+(t_engpro.length>0?',':'')+'護片:'+$('#textGroupfmon').val();
+                    t_engpro=t_engpro+(t_engpro.length>0?',':'')+'護片:'+$('#textGroupfmemo1').val();
+                if(!emp($('#txtGroupono').val()))
+                    t_engpro=t_prdouct+(t_engpro.length>0?',':'')+'轉印:'+$('#textGroupomemo1').val();
+                if(!emp($('#txtGrouppno').val()))
+                    t_engpro=t_prdouct+(t_engpro.length>0?',':'')+'網烙印:'+$('#textGrouppmemo1').val();
                 if(!emp($('#txtGroupgno').val()))
-                    t_engpro=t_engpro+(t_engpro.length>0?',':'')+'大弓:'+$('#textGroupgmon').val();
+                    t_engpro=t_engpro+(t_engpro.length>0?',':'')+'大弓:'+$('#textGroupgmemo1').val();
                 if(!emp($('#txtGrouphno').val()))
-                    t_engpro=t_engpro+(t_engpro.length>0?',':'')+'中束:'+$('#textGrouphmon').val();
+                    t_engpro=t_engpro+(t_engpro.length>0?',':'')+'中束:'+$('#textGrouphmemo1').val();
                 if(!emp($('#txtGroupino').val()))
-                    t_engpro=t_engpro+(t_engpro.length>0?',':'')+'座管:'+$('#textGroupimon').val();
+                    t_engpro=t_engpro+(t_engpro.length>0?',':'')+'座管:'+$('#textGroupimemo1').val();
                 
                 $('#txtProduct').val(t_prdouct);
                 $('#txtEngpro').val(t_engpro);
@@ -1184,7 +1212,7 @@
 				if(!emp($('#txtGroupnno').val())){
 					var t_where = "where=^^ noa='"+$('#txtGroupnno').val()+"' ^^";
 					q_gt('adspec', t_where, 0, 0, 0, "",r_accy,1);
-					var as = _q_appendData("adly", "", true);
+					var as = _q_appendData("adspec", "", true);
 					if (as[0] != undefined) {
 						$('#textGroupnmon').val(as[0].mon);
 						$('#textGroupnmemo1').val(as[0].memo1);
@@ -1195,7 +1223,7 @@
 				if(!emp($('#txtGroupono').val())){
 					var t_where = "where=^^ noa='"+$('#txtGroupono').val()+"' ^^";
 					q_gt('adpro', t_where, 0, 0, 0, "",r_accy,1);
-					var as = _q_appendData("adly", "", true);
+					var as = _q_appendData("adpro", "", true);
 					if (as[0] != undefined) {
 						$('#textGroupomon').val(as[0].mon);
 						$('#textGroupomemo1').val(as[0].memo1);
@@ -1206,7 +1234,7 @@
 				if(!emp($('#txtGrouppno').val())){
 					var t_where = "where=^^ noa='"+$('#txtGrouppno').val()+"' ^^";
 					q_gt('adoth', t_where, 0, 0, 0, "",r_accy,1);
-					var as = _q_appendData("adly", "", true);
+					var as = _q_appendData("adoth", "", true);
 					if (as[0] != undefined) {
 						$('#textGrouppmon').val(as[0].mon);
 						$('#textGrouppmemo1').val(as[0].memo1);

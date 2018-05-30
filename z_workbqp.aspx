@@ -99,7 +99,8 @@
                         	$('#q_report').data().info.reportData[i].report=='z_workbqp_jo01' || //編皮生產日報表
                         	$('#q_report').data().info.reportData[i].report=='z_workbqp_jo02' || //編皮檢驗日報表
                         	$('#q_report').data().info.reportData[i].report=='z_workbqp_jo03' || //包裝生產日報表
-                        	$('#q_report').data().info.reportData[i].report=='z_workbqp_jo04' //包裝生產日報表
+                        	$('#q_report').data().info.reportData[i].report=='z_workbqp_jo04' || //報廢單
+                        	$('#q_report').data().info.reportData[i].report=='z_workbqp_jo05' //可用尾箱明細表
 						){
 							$('#q_report div div').eq(i).hide();
 						}
