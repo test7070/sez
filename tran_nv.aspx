@@ -36,9 +36,9 @@
             , ['txtCaseno_', 'btnCaseno_', 'store', 'noa,store', 'txtCaseno_', 'store_b.aspx']
             , ['txtTggno_', 'btnTgg_', 'tgg', 'noa,comp', 'txtTggno_,txtTgg_', 'tgg_b.aspx']
             , ['txtUccno_', 'btnProduct_', 'ucc', 'noa,product', 'txtUccno_,txtProduct_', 'ucc_b.aspx']
-            , ['txtStraddrno_', 'btnStraddr_', 'addr', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr_b.aspx']
+            , ['txtStraddrno_', 'btnStraddr_', 'addr', 'noa,addr,miles', 'txtStraddrno_,txtStraddr_,txtMiles_', 'addr_b.aspx']
             , ['txtCustno_', 'btnCust_', 'cust', 'noa,comp,nick,addr_home,memo2,salesno2,typea,custno2,mprice', 'txtCustno_,txtComp_,txtNick_,txtSaddr_,txtAaddr_,txtCaseno2_,cmbUnit2_,cmbStatus_,textOverh_', 'cust_b.aspx']
-            , ['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx']
+            , ['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver,carbono', 'txtCarno_,txtDriverno_,txtDriver_,txtCardealno_', 'car2_b.aspx']
             , ['txtDriver_', 'btnDriver_', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx']
             , ['txtCardealno_', 'btnCardeal_', 'carplate', 'noa', 'txtCardealno_', 'carplate_b.aspx']);
 
@@ -254,8 +254,8 @@
             	for(var i=0;i<q_bbsCount;i++){
             			if(($('#txtPton_' + i).val()>0.3) && ($('#txtUnit_' + i).val()=='噸' || $('#txtUnit_' + i).val().toUpperCase()=='T') && emp($('#txtMemo_' + i).val())){
 							$('#txtMemo_' + i).val('出廠-到廠淨重超過0.3t'+$('#txtMemo_' + i).val());
-						}else if(($('#txtPton_' + i).val()<0.3) && !emp($('#txtMemo_' + i).val())){
-							$('#txtMemo_' + i).val($('#txtMemo_' + i).val());
+						}else if(($('#txtPton_' + i).val()<0.3) && $('#txtMemo_' + i).val()=='出廠-到廠淨重超過0.3t'){
+							$('#txtMemo_' + i).val('');
 						}else{
 							$('#txtMemo_' + i).val($('#txtMemo_' + i).val());
 						}
