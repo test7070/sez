@@ -347,7 +347,7 @@
                     q_box("sall.aspx?;;;", 'sall', "95%", "95%", q_getMsg("popSall"));
 				});
 				
-				if (q_getPara('sys.project').toUpperCase()=='JS'){
+				if (q_getPara('sys.project').toUpperCase()=='JS' || q_getPara('sys.project').toUpperCase()=='VO'){
 					$('#btnSall').show();
 					$('#btnUploadimg').show();
 				}

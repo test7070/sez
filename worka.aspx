@@ -120,23 +120,6 @@
 				$('#btnClose_div_stk').click(function() {
 					$('#div_stk').toggle();
 				});
-				
-				$('#cmbTypea').change(function() {
-					if(q_getPara('sys.project').toUpperCase()=='JO'|| q_getPara('sys.project').toUpperCase()=='AD'){
-						$('#combMold').text('');
-						if($('#cmbTypea').val()=='1'){
-							q_cmbParse("combMold", '1@正常發料,2@本單位製程損耗 khaáu hao QTSXÑV,3@前單位轉來之不良品 haøng keùm phaåm do khaâu tröôùc chuyeån');
-						}else{
-							q_cmbParse("combMold", '4@前部溢交 VL dö khaâu tröôùc,5@本單位溢料 VL dö ñôn vò');
-						}
-						$('#combMold').change();
-					}
-				});
-				
-				$('#combMold').change(function() {
-					if(q_cur==1 || q_cur==2)
-						$('#txtMold').val($('#combMold').val());
-				});
 			}
 
 			function getInStr(HasNoaArray) {
@@ -808,15 +791,6 @@
 				} else {
 					$('#txtNoa').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
 				}
-				
-				if(!(q_getPara('sys.project').toUpperCase()=='JO'|| q_getPara('sys.project').toUpperCase()=='AD')){
-					$('.JO').hide();
-				}else{
-					$('#lblMemo').text('加工/處理方式');
-					$('#cmbTypea').change();
-					$('#lblMold_jo').text('補(退)料原因');
-					$('.JO').show();
-				}
 			}
 
 			function readonly(t_para, empty) {
@@ -825,12 +799,10 @@
 					$('#btnWork').attr('disabled', 'disabled');
 					$('#btnWorks').attr('disabled', 'disabled');
 					$('#btnOrdes').attr('disabled', 'disabled');
-					$('#combMold').attr('disabled', 'disabled');
 				} else {
 					$('#btnWork').removeAttr('disabled');
 					$('#btnWorks').removeAttr('disabled');
 					$('#btnOrdes').removeAttr('disabled');
-					$('#combMold').removeAttr('disabled');
 				}
 				HideField();
 			}
@@ -1134,13 +1106,6 @@
 							<input type="button" id="btnWork">
 							<input type="button" id="btnWorks">
 							<input type="button" id="btnOrdes">
-						</td>
-					</tr>
-					<tr class="JO" style="display: none;">
-						<td><span> </span><a id='lblMold_jo' class="lbl"> </a></td>
-						<td>
-							<input id="txtMold" type="hidden"/>
-							<select id="combMold" class="txt c1"> </select>
 						</td>
 					</tr>
 					<tr>

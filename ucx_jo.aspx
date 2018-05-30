@@ -23,7 +23,11 @@
 			var decbbs = ['weight', 'uweight', 'price'];
 			var decbbm = ['weight', 'hours', 'pretime', 'mount', 'wages', 'makes'/*, 'mechs', 'trans'*/, 'molds', 'packs', 'uweight', 'price'];
 			var decbbt = [];
-			var q_readonly = ['txtModel','txtStationg','txtMolds','txtRev'];
+			var q_readonly = ['txtModel','txtStationg','txtMolds','txtRev'
+			,'textGroupemon','textGroupfmon','textGroupgmon','textGrouphmon','textGroupimon','textGroupjmon','textGroupkmon','textGrouplmon','textGroupmmon','textGroupnmon','textGroupomon','textGrouppmon'
+            ,'textGroupememo1','textGroupfmemo1','textGroupgmemo1','textGrouphmemo1','textGroupimemo1','textGroupjmemo1','textGroupkmemo1','textGrouplmemo1','textGroupmmemo1','textGroupnmemo1','textGroupomemo1','textGrouppmemo1'
+            ,'textGroupememo2','textGroupfmemo2','textGroupgmemo2','textGrouphmemo2','textGroupimemo2','textGroupjmemo2','textGroupkmemo2','textGrouplmemo2','textGroupmmemo2','textGroupnmemo2','textGroupomemo2','textGrouppmemo2'
+			];
 			var q_readonlys = [];
 			var q_readonlyt = ['txtAssm'];
 			var bbmNum = [['txtPrice', 12, 3, 1],['txtPreday', 12, 0, 1],['txtHours', 10, 3, 1],['txtMinutes', 10, 3, 1],['txtPretime', 12, 2, 1],['txtBadperc', 12, 2, 1],['txtUweight', 12, 2, 1],['txtMakes', 15, 3, 1]
@@ -58,7 +62,16 @@
 				['txtGroupfno', 'lblGroupfno', 'adsss', 'noa,mon,memo1,memo2', '0txtGroupfno,textGroupfmon,textGroupfmemo1,textGroupfmemo2', ''],
 				['txtGroupgno', 'lblGroupgno', 'adknife', 'noa,mon,memo1,memo2', '0txtGroupgno,textGroupgmon,textGroupgmemo1,textGroupgmemo2', ''],
 				['txtGrouphno', 'lblGrouphno', 'adpipe', 'noa,mon,memo1,memo2', '0txtGrouphno,textGrouphmon,textGrouphmemo1,textGrouphmemo2', ''],
-				['txtGroupino', 'lblGroupino', 'adtran', 'noa,mon,memo1,memo2', '0txtGroupino,textGroupimon,textGroupemimo1,textGroupimemo2', '']
+				['txtGroupino', 'lblGroupino', 'adtran', 'noa,mon,memo1,memo2', '0txtGroupino,textGroupimon,textGroupimemo1,textGroupimemo2', '']
+				//107/05/24 增加皮料1-4
+                ,['txtGroupjno','lblGroupjno','adly','noa,mon,memo1,memo2','0txtGroupjno,textGroupjmon,textGroupjmemo1,textGroupjmemo2','']
+				,['txtGroupkno','lblGroupkno','adly','noa,mon,memo1,memo2','0txtGroupkno,textGroupkmon,textGroupkmemo1,textGroupkmemo2','']
+				,['txtGrouplno','lblGrouplno','adly','noa,mon,memo1,memo2','0txtGrouplno,textGrouplmon,textGrouplmemo1,textGrouplmemo2','']
+				,['txtGroupmno','lblGroupmno','adly','noa,mon,memo1,memo2','0txtGroupmno,textGroupmmon,textGroupmmemo1,textGroupmmemo2','']
+				//107/05/28 增加 車縫線顏色 轉印 網烙印
+				,['txtGroupnno','lblGroupnno','adspec','noa,mon,memo1,memo2','0txtGroupnno,textGroupnmon,textGroupnmemo1,textGroupnmemo2','']
+				,['txtGroupono','lblGroupono','adpro','noa,mon,memo1,memo2','0txtGroupono,textGroupomon,textGroupomemo1,textGroupomemo2','']
+				,['txtGrouppno','lblGrouppno','adoth','noa,mon,memo1,memo2','0txtGrouppno,textGrouppmon,textGrouppmemo1,textGrouppmemo2','']
 			);
 
 			$(document).ready(function() {
@@ -497,6 +510,19 @@
 					}
 				}
 				_bbsAssign();
+				
+				$('#lblGroupeno').unbind('click');
+                $('#lblGroupfno').unbind('click');
+                $('#lblGroupgno').unbind('click');
+                $('#lblGrouphno').unbind('click');
+                $('#lblGroupino').unbind('click');
+                $('#lblGroupjno').unbind('click');
+                $('#lblGroupkno').unbind('click');
+                $('#lblGrouplno').unbind('click');
+                $('#lblGroupmno').unbind('click');
+                $('#lblGroupnno').unbind('click');
+                $('#lblGroupono').unbind('click');
+                $('#lblGrouppno').unbind('click');
 			}
 
 			var assm_row = 0;
@@ -825,6 +851,85 @@
 						$('#textGroupimemo2').val(as[0].memo2);
 					}
 				}
+				
+				//107/05/24 皮料1
+				if(!emp($('#txtGroupjno').val())){
+					var t_where = "where=^^ noa='"+$('#txtGroupjno').val()+"' ^^";
+					q_gt('adly', t_where, 0, 0, 0, "",r_accy,1);
+					var as = _q_appendData("adly", "", true);
+					if (as[0] != undefined) {
+						$('#textGroupjmon').val(as[0].mon);
+						$('#textGroupjmemo1').val(as[0].memo1);
+						$('#textGroupjmemo2').val(as[0].memo2);
+					}
+				}
+				//107/05/24 皮料2
+				if(!emp($('#txtGroupkno').val())){
+					var t_where = "where=^^ noa='"+$('#txtGroupkno').val()+"' ^^";
+					q_gt('adly', t_where, 0, 0, 0, "",r_accy,1);
+					var as = _q_appendData("adly", "", true);
+					if (as[0] != undefined) {
+						$('#textGroupkmon').val(as[0].mon);
+						$('#textGroupkmemo1').val(as[0].memo1);
+						$('#textGroupkmemo2').val(as[0].memo2);
+					}
+				}
+				//107/05/24 皮料3
+				if(!emp($('#txtGrouplno').val())){
+					var t_where = "where=^^ noa='"+$('#txtGrouplno').val()+"' ^^";
+					q_gt('adly', t_where, 0, 0, 0, "",r_accy,1);
+					var as = _q_appendData("adly", "", true);
+					if (as[0] != undefined) {
+						$('#textGrouplmon').val(as[0].mon);
+						$('#textGrouplmemo1').val(as[0].memo1);
+						$('#textGrouplmemo2').val(as[0].memo2);
+					}
+				}
+				//107/05/24 皮料4
+				if(!emp($('#txtGroupmno').val())){
+					var t_where = "where=^^ noa='"+$('#txtGroupmno').val()+"' ^^";
+					q_gt('adly', t_where, 0, 0, 0, "",r_accy,1);
+					var as = _q_appendData("adly", "", true);
+					if (as[0] != undefined) {
+						$('#textGroupmmon').val(as[0].mon);
+						$('#textGroupmmemo1').val(as[0].memo1);
+						$('#textGroupmmemo2').val(as[0].memo2);
+					}
+				}
+				
+				//107/05/28 車縫線顏色
+				if(!emp($('#txtGroupnno').val())){
+					var t_where = "where=^^ noa='"+$('#txtGroupnno').val()+"' ^^";
+					q_gt('adspec', t_where, 0, 0, 0, "",r_accy,1);
+					var as = _q_appendData("adspec", "", true);
+					if (as[0] != undefined) {
+						$('#textGroupnmon').val(as[0].mon);
+						$('#textGroupnmemo1').val(as[0].memo1);
+						$('#textGroupnmemo2').val(as[0].memo2);
+					}
+				}
+				//107/05/28 轉印
+				if(!emp($('#txtGroupono').val())){
+					var t_where = "where=^^ noa='"+$('#txtGroupono').val()+"' ^^";
+					q_gt('adpro', t_where, 0, 0, 0, "",r_accy,1);
+					var as = _q_appendData("adpro", "", true);
+					if (as[0] != undefined) {
+						$('#textGroupomon').val(as[0].mon);
+						$('#textGroupomemo1').val(as[0].memo1);
+						$('#textGroupomemo2').val(as[0].memo2);
+					}
+				}
+				//107/05/28 網烙印
+				if(!emp($('#txtGrouppno').val())){
+					var t_where = "where=^^ noa='"+$('#txtGrouppno').val()+"' ^^";
+					q_gt('adoth', t_where, 0, 0, 0, "",r_accy,1);
+					var as = _q_appendData("adoth", "", true);
+					if (as[0] != undefined) {
+						$('#textGrouppmon').val(as[0].mon);
+						$('#textGrouppmemo1').val(as[0].memo1);
+						$('#textGrouppmemo2').val(as[0].memo2);
+					}
+				}
 			}
 
 			function readonly(t_para, empty) {
@@ -855,6 +960,18 @@
 					$('#txtNamea').attr('disabled', 'disabled');
 				}
 				
+				$('#lblGroupeno').unbind('click');
+                $('#lblGroupfno').unbind('click');
+                $('#lblGroupgno').unbind('click');
+                $('#lblGrouphno').unbind('click');
+                $('#lblGroupino').unbind('click');
+                $('#lblGroupjno').unbind('click');
+                $('#lblGroupkno').unbind('click');
+                $('#lblGrouplno').unbind('click');
+                $('#lblGroupmno').unbind('click');
+                $('#lblGroupnno').unbind('click');
+                $('#lblGroupono').unbind('click');
+                $('#lblGrouppno').unbind('click');
 			}
 
 			function btnMinus(id) {
@@ -1232,6 +1349,44 @@
 						<td colspan="2" style="text-align: center;"><span> </span><a class="lbl" style="float: none;">英文</a></td>
 						<td colspan="2" style="text-align: center;"><span> </span><a class="lbl" style="float: none;">越文</a></td>
 					</tr>
+					<!--107/05/24 再度開放皮料1~4 -->
+                    <tr>
+                        <td><span> </span><a id="lblGroupjno" class="lbl" style="text-align: right;">皮料1<br>Da1</a></td>
+                        <td>
+                            <input id="txtGroupjno" type="text" class="txt c1" style="width: 45%;"/>
+                            <input id="textGroupjmon" type="text" class="txt c1" style="width: 53%;"/>
+                        </td>
+                        <td colspan="2"><input id="textGroupjmemo1" type="text" class="txt c1"/></td>
+                        <td colspan="2"><input id="textGroupjmemo2" type="text" class="txt c1"/></td>
+                    </tr>
+                    <tr>
+                        <td><span> </span><a id="lblGroupkno" class="lbl" style="text-align: right;">皮料2<br>Da2</a></td>
+                        <td>
+                            <input id="txtGroupkno" type="text" class="txt c1" style="width: 45%;"/>
+                            <input id="textGroupkmon" type="text" class="txt c1" style="width: 53%;"/>
+                        </td>
+                        <td colspan="2"><input id="textGroupkmemo1" type="text" class="txt c1"/></td>
+                        <td colspan="2"><input id="textGroupkmemo2" type="text" class="txt c1"/></td>
+                    </tr>
+                    <tr>
+                        <td><span> </span><a id="lblGrouplno" class="lbl" style="text-align: right;">皮料3<br>Da3</a></td>
+                        <td>
+                            <input id="txtGrouplno" type="text" class="txt c1" style="width: 45%;"/>
+                            <input id="textGrouplmon" type="text" class="txt c1" style="width: 53%;"/>
+                        </td>
+                        <td colspan="2"><input id="textGrouplmemo1" type="text" class="txt c1"/></td>
+                        <td colspan="2"><input id="textGrouplmemo2" type="text" class="txt c1"/></td>
+                    </tr>
+                    <tr>
+                        <td><span> </span><a id="lblGroupmno" class="lbl" style="text-align: right;">皮料4<br>Da4</a></td>
+                        <td>
+                            <input id="txtGroupmno" type="text" class="txt c1" style="width: 45%;"/>
+                            <input id="textGroupmmon" type="text" class="txt c1" style="width: 53%;"/>
+                        </td>
+                        <td colspan="2"><input id="textGroupmmemo1" type="text" class="txt c1"/></td>
+                        <td colspan="2"><input id="textGroupmmemo2" type="text" class="txt c1"/></td>
+                    </tr>
+                    <!--107/05/24-->
 					<tr>
 						<td><span> </span><a id="lblGroupeno" class="lbl" style="text-align: right;">車縫<br>Đường may</a></td>
 						<td>
@@ -1241,6 +1396,15 @@
 						<td colspan="2"><input id="textGroupememo1" type="text" class="txt c1"/></td>
 						<td colspan="2"><input id="textGroupememo2" type="text" class="txt c1"/></td>
 					</tr>
+					<tr><!--107/05/28-->
+                        <td><span> </span><a id="lblGroupnno" class="lbl" style="text-align: right;">車縫線顏色<br>Màu chỉ may</a></td>
+                        <td>
+                            <input id="txtGroupnno" type="text" class="txt c1" style="width: 45%;"/>
+                            <input id="textGroupnmon" type="text" class="txt c1" style="width: 53%;"/>
+                        </td>
+                        <td colspan="2"><input id="textGroupnmemo1" type="text" class="txt c1"/></td>
+                        <td colspan="2"><input id="textGroupnmemo2" type="text" class="txt c1"/></td>
+                    </tr>
 					<tr>
 						<td><span> </span><a id="lblGroupfno" class="lbl" style="text-align: right;">護片<br>Phụ kiện</a></td>
 						<td>
@@ -1250,6 +1414,24 @@
 						<td colspan="2"><input id="textGroupfmemo1" type="text" class="txt c1"/></td>
 						<td colspan="2"><input id="textGroupfmemo2" type="text" class="txt c1"/></td>
 					</tr>
+					<tr><!--107/05/28-->
+                        <td><span> </span><a id="lblGroupono" class="lbl" style="text-align: right;">轉印<br>In ủi</a></td>
+                        <td>
+                            <input id="txtGroupono" type="text" class="txt c1" style="width: 45%;"/>
+                            <input id="textGroupomon" type="text" class="txt c1" style="width: 53%;"/>
+                        </td>
+                        <td colspan="2"><input id="textGroupomemo1" type="text" class="txt c1"/></td>
+                        <td colspan="2"><input id="textGroupomemo2" type="text" class="txt c1"/></td>
+                    </tr>
+                    <tr><!--107/05/28-->
+                        <td><span> </span><a id="lblGrouppno" class="lbl" style="text-align: right;">網烙印<br>In ép</a></td>
+                        <td>
+                            <input id="txtGrouppno" type="text" class="txt c1" style="width: 45%;"/>
+                            <input id="textGrouppmon" type="text" class="txt c1" style="width: 53%;"/>
+                        </td>
+                        <td colspan="2"><input id="textGrouppmemo1" type="text" class="txt c1"/></td>
+                        <td colspan="2"><input id="textGrouppmemo2" type="text" class="txt c1"/></td>
+                    </tr>
 					<tr>
 						<td><span> </span><a id="lblGroupgno" class="lbl" style="text-align: right;">大弓<br>Gọng</a></td>
 						<td>

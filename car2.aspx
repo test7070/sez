@@ -134,7 +134,7 @@
                 }
                 
                 //106/09/14 107/05/22 JS打開
-                if(q_getPara('sys.project').toUpperCase()=="WA" || q_getPara('sys.project').toUpperCase()=="SH" || q_getPara('sys.project').toUpperCase()=="JS"){
+                if(q_getPara('sys.project').toUpperCase()=="WA" || q_getPara('sys.project').toUpperCase()=="SH" || q_getPara('sys.project').toUpperCase()=="JS" || q_getPara('sys.project').toUpperCase()=="VO"){
                 	$(".btns").show();
                 }
                 
