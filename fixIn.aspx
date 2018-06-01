@@ -33,7 +33,7 @@
 			['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], 
 			['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
 			['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,brand,unit,inprice', 'txtProductno_,txtProduct_,txtBrand_,txtUnit_,txtPrice_', 'fixucc_b.aspx'],
-			['txtTireno_', ' ', 'tirestk', 'noa', 'txtTireno_', 'tireno_b.aspx']);
+			['txtTireno_', ' ', 'tirestk', 'noa', '0txtTireno_', 'tireno_b.aspx']);
 
 			$(document).ready(function() {
 				bbmKey = ['noa'];
