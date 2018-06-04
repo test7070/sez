@@ -98,6 +98,10 @@
 							type : '5',
 							name : 'xenda',//[14]
 							value : [q_getPara('report.all')].concat(new Array("已結案","未結案"))
+						},{
+							type : '5',
+							name : 'xeetype',//[15]
+							value : [q_getPara('report.all')].concat(new Array("定存單質押","不可撤銷保證","銀行本票質押","商業本票質押","現金質押"))
 						}]
 	                });
 	                q_popAssign();

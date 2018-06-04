@@ -129,6 +129,7 @@
                         ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit,spec,saleprice', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_,txtPrice_', 'ucc_b.aspx'],
                         ['txtTranstartno', 'lblTranstart', 'addr2', 'noa,post','txtTranstartno,txtTranstart', 'addr2_b.aspx']
                     );
+					
 				}
 				q_mask(bbmMask);
 				bbmNum = [	['txtPrice', 10, q_getPara('vcc.pricePrecision'), 1], ['txtTranmoney', 11, 0, 1], ['txtMoney', 15, 0, 1], ['txtTax', 15, 0, 1],['txtTotal', 15, 0, 1], ['txtTotalus', 15, 2, 1], ['txtTranadd', 11, 2, 1], ['txtFloata', 11, 5, 1]];
@@ -286,6 +287,9 @@
 				}
 				if (q_getPara('sys.project').toUpperCase()=='BQ'){
 					$('.BQ').show();
+				}
+				if (q_getPara('sys.project').toUpperCase()=='KDC'){
+					$('.KDC').show();
 				}
 				if (q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO'){
 					$('.cust2').show();
@@ -1468,6 +1472,8 @@
 						<td class="td3"><input id="txtFloata" type="text" class="txt num c1"/></td>
 						<td class="td4"><span> </span><a id="lblTotalus" class="lbl"> </a></td>
 						<td class="td5" colspan='2'><input id="txtTotalus" type="text" class="txt num c1"/></td>
+						<td class="td6 KDC" style="display: none;" ><span> </span><a id="lblbenifit" class="lbl">總材積</a></td>
+						<td class="td7 KDC" colspan='2' style="display: none;" ><input id="txtbenifit" type="text" class="txt num c1"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblWorker" class="lbl"> </a></td>
