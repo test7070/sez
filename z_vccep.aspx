@@ -106,6 +106,10 @@
 	                    },{
 	                        type : '6',
 	                        name : 'xcaseno'
+	                    },{
+	                        type : '0',
+	                        name : 'xtel',
+	                        value : q_getPara('sys.tel')
 	                    }]
                     });
                 q_popAssign();
