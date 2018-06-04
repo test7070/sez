@@ -404,6 +404,7 @@
 							$('#cmbWorkno').text('');
 							q_cmbParse("cmbWorkno", '@');
 							if($('#txtWorkno').val().slice(-5)=='-0000'){
+								$('.mount2').show();
 								$('#chkMount2').removeAttr('disabled');
 								$('#cmbWorkno').removeAttr('disabled');
 								
@@ -415,6 +416,8 @@
 								}
 								$('#cmbWorkno').text('');
 								q_cmbParse("cmbWorkno", t_item);
+							}else{
+								$('.mount2').hide();
 							}
 							
 							//取得上工段移入數
@@ -481,7 +484,7 @@
 									var tr = document.createElement("tr");
 									tr.id = "in_"+i;
 									tr.innerHTML = "<td style='background-color: oldlace;' align='center'>退件原因</td>";
-									tr.innerHTML += "<td style='background-color: oldlace;'><input id='in_txtWmemo_"+i+"' type='text' style='font-size: medium;width:98%;'/></td>";
+									tr.innerHTML += "<td style='background-color: oldlace;'><input id='in_txtWmemo_"+i+"' type='text' style='font-size: medium;width:85%;'/><select id='in_cmdWmemo_"+i+"' style='width:20px;' class='incmdwmemo'></select></td>";
 									tr.innerHTML += "<td style='background-color: oldlace;' align='center'>退件數量</td>";
 									tr.innerHTML += "<td style='background-color: oldlace;' colspan='3'><input id='in_txtBmount_"+i+"' class='in_bmount' type='text' style='font-size: medium;width:50%;text-align: right;' /><input type='button' id='in_btnout_"+i+"' class='in_outbtn' value='退件' style='font-size: medium;'></td>";
 									tmp.parentNode.insertBefore(tr,tmp);
@@ -506,6 +509,40 @@
 							});
 							
 							//107/05/28 增加 退件
+							$('#incmdwmemo').each(function(index) {
+								var n=$(this).attr('id').split('_')[2];
+								$('#in_cmdWmemo_'+n).text('');
+								var i_workno=$('#in_txtWorkno_'+n).val();
+								
+								q_gt('station', "where=^^noa=(select top 1 stationno from view_work where noa='"+i_workno+"')^^", 0, 0, 0, "getPart",r_accy,1);
+								var as1 = _q_appendData("station", "", true);
+								if (as1[0] != undefined) {
+									if(as1[0].partno.length>0){
+										q_gt('reason', "where=^^partno='"+as1[0].partno+"' and typea='workg'^^ ", 0, 0, 0, "getreason",r_accy,1);
+										var as2 = _q_appendData("reasons", "", true);
+										var t_item = "@";
+										for (var i = 0; i < as2.length; i++) {
+					                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as2[i].reason;
+					                    }
+					                    q_cmbParse("in_cmdWmemo_"+n, t_item);
+									}else{
+										q_gt('reason', "where=^^partno='' and typea='workg' ^^", 0, 0, 0, "getreason",r_accy,1);
+										var as2 = _q_appendData("reasons", "", true);
+										var t_item = "@";
+										for (var i = 0; i < as2.length; i++) {
+					                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as2[i].reason;
+					                    }
+					                    q_cmbParse("in_cmdWmemo_"+n, t_item);
+									}
+								}
+								
+								$(this).change(function() {
+									var t_n=$(this).attr('id').split('_')[2];
+									$('#in_txtWmemo_'+t_n).val($('#in_cmdWmemo_'+t_n).find("option:selected").text());
+								});
+								
+							});
+							
 							$('.in_bmount').each(function(index) {
 								$(this).change(function() {
 									var t_mount=dec($(this).val());
@@ -754,15 +791,15 @@
 					<td style="background-color: #99eeee;" colspan="3">
 						<input id="txtMount" style="font-size: medium;width:50%;text-align: right;">
 						<input id="btnOK_div_in" type="button" value="入庫" style="font-size: medium;">
-						<input id="chkMount2" type="checkbox"><a>尾箱</a>
+						<input id="chkMount2" type="checkbox" class="mount2" style="display: none;"><a class="mount2" style="display: none;">尾箱</a>
 					</td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">排程數量</td>
 					<td style="background-color: #f8d463;"><input id="txtWorkmount" style="font-size: medium;width: 50%;text-align: right;" disabled="disabled"></td>
-					<td style="background-color: #ffffaa;" align="center">尾箱補滿</td>
+					<td style="background-color: #ffffaa;" align="center"><a class="mount2" style="display: none;">尾箱補滿</a></td>
 					<td style="background-color: #ffffaa;" colspan="3">
-						<select id="cmbWorkno" style="font-size: medium;"> </select>
+						<select id="cmbWorkno" style="font-size: medium;display: none;" class="mount2"> </select>
 					</td>
 					<!--107/05/28不使用-->
 					<td style="background-color: #ffffaa;display: none;" align="center">本次退件數量</td>
