@@ -110,19 +110,31 @@
 						var t_carno = $.trim($('#txtCarno').val());
 						var t_driverno = $.trim($('#txtDriverno').val());
 						
-						if(t_carteamno.length==0){
-							alert('請選擇車隊!');
-							return;
-						}else if(t_carno.length==0){
-							alert('請輸入車牌!');
-							return;
-						}if(t_driverno.length==0){
-							alert('請輸入司機!');
-							return;
-						}
 						if(q_getPara('sys.project').toUpperCase()=='SH'){
-						    q_func('qtxt.query.tre_dc', 'tre.txt,tre_sh,' + encodeURI(t_noa) + ';' + encodeURI(t_carteamno)
-                            + ';' + encodeURI(t_bdate)+ ';' + encodeURI(t_edate)+ ';' + encodeURI(t_carno)+ ';' + encodeURI(t_driverno));  
+						    if(t_carteamno.length==0){
+    							alert('請選擇車隊!');
+    							return;
+    						}if(t_driverno.length==0){
+    							alert('請輸入司機!');
+    							return;
+    						}
+    						t_carno ='';
+    					}else{
+    					    if(t_carteamno.length==0){
+                                alert('請選擇車隊!');
+                                return;
+                            }else if(t_carno.length==0){
+                                alert('請輸入車牌!');
+                                return;
+                            }if(t_driverno.length==0){
+                                alert('請輸入司機!');
+                                return;
+                            }
+    					}
+						
+						if(q_getPara('sys.project').toUpperCase()=='SH'){
+						    q_func('qtxt.query.tre_sh', 'tre.txt,tre_sh,' + encodeURI(t_noa) + ';' + encodeURI(t_carteamno)
+                            + ';' + encodeURI(t_bdate)+ ';' + encodeURI(t_edate) + ';' + encodeURI(t_carno)+ ';' + encodeURI(t_driverno));  
 						}else{
 						    q_func('qtxt.query.tre_dc', 'tre.txt,tre_dc,' + encodeURI(t_noa) + ';' + encodeURI(t_carteamno)
                             + ';' + encodeURI(t_bdate)+ ';' + encodeURI(t_edate)+ ';' + encodeURI(t_carno)+ ';' + encodeURI(t_driverno));  
@@ -169,21 +181,26 @@
             		case 'qtxt.query.tre_dc':
             			var as = _q_appendData("tmp0", "", true, true);
                         if (as[0] != undefined) {
-                            if(q_getPara('sys.project').toUpperCase()=='SH'){
-                                q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtComp,txtStraddr,txtProduct,txtMount,txtMoney,txtTranno,txtTrannoq,txtCaseno,txtOrdeno,txtVolume,txtWeight,'
-                                , as.length, as, 'trandate,nick,straddr,product,mount,total2,noa,noq,caseno,ordeno,volume,weight', '',''); 
-                                for(var j=0;j<as.length;j++){
-                                        $('#txtStraddr_'+j).val(as[j].straddr+'-'+as[j].endaddr);
-                                }
-                            }else{
                                 q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtComp,txtStraddr,txtProduct,txtMount,txtPrice,txtDiscount,txtMoney,txtTranno,txtTrannoq,txtCasetype,txtCaseno,txtCaseno2,txtOrdeno'
-                                , as.length, as, 'trandate,nick,straddr,product,mount2,price3,discount,total2,noa,noq,casetype,caseno,caseno2,ordeno', '',''); 
-                            }                       
+                                , as.length, as, 'trandate,nick,straddr,product,mount2,price3,discount,total2,noa,noq,casetype,caseno,caseno2,ordeno', '','');                    
                         	sum();
                         } else {
                             alert('無資料!');
                         }
             			break;
+            		case 'qtxt.query.tre_sh':
+                        var as = _q_appendData("tmp0", "", true, true);
+                        if (as[0] != undefined) {
+                                q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtComp,txtStraddr,txtProduct,txtMount,txtMoney,txtTranno,txtTrannoq,txtCaseno,txtOrdeno,txtVolume,txtWeight'
+                                , as.length, as, 'trandate,nick,straddr,product,mount,total2,noa,noq,caseno,ordeno,volume,weight', '',''); 
+                                for(var j=0;j<as.length;j++){
+                                        $('#txtStraddr_'+j).val(as[j].straddr+'-'+as[j].endaddr);
+                                }                  
+                            sum();
+                        } else {
+                            alert('無資料!');
+                        }
+                        break;
                     case 'tre.import':
 						if(result.length==0){
 							alert('No data!');
@@ -320,6 +337,11 @@
                    	}
                 }
                 _bbsAssign();
+                
+                if (q_getPara('sys.project').toUpperCase()=='SH'){
+                    $('.isSH').show();
+                    $('.isNSH').hide();
+                }
             }
 
             function btnIns() {
@@ -396,6 +418,11 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                
+                if (q_getPara('sys.project').toUpperCase()=='SH'){
+                    $('.isSH').show();
+                    $('.isNSH').hide();
+                }
             }
 
             function readonly(t_para, empty) {
