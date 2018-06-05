@@ -185,9 +185,10 @@
 					$('#div_stk').toggle();
 				});
 				
-				if (q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO'){
+				//107/06/05 開放全部客戶可以使用
+				/*if (q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO'){
 					$('.team').show();
-				}
+				}*/
 				
 			}
 
@@ -976,8 +977,8 @@
 							<input id="txtStoreno" type="text" class="txt c2"/>
 							<input id="txtStore" type="text" class="txt c3"/>
 						</td>
-						<td class="team" style="display: none;"><span> </span><a id='lblTeam' class="lbl"> </a></td>
-						<td class="team" style="display: none;"><input id="txtTeam" type="text" class="txt c1"/></td>
+						<td class="team"><span> </span><a id='lblTeam' class="lbl"> </a></td>
+						<td class="team"><input id="txtTeam" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
