@@ -198,6 +198,7 @@
 				}
 				if (q_getPara('sys.project').toUpperCase()=='UJ'){
 					$('#lblMemo2').text('加工備註');
+					$('#btnCustm').show();
 				}
 				if (q_getPara('sys.project').toUpperCase()=='YC'){
                     $('.isYC').show();
@@ -232,6 +233,8 @@
 							q_box("custm_vu.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'custm', "600px", "700px", $('#btnCustm').val());
 						}else if (q_getPara('sys.project').toUpperCase()=='SF'){
 							q_box("custm_vu.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'custm', "900px", "700px", $('#btnCustm').val());
+						}else if (q_getPara('sys.project').toUpperCase()=='UJ'){
+							q_box("custm_uj.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'custm', "700px", "200px", $('#btnCustm').val());
 						}else{
 							q_box("custm_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'custm', "700px", "700px", $('#btnCustm').val());
 						}

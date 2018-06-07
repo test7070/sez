@@ -51,6 +51,16 @@
 						dbf : 'station',
 						index : 'noa,station',
 						src : 'station_b.aspx'
+					},{
+                        type : '6',//[11]
+                        name : 'xteam'
+					},{
+                        type : '6',//[12]
+                        name : 'xworker'
+					}, {
+						type : '5', //[13]
+						name : 'xsortby',
+						value : 'station@依工作線別,team@依組別,worker@依作業人員'.split(',')
 					}]
                 });
                 q_popAssign();
