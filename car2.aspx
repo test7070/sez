@@ -120,7 +120,7 @@
                 }
                 
                 //107/05/21 住倉需要車號修改
-                if(q_getPara('sys.project').toUpperCase()=="PA"){
+                if(q_getPara('sys.project').toUpperCase()=="PA" || q_getPara('sys.project').toUpperCase()=="WJ"){
                     $(".btns").show();
                     $('.bcartax').hide();
                     $('.bcarlender').hide();
