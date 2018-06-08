@@ -59,6 +59,11 @@
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
+
+                 $('#txtXdate1').mask(r_picd);
+                 //$('#txtXdate1').datepicker();
+                 $('#txtXdate2').mask(r_picd);
+                 //$('#txtXdate2').datepicker(); 
                 
            		var t_para = new Array();
 	            try{
