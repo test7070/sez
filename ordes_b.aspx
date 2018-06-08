@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			var q_name = 'view_ordes', t_bbsTag = 'tbbs', t_content = " field=datea,productno,product,spec,dime,width,lengthb,lengthc,unit,mount,weight,notv,noa,no2,price,theory,datea,custno,style,class,uno,total,memo,comp,cuamount,ucahours,stationhours,stationgen,source,sprice,classa", afilter = [], bbsKey = ['noa', 'no2'], as;
+			var q_name = 'view_ordes', t_bbsTag = 'tbbs', t_content = " field=datea,productno,product,spec,dime,width,lengthb,lengthc,unit,mount,weight,notv,noa,no2,price,theory,datea,custno,style,class,uno,total,memo,comp,cuamount,ucahours,stationhours,stationgen,source,sprice,classa,vemount,veweight", afilter = [], bbsKey = ['noa', 'no2'], as;
 			//, t_where = '';
 			var t_sqlname = 'view_ordes_load';
 			t_postname = q_name;
@@ -177,6 +177,8 @@
 						<input id="txtLengthc.*" type="hidden" />
 						<input id="txtDime.*" type="hidden" />
 						<input id="txtClass.*" type="hidden" />
+						<input id="txtVemount.*" type="hidden" />
+						<input id="txtVeweight.*" type="hidden" />
 					</td>
 				</tr>
 			</table>

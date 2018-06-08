@@ -113,7 +113,7 @@
 					if (ordeno.length > 0)
 						t_where += " and noa='" + ordeno + "'";
 					t_where += q_sqlPara2('custno', $('#txtCustno').val());
-					q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'orde', "95%", "95%", q_getMsg('popOrde'));
+					q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordeimport', "95%", "95%", q_getMsg('popOrde'));
 				});
 				$('#txtAddr_post').change(function() {
 					var t_custno = trim($(this).val());
@@ -210,13 +210,21 @@
 					case 'packing':
 						ChangeCuft();
 						break;
-					case 'orde':
+					case 'ordeimport':
 						if (q_cur > 0 && q_cur < 4) {
 							if (!b_ret || b_ret.length == 0){
 								b_pop = '';
 								return;
 							}
-							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtProductno,txtProduct,txtUnit,txtSpec,txtMount', b_ret.length, b_ret, 'noa,no2,productno,product,unit,spec,mount', 'txtProductno');
+							for (var i = 0; i < b_ret.length; i++) {
+								b_ret[i].vemnotv=q_sub(dec(b_ret[i].mount),dec(b_ret[i].vemount));
+								b_ret[i].vewnotv=q_sub(dec(b_ret[i].weight),dec(b_ret[i].veweight));
+								if(b_ret[i].vemnotv<0){b_ret[i].vemnotv=0;}
+								if(b_ret[i].vewnotv<0){b_ret[i].vewnotv=0;}
+							}
+							
+							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtProductno,txtProduct,txtUnit,txtSpec,txtMount,txtWeight'
+								, b_ret.length, b_ret, 'noa,no2,productno,product,unit,spec,vemnotv,vewnotv', 'txtProductno');
 							if (b_ret[0].noa != undefined) {
 								var t_where = "where=^^noa='" + b_ret[0].noa + "'^^";
 								q_gt('view_orde', t_where, 0, 0, 0, "", r_accy);
