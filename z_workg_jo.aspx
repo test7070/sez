@@ -403,7 +403,7 @@
 							$('#chkMount2').prop('checked',false);
 							$('#cmbWorkno').text('');
 							q_cmbParse("cmbWorkno", '@');
-							if($('#txtWorkno').val().slice(-5)=='-0000'){
+							if($('#txtWorkno').val().slice(-1).toUpperCase()=='A'){
 								$('.mount2').show();
 								$('#chkMount2').removeAttr('disabled');
 								$('#cmbWorkno').removeAttr('disabled');

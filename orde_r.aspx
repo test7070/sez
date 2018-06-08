@@ -883,6 +883,9 @@
 					case 'FCA'://成本/(1-P)
 						cost3=round(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),precision);
 						break;
+					default://(成本/(1-P)+F)/(1-I)/(1-C)
+						cost3=round(q_div(q_div(q_add(q_div(q_add(cost,fee),q_sub(1,q_div(profit,100))),tranprice),q_sub(1,q_div(insurance,100))),q_sub(1,q_div(commission,100))),precision);
+						break;
 				}
 				$('#textCost3').val(cost3);
 			}
