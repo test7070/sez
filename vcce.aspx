@@ -355,6 +355,94 @@
 						return;
 					}
 				}
+				
+				//107/06/08
+				if(q_getPara('sys.project').toUpperCase()=='AD' || q_getPara('sys.project').toUpperCase()=='JO'){
+					var t_where1="1=0";
+					var t_where2="1=0";
+					for(var i=0;i<q_bbsCount;i++){
+						if(!emp($('#txtOrdeno_'+i).val()) && !emp($('#txtNo2_'+i).val())){
+							t_where1+=" or noa='"+$('#txtOrdeno_'+i).val()+"' and no2='"+$('#txtNo2_'+i).val()+"'";
+							t_where2+=" or ordeno='"+$('#txtOrdeno_'+i).val()+"' and no2='"+$('#txtNo2_'+i).val()+"'";
+						}
+					}
+					
+					t_where1="where=^^"+t_where1+"^^";
+					t_where2="where=^^("+t_where2+") and noa!='"+$('#txtNoa').val()+"' ^^";
+					var t_as=[],t_err2='';
+					//抓取訂單量
+					q_gt('view_ordes', t_where1, 0, 0, 0, "",r_accy,1);
+					var as = _q_appendData("view_ordes", "", true);
+					for(var i=0;i<q_bbsCount;i++){
+						if(!emp($('#txtOrdeno_'+i).val()) && !emp($('#txtNo2_'+i).val())){
+							var texists=false;
+							for(var j=0;j<as.length;j++){
+								if($('#txtOrdeno_'+i).val()==as[j].noa && $('#txtNo2_'+i).val()==as[j].no2){
+									texists=true;
+									t_as.push({
+										'ordeno':as[j].noa,
+										'no2':as[j].no2,
+										'mount':dec(as[j].mount),
+										'weight':dec(as[j].weight),
+										'newvemount':0,
+										'newveweight':0,
+										'vemount':0,
+										'veweight':0
+									});
+									
+									break;
+								}
+							}
+							if(!texists){
+								t_err2='表身第'+(i+1)+'項訂單不存在，請重新匯入!!';
+								break;
+							}
+						}
+					}
+					
+					if(t_err2.length>0){
+						alert(t_err2);
+						return;
+					}
+					
+					//已派車
+					q_gt('view_vcces', t_where2, 0, 0, 0, "",r_accy,1);
+					var as = _q_appendData("view_vcces", "", true);
+					for(var i=0;i<as.length;i++){
+						for(var j=0;j<t_as.length;j++){
+							if(as[i].ordeno==t_as[j].ordeno && as[i].no2==t_as[j].no2){
+								t_as[j].vemount=q_add(dec(t_as[j].vemount),dec(as[i].mount));
+								t_as[j].veweight=q_add(dec(t_as[j].veweight),dec(as[i].weight));
+								break;	
+							}
+						}
+					}
+					//本次
+					for(var i=0;i<q_bbsCount;i++){
+						if(!emp($('#txtOrdeno_'+i).val()) && !emp($('#txtNo2_'+i).val())){
+							for(var j=0;j<t_as.length;j++){
+								if($('#txtOrdeno_'+i).val()==t_as[j].ordeno && $('#txtNo2_'+i).val()==t_as[j].no2){
+									t_as[j].newvemount=q_add(dec(t_as[j].newvemount),dec($('#txtMount_'+i).val()));
+									t_as[j].newveweight=q_add(dec(t_as[j].newveweight),dec($('#txtWeight_'+i).val()));
+									break;
+								}
+							}
+						}
+					}
+					
+					//判斷(目前只判斷數量)
+					for(var j=0;j<t_as.length;j++){
+						if(t_as[j].mount<t_as[j].vemount+t_as[j].newvemount){
+							t_err2='訂單【'+t_as[j].ordeno+'-'+t_as[j].no2+'】派車數量大於訂單數量!!\n';
+						}
+					}
+					
+					if(t_err2.length>0){
+						alert(t_err2);
+						return;
+					}
+				}
+				
 				if (q_cur == 1)
 					$('#txtWorker').val(r_name);
 				else
