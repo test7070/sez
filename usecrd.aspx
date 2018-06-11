@@ -47,6 +47,7 @@
 					t_credit += q_float('txtCredit_'+i);		
 				}
 				$('#txtA1').val(t_credit);
+				//$('#txtA5').val(q_float('txtA1')-q_float('txtA2')-q_float('txtA3')-q_float('txtA4')+q_float('txtA6'));
 				$('#txtA5').val(q_float('txtA1')-q_float('txtA2')-q_float('txtA3')-q_float('txtA4'));
 			}
 			function main() {
@@ -90,6 +91,7 @@
 						 	var vcca = parseFloat(as[0].vcca.length==0?"0":as[0].vcca);
 						 	var gqb = parseFloat(as[0].gqb.length==0?"0":as[0].gqb);
 						 	var umm = parseFloat(as[0].umm.length==0?"0":as[0].umm);
+						 	//var opay = parseFloat(as[0].opay.length==0?"0":as[0].opay);
 						 	var total = parseFloat(as[0].total.length==0?"0":as[0].total);
 						 	
                             var curorde = 0;
@@ -98,7 +100,8 @@
                           	$('#txtA1').val(credit);
                           	$('#txtA2').val(orde+ordetax);
                           	$('#txtA3').val(vcctotal+vcca-umm);
-                          	$('#txtA4').val(gqb);
+							$('#txtA4').val(gqb);
+							//$('#txtA6').val(opay);
                           	$('#txtA5').val(total);  
                         }
                         main();
@@ -302,6 +305,8 @@
 			<input id="txtA3" type="text" style="float:left;width:120px;color:green;" readonly="readonly"/>
 			<a style="float:left;">-應收票據  </a>
 			<input id="txtA4" type="text" style="float:left;width:120px;color:green;" readonly="readonly"/>
+			<!---<a style="float:left;">+預收貨款  </a>
+			<input id="txtA6" type="text" style="float:left;width:120px;color:green;" readonly="readonly"/>--->
 			<a style="float:left;">=可用額度 </a>
 			<input id="txtA5" type="text" style="float:left;width:120px;color:green;" readonly="readonly"/>
 		</div>
