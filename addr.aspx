@@ -28,7 +28,9 @@
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'Datea';
-			aPop = new Array(['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'], ['txtSalesno_', '', 'sss', 'noa,namea', 'txtSalesno_,txtSales_', 'sss_b.aspx'], ['txtCaseuseno', 'lblCaseuse', 'cust', 'noa,comp', 'txtCaseuseno,txtCaseuse', 'cust_b.aspx']);
+			aPop = new Array(['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']
+			, ['txtSalesno_', '', 'sss', 'noa,namea', 'txtSalesno_,txtSales_', 'sss_b.aspx']
+			, ['txtCaseuseno', 'lblCaseuse', 'cust', 'noa,comp', 'txtCaseuseno,txtCaseuse', 'cust_b.aspx']);
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
@@ -41,6 +43,9 @@
 					return;
 				}
 				mainForm(0);
+				if(q_getPara('sys.project').toUpperCase()=='NV'){
+                    $('#vewProductno').text('貨源');
+                }
 			}
 			function mainPost() {
 				q_getFormat();
@@ -69,10 +74,14 @@
                 }
                 
                 if(q_getPara('sys.project').toUpperCase()=='NV'){
-                    $('#lblCustprice_s').text('料身單價');
-                    $('#lblDriverprice_s').text('運費單價');
+                    $('#lblProductno').text('貨源');
+                    $('#vewProductno').text('貨源');
+                    aPop = new Array(['txtProductno', 'lblProductno', 'store', 'noa,store', 'txtProductno,txtProduct', 'store_b.aspx']
+                                   , ['txtSalesno_', '', 'sss', 'noa,namea', 'txtSalesno_,txtSales_', 'sss_b.aspx']
+                                   , ['txtCaseuseno', 'lblCaseuse', 'cust', 'noa,comp', 'txtCaseuseno,txtCaseuse', 'cust_b.aspx']);
                 }
 			}
+			
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
 					case 'tre.import':
