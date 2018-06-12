@@ -200,7 +200,14 @@
 					$('#txtC5').val(Math.abs(total));
 				}
 			}
-
+			function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                abbm[q_recno]['accno'] = xmlString;
+                //$('#txtAccno').val(xmlString);
+                Unlock(1);
+            }
+			
 			function btnOk() {
 				var t_err = '';
 				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtAcczno', q_getMsg('lblAcczno')]]);
