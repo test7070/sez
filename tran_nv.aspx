@@ -181,15 +181,15 @@
                 case 'addrs':
                     var as = _q_appendData("addrs", "", true);
                     if (as[0] != undefined) {
-                          for(var i=0;i<q_bbsCount;i++){
-                              if($('#txtStraddrno_'+i).val()==as[0].noa){
-                                      $('#txtPrice_'+i).val(as[0].custprice);  
+                          for(var i=0;i<as.length;i++){
+                              if($('#txtStraddrno_'+i).val()==as[i].noa){
+                                      $('#txtCustprice_'+i).val(as[i].custprice);  
                               }      
                           }
                     }
                     for(var i=0;i<q_bbsCount;i++){
-                        if(!emp($('#txtUccno_'+i).val()) && !emp($('#txtCustno_'+i).val())){
-                           var t_where = "where=^^ noa=(select top 1 noa from view_trans"+r_accy+" where uccno='"+$('#txtUccno_'+i).val()+"' and custno='"+$('#txtCustno_'+i).val()+"' and datea<='"+$('#txtDatea').val()+"' order by datea desc) and uccno='"+$('#txtUccno_'+i).val()+"' and custno='"+$('#txtCustno_'+i).val()+"' ^^";
+                        if(!emp($('#txtCaseno_'+i).val()) && !emp($('#txtCustno_'+i).val())){
+                           var t_where = "where=^^ noa=(select top 1 noa from view_trans"+r_accy+" where caseno='"+$('#txtCaseno_'+i).val()+"' and custno='"+$('#txtCustno_'+i).val()+"' and datea<='"+$('#txtDatea').val()+"' order by datea desc) and uccno='"+$('#txtUccno_'+i).val()+"' and custno='"+$('#txtCustno_'+i).val()+"' ^^";
                            q_gt('trans', t_where, 0, 0, 0, "trans", r_accy, 1); 
                         } 
                     }
@@ -234,15 +234,15 @@
             function q_popPost(s1) {
                 switch (s1) {
                     case 'txtCustno_':
-                        var t_where = "where=^^ noa=(select noa from addr where productno='"+$('#txtUccno_'+b_seq).val()+"' and noa='"+$('#txtStraddrno_'+b_seq).val()+"' and caseuseno='"+$('#txtCustno_'+b_seq).val()+"') and datea<='"+$('#txtDatea').val()+"' ^^";
+                        var t_where = "where=^^ noa=(select noa from addr where productno='"+$('#txtCaseno_'+b_seq).val()+"' and noa='"+$('#txtStraddrno_'+b_seq).val()+"' and caseuseno='"+$('#txtCustno_'+b_seq).val()+"') and datea<='"+$('#txtDatea').val()+"' ^^";
                         q_gt('addrs', t_where, 0, 0, 0, "addrs", r_accy, 1);
                         break;
-                    case 'txtUccno_':
-                        var t_where = "where=^^ noa=(select noa from addr where productno='"+$('#txtUccno_'+b_seq).val()+"' and noa='"+$('#txtStraddrno_'+b_seq).val()+"' and caseuseno='"+$('#txtCustno_'+b_seq).val()+"') and datea<='"+$('#txtDatea').val()+"' ^^";
+                    case 'txtCaseno_':
+                        var t_where = "where=^^ noa=(select noa from addr where productno='"+$('#txtCaseno_'+b_seq).val()+"' and noa='"+$('#txtStraddrno_'+b_seq).val()+"' and caseuseno='"+$('#txtCustno_'+b_seq).val()+"') and datea<='"+$('#txtDatea').val()+"' ^^";
                         q_gt('addrs', t_where, 0, 0, 0, "addrs", r_accy, 1);
                         break;
                     case 'txtStraddrno_':
-                        var t_where = "where=^^ noa=(select noa from addr where productno='"+$('#txtUccno_'+b_seq).val()+"' and noa='"+$('#txtStraddrno_'+b_seq).val()+"' and caseuseno='"+$('#txtCustno_'+b_seq).val()+"') and datea<='"+$('#txtDatea').val()+"' ^^";
+                        var t_where = "where=^^ noa=(select noa from addr where productno='"+$('#txtCaseno_'+b_seq).val()+"' and noa='"+$('#txtStraddrno_'+b_seq).val()+"' and caseuseno='"+$('#txtCustno_'+b_seq).val()+"') and datea<='"+$('#txtDatea').val()+"' ^^";
                         q_gt('addrs', t_where, 0, 0, 0, "addrs", r_accy, 1);
                         break;
                 }
@@ -344,11 +344,11 @@
 								$('#txtCaseno2_'+b_seq).val($('#combCaseno2_'+b_seq).find("option:selected").text());
 					});
 					
-					$("#txtUccno_"+i).change(function() {
+					$("#txtCaseno_"+i).change(function() {
 					    t_IdSeq = -1;
                         q_bodyId($(this).attr('id'));
                         b_seq = t_IdSeq;
-                        var t_where = "where=^^ noa=(select noa from addr where productno='"+$('#txtUccno_'+b_seq).val()+"' and noa='"+$('#txtStraddrno_'+b_seq).val()+"' and caseuseno='"+$('#txtCustno_'+b_seq).val()+"') and datea<='"+$('#txtDatea').val()+"' ^^";
+                        var t_where = "where=^^ noa=(select noa from addr where productno='"+$('#txtCaseno_'+b_seq).val()+"' and noa='"+$('#txtStraddrno_'+b_seq).val()+"' and caseuseno='"+$('#txtCustno_'+b_seq).val()+"') and datea<='"+$('#txtDatea').val()+"' ^^";
                         q_gt('addrs', t_where, 0, 0, 0, "addrs", r_accy, 1);
                     });
                     
