@@ -450,8 +450,14 @@
 		            t_wmoney = t_wmoney + ($('#cmbWtype_' + j).val() == 'A' ? t_money : 0);
 		            t_cmoney = t_cmoney + ($('#cmbWtype_' + j).val() == 'B' ? t_money : 0);
 		        }
-		        t_tax = q_float('txtTax');
+		        
+		        if(q_getPara('sys.project').toUpperCase()=='NV' && emp($('#txtTax').val())){
+		              t_tax = q_mul(q_add(t_wmoney,t_cmoney),0.05);
+		        }else{
+		              t_tax = q_float('txtTax');
+		        }
 		        t_discount = q_float('txtDiscount');
+		        $('#txtTax').val(FormatNumber(t_tax));
 		        $('#txtWmoney').val(FormatNumber(t_wmoney));
 		        $('#txtCmoney').val(FormatNumber(t_cmoney));
 		        $('#txtMoney').val(FormatNumber(t_wmoney + t_cmoney));

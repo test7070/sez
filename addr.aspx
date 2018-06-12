@@ -43,9 +43,6 @@
 					return;
 				}
 				mainForm(0);
-				if(q_getPara('sys.project').toUpperCase()=='NV'){
-                    $('#vewProductno').text('貨源');
-                }
 			}
 			function mainPost() {
 				q_getFormat();
@@ -74,11 +71,14 @@
                 }
                 
                 if(q_getPara('sys.project').toUpperCase()=='NV'){
-                    $('#lblProductno').text('貨源');
-                    $('#vewProductno').text('貨源');
-                    aPop = new Array(['txtProductno', 'lblProductno', 'store', 'noa,store', 'txtProductno,txtProduct', 'store_b.aspx']
-                                   , ['txtSalesno_', '', 'sss', 'noa,namea', 'txtSalesno_,txtSales_', 'sss_b.aspx']
-                                   , ['txtCaseuseno', 'lblCaseuse', 'cust', 'noa,comp', 'txtCaseuseno,txtCaseuse', 'cust_b.aspx']);
+                    $('.isNV').show();
+                    $('#lblCommission').text('客戶運費');
+                    $('#lblSales').text('地點');
+                    bbmNum = [['txtCustprice', 10, 3], ['txtDriverprice', 10, 3], ['txtDriverprice2', 10, 3], ['txtCommission', 10, 3], ['txtCommission2', 10, 3], ['txtMiles', 10, 2], ['txtTggprice', 10,0]];
+                    aPop = new Array(['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']
+                                    , ['txtCaseuseno', 'lblCaseuse', 'cust', 'noa,comp', 'txtCaseuseno,txtCaseuse', 'cust_b.aspx']
+                                    , ['txtSalesno_', '', 'addr', 'noa,addr', 'txtSalesno_,txtSales_', 'addr_b.aspx']
+                                    );
                 }
 			}
 			
@@ -185,6 +185,13 @@
 				if(q_getPara('sys.project').toUpperCase()=='VA'){
 					$('.va').show();
 				}
+				if(q_getPara('sys.project').toUpperCase()=='NV'){
+                    $('#lblCustprice_s').text('銷售單價');
+                    $('#lblSalesno_s').text('地點編號');
+                    $('#lblSales_s').text('地點');
+                    $('#lblCommission_s').text('客戶運費');
+                    $('.isNV').show();
+                }
 			}
 			function btnIns() {
 				_btnIns();
@@ -315,6 +322,11 @@
 					return;
 				}
 				q_nowf();
+				if(q_getPara('sys.project').toUpperCase()=='NV'){
+                    as['custno'] = abbm2['caseuseno'];
+                    as['typea'] = abbm2['productno'];
+                    as['tggprice'] = abbm2['tggprice'];
+                }
 				return true;
 			}
 			function sum() {
@@ -593,6 +605,12 @@
                     <tr>
                         <td><span> </span><a id='lblCurrent' class="lbl"> </a></td>
                     </tr>
+                    <tr class='isNV' style="display: none">
+                        <td><span> </span><a id='lblTggprice' class="lbl">成本單價</a></td>
+                        <td>
+                        <input id="txtTggprice" type="text"  class="txt c1  num"/>
+                        </td>
+                    </tr>
                     <tr>
                         <td><span> </span><a id='lblCustprice' class="lbl"> </a></td>
                         <td>
@@ -611,7 +629,7 @@
                         <input id="txtDriverprice2" type="text"  class="txt c1  num"/>
                         </td>
                     </tr>
-                    <tr style="display: none;">
+                    <tr class='isNV' style="display: none;">
                         <td><span> </span><a id='lblCommission' class="lbl"> </a></td>
                         <td>
                         <input id="txtCommission" type="text"  class="txt c1  num"/>
@@ -646,7 +664,7 @@
                     <td align="center" style="width:80px;display:none;" class="va"><a>客戶補噸</a></td>
                     <td align="center" style="width:80px;"><a id='lblDriverprice_s'> </a></td>
                     <td align="center" style="width:80px;"><a id='lblDriverprice2_s'> </a></td>
-                    <td align="center" style="width:80px;display: none;"><a id='lblCommission_s'> </a></td>
+                    <td  class='isNV' align="center" style="width:80px;display: none;"><a id='lblCommission_s'> </a></td>
                     <td align="center" style="width:80px;display: none;"><a id='lblCommission2_s'> </a></td>
                     <td align="center" style="width:80px;"><a id='lblSalesno_s'> </a></td>
                     <td align="center" style="width:80px;"><a id='lblSales_s'> </a></td>
@@ -669,7 +687,7 @@
                     <td>
                     <input type="text" id="txtDriverprice2.*" style="width:95%;text-align:right;" />
                     </td>
-                    <td style="display: none;">
+                    <td class='isNV' style="display: none;">
                     <input type="text" id="txtCommission.*" style="width:95%;text-align:right;" />
                     </td>
                     <td style="display: none;">
