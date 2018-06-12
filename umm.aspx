@@ -432,21 +432,6 @@
                 		
                 		sum();
                 		break;
-                	case 'umm_cust':
-                		var as = _q_appendData("view_vcc", "", true);
-                		/*if(as.length>1 && !emp($('#txtCustno').val())){
-                			alert('請款單為多個收款客戶，表頭客戶請勿KEY打，以避免客戶款帳有問題!!');
-                		}else{
-                			if (as[0] != undefined && !emp($('#txtCustno').val())) {
-                				if(as[0].custno!=$('#txtCustno').val()){
-                					alert('收款客戶與請款單客戶不同!!');
-                					break;	
-                				}
-                			}*/
-                			ummcustchk=true;
-                			btnOk();
-                		//}
-                		break;
                 	case 'cno_acomp':
                 		var as = _q_appendData("acomp", "", true);
                 		if (as[0] != undefined) {
@@ -755,7 +740,6 @@
                 Unlock(1);
             }
             
-            var ummcustchk=false;//檢查請款單的客戶是否為同一個客戶
             function btnOk() {
             	//106/04/19 RB檢查表身沒有資料不能存檔
             	if(q_getPara('sys.project').toUpperCase()=='RB'){
@@ -791,20 +775,44 @@
             			return;
             		}
             	}
-            	if(!ummcustchk){
-            		var custwhere='';
-            		for (var i = 0; i < q_bbsCount; i++) {
-            			if(!emp($('#txtVccno_'+i).val()))
-            				custwhere=custwhere+(custwhere.length>0?' or ':'')+"noa='"+$('#txtVccno_'+i).val()+"'";
-            		}
-            		
-            		if(custwhere.length!=0){
-            			var t_where = "where=^^ "+custwhere+" ^^";
-	            		q_gt('umm_cust', t_where, 0, 0, 0, "umm_cust", r_accy);
-            			return;	
-            		}
+            	
+            	//檢查請款單的客戶是否存在客戶和客戶2
+            	var vccnowhere='';
+            	for (var i = 0; i < q_bbsCount; i++) {
+            		if(!emp($('#txtVccno_'+i).val()) && $('#txtTablea_'+i).val().substr(0,3)=='vcc')
+            			vccnowhere=vccnowhere+(vccnowhere.length>0?' or ':'')+"noa='"+$('#txtVccno_'+i).val()+"'";
             	}
-            	ummcustchk=false;
+            	if(vccnowhere.length!=0){
+            		var t_where = "where=^^ "+vccnowhere+" ^^";
+	            	q_gt('umm_cust', t_where, 0, 0, 0, "getcust", r_accy,1);
+	            	var as = _q_appendData("view_vcc", "", true);
+	            	if (as[0] == undefined) {
+	            		alert('立帳單號客戶不存在!!');
+	            		return;
+	            	}else{
+	            		var terr='';
+	            		for (var i = 0; i < as.length; i++) {
+	            			var texist=false;
+	            			if(as[i].custno==$('#txtCustno').val()){ //客戶
+	            				texist=true;
+	            			}
+	            			if(!texist){
+		            			if(($('#txtCustno2').val()+',').indexOf((as[i].custno+','))!=-1){ //客戶2
+		            				texist=true;
+		            			}
+	            			}
+	            			if(!texist){
+	            				terr+='【'+as[i].custno+'】'
+	            			}
+	            		}
+	            		
+	            		if(terr.length>0){
+	            			terr+='不存在表頭的『客戶』和『客戶2』內!!';
+	            			alert(terr);
+	            			return;
+	            		}
+	            	}
+            	}
             	
             	Lock(1,{opacity:0});
             	$('#txtAcomp').val($('#cmbCno').find(":selected").text());
