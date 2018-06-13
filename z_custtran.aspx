@@ -30,18 +30,34 @@
                         type : '0',
                         name : 'accy',
                         value : q_getId()[4]
-                    },{/*7*/
-                            type : '6',
-                            name : 'xcustno',
-                        }, {/*13*/
+                    },{
+                       type : '2', 
+                        name : 'xcustno',
+                        dbf : 'cust',
+                        index : 'noa,comp',
+                        src : 'cust_b.aspx'
+                    },{
                         type : '8',
                         name : 'xoption03',
                         value : ('sender@寄件人,recipient@收件人').split(',')
+                    },{
+                        type : '1',
+                        name : 'date',
+                    },{
+                        type : '6',
+                        name : 'cust',
+                    },{
+                        type : '6',
+                        name : 'xaddr',
                     }]
                 });
                 q_getFormat();
                 q_langShow();
                 q_popAssign();
+                 $('#txtDate1').mask('999/99/99');
+	             $('#txtDate1').datepicker();
+	             $('#txtDate2').mask('999/99/99');
+	             $('#txtDate2').datepicker(); 
 
                 var t_noa = typeof (q_getId()[5]) == 'undefined' ? '' : q_getId()[5];
                 t_noa = t_noa.replace('noa=', '');
