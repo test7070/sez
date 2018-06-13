@@ -32,7 +32,7 @@
             q_desc = 1;
             aPop = new Array(['txtDriverno', 'lblDriverno', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
             , ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']
-            , ['txtAddrno', 'lblAddrno', 'store', 'noa,store', 'txtAddrno,txtAddr', 'store_b.aspx']
+            , ['txtAddno3_', 'btnAddno3_', 'store', 'noa,store', 'txtAddno3_,txtAdd3_', 'store_b.aspx']
             , ['txtCaseno_', 'btnCaseno_', 'addr', 'noa,miles', 'txtCaseno_,txtMiles_', 'addr_b.aspx']
             , ['txtTggno_', 'btnTgg_', 'tgg', 'noa,comp', 'txtTggno_,txtTgg_', 'tgg_b.aspx']
             , ['txtUccno_', 'btnProduct_', 'ucc', 'noa,product', 'txtUccno_,txtProduct_', 'ucc_b.aspx']
@@ -328,6 +328,13 @@
                         e.preventDefault();
                         var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
                         $('#btnCardeal_'+n).click();
+                    });
+                    
+                    $('#txtAddno3_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnAddno3_'+n).click();
                     });
                     
                     $('#combCaseno2_' + i).change(function() {
@@ -710,13 +717,6 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><span> </span><a id="lblAddrno" class="lbl btn" >倉庫</a></td>
-                        <td colspan="2">
-                            <input id="txtAddrno" type="text" class="txt" style="width:35%" />
-                            <input id="txtAddr" type="text" class="txt" style="width:60%"/>
-                        </td>
-                    </tr>
-                    <tr>
                         <td><span> </span><a id="lblWeight" class="lbl" > </a></td>
                         <td>
                         <input id="txtWeight" type="text" class="txt c1 num" />
@@ -765,6 +765,7 @@
                     <td align="center" style="width:100px"><a>合約規格</a></td>
                     <td align="center" style="width:80px"><a>客戶</a></td>
                     <td align="center" style="width:100px"><a>地點</a></td>
+                    <td align="center" style="width:100px"><a>倉庫</a></td>
                     <td align="center" style="width:120px"><a>場地限制</a></td>
                     <td align="center" style="width:85px"><a>桶槽容量</a></td>
                     <td align="center" style="width:100px"><a>可送貨時間</a></td>
@@ -833,6 +834,11 @@
                         <input type="text" id="txtStraddrno.*" style="float:left;width:95%;"/>
                         <input type="text" id="txtStraddr.*" style="float:left;width:95%;"/>
                         <input type="button" id="btnStraddr.*" style="display:none;"/>
+                    </td>
+                    <td>
+                        <input type="text" id="txtAddno3.*" style="float:left;width:95%;"/>
+                        <input type="text" id="txtAdd3.*" style="float:left;width:95%;"/>
+                        <input type="button" id="btnAddno3.*" style="display:none;"/>
                     </td>
                     <td><input type="text" id="txtAaddr.*" style="width:95%;"/></td>
                     <td>
