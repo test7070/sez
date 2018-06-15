@@ -231,7 +231,7 @@
                 //2018/06/14 日光維修單號不複製
                 if($('#chekQcopy').prop('checked') && q_getPara('sys.project').toUpperCase()=='DS'){
                     for (var i = 0; i < q_bbsCount; i++) {
-                        $('txtFixano_').val('');
+                        $('#txtFixano_'+i).val('');
                     }
                 }
                 t_where = "where=^^ acc1='" + $('#txtWacc1').val() + "' or acc1='" + $('#txtCacc1').val() + "' or acc1='" + $('#txtDacc1').val() + "' or acc1='" + $('#txtEacc1').val() + "'^^";
