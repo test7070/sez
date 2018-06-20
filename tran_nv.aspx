@@ -89,7 +89,7 @@
                         t_total2 = q_mul(q_float('txtMount3_'+i),t_weight);
                     }
                     t_tmount = q_add(t_tmount,q_sub(q_float('txtOutmount_'+i),q_float('txtInmount_'+i)));
-                    t_tvolume = q_add(t_tvolume,q_float('txtInmount_'+i));
+                    t_tvolume = q_add(t_tvolume,q_float('txtWeight2_'+i));
                     t_tweight = q_add(t_tweight,t_weight);
                     t_ttotal = q_add(t_ttotal,t_total);
                     t_ttotal2 = q_add(t_ttotal2,t_total2);
@@ -116,16 +116,7 @@
                 q_cmbParse("combCaseno2",'50T@50T,100T@100T,150T@150T,200T@200T,300T@300T','s');
                 q_cmbParse("cmbCalctype",'@,1@公司車*0.9*0.2,2@外車*0.82,3@外車*0.85,4@外車*100%,5@靠車*0.91,6@靠車*0.9,7@混凝土車*0.25','s');
                 $('#lblVolume').text('目前數量');
-                
-                $('#lblAddrno').click(function() {
-                        $('#lblVolume').show();
-                        $('#txtVolume').show();
-                });
-                $('#txtAddrno').change(function() {
-                        $('#lblVolume').show();
-                        $('#txtVolume').show();
-                }); 
-                
+
                 $('#btnImport').click(function() {
                     $('#divImport').toggle();
                     $('#textBdate').focus();
@@ -453,10 +444,6 @@
             }
             function refresh(recno) {
                 _refresh(recno);
-                if(!emp($('#txtAddrno').val())){
-                    $('#lblVolume').show();
-                    $('#txtVolume').show();
-                }
             }
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
@@ -717,17 +704,17 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><span> </span><a id="lblWeight" class="lbl" > </a></td>
+                        <td><span> </span><a id="lblWeight_nv" class="lbl" >客戶淨端重</a></td>
                         <td>
                         <input id="txtWeight" type="text" class="txt c1 num" />
                         </td>
-                        <td><span> </span><a id="lblMount" class="lbl" > </a></td>
+                        <td><span> </span><a id="lblMount_nv" class="lbl" >可用數量</a></td>
                         <td>
                         <input id="txtMount" type="text" class="txt c1 num"/>
                         </td>
-                        <td><span> </span><a id="lblVolume" class="lbl" style="display:none;"> </a></td>
+                        <td><span> </span><a id="lblVolume_nv" class="lbl">出廠重</a></td>
                         <td>
-                        <input id="txtVolume" type="text" class="txt c1 num" style="display:none;"/>
+                        <input id="txtVolume" type="text" class="txt c1 num"/>
                         </td>
                     </tr>
                     <tr>
