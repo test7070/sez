@@ -61,7 +61,7 @@
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd],['txtMon', r_picm],['txtPdate', r_picd]];
                 q_mask(bbmMask);
-				bbsMask = [['txtDatea', r_picd],['txtIndate', r_picd],['txtPdate', r_picd],['txtUdate', r_picd],['txtPaydate', r_picd]];
+				bbsMask = [['textDate','99'],['txtDatea', r_picd],['txtIndate', r_picd],['txtPdate', r_picd],['txtUdate', r_picd],['txtPaydate', r_picd]];
                 //q_mask(bbsMask);
                 $('#textNextmon').mask(r_picm);
                 $('#textDiscount').mask('99');
@@ -571,7 +571,7 @@
 
                 _bbsAssign();
                 
-                if(q_getPara('sys.project').toUpperCase()=='DC'){
+                if(q_getPara('sys.project').toUpperCase()=='DC' || q_getPara('sys.project').toUpperCase()=='SH'){
                      $('.isNDC').hide();
                 }else{
                      $('.isDC').hide();       
@@ -890,7 +890,7 @@
             function refresh(recno) {
                 _refresh(recno);
                 endacheck();
-                if(q_getPara('sys.project').toUpperCase()=='DC'){
+                if(q_getPara('sys.project').toUpperCase()=='DC' || q_getPara('sys.project').toUpperCase()=='SH'){
                      $('.isNDC').hide();
                 }else{
                      $('.isDC').hide();       
