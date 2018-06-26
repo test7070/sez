@@ -67,8 +67,10 @@
 		         		if(r_len==3)//民國年
 	                    	d = new Date(dec($('#txtDatea').val().substr(0,r_len))+1911, dec($('#txtDatea').val().substr((r_len+1),2))-1, 1);
 	                    else//西元年
-	                    	d = new Date(dec($('#txtDatea').val().substr(0,r_len)), dec($('#txtDatea').val().substr((r_len+1),2))-1, 1);
-						d.setMonth(d.getMonth() - 1);
+                              d = new Date(dec($('#txtDatea').val().substr(0, r_len)), dec($('#txtDatea').val().substr((r_len + 1), 2)) - 1, 1);
+
+                          d.setMonth(d.getMonth() - 1);
+
 						if(r_len==3)//民國年
 							$('#txtMon').val(d.getFullYear()-1911+'/'+('0'+(d.getMonth()+1)).slice(-2));
 						else//西元年
@@ -586,7 +588,8 @@
 		    }
 
 		    function btnOk() {
-		    	Lock(1,{opacity:0});
+                Lock(1, { opacity: 0 });
+                    
 				$('#txtMon').val($.trim($('#txtMon').val()));
 				if(r_len==3 && $('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
 					alert(q_getMsg('lblMon')+'錯誤。');   
@@ -610,18 +613,51 @@
 		            Unlock(1);
 		            return;
 		        }
-		        
-		        if(q_cur==2 && !emp(t_predate)){
+
+
+
+                if(q_cur==2 && !emp(t_predate)){
                 	//106/01/16取修改前日期與修改後日期比對年度，不一樣不存檔避免年度傳票被覆蓋
-                	var t_ypdate=t_predate.substr(0,r_len);
-                	var t_ydate=$('#txtDatea').val().substr(0,r_len);
-                	
-                	if (t_ypdate!=t_ydate){
-                		alert(q_getMsg('lblDatea') + '日期禁止跨年度修正。');
-                		Unlock(1);
-                    	return;
-                	}
+                    if(r_len==3){
+					    var t_ypdate=t_predate.substr(0,r_len);
+                	    var t_ydate=$('#txtDatea').val().substr(0,r_len);
+                        if (t_ypdate != t_ydate) {
+                            if(confirm(q_getMsg('lblDatea') + '日期跨年度修正，請問是否修正。')){
+                                alert("確定修改!!");
+                            } else {
+                                alert("取消");
+                                btnCancel();
+                            }
+                	    }
+                    } else if (r_len == 4) {
+					    var t_ypdate=dec(t_predate.substr(0,r_len))+1911;
+                        var t_ydate = $('#txtDatea').val().substr(0, r_len);
+                        if (t_ypdate != t_ydate) {
+                            if(confirm(q_getMsg('lblDatea') + '日期跨年度修正，請問是否修正。')){
+                                alert("確定修改!!");
+                            } else {
+                                alert("取消");
+                                btnCancel();
+                            }
+                		    //alert(q_getMsg('lblDatea') + '日期禁止跨年度修正。');
+                		    //Unlock(1);
+                    	    //return;
+                        }       
+				    }
                 }
+		        /*if(q_cur==2 && !emp(t_predate)){
+                	//106/01/16取修改前日期與修改後日期比對年度，不一樣不存檔避免年度傳票被覆蓋
+					    var t_ypdate=t_predate.substr(0,r_len);
+                	    var t_ydate=$('#txtDatea').val().substr(0,r_len);
+                	
+                	    if (t_ypdate!=t_ydate){
+                		    alert(q_getMsg('lblDatea') + '日期禁止跨年度修正。');
+                		    Unlock(1);
+                    	    return;
+                    }
+                }*/
+
+
 		        //2016/03/31 允許 沒有廠商編號
 		        /*if ($.trim($('#txtTggno').val()).length == 0) {
 		            alert(m_empty + q_getMsg('lblTgg'));

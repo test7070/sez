@@ -847,8 +847,39 @@
                     Unlock(1);
                     return;
                 }
-                
-				if(q_cur==2 && !emp(t_predate)){
+
+
+
+                if(q_cur==2 && !emp(t_predate)){
+                	//106/01/16取修改前日期與修改後日期比對年度，不一樣不存檔避免年度傳票被覆蓋
+                    if(r_len==3){
+					    var t_ypdate=t_predate.substr(0,r_len);
+                	    var t_ydate=$('#txtDatea').val().substr(0,r_len);
+                        if (t_ypdate != t_ydate) {
+                            if(confirm(q_getMsg('lblDatea') + '日期跨年度修正，請問是否修正。')){
+                                alert("確定修改!!");
+                            } else {
+                                alert("取消");
+                                btnCancel();
+                            }
+                	    }
+                    } else if (r_len == 4) {
+					    var t_ypdate=dec(t_predate.substr(0,r_len))+1911;
+                        var t_ydate = $('#txtDatea').val().substr(0, r_len);
+                        if (t_ypdate != t_ydate) {
+                            if(confirm(q_getMsg('lblDatea') + '日期跨年度修正，請問是否修正。')){
+                                alert("確定修改!!");
+                            } else {
+                                alert("取消");
+                                btnCancel();
+                            }
+                		    //alert(q_getMsg('lblDatea') + '日期禁止跨年度修正。');
+                		    //Unlock(1);
+                    	    //return;
+                        }       
+				    }
+                }
+				/*if(q_cur==2 && !emp(t_predate)){
                 	//106/01/16取修改前日期與修改後日期比對年度，不一樣不存檔避免年度傳票被覆蓋
                 	var t_ypdate=t_predate.substr(0,r_len);
                 	var t_ydate=$('#txtDatea').val().substr(0,r_len);
@@ -858,7 +889,7 @@
                 		Unlock(1);
                     	return;
                 	}
-                }
+                }*/
                 
                /*if ($.trim($('#txtCustno').val()) == 0) {
                     alert(m_empty + q_getMsg('lblCust'));
