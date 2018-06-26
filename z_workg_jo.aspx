@@ -474,6 +474,13 @@
 									tr.id = "in_"+i;
 									tr.innerHTML = "<td style='background-color: oldlace;' align='center'>物品名稱</td>";
 									tr.innerHTML += "<td style='background-color: oldlace;'><input id='in_txtProduct_"+i+"' type='text' style='font-size: medium;width:98%;' value='"+twork[i].product+"' disabled='disabled'/></td>";
+									tr.innerHTML += "<td style='background-color: oldlace;' colspan='4'> </td>";
+									tmp.parentNode.insertBefore(tr,tmp);
+									
+									var tr = document.createElement("tr");
+									tr.id = "in_"+i;
+									tr.innerHTML = "<td style='background-color: oldlace;' align='center'>上工段線別</td>";
+									tr.innerHTML += "<td style='background-color: oldlace;'><input id='in_txtStationno_"+i+"' type='text' style='font-size: medium;width:35%;' value='"+twork[i].stationno+"' disabled='disabled'/><input id='in_txtStation_"+i+"' type='text' style='font-size: medium;width:61%;' value='"+twork[i].station+"' disabled='disabled'/></td>";
 									tr.innerHTML += "<td style='background-color: oldlace;width: 105px;' align='center'>上工段移入數</td>";
 									tr.innerHTML += "<td style='background-color: oldlace;width: 95px;'><input id='in_txtInmount2_"+i+"' class='in_inmount' style='font-size: medium;width:95%;text-align: right;' value='"+twork[i].inmount+"' ></td>";
 									tr.innerHTML += "<td style='background-color: oldlace;width: 105px;' align='center'>上工段QC數</td>";
@@ -509,7 +516,7 @@
 							});
 							
 							//107/05/28 增加 退件
-							$('#incmdwmemo').each(function(index) {
+							$('.incmdwmemo').each(function(index) {
 								var n=$(this).attr('id').split('_')[2];
 								$('#in_cmdWmemo_'+n).text('');
 								var i_workno=$('#in_txtWorkno_'+n).val();
