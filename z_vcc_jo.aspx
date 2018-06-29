@@ -174,7 +174,44 @@
 	                		$('#Salesgroup').hide();
 	                		$('#Multcust').hide();
 	                		$('#Multucc').hide();
-	                	}		
+	                	}
+						if(report_name=='25'){
+	                		$('#Mon').hide();
+							$('#Cust').hide();
+	                		$('#Sales').hide();
+	                		$('#Product').hide();
+	                		$('#Xgroupbno').hide();
+	                		$('#Xgroupcno').hide();
+	                		$('#Xshowinvono').hide();
+	                		$('#Tggno').hide();
+	                		$('#Xstype').hide();
+	                		$('#Vcctypea').hide();
+	                		$('#Xpartno').hide();
+	                		$('#product').hide();
+	                		$('#Xtype').hide();
+	                		$('#Xgroupano').hide();
+	                		$('#Salesgroup').hide();
+	                		$('#Multcust').hide();
+	                		$('#Multucc').hide();
+	                	}
+						if(report_name=='26'){
+	                		$('#Mon').hide();
+							$('#Cust').hide();
+	                		$('#Sales').hide();
+	                		$('#Product').hide();
+	                		$('#Xgroupbno').hide();
+	                		$('#Xgroupcno').hide();
+	                		$('#Xshowinvono').hide();
+	                		$('#Xstype').hide();
+	                		$('#Vcctypea').hide();
+	                		$('#Xpartno').hide();
+	                		$('#product').hide();
+	                		$('#Xtype').hide();
+	                		$('#Xgroupano').hide();
+	                		$('#Salesgroup').hide();
+	                		$('#Multcust').hide();
+	                		$('#Multucc').hide();
+	                	}
 	                }
 				});
 			
@@ -382,6 +419,12 @@
 						}
 						if(report_namea=='24'){
 							q_gtx("z_vcc24", t_where + ";;" + t_para + ";;z_vcc;;應收帳款對帳單");
+						}
+						if(report_namea=='25'){
+							q_gtx("z_vcc25", t_where + ";;" + t_para + ";;z_vcc;;外銷銷售額明細表");
+						}
+						if(report_namea=='26'){
+							q_gtx("z_vcc26", t_where + ";;" + t_para + ";;z_vcc;;外銷申報明細表");
 						}
 					}
 				});
@@ -725,6 +768,14 @@
 						<div class="rptext">
 							<input  type="radio" value="24" class="radio">
 							<span class="text">應收帳款對帳單</span>
+						</div>
+						<div class="rptext">
+							<input  type="radio" value="25" class="radio">
+							<span class="text">外銷銷售額明細表</span>
+						</div>
+						<div class="rptext">
+							<input  type="radio" value="26" class="radio">
+							<span class="text">外銷申報明細表</span>
 						</div>
 					</div>	
 					<div class="option">
