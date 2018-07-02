@@ -36,6 +36,9 @@
                         type : '0',
                         name : 'xlen',
                         value : r_len
+                    },{
+                        type : '6',
+                        name : 'xmon'
                     }]
 				});
 				
@@ -44,6 +47,8 @@
 				q_langShow();
 				$('#txtCdate').mask(r_picd);
 				$('#txtCdate').val(q_date());
+				$('#txtXmon').mask(r_picm);
+				$('#txtXmon').val(q_date().substr(0,r_lenm))
 			}
 			function q_boxClose(s2) {
 			}
