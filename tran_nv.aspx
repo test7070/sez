@@ -63,26 +63,6 @@
                     t_pton = q_sub(q_float('txtWeight2_'+i),t_weight);
                     t_mount = q_sub(q_float('txtOutmount_'+i),q_float('txtInmount_'+i));
                     t_total = round(q_mul(q_add(q_float('txtCustprice_'+i),q_float('txtPrice_'+i)),t_weight),0);
-                    if($('#textOverh_'+i).val()!=0){
-                        $('#txtOverh_'+i).val(q_mul(t_total,q_div($('#textOverh_'+i).val(),100)));
-                    }
-                    if($('#cmbCalctype_'+i).val()==1){
-                        $('#txtMount3_'+i).val(dec($('#txtPrice_'+i).val())*0.9*0.2);
-                    }else if($('#cmbCalctype_'+i).val()==2){
-                        $('#txtMount3_'+i).val(dec($('#txtPrice_'+i).val())*0.82);
-                    }else if($('#cmbCalctype_'+i).val()==3){
-                        $('#txtMount3_'+i).val(dec($('#txtPrice_'+i).val())*0.85);
-                    }else if($('#cmbCalctype_'+i).val()==4){
-                        $('#txtMount3_'+i).val($('#txtPrice_'+i).val());
-                    }else if($('#cmbCalctype_'+i).val()==5){
-                        $('#txtMount3_'+i).val(dec($('#txtPrice_'+i).val())*0.91);
-                    }else if($('#cmbCalctype_'+i).val()==6){
-                        $('#txtMount3_'+i).val(dec($('#txtPrice_'+i).val())*0.9);
-                    }else if($('#cmbCalctype_'+i).val()==7){
-                        $('#txtMount3_'+i).val(dec($('#txtPrice_'+i).val())*0.25);
-                    }else{
-                        $('#txtMount3_'+i).val();
-                    }
                     if($('#txtUnit_'+i).val()=='趟'){
                         t_total2 = q_mul(q_float('txtMount3_'+i),q_float('txtMount2_'+i));
                     }else{
@@ -114,7 +94,6 @@
                 q_cmbParse("cmbTtype",'N@無,Y@有','s');
                 q_cmbParse("cmbStatus",'未稅@未稅,含稅@含稅','s');
                 q_cmbParse("combCaseno2",'50T@50T,100T@100T,150T@150T,200T@200T,300T@300T','s');
-                q_cmbParse("cmbCalctype",'@,1@公司車*0.9*0.2,2@外車*0.82,3@外車*0.85,4@外車*100%,5@靠車*0.91,6@靠車*0.9,7@混凝土車*0.25','s');
                 $('#lblVolume').text('目前數量');
 
                 $('#btnImport').click(function() {
@@ -166,50 +145,40 @@
                     var as = _q_appendData("addrs", "", true);
                     if (as[0] != undefined) {
                           for(var i=0;i<q_bbsCount;i++){
-                              if($('#txtCaseno_'+i).val()==as[0].noa && $('#txtStraddrno_'+i).val()==as[0].salesno && $('#txtCustno_'+i).val()==as[0].custno && $('#txtUccno_'+i).val()==as[0].typea && $('#txtDatea_'+i).val()>=as[0].datea){
+                              if($('#txtStraddrno_'+i).val()==as[0].salesno && $('#txtCustno_'+i).val()==as[0].custno && $('#txtUccno_'+i).val()==as[0].typea && $('#txtDatea_'+i).val()>=as[0].datea){
                                       $('#txtCustprice_'+i).val(as[0].custprice);
-                                      $('#txtPrice2_'+i).val(as[0].tggprice);
-                                      $('#txtPrice_'+i).val(as[0].commission);
+                                      $('#txtCommission_'+i).val(as[0].driverprice2);
+                                      $('#txtCommission2_'+i).val(as[0].commission);
+                                      $('#txtPrice_'+i).val(as[0].commission2);
+                                      $('#txtPrice3_'+i).val(as[0].driverprice);
                               }      
                           }
-                    }else{
-                        for(var i=0;i<q_bbsCount;i++){
-                            if(!emp($('#txtUccno_'+i).val()) && !emp($('#txtCustno_'+i).val())){
-                               var t_where = "where=^^ noa=(select top 1 noa from view_trans"+r_accy+" where uccno='"+$('#txtUccno_'+i).val()+"' and custno='"+$('#txtCustno_'+i).val()+"' and datea<='"+$('#txtDatea').val()+"' order by datea desc) and uccno='"+$('#txtUccno_'+i).val()+"' and custno='"+$('#txtCustno_'+i).val()+"' ^^";
-                               q_gt('trans', t_where, 0, 0, 0, "trans", r_accy, 1); 
-                            } 
-                        }
                     }
+                    var t_where = "where=^^ noa='"+$('#txtTggno_'+b_seq).val()+"' and productno='"+$('#txtUccno_'+b_seq).val()+"' and addr2<='"+$('#txtDatea_'+b_seq).val()+"' order by addr2 desc ^^";
+                    q_gt('addr3s', t_where, 0, 0, 0, "addr3s", r_accy, 1);
                     break;
-                case 'trans':
-                    var as = _q_appendData("trans", "", true);
-                        if (as[0] != undefined) {
-                             for(var i=0;i<q_bbsCount;i++){
-                                 if($('#txtCustno_'+i).val()==as[0].custno && $('#txtUccno_'+i).val()==as[0].uccno){
-                                     if($('#txtPrice_'+i).val().length==0){
-                                         $('#txtPrice_'+i).val(as[0].price);
-                                     }
-                                     
-                                     if($('#txtPrice2_'+i).val().length==0){
-                                         $('#txtPrice2_'+i).val(as[0].price2);
-                                     }
-                                     
-                                     if($('#txtCustprice_'+i).val().length==0){
-                                         $('#txtCustprice_'+i).val(as[0].custprice);
-                                     }
-                                 }    
-                             }
-                        }    
+                case 'addr3s':
+                    var as = _q_appendData("addr3s", "", true);
+                    if (as[0] != undefined) {
+                          for(var i=0;i<q_bbsCount;i++){
+                              if($('#txtTggno_'+i).val()==as[0].noa && $('#txtUccno_'+i).val()==as[0].productno && $('#txtDatea_'+i).val()>=as[0].addr2){
+                                    $('#txtPrice2_'+i).val(as[0].price1);  
+                              }      
+                          }
+                    }
+                    var t_where = "where=^^ noa='"+$('#txtDriverno_'+b_seq).val()+"' ^^";
+                    q_gt('driver', t_where, 0, 0, 0, "driver", r_accy, 1);
                     break;
-                case 'trans_cost':
-                    var as = _q_appendData("trans", "", true);
-                        if (as[0] != undefined) {
-                             for(var i=0;i<q_bbsCount;i++){
-                                 if($('#txtCustno_'+i).val()==as[0].custno && $('#txtUccno_'+i).val()==as[0].uccno && !emp($('#txtUccno_'+i).val()) && !emp($('#txtCustno_'+i).val()))
-                                     $('#txtCustprice_'+i).val(as[0].custprice);
-                                     $('#txtPrice2_'+i).val(as[0].price2);
-                             }
-                        }    
+                case 'driver':
+                    var as = _q_appendData("driver", "", true);
+                    if (as[0] != undefined) {
+                          for(var i=0;i<q_bbsCount;i++){
+                              if($('#txtDriverno_'+i).val()==as[0].noa){
+                                    $('#txtMount3_'+i).val(q_mul($('#txtPrice3_'+i).val(),q_div(as[0].salmoney,100)));  
+                              }      
+                          }
+                    }
+                    sum();
                     break;
                 case q_name:
                     if (q_cur == 4)
@@ -220,20 +189,24 @@
             function q_popPost(s1) {
                 switch (s1) {
                     case 'txtCustno_':
-                        var t_where = "where=^^ typea='"+$('#txtUccno_'+b_seq).val()+"' and custno='"+$('#txtCustno_'+b_seq).val()+"'  and noa='"+$('#txtCaseno_'+b_seq).val()+"' and datea<='"+$('#txtDatea_'+b_seq).val()+"' and salesno='"+$('#txtStraddrno_'+b_seq).val()+"' ^^";
+                        var t_where = "where=^^ typea='"+$('#txtUccno_'+b_seq).val()+"' and custno='"+$('#txtCustno_'+b_seq).val()+"' and datea<='"+$('#txtDatea_'+b_seq).val()+"' and salesno='"+$('#txtStraddrno_'+b_seq).val()+"' ^^";
                         q_gt('addrs', t_where, 0, 0, 0, "addrs", r_accy, 1);
                         break;
                     case 'txtUccno_':
-                        var t_where = "where=^^ typea='"+$('#txtUccno_'+b_seq).val()+"' and custno='"+$('#txtCustno_'+b_seq).val()+"'  and noa='"+$('#txtCaseno_'+b_seq).val()+"' and datea<='"+$('#txtDatea_'+b_seq).val()+"' and salesno='"+$('#txtStraddrno_'+b_seq).val()+"' ^^";
-                        q_gt('addrs', t_where, 0, 0, 0, "addrs", r_accy, 1);
-                        break;
-                    case 'txtCaseno_':
-                        var t_where = "where=^^ typea='"+$('#txtUccno_'+b_seq).val()+"' and custno='"+$('#txtCustno_'+b_seq).val()+"'  and noa='"+$('#txtCaseno_'+b_seq).val()+"' and datea<='"+$('#txtDatea_'+b_seq).val()+"' and salesno='"+$('#txtStraddrno_'+b_seq).val()+"' ^^";
+                        var t_where = "where=^^ typea='"+$('#txtUccno_'+b_seq).val()+"' and custno='"+$('#txtCustno_'+b_seq).val()+"' and datea<='"+$('#txtDatea_'+b_seq).val()+"' and salesno='"+$('#txtStraddrno_'+b_seq).val()+"' ^^";
                         q_gt('addrs', t_where, 0, 0, 0, "addrs", r_accy, 1);
                         break;
                     case 'txtStraddrno_':
-                        var t_where = "where=^^ typea='"+$('#txtUccno_'+b_seq).val()+"' and custno='"+$('#txtCustno_'+b_seq).val()+"'  and noa='"+$('#txtCaseno_'+b_seq).val()+"' and datea<='"+$('#txtDatea_'+b_seq).val()+"' and salesno='"+$('#txtStraddrno_'+b_seq).val()+"' ^^";
+                        var t_where = "where=^^ typea='"+$('#txtUccno_'+b_seq).val()+"' and custno='"+$('#txtCustno_'+b_seq).val()+"' and datea<='"+$('#txtDatea_'+b_seq).val()+"' and salesno='"+$('#txtStraddrno_'+b_seq).val()+"' ^^";
                         q_gt('addrs', t_where, 0, 0, 0, "addrs", r_accy, 1);
+                        break;
+                    case 'txtTggno_':
+                        var t_where = "where=^^ noa='"+$('#txtTggno_'+b_seq).val()+"' and productno='"+$('#txtUccno_'+b_seq).val()+"' and addr2<='"+$('#txtDatea_'+b_seq).val()+"' order by addr2 desc ^^";
+                        q_gt('addr3s', t_where, 0, 0, 0, "addr3s", r_accy, 1);
+                        break;
+                    case 'txtDriver_':
+                        var t_where = "where=^^ noa='"+$('#txtDriverno_'+b_seq).val()+"' ^^";
+                        q_gt('driver', t_where, 0, 0, 0, "driver", r_accy, 1);
                         break;
                 }
                 
@@ -340,7 +313,7 @@
                         t_IdSeq = -1;
                         q_bodyId($(this).attr('id'));
                         b_seq = t_IdSeq;
-                        var t_where = "where=^^ typea='"+$('#txtUccno_'+b_seq).val()+"' and custno='"+$('#txtCustno_'+b_seq).val()+"'  and noa='"+$('#txtCaseno_'+b_seq).val()+"' and datea<='"+$('#txtDatea_'+b_seq).val()+"' and salesno='"+$('#txtStraddrno_'+b_seq).val()+"' ^^";
+                        var t_where = "where=^^ typea='"+$('#txtUccno_'+b_seq).val()+"' and custno='"+$('#txtCustno_'+b_seq).val()+"' and datea<='"+$('#txtDatea_'+b_seq).val()+"' and salesno='"+$('#txtStraddrno_'+b_seq).val()+"' ^^";
                         q_gt('addrs', t_where, 0, 0, 0, "addrs", r_accy, 1);
                     });
                     
@@ -348,7 +321,7 @@
                         t_IdSeq = -1;
                         q_bodyId($(this).attr('id'));
                         b_seq = t_IdSeq;
-                        var t_where = "where=^^ typea='"+$('#txtUccno_'+b_seq).val()+"' and custno='"+$('#txtCustno_'+b_seq).val()+"'  and noa='"+$('#txtCaseno_'+b_seq).val()+"' and datea<='"+$('#txtDatea_'+b_seq).val()+"' and salesno='"+$('#txtStraddrno_'+b_seq).val()+"' ^^";
+                        var t_where = "where=^^ typea='"+$('#txtUccno_'+b_seq).val()+"' and custno='"+$('#txtCustno_'+b_seq).val()+"' and datea<='"+$('#txtDatea_'+b_seq).val()+"' and salesno='"+$('#txtStraddrno_'+b_seq).val()+"' ^^";
                         q_gt('addrs', t_where, 0, 0, 0, "addrs", r_accy, 1);
                     });
                     
@@ -356,16 +329,24 @@
                         t_IdSeq = -1;
                         q_bodyId($(this).attr('id'));
                         b_seq = t_IdSeq;
-                        var t_where = "where=^^ typea='"+$('#txtUccno_'+b_seq).val()+"' and custno='"+$('#txtCustno_'+b_seq).val()+"'  and noa='"+$('#txtCaseno_'+b_seq).val()+"' and datea<='"+$('#txtDatea_'+b_seq).val()+"' and salesno='"+$('#txtStraddrno_'+b_seq).val()+"' ^^";
+                        var t_where = "where=^^ typea='"+$('#txtUccno_'+b_seq).val()+"' and custno='"+$('#txtCustno_'+b_seq).val()+"' and datea<='"+$('#txtDatea_'+b_seq).val()+"' and salesno='"+$('#txtStraddrno_'+b_seq).val()+"' ^^";
                         q_gt('addrs', t_where, 0, 0, 0, "addrs", r_accy, 1);
                     });
                     
-                    $("#txtCaseno_"+i).change(function() {
+                    $("#txtTggno_"+i).change(function() {
                         t_IdSeq = -1;
                         q_bodyId($(this).attr('id'));
                         b_seq = t_IdSeq;
-                        var t_where = "where=^^ typea='"+$('#txtUccno_'+b_seq).val()+"' and custno='"+$('#txtCustno_'+b_seq).val()+"'  and noa='"+$('#txtCaseno_'+b_seq).val()+"' and datea<='"+$('#txtDatea_'+b_seq).val()+"' and salesno='"+$('#txtStraddrno_'+b_seq).val()+"' ^^";
-                        q_gt('addrs', t_where, 0, 0, 0, "addrs", r_accy, 1);
+                        var t_where = "where=^^ noa='"+$('#txtTggno_'+b_seq).val()+"' and productno='"+$('#txtUccno_'+b_seq).val()+"' and addr2<='"+$('#txtDatea_'+b_seq).val()+"' order by addr2 desc ^^";
+                        q_gt('addr3s', t_where, 0, 0, 0, "addr3s", r_accy, 1);
+                    });
+                    
+                    $("#txtDriver_"+i).change(function() {
+                        t_IdSeq = -1;
+                        q_bodyId($(this).attr('id'));
+                        b_seq = t_IdSeq;
+                        var t_where = "where=^^ noa='"+$('#txtDriverno_'+b_seq).val()+"' ^^";
+                        q_gt('driver', t_where, 0, 0, 0, "driver", r_accy, 1);
                     });
                 
                     $('#txtOutmount_' + i).change(function() {
@@ -783,14 +764,13 @@
                     <td align="center" style="width:80px"><a>可用數量</a></td>
                     <td align="center" style="width:100px"><a>管編到期日</a></td>
                     <td align="center" style="width:80px"><a>成本單價</a></td>
-                    <td align="center" style="width:80px"><a>售料單價</a></td>
+                    <td align="center" style="width:80px"><a>客戶單價</a></td>
+                    <td align="center" style="width:80px"><a>服務費</a></td>
+                    <td align="center" style="width:80px"><a>料身單價</a></td>
                     <td align="center" style="width:80px"><a>運費單價</a></td>
                     <td align="center" style="width:80px"><a>客戶金額</a></td>
-                    <td align="center" style="width:100px"><a>服務費</a></td>
                     <td align="center" style="width:60px"><a>實際客戶金額 </a></td>
-                    <!--td align="center" style="width:80px"><a>車行單價</a></td>
-                    <td align="center" style="width:80px"><a>車行金額</a></td-->
-                    <td align="center" style="width:150px"><a>司機單價類別</a></td>
+                    <td align="center" style="width:100px"><a>公司車單價</a></td>
                     <td align="center" style="width:80px"><a>司機單價</a></td>
                     <td align="center" style="width:80px"><a>司機金額</a></td>
                     <td align="center" style="width:60px"><a>司機寄送文件</a></td>
@@ -875,14 +855,12 @@
                     <td><input type="text" id="txtCldate.*" style="width:95%;"/></td>
                     <td><input type="text" id="txtPrice2.*" class="num" style="width:95%;"/></td>
                     <td><input type="text" id="txtCustprice.*" class="num" style="width:95%;"/></td>
+                    <td><input type="text" id="txtCommission.*" class="num" style="width:95%;"/></td>
+                    <td><input type="text" id="txtCommission2.*" class="num" style="width:95%;"/></td>
                     <td><input type="text" id="txtPrice.*" class="num" style="width:95%;"/></td>
                     <td><input type="text" id="txtTotal.*" class="num" style="width:95%;"/></td>
-                    <td><input type="text" id="textOverh.*" style="display:none;"/>
-                        <input type="text" id="txtOverh.*" class="num" style="width:95%;"/></td>
                     <td><select id="cmbStatus.*" class="txt" style="width:95%;"> </select></td>
-                    <!--td><input type="text" id="txtPrice2.*" class="num" style="width:95%;"/></td>
-                    <td><input type="text" id="txtDiscount.*" class="num" style="width:95%;"/></td-->
-                    <td><select id="cmbCalctype.*" class="txt" style="width: 95%;"> </select></td>
+                    <td><input type="text" id="txtPrice3.*" class="num" style="width:95%;"/></td>
                     <td><input type="text" id="txtMount3.*" class="num" style="width:95%;"/></td>
                     <td><input type="text" id="txtTotal2.*" class="num" style="width:95%;"/></td>
                     <td><select id="cmbTtype.*" class="txt" style="width:95%;"> </select></td>

@@ -28,7 +28,9 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Datea';
-            aPop = new Array(['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'], ['txtSalesno_', '', 'sss', 'noa,namea', 'txtSalesno_,txtSales_', 'sss_b.aspx'], ['txtCaseuseno', 'lblCaseuse', 'cust', 'noa,comp', 'txtCaseuseno,txtCaseuse', 'cust_b.aspx']);
+            aPop = new Array(['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']
+                            , ['txtCaseuseno', 'lblCaseuse_nv', 'cust', 'noa,comp', 'txtCaseuseno,txtCaseuse', 'cust_b.aspx']
+                            , ['txtSalesno_', '', 'addr', 'noa,addr', 'txtSalesno_,txtSales_', 'addr_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -63,11 +65,6 @@
                     e.preventDefault();
                     q_box("z_addr2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy, 'z_addr2', "95%", "95%", q_getMsg("popPrint"));
                 });
-                
-                if(q_getPara('sys.project').toUpperCase()!='DC'){
-                    $('#lblCaseuse').text('客戶');
-                }
-                    
             }
             function q_funcPost(t_func, result) {
                 switch(t_func) {
@@ -117,12 +114,7 @@
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
-                        //日光新增BBS有所不同
-                        if (q_getPara('sys.comp').substring(0, 2) == '日光') {
-                            $('#btnPlus_ds').show();
-                        } else {
                             $('#btnPlus').show();
-                        }
                         break;
                 }
             }
@@ -147,12 +139,7 @@
                 }
                 Lock();
                 $('#txtNoa').val($.trim($('#txtNoa').val()));
-                /*if ((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())) {
-                } else {
-                    alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。' + String.fromCharCode(13) + 'EX: A01、A01-001');
-                    Unlock();
-                    return;
-                }*/
+               
                 if (q_cur == 1) {
                     t_where = "where=^^ noa='" + $('#txtNoa').val() + "'^^";
                     q_gt('addr', t_where, 0, 0, 0, "checkAddrno_btnOk", r_accy);
@@ -167,11 +154,17 @@
             }
             function bbsAssign() {
                 for (var i = 0; i < q_bbsCount; i++) {
+                    $('#txtDriverprice2_' + i).change(function() {
+                        sum();
+                    });
+                    $('#txtCommission_' + i).change(function() {
+                        sum();
+                    });
+                    $('#txtCommission2_' + i).change(function() {
+                        sum();
+                    });
                 }
                 _bbsAssign();
-                if(q_getPara('sys.project').toUpperCase()=='VA'){
-                    $('.va').show();
-                }
             }
             function btnIns() {
                 _btnIns();
@@ -191,105 +184,6 @@
                     q_box("z_addr.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy, 'z_addr', "95%", "95%", q_getMsg("popPrint"));
                 else
                     q_gt('authority', "where=^^ a.noa='z_addr' and a.sssno='" + r_userno + "'^^", 0, 0, 0, "z_addr", r_accy);
-                /*var flag = false;
-                 for(var i = 0;i<q_auth.length;i++){
-                 if(q_auth[i].split(',')[0]=='addr' && (/^(addr)\u002c[1]\u002c[0,1]\u002c[0,1]\u002c[1]\u002c[0,1]\u002c[0,1]\u002c[0,1]\u002c[0,1]$/g).test(q_auth[i])){
-                 flag = true;
-                 break;
-                 }
-                 }
-                 var isShow1=false,isShow2=false,zindex1=10,zindex2=10;
-                 if(flag){
-                 isShow1 = true;
-                 if(r_rank>=8){
-                 isShow2 = true;
-                 zindex2=9;
-                 }
-                 }else{
-                 isShow2 = true;
-                 }
-                 if(isShow1){
-                 $('#childForm1').show()
-                 .css('z-index',zindex1)
-                 .css('top','100px')
-                 .css('left','100px')
-                 .width($('body').width()-200)
-                 .height($('body').height()-200)
-                 .mousedown(function(e) {
-                 $(this).data('dd',true);
-                 $(this).data('xtop',parseInt($(this).css('top')) - e.clientY);
-                 $(this).data('xleft',parseInt($(this).css('left')) - e.clientX);
-                 var z1 = parseFloat($('#childForm1').css('z-index'));
-                 var z2 = parseFloat($('#childForm2').css('z-index'));
-                 if(z2>z1){
-                 $('#childForm1').css('z-index',z2);
-                 $('#childForm2').css('z-index',z1);
-                 }
-                 }).mouseup(function(e){
-                 $(this).data('dd',false);
-                 }).mousemove(function(e) {
-                 if($(this).data('dd') && e.target.nodeName!='INPUT'){
-                 $(this).css('top',$(this).data('xtop')+e.clientY);
-                 $(this).css('left',$(this).data('xleft')+e.clientX);
-                 }
-                 }).bind('contextmenu', function(e) {
-                 if(e.target.nodeName!='INPUT')
-                 e.preventDefault();
-                 });
-                 $('#childForm1>iframe')
-                 .attr('src',location.href.replace('addr','z_addr'))
-                 .width($('#childForm1').width()-50)
-                 .height($('#childForm1').height()-50)
-                 .css('top','25px')
-                 .css('left','25px');
-                 $('#childForm1>input[type="button"]')
-                 .css('top','5px')
-                 .css('left',($('#childForm1').width()-50)+'px')
-                 .click(function(e){
-                 $('#childForm1').hide();
-                 });
-                 }
-                 if(isShow2){
-                 $('#childForm2').show()
-                 .css('z-index',zindex2)
-                 .css('top','100px')
-                 .css('left','100px')
-                 .width($('body').width()-200)
-                 .height($('body').height()-200)
-                 .mousedown(function(e) {
-                 $(this).data('dd',true);
-                 $(this).data('xtop',parseInt($(this).css('top')) - e.clientY);
-                 $(this).data('xleft',parseInt($(this).css('left')) - e.clientX);
-                 var z1 = parseFloat($('#childForm1').css('z-index'));
-                 var z2 = parseFloat($('#childForm2').css('z-index'));
-                 if(z1>z2){
-                 $('#childForm1').css('z-index',z2);
-                 $('#childForm2').css('z-index',z1);
-                 }
-                 }).mouseup(function(e){
-                 $(this).data('dd',false);
-                 }).mousemove(function(e) {
-                 if($(this).data('dd') && e.target.nodeName!='INPUT'){
-                 $(this).css('top',$(this).data('xtop')+e.clientY);
-                 $(this).css('left',$(this).data('xleft')+e.clientX);
-                 }
-                 }).bind('contextmenu', function(e) {
-                 if(e.target.nodeName!='INPUT')
-                 e.preventDefault();
-                 });
-                 $('#childForm2>iframe')
-                 .attr('src',location.href.replace('addr','z_addr2'))
-                 .width($('#childForm2').width()-50)
-                 .height($('#childForm2').height()-50)
-                 .css('top','25px')
-                 .css('left','25px');
-                 $('#childForm2>input[type="button"]')
-                 .css('top','5px')
-                 .css('left',($('#childForm2').width()-50)+'px')
-                 .click(function(e){
-                 $('#childForm2').hide();
-                 });
-                 }*/
             }
             function wrServer(key_value) {
                 var i;
@@ -302,9 +196,14 @@
                     return;
                 }
                 q_nowf();
+                as['typea'] = abbm2['productno'];
+                as['custno'] = abbm2['caseuseno'];
                 return true;
             }
             function sum() {
+                for (var i = 0; i < q_bbsCount; i++) {
+                    $('#txtCustprice_' +i).val(q_add(q_add($('#txtDriverprice2_' +i).val(),$('#txtCommission_' +i).val()),$('#txtCommission2_' +i).val()));
+                }
             }
             function refresh(recno) {
                 _refresh(recno);
@@ -563,7 +462,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><span> </span><a id="lblCaseuse" class="lbl btn"> </a></td>
+                        <td><span> </span><a id="lblCaseuse_nv" class="lbl btn">客戶</a></td>
                         <td colspan="3">
                         <input id="txtCaseuseno" type="text" style="float:left; width:40%;"/>
                         <input id="txtCaseuse" type="text" style="float:left; width:60%;"/>
@@ -575,22 +474,22 @@
                         <input id="txtMiles" type="text"  class="txt c1  num"/>
                         </td>
                     </tr>
-                    <tr>
+                    <tr style="display: none">
                         <td><span> </span><a id='lblCurrent' class="lbl"> </a></td>
                     </tr>
-                    <tr>
+                    <tr style="display: none">
                         <td><span> </span><a id='lblCustprice' class="lbl"> </a></td>
                         <td>
                         <input id="txtCustprice" type="text"  class="txt c1  num"/>
                         </td>
                     </tr>
-                    <tr>
+                    <tr style="display: none">
                         <td><span> </span><a id='lblDriverprice' class="lbl"> </a></td>
                         <td>
                         <input id="txtDriverprice" type="text"  class="txt c1  num"/>
                         </td>
                     </tr>
-                    <tr>
+                    <tr style="display: none">
                         <td><span> </span><a id='lblDriverprice2' class="lbl"> </a></td>
                         <td>
                         <input id="txtDriverprice2" type="text"  class="txt c1  num"/>
@@ -602,13 +501,13 @@
                         <input id="txtCommission" type="text"  class="txt c1  num"/>
                         </td>
                     </tr>
-                    <tr style="display: none;">
+                    <tr style="display: none">
                         <td><span> </span><a id='lblCommission2' class="lbl"> </a></td>
                         <td>
                         <input id="txtCommission2" type="text"  class="txt c1  num"/>
                         </td>
                     </tr>
-                    <tr>
+                    <tr style="display: none">
                         <td><span> </span><a id='lblSales' class="lbl"> </a></td>
                         <td colspan="2">
                         <input id="txtSalesno" type="text"  style="float:left; width:40%;"/>
@@ -628,13 +527,12 @@
                     </td>
                     <td align="center" style="width:80px;"><a id='lblDatea_s'> </a></td>
                     <td align="center" style="width:80px;"><a id='lblCustprice_s'> </a></td>
-                    <td align="center" style="width:80px;display:none;" class="va"><a>客戶補噸</a></td>
-                    <td align="center" style="width:80px;"><a id='lblDriverprice_s'> </a></td>
-                    <td align="center" style="width:80px;"><a id='lblDriverprice2_s'> </a></td>
-                    <td align="center" style="width:80px;display: none;"><a id='lblCommission_s'> </a></td>
-                    <td align="center" style="width:80px;display: none;"><a id='lblCommission2_s'> </a></td>
-                    <td align="center" style="width:80px;"><a id='lblSalesno_s'> </a></td>
-                    <td align="center" style="width:80px;"><a id='lblSales_s'> </a></td>
+                    <td align="center" style="width:80px;"><a id='lblDriverprice2_nv'>服務費</a></td>
+                    <td align="center" style="width:80px;"><a id='lblCommission_nv'>料身單價</a></td>
+                    <td align="center" style="width:80px;"><a id='lblCommission2_nv'>客戶運費</a></td>
+                    <td align="center" style="width:80px;"><a id='lblDriverprice_nv'>公司車運費</a></td>
+                    <td align="center" style="width:80px;"><a id='lblSalesno_nv'>地點編號</a></td>
+                    <td align="center" style="width:80px;"><a id='lblSales_nv'>地點</a></td>
                     <td align="center" style="width:150px;"><a id='lblMemo_s'> </a></td>
                 </tr>
                 <tr  style='background:#cad3ff;'>
@@ -646,19 +544,17 @@
                     <input type="text" id="txtDatea.*" style="width:95%;" />
                     </td>
                     <td><input type="text" id="txtCustprice.*" style="width:95%;text-align:right;" /></td>
-                    <td class="va" style="display:none;"><input type="text" id="txtCustmount.*" style="width:95%;text-align:right;" /></td>
-                    
-                    <td >
-                    <input type="text" id="txtDriverprice.*" style="width:95%;text-align:right;" />
-                    </td>
                     <td >
                     <input type="text" id="txtDriverprice2.*" style="width:95%;text-align:right;" />
                     </td>
-                    <td style="display: none;">
+                    <td>
                     <input type="text" id="txtCommission.*" style="width:95%;text-align:right;" />
                     </td>
-                    <td style="display: none;">
+                    <td>
                     <input type="text" id="txtCommission2.*" style="width:95%;text-align:right;" />
+                    </td>
+                    <td >
+                    <input type="text" id="txtDriverprice.*" style="width:95%;text-align:right;" />
                     </td>
                     <td >
                     <input type="text" id="txtSalesno.*" style="width:95%;text-align:left;" />
