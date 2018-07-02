@@ -345,8 +345,8 @@
 				switch (b_pop) { 
 					case 'pack2':
 						if(b_ret[0] != undefined){
-							q_tr('txtPackway_'+b_seq,b_ret[0].packway);
-							q_tr('txtPack_'+b_seq,b_ret[0].pack);
+							$('#txtPackway_'+b_seq).val(b_ret[0].packway);
+							$('#txtPack_'+b_seq).val(b_ret[0].pack);
 							q_tr('txtQtyctn_'+b_seq,round(q_mul(dec(b_ret[0].inmount),dec(b_ret[0].outmount)),0));
 							/*q_tr('txtHeight_'+b_seq,b_ret[0].height);
 							q_tr('txtWidth_'+b_seq,b_ret[0].width);
