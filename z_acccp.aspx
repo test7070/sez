@@ -68,6 +68,14 @@
                         type : '8',
                         name : 'xpart',
                         value : ('zzzzz@無部門,'+t_data.data['part']).split(',')
+                    },{/*  [6]*/
+                        type : '0',
+                        name : 'xproject',
+                        value : q_getPara('sys.project').toUpperCase()
+                    },{/*  [7]*/
+                        type : '0',
+                        name : 'xuserno',
+                        value : r_userno
                     }]
                 });
                 q_popAssign();
