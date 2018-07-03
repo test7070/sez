@@ -96,6 +96,9 @@
 						$('#lblBank2').text('銀行代號');
 						$('#lblAccount2').text('匯款帳號');
 						break;
+				    case 'NV':
+                        $('#lblSalmoney').text('應付%');
+                        break;
 					default:
 						break;
 				}
